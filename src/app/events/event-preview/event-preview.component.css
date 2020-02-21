@@ -1,0 +1,19 @@
+.event-card-body p{
+  font-size: 13px;
+  margin: 0;
+  padding: .1rem .8rem;
+}
+.event-card-body-footer{
+  padding:10px 20px;
+}
+.card-body .card-title{
+  font-size: 18px;
+  margin-bottom: .2rem;
+}
+.card-body .card-text{
+  font-size: 14px;
+  margin-bottom: .2rem;
+}
+.card-body{
+  padding: .8rem .8rem 0.3rem .8rem;
+}

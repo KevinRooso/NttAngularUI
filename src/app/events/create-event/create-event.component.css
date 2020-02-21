@@ -1,0 +1,6 @@
+input.ng-invalid.ng-touched{
+  border-color: red !important;
+}
+.form-row{
+  padding: 1rem 1rem;
+}

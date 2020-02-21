@@ -1,0 +1,104 @@
+.header-shadow {
+  box-shadow: gray 0px 0px 10px -4px;
+
+  /* -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+-moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3); */
+}
+.dropdown-menu{
+  /* position: absolute;
+  right: 0;
+  left: auto;
+  border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    padding: 1px 0 0 0;
+    border-top-width: 0;
+    width: 280px;
+    list-style: none; */
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    z-index: 1000;
+    /* display: none; */
+    float: left;
+    min-width: 160px;
+    border-top: 2px solid #2C3A8B;
+    padding: 0px;
+    margin: 2px 0 0;
+    border-radius: 0px;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+}
+.dropdown-menu > li > a {
+  padding: 10px 40px 10px 16px !important;
+    text-decoration: none;
+
+}
+.dropdown-menu > li > a {
+  font-weight: 400;
+  line-height: 1.42857143;
+  display: block;
+  clear: both;
+  padding: 3px 20px;
+  white-space: nowrap;
+  color: #333;
+}
+.dropdown-menu > li > a:hover {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+}
+.user-image {
+  float: left;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: -2px;
+}
+.user-header {
+  height: 175px;
+  padding: 10px;
+  text-align: center;
+}
+.user-header>img {
+  z-index: 5;
+  height: 90px;
+  width: 90px;
+  border: 3px solid;
+  border-color: transparent;
+  border-color: rgba(255,255,255,0.2);
+}
+.img-circle {
+  border-radius: 50%;
+}
+.user-header>p {
+  z-index: 5;
+  color: #fff;
+  color: rgba(255,255,255,0.8);
+  font-size: 17px;
+  margin-top: 10px;
+}
+/* .user-body {
+  padding: 15px;
+  border-bottom: 1px solid #f4f4f4;
+  border-top: 1px solid #dddddd;
+} */
+.user-footer {
+  background-color: #f9f9f9;
+  /* padding: 10px; */
+}
+.user-menu a{
+  list-style: none !important;
+}
+a:hover {
+  color: #231f20;;
+  text-decoration: none;
+}
+a{
+  color: #231f20;
+}
