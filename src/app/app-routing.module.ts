@@ -10,13 +10,14 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { CaseStudiesComponent } from './case-studies/case-studies.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { WhitepapersComponent } from './whitepapers/whitepapers.component';
+import { EventPreviewComponent } from './events/event-preview/event-preview.component';
 
 
 
 const routes: Routes = [
   { path : '', component : LoginComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: DashboardComponent },
+  { path: 'events', component: EventPreviewComponent },
   { path: 'details', component: EventDetailsComponent },
   { path: 'create', component: CreateEventComponent },
   { path: 'edit', component: EventEditComponent},

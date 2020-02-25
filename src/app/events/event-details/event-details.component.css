@@ -88,3 +88,41 @@
   /* width: 85px;
   height: 85px; */
 }
+a{
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+a:hover{
+  color: #007bff;
+}
+.my-card {
+  position: absolute;
+    left: 85%;
+    top: 90%;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 18px;
+    /* margin: 0 auto; */
+    text-align: center;
+}
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+.border-info {
+  border-color: #17a2b8!important;
+}
+.add-button {
+  border: 1px solid #0B428A;
+  color: #0B428A!important;
+  border-radius: 25px;
+  background: transparent;
+  font-size: 11px;
+  width: auto;
+  padding: 7px 20px;
+}
+.add-button:hover {
+  color: #fff!important;
+  background: #0B428A;
+}

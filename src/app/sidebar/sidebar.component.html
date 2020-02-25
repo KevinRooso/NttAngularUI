@@ -1,49 +1,68 @@
-<div class="page-wrapper">
-  <div class="chiller-theme toggled" [hidden]="hideElement">
-  <!-- <div class="chiller-theme" [hidden]="hideElement"> -->
-    <a id="show-sidebar" class="btn btn-sm btn-dark"><i class="fa fa-bars"></i></a>
-  <nav id="sidebar" class="sidebar-wrapper">
-    <div class="sidebar-content">
-      <div class="sidebar-brand">
-        <img src="assets/nttLogo.png" alt="" width="100px" height="33px;">
-        <div id="close-sidebar" class="ml-auto"><i class="fa fa-times"></i></div>
-      </div>
-      <div class="sidebar-menu">
-        <ul>
-          <li class="sidebar-dropdown">
-            <a><span>Resources</span></a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li><a routerLink='/articles'>Articles</a></li>
-                <li><a routerLink='/blogs'>Blogs</a></li>
-                <li><a routerLink='/cases'>Case Studies</a></li>
-                <li><a routerLink='/whitepapers'>Whitepapers</a></li>
-                <li><a routerLink='/testimonials'>Testimonials</a></li>
-              </ul>
+  <!-- Sidebar -->
+  <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+    <ul class="list-group">
+        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <!-- <span class="fa fa-dashboard fa-fw mr-3"></span> -->
+                <span class="menu-collapsed">Events</span>
+                <span class="submenu-icon ml-auto"></span>
             </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a><span>Events</span></a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li><a routerLink='/home'>Event</a></li>
-                <li><a>Participants</a></li>
-                <li><a>Speakers</a></li>
-              </ul>
+        </a>
+        <div id='submenu1' class="collapse sidebar-submenu">
+            <a routerLink='/events' class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed">Event</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed">Participants</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed">Speakers</span>
+            </a>
+        </div>
+        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
+                <span class="menu-collapsed">Resources</span>
+                <span class="submenu-icon ml-auto"></span>
             </div>
-          </li>
-          <li class=""><a><span>Campaign</span></a></li>
-          <li class=""><a><span>Notifications</span></a></li>
-          <li class=""><a><span>Settings</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  </div>
-  <main class="page-content" style="background: #f3f3f3;">
-    <app-header [hidden]="hideElement"></app-header>
-    <div class="inner-page" style="padding: 1rem;min-height: 100vh;">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
+        </a>
+         <div id='submenu2' class="collapse sidebar-submenu">
+            <a routerLink='/articles' class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed">Articles</span>
+            </a>
+            <a routerLink='/blogs' class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed">Blogs</span>
+            </a>
+            <a routerLink='/cases' class="list-group-item list-group-item-action bg-dark text-white">
+              <span class="menu-collapsed">Case Studies</span>
+          </a>
+          <a routerLink='/whitepapers' class="list-group-item list-group-item-action bg-dark text-white">
+              <span class="menu-collapsed">Whitepapers</span>
+          </a>
+          <a routerLink='/testimonials' class="list-group-item list-group-item-action bg-dark text-white">
+            <span class="menu-collapsed">Testimonials</span>
+        </a>
+
+        </div>
+        <a class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
+                <span class="menu-collapsed">Campaign</span>
+            </div>
+        </a>
+        <a class="bg-dark list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+              <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
+              <span class="menu-collapsed">Notifications</span>
+          </div>
+      </a>
+      <a class="bg-dark list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-start align-items-center">
+            <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
+            <span class="menu-collapsed">Settings</span>
+        </div>
+    </a>
+
+
+    </ul>
 </div>

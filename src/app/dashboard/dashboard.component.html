@@ -1,1 +1,11 @@
-<app-event-preview></app-event-preview>
+<app-header [hidden]="hideElement"></app-header>
+<!-- Page Body -->
+<div class="row" id="body-row">
+  <app-sidebar [hidden]="hideElement"></app-sidebar>
+  <!-- Main Container -->
+  <div class="col p-3" style="background: #efefef;">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- Main Container END -->
+</div>
+<!-- Page Body END -->

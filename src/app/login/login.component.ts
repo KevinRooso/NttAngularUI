@@ -12,6 +12,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() : void {
-    this.router.navigate(['home']);
+    this.router.navigate(['events']);
   }
 }
