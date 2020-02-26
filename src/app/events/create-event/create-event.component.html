@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row justify-content-center">
-     <div class="col-sm-8 bg-white py-4">
+     <div class="col-sm-10 py-4">
       <div class="text-center">
-        <h4 class="text-dark py-2">Create Event Form</h4>
+        <p class="heading-secondary">Create Event</p>
       </div>
         <form [formGroup]='createEventForm' (ngSubmit)='generateEvent(createEventForm)'>
           <div class="form-row">
@@ -11,7 +11,7 @@
           </div>
           <div class="form-row">
             <label class="col-sm-4 col-form-label">Event Agenda *</label>
-            <textarea class="form-control col-sm-8" formControlName="agenda" rows="3" placeholder="Please Enter Event Description..."></textarea>
+            <textarea class="form-control col-sm-8" formControlName="agenda" rows="5" placeholder="Please Enter Event Description..."></textarea>
           </div>
           <div class="form-row">
             <label class="col-sm-4 col-form-label">Event Category *</label>

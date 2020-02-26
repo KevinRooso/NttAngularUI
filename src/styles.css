@@ -58,4 +58,9 @@ html, body{
 .button-1:hover, .button-2:hover{
   color:#fff;
 }
-
+.heading-secondary{
+  margin: 0 0 10px !important;
+  color: #0B428A;
+  font-size: 30px;
+  line-height: 30px;
+}
