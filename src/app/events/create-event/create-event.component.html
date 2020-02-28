@@ -1,68 +1,166 @@
 <div class="container">
   <div class="row justify-content-center">
-     <div class="col-sm-10 py-4">
+    <div class="col-sm-12 py-4">
       <div class="text-center">
         <p class="heading-secondary">Create Event</p>
       </div>
-        <form [formGroup]='createEventForm' (ngSubmit)='generateEvent(createEventForm)'>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Event Title *</label>
-            <input type="text" class="form-control col-sm-8" formControlName="title" placeholder="Please Enter Event Title...">
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Event Agenda *</label>
-            <textarea class="form-control col-sm-8" formControlName="agenda" rows="5" placeholder="Please Enter Event Description..."></textarea>
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Event Category *</label>
-            <input type="text" class="form-control col-sm-8" formControlName="category" placeholder="Please Enter Event Category...">
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Event Tags *</label>
-            <input type="text" class="form-control col-sm-8" formControlName="tags" placeholder="Please Enter Event Tags...">
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Venue Address *</label>
-            <input type="text" class="form-control col-sm-8" formControlName="venue" placeholder="Please Enter Event Tags...">
-          </div>
-          <!-- <div class="form-group">
-            <label>Event Venue 2</label>
-            <input type="text" class="form-control" formControlName="control" placeholder="Please Enter Event Tags...">
-          </div>
-          <div class="form-group">
-            <label>Event Venue 3</label>
-            <input type="text" class="form-control" formControlName="control" placeholder="Please Enter Event Tags...">
-          </div> -->
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Select Participants *</label>
-            <select class="form-control col-sm-8" formControlName="participants" >
-              <option selected>Participant 1</option>
-              <option>Participant 2</option>
-              <option>Participant 3</option>
-              <option>Participant 4</option>
-              <option>Participant 5</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Select Speakers *</label>
-            <select class="form-control col-sm-8" formControlName="speakers">
-              <option selected>Speaker 1</option>
-              <option>Speaker 2</option>
-              <option>Speaker 3</option>
-              <option>Speaker 4</option>
-              <option>Speaker 5</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label class="col-sm-4 col-form-label">Choose Banner Image</label>
-            <!-- <input type="file" class="form-control-file col-sm-8" formControlName="control"> -->
-            <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-8" formControlName="image"/>
-            <img [src]="imgURL" height="200" *ngIf="imgURL">
-          </div>
-        <div class="text-right">
-          <button type="submit" class="btn btn-primary" [disabled]='!createEventForm.valid'>Submit Details</button>
+      <form [formGroup]='createEventForm' (ngSubmit)='generateEvent(createEventForm)'>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Title *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="title"
+            placeholder="Please Enter Event Title...">
         </div>
-        </form>
-      </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Description (Agenda) *</label>
+          <textarea class="form-control col-sm-9" formControlName="agenda" rows="5"
+            placeholder="Please Enter Event Description..."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Short Description *</label>
+          <textarea class="form-control col-sm-9" formControlName="details" rows="3"
+            placeholder="Please Enter Event Description..."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Category *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="category"
+            placeholder="Please Enter Event Category...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Tags *</label>
+          <input type="text" class="form-control col-sm-9" value="" data-role="tagsinput"
+            placeholder="Enter event tags..." />
+          <!-- <input type="text" class="form-control col-sm-9" formControlName="tags" placeholder="Enter event tags..." > -->
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Address *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter address...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">City *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter city...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">State *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter state...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Pincode *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter pincode...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Landmarks *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Near by landmark...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter number seats...">
+        </div>
+        <div class="form-row input-group">
+          <label class="col-sm-3 col-form-label">Registration Closing Date</label>
+          <input class="form-control col-sm-9" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+            #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Speakers *</label>
+          <select class="selectpicker form-control col-sm-9" formControlName="speakers" multiple data-live-search="true"
+            title="Choose Speakers..." style="background: #fff !important;">
+            <option>Speaker 1</option>
+            <option>Speaker 2</option>
+            <option>Speaker 3</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#exampleModal">Add Speakers</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Starting Date & Time</label>
+          <div class="input-group date col-sm-9" id="startdatetimepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#startdatetimepicker"
+              placeholder="mm-dd-yyyy Hours : Minuts" />
+            <div class="input-group-append" data-target="#startdatetimepicker" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Ending Date & Time</label>
+          <div class="input-group date col-sm-9" id="enddatetimepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#enddatetimepicker"
+              placeholder="mm-dd-yyyy Hours : Minuts" />
+            <div class="input-group-append" data-target="#enddatetimepicker" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Enter Desclaimer *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Terms & Conditions">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
+          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
+            formControlName="image" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Banner Image</label>
+          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
+            formControlName="image2" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good" [disabled]='!createEventForm.valid'>Submit
+            Details</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+        <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="abc@gmail.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" placeholder="Contact Number">
+          </div>
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" class="form-control" placeholder="Speaker Profile">
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mb-2 mt-3" data-dismiss="modal">Submit</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer text-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+    </div>
+  </div>
+</div>

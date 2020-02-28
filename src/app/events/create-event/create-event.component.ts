@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-create-event',
@@ -8,7 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
+  startTime = {hour: 13, minute: 30};
+  endTime = {hour: 13, minute: 30};
 
+  model: any;
   createEventForm: FormGroup;
   title: string;
   agenda: string;
@@ -31,6 +36,10 @@ export class CreateEventComponent implements OnInit {
   imgURL: any;
   public message: string;
 
+  hoveredDate: NgbDate;
+  fromDate: NgbDate;
+  toDate: NgbDate;
+
   preview(files) {
     if (files.length === 0)
       return;
@@ -49,20 +58,30 @@ export class CreateEventComponent implements OnInit {
     }
   }
 
-  constructor(private formbuilder: FormBuilder, private router: Router ) {
+  constructor(private formbuilder: FormBuilder, private router: Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter ) {
     this.createEventForm=formbuilder.group({
       title: new FormControl('', Validators.required),
-      agenda: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required),
-      tags: new FormControl('', Validators.required),
-      venue: new FormControl('', Validators.required),
-      participants: new FormControl('', Validators.required),
-      speakers: new FormControl('', Validators.required)
+      //agenda: new FormControl('', Validators.required),
+      //category: new FormControl('', Validators.required),
+      //tags: new FormControl('', Validators.required),
+      //venue: new FormControl('', Validators.required),
+     // participants: new FormControl('', Validators.required),
+      //speakers: new FormControl('', Validators.required)
       // image: new FormControl('', Validators.required)
     })
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
 
   ngOnInit(): void {
+    $('#startdatetimepicker').datetimepicker({
+      defaultDate: new Date(),
+      format: 'YYYY-MM-DD hh:mm:ss A'
+});
+$('#enddatetimepicker').datetimepicker({
+      defaultDate: new Date(),
+      format: 'YYYY-MM-DD hh:mm:ss A'
+});
   }
   generateEvent(createEventForm){
     if (createEventForm.valid){
@@ -71,5 +90,6 @@ export class CreateEventComponent implements OnInit {
       alert("Please Enter Required field first");
     }
   }
+
 
 }

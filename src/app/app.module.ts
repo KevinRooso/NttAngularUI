@@ -17,6 +17,9 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { CaseStudiesComponent } from './case-studies/case-studies.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { WhitepapersComponent } from './whitepapers/whitepapers.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { WhitepapersComponent } from './whitepapers/whitepapers.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularMultiSelectModule,
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

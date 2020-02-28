@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./event-edit.component.css']
 })
 export class EventEditComponent implements OnInit {
+  startTime = {hour: 13, minute: 30};
+  endTime = {hour: 13, minute: 30};
 
+  model: any;
   createEventForm: FormGroup;
   title: string;
   agenda: string;

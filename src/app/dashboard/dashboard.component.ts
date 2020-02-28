@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 import { NavigationEnd, Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-dashboard',
