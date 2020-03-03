@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Edit Event</p>
+      </div>
+      <form [formGroup]='createEventForm' (ngSubmit)='generateEvent(createEventForm)'>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Title *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="title"
+            placeholder="Road To Ultra India" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Description (Agenda) *</label>
+          <textarea class="form-control col-sm-9" formControlName="agenda" rows="5"
+            placeholder="Road To Ultra is back to India in Hyderabad and Gurugram on 7th and 8th March 2020. Experience one of the world’s biggest music festivals in your city! " readonly></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Short Description *</label>
+          <textarea class="form-control col-sm-9" formControlName="details" rows="3"
+            placeholder="Limited Tier 1 tickets available now starting at Rs. 2500! Book your tickets now!" readonly></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Category *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="category"
+            placeholder="Music" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Tags *</label>
+          <input type="text" class="form-control col-sm-9" value="Tag 1, Tag 2, Tag 3" data-role="tagsinput"
+            placeholder="Enter event tags..." readonly/>
+          <!-- <input type="text" class="form-control col-sm-9" formControlName="tags" placeholder="Enter event tags..." > -->
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Address *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="abc" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter city..." readonly>
+          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="abc" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter pincode..." readonly>
+          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="abc" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="100" readonly>
+        </div>
+        <div class="form-row input-group">
+          <label class="col-sm-3 col-form-label">Registration Closing Date</label>
+          <input class="form-control col-sm-9" placeholder="2020-02-28" name="dp" [(ngModel)]="model" ngbDatepicker
+            #d="ngbDatepicker" readonly>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Speakers *</label>
+          <select class="selectpicker form-control col-sm-9" formControlName="speakers" multiple data-live-search="true"
+            title="Choose Speakers..." style="background: #fff !important;" readonly>
+            <option selected>Speaker 1</option>
+            <option selected>Speaker 2</option>
+            <option selected>Speaker 3</option>
+          </select>
+        </div>
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#exampleModal">Add Speakers</button>
+          </div>
+        </div> -->
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Starting Date & Time</label>
+          <div class="input-group date col-sm-9" id="startdatetimepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#startdatetimepicker"
+              placeholder="02-28-2020  -  00 : 00" readonly/>
+            <div class="input-group-append" data-target="#startdatetimepicker" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Ending Date & Time</label>
+          <div class="input-group date col-sm-9" id="enddatetimepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#enddatetimepicker"
+              placeholder="02-28-2020  -  00 : 00" readonly/>
+            <div class="input-group-append" data-target="#enddatetimepicker" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Enter Desclaimer *</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Age limit: 18+" readonly>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Banner Image</label>
+          <!-- <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
+            formControlName="image" /> -->
+            <div class="col-sm-9">
+              <img src="https://in.bmscdn.com/nmcms/media-base-road-to-ultra-india-2020-1-29-t-15-12-44.jpeg" height="200" width="100%">
+            </div>
+
+
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
+          <!-- <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
+            formControlName="image2" /> -->
+           <div class="col-sm-9">
+            <img src="https://in.bmscdn.com/nmcms/media-base-road-to-ultra-india-2020-1-29-t-15-12-44.jpeg" height="200">
+           </div>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good" [disabled]='!createEventForm.valid'>Update
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+        <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="abc@gmail.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" placeholder="Contact Number">
+          </div>
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" class="form-control" placeholder="Speaker Profile">
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mb-2 mt-3" data-dismiss="modal">Submit</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer text-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+    </div>
+  </div>
+</div>

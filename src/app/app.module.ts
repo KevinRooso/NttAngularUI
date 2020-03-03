@@ -1,0 +1,67 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EventPreviewComponent } from './events/event-preview/event-preview.component';
+import { CreateEventComponent } from './events/create-event/create-event.component';
+import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EventEditComponent } from './events/event-edit/event-edit.component';
+import { ArticlesComponent } from './articles/articles.component';
+import { BlogsComponent } from './blogs/blogs.component';
+import { CaseStudiesComponent } from './case-studies/case-studies.component';
+import { TestimonialsComponent } from './testimonials/testimonials.component';
+import { WhitepapersComponent } from './whitepapers/whitepapers.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
+import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
+import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    EventPreviewComponent,
+    CreateEventComponent,
+    HeaderComponent,
+    SidebarComponent,
+    EventDetailsComponent,
+    EventEditComponent,
+    ArticlesComponent,
+    BlogsComponent,
+    CaseStudiesComponent,
+    TestimonialsComponent,
+    WhitepapersComponent,
+    SpeakersPreviewComponent,
+    ParticipantPreviewComponent,
+    SpeakerCreateComponent,
+    SpeakerEditComponent
+    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularMultiSelectModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    MatButtonModule,
+    MatTableModule,
+    HttpClientModule
+  ],
+  providers: [HttpClientModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
