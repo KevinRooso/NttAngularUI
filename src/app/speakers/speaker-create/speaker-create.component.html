@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Create Speaker</p>
+      </div>
+      <form [formGroup]='createSpeakerForm' (ngSubmit)='generateEvent(createSpeakerForm)'>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Speaker Name</label>
+          <input type="text" class="form-control col-sm-9" formControlName="title"
+            placeholder="Enter FullName..">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Speaker Description</label>
+          <textarea class="form-control col-sm-9" formControlName="agenda" rows="4"
+            placeholder="Enter Speaker Description..."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Email</label>
+          <input type="email" class="form-control col-sm-9" formControlName="category"
+            placeholder="Please Enter Email...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Personal Details</label>
+          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Speaker Profile...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Speaker Contact Number...">
+          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="Speaker Designation...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Speaker Company Name...">
+          <textarea class="form-control col-sm-5" formControlName="agenda" rows="5"
+            placeholder="Speaker KeySkills.."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Speaker Image</label>
+          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
+            formControlName="image" />
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good" [disabled]='!createSpeakerForm.valid'>Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

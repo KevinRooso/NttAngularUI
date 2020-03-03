@@ -36,20 +36,14 @@
           <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter address...">
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">City *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter city...">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter city...">
+          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="Enter state...">
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">State *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter state...">
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Pincode *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter pincode...">
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Landmarks *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Near by landmark...">
+          <label class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter pincode...">
+          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="Near by landmark...">
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
@@ -91,6 +85,11 @@
           </div>
         </div>
         <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <textarea class="form-control col-sm-9" formControlName="details" rows="3"
+            placeholder="Short description about the event scheduling........."></textarea>
+        </div>
+        <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Ending Date & Time</label>
           <div class="input-group date col-sm-9" id="enddatetimepicker" data-target-input="nearest">
             <input type="text" class="form-control datetimepicker-input" data-target="#enddatetimepicker"
@@ -124,6 +123,7 @@
     </div>
   </div>
 </div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
