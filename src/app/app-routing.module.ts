@@ -15,6 +15,8 @@ import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-p
 import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
+import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
+  import { AuthguardServiceService } from './authguard-service.service';
 
 
 
@@ -22,19 +24,20 @@ import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.compo
 const routes: Routes = [
   { path : '', component : LoginComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'events', component: EventPreviewComponent },
-  { path: 'details', component: EventDetailsComponent },
-  { path: 'create', component: CreateEventComponent },
-  { path: 'edit', component: EventEditComponent},
-  { path: 'articles', component: ArticlesComponent},
-  { path: 'blogs', component: BlogsComponent},
-  { path: 'cases', component: CaseStudiesComponent},
-  { path: 'testimonials', component: TestimonialsComponent},
-  { path: 'whitepapers', component: WhitepapersComponent},
-  { path: 'speakers', component: SpeakersPreviewComponent},
-  { path: 'participants', component: ParticipantPreviewComponent},
-  { path: 'create-speaker', component: SpeakerCreateComponent},
-  { path: 'speaker-update', component: SpeakerEditComponent}
+  { path: 'events', component: EventPreviewComponent, canActivate: [AuthguardServiceService]},
+  { path: 'details', component: EventDetailsComponent, canActivate: [AuthguardServiceService] },
+  { path: 'create', component: CreateEventComponent, canActivate: [AuthguardServiceService] },
+  { path: 'edit', component: EventEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'articles', component: ArticlesComponent, canActivate: [AuthguardServiceService]},
+  { path: 'blogs', component: BlogsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'cases', component: CaseStudiesComponent, canActivate: [AuthguardServiceService]},
+  { path: 'testimonials', component: TestimonialsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'whitepapers', component: WhitepapersComponent, canActivate: [AuthguardServiceService]},
+  { path: 'speakers', component: SpeakersPreviewComponent, canActivate: [AuthguardServiceService]},
+  { path: 'participants', component: ParticipantPreviewComponent, canActivate: [AuthguardServiceService]},
+  { path: 'create-speaker', component: SpeakerCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'speaker-update', component: SpeakerEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'speaker-details', component: SpeakerDetailsComponent, canActivate: [AuthguardServiceService]}
 
 
 ];

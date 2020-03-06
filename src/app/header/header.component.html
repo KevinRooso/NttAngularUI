@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light header-shadow fix-top">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand">
       <img src="assets/NTTLOG.PNG" width="100" height="45" class="d-inline-block align-top" alt="">
   </a>
     <ul class="ml-auto" style="list-style: none;padding-top: 10px;">
@@ -11,7 +11,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><a class="">Profile Settings</a></li>
-          <li><a routerLink="/login">Sign Out</a></li>
+          <li><a (click)="logOut()">Sign Out</a></li>
         </ul>
       </li>
     </ul>

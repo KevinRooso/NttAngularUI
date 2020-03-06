@@ -7,23 +7,20 @@
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item active mx-2">
           <select class="form-control">
-            <option>Select Category</option>
-            <option>Sports</option>
-            <option>Business</option>
+            <option value="" hidden>Please Select Category</option>
+            <option *ngFor="let cate of category" [value]="cate">{{cate}}</option>
           </select>
         </li>
         <li class="nav-item mx-2">
           <select class="form-control">
-            <option>Select Tag</option>
-            <option>Service</option>
-            <option>Cloud</option>
+            <option value="" hidden>Please Select Tag</option>
+            <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option>
           </select>
         </li>
         <li class="nav-item ml-2">
           <select class="form-control">
-            <option>Select Date</option>
-            <option>Today</option>
-            <option>Yesterday</option>
+            <option value="" hidden>Please Select Date</option>
+            <option>{{getEventData.createdAt}}</option>
           </select>
         </li>
         <li class="nav-item ml-2">
@@ -39,63 +36,23 @@
   <div class="container-fluid">
 
     <div class="row  mt-2">
-      <div class="col-sm-4">
-          <div class="card">
-          <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" class="card-img-top" alt="..." height="200px;">
+      <div class="col-sm-4" *ngFor="let card of getEventData">
+          <div class="card mb-3">
+          <img [src]="card.thumbnailUrl" class="card-img-top" alt="Image not available" height="200px;">
           <div class="card-body">
-            <h5 class="card-title">Event Title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">{{card.title}}</h5>
+            <p class="card-text">{{card.desciption}}</p>
           </div>
           <div class="event-card-body">
-            <p class="card-text">Date</p>
-            <p class="card-text">Category</p>
-            <!-- <p class="card-text">Speaker</p> -->
+            <!-- <p class="card-text">{{card.totalSeat}}</p>
+            <p class="card-text">{{card.targetUserType.name}}</p> -->
           </div>
           <div class="event-card-body-footer text-center">
-            <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a>
-            <!-- <a href="#" class="card-link">View Details >></a> -->
-            <!-- <a href="#" class="card-link">Another link</a> -->
+            <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+            <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View Details</button></a>
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <div class="card">
-        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" class="card-img-top" alt="..." height="200px;">
-        <div class="card-body">
-          <h5 class="card-title">Event Title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="event-card-body">
-          <p class="card-text">Date</p>
-          <p class="card-text">Category</p>
-          <!-- <p class="card-text">Speaker</p> -->
-        </div>
-        <div class="event-card-body-footer text-center">
-          <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a>
-          <!-- <a href="#" class="card-link">View Details >></a> -->
-          <!-- <a href="#" class="card-link">Another link</a> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="card">
-      <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" class="card-img-top" alt="..." height="200px;">
-      <div class="card-body">
-        <h5 class="card-title">Event Title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-      <div class="event-card-body">
-        <p class="card-text">Date</p>
-        <p class="card-text">Category</p>
-        <!-- <p class="card-text">Speaker</p> -->
-      </div>
-      <div class="event-card-body-footer text-center">
-        <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a>
-        <!-- <a href="#" class="card-link">View Details >></a> -->
-        <!-- <a href="#" class="card-link">Another link</a> -->
-      </div>
-    </div>
-  </div>
     </div>
   </div>
 

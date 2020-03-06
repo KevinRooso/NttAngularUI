@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpeakersPreviewComponent implements OnInit {
 
+  cardData= [
+    {img:'https://storage.googleapis.com/dfua-test.appspot.com/images/speakers/chet-haase.jpg',spName:'John Smith', spEmail:'abc@gmail.com',spProfile:'Musician'},
+    {img:'https://storage.googleapis.com/dfua-test.appspot.com/images/speakers/chet-haase.jpg',spName:'John Smith', spEmail:'abc@gmail.com',spProfile:'Musician'},
+    {img:'https://storage.googleapis.com/dfua-test.appspot.com/images/speakers/chet-haase.jpg',spName:'John Smith', spEmail:'abc@gmail.com',spProfile:'Musician'},
+    {img:'https://storage.googleapis.com/dfua-test.appspot.com/images/speakers/chet-haase.jpg',spName:'John Smith', spEmail:'abc@gmail.com',spProfile:'Musician'}
+  ]
+
   constructor() { }
 
   ngOnInit(): void {

@@ -27,32 +27,36 @@
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Tags *</label>
-          <input type="text" class="form-control col-sm-9" value="" data-role="tagsinput"
+          <input type="text" class="form-control col-sm-9" value="" data-role="tagsinput" formControlName="tags"
             placeholder="Enter event tags..." />
           <!-- <input type="text" class="form-control col-sm-9" formControlName="tags" placeholder="Enter event tags..." > -->
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Address *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter address...">
+          <input type="text" class="form-control col-sm-9" formControlName="address" placeholder="Enter address...">
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
-          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter city...">
-          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="Enter state...">
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="city" placeholder="Enter city...">
+          <input type="text" class="form-control col-sm-5" formControlName="state" placeholder="Enter state...">
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
-          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="venue" placeholder="Enter pincode...">
-          <input type="text" class="form-control col-sm-5" formControlName="venue" placeholder="Near by landmark...">
+          <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="pincode" placeholder="Enter pincode...">
+          <input type="text" class="form-control col-sm-5" formControlName="landmark" placeholder="Near by landmark...">
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Enter number seats...">
+          <input type="text" class="form-control col-sm-9" formControlName="totalSeats" placeholder="Enter number seats...">
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Availability*</label>
+          <input type="text" class="form-control col-sm-9" formControlName="available" placeholder="Enter number seats...">
         </div>
         <div class="form-row input-group">
           <label class="col-sm-3 col-form-label">Registration Closing Date</label>
           <input class="form-control col-sm-9" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
-            #d="ngbDatepicker">
+            #d="ngbDatepicker" formControlName="regClosingDate">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
                 class="fa fa-calendar" aria-hidden="true"></i></button>
@@ -67,18 +71,18 @@
             <option>Speaker 3</option>
           </select>
         </div>
-        <div class="form-row">
+        <!-- <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
             <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
               data-target="#exampleModal">Add Speakers</button>
           </div>
-        </div>
+        </div> -->
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Starting Date & Time</label>
           <div class="input-group date col-sm-9" id="startdatetimepicker" data-target-input="nearest">
             <input type="text" class="form-control datetimepicker-input" data-target="#startdatetimepicker"
-              placeholder="mm-dd-yyyy Hours : Minuts" />
+              placeholder="mm-dd-yyyy Hours : Minuts" formControlName="eventStarting"/>
             <div class="input-group-append" data-target="#startdatetimepicker" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -86,50 +90,59 @@
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
-          <textarea class="form-control col-sm-9" formControlName="details" rows="3"
-            placeholder="Short description about the event scheduling........."></textarea>
+          <textarea class="form-control col-sm-9" formControlName="shortDetails" rows="3"
+            placeholder="Short description about the event scheduling........." ></textarea>
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Ending Date & Time</label>
-          <div class="input-group date col-sm-9" id="enddatetimepicker" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" data-target="#enddatetimepicker"
-              placeholder="mm-dd-yyyy Hours : Minuts" />
-            <div class="input-group-append" data-target="#enddatetimepicker" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          <div class="input-group date col-sm-9"
+            id="enddatetimepicker"
+            data-target-input="nearest">
+            <input
+              type="text"
+              class="form-control datetimepicker-input"
+              data-target="#enddatetimepicker"
+              placeholder="mm-dd-yyyy Hours : Minuts"
+              formControlName="eventEnding"/>
+            <div
+              class="input-group-append"
+              data-target="#enddatetimepicker"
+              data-toggle="datetimepicker">
+              <div class="input-group-text">
+            <i class="fa fa-calendar"></i></div>
             </div>
           </div>
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Enter Desclaimer *</label>
-          <input type="text" class="form-control col-sm-9" formControlName="venue" placeholder="Terms & Conditions">
+          <input type="text" class="form-control col-sm-9" formControlName="desclaimer" placeholder="Terms & Conditions">
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
-          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
-            formControlName="image" />
-          <img [src]="imgURL" height="200" *ngIf="imgURL">
+          <input type="file" class="form-control-file col-sm-9"
+            formControlName="cardImage"/>
+
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Choose Banner Image</label>
-          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
-            formControlName="image2" />
-          <img [src]="imgURL" height="200" *ngIf="imgURL">
+          <input type="file" class="form-control-file col-sm-9"
+            formControlName="bannerImage"/>
         </div>
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" [disabled]='!createEventForm.valid'>Submit
+          <button type="submit" class="btn button-1 action-good" >Submit
             Details</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<!-- [disabled]='!createEventForm.valid' -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
         <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -157,10 +170,6 @@
           </div>
         </form>
       </div>
-      <!-- <div class="modal-footer text-center">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
     </div>
   </div>
-</div>
+</div> -->

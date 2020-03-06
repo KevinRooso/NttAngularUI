@@ -27,6 +27,7 @@ import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
+import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.compo
     SpeakersPreviewComponent,
     ParticipantPreviewComponent,
     SpeakerCreateComponent,
-    SpeakerEditComponent
+    SpeakerEditComponent,
+    SpeakerDetailsComponent
     ],
   imports: [
     BrowserModule,

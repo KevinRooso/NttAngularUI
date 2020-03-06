@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NgForm, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, NgForm, Validators, FormControlName} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,48 +10,57 @@ import { Router } from '@angular/router';
 export class SpeakerCreateComponent implements OnInit {
 
   createSpeakerForm: FormGroup;
-  public imagePath;
-  imgURL: any;
-  public message: string;
+  name: string = '';
+  description: string= '';
+  email: string = '';
+  details: string = '';
+  contact: number = null;
+  company: string = '';
+  designation: string= '';
+  keyskills: string = '';
 
-  preview(files) {
-    if (files.length === 0)
-      return;
 
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    }
+  // public imagePath;
+  // imgURL: any;
+  // public message: string;
+  // preview(files) {
+  //   if (files.length === 0)
+  //     return;
+  //   var mimeType = files[0].type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     this.message = "Only images are supported.";
+  //     return;
+  //   }
+  //   var reader = new FileReader();
+  //   this.imagePath = files;
+  //   reader.readAsDataURL(files[0]);
+  //   reader.onload = (_event) => {
+  //     this.imgURL = reader.result;
+  //   }
+  // }
 
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-    }
-  }
-
-  constructor(private formbuilder: FormBuilder, private router: Router ) {
+  constructor(private formbuilder: FormBuilder) {
     this.createSpeakerForm=formbuilder.group({
-      title: new FormControl('', Validators.required),
-      //agenda: new FormControl('', Validators.required),
-      //category: new FormControl('', Validators.required),
-      //tags: new FormControl('', Validators.required),
-      //venue: new FormControl('', Validators.required),
-     // participants: new FormControl('', Validators.required),
-      //speakers: new FormControl('', Validators.required)
-      // image: new FormControl('', Validators.required)
-    })
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      email: ['', Validators.required],
+      details: ['', Validators.required],
+      contact: ['', Validators.required],
+      company: ['', Validators.required],
+      designation: ['', Validators.required],
+      keyskills: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void { }
 
-  generateEvent(createSpeakerForm){
+  createSpeaker(createSpeakerForm:any){
+
+    console.log(this.createSpeakerForm.value);
     if (createSpeakerForm.valid){
-      this.router.navigate(['/home']);
+      alert("Successfully Generated");
     }else{
-      alert("Please Enter Required field first");
+      alert("Please Fill All field first");
     }
   }
 
