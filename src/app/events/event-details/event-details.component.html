@@ -14,44 +14,12 @@
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
             <ul class="list-group">
-              <li class="list-group-item">
+              <li class="list-group-item" *ngFor="let participant of getParticipantDetails">
                 <div class="d-inline-flex" style="align-items: baseline;">
                   <div class="mr-2"><img _ngcontent-wbm-c23=""
                       src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
                       class="speaker-image"></div>
-                  <a>Dheeraj Kishore</a>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="d-inline-flex" style="align-items: baseline;">
-                  <div class="mr-2"><img _ngcontent-wbm-c23=""
-                      src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
-                      class="speaker-image"></div>
-                      <a>Dheeraj Kishore</a>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="d-inline-flex" style="align-items: baseline;">
-                  <div class="mr-2"><img _ngcontent-wbm-c23=""
-                      src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
-                      class="speaker-image"></div>
-                      <a>Dheeraj Kishore</a>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="d-inline-flex" style="align-items: baseline;">
-                  <div class="mr-2"><img _ngcontent-wbm-c23=""
-                      src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
-                      class="speaker-image"></div>
-                      <a>Dheeraj Kishore</a>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="d-inline-flex" style="align-items: baseline;">
-                  <div class="mr-2"><img _ngcontent-wbm-c23=""
-                      src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
-                      class="speaker-image"></div>
-                      <a>Dheeraj Kishore</a>
+                  <a>{{participant.name}}</a>
                 </div>
               </li>
             </ul>

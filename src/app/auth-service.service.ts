@@ -22,16 +22,23 @@ export class AuthServiceService {
   // }
 
   getAuthourized(auth):any{
-      return this.http.post<any>(this.url+'api/auth/signin', auth)
+    return this.http.post<any>(this.url+'api/auth/signin', auth)
   }
   isUserLoggedIn(){
     let user = localStorage.getItem('token');
     return !(user==null);
   }
   getAllEventList():Observable<any>{
-    return this.http.get<any>(this.url+'api/events', {headers:this.headers})
+    return this.http.get<any>(this.url+'api/public/events', {headers:this.headers})
   }
   getEventDetail(id):Observable<any>{
-    return this.http.get<any>(this.url+'api/event/'+id, {headers:this.headers})
+    return this.http.get<any>(this.url+'api/public/event/'+id, {headers:this.headers})
   }
+
+  getParticipant(id):Observable<any>{
+    return this.http.get<any>(this.url+`api/public/events/${id}/participant`, {headers:this.headers})
+  }
+  // saveEventDetails(){
+  //   return this.http.post(this.url+'')
+  // }
 }

@@ -4,7 +4,7 @@
       <div class="text-center">
         <p class="heading-secondary">Create Event</p>
       </div>
-      <form [formGroup]='createEventForm' (ngSubmit)='generateEvent(createEventForm)'>
+      <form [formGroup]='createEventForm' (ngSubmit)='generateEvent()'>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Title *</label>
           <input type="text" class="form-control col-sm-9" formControlName="title"

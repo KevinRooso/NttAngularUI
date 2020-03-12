@@ -75,8 +75,32 @@ export class CreateEventComponent implements OnInit {
   }
 
 
-  generateEvent(createEventForm) {
-    console.log(this.createEventForm.controls['eventEnding'].value);
+  generateEvent() {
+    console.log(this.createEventForm.value);
+    // var formData: any = new FormData();
+    // formData.append("title", this.createEventForm.get('title').value);
+    // formData.append("agenda", this.createEventForm.get('agenda').value);
+    // formData.append("details", this.createEventForm.get('details').value);
+    // formData.append("category", this.createEventForm.get('category').value);
+    // formData.append("tags", this.createEventForm.get('tags').value);
+    // formData.append("address", this.createEventForm.get('address').value);
+    // formData.append("city", this.createEventForm.get('city').value);
+    // formData.append("pincode", this.createEventForm.get('pincode').value);
+    // formData.append("totalSeats", this.createEventForm.get('totalSeats').value);
+    // formData.append("available", this.createEventForm.get('available').value);
+    // formData.append("regClosingDate", this.createEventForm.get('regClosingDate').value);
+    // formData.append("speakers", this.createEventForm.get('speakers').value);
+    // formData.append("eventStarting", this.createEventForm.get('eventStarting').value);
+    // formData.append("shortDetails", this.createEventForm.get('shortDetails').value);
+    // formData.append("eventEnding", this.createEventForm.get('eventEnding').value);
+    // formData.append("desclaimer", this.createEventForm.get('desclaimer').value);
+    // formData.append("cardImage", this.createEventForm.get('cardImage').value);
+    // formData.append("bannerImage", this.createEventForm.get('bannerImage').value);
+
+    // this.http.post('http://localhost:4000/api/create-user', formData).subscribe(
+    //   (response) => console.log(response),
+    //   (error) => console.log(error)
+    // )
     // if (createEventForm.valid) {
     //   //this.router.navigate(['/home']);
     //   alert("Successfully Generated");

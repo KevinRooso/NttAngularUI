@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
+  getParticipantDetails: any;
 
   constructor(private authService: AuthServiceService, private router:ActivatedRoute) { }
 
@@ -16,6 +17,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.queryParams.subscribe(params => {
       console.log(params.page);
       this.getEventData(params.page);
+      this.getEventParticipant(params.page);
     });
 
 
@@ -29,5 +31,11 @@ export class EventDetailsComponent implements OnInit {
       //console.log(this.getEventDetails.asset.variants["download-image"]);
     })
 
+  }
+  getEventParticipant(id){
+    this.authService.getParticipant(id).subscribe(res=>{
+      this.getParticipantDetails = res.body;
+      console.log("Participants Data", this.getParticipantDetails);
+    })
   }
 }
