@@ -38,4 +38,8 @@ export class EventDetailsComponent implements OnInit {
       console.log("Participants Data", this.getParticipantDetails);
     })
   }
+  getDetails(id) {
+    alert(id);
+    this.router.navigate(['/edit'], { queryParams: { page: id } });
+  }
 }

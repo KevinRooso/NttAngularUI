@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,15 +18,22 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { WhitepapersComponent } from './whitepapers/whitepapers.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
 import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -55,13 +61,21 @@ import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-deta
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AngularMultiSelectModule,
     BrowserAnimationsModule,
     NgbModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+
     MatButtonModule,
     MatTableModule,
-    HttpClientModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

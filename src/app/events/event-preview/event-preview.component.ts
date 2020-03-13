@@ -29,11 +29,11 @@ export class EventPreviewComponent implements OnInit {
       (data) => {
         this.getEventData = data.body;
         console.log("Json Data", this.getEventData);
-        this.category.push(this.getEventData.categoryTypeId.name);
-        for (let i of this.getEventData.tags) {
-          this.tags.push(i.name);
-        }
-        this.category.push(this.getEventData.categoryTypeId.name);
+        // this.category.push(this.getEventData.categoryTypeId.name);
+        // for (let i of this.getEventData.tags) {
+        //   this.tags.push(i.name);
+        // }
+        // this.category.push(this.getEventData.categoryTypeId.name);
         // this.tags.push(this.getEventData.tags.name);
         // for (let [key, value] of Object.entries(this.getEventData.categoryTypeId)) {
         //   console.log(key);

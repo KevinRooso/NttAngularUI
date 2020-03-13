@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 html, body{
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   height: 100%;
   font-family: Roboto;
 }
@@ -66,8 +67,9 @@ html, body{
   line-height: 30px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family:'Roboto', sans-serif; font-size: 15px;}
+/* html, body { height: 100%; }
+body { margin: 0; font-family:'Roboto', sans-serif; font-size: 15px;} */
+
 button:focus {
   outline: 1px dotted;
   outline: none;
@@ -109,4 +111,15 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 table.dataTable{
   border-collapse: collapse !important;
+}
+.mat-form-field-flex{
+  background: #fff !important;
+    padding: 10px 10px 0px 10px !important;
+    border: 1px solid #ccc !important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+}
+
+.cdk-overlay-container {
+  position: fixed !important;
+  z-index: 1090 !important;
 }

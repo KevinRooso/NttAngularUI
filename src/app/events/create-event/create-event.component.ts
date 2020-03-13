@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
+import { AuthServiceService } from 'src/app/auth-service.service';
+import { threadId } from 'worker_threads';
+// import * as $ from 'jquery'
 
 @Component({
   selector: 'app-create-event',
@@ -11,102 +12,163 @@ import * as $ from 'jquery';
 })
 export class CreateEventComponent implements OnInit {
 
-  model: any;
-
   createEventForm: FormGroup;
-  title: string;
-  agenda: string;
-  details: string;
-  category: string;
-  tags: string;
-  address: string;
-  city: string;
-  pincode: string;
-  totalSeats: string;
-  available: string;
-  regClosingDate: string;
-  speakers: string;
-  eventStarting: string;
-  shortDetails: string;
-  eventEnding: string;
-  desclaimer: string;
+  addSpeakerForm: FormGroup;
+  addTagForm: FormGroup;
+
+  categories = [
+    {value: '0', viewValue: 'Sports'},
+    {value: '1', viewValue: 'Cloud'},
+    {value: '2', viewValue: 'Movies'}
+  ];
+  allData:any[]=[];
+  speaker = new FormControl();
+  speakerList: string[] = ['speaker 1', 'speaker 2', 'speaker 3', 'speaker 4', 'speaker 5', 'speaker 6'];
+
+  tag = new FormControl();
+  tagsList: string[] = [];
 
 
-  hoveredDate: NgbDate;
-  fromDate: NgbDate;
-  toDate: NgbDate;
-
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService,) {
     this.createEventForm = formBuilder.group({
       title: [''],
-      agenda: [''],
-      details: [''],
-      category: [''],
-      tags: [''],
-      address: [''],
+      detail: [''],
+      shortDescription: [''],
+      address1: [''],
+      address2: [''],
       city: [''],
+      country: [''],
       pincode: [''],
-      totalSeats: [''],
-      available: [''],
-      regClosingDate: [''],
-      speakers: [''],
-      eventStarting: [''],
-      shortDetails: [''],
-      eventEnding: [''],
-      desclaimer: [''],
-      bannerImage: [''],
-      cardImage: ['']
+      totalSeat: [''],
+      registrationCloseBeforeSeat: [''],
+      noOfSubUsersAllow: [''],
+      startTime: [''],
+      endTime: [''],
+      registrationStartDate: [''],
+      registrationEndDate: [''],
+      policyTnc: [''],
+      policyFAQ: [''],
+      thumbnailUrl: [''],
+      imageUrl: [''],
+      fullName: [''],
+      name: [''],
+      categoryTypeId: ['']
 
     })
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.addSpeakerForm = formBuilder.group({
+      fullName:['']
+    })
+    this.addTagForm = formBuilder.group({
+      name:[''],
+      keywords: ['']
+    })
   }
 
   ngOnInit(): void {
-    $('#startdatetimepicker').datetimepicker({
-      defaultDate: new Date(),
-      format: 'YYYY-MM-DD hh:mm:ss A'
-    });
-    $('#enddatetimepicker').datetimepicker({
-      defaultDate: new Date(),
-      format: 'YYYY-MM-DD hh:mm:ss A'
-    });
+    this.getCategoryDetails()
+    this.getTagsDetails();
+    this.generateEvent();
   }
 
 
   generateEvent() {
-    console.log(this.createEventForm.value);
-    // var formData: any = new FormData();
-    // formData.append("title", this.createEventForm.get('title').value);
-    // formData.append("agenda", this.createEventForm.get('agenda').value);
-    // formData.append("details", this.createEventForm.get('details').value);
-    // formData.append("category", this.createEventForm.get('category').value);
-    // formData.append("tags", this.createEventForm.get('tags').value);
-    // formData.append("address", this.createEventForm.get('address').value);
-    // formData.append("city", this.createEventForm.get('city').value);
-    // formData.append("pincode", this.createEventForm.get('pincode').value);
-    // formData.append("totalSeats", this.createEventForm.get('totalSeats').value);
-    // formData.append("available", this.createEventForm.get('available').value);
-    // formData.append("regClosingDate", this.createEventForm.get('regClosingDate').value);
-    // formData.append("speakers", this.createEventForm.get('speakers').value);
-    // formData.append("eventStarting", this.createEventForm.get('eventStarting').value);
-    // formData.append("shortDetails", this.createEventForm.get('shortDetails').value);
-    // formData.append("eventEnding", this.createEventForm.get('eventEnding').value);
-    // formData.append("desclaimer", this.createEventForm.get('desclaimer').value);
-    // formData.append("cardImage", this.createEventForm.get('cardImage').value);
-    // formData.append("bannerImage", this.createEventForm.get('bannerImage').value);
+    console.log("new Data", this.createEventForm.controls['fullName'].value);
 
-    // this.http.post('http://localhost:4000/api/create-user', formData).subscribe(
-    //   (response) => console.log(response),
-    //   (error) => console.log(error)
-    // )
+    let name:any[]=[];
+    this.createEventForm.controls['fullName'].value.forEach(sname=>{
+      let speakers={
+        "fullName":sname
+      };
+      name.push(speakers);
+    });
+
+    let tag:any[]=[];
+      this.createEventForm.controls['name'].value.forEach(tname=>{
+      let tags={
+        "name":tname
+      };
+      tag.push(tags);
+    });
+
+    let schedule:any[]=[];
+      let scheduling={
+        "endTime":this.createEventForm.controls['endTime'].value,
+        "startTime":this.createEventForm.controls['startTime'].value
+      };
+      schedule.push(scheduling);
+
+    let obj={
+      "title":this.createEventForm.controls['title'].value,
+      "detail":this.createEventForm.controls['detail'].value,
+      "shortDescription":this.createEventForm.controls['shortDescription'].value,
+      "address1":this.createEventForm.controls['address1'].value,
+      "address2":this.createEventForm.controls['address2'].value,
+      "city":this.createEventForm.controls['city'].value,
+      "country":this.createEventForm.controls['country'].value,
+      "pincode":this.createEventForm.controls['pincode'].value,
+      "totalSeat":this.createEventForm.controls['totalSeat'].value,
+      "registrationCloseBeforeSeat":this.createEventForm.controls['registrationCloseBeforeSeat'].value,
+      "noOfSubUsersAllow":this.createEventForm.controls['noOfSubUsersAllow'].value,
+      "registrationStartDate":this.createEventForm.controls['registrationStartDate'].value,
+      "registrationEndDate":this.createEventForm.controls['registrationEndDate'].value,
+      "policyFAQ":this.createEventForm.controls['policyFAQ'].value,
+      "policyTnc":this.createEventForm.controls['policyTnc'].value,
+      "thumbnailUrl":this.createEventForm.controls['thumbnailUrl'].value,
+      "imageUrl":this.createEventForm.controls['imageUrl'].value,
+      "categoryTypeId":this.createEventForm.controls['categoryTypeId'].value,
+      "speakerList":name,
+      "tagList": tag,
+      "eventSchedule": schedule,
+      "autoApproveParticipant": false,
+      "isbreak": false,
+      "status": false,
+      "isActive": false,
+      "isDraft": false,
+      "isPublish": false,
+      "isRegOpen": false,
+      "publishStatus": false,
+      "id":0
+    }
+
+    console.log("Post Data",obj);
+
+    this.authService.saveEventDetails(obj).subscribe(
+      (response) => console.log("responsne", response),
+      (error) => console.log(error)
+    )
     // if (createEventForm.valid) {
     //   //this.router.navigate(['/home']);
     //   alert("Successfully Generated");
     // } else {
     //   alert("Please Fill All field first");
     // }
+  }
+  createSpeaker(data: any){
+    alert("i Called");
+    console.log(this.addSpeakerForm.value.fullName);
+    this.speakerList.push(this.addSpeakerForm.value.fullName);
+    console.log(this.speakerList);
+  }
+  createTag(){
+    alert("Tag Called");
+    console.log(this.addTagForm.value.name);
+    console.log(this.addTagForm.value.keywords);
+    this.tagsList.push(this.addTagForm.value.name);
+    console.log(this.tagsList);
+  }
+  getTagsDetails(){
+    this.authService.getTagsList().subscribe((res)=>{
+      console.log("Tag", res.body);
+      res.body.forEach(m=>{
+        this.tagsList.push(m.name);
+      })
+    })
+  }
+  getCategoryDetails(){
+    this.authService.getCategoryList().subscribe((res)=>{
+      console.log("category", res.body);
+      this.allData = res.body;
+    })
   }
 
 

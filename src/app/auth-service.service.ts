@@ -38,7 +38,16 @@ export class AuthServiceService {
   getParticipant(id):Observable<any>{
     return this.http.get<any>(this.url+`api/public/events/${id}/participant`, {headers:this.headers})
   }
-  // saveEventDetails(){
-  //   return this.http.post(this.url+'')
-  // }
+  saveEventDetails(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/event', obj, {headers:this.headers});
+  }
+  updateEventDetails(id):Observable<any>{
+    return this.http.put<any>(this.url+'api/admin/event/'+id, {headers:this.headers})
+  }
+  getTagsList():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/tags', {headers:this.headers})
+  }
+  getCategoryList():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/categories', {headers:this.headers})
+  }
 }
