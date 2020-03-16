@@ -50,4 +50,10 @@ export class AuthServiceService {
   getCategoryList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/categories', {headers:this.headers})
   }
+  getAllPolicy():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/policies', {headers:this.headers})
+  }
+  getAllSpeakers():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers})
+  }
 }

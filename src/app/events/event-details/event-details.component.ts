@@ -11,10 +11,11 @@ export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
   getParticipantDetails: any;
 
-  constructor(private authService: AuthServiceService, private router:ActivatedRoute) { }
+
+  constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe(params => {
+    this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.getEventData(params.page);
       this.getEventParticipant(params.page);
@@ -23,17 +24,14 @@ export class EventDetailsComponent implements OnInit {
 
   }
 
-  getEventData(id){
-    this.authService.getEventDetail(id).subscribe(res=>{
+  getEventData(id) {
+    this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body;
       console.log("ID Data", this.getEventDetails);
-
-      //console.log(this.getEventDetails.asset.variants["download-image"]);
     })
-
   }
-  getEventParticipant(id){
-    this.authService.getParticipant(id).subscribe(res=>{
+  getEventParticipant(id) {
+    this.authService.getParticipant(id).subscribe(res => {
       this.getParticipantDetails = res.body;
       console.log("Participants Data", this.getParticipantDetails);
     })

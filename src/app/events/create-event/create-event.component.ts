@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { threadId } from 'worker_threads';
 // import * as $ from 'jquery'
 
 @Component({
@@ -16,17 +15,16 @@ export class CreateEventComponent implements OnInit {
   addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
 
-  categories = [
-    {value: '0', viewValue: 'Sports'},
-    {value: '1', viewValue: 'Cloud'},
-    {value: '2', viewValue: 'Movies'}
-  ];
   allData:any[]=[];
-  speaker = new FormControl();
-  speakerList: string[] = ['speaker 1', 'speaker 2', 'speaker 3', 'speaker 4', 'speaker 5', 'speaker 6'];
-
-  tag = new FormControl();
   tagsList: string[] = [];
+  allPolicy:any[]=[];
+  allspeakers:any[]=[];
+
+  speaker = new FormControl();
+  tag = new FormControl();
+  // speakerList: string[] = ['speaker 1', 'speaker 2', 'speaker 3', 'speaker 4', 'speaker 5', 'speaker 6'];
+
+
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService,) {
@@ -38,7 +36,7 @@ export class CreateEventComponent implements OnInit {
       address2: [''],
       city: [''],
       country: [''],
-      pincode: [''],
+      pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
@@ -48,8 +46,8 @@ export class CreateEventComponent implements OnInit {
       registrationEndDate: [''],
       policyTnc: [''],
       policyFAQ: [''],
-      thumbnailUrl: [''],
-      imageUrl: [''],
+      thumbnailImageUrl: [''],
+      detailImageUrl: [''],
       fullName: [''],
       name: [''],
       categoryTypeId: ['']
@@ -65,7 +63,9 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCategoryDetails()
+    this.getCategoryDetails();
+    this.getPolicyDetails();
+    this.getSpeakerDetails();
     this.getTagsDetails();
     this.generateEvent();
   }
@@ -113,8 +113,8 @@ export class CreateEventComponent implements OnInit {
       "registrationEndDate":this.createEventForm.controls['registrationEndDate'].value,
       "policyFAQ":this.createEventForm.controls['policyFAQ'].value,
       "policyTnc":this.createEventForm.controls['policyTnc'].value,
-      "thumbnailUrl":this.createEventForm.controls['thumbnailUrl'].value,
-      "imageUrl":this.createEventForm.controls['imageUrl'].value,
+      "thumbnailImageUrl":this.createEventForm.controls['thumbnailImageUrl'].value,
+      "detailImageUrl":this.createEventForm.controls['detailImageUrl'].value,
       "categoryTypeId":this.createEventForm.controls['categoryTypeId'].value,
       "speakerList":name,
       "tagList": tag,
@@ -136,18 +136,12 @@ export class CreateEventComponent implements OnInit {
       (response) => console.log("responsne", response),
       (error) => console.log(error)
     )
-    // if (createEventForm.valid) {
-    //   //this.router.navigate(['/home']);
-    //   alert("Successfully Generated");
-    // } else {
-    //   alert("Please Fill All field first");
-    // }
   }
-  createSpeaker(data: any){
+  createSpeaker(){
     alert("i Called");
     console.log(this.addSpeakerForm.value.fullName);
-    this.speakerList.push(this.addSpeakerForm.value.fullName);
-    console.log(this.speakerList);
+    this.allspeakers.push(this.addSpeakerForm.value.fullName);
+    console.log(this.allspeakers);
   }
   createTag(){
     alert("Tag Called");
@@ -170,6 +164,19 @@ export class CreateEventComponent implements OnInit {
       this.allData = res.body;
     })
   }
-
+  getPolicyDetails(){
+    this.authService.getAllPolicy().subscribe((res)=>{
+      console.log("Ploicies", res.body);
+      this.allPolicy = res.body;
+    })
+  }
+  getSpeakerDetails(){
+    this.authService.getAllSpeakers().subscribe((res)=>{
+      console.log("Speakers", res.body);
+      res.body.forEach(m=>{
+        this.allspeakers.push(m.fullName);
+      })
+    })
+  }
 
 }
