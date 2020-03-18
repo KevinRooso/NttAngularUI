@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServiceService } from 'src/app/auth-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-speaker-details',
@@ -6,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./speaker-details.component.css']
 })
 export class SpeakerDetailsComponent implements OnInit {
+  speakerData: any;
 
-  constructor() { }
+  constructor(private authService: AuthServiceService, private router1: ActivatedRoute, private router: Router,) { }
 
   ngOnInit(): void {
+    this.router1.queryParams.subscribe(params => {
+      this.getSpeakerData(params.page);
+    });
+  }
+
+  getSpeakerData(id){
+    this.authService.getSpeakerDetail(id).subscribe((res)=>{
+      this.speakerData = res.body;
+      console.log(this.speakerData);
+    })
+  }
+  editSpeaker(id){
+    alert(id);
+    this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
   }
 
 }

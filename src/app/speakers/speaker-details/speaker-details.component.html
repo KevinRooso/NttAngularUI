@@ -1,51 +1,53 @@
-<div class="row justify-content-end pr-4 pb-3 pt-1">
-  <a routerLink="/speaker-update"> <button type="button" class="btn button-1 action-good">Edit Speaker</button></a>
- </div>
-
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-sm-12 py-4">
-      <div class="text-center">
-        <p class="heading-secondary">Speaker DetailView</p>
+    <div class="col-md-9">
+      <div class="panel panel-info bg-white shadow">
+        <div class="panel-body p-3">
+          <div class="row">
+            <button class="btn"><span class="fa fa-pencil" aria-hidden="true" (click)="editSpeaker(speakerData.id)"></span></button>
+            <div class="col-md-3 col-lg-3">
+              <img alt="User Pic"
+                [src]="speakerData.profileImageUrl"
+                class="img-circle img-responsive" width="100%" alt="No Image preview">
+                </div>
+
+            <div class=" col-md-9 col-lg-9 ">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{speakerData.fullName}}</h3>
+                <p class="speaker-details">{{speakerData.email}}</p>
+                <p class="speaker-details">{{speakerData.phone}}</p>
+                <p class="speaker-details">{{speakerData.profile}}</p>
+              </div>
+            </div>
+            <div class=" col-md-12 col-lg-12 py-3">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Designation:</td>
+                    <td>{{speakerData.designation}}</td>
+                  </tr>
+                  <tr>
+                    <td>Personal Email</td>
+                    <td>{{speakerData.personalEmail}}</td>
+                  </tr>
+                  <tr>
+                    <td>Origanization Name</td>
+                    <td>{{speakerData.origanizationName}}</td>
+                  </tr>
+                  <tr>
+                    <td>keySkills</td>
+                    <td>{{speakerData.keySkills}}</td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td>{{speakerData.description}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-      <form>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Speaker Name</label>
-          <input type="text" class="form-control col-sm-9" placeholder="Enter FullName.." formControlName="name" readonly>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Speaker Description</label>
-          <textarea class="form-control col-sm-9" rows="4" placeholder="Enter Speaker Description..." formControlName="description" readonly></textarea>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Email</label>
-          <input type="text" class="form-control col-sm-9"  placeholder="Please Enter Email..." formControlName="email" readonly>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Personal Details</label>
-          <input type="text" class="form-control col-sm-9" placeholder="Speaker Profile..." formControlName="details" readonly>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label"></label>
-          <input type="text" class="form-control col-sm-3 mr-5 min-width" placeholder="Speaker Contact Number..." formControlName="contact" readonly>
-          <input type="text" class="form-control col-sm-5" placeholder="Speaker Designation..." formControlName="designation" readonly>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label"></label>
-          <input type="text" class="form-control col-sm-3 mr-5 min-width" placeholder="Speaker Company Name..." formControlName="company" readonly>
-          <textarea class="form-control col-sm-5" rows="5" placeholder="Speaker KeySkills.." formControlName="keyskills" readonly></textarea>
-        </div>
-        <!-- <div class="form-row">
-          <label class="col-sm-3 col-form-label">Choose Speaker Image</label>
-          <input #file type="file" accept='image/*' (change)="preview(file.files)" class="form-control-file col-sm-9"
-            formControlName="image" />
-          <img [src]="imgURL" height="200" *ngIf="imgURL">
-        </div> -->
-        <!-- <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" [disabled]="!editSpeakerForm.valid">Submit Details</button>
-        </div> -->
-      </form>
     </div>
   </div>
 </div>
-

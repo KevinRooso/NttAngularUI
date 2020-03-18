@@ -70,7 +70,6 @@ export class CreateEventComponent implements OnInit {
 
 
   generateEvent() {
-    // console.log("new Data", this.createEventForm.controls['fullName'].value);
 
     let name:any[]=[];
     this.createEventForm.controls['fullName'].value.forEach(sname=>{
@@ -131,26 +130,28 @@ export class CreateEventComponent implements OnInit {
     console.log("Post Data",obj);
 
     this.authService.updateEventDetails(obj).subscribe(
-      (response) => console.log("responsne", response),
+      (response) => {
+        alert("Successfully Created");
+        console.log("responsne", response)},
       (error) => console.log(error)
     )
   }
   createSpeaker(){
     alert("i Called");
-    console.log(this.addSpeakerForm.value.fullName);
+    // console.log(this.addSpeakerForm.value.fullName);
     this.allspeakers.push(this.addSpeakerForm.value.fullName);
-    console.log(this.allspeakers);
+    // console.log(this.allspeakers);
   }
   createTag(){
     alert("Tag Called");
-    console.log(this.addTagForm.value.name);
-    console.log(this.addTagForm.value.keywords);
+    // console.log(this.addTagForm.value.name);
+    // console.log(this.addTagForm.value.keywords);
     this.tagsList.push(this.addTagForm.value.name);
-    console.log(this.tagsList);
+    // console.log(this.tagsList);
   }
   getTagsDetails(){
     this.authService.getTagsList().subscribe((res)=>{
-      console.log("Tag", res.body);
+      // console.log("Tag", res.body);
       res.body.forEach(m=>{
         this.tagsList.push(m.name);
       })
@@ -158,25 +159,25 @@ export class CreateEventComponent implements OnInit {
   }
   getCategoryDetails(){
     this.authService.getCategoryList().subscribe((res)=>{
-      console.log("category", res.body);
+      // console.log("category", res.body);
       this.allData = res.body;
     })
   }
   getPolicyFaQDetails(){
     this.authService.getAllPolicyFaq().subscribe((res)=>{
-      console.log("Policies FAQ", res.body);
+      // console.log("Policies FAQ", res.body);
       this.allPolicyFAQ = res.body;
     })
   }
   getPolicyTnCDetails(){
     this.authService.getAllPolicyTnC().subscribe((res)=>{
-      console.log("Policies TNC", res.body);
+      // console.log("Policies TNC", res.body);
       this.allPolicyTNC = res.body;
     })
   }
   getSpeakerDetails(){
     this.authService.getAllSpeakers().subscribe((res)=>{
-      console.log("Speakers", res.body);
+      // console.log("Speakers", res.body);
       res.body.forEach(m=>{
         this.allspeakers.push(m.fullName);
       })

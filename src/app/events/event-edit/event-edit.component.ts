@@ -32,6 +32,8 @@ export class EventEditComponent implements OnInit {
   getEventDetails: any;
   evntID;
 
+  selected1:string ='Cloud Computing';
+
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
       title: [''],
@@ -141,6 +143,22 @@ export class EventEditComponent implements OnInit {
       "startTime": this.updateEventForm.controls['startTime'].value
     };
     schedule.push(scheduling);
+    let catId;
+    this.allData.forEach(m=>{
+      if(m.displayName==this.updateEventForm.controls['categoryTypeId'].value)
+        catId=m.id;
+    });
+    let tncId;
+    this.allPolicyTNC.forEach(m=>{
+      if(m.displayName==this.updateEventForm.controls['policyTnc'].value)
+      tncId=m.id;
+    });
+
+    let faqId;
+    this.allPolicyFAQ.forEach(m=>{
+      if(m.displayName==this.updateEventForm.controls['policyFAQ'].value)
+      faqId=m.id;
+    });
 
     let obj = {
       "title": this.updateEventForm.controls['title'].value,
@@ -156,11 +174,11 @@ export class EventEditComponent implements OnInit {
       "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
       "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
-      "policyFAQ": this.updateEventForm.controls['policyFAQ'].value,
-      "policyTnc": this.updateEventForm.controls['policyTnc'].value,
+      "policyFAQ": faqId,
+      "policyTnc": tncId,
       "thumbnailImageUrl": this.updateEventForm.controls['thumbnailImageUrl'].value,
       "detailImageUrl": this.updateEventForm.controls['detailImageUrl'].value,
-      "categoryTypeId": this.updateEventForm.controls['categoryTypeId'].value,
+      "categoryTypeId": catId,
       "speakerList": name,
       "tagList": tag,
       "eventSchedule": schedule,
@@ -178,7 +196,10 @@ export class EventEditComponent implements OnInit {
     console.log("Updated Data", obj);
 
     this.authService.saveEventDetails(obj).subscribe(
-      (response) => console.log("responsne", response),
+      (response) => {
+        console.log("responsne", response);
+        alert("Successfully Updated");
+      },
       (error) => console.log(error)
     )
 
@@ -234,6 +255,9 @@ export class EventEditComponent implements OnInit {
     })
     // console.log("Checking", this.allspeakers);
     // console.log("Checking cate", this.allData);
+  }
+  customCompare(o1, o2) {
+    return o1.id === o2.id;
   }
 
 }

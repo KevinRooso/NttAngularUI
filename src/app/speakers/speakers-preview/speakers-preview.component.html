@@ -3,15 +3,15 @@
 </div>
 <div class="row">
   <div class="col-md-4" *ngFor="let cd of cardData">
-    <a class="d-flex card-details" routerLink="/speaker-details">
+    <a class="d-flex card-details" (click)="getDetails(cd.id)">
       <div>
-        <img [src]="cd.img" class="photo">
+        <img [src]="cd.profileImageUrl" class="photo">
       </div>
       <div class="details">
-        <h2 class="name">{{cd.spName}}</h2>
-        <div class="origin">{{cd.spEmail}}</div>
+        <h2 class="name">{{cd.fullName}}</h2>
+        <div class="origin">{{cd.email}}</div>
         <div class="sessions">
-          <h6>{{cd.spProfile}}</h6>
+          <h6>{{cd.profile}}</h6>
         </div>
       </div>
     </a>
