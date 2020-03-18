@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $('#body-row .collapse').collapse('hide');
+   // $('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon
 $('#collapse-icon').addClass('fa-angle-double-left');

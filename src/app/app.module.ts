@@ -26,6 +26,7 @@ import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DataTablesModule } from 'angular-datatables';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
@@ -75,6 +76,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    DataTablesModule
 
   ],
   providers: [HttpClientModule],

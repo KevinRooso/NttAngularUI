@@ -62,5 +62,8 @@ export class AuthServiceService {
   uploadFile(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/uploadFile', obj, {headers:this.headers});
   }
+  getAllParticipants():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/participants', {headers:this.headers})
+  }
 
 }
