@@ -17,15 +17,12 @@ export class CreateEventComponent implements OnInit {
 
   allData:any[]=[];
   tagsList: string[] = [];
-  allPolicy:any[]=[];
+  allPolicyFAQ:any[]=[];
+  allPolicyTNC:any[]=[];
   allspeakers:any[]=[];
 
   speaker = new FormControl();
   tag = new FormControl();
-  // speakerList: string[] = ['speaker 1', 'speaker 2', 'speaker 3', 'speaker 4', 'speaker 5', 'speaker 6'];
-
-
-
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService,) {
     this.createEventForm = formBuilder.group({
@@ -64,7 +61,8 @@ export class CreateEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategoryDetails();
-    this.getPolicyDetails();
+    this.getPolicyFaQDetails();
+    this.getPolicyTnCDetails();
     this.getSpeakerDetails();
     this.getTagsDetails();
     this.generateEvent();
@@ -72,7 +70,7 @@ export class CreateEventComponent implements OnInit {
 
 
   generateEvent() {
-    console.log("new Data", this.createEventForm.controls['fullName'].value);
+    // console.log("new Data", this.createEventForm.controls['fullName'].value);
 
     let name:any[]=[];
     this.createEventForm.controls['fullName'].value.forEach(sname=>{
@@ -132,7 +130,7 @@ export class CreateEventComponent implements OnInit {
 
     console.log("Post Data",obj);
 
-    this.authService.saveEventDetails(obj).subscribe(
+    this.authService.updateEventDetails(obj).subscribe(
       (response) => console.log("responsne", response),
       (error) => console.log(error)
     )
@@ -164,10 +162,16 @@ export class CreateEventComponent implements OnInit {
       this.allData = res.body;
     })
   }
-  getPolicyDetails(){
-    this.authService.getAllPolicy().subscribe((res)=>{
-      console.log("Ploicies", res.body);
-      this.allPolicy = res.body;
+  getPolicyFaQDetails(){
+    this.authService.getAllPolicyFaq().subscribe((res)=>{
+      console.log("Policies FAQ", res.body);
+      this.allPolicyFAQ = res.body;
+    })
+  }
+  getPolicyTnCDetails(){
+    this.authService.getAllPolicyTnC().subscribe((res)=>{
+      console.log("Policies TNC", res.body);
+      this.allPolicyTNC = res.body;
     })
   }
   getSpeakerDetails(){

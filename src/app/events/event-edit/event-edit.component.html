@@ -5,227 +5,198 @@
         <p class="heading-secondary">Edit Event Details</p>
       </div>
       <form [formGroup]='updateEventForm' (ngSubmit)='updateEvent()'>
-        <!-- <form [formGroup]='createEventForm' (ngSubmit)='generateEvent()'> -->
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Title</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Title" formControlName="title" value="">
-            </mat-form-field>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Title</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="title" value="">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Description (Agenda)</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Short Description</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Category</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="categoryTypeId">
+              <mat-option *ngFor="let category of allData" [value]="category.displayName">
+                {{category.displayName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Tags</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Tags</mat-label>
+            <mat-select multiple formControlName="name" [(ngModel)]="valuesSelectedTag">
+              <mat-option *ngFor="let tag of tagsList" [value]="tag">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#tagModal">Add Tags</button>
           </div>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Description (Agenda)</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
-            </mat-form-field>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Address 1</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Street 1" value="" formControlName="address1">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Address 2</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Street 2" value="" formControlName="address2">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <mat-form-field class="example-full-width col-sm-3">
+            <input matInput placeholder="City" value="" formControlName="city">
+          </mat-form-field>
+          <mat-form-field class="example-full-width col-sm-4">
+            <input matInput placeholder="Country" value="" formControlName="country">
+          </mat-form-field>
+          <mat-form-field class="example-full-width col-sm-2">
+            <input matInput placeholder="Pincode" value="" formControlName="pincode">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Total No. of Seats</label>
+          <mat-form-field class="example-full-width col-sm-3">
+            <input matInput placeholder="Seats" value="" formControlName="totalSeat">
+          </mat-form-field>
+          <label class="col-sm-3 col-form-label text-right">Registration Close Before Seats</label>
+          <mat-form-field class="example-full-width col-sm-3">
+            <input matInput placeholder="Seats" value="" formControlName="registrationCloseBeforeSeat">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Total No. of Subusers Allow</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Subusers Allow" value="" formControlName="noOfSubUsersAllow">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Speakers</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Speakers</mat-label>
+            <mat-select multiple formControlName="fullName" [(ngModel)]="valuesSpeakertags">
+              <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#speakerModal">Add Speakers</button>
           </div>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Short Description</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Starting Date & Time</label>
+          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" class="form-control col-sm-9"
+            formControlName="startTime">
+          <owl-date-time #startdt></owl-date-time>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Category</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <mat-label>Select Category</mat-label>
-              <mat-select formControlName="categoryTypeId" [(ngModel)]="categoryName">
-                <mat-option *ngFor="let category of allData" [value]="category.id">
-                  {{category.name}}
-                </mat-option>
-                <!-- <mat-option *ngFor="let category of categories" [value]="category.value">
-                  {{category.viewValue}}
-                </mat-option> -->
-              </mat-select>
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Closing Date & Time</label>
+          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control col-sm-9"
+            formControlName="endTime">
+          <owl-date-time #enddt></owl-date-time>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Tags</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <mat-label>Select Tags</mat-label>
-              <mat-select multiple formControlName="name" [(ngModel)]="valuesSelectedTag">
-                <mat-option *ngFor="let tag of tagsList" [value]="tag">{{tag}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Registration Start Date</label>
+          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
+            placeholder="Start Date" formControlName="registrationStartDate">
+          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 text-right">
-              <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
-                data-target="#tagModal">Add Tags</button>
-            </div>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Registration Closing Date</label>
+          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" class="form-control col-sm-9"
+            placeholder="Closing Date" formControlName="registrationEndDate">
+          <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Address 1</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Street 1" value="" formControlName="address1">
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Policies</mat-label>
+            <mat-select formControlName="policyTnc">
+              <mat-option *ngFor="let policy of allPolicyTNC" [value]="policy.displayName">
+                {{policy.displayName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Address 2</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Street 2" value="" formControlName="address2">
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy FAQs</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Policies</mat-label>
+            <mat-select formControlName="policyFAQ">
+              <mat-option *ngFor="let policy of allPolicyFAQ" [value]="policy.displayName">
+                {{policy.displayName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label"></label>
-            <mat-form-field class="example-full-width col-sm-3">
-              <input matInput placeholder="City" value="" formControlName="city">
-            </mat-form-field>
-            <mat-form-field class="example-full-width col-sm-4">
-              <input matInput placeholder="Country" value="" formControlName="country">
-            </mat-form-field>
-            <mat-form-field class="example-full-width col-sm-2">
-              <input matInput placeholder="Pincode" value="" formControlName="pincode">
-            </mat-form-field>
-          </div>
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Thumbnail Card Image</label>
+          <div class="col-sm-9"><img [src]="getEventDetails.thumbnailImageUrl" alt="" width="30%" height="150px"></div>
+        </div> -->
 
-          <!-- <div class="form-row">
-            <label class="col-sm-3 col-form-label"></label>
-            <input type="text" class="form-control col-sm-3 mr-5 min-width" formControlName="pincode" placeholder="Enter pincode...">
-          <input type="text" class="form-control col-sm-5" formControlName="landmark" placeholder="Near by landmark...">
-          </div> -->
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
+          <input type="file" class="form-control-file col-sm-9" formControlName="thumbnailImageUrl" />
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Total No. of Seats</label>
-            <mat-form-field class="example-full-width col-sm-3">
-              <input matInput placeholder="Seats" value="" formControlName="totalSeat">
-            </mat-form-field>
-            <label class="col-sm-3 col-form-label text-right">Registration Close Before Seats</label>
-            <mat-form-field class="example-full-width col-sm-3">
-              <input matInput placeholder="Seats" value="" formControlName="registrationCloseBeforeSeat">
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Choose Banner Image</label>
+          <input type="file" class="form-control-file col-sm-9" formControlName="detailImageUrl" />
+        </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Total No. of Subusers Allow</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Subusers Allow" value="" formControlName="noOfSubUsersAllow">
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Select Speakers *</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <mat-label>Select Speakers</mat-label>
-              <mat-select multiple formControlName="fullName" [(ngModel)]="valuesSpeakertags">
-                <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-
-          <!-- <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Tags</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <mat-label>Select Tags</mat-label>
-              <mat-select multiple formControlName="name" [(ngModel)]="valuesSelectedTag">
-                <mat-option *ngFor="let tag of tagsList" [value]="tag">{{tag}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9 text-right">
-              <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
-                data-target="#speakerModal">Add Speakers</button>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Starting Date & Time</label>
-            <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" class="form-control col-sm-9"
-              placeholder="Starting Date & Time" formControlName="startTime" value="3/17/2020, 6:00 PM">
-            <owl-date-time #startdt></owl-date-time>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Closing Date & Time</label>
-            <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control col-sm-9"
-              placeholder="Closing Date & Time" formControlName="endTime">
-            <owl-date-time #enddt></owl-date-time>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Registration Start Date</label>
-            <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
-              placeholder="Start Date" formControlName="registrationStartDate">
-            <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Registration Closing Date</label>
-            <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" class="form-control col-sm-9"
-              placeholder="Closing Date" formControlName="registrationEndDate">
-            <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy Terms & Conditions</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Terms & Conditions" formControlName="policyTnc">
-            </mat-form-field>
-          </div>
-
-          <!-- <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy FAQs</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Faq" formControlName="policyFAQ">
-            </mat-form-field>
-          </div> -->
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy FAQs</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <mat-label>Select Policies</mat-label>
-              <mat-select formControlName="policyFAQ">
-                <mat-option *ngFor="let policy of allPolicy" [value]="policy.id">
-                  {{policy.description}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Banner Image</label>
-            <div class="col-sm-9"><img [src]="getEventDetails.detailImageUrl" alt="" width="100%" height="300px"></div>
-            <!-- <input type="file" class="form-control-file col-sm-9" formControlName="detailImageUrl" /> -->
-          </div>
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Thumbnail Card Image</label>
-            <div class="col-sm-9"><img [src]="getEventDetails.thumbnailImageUrl" alt="" width="30%" height="150px"></div>
-            <!-- <input type="file" class="form-control-file col-sm-9" formControlName="thumbnailImageUrl" /> -->
-          </div>
-<!--
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
-            <input type="file" class="form-control-file col-sm-9" formControlName="thumbnailImageUrl" />
-          </div>
-
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Choose Banner Image</label>
-            <input type="file" class="form-control-file col-sm-9" formControlName="detailImageUrl" />
-          </div> -->
-
-          <div class="text-right">
-            <button type="submit" class="btn button-1 action-good">Submit
-              Details</button>
-          </div>
-        </form>
-      </div>
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+</div>
+<div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -240,18 +211,6 @@
             <label>Name</label>
             <input type="text" class="form-control" placeholder="Full Name" formControlName="fullName">
           </div>
-          <!-- <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" placeholder="abc@gmail.com">
-          </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="text" class="form-control" placeholder="Contact Number">
-          </div>
-          <div class="form-group">
-            <label>Designation</label>
-            <input type="text" class="form-control" placeholder="Speaker Profile">
-          </div>-->
           <div class="text-center">
             <button type="submit" class="btn btn-primary mb-2 mt-3" data-dismiss="modal"
               (click)="createSpeaker()">Submit</button>
@@ -261,29 +220,7 @@
     </div>
   </div>
 </div>
-<!-- <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]='addSpeakerForm'>
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" placeholder="Full Name" formControlName="sname">
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary mb-2 mt-3" data-dismiss="modal" (click)="createSpeaker()">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
+
 <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

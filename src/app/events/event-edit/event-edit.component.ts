@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NgForm, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 
@@ -11,20 +11,26 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 export class EventEditComponent implements OnInit {
 
   updateEventForm: FormGroup;
-  valuesSelectedTag:string[]=[];
   addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
-  allData:any[]=[];
+
+  allData: any[] = [];
+  valuesSelectedTag: string[] = [];
   tagsList: string[] = [];
-  allPolicy:any[]=[];
-  allspeakers:any[]=[];
+  allPolicy: any[] = [];
+  allspeakers: any[] = [];
+  valuesSpeakertags: string[] = [];
+  categoryName: string[] = [];
+  policyFaqs:string[] = [];
+  allPolicyFAQ: any[] = [];
+  allPolicyTNC: any[] = [];
+
   speaker = new FormControl();
   tag = new FormControl();
-  getEventDetails: any;
-  valuesSpeakertags:string[]=[];
-  categoryName:string[]=[];
 
-  evntID ;
+  selected:string;
+  getEventDetails: any;
+  evntID;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
@@ -66,18 +72,18 @@ export class EventEditComponent implements OnInit {
       this.evntID = params.page;
       this.getEventData(params.page);
     });
-
+    this.getPolicyFaQDetails();
+    this.getPolicyTnCDetails();
     this.getCategoryDetails();
     this.getSpeakerDetails()
     this.getTagsDetails();
-    //this.updateEvent();
+    this.updateEvent();
   }
 
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body;
       console.log("Get Event data", this.getEventDetails);
-     // console.log("Stsrsttime", this.getEventDetails.eventSchedule[0].startTime);
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
       this.updateEventForm.controls['detail'].setValue(this.getEventDetails.detail);
       this.updateEventForm.controls['shortDescription'].setValue(this.getEventDetails.shortDescription);
@@ -93,74 +99,69 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
       this.updateEventForm.controls['detailImageUrl'].setValue(this.getEventDetails.detailImageUrl);
       this.updateEventForm.controls['thumbnailImageUrl'].setValue(this.getEventDetails.thumbnailImageUrl);
-      //this.updateEventForm.controls['startTime'].setValue(this.getEventDetails.eventSchedule[0].startTime);
-      //this.updateEventForm.controls['startTime'].setValue('10');
+      this.updateEventForm.controls['startTime'].setValue(this.getEventDetails.eventSchedule[0].startTime);
+      this.updateEventForm.controls['endTime'].setValue(this.getEventDetails.eventSchedule[0].endTime);
+      this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ.displayName);
+      this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc.displayName);
+      this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
 
-      res.body.tags.forEach(m=>{
+      res.body.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
       })
       console.log("Hemant", this.valuesSelectedTag);
 
-      res.body.speakers.forEach(m=>{
+      res.body.speakers.forEach(m => {
         this.valuesSpeakertags.push(m.fullName);
       })
       console.log("Hemant Speaker", this.valuesSpeakertags);
 
-
-        this.categoryName.push(res.body.categoryTypeId.name);
-
-      console.log("Hemant Category", this.categoryName);
-
     })
-    // console.log("Title Data",this.getEventDetails['title']);
 
   }
   updateEvent() {
-    console.log("new Data", this.updateEventForm.controls['fullName'].value);
-
-    let name:any[]=[];
-    this.updateEventForm.controls['fullName'].value.forEach(sname=>{
-      let speakers={
-        "fullName":sname
+    let name: any[] = [];
+    this.updateEventForm.controls['fullName'].value.forEach(sname => {
+      let speakers = {
+        "fullName": sname
       };
       name.push(speakers);
     });
 
-    let tag:any[]=[];
-      this.updateEventForm.controls['name'].value.forEach(tname=>{
-      let tags={
-        "name":tname
+    let tag: any[] = [];
+    this.updateEventForm.controls['name'].value.forEach(tname => {
+      let tags = {
+        "name": tname
       };
       tag.push(tags);
     });
 
-    let schedule:any[]=[];
-      let scheduling={
-        "endTime":this.updateEventForm.controls['endTime'].value,
-        "startTime":this.updateEventForm.controls['startTime'].value
-      };
-      schedule.push(scheduling);
+    let schedule: any[] = [];
+    let scheduling = {
+      "endTime": this.updateEventForm.controls['endTime'].value,
+      "startTime": this.updateEventForm.controls['startTime'].value
+    };
+    schedule.push(scheduling);
 
-    let obj={
-      "title":this.updateEventForm.controls['title'].value,
-      "detail":this.updateEventForm.controls['detail'].value,
-      "shortDescription":this.updateEventForm.controls['shortDescription'].value,
-      "address1":this.updateEventForm.controls['address1'].value,
-      "address2":this.updateEventForm.controls['address2'].value,
-      "city":this.updateEventForm.controls['city'].value,
-      "country":this.updateEventForm.controls['country'].value,
-      "pincode":this.updateEventForm.controls['pincode'].value,
-      "totalSeat":this.updateEventForm.controls['totalSeat'].value,
-      "registrationCloseBeforeSeat":this.updateEventForm.controls['registrationCloseBeforeSeat'].value,
-      "noOfSubUsersAllow":this.updateEventForm.controls['noOfSubUsersAllow'].value,
-      "registrationStartDate":this.updateEventForm.controls['registrationStartDate'].value,
-      "registrationEndDate":this.updateEventForm.controls['registrationEndDate'].value,
-      "policyFAQ":this.updateEventForm.controls['policyFAQ'].value,
-      "policyTnc":this.updateEventForm.controls['policyTnc'].value,
-      "thumbnailUrl":this.updateEventForm.controls['thumbnailUrl'].value,
-      "imageUrl":this.updateEventForm.controls['imageUrl'].value,
-      "categoryTypeId":this.updateEventForm.controls['categoryTypeId'].value,
-      "speakerList":name,
+    let obj = {
+      "title": this.updateEventForm.controls['title'].value,
+      "detail": this.updateEventForm.controls['detail'].value,
+      "shortDescription": this.updateEventForm.controls['shortDescription'].value,
+      "address1": this.updateEventForm.controls['address1'].value,
+      "address2": this.updateEventForm.controls['address2'].value,
+      "city": this.updateEventForm.controls['city'].value,
+      "country": this.updateEventForm.controls['country'].value,
+      "pincode": this.updateEventForm.controls['pincode'].value,
+      "totalSeat": this.updateEventForm.controls['totalSeat'].value,
+      "registrationCloseBeforeSeat": this.updateEventForm.controls['registrationCloseBeforeSeat'].value,
+      "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
+      "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
+      "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
+      "policyFAQ": this.updateEventForm.controls['policyFAQ'].value,
+      "policyTnc": this.updateEventForm.controls['policyTnc'].value,
+      "thumbnailImageUrl": this.updateEventForm.controls['thumbnailImageUrl'].value,
+      "detailImageUrl": this.updateEventForm.controls['detailImageUrl'].value,
+      "categoryTypeId": this.updateEventForm.controls['categoryTypeId'].value,
+      "speakerList": name,
       "tagList": tag,
       "eventSchedule": schedule,
       "autoApproveParticipant": false,
@@ -174,7 +175,7 @@ export class EventEditComponent implements OnInit {
       "id": this.evntID
     }
 
-    console.log("Post Data",obj);
+    console.log("Updated Data", obj);
 
     this.authService.saveEventDetails(obj).subscribe(
       (response) => console.log("responsne", response),
@@ -182,49 +183,57 @@ export class EventEditComponent implements OnInit {
     )
 
   }
-  createSpeaker(){
+  createSpeaker() {
     alert("i Called");
-    console.log(this.addSpeakerForm.value.fullName);
+    // console.log(this.addSpeakerForm.value.fullName);
     this.allspeakers.push(this.addSpeakerForm.value.fullName);
-    console.log(this.allspeakers);
+    // console.log(this.allspeakers);
   }
-  createTag(){
+  createTag() {
     alert("Tag Called");
-    console.log(this.addTagForm.value.name);
-    console.log(this.addTagForm.value.keywords);
+    // console.log(this.addTagForm.value.name);
+    // console.log(this.addTagForm.value.keywords);
     this.tagsList.push(this.addTagForm.value.name);
-    console.log(this.tagsList);
+    // console.log(this.tagsList);
   }
-  getTagsDetails(){
-    this.authService.getTagsList().subscribe((res)=>{
-      console.log("Tag", res.body);
-      res.body.forEach(m=>{
+  getTagsDetails() {
+    this.authService.getTagsList().subscribe((res) => {
+      // console.log("Tag", res.body);
+      res.body.forEach(m => {
         this.tagsList.push(m.name);
       })
     })
   }
-  getCategoryDetails(){
-    this.authService.getCategoryList().subscribe((res)=>{
-      console.log("category", res.body);
+  getCategoryDetails() {
+    this.authService.getCategoryList().subscribe((res) => {
+      // console.log("category", res.body);
       this.allData = res.body;
     })
   }
-  getPolicyDetails(){
-    this.authService.getAllPolicy().subscribe((res)=>{
-      console.log("Ploicies", res.body);
-      this.allPolicy = res.body;
+  getPolicyFaQDetails() {
+    this.authService.getAllPolicyFaq().subscribe((res) => {
+      // console.log("Policies FAQ", res.body);
+      this.allPolicyFAQ = res.body;
+      // console.log("faqssss===",this.allPolicyFAQ);
+      // console.log(this.allPolicyFAQ[0].description==this.selected);
     })
   }
-  getSpeakerDetails(){
-    this.authService.getAllSpeakers().subscribe((res)=>{
-      console.log("Speakers", res.body);
-      res.body.forEach(m=>{
+  getPolicyTnCDetails() {
+    this.authService.getAllPolicyTnC().subscribe((res) => {
+      // console.log("Policies TNC", res.body);
+      this.allPolicyTNC = res.body;
+    })
+  }
+  getSpeakerDetails() {
+    this.authService.getAllSpeakers().subscribe((res) => {
+      // console.log("Speakers", res.body);
+      res.body.forEach(m => {
         this.allspeakers.push(m.fullName);
 
       })
     })
-    console.log("Checking", this.allspeakers);
-    console.log("Checking cate", this.allData);
+    // console.log("Checking", this.allspeakers);
+    // console.log("Checking cate", this.allData);
   }
 
 }

@@ -48,12 +48,19 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/tags', {headers:this.headers})
   }
   getCategoryList():Observable<any>{
-    return this.http.get<any>(this.url+'api/public/categories', {headers:this.headers})
+    return this.http.get<any>(this.url+'api/public/categories/generalType', {headers:this.headers})
   }
-  getAllPolicy():Observable<any>{
-    return this.http.get<any>(this.url+'api/public/policies', {headers:this.headers})
+  getAllPolicyFaq():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/policy/faq', {headers:this.headers})
+  }
+  getAllPolicyTnC():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/policy/tnc', {headers:this.headers})
   }
   getAllSpeakers():Observable<any>{
     return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers})
   }
+  uploadFile(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/uploadFile', obj, {headers:this.headers});
+  }
+
 }
