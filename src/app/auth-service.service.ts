@@ -6,9 +6,9 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthServiceService {
-
- //private url = "http://192.168.1.155:8080/";
- private url = "https://ntt-backend-app.herokuapp.com/";
+  //http://192.168.1.155:8080/
+ private url = "http://192.168.1.155:8080/";
+ //private url = "https://ntt-backend-app.herokuapp.com/";
  private headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
 });
@@ -79,5 +79,8 @@ export class AuthServiceService {
   }
   getSpeakerDetail(id):Observable<any>{
     return this.http.get<any>(this.url+'api/public/person/'+id, {headers:this.headers})
+  }
+  saveSpeaker(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
   }
 }
