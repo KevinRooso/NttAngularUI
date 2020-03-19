@@ -36,6 +36,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 
 
 @NgModule({
@@ -60,7 +63,8 @@ import { CreateParticipantsComponent } from './participants/create-participants/
     SpeakerEditComponent,
     SpeakerDetailsComponent,
     ViewParticipantsComponent,
-    CreateParticipantsComponent
+    CreateParticipantsComponent,
+    ArticlesDetailComponent
     ],
   imports: [
     BrowserModule,
@@ -80,6 +84,8 @@ import { CreateParticipantsComponent } from './participants/create-participants/
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
     DataTablesModule
 
   ],

@@ -19,6 +19,7 @@ import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-deta
   import { AuthguardServiceService } from './authguard-service.service';
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
+import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'speaker-update', component: SpeakerEditComponent, canActivate: [AuthguardServiceService]},
   { path: 'speaker-details', component: SpeakerDetailsComponent, canActivate: [AuthguardServiceService]},
   { path: 'participant-details', component: ViewParticipantsComponent, canActivate: [AuthguardServiceService]},
-  { path: 'participant-add', component: CreateParticipantsComponent, canActivate: [AuthguardServiceService]}
+  { path: 'participant-add', component: CreateParticipantsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'article-details', component: ArticlesDetailComponent, canActivate: [AuthguardServiceService]}
 
 
 ];

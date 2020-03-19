@@ -1,139 +1,176 @@
+.row [class^="col-"]:not(:last-child) {
+  margin-right: 3rem;
+}
 
-    .row [class^="col-"]:not(:last-child) {
-      margin-right: 3rem; }
-
-  .row .card-width {
-    min-width: 280px;}
-
-
-
+.row .card-width {
+  min-width: 280px;
+}
 
 .card {
   perspective: 150rem;
   -moz-perspective: 150rem;
   position: relative;
-  height: 22rem; }
-  .card__side {
-    height: 22rem;
-    transition: all .8s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    backface-visibility: hidden;
-    border-radius: 3px;
-    overflow: hidden;
-    /* box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); */
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-   }
-    .card__side--front {
-      background-color: #fff; }
-    .card__side--back {
-      transform: rotateY(180deg); }
-      .card__side--back-1 {
-        background-image: linear-gradient(to right bottom, #ffb900, #ff7730); }
-      .card__side--back-2 {
-        background-image: linear-gradient(to right bottom, #475098, #418fd2); }
-        /* background-color: rgba(1,60,136,.7); */
-      .card__side--back-3 {
-        background-image: linear-gradient(to right bottom, #2998ff, #5643fa); }
-  .card:hover .card__side--front {
-    transform: rotateY(-180deg); }
-  .card:hover .card__side--back {
-    transform: rotateY(0); }
-  .card__picture {
-    background-size: cover;
-    height: 18rem;
-    background-blend-mode: screen;}
-    /* clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); } */
-    .card__picture--1 {
-      background-image: url(https://www.netmagicsolutions.com/data/article/securing-digital-transformation19-11-041572834337.jpg); }
-    .card__picture--2 {
-      background-image:url(https://www.netmagicsolutions.com/data/article/SD-WAN-Requirements-for-Multi-Cloud-Management19-08-121565603355.jpg); }
-    .card__picture--3 {
-      background-image:url(https://www.netmagicsolutions.com/data/article/Why%20Managed%20Securityas-a-Service%20is%20the%20Next%20Big%20Thing19-08-041564942288.jpg); }
-  .card__heading {
-    font-size: 2.8rem;
-    text-transform: uppercase;
-    color: #fff;
-    font-weight: 300;
-    position: absolute;
-    top: 12rem;
-    right: 2rem;
-    text-align: right;
-    width: 74%; }
-  .card__heading-span {
-    padding: .5rem 1.5rem;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone; }
-    .card__heading-span--1 {
-      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85)); }
-    .card__heading-span--2 {
-      background-image: linear-gradient(to right bottom, rgba(0, 4, 40, 0.85), rgba(0, 78, 146, 0.85)); }
-    .card__heading-span--3 {
-      background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85)); }
-  .card__details {
-    padding: 0.1rem; }
-    .card__details ul {
-      list-style: none;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0; }
-      .card__details ul li {
-        text-align: center;
-        font-size: 1rem;
-        padding: .5rem;
- }
-        .card__details ul li:not(:last-child) {
-          border-bottom: 1px solid #eee; }
-  .card__cta {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); }
-  .card__price-box {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 8rem; }
-  .card__price-only {
-    font-size: 1.4rem;
-    text-transform: uppercase; }
-  .card__price-value {
-    font-size: 6rem;
-    font-weight: 100; }
-
+  height: 22rem;
+}
+.card__side {
+  height: 22rem;
+  transition: all 0.8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 3px;
+  overflow: hidden;
+  /* box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.card__side--front {
+  background-color: #fff;
+}
+.card__side--back {
+  transform: rotateY(180deg);
+}
+.card__side--back-1 {
+  background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+}
+.card__side--back-2 {
+  background-image: linear-gradient(to right bottom, #475098, #418fd2);
+}
+/* background-color: rgba(1,60,136,.7); */
+.card__side--back-3 {
+  background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+}
+.card:hover .card__side--front {
+  transform: rotateY(-180deg);
+}
+.card:hover .card__side--back {
+  transform: rotateY(0);
+}
+.card__picture {
+  background-size: cover;
+  height: 18rem;
+  background-blend-mode: screen;
+}
+/* clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); } */
+.card__picture--1 {
+  background-image: url(https://www.netmagicsolutions.com/data/article/securing-digital-transformation19-11-041572834337.jpg);
+}
+.card__picture--2 {
+  background-image: url(https://www.netmagicsolutions.com/data/article/SD-WAN-Requirements-for-Multi-Cloud-Management19-08-121565603355.jpg);
+}
+.card__picture--3 {
+  background-image: url(https://www.netmagicsolutions.com/data/article/Why%20Managed%20Securityas-a-Service%20is%20the%20Next%20Big%20Thing19-08-041564942288.jpg);
+}
+.card__heading {
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 300;
+  position: absolute;
+  top: 12rem;
+  right: 2rem;
+  text-align: right;
+  width: 74%;
+}
+.card__heading-span {
+  padding: 0.5rem 1.5rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.card__heading-span--1 {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(255, 185, 0, 0.85),
+    rgba(255, 119, 48, 0.85)
+  );
+}
+.card__heading-span--2 {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(0, 4, 40, 0.85),
+    rgba(0, 78, 146, 0.85)
+  );
+}
+.card__heading-span--3 {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(41, 152, 255, 0.85),
+    rgba(86, 67, 250, 0.85)
+  );
+}
+.card__details {
+  padding: 0.1rem;
+}
+.card__details ul {
+  list-style: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+.card__details ul li {
+  text-align: center;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+.card__details ul li:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+.card__cta {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.card__price-box {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 8rem;
+}
+.card__price-only {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+.card__price-value {
+  font-size: 6rem;
+  font-weight: 100;
+}
 
 .btn--animated {
-  animation: fadeInUp .5s ease-out;
-  animation-fill-mode: backwards; }
+  animation: fadeInUp 0.5s ease-out;
+  animation-fill-mode: backwards;
+}
 
-.btn:link, .btn:visited {
+.btn:link,
+.btn:visited {
   text-transform: uppercase;
-  padding: .4rem 1rem;
+  padding: 0.4rem 1rem;
   display: inline-block;
-  -webkit-transition: all .2s;
-  transition: all .2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   color: initial;
   position: relative;
-  font-size: 1rem;}
-
+  font-size: 1rem;
+}
 
 .btn--white {
   background-color: #fff;
-  border-radius: 10rem; }
+  border-radius: 10rem;
+}
 
 .btn--blue {
   background-color: #004e92;
   border-radius: 10rem;
-  color: #fff !important; }
+  color: #fff !important;
+}
 
 .text-center {
-  text-align: center; }
+  text-align: center;
+}
 
-
-  .heading-secondary{
-    margin: 0 0 10px !important;
-    color: #0B428A;
-    font-size: 30px;
-    line-height: 30px;
-  }
+.heading-secondary {
+  margin: 0 0 10px !important;
+  color: #0b428a;
+  font-size: 30px;
+  line-height: 30px;
+}

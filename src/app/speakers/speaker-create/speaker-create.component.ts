@@ -1,6 +1,9 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NgForm, Validators, FormControlName} from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
   selector: 'app-speaker-create',
@@ -10,59 +13,119 @@ import { Router } from '@angular/router';
 export class SpeakerCreateComponent implements OnInit {
 
   createSpeakerForm: FormGroup;
-  name: string = '';
-  description: string= '';
-  email: string = '';
-  details: string = '';
-  contact: number = null;
-  company: string = '';
-  designation: string= '';
-  keyskills: string = '';
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruits: any[] = [];
 
-  // public imagePath;
-  // imgURL: any;
-  // public message: string;
-  // preview(files) {
-  //   if (files.length === 0)
-  //     return;
-  //   var mimeType = files[0].type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     this.message = "Only images are supported.";
-  //     return;
-  //   }
-  //   var reader = new FileReader();
-  //   this.imagePath = files;
-  //   reader.readAsDataURL(files[0]);
-  //   reader.onload = (_event) => {
-  //     this.imgURL = reader.result;
-  //   }
-  // }
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+  speakerImage: any;
 
-  constructor(private formbuilder: FormBuilder) {
-    this.createSpeakerForm=formbuilder.group({
-      name: ['', Validators.required],
+  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
+    this.createSpeakerForm = frmbuilder.group({
+      fullName: ['', Validators.required],
       description: ['', Validators.required],
-      email: ['', Validators.required],
-      details: ['', Validators.required],
-      contact: ['', Validators.required],
-      company: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      personalEmail: ['', [Validators.required, Validators.email]],
       designation: ['', Validators.required],
-      keyskills: ['', Validators.required],
+      profile: ['', Validators.required],
+      origanizationName: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
+      keySkills: ['', Validators.required],
+      profileImageUrl: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void { }
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
 
-  createSpeaker(createSpeakerForm:any){
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({ name: value.trim() });
+    }
 
-    console.log(this.createSpeakerForm.value);
-    if (createSpeakerForm.valid){
-      alert("Successfully Generated");
-    }else{
-      alert("Please Fill All field first");
+    // Reset the input value
+    if (input) {
+      input.value = '';
     }
   }
 
+  remove(fruit: any): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+
+
+  ngOnInit(): void { }
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+  preview() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+  uploadImage() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.authService.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.speakerImage = res.fileDownloadUri;
+        console.log(this.speakerImage);
+        alert('SUCCESS !!');
+      })
+  }
+
+  createSpeaker() {
+    let fruit1 = '';
+    console.log(this.fruits);
+    this.fruits.forEach(m => {
+      fruit1 = fruit1 + ',' + m.name;
+    })
+
+    let obj = {
+      "fullName": this.createSpeakerForm.controls['fullName'].value,
+      "description": this.createSpeakerForm.controls['description'].value,
+      "email": this.createSpeakerForm.controls['email'].value,
+      "personalEmail": this.createSpeakerForm.controls['personalEmail'].value,
+      "designation": this.createSpeakerForm.controls['designation'].value,
+      "profile": this.createSpeakerForm.controls['profile'].value,
+      "origanizationName": this.createSpeakerForm.controls['origanizationName'].value,
+      "phone": this.createSpeakerForm.controls['phone'].value,
+      "keySkills": fruit1.substring(1, fruit1.length - 0),
+      "profileImageUrl": this.speakerImage,
+      "id": 0
+    }
+    console.log("post", obj);
+    this.authService.saveSpeaker(obj).subscribe(
+      (response) => {
+        alert("Successfully Created");
+        console.log("response", response);
+      },
+      (error) => console.log(error)
+    )
+  }
 
 }
