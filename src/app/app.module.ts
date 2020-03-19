@@ -34,6 +34,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
+import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import {MatSelectModule} from '@angular/material/select';
     ParticipantPreviewComponent,
     SpeakerCreateComponent,
     SpeakerEditComponent,
-    SpeakerDetailsComponent
+    SpeakerDetailsComponent,
+    ViewParticipantsComponent,
+    CreateParticipantsComponent
     ],
   imports: [
     BrowserModule,

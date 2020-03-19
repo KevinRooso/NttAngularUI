@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Add Participants</p>
+      </div>
+
+      <form [formGroup]='addParForm' >
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Name</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Name"  value="">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Email</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Email" value="">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Phone No.</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Phone No."  value="">
+          </mat-form-field>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Address</label>
+          <mat-form-field class="example-full-width col-sm-3">
+            <input matInput placeholder="City" value="" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width col-sm-4">
+            <input matInput placeholder="Country" value="" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width col-sm-2">
+            <input matInput placeholder="Pincode" value="" >
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Events</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event</mat-label>
+            <mat-select >
+              <mat-option *ngFor="let event of events" value="event.title">{{event.title}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- [disabled]='!createEventForm.valid' -->
+

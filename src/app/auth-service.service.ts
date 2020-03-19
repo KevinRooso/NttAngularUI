@@ -9,7 +9,7 @@ export class AuthServiceService {
 
  //private url = "http://192.168.1.155:8080/";
  private url = "https://ntt-backend-app.herokuapp.com/";
- private headers = new HttpHeaders({
+ public headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
 });
 
@@ -59,10 +59,6 @@ export class AuthServiceService {
   getAllSpeakers():Observable<any>{
     return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers})
   }
-
-
-
-
   //File Controller APis
   uploadFile(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/uploadFile', obj, {headers:this.headers});
@@ -71,13 +67,18 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/participants', {headers:this.headers})
   }
 
-
+  getParticipantById(id):Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/participant/'+id, {headers:this.headers})
+  }
 
   //Speaker Apis
   getAllSpeakersList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers});
   }
   getSpeakerDetail(id):Observable<any>{
-    return this.http.get<any>(this.url+'api/public/person/'+id, {headers:this.headers})
+    return this.http.get<any>(this.url+'api/public/person/'+id, {headers:this.headers});
+  }
+  updateParticipantStatus(id):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/participants/approve/'+id,{headers:this.headers});
   }
 }
