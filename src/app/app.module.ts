@@ -39,6 +39,8 @@ import { CreateParticipantsComponent } from './participants/create-participants/
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
+import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
+import { ArticleCreateComponent } from './articles/article-create/article-create.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { ArticlesDetailComponent } from './articles/articles-detail/articles-det
     SpeakerDetailsComponent,
     ViewParticipantsComponent,
     CreateParticipantsComponent,
-    ArticlesDetailComponent
+    ArticlesDetailComponent,
+    ArticleEditComponent,
+    ArticleCreateComponent
     ],
   imports: [
     BrowserModule,

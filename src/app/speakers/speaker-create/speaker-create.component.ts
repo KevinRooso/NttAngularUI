@@ -67,7 +67,9 @@ export class SpeakerCreateComponent implements OnInit {
 
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.createSpeaker();
+  }
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];

@@ -84,4 +84,15 @@ export class AuthServiceService {
   saveSpeaker(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
   }
+
+  //Articles Apis
+  getAllArticle():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/resources/articles', {headers:this.headers})
+  }
+  getResourceById(id):Observable<any>{
+    return this.http.get<any>(this.url+'api/public/resource/'+id, {headers:this.headers});
+  }
+  saveResource(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/resource', obj, {headers:this.headers});
+  }
 }
