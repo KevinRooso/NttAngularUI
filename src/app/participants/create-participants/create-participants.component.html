@@ -10,54 +10,30 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Name</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Name"  value="">
+            <input matInput placeholder="Name" formControlName="name" value="">
           </mat-form-field>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Email</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Email" value="">
+            <input matInput placeholder="Email" formControlName="email" value="">
           </mat-form-field>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Phone No.</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Phone No."  value="">
+            <input matInput placeholder="Phone No."  formControlName="phoneNo" value="">
           </mat-form-field>
         </div>
 
-
-
-
-
-
-
-
-
-
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Address</label>
-          <mat-form-field class="example-full-width col-sm-3">
-            <input matInput placeholder="City" value="" >
-          </mat-form-field>
-          <mat-form-field class="example-full-width col-sm-4">
-            <input matInput placeholder="Country" value="" >
-          </mat-form-field>
-          <mat-form-field class="example-full-width col-sm-2">
-            <input matInput placeholder="Pincode" value="" >
-          </mat-form-field>
-        </div>
-
-
-
-        <div class="form-row">
+        <div class="form-row" *ngIf="flag">
           <label class="col-sm-3 col-form-label">Events</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Event</mat-label>
-            <mat-select >
-              <mat-option *ngFor="let event of events" value="event.title">{{event.title}}</mat-option>
+            <mat-select formControlName="event">
+              <mat-option *ngFor="let event of events" [value]="event.id">{{event.title}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -65,7 +41,7 @@
 
 
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good">Submit
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>

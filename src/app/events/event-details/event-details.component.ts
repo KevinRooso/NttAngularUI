@@ -10,13 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
   getParticipantDetails: any;
-
+  eventId;
 
   constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
+      this.eventId=params.page;
       this.getEventData(params.page);
       this.getEventParticipant(params.page);
     });
@@ -39,5 +40,8 @@ export class EventDetailsComponent implements OnInit {
   getDetails(id) {
     alert(id);
     this.router.navigate(['/edit'], { queryParams: { page: id } });
+  }
+  addParticipants(){
+    this.router.navigate(['/participant-add'], { queryParams: { page: this.eventId } });
   }
 }

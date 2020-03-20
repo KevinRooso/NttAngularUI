@@ -84,4 +84,10 @@ export class AuthServiceService {
   saveSpeaker(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
   }
+  saveParticipent(id,obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/participant/event/'+id, obj, {headers:this.headers});
+  }
+  saveParticipentnonEvent(id,obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/participant/list/event/'+id, obj, {headers:this.headers});
+  }
 }
