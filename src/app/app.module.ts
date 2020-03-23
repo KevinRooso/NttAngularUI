@@ -41,7 +41,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
 import { ArticleCreateComponent } from './articles/article-create/article-create.component';
-
+import {MatDividerModule} from '@angular/material/divider';
+import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ArticleCreateComponent } from './articles/article-create/article-create
     CreateParticipantsComponent,
     ArticlesDetailComponent,
     ArticleEditComponent,
-    ArticleCreateComponent
+    ArticleCreateComponent,
+    BlogDetailComponent
     ],
   imports: [
     BrowserModule,
@@ -90,7 +92,8 @@ import { ArticleCreateComponent } from './articles/article-create/article-create
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    DataTablesModule
+    DataTablesModule,
+    MatDividerModule
 
   ],
   providers: [HttpClientModule],

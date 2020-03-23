@@ -56,3 +56,12 @@ transition: background 0.25s;
   cursor: pointer;
   text-align:right;
 }
+.blog-card{
+  width: 100%;
+  height: 100%;
+}
+.blog-title{
+  margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+}

@@ -1,3 +1,32 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a routerLink="/article-create"><button type="button" class="btn button-1 action-good">Create Blog</button></a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
+          <option  value="" hidden>Please Select Category</option>
+           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+        </select>
+
+      </li>
+      <!-- <li class="nav-item ml-2">
+        <select class="form-control">
+          <option value="" hidden>Please Select Date</option>
+        </select>
+      </li> -->
+      <li class="nav-item ml-2">
+        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+
+      </li>
+    </ul>
+  </div>
+</nav>
 <section class="blog">
   <div class=" text-center">
     <p class="heading-secondary py-4">
@@ -5,53 +34,19 @@ Blogs
     </p>
     </div>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card">
-          <img src="https://www.netmagicsolutions.com/data/blog/Best%20practices%20for%20choosing%20the%20right%20enterprise%20network19-12-091575897009.jpg" class="w-100">
+
+    <div class="row"  style="padding: .5rem 1rem; ">
+      <div class="col-sm-4" style="padding: .5rem 1rem; " *ngFor="let blog of filterBlogs">
+        <div class="card blog-card" (click)="showBlogDetail(blog.id)"> <img src="https://www.netmagicsolutions.com/data/blog/Best%20practices%20for%20choosing%20the%20right%20enterprise%20network19-12-091575897009.jpg" class="w-100">
+
           <div class="card-block">
-              <h3 class="card-title">Best practices for choosing the right enterprise network service provider</h3>
-            <!-- <div class="category">Read More >></div> -->
-            <p>Synopsis: Enterprises today need to evaluate their WAN partner carefully than ever befor...</p>
-            <div class="text-right">
-              <a class="category-link">Read More</a>
-             </div>
+              <h3 class="card-title">{{blog.title}}</h3>
+              <mat-divider></mat-divider>
+            <p>{{blog.shortDescription}}</p>
+
           </div>
         </div>
       </div>
-
-
-      <div class="col-sm-4">
-        <div class="card">
-          <img src="https://www.netmagicsolutions.com/data/blog/Amazon%20Storage%20Gateway19-01-101547104280.jpg" class="w-100">
-          <!--  <div class="card-img-top" alt="Card image cap"></div>-->
-          <div class="card-block">
-              <h3 class="card-title">Using Amazon Storage Gateway for Your Backup Needs</h3>
-            <!-- <div class="category">Read More >></div> -->
-            <p>With the ability to scale quickly without linear add-on costs, a hyperscale datacenter w...</p>
-            <div class="text-right">
-              <a class="category-link">Read More</a>
-             </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-sm-4">
-        <div class="card">
-          <img src="https://www.netmagicsolutions.com/data/blog/SOC%20make%20your%20organization%20hack-proof19-08-081565250835.jpg" class="w-100">
-          <!--  <div class="card-img-top" alt="Card image cap"></div>-->
-          <div class="card-block">
-              <h3 class="card-title">Does a SOC make your organization hack-proof?</h3>
-              <p>The Amazon Storage Gateway is one of the most frequently used storage and backup services fr...</p>
-            <!-- <div class="category">Read More >></div> -->
-           <div class="text-right">
-            <a class="category-link">Read More</a>
-           </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>

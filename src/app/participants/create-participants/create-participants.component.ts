@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,6 +17,7 @@ export class CreateParticipantsComponent implements OnInit {
     private router1:ActivatedRoute) { }
 
   ngOnInit(): void {
+    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       if(params.page!= undefined){
@@ -25,10 +26,10 @@ export class CreateParticipantsComponent implements OnInit {
       }
     });
     this.addParForm = this.formBuilder.group({
-      name: [''],
-      email: [''],
-      phoneNo: [''],
-      event:['']
+      name: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      phoneNo: ['',[Validators.required, Validators.pattern(mobnum)]],
+      event:['',Validators.required]
     });
     this.getEvents();
   }
@@ -39,6 +40,7 @@ export class CreateParticipantsComponent implements OnInit {
     })
   }
   submit(){
+    if(this.addParForm.valid){
     let obj={
       "name": this.addParForm.controls['name'].value,
      "email": this.addParForm.controls['email'].value,
@@ -56,9 +58,11 @@ export class CreateParticipantsComponent implements OnInit {
     else{
       var arr:any[]=[];
       arr.push(obj);
+
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
       alert("added successfully");
     })
   }
+    }
   }
 }

@@ -22,6 +22,7 @@ import { CreateParticipantsComponent } from './participants/create-participants/
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
 import { ArticleCreateComponent } from './articles/article-create/article-create.component';
+import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 
 
 
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'article-details', component: ArticlesDetailComponent, canActivate: [AuthguardServiceService]},
   { path: 'article-edit', component: ArticleEditComponent, canActivate: [AuthguardServiceService]},
   { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]}
+  ,{ path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]}
 
 
 ];

@@ -101,4 +101,10 @@ export class AuthServiceService {
   saveParticipentnonEvent(id,obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/addOn/participant/list/event/'+id, obj, {headers:this.headers});
   }
+  getAllBlogs(){
+    return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
+  }
+  getBlogById(id){
+    return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
+  }
 }
