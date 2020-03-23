@@ -109,4 +109,10 @@ export class AuthServiceService {
   getAllWhitepaper():Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/whitepapers', {headers:this.headers})
   }
+  getAllBlogs(){
+    return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
+  }
+  getBlogById(id){
+    return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
+  }
 }

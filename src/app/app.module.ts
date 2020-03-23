@@ -45,6 +45,8 @@ import { WhitepaperDetailComponent } from './whitepapers/whitepaper-detail/white
 import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepaper-edit.component';
 
+import {MatDividerModule} from '@angular/material/divider';
+import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -72,9 +74,13 @@ import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepape
     ArticlesDetailComponent,
     ArticleEditComponent,
     ArticleCreateComponent,
+<<<<<<< HEAD
     WhitepaperDetailComponent,
     WhitepaperCreateComponent,
     WhitepaperEditComponent
+=======
+    BlogDetailComponent
+>>>>>>> a6d4e67cd40685e605e31a2d2a6ddbde06908f1e
     ],
   imports: [
     BrowserModule,
@@ -96,7 +102,8 @@ import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepape
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    DataTablesModule
+    DataTablesModule,
+    MatDividerModule
 
   ],
   providers: [HttpClientModule],
