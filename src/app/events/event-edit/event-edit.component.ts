@@ -122,7 +122,7 @@ export class EventEditComponent implements OnInit {
 
   }
   updateEvent() {
-    if(this.createEventForm.valid){
+    if(this.updateEventForm.valid){
     let name: any[] = [];
     this.updateEventForm.controls['fullName'].value.forEach(sname => {
       let speakers = {
