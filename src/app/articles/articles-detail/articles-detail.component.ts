@@ -29,7 +29,7 @@ export class ArticlesDetailComponent implements OnInit {
   // }
   getDetails(id){
     alert(id);
-    this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
+    this.router.navigate(['/article-edit'], { queryParams: { page: id } });
   }
 
 }
