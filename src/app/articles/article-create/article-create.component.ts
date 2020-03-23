@@ -24,8 +24,8 @@ export class ArticleCreateComponent implements OnInit {
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
     this.createArticleForm = frmbuilder.group({
       title: ['', Validators.required],
-      longDescription: [''],
-      shortDescription: [''],
+      longDescription: ['', Validators.required],
+      shortDescription: ['',  Validators.required],
       thumbnailImageUrl: [''],
       downloadUrl: ['']
     });
@@ -94,38 +94,20 @@ export class ArticleCreateComponent implements OnInit {
   }
 
   createArticle() {
+    if(this.createArticleForm.valid){
     let obj = {
 
       "categoryId": 0,
       "customerProfile": "string",
       "detailImageUrl": "string",
       "downloadUrl": this.attachFile,
-      "id": 0,
       "isDraft": true,
       "longDescription": this.createArticleForm.controls['longDescription'].value,
-      "person": {
-        "description": "string",
-        "designation": "string",
-        "email": "string",
-        "fullName": "string",
-        "id": 0,
-        "keySkills": "string",
-        "origanizationName": "string",
-        "personalEmail": "string",
-        "phone": "string",
-        "profile": "string",
-        "profileImageUrl": "string"
-      },
-      "resourceType": 0,
+      "person": {},
+      "resourceType": 2,
       "serviceUsed": "string",
       "shortDescription": this.createArticleForm.controls['shortDescription'].value,
-      "tagList": [
-        {
-          "id": 0,
-          "keywords": "string",
-          "name": "string"
-        }
-      ],
+      "tagList": [{}],
       "thumbnailImageUrl": this.articleImage,
       "title": this.createArticleForm.controls['title'].value
     }
@@ -139,6 +121,7 @@ export class ArticleCreateComponent implements OnInit {
       (error) => console.log(error)
     )
   }
+}
 
 }
 

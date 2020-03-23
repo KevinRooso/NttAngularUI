@@ -27,20 +27,22 @@ export class SpeakerEditComponent implements OnInit {
   speakerImage: any;
   getSpeaker: any;
   spkrID: any;
+  chipsData: string[]=['Hi','Hello'];
 
 
   constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
+    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.updateSpeakerForm=formbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['',[Validators.required, Validators.email]],
       personalEmail: ['', [Validators.required, Validators.email]],
       designation: ['', Validators.required],
       profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-      keySkills: ['', Validators.required],
-      profileImageUrl: ['', Validators.required]
+      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+      keySkills: [''],
+      profileImageUrl: ['']
     })
   }
 
@@ -118,12 +120,15 @@ export class SpeakerEditComponent implements OnInit {
       this.updateSpeakerForm.controls['phone'].setValue(this.getSpeaker.phone);
       this.updateSpeakerForm.controls['origanizationName'].setValue(this.getSpeaker.origanizationName);
       this.updateSpeakerForm.controls['keySkills'].setValue(this.getSpeaker.keySkills);
-      //this.previewUrl = this.getSpeaker.profileImageUrl;
+      this.previewUrl = this.getSpeaker.profileImageUrl;
+      this.speakerImage = res.body.profileImageUrl;
+      console.log("Check ME", res.body.profileImageUrl);
 
     })
   }
 
   updateSpeaker(){
+    if(this.updateSpeakerForm.valid){
     let fruit1 = '';
     console.log(this.fruits);
     this.fruits.forEach(m => {
@@ -146,11 +151,12 @@ export class SpeakerEditComponent implements OnInit {
     console.log("post", obj);
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
-        alert("Successfully Created");
+        alert("Successfully Updated");
         console.log("response", response);
       },
       (error) => console.log(error)
     )
+  }
   }
 
   Back() {

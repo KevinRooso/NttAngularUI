@@ -27,23 +27,23 @@ export class CreateEventComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
-      title: [''],
-      detail: [''],
+      title: ['',Validators.required],
+      detail: ['',Validators.required],
       shortDescription: [''],
-      address1: [''],
+      address1: ['',Validators.required],
       address2: [''],
       city: [''],
       country: [''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      totalSeat: [''],
+      totalSeat: ['',Validators.required],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
       startTime: [''],
       endTime: [''],
       registrationStartDate: [''],
       registrationEndDate: [''],
-      policyTnc: [''],
-      policyFAQ: [''],
+      policyTnc: ['',Validators.required],
+      policyFAQ: ['',Validators.required],
       thumbnailImageUrl: [''],
       detailImageUrl: [''],
       fullName: [''],
@@ -71,7 +71,7 @@ export class CreateEventComponent implements OnInit {
 
 
   generateEvent() {
-
+    if(this.createEventForm.valid){
     let name:any[]=[];
     this.createEventForm.controls['fullName'].value.forEach(sname=>{
       let speakers={
@@ -130,12 +130,13 @@ export class CreateEventComponent implements OnInit {
 
     console.log("Post Data",obj);
 
-    this.authService.updateEventDetails(obj).subscribe(
+    this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         alert("Successfully Created");
         console.log("responsne", response)},
       (error) => console.log(error)
     )
+      }
   }
   createSpeaker(){
     // alert("i Called");

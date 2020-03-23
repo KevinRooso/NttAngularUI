@@ -28,17 +28,18 @@ export class SpeakerCreateComponent implements OnInit {
   speakerImage: any;
 
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
+    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['',[Validators.required, Validators.email]],
       personalEmail: ['', [Validators.required, Validators.email]],
       designation: ['', Validators.required],
       profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
-      keySkills: ['', Validators.required],
-      profileImageUrl: ['', Validators.required]
+      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+      keySkills: [''],
+      profileImageUrl: ['']
     });
   }
 
@@ -69,6 +70,7 @@ export class SpeakerCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // this.createSpeaker();
+
   }
 
   fileProgress(fileInput: any) {
@@ -101,6 +103,7 @@ export class SpeakerCreateComponent implements OnInit {
   }
 
   createSpeaker() {
+    if(this.createSpeakerForm.valid){
     let fruit1 = '';
     console.log(this.fruits);
     this.fruits.forEach(m => {
@@ -128,6 +131,7 @@ export class SpeakerCreateComponent implements OnInit {
       },
       (error) => console.log(error)
     )
+    }
   }
 
 }

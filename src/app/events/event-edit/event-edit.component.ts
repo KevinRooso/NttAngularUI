@@ -37,23 +37,23 @@ export class EventEditComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
-      title: [''],
-      detail: [''],
+      title: ['',Validators.required],
+      detail: ['',Validators.required],
       shortDescription: [''],
-      address1: [''],
+      address1: ['',Validators.required],
       address2: [''],
       city: [''],
       country: [''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      totalSeat: [''],
+      totalSeat: ['',Validators.required],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
       startTime: [''],
       endTime: [''],
       registrationStartDate: [''],
       registrationEndDate: [''],
-      policyTnc: [''],
-      policyFAQ: [''],
+      policyTnc: ['',Validators.required],
+      policyFAQ: ['',Validators.required],
       thumbnailImageUrl: [''],
       detailImageUrl: [''],
       fullName: [''],
@@ -122,6 +122,7 @@ export class EventEditComponent implements OnInit {
 
   }
   updateEvent() {
+    if(this.createEventForm.valid){
     let name: any[] = [];
     this.updateEventForm.controls['fullName'].value.forEach(sname => {
       let speakers = {
@@ -203,6 +204,7 @@ export class EventEditComponent implements OnInit {
       },
       (error) => console.log(error)
     )
+    }
 
   }
   createSpeaker() {

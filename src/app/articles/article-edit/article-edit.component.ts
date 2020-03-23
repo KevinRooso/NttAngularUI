@@ -21,11 +21,13 @@ export class ArticleEditComponent implements OnInit {
   attachFile: any;
   articleData: any;
   articleId: any;
+  articelImage: any;
+  articelAttach: any;
   constructor(private frmbuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     this.EditArticleForm = frmbuilder.group({
       title: ['', Validators.required],
-      longDescription: [''],
-      shortDescription: [''],
+      longDescription:['', Validators.required],
+      shortDescription: ['', Validators.required],
       thumbnailImageUrl: [''],
       downloadUrl: ['']
     });
@@ -47,7 +49,11 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
       this.EditArticleForm.controls['shortDescription'].setValue(this.articleData.shortDescription);
-      //this.EditArticleForm.controls['title'].setValue(this.articleData.title);
+     // this.EditArticleForm.controls['title'].setValue(this.articleData.title);
+      this.articelImage = res.body.thumbnailImageUrl;
+      this.articelAttach = res.body.resourceLink;
+      console.log("Check ME", res.body.thumbnailImageUrl);
+      console.log("Check file", res.body.articelAttach);
       //this.previewUrl = this.getSpeaker.profileImageUrl;
 
     })
@@ -111,40 +117,23 @@ export class ArticleEditComponent implements OnInit {
   }
 
   updateArticle() {
+    if(this.EditArticleForm.valid){
     let obj = {
-
       "categoryId": 0,
       "customerProfile": "string",
       "detailImageUrl": "string",
       "downloadUrl": this.attachFile,
-      "id": 0,
+      "id": this.articleId,
       "isDraft": true,
       "longDescription": this.EditArticleForm.controls['longDescription'].value,
-      "person": {
-        "description": "string",
-        "designation": "string",
-        "email": "string",
-        "fullName": "string",
-        "id": this.articleId,
-        "keySkills": "string",
-        "origanizationName": "string",
-        "personalEmail": "string",
-        "phone": "string",
-        "profile": "string",
-        "profileImageUrl": "string"
-      },
-      "resourceType": 0,
+      "person": {},
+      "resourceType": 2,
       "serviceUsed": "string",
       "shortDescription": this.EditArticleForm.controls['shortDescription'].value,
-      "tagList": [
-        {
-          "id": 0,
-          "keywords": "string",
-          "name": "string"
-        }
-      ],
-      "thumbnailImageUrl": this.articleImage,
-      "title": this.EditArticleForm.controls['title'].value
+      "tagList": [{ }],
+      "thumbnailImageUrl": this.articelImage,
+      "title": this.EditArticleForm.controls['title'].value,
+      "resourceLink": this.articelAttach,
     }
     console.log("post", obj);
 
@@ -155,6 +144,7 @@ export class ArticleEditComponent implements OnInit {
       },
       (error) => console.log(error)
     )
+  }
   }
   // updateArticle(){
 

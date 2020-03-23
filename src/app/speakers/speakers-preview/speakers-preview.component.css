@@ -8,27 +8,35 @@
   flex-shrink: 0;
 }
 .details{
-  margin-left: 16px;
+  /* margin-left: 16px; */
   color: #fff;
+  width: 70%;
+  padding-left: 20px;
+  padding-right: 5px;
 }
 .name {
   font-size: 20px;
   line-height: 1;
+  word-break: break-all;
 }
 .origin {
   margin-top: 4px;
   font-size: 12px;
   line-height: 1.1;
+  word-break: break-all;
+
 }
 .sessions {
   margin-top: 10px;
   font-size: 10px;
   line-height: 1.1;
   font-weight: bold;
+  word-break: break-all;
 }
 .sessions h5 {
   margin-right: 4px;
   font-weight: normal;
+  word-break: break-all;
 }
 .card-details{
   background-color: #2CD5B6;

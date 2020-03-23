@@ -15,14 +15,14 @@
       <form [formGroup]='createEventForm' (ngSubmit)='generateEvent()'>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title</label>
+          <label class="col-sm-3 col-form-label">Title *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" value="">
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Description (Agenda)</label>
+          <label class="col-sm-3 col-form-label">Description (Agenda) *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
           </mat-form-field>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category</label>
+          <label class="col-sm-3 col-form-label">Select Category *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId">
@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Address 1</label>
+          <label class="col-sm-3 col-form-label">Address 1 *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
           </mat-form-field>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Total No. of Seats</label>
+          <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
           <mat-form-field class="example-full-width col-sm-3">
             <input matInput type="number" placeholder="Seats" value="" formControlName="totalSeat">
           </mat-form-field>
@@ -105,14 +105,14 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Total No. of Subusers Allow</label>
+          <label class="col-sm-3 col-form-label">Total No. of Subusers Allow </label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput type="number" placeholder="Subusers Allow" value="" formControlName="noOfSubUsersAllow">
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Speakers</label>
+          <label class="col-sm-3 col-form-label">Select Speakers *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Speakers</mat-label>
             <mat-select formControlName="fullName" multiple>
@@ -159,7 +159,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Policy Terms & Conditions</label>
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyTnc">
@@ -171,7 +171,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Policy FAQs</label>
+          <label class="col-sm-3 col-form-label">Policy FAQs *</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyFAQ">
