@@ -14,15 +14,12 @@
         </select>
 
       </li>
-      <!-- <li class="nav-item ml-2">
-        <select class="form-control">
-          <option value="" hidden>Please Select Date</option>
-        </select>
-      </li> -->
+
       <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
           <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
-
+        </div>
       </li>
     </ul>
   </div>
@@ -37,7 +34,7 @@ Blogs
 
     <div class="row"  style="padding: .5rem 1rem; ">
       <div class="col-sm-4" style="padding: .5rem 1rem; " *ngFor="let blog of filterBlogs">
-        <div class="card blog-card" (click)="showBlogDetail(blog.id)"> <img src="https://www.netmagicsolutions.com/data/blog/Best%20practices%20for%20choosing%20the%20right%20enterprise%20network19-12-091575897009.jpg" class="w-100">
+        <div class="card blog-card" (click)="showBlogDetail(blog.id)"> <img [src]="blog.thumbnailImageUrl!=null?blog.thumbnailImageUrl:'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'" class="w-100">
 
           <div class="card-block">
               <h3 class="card-title">{{blog.title}}</h3>

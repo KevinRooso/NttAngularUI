@@ -11,6 +11,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
+            <div class="py-2 text-right">
+              <a class="blog-btn add-button" (click)=viewParticipant()>View Participants</a>
+            </div>
             <ul class="list-group">
               <li class="list-group-item" *ngFor="let participant of getParticipantDetails">
                 <div class="d-inline-flex" style="align-items: baseline;">
@@ -22,7 +25,7 @@
               </li>
             </ul>
             <div class="py-2 text-right">
-              <a class="blog-btn add-button" (click)=addParticipants()>Add Participents</a>
+              <a class="blog-btn add-button" (click)=addParticipants()>Add Participants</a>
             </div>
           </div>
         </div>

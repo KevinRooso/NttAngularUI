@@ -50,7 +50,9 @@ export class BlogsComponent implements OnInit {
       this.filterBlogs=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
-        return m.title.includes(this.searchBlog);
+        //return m.title.includes(this.searchBlog);
+        let titleData=m.title.toUpperCase();
+        return titleData.includes(this.searchBlog.toUpperCase());
       })
   }
 }
