@@ -79,7 +79,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/person/'+id, {headers:this.headers});
   }
   updateParticipantStatus(id):Observable<any>{
-    return this.http.post<any>(this.url+'api/admin/participants/approve/'+id,{headers:this.headers});
+    return this.http.post<any>(this.url+'api/admin/participants/approve/'+id,null,{headers:this.headers});
   }
   saveSpeaker(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
@@ -96,9 +96,9 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/admin/resource', obj, {headers:this.headers});
   }
   saveParticipent(id,obj):Observable<any>{
-    return this.http.post<any>(this.url+'api/public/participant/event/'+id, obj, {headers:this.headers});
+    return this.http.post<any>(this.url+'api/public/self/participant/event/'+id, obj, {headers:this.headers});
   }
   saveParticipentnonEvent(id,obj):Observable<any>{
-    return this.http.post<any>(this.url+'api/public/participant/list/event/'+id, obj, {headers:this.headers});
+    return this.http.post<any>(this.url+'api/public/addOn/participant/list/event/'+id, obj, {headers:this.headers});
   }
 }
