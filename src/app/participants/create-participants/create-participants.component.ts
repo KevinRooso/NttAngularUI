@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-participants',
@@ -14,7 +14,7 @@ export class CreateParticipantsComponent implements OnInit {
   events:any[]=[];
   eventId;
   constructor(private formBuilder: FormBuilder,private service:AuthServiceService,
-    private router1:ActivatedRoute) { }
+    private router1:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -50,9 +50,9 @@ export class CreateParticipantsComponent implements OnInit {
     console.log(obj);
     console.log(this.addParForm.controls['event'].value);
     if(this.flag){
-      console.log("withoutEvent");
-    this.service.saveParticipent(this.addParForm.controls['event'].value,obj).subscribe(res=>{
+      this.service.saveParticipent(this.addParForm.controls['event'].value,obj).subscribe(res=>{
       alert("added successfully");
+      this.router.navigate(['participants']);
     })
   }
     else{
@@ -61,6 +61,7 @@ export class CreateParticipantsComponent implements OnInit {
 
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
       alert("added successfully");
+      this.router.navigate(['participants']);
     })
   }
     }
