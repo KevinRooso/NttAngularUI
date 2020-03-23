@@ -41,6 +41,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
 import { ArticleCreateComponent } from './articles/article-create/article-create.component';
+import { WhitepaperDetailComponent } from './whitepapers/whitepaper-detail/whitepaper-detail.component';
+import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
+import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepaper-edit.component';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { ArticleCreateComponent } from './articles/article-create/article-create
     CreateParticipantsComponent,
     ArticlesDetailComponent,
     ArticleEditComponent,
-    ArticleCreateComponent
+    ArticleCreateComponent,
+    WhitepaperDetailComponent,
+    WhitepaperCreateComponent,
+    WhitepaperEditComponent
     ],
   imports: [
     BrowserModule,

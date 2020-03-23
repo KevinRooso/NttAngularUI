@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
@@ -19,7 +19,9 @@ export class ArticleEditComponent implements OnInit {
   articleImage: any;
   attachUrl: any = null;
   attachFile: any;
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
+  articleData: any;
+  articleId: any;
+  constructor(private frmbuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     this.EditArticleForm = frmbuilder.group({
       title: ['', Validators.required],
       longDescription: [''],
@@ -31,7 +33,26 @@ export class ArticleEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router1.queryParams.subscribe(params => {
+      console.log(params.page);
+      this.articleId = params.page;
+      this.getArticlesDetails(params.page);
+    });
   }
+
+  getArticlesDetails(id){
+    this.authService.getResourceById(id).subscribe((res)=>{
+      this.articleData = res.body;
+      console.log('resdata', this.articleData);
+      this.EditArticleForm.controls['title'].setValue(this.articleData.title);
+      this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
+      this.EditArticleForm.controls['shortDescription'].setValue(this.articleData.shortDescription);
+      //this.EditArticleForm.controls['title'].setValue(this.articleData.title);
+      //this.previewUrl = this.getSpeaker.profileImageUrl;
+
+    })
+  }
+
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
     this.preview();
@@ -74,7 +95,7 @@ export class ArticleEditComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
   uploadAttachment() {
@@ -85,11 +106,11 @@ export class ArticleEditComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
 
-  createArticle() {
+  updateArticle() {
     let obj = {
 
       "categoryId": 0,
@@ -104,7 +125,7 @@ export class ArticleEditComponent implements OnInit {
         "designation": "string",
         "email": "string",
         "fullName": "string",
-        "id": 0,
+        "id": this.articleId,
         "keySkills": "string",
         "origanizationName": "string",
         "personalEmail": "string",
@@ -135,9 +156,9 @@ export class ArticleEditComponent implements OnInit {
       (error) => console.log(error)
     )
   }
-  updateArticle(){
+  // updateArticle(){
 
-  }
+  // }
 
 }
 

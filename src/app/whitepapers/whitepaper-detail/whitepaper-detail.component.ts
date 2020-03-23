@@ -3,13 +3,13 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-articles-detail',
-  templateUrl: './articles-detail.component.html',
-  styleUrls: ['./articles-detail.component.css']
+  selector: 'app-whitepaper-detail',
+  templateUrl: './whitepaper-detail.component.html',
+  styleUrls: ['./whitepaper-detail.component.css']
 })
-export class ArticlesDetailComponent implements OnInit {
-  articleData: any;
+export class WhitepaperDetailComponent implements OnInit {
 
+  whitePaperData:any;
   constructor(private authService: AuthServiceService, private router1: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -19,8 +19,8 @@ export class ArticlesDetailComponent implements OnInit {
   }
   getArticleData(id){
     this.authService.getResourceById(id).subscribe((res)=>{
-      this.articleData = res.body;
-      console.log("Get Articles", this.articleData);
+      this.whitePaperData = res.body;
+      console.log("Get Articles", this.whitePaperData);
     })
   }
   // editSpeaker(id){
@@ -29,7 +29,6 @@ export class ArticlesDetailComponent implements OnInit {
   // }
   getDetails(id){
     // alert(id);
-    this.router.navigate(['/article-edit'], { queryParams: { page: id } });
+    this.router.navigate(['/white-edit'], { queryParams: { page: id } });
   }
-
 }

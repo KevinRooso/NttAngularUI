@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 // import * as $ from 'jquery'
 
 @Component({
@@ -24,7 +25,7 @@ export class CreateEventComponent implements OnInit {
   speaker = new FormControl();
   tag = new FormControl();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService,) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: [''],
       detail: [''],
@@ -137,13 +138,13 @@ export class CreateEventComponent implements OnInit {
     )
   }
   createSpeaker(){
-    alert("i Called");
+    // alert("i Called");
     // console.log(this.addSpeakerForm.value.fullName);
     this.allspeakers.push(this.addSpeakerForm.value.fullName);
     // console.log(this.allspeakers);
   }
   createTag(){
-    alert("Tag Called");
+    // alert("Tag Called");
     // console.log(this.addTagForm.value.name);
     // console.log(this.addTagForm.value.keywords);
     this.tagsList.push(this.addTagForm.value.name);
@@ -182,6 +183,9 @@ export class CreateEventComponent implements OnInit {
         this.allspeakers.push(m.fullName);
       })
     })
+  }
+  Back() {
+    this.location.back(); // <-- go back to previous location on cancel
   }
 
 }
