@@ -20,6 +20,8 @@ import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-deta
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
+import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
+import { ArticleCreateComponent } from './articles/article-create/article-create.component';
 
 
 
@@ -43,7 +45,9 @@ const routes: Routes = [
   { path: 'speaker-details', component: SpeakerDetailsComponent, canActivate: [AuthguardServiceService]},
   { path: 'participant-details', component: ViewParticipantsComponent, canActivate: [AuthguardServiceService]},
   { path: 'participant-add', component: CreateParticipantsComponent, canActivate: [AuthguardServiceService]},
-  { path: 'article-details', component: ArticlesDetailComponent, canActivate: [AuthguardServiceService]}
+  { path: 'article-details', component: ArticlesDetailComponent, canActivate: [AuthguardServiceService]},
+  { path: 'article-edit', component: ArticleEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]}
 
 
 ];
