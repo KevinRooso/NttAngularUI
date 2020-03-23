@@ -51,8 +51,15 @@ export class ParticipantPreviewComponent {
       },
 
       {
-         defaultContent: "<span  ' class='badge badge-success showIdButton' style='cursor: pointer'>Approved</span>"
-        //defaultContent:"<button id='id'  class='showIdButton'>Show User ID</button>"
+        title:'Status',
+         defaultContent: "<span  ' class='badge showIdButton' >Approved</span>"
+      },
+
+      {
+        title:'Action',
+         defaultContent: "<span  ' class='badge badge-success approve' style='cursor: default' >-</span>"
+        //  "&nbsp;<span class='badge badge-danger' style='cursor: pointer'>Reject</span>"
+
       }
     ],
     rowCallback: (row: Node, data: any[] | Object, index: number) => {
@@ -60,9 +67,10 @@ export class ParticipantPreviewComponent {
       console.log(data);
       const self = this;
       if(data['approverId']==null){
-      $('td span', row).removeClass("badge-success");
-        $('td span', row).addClass("badge-warning");
-        $('td span', row).html('Pending');
+      // $('td .showIdButton', row).removeClass("badge-success");
+      //   $('td .showIdButton', row).addClass("badge-warning");
+        $('td .showIdButton', row).html('Pending');
+        $('td:nth-child(7) .approve', row).html('Approve');
       }
       Object.keys(data).forEach((key,index)=>{
         if(key=='email'){
@@ -77,10 +85,14 @@ export class ParticipantPreviewComponent {
       // Unbind first in order to avoid any duplicate handler
       // (see https://github.com/l-lin/angular-datatables/issues/87)
       $('td', row).unbind('click');
-      $('td span', row).bind('click', () => {
+      $('td:nth-child(7) .approve', row).bind('click', () => {
+        if($('td:nth-child(7) .approve', row).html()!='-'){
         self.someClickHandler(data);
+        $('td .showIdButton', row).html('Approved');
+        $('td:nth-child(7) .approve', row).html('-');
+        }
       });
-      $('td:nth-child(3)', row).bind('click', () => {
+      $('td:nth-child(3) ', row).bind('click', () => {
         self.someClickHandler1(data);
       });
       return row;
@@ -93,13 +105,9 @@ export class ParticipantPreviewComponent {
 }
 
 someClickHandler(data) {
-  let obj={
-    id:data.id
-  }
   this.service.updateParticipantStatus(data.id).subscribe(res=>{
       console.log("status");
       console.log(res);
-
     })
 }
 someClickHandler1(data){
