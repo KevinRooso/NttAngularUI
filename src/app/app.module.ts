@@ -74,13 +74,10 @@ import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
     ArticlesDetailComponent,
     ArticleEditComponent,
     ArticleCreateComponent,
-<<<<<<< HEAD
     WhitepaperDetailComponent,
     WhitepaperCreateComponent,
-    WhitepaperEditComponent
-=======
+    WhitepaperEditComponent,
     BlogDetailComponent
->>>>>>> a6d4e67cd40685e605e31a2d2a6ddbde06908f1e
     ],
   imports: [
     BrowserModule,
