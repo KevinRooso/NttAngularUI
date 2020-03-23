@@ -68,7 +68,7 @@ export class SpeakerCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.createSpeaker();
+    // this.createSpeaker();
   }
 
   fileProgress(fileInput: any) {
@@ -96,7 +96,7 @@ export class SpeakerCreateComponent implements OnInit {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
         console.log(this.speakerImage);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
 

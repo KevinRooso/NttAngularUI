@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { Location} from '@angular/common';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -12,7 +12,7 @@ export class EventDetailsComponent implements OnInit {
   getParticipantDetails: any;
   eventId;
 
-  constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute) { }
+  constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -38,7 +38,7 @@ export class EventDetailsComponent implements OnInit {
     })
   }
   getDetails(id) {
-    alert(id);
+    // alert(id);
     this.router.navigate(['/edit'], { queryParams: { page: id } });
   }
   addParticipants(){
@@ -47,4 +47,8 @@ export class EventDetailsComponent implements OnInit {
   viewParticipant(){
     this.router.navigate(['/participants'], { queryParams: { page: this.eventId } });
   }
+  Back() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
+
 }

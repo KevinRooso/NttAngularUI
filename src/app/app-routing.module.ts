@@ -22,6 +22,9 @@ import { CreateParticipantsComponent } from './participants/create-participants/
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
 import { ArticleCreateComponent } from './articles/article-create/article-create.component';
+import { WhitepaperDetailComponent } from './whitepapers/whitepaper-detail/whitepaper-detail.component';
+import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepaper-edit.component';
+import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 
 
@@ -48,8 +51,14 @@ const routes: Routes = [
   { path: 'participant-add', component: CreateParticipantsComponent, canActivate: [AuthguardServiceService]},
   { path: 'article-details', component: ArticlesDetailComponent, canActivate: [AuthguardServiceService]},
   { path: 'article-edit', component: ArticleEditComponent, canActivate: [AuthguardServiceService]},
-  { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]}
-  ,{ path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]}
+  { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'white-details', component: WhitepaperDetailComponent, canActivate: [AuthguardServiceService]},
+  { path: 'white-edit', component: WhitepaperEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'white-create', component: WhitepaperCreateComponent, canActivate: [AuthguardServiceService]},
+
+
+  { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]}
 
 
 ];

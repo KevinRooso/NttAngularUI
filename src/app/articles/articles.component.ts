@@ -34,7 +34,7 @@ export class ArticlesComponent implements OnInit {
     })
   }
   getDetails(id) {
-    alert(id);
+    // alert(id);
     this.router.navigate(['/article-details'], { queryParams: { page: id } });
   }
   showBlogDetail(id){

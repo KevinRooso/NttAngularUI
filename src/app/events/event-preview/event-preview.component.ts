@@ -43,7 +43,7 @@ export class EventPreviewComponent implements OnInit {
       });
   }
   getDetails(id) {
-    alert(id);
+    // alert(id);
     this.router.navigate(['/details'], { queryParams: { page: id } });
   }
   getAllCategory(){

@@ -78,7 +78,7 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
   uploadAttachment() {
@@ -89,7 +89,7 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
 

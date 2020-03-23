@@ -1,5 +1,3 @@
-
-
 .edit .btn {
   position: absolute;
   /* top: 2%;
@@ -18,9 +16,4 @@
 
 .edit .btn:hover {
   background: #324da1;
-}
-.table td, .table th {
-  padding: 0.6rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-speaker-details',
@@ -10,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SpeakerDetailsComponent implements OnInit {
   speakerData: any;
 
-  constructor(private authService: AuthServiceService, private router1: ActivatedRoute, private router: Router,) { }
+  constructor(private authService: AuthServiceService, private router1: ActivatedRoute, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -25,8 +26,11 @@ export class SpeakerDetailsComponent implements OnInit {
     })
   }
   editSpeaker(id){
-    alert(id);
+    // alert(id);
     this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
+  }
+  Back() {
+    this.location.back(); // <-- go back to previous location on cancel
   }
 
 }

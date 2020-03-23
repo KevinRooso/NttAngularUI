@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-event-edit',
@@ -34,7 +35,7 @@ export class EventEditComponent implements OnInit {
 
   selected1:string ='Cloud Computing';
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
       title: [''],
       detail: [''],
@@ -205,13 +206,13 @@ export class EventEditComponent implements OnInit {
 
   }
   createSpeaker() {
-    alert("i Called");
+    // alert("i Called");
     // console.log(this.addSpeakerForm.value.fullName);
     this.allspeakers.push(this.addSpeakerForm.value.fullName);
     // console.log(this.allspeakers);
   }
   createTag() {
-    alert("Tag Called");
+    // alert("Tag Called");
     // console.log(this.addTagForm.value.name);
     // console.log(this.addTagForm.value.keywords);
     this.tagsList.push(this.addTagForm.value.name);
@@ -259,5 +260,7 @@ export class EventEditComponent implements OnInit {
   customCompare(o1, o2) {
     return o1.id === o2.id;
   }
-
+  Back() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 }

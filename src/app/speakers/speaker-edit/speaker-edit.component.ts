@@ -4,6 +4,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 @Component({
   selector: 'app-speaker-edit',
   templateUrl: './speaker-edit.component.html',
@@ -28,7 +29,7 @@ export class SpeakerEditComponent implements OnInit {
   spkrID: any;
 
 
-  constructor(private formbuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
+  constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     this.updateSpeakerForm=formbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
@@ -100,7 +101,7 @@ export class SpeakerEditComponent implements OnInit {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
         console.log(this.speakerImage);
-        alert('SUCCESS !!');
+        // alert('SUCCESS !!');
       })
   }
 
@@ -152,6 +153,8 @@ export class SpeakerEditComponent implements OnInit {
     )
   }
 
-
+  Back() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 }
 

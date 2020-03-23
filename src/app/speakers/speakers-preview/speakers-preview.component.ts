@@ -22,7 +22,7 @@ export class SpeakersPreviewComponent implements OnInit {
     })
   }
   getDetails(id) {
-    alert(id);
+    // alert(id);
     this.router.navigate(['/speaker-details'], { queryParams: { page: id } });
   }
 }

@@ -95,11 +95,19 @@ export class AuthServiceService {
   saveResource(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/resource', obj, {headers:this.headers});
   }
+
+
+  //Participants Apis
   saveParticipent(id,obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/self/participant/event/'+id, obj, {headers:this.headers});
   }
   saveParticipentnonEvent(id,obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/addOn/participant/list/event/'+id, obj, {headers:this.headers});
+  }
+
+  //Whitepapers Apis
+  getAllWhitepaper():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/resources/whitepapers', {headers:this.headers})
   }
   getAllBlogs(){
     return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
