@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Location} from '@angular/common';
 @Component({
   selector: 'app-whitepaper-detail',
   templateUrl: './whitepaper-detail.component.html',
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class WhitepaperDetailComponent implements OnInit {
 
   whitePaperData:any;
-  constructor(private authService: AuthServiceService, private router1: ActivatedRoute, private router: Router) { }
+  constructor(private authService: AuthServiceService, private location: Location, private router1: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -31,4 +31,8 @@ export class WhitepaperDetailComponent implements OnInit {
     // alert(id);
     this.router.navigate(['/white-edit'], { queryParams: { page: id } });
   }
+  BackMe() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-article-edit',
@@ -23,7 +24,7 @@ export class ArticleEditComponent implements OnInit {
   articleId: any;
   articelImage: any;
   articelAttach: any;
-  constructor(private frmbuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
+  constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     this.EditArticleForm = frmbuilder.group({
       title: ['', Validators.required],
       longDescription:['', Validators.required],
@@ -100,7 +101,7 @@ export class ArticleEditComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
-        console.log("Image", this.articleImage);
+        console.log("ArticleImage", this.articleImage);
         // alert('SUCCESS !!');
       })
   }
@@ -118,6 +119,7 @@ export class ArticleEditComponent implements OnInit {
 
   updateArticle() {
     if(this.EditArticleForm.valid){
+      console.log("ArticleImage2", this.articleImage);
     let obj = {
       "categoryId": 0,
       "customerProfile": "string",
@@ -131,7 +133,7 @@ export class ArticleEditComponent implements OnInit {
       "serviceUsed": "string",
       "shortDescription": this.EditArticleForm.controls['shortDescription'].value,
       "tagList": [{ }],
-      "thumbnailImageUrl": this.articelImage,
+      "thumbnailImageUrl": this.articleImage,
       "title": this.EditArticleForm.controls['title'].value,
       "resourceLink": this.articelAttach,
     }
@@ -139,7 +141,7 @@ export class ArticleEditComponent implements OnInit {
 
     this.authService.saveResource(obj).subscribe(
       (response) => {
-        alert("Successfully Created");
+        alert("Successfully Updated");
         console.log("response", response);
       },
       (error) => console.log(error)
@@ -149,6 +151,9 @@ export class ArticleEditComponent implements OnInit {
   // updateArticle(){
 
   // }
+  BackMe() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 
 }
 

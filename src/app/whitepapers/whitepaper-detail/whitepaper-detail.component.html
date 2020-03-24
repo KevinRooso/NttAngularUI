@@ -1,3 +1,10 @@
+<div>
+  <ul class="breadcrumb">
+     <li><a href="/events">Home</a></li>
+     <li><a (click)="BackMe()">WhitePaper</a></li>
+     <li><a class="active">WhitePaper Preview</a></li>
+  </ul>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-12">
@@ -17,9 +24,9 @@
                 <p>{{whitePaperData.category.displayName}}</p>
               </div>
             </div>
-            <!-- <div class="col-md-1 edit">
-              <button class="btn"><span class="fa fa-pencil" aria-hidden="true" (click)="getDetails(whitePaperData.id)"></span></button>
-            </div> -->
+            <div class="col-md-1 edit">
+              <button class="btn" (click)="getDetails(whitePaperData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+            </div>
             <div class=" col-md-12 col-lg-12 py-3 text-center">
               <p>{{whitePaperData.longDescription}}</p>
               <div class="text-center">

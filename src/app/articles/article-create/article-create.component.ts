@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-article-create',
@@ -21,7 +22,7 @@ export class ArticleCreateComponent implements OnInit {
   attachUrl: any = null;
   attachFile: any;
 
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
+  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
     this.createArticleForm = frmbuilder.group({
       title: ['', Validators.required],
       longDescription: ['', Validators.required],
@@ -121,6 +122,10 @@ export class ArticleCreateComponent implements OnInit {
       (error) => console.log(error)
     )
   }
+
+}
+BackMe() {
+  this.location.back(); // <-- go back to previous location on cancel
 }
 
 }

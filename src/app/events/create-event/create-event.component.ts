@@ -22,6 +22,15 @@ export class CreateEventComponent implements OnInit {
   allPolicyTNC:any[]=[];
   allspeakers:any[]=[];
 
+
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+  articleImage: any;
+  attachUrl: any = null;
+  attachFile: any;
+
   speaker = new FormControl();
   tag = new FormControl();
 
@@ -48,7 +57,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: [''],
       fullName: [''],
       name: [''],
-      categoryTypeId: ['']
+      categoryTypeId:['',Validators.required]
 
     })
     this.addSpeakerForm = formBuilder.group({
@@ -70,23 +79,100 @@ export class CreateEventComponent implements OnInit {
   }
 
 
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+  fileProgress2(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview2();
+  }
+  preview() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+  preview2() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.attachUrl = reader.result;
+    }
+  }
+  uploadImage() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.authService.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.articleImage = res.fileDownloadUri;
+        console.log("Image", this.articleImage);
+        alert('SUCCESS !!');
+      })
+  }
+  uploadAttachment() {
+    const formData1 = new FormData();
+    formData1.append('file', this.fileData);
+    this.authService.uploadFile(formData1)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.attachFile = res.fileDownloadUri;
+        console.log("File", this.attachFile);
+        alert('SUCCESS !!');
+      })
+  }
+
+
   generateEvent() {
     if(this.createEventForm.valid){
     let name:any[]=[];
-    this.createEventForm.controls['fullName'].value.forEach(sname=>{
-      let speakers={
-        "fullName":sname
-      };
-      name.push(speakers);
-    });
+    let spekaerName:any[] = [];
+    spekaerName = this.createEventForm.controls['fullName'].value;
+    // console.log("check me", this.createEventForm.controls['fullName'].value)
+    // spekaerName.forEach(sname=>{
+    //   let speakers={
+    //     "fullName":sname
+    //   };
+    //   name.push(speakers);
+    // });
+    for(let i=0; i<=spekaerName.length;i++){
+      if(spekaerName != undefined){
+        let speakers={
+          "fullName":spekaerName[i]
+        };
+        name.push(speakers);
+      }
+      console.log("check me", spekaerName[i]);
+    }
 
     let tag:any[]=[];
-      this.createEventForm.controls['name'].value.forEach(tname=>{
-      let tags={
-        "name":tname
-      };
-      tag.push(tags);
-    });
+      for(let i=0; i<=this.createEventForm.controls['name'].value.length;i++){
+        let tags={
+          "name":this.createEventForm.controls['name'].value[i]
+          };
+         tag.push(tags);
+      }
+      // this.createEventForm.controls['name'].value.forEach(tname=>{
+      //   let tags={
+      //     "name":tname
+      //   };
+      //   tag.push(tags);
+      // });
 
     let schedule:any[]=[];
       let scheduling={
@@ -111,8 +197,9 @@ export class CreateEventComponent implements OnInit {
       "registrationEndDate":this.createEventForm.controls['registrationEndDate'].value,
       "policyFAQ":this.createEventForm.controls['policyFAQ'].value,
       "policyTnc":this.createEventForm.controls['policyTnc'].value,
-      "thumbnailImageUrl":this.createEventForm.controls['thumbnailImageUrl'].value,
-      "detailImageUrl":this.createEventForm.controls['detailImageUrl'].value,
+      // "thumbnailImageUrl":this.createEventForm.controls['thumbnailImageUrl'].value,
+      "thumbnailImageUrl":this.articleImage,
+      "detailImageUrl":this.attachFile,
       "categoryTypeId":this.createEventForm.controls['categoryTypeId'].value,
       "speakerList":name,
       "tagList": tag,

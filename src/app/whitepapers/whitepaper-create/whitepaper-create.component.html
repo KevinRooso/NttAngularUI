@@ -1,1 +1,73 @@
-<p>whitepaper-create works!</p>
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/events">Home</a></li>
+    <li><a (click)="BackMe()">WhitePapers</a></li>
+     <li><a class="active">Create WhitePaper</a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Create WhitePaper</p>
+      </div>
+      <form [formGroup]='createWhitePaperForm'>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Title</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="FullName" formControlName="title">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Description</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Short Description</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description" formControlName="shortDescription" rows="2"></textarea>
+          </mat-form-field>
+        </div> -->
+
+        <div class="form-row ">
+          <label class="col-sm-3 col-form-label">Choose Image</label>
+          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
+            (change)="fileProgress($event)" />
+          <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row my-3">
+          <label class="col-sm-3 col-form-label">Attachment</label>
+          <input type="file" class="form-control-file col-sm-7" formControlName="downloadUrl"
+            (change)="fileProgress2($event)" />
+          <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadAttachment()">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+        <div class="text-right mt-3">
+          <button class="btn button-1 action-good" (click)="createWhitePaper()">Submit Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

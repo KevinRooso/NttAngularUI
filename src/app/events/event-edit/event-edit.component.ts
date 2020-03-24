@@ -197,13 +197,13 @@ export class EventEditComponent implements OnInit {
 
     console.log("Updated Data", obj);
 
-    this.authService.saveEventDetails(obj).subscribe(
-      (response) => {
-        console.log("responsne", response);
-        alert("Successfully Updated");
-      },
-      (error) => console.log(error)
-    )
+    // this.authService.saveEventDetails(obj).subscribe(
+    //   (response) => {
+    //     console.log("responsne", response);
+    //     alert("Successfully Updated");
+    //   },
+    //   (error) => console.log(error)
+    // )
     }
 
   }
