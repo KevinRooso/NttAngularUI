@@ -12,7 +12,18 @@
           <option  value="" hidden>Please Select Category</option>
            <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
-
+      </li>
+      <li class="nav-item mx-2">
+        <select class="form-control">
+          <option value="" hidden>Select Tag</option>
+          <!-- <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option> -->
+        </select>
+      </li>
+      <li class="nav-item ml-2">
+        <select class="form-control">
+          <option value="" hidden>Select Date</option>
+          <!-- <option>{{getEventData.createdAt}}</option> -->
+        </select>
       </li>
 
       <li class="nav-item ml-2">

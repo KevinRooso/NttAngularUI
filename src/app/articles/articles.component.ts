@@ -37,9 +37,9 @@ export class ArticlesComponent implements OnInit {
     // alert(id);
     this.router.navigate(['/article-details'], { queryParams: { page: id } });
   }
-  showBlogDetail(id){
-    this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
-  }
+  // showBlogDetail(id){
+  //   this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
+  // }
   getAllCategory(){
     this.authService.getCategoryList().subscribe(res=>{
       console.log(res);

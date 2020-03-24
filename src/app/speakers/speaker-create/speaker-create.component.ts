@@ -4,6 +4,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-speaker-create',
@@ -27,7 +28,7 @@ export class SpeakerCreateComponent implements OnInit {
   uploadedFilePath: string = null;
   speakerImage: any;
 
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService) {
+  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
@@ -133,5 +134,7 @@ export class SpeakerCreateComponent implements OnInit {
     )
     }
   }
-
+  BackMe() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 }

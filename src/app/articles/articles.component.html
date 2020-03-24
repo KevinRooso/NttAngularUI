@@ -1,7 +1,7 @@
 <div>
   <ul class="breadcrumb">
-     <li><a routerlink="/events">Home</a></li>
-     <li><a routerlink="/articles" class="active">Articles</a></li>
+     <li><a href="/events">Home</a></li>
+     <li><a class="active">Articles</a></li>
   </ul>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
@@ -18,7 +18,18 @@
            <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
       </li>
-
+      <li class="nav-item mx-2">
+        <select class="form-control">
+          <option value="" hidden>Select Tag</option>
+          <!-- <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option> -->
+        </select>
+      </li>
+      <li class="nav-item ml-2">
+        <select class="form-control">
+          <option value="" hidden>Select Date</option>
+          <!-- <option>{{getEventData.createdAt}}</option> -->
+        </select>
+      </li>
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
