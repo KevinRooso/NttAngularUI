@@ -111,18 +111,13 @@ export class EventEditComponent implements OnInit {
       res.body.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
       })
-      console.log("Hemant", this.valuesSelectedTag);
-
       res.body.speakers.forEach(m => {
         this.valuesSpeakertags.push(m.fullName);
       })
-      console.log("Hemant Speaker", this.valuesSpeakertags);
-
     })
-
   }
   updateEvent() {
-    if(this.createEventForm.valid){
+    if(this.updateEventForm.valid){
     let name: any[] = [];
     this.updateEventForm.controls['fullName'].value.forEach(sname => {
       let speakers = {

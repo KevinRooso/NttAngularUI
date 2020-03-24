@@ -26,6 +26,7 @@ import { WhitepaperDetailComponent } from './whitepapers/whitepaper-detail/white
 import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepaper-edit.component';
 import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
+import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
 
 
 
@@ -58,7 +59,8 @@ const routes: Routes = [
 
 
   { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},
-  { path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]}
+  { path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]},
+  { path: 'blog-create', component: CreateBlogComponent, canActivate: [AuthguardServiceService]}
 
 
 ];

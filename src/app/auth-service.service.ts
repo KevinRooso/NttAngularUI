@@ -115,4 +115,8 @@ export class AuthServiceService {
   getBlogById(id){
     return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
   }
+
+  getPersons(){
+    return this.http.get<any>(this.url+'api/public/authors', {headers:this.headers});
+  }
 }
