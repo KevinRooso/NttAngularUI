@@ -27,6 +27,10 @@ import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepape
 import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
+import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
+import { ViewCasesComponent } from './case-studies/view-cases/view-cases.component';
+import { CasesCreateComponent } from './case-studies/cases-create/cases-create.component';
+import { CasesEditComponent } from './case-studies/cases-edit/cases-edit.component';
 
 
 
@@ -60,7 +64,11 @@ const routes: Routes = [
 
   { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},
   { path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]},
-  { path: 'blog-create', component: CreateBlogComponent, canActivate: [AuthguardServiceService]}
+  { path: 'blog-create', component: CreateBlogComponent, canActivate: [AuthguardServiceService]},
+  { path: 'blog-edit', component: EditBlogComponent, canActivate: [AuthguardServiceService]},
+  { path: 'view-cases', component: ViewCasesComponent, canActivate: [AuthguardServiceService]},
+  { path: 'create-cases', component: CasesCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'edit-cases', component: CasesEditComponent, canActivate: [AuthguardServiceService]}
 
 
 ];
