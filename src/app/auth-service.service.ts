@@ -113,7 +113,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
   }
   getBlogById(id){
-    return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
+    return this.http.get<any>(this.url+'api/public/resource/'+id, {headers:this.headers});
   }
 
   getPersons(){
@@ -124,5 +124,8 @@ export class AuthServiceService {
   getAllVideosList()
   :Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/videos', {headers:this.headers})
+  }
+  getCasestudies(){
+    return this.http.get<any>(this.url+'api/public/resources/case-studies', {headers:this.headers});
   }
 }

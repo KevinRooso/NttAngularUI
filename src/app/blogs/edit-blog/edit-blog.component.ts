@@ -3,18 +3,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $;
 @Component({
-  selector: 'app-create-blog',
-  templateUrl: './create-blog.component.html',
-  styleUrls: ['./create-blog.component.css']
+  selector: 'app-edit-blog',
+  templateUrl: './edit-blog.component.html',
+  styleUrls: ['./edit-blog.component.css']
 })
-export class CreateBlogComponent implements OnInit {
+export class EditBlogComponent  implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
-    private service:AuthServiceService) { }
+    private service:AuthServiceService,
+    private actRoute:ActivatedRoute) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
   fileData: File = null;
@@ -30,17 +31,22 @@ export class CreateBlogComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  selected2:string="";
+  selected3:string="";
+  selected4:string[]=[];
+  blogId;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   personImage:string="";
   ngOnInit(): void {
+
     this.createBlogForm = this.formBuilder.group({
       title: ['',Validators.required],
       longDescription: [''],
       shortDescription: [''],
       person: [''],
       categoryId: ['',Validators.required],
-      tagList: ['',Validators.required],
+      tagList: [''],
       thumbnailImageUrl: [''],
     });
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -56,14 +62,42 @@ export class CreateBlogComponent implements OnInit {
       profile:  [''],
       profileImageUrl:  [''],
     });
+    this.actRoute.queryParams.subscribe(params => {
+      this.blogId=params.page;
+      this.getBlogData(params.page);
+    });
     this.getCategoryDetails();
     this.getTagsDetails();
     this.getPersons();
-  }
 
+  }
+  getBlogData(id){
+      this.service.getBlogById(id).subscribe(res=>{
+        console.log("blog=",res);
+        this.selected2=res.body.category.id;
+        console.log("catg=",res.body.category.id);
+        console.log("person=",res.body.person.id);
+
+        this.selected3=res.body.person.id;
+        res.body.resourceTags.forEach(m=>{
+          this.selected4.push(m.name);
+        })
+         this.speakerImage=res.body.thumbnailImageUrl;
+        this.createBlogForm.get(['title']).setValue(res.body.title);
+        this.createBlogForm.get(['longDescription']).setValue(res.body.longDescription);
+        this.createBlogForm.get(['shortDescription']).setValue(res.body.shortDescription);
+        this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
+        this.createBlogForm.get(['person']).setValue(res.body.person.id);
+        this.previewUrl=res.body.thumbnailImageUrl;
+        //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
+        // this.createBlogForm.get(['title']).setValue(res.body.title);
+      })
+  }
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
+      console.log("cat=",this.catagoryData);
+
     })
   }
   getTagsDetails(){
@@ -74,6 +108,7 @@ export class CreateBlogComponent implements OnInit {
   getPersons(){
     this.service.getPersons().subscribe(res=>{
         this.persons=res.body;
+
     })
   }
   fileProgress(fileInput: any) {
@@ -161,49 +196,52 @@ export class CreateBlogComponent implements OnInit {
   generateBlog(){
     let obj=this.createBlogForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
+    console.log("tags=",obj.tagList);
+    let personObj;
 
-    let tags:any[]=[];
-    obj.tagList.forEach(m=>{
-      let tag={
-      "keywords": m.keywords,
-      "name": m.name
-      }
-      tags.push(tag);
-    });
+    this.persons.forEach(m=>{
+     if(this.createBlogForm.get(['person']).value==m.id)
+      personObj=m;
+    })
+    let catObj;
+    this.catagoryData.forEach(m=>{
+      if(this.createBlogForm.get(['categoryId']).value==m.id)
+      catObj=m;
 
+    })
+    // let tags:any[]=[];
+    // obj.tagList.forEach(m=>{
+    //   let tag={
+    //   "keywords": m.keywords,
+    //   "name": m.name
+    //   }
+    //   tags.push(tag);
+    // });
+   // this.tagData.forEach()
+    //obj['tagList']=tags;
+    let tag={
+          "keywords": "java",
+     "name": "java"
+    }
     let dataObj={
-
-       "customerProfile": "",
-         "detailImageUrl": "",
-         "downloadUrl": "",
-         "categoryId": obj.categoryId.id,
-         "isDraft": true,
-         "longDescription": obj.longDescription,
-         "person": {
-           "description": obj.person.description,
-           "designation": obj.person.designation,
-           "email": obj.person.email,
-           "id":0,
-           "fullName":obj.person.fullName,
-           "keySkills":obj.person.keySkills,
-           "origanizationName":obj.person.origanizationName,
-           "personalEmail": obj.person.personalEmail,
-           "phone":obj.person.phone,
-           "profile":obj.person.profile,
-           "profileImageUrl": obj.person.profileImageUrl
-         },
-         "resourceType":1,
-         "serviceUsed": "",
-         "shortDescription": obj.longDescription,
-         "tagList": [],
-         "thumbnailImageUrl": obj.thumbnailImageUrl,
-         "title": obj.title
-
+      "longDescription": obj.longDescription,
+      "categoryId": catObj.id,
+      "customerProfile": "string",
+      "detailImageUrl": "string",
+      "downloadUrl": "",
+      "id":this.blogId,
+      "isDraft": true,
+      "person": personObj,
+      "shortDescription": obj.longDescription,
+      "tagList": [],
+      "thumbnailImageUrl":obj.thumbnailImageUrl,
+      "title": obj.title,
+      "resourceType":1,
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
-      alert("Blog Added Successfully");
+      alert("Blog Updated Successfully");
       this.router.navigate(['blogs']);
     })
   //console.log(this.createBlogForm.value);

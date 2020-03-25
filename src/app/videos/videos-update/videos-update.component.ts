@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 
 @Component({
@@ -11,10 +11,11 @@ import {Location} from '@angular/common';
 })
 export class VideosUpdateComponent implements OnInit {
   speakerImage: any;
+  videoID: any;
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
-    private service:AuthServiceService, private location: Location) { }
+    private service:AuthServiceService, private location: Location, private actRoute:ActivatedRoute) { }
     createVideoForm:FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
@@ -23,23 +24,50 @@ export class VideosUpdateComponent implements OnInit {
   uploadedFilePath: string = null;
   catagoryData:any[]=[];
   tagData:any[]=[];
-
+  selected2:string="";
+  selected4:string[]=[];
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['',Validators.required],
-      longDescription: ['',Validators.required],
+      title: [''],
+      longDescription: [''],
       shortDescription: [''],
       person: [''],
-      categoryId: ['',Validators.required],
-      tagList: ['',Validators.required],
+      categoryId: [''],
+      tagList: [''],
       thumbnailImageUrl: [''],
-      downloadUrl: ['',Validators.required],
-
+      downloadUrl: [''],
     });
+    this.actRoute.queryParams.subscribe(params => {
+      this.videoID=params.page;
+      this.getVideosData(params.page);
+    });
+    // this.getVideosData(params.page);
     this.getCategoryDetails();
     this.getTagsDetails();
   }
+  getVideosData(id){
+    this.service.getResourceById(id).subscribe(res=>{
+      console.log("Videos=",res);
+      this.selected2=res.body.category.id;
+      console.log("catg=",res.body.category.id);
+     // console.log("person=",res.body.person.id);
 
+      //this.selected3=res.body.person.id;
+      res.body.resourceTags.forEach(m=>{
+        this.selected4.push(m.name);
+      })
+       this.speakerImage=res.body.thumbnailImageUrl;
+      this.createVideoForm.get(['title']).setValue(res.body.title);
+      this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
+      this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
+      this.createVideoForm.get(['categoryId']).setValue(res.body.category.id);
+      this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink)
+      //this.createVideoForm.get(['person']).setValue(res.body.person.id);
+      this.previewUrl=res.body.thumbnailImageUrl;
+      //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
+      // this.createBlogForm.get(['title']).setValue(res.body.title);
+    })
+}
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
@@ -107,13 +135,14 @@ export class VideosUpdateComponent implements OnInit {
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
       "resourceType": 6,
+      "id":this.videoID
     }
     console.log(dataObj);
-    // this.service.saveResource(dataObj).subscribe(res=>{
-    //   console.log("Post Dat",res);
-    //   alert("Video Added Successfully");
-    //   // this.router.navigate(['blogs']);
-    // })
+    this.service.saveResource(dataObj).subscribe(res=>{
+      console.log("Post Dat",res);
+      alert("Video Updated Successfully");
+      // this.router.navigate(['blogs']);
+    })
     }
 }
 BackMe(){

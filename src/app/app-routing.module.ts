@@ -31,6 +31,10 @@ import { VideosPreviewComponent } from './videos/videos-preview/videos-preview.c
 import { VideosDetailsComponent } from './videos/videos-details/videos-details.component';
 import { VideosUpdateComponent } from './videos/videos-update/videos-update.component';
 import { VideosCreateComponent } from './videos/videos-create/videos-create.component';
+import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
+import { ViewCasesComponent } from './case-studies/view-cases/view-cases.component';
+import { CasesCreateComponent } from './case-studies/cases-create/cases-create.component';
+import { CasesEditComponent } from './case-studies/cases-edit/cases-edit.component';
 
 
 
@@ -68,8 +72,12 @@ const routes: Routes = [
   { path: 'videos', component: VideosPreviewComponent, canActivate: [AuthguardServiceService]},
   { path: 'videos-create', component: VideosCreateComponent, canActivate: [AuthguardServiceService]},
   { path: 'videos-update', component: VideosUpdateComponent, canActivate: [AuthguardServiceService]},
-  { path: 'videos-detail', component: VideosDetailsComponent, canActivate: [AuthguardServiceService]}
+  { path: 'videos-detail', component: VideosDetailsComponent, canActivate: [AuthguardServiceService]},
 
+  { path: 'blog-edit', component: EditBlogComponent, canActivate: [AuthguardServiceService]},
+  { path: 'view-cases', component: ViewCasesComponent, canActivate: [AuthguardServiceService]},
+  { path: 'create-cases', component: CasesCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'edit-cases', component: CasesEditComponent, canActivate: [AuthguardServiceService]}
 
 
 ];
