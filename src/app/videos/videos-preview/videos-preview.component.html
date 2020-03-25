@@ -1,0 +1,42 @@
+<div>
+  <ul class="breadcrumb">
+     <li><a href="/events">Home</a></li>
+     <li><a class="active">Videos</a></li>
+  </ul>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a routerLink="/videos-create"><button type="button" class="btn button-1 action-good">Create Video</button></a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
+          <option  value="" hidden>Please Select Category</option>
+           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+        </select>
+      </li>
+      <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
+        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<section class="section-tours">
+  <div class="row" style="padding: .5rem 1rem; ">
+    <mat-card class="p-0 m-3 videos-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
+      <div>
+        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px">
+      </div>
+      <div class="p-2">
+        <p class="videos-title">{{card.title}}</p>
+        <p class="videos-title">Tags: {{card.category.displayName}}</p>
+      </div>
+    </mat-card>
+  </div>
+</section>

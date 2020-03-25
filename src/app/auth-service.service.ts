@@ -119,4 +119,10 @@ export class AuthServiceService {
   getPersons(){
     return this.http.get<any>(this.url+'api/public/authors', {headers:this.headers});
   }
+
+  //Videos Apis
+  getAllVideosList()
+  :Observable<any>{
+    return this.http.get<any>(this.url+'api/public/resources/videos', {headers:this.headers})
+  }
 }

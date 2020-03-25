@@ -1,0 +1,115 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/events">Home</a></li>
+    <li><a href="/videos">Videos</a></li>
+     <li><a (click)="BackMe()">Videos Preview</a></li>
+     <li><a class="active">Update Videos</a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Update Video</p>
+      </div>
+
+      <form [formGroup]='createVideoForm' >
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Title *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="title" value="">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Long Description *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description..." formControlName="longDescription" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Short Description</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Author</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Author</mat-label>
+            <mat-select formControlName="person">
+              <mat-option *ngFor="let person of persons" [value]="person">
+                {{person.fullName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" (click)="addPerson()" data-toggle="modal"
+              data-target="#tagModal">Add Author</button>
+          </div>
+        </div> -->
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Category *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let category of catagoryData" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Tags *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Tags</mat-label>
+            <mat-select multiple formControlName="tagList">
+            <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Video URL  *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="downloadUrl" value="">
+          </mat-form-field>
+        </div>
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Publish Date</label>
+          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
+            placeholder="Start Date" formControlName="publishDate">
+          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+        </div> -->
+
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Thumbnail Image</label>
+          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
+            (change)="fileProgress($event)" />
+          <div class="col-sm-2 my-3">
+            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

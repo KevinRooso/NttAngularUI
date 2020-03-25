@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,8 +8,8 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
-          <option  value="" hidden>Please Select Category</option>
-           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+          <option value="" hidden>Please Select Category</option>
+          <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
       </li>
       <li class="nav-item mx-2">
@@ -28,7 +27,7 @@
 
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
           <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
         </div>
       </li>
@@ -42,20 +41,23 @@
   </div>
 </nav>
 <section class="blog">
-  <div class=" text-center">
+  <!-- <div class=" text-center">
     <p class="heading-secondary py-4">
 Blogs
     </p>
-    </div>
+    </div> -->
   <div class="container">
 
-    <div class="row"  style="padding: .5rem 1rem; ">
+    <div class="row" style="padding: .5rem 1rem; ">
       <div class="col-sm-4" style="padding: .5rem 1rem; " *ngFor="let blog of filterBlogs">
-        <div class="card blog-card" (click)="showBlogDetail(blog.id)"> <img [src]="blog.thumbnailImageUrl!=null?blog.thumbnailImageUrl:'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'" class="w-100">
+        <div class="card blog-card" (click)="showBlogDetail(blog.id)">
+          <img
+            [src]="blog.thumbnailImageUrl!=null?blog.thumbnailImageUrl:'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'"
+            class="w-100" height="280px">
 
           <div class="card-block">
-              <h3 class="card-title">{{blog.title}}</h3>
-              <mat-divider></mat-divider>
+            <h3 class="card-title">{{blog.title}}</h3>
+            <mat-divider></mat-divider>
             <p>{{blog.shortDescription}}</p>
 
           </div>
