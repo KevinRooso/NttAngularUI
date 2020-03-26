@@ -5,7 +5,21 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a routerLink="/create-cases"><button type="button" class="btn button-1 action-good">Create Cases</button></a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
+          <option  value="" hidden>Please Select Category</option>
+           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+        </select>
+      </li>
 
+      <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
+        <input class="form-control" [(ngModel)]="searchCases" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
 <section class="blog">
@@ -16,7 +30,7 @@ Case Studies
     </div>
   <div class="container-fluid">
 
-  <div class="col-md-6 pr-0" *ngFor="let cases of caseStudies">
+  <div class="col-md-6 pr-0" *ngFor="let cases of filterCases">
       <div class="category-list-card" (click)="viewCases(cases.id)">
           <div class="category-image">
               <img [src]="cases.thumbnailImageUrl">

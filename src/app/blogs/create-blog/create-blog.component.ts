@@ -17,6 +17,7 @@ export class CreateBlogComponent implements OnInit {
     private service:AuthServiceService) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
+  addTagForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -32,6 +33,7 @@ export class CreateBlogComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
+  @ViewChild('closeModel',{static:true}) closeModel;
   personImage:string="";
   ngOnInit(): void {
     this.createBlogForm = this.formBuilder.group({
@@ -56,6 +58,10 @@ export class CreateBlogComponent implements OnInit {
       profile:  [''],
       profileImageUrl:  [''],
     });
+    this.addTagForm = this.formBuilder.group({
+      name:['',Validators.required],
+      keywords:['',Validators.required],
+    })
     this.getCategoryDetails();
     this.getTagsDetails();
     this.getPersons();
@@ -211,6 +217,7 @@ export class CreateBlogComponent implements OnInit {
 
 }
   submitPerson(){
+    let flag=false;
     if(this.personForm.valid){
     console.log(this.personForm.value);
     let fruit1 = '';
@@ -218,11 +225,37 @@ export class CreateBlogComponent implements OnInit {
     this.fruits.forEach(m => {
       fruit1 = fruit1 + ',' + m.name;
     })
+    this.persons.forEach(m=>{
+        if(m.email==this.personForm.get(['email']).value){
+          flag=true;
+        }
+    });
+    if(!flag){
     let obj1=this.personForm.value;
     obj1['keySkills']=fruit1.substring(1, fruit1.length - 0);
     obj1['profileImageUrl']=this.personImage;
+    obj1['id']=0;
     this.persons.push(obj1);
     this.closebutton.nativeElement.click();
+    }
+    else
+    alert("Author Already Exist")
   }
   }
+  createTag(){
+    if(this.addTagForm.valid){
+          let flag=true;
+    this.tagData.forEach(m=>{
+      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      flag=false;
+    })
+    if(flag){
+    this.tagData.push(this.addTagForm.value);
+    this.closeModel.nativeElement.click();
+  }
+  else
+  alert("Tag Already EXist");
+  }
+}
+
 }

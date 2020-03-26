@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location} from '@angular/common';
 declare var $;
 @Component({
   selector: 'app-edit-blog',
@@ -15,9 +16,11 @@ export class EditBlogComponent  implements OnInit {
   constructor(private formBuilder:FormBuilder,
     private router:Router,
     private service:AuthServiceService,
-    private actRoute:ActivatedRoute) { }
+    private actRoute:ActivatedRoute,
+    private location: Location) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
+  addTagForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -37,6 +40,7 @@ export class EditBlogComponent  implements OnInit {
   blogId;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
+  @ViewChild('closeModel',{static:true}) closeModel;
   personImage:string="";
   ngOnInit(): void {
 
@@ -62,6 +66,10 @@ export class EditBlogComponent  implements OnInit {
       profile:  [''],
       profileImageUrl:  [''],
     });
+    this.addTagForm = this.formBuilder.group({
+      name:['',Validators.required],
+      keywords:['',Validators.required],
+    })
     this.actRoute.queryParams.subscribe(params => {
       this.blogId=params.page;
       this.getBlogData(params.page);
@@ -209,16 +217,7 @@ export class EditBlogComponent  implements OnInit {
       catObj=m;
 
     })
-    // let tags:any[]=[];
-    // obj.tagList.forEach(m=>{
-    //   let tag={
-    //   "keywords": m.keywords,
-    //   "name": m.name
-    //   }
-    //   tags.push(tag);
-    // });
-   // this.tagData.forEach()
-    //obj['tagList']=tags;
+
     let tag={
           "keywords": "java",
      "name": "java"
@@ -249,6 +248,7 @@ export class EditBlogComponent  implements OnInit {
 
 }
   submitPerson(){
+    let flag=false;
     if(this.personForm.valid){
     console.log(this.personForm.value);
     let fruit1 = '';
@@ -256,11 +256,39 @@ export class EditBlogComponent  implements OnInit {
     this.fruits.forEach(m => {
       fruit1 = fruit1 + ',' + m.name;
     })
+    this.persons.forEach(m=>{
+      if(m.email==this.personForm.get(['email']).value){
+        flag=true;
+      }
+  });
+  if(!flag){
     let obj1=this.personForm.value;
     obj1['keySkills']=fruit1.substring(1, fruit1.length - 0);
     obj1['profileImageUrl']=this.personImage;
+    obj1['id']=0;
     this.persons.push(obj1);
     this.closebutton.nativeElement.click();
   }
+  else
+  alert("Author Already Exist")
   }
+  }
+  createTag(){
+    if(this.addTagForm.valid){
+          let flag=true;
+    this.tagData.forEach(m=>{
+      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      flag=false;
+    })
+    if(flag){
+    this.tagData.push(this.addTagForm.value);
+    this.closeModel.nativeElement.click();
+  }
+  else
+  alert("Tag Already EXist");
+  }
+}
+BackMe() {
+  this.location.back(); // <-- go back to previous location on cancel
+}
 }
