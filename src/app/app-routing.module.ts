@@ -35,6 +35,10 @@ import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 import { ViewCasesComponent } from './case-studies/view-cases/view-cases.component';
 import { CasesCreateComponent } from './case-studies/cases-create/cases-create.component';
 import { CasesEditComponent } from './case-studies/cases-edit/cases-edit.component';
+import { NewsComponent } from './news/news.component';
+import { CreateNewsComponent } from './news/create-news/create-news.component';
+import { NewsViewComponent } from './news/news-view/news-view.component';
+import { NewsEditComponent } from './news/news-edit/news-edit.component';
 
 
 
@@ -77,7 +81,13 @@ const routes: Routes = [
   { path: 'blog-edit', component: EditBlogComponent, canActivate: [AuthguardServiceService]},
   { path: 'view-cases', component: ViewCasesComponent, canActivate: [AuthguardServiceService]},
   { path: 'create-cases', component: CasesCreateComponent, canActivate: [AuthguardServiceService]},
-  { path: 'edit-cases', component: CasesEditComponent, canActivate: [AuthguardServiceService]}
+  { path: 'edit-cases', component: CasesEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'news', component: NewsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'create-news', component: CreateNewsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'view-news', component: NewsViewComponent, canActivate: [AuthguardServiceService]},
+  { path: 'edit-news', component: NewsEditComponent, canActivate: [AuthguardServiceService]}
+
+
 
 
 ];

@@ -87,9 +87,10 @@ export class EditBlogComponent  implements OnInit {
         console.log("person=",res.body.person.id);
 
         this.selected3=res.body.person.id;
-        res.body.resourceTags.forEach(m=>{
-          this.selected4.push(m.name);
-        })
+        for(let i=0;i<res.body.resourceTags.length;i++)
+        this.selected4.push(res.body.resourceTags[i].name);
+        console.log("tags=",this.selected4);
+
          this.speakerImage=res.body.thumbnailImageUrl;
         this.createBlogForm.get(['title']).setValue(res.body.title);
         this.createBlogForm.get(['longDescription']).setValue(res.body.longDescription);
@@ -218,10 +219,15 @@ export class EditBlogComponent  implements OnInit {
 
     })
 
-    let tag={
-          "keywords": "java",
-     "name": "java"
-    }
+    let tags:any[]=[];
+    obj.tagList.forEach(m=>{
+      let tag={
+        "id":m.id,
+      "keywords": m.keywords,
+      "name": m.name
+      }
+      tags.push(tag);
+    });
     let dataObj={
       "longDescription": obj.longDescription,
       "categoryId": catObj.id,
@@ -232,7 +238,7 @@ export class EditBlogComponent  implements OnInit {
       "isDraft": true,
       "person": personObj,
       "shortDescription": obj.longDescription,
-      "tagList": [],
+      "tagList": tags,
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
       "resourceType":1,
@@ -280,8 +286,10 @@ export class EditBlogComponent  implements OnInit {
       if(m.keywords==this.addTagForm.get(['keywords']).value)
       flag=false;
     })
+    let obj=this.addTagForm.value;
     if(flag){
-    this.tagData.push(this.addTagForm.value);
+      obj['id']=0;
+    this.tagData.push(obj);
     this.closeModel.nativeElement.click();
   }
   else

@@ -171,6 +171,7 @@ export class CreateBlogComponent implements OnInit {
     let tags:any[]=[];
     obj.tagList.forEach(m=>{
       let tag={
+        "id":m.id,
       "keywords": m.keywords,
       "name": m.name
       }
@@ -201,7 +202,7 @@ export class CreateBlogComponent implements OnInit {
          "resourceType":1,
          "serviceUsed": "",
          "shortDescription": obj.longDescription,
-         "tagList": [],
+         "tagList": tags,
          "thumbnailImageUrl": obj.thumbnailImageUrl,
          "title": obj.title
 
@@ -249,8 +250,10 @@ export class CreateBlogComponent implements OnInit {
       if(m.keywords==this.addTagForm.get(['keywords']).value)
       flag=false;
     })
+    let obj=this.addTagForm.value
     if(flag){
-    this.tagData.push(this.addTagForm.value);
+      obj['id']=0;
+    this.tagData.push(obj);
     this.closeModel.nativeElement.click();
   }
   else

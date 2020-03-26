@@ -13,6 +13,7 @@ export class CreateParticipantsComponent implements OnInit {
   flag=true;
   events:any[]=[];
   eventId;
+  id;
   constructor(private formBuilder: FormBuilder,private service:AuthServiceService,
     private router1:ActivatedRoute,private router:Router) { }
 
@@ -20,6 +21,7 @@ export class CreateParticipantsComponent implements OnInit {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
+      this.id=params.page;
       if(params.page!= undefined){
       this.flag=false;
       this.eventId=params.page;
@@ -29,7 +31,7 @@ export class CreateParticipantsComponent implements OnInit {
       name: ['',Validators.required],
       email: ['',[Validators.required, Validators.email]],
       phoneNo: ['',[Validators.required, Validators.pattern(mobnum)]],
-      event:['',Validators.required]
+      event:['']
     });
     this.getEvents();
   }
@@ -61,7 +63,10 @@ export class CreateParticipantsComponent implements OnInit {
 
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
       alert("added successfully");
+      if(this.id==undefined)
       this.router.navigate(['participants']);
+      else
+      this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
     })
   }
     }

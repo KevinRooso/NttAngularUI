@@ -59,6 +59,10 @@ import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 import { ViewCasesComponent } from './case-studies/view-cases/view-cases.component';
 import { CasesCreateComponent } from './case-studies/cases-create/cases-create.component';
 import { CasesEditComponent } from './case-studies/cases-edit/cases-edit.component';
+import { NewsComponent } from './news/news.component';
+import { CreateNewsComponent } from './news/create-news/create-news.component';
+import { NewsViewComponent } from './news/news-view/news-view.component';
+import { NewsEditComponent } from './news/news-edit/news-edit.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +102,11 @@ import { CasesEditComponent } from './case-studies/cases-edit/cases-edit.compone
     EditBlogComponent,
     ViewCasesComponent,
     CasesCreateComponent,
-    CasesEditComponent
+    CasesEditComponent,
+    NewsComponent,
+    CreateNewsComponent,
+    NewsViewComponent,
+    NewsEditComponent
     ],
   imports: [
     BrowserModule,
