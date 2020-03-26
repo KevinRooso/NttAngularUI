@@ -44,8 +44,14 @@ export class EventDetailsComponent implements OnInit {
   addParticipants(){
     this.router.navigate(['/participant-add'], { queryParams: { page: this.eventId } });
   }
+  addSpeaker(){
+    this.router.navigate(['/create-speaker'], { queryParams: { page: this.eventId } });
+  }
   viewParticipant(){
     this.router.navigate(['/participants'], { queryParams: { page: this.eventId } });
+  }
+  viewSpeakers(){
+    this.router.navigate(['/speakers'], { queryParams: { page: this.eventId } });
   }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel

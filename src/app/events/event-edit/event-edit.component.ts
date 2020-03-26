@@ -33,6 +33,14 @@ export class EventEditComponent implements OnInit {
   getEventDetails: any;
   evntID;
 
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+  articleImage: any;
+  attachUrl: any = null;
+  attachFile: any;
+
   selected1:string ='Cloud Computing';
 
   constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
@@ -100,8 +108,14 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['country'].setValue(this.getEventDetails.country);
       this.updateEventForm.controls['pincode'].setValue(this.getEventDetails.pincode);
       this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
-      this.updateEventForm.controls['detailImageUrl'].setValue(this.getEventDetails.detailImageUrl);
-      this.updateEventForm.controls['thumbnailImageUrl'].setValue(this.getEventDetails.thumbnailImageUrl);
+      this.attachUrl =this.getEventDetails.detailImageUrl;
+      this.previewUrl=this.getEventDetails.thumbnailImageUrl;
+
+      this.articleImage= this.getEventDetails.thumbnailImageUrl
+      this.attachFile= this.getEventDetails.detailImageUrl
+
+      // this.updateEventForm.controls['detailImageUrl'].setValue();
+      // this.updateEventForm.controls['thumbnailImageUrl'].setValue(this.getEventDetails.thumbnailImageUrl);
       this.updateEventForm.controls['startTime'].setValue(this.getEventDetails.eventSchedule[0].startTime);
       this.updateEventForm.controls['endTime'].setValue(this.getEventDetails.eventSchedule[0].endTime);
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ.displayName);
@@ -116,6 +130,63 @@ export class EventEditComponent implements OnInit {
       })
     })
   }
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+  fileProgress2(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview2();
+  }
+  preview() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+  preview2() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.attachUrl = reader.result;
+    }
+  }
+  uploadImage() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.authService.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.articleImage = res.fileDownloadUri;
+        console.log("Image", this.articleImage);
+        alert('SUCCESS !!');
+      })
+  }
+  uploadAttachment() {
+    const formData1 = new FormData();
+    formData1.append('file', this.fileData);
+    this.authService.uploadFile(formData1)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.attachFile = res.fileDownloadUri;
+        console.log("File", this.attachFile);
+        alert('SUCCESS !!');
+      })
+  }
+
   updateEvent() {
     if(this.updateEventForm.valid){
     let name: any[] = [];
@@ -156,6 +227,8 @@ export class EventEditComponent implements OnInit {
       if(m.displayName==this.updateEventForm.controls['policyFAQ'].value)
       faqId=m.id;
     });
+    console.log("Thumb", this.articleImage);
+    console.log("dateil Banner",this.attachFile);
 
     let obj = {
       "title": this.updateEventForm.controls['title'].value,
@@ -173,8 +246,8 @@ export class EventEditComponent implements OnInit {
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
       "policyFAQ": faqId,
       "policyTnc": tncId,
-      "thumbnailImageUrl": this.updateEventForm.controls['thumbnailImageUrl'].value,
-      "detailImageUrl": this.updateEventForm.controls['detailImageUrl'].value,
+      "thumbnailImageUrl": this.articleImage,
+      "detailImageUrl": this.attachFile,
       "categoryTypeId": catId,
       "speakerList": name,
       "tagList": tag,
@@ -192,13 +265,13 @@ export class EventEditComponent implements OnInit {
 
     console.log("Updated Data", obj);
 
-    // this.authService.saveEventDetails(obj).subscribe(
-    //   (response) => {
-    //     console.log("responsne", response);
-    //     alert("Successfully Updated");
-    //   },
-    //   (error) => console.log(error)
-    // )
+    this.authService.saveEventDetails(obj).subscribe(
+      (response) => {
+        console.log("responsne", response);
+        alert("Successfully Updated");
+      },
+      (error) => console.log(error)
+    )
     }
 
   }
