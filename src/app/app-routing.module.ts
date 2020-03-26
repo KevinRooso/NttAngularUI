@@ -16,7 +16,7 @@ import { ParticipantPreviewComponent } from './participants/participant-preview/
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
-  import { AuthguardServiceService } from './authguard-service.service';
+import { AuthguardServiceService } from './authguard-service.service';
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
@@ -27,6 +27,10 @@ import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepape
 import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
+import { VideosPreviewComponent } from './videos/videos-preview/videos-preview.component';
+import { VideosDetailsComponent } from './videos/videos-details/videos-details.component';
+import { VideosUpdateComponent } from './videos/videos-update/videos-update.component';
+import { VideosCreateComponent } from './videos/videos-create/videos-create.component';
 import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 import { ViewCasesComponent } from './case-studies/view-cases/view-cases.component';
 import { CasesCreateComponent } from './case-studies/cases-create/cases-create.component';
@@ -65,6 +69,11 @@ const routes: Routes = [
   { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},
   { path: 'blog-detail', component: BlogDetailComponent, canActivate: [AuthguardServiceService]},
   { path: 'blog-create', component: CreateBlogComponent, canActivate: [AuthguardServiceService]},
+  { path: 'videos', component: VideosPreviewComponent, canActivate: [AuthguardServiceService]},
+  { path: 'videos-create', component: VideosCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'videos-update', component: VideosUpdateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'videos-detail', component: VideosDetailsComponent, canActivate: [AuthguardServiceService]},
+
   { path: 'blog-edit', component: EditBlogComponent, canActivate: [AuthguardServiceService]},
   { path: 'view-cases', component: ViewCasesComponent, canActivate: [AuthguardServiceService]},
   { path: 'create-cases', component: CasesCreateComponent, canActivate: [AuthguardServiceService]},

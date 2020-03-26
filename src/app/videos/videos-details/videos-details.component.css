@@ -1,0 +1,26 @@
+
+
+.edit .btn {
+  position: absolute;
+  /* top: 2%;
+  left: 90%; */
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  color: #fff;
+  background: #2C98DE;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,.275);
+  outline: none;
+}
+
+.edit .btn:hover {
+  background: #324da1;
+}
+.table td, .table th {
+  padding: 0.6rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}

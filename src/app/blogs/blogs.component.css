@@ -6,13 +6,13 @@
 
 border-radius: 0;
 border: 0;
-background: rgba(255,255,255,0.06);
+background: #fff;
 
 transition: background 0.25s;
 /* cursor: none; */
 }
 .blog .card:hover {
-background: rgba(255,255,255,0.1);
+  background: #fff;
 transition: background 0.25s;
 }
 
@@ -58,7 +58,7 @@ transition: background 0.25s;
 }
 .blog-card{
   width: 100%;
-  height: 100%;
+  height: 480px;
 }
 .blog-title{
   margin: 0;
