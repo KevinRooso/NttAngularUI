@@ -33,7 +33,7 @@ export class CreateEventComponent implements OnInit {
 
   speaker = new FormControl();
   tag = new FormControl();
-
+  today=new Date();
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: ['',Validators.required],
@@ -61,11 +61,11 @@ export class CreateEventComponent implements OnInit {
 
     })
     this.addSpeakerForm = formBuilder.group({
-      fullName:['']
+      fullName:['',Validators.required]
     })
     this.addTagForm = formBuilder.group({
-      name:[''],
-      keywords: ['']
+      name:['',Validators.required],
+      keywords:['',Validators.required],
     })
   }
 
@@ -226,16 +226,28 @@ export class CreateEventComponent implements OnInit {
       }
   }
   createSpeaker(){
+    if(this.addSpeakerForm.valid){
+     // alert("i Called");
+      this.allspeakers.unshift(this.addSpeakerForm.value.fullName);
+      console.log(this.addSpeakerForm.value.fullName);
+      console.log("new Array", this.allspeakers);
+    }
     // alert("i Called");
     // console.log(this.addSpeakerForm.value.fullName);
-    this.allspeakers.push(this.addSpeakerForm.value.fullName);
+
     // console.log(this.allspeakers);
   }
   createTag(){
+    if(this.addTagForm.valid){
+    //  alert("Tag Called");
+      this.tagsList.unshift(this.addTagForm.value.name);
+      console.log(this.addTagForm.value.name);
+      console.log("New Array", this.tagsList);
+    }
     // alert("Tag Called");
     // console.log(this.addTagForm.value.name);
     // console.log(this.addTagForm.value.keywords);
-    this.tagsList.push(this.addTagForm.value.name);
+
     // console.log(this.tagsList);
   }
   getTagsDetails(){
@@ -275,5 +287,8 @@ export class CreateEventComponent implements OnInit {
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
+  // reset(){
+  //   this.addTagForm.resetForm();
+  //   this.addSpeakerForm.resetForm();
+  // }
 }
