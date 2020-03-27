@@ -63,6 +63,7 @@ import { NewsComponent } from './news/news.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { NewsViewComponent } from './news/news-view/news-view.component';
 import { NewsEditComponent } from './news/news-edit/news-edit.component';
+import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { NewsEditComponent } from './news/news-edit/news-edit.component';
     NewsComponent,
     CreateNewsComponent,
     NewsViewComponent,
-    NewsEditComponent
+    NewsEditComponent,
+    ConfigurationComponent
     ],
   imports: [
     BrowserModule,

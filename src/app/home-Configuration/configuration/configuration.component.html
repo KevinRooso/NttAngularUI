@@ -1,0 +1,414 @@
+
+<div class="container">
+  <h5>Banner Configuration</h5>
+  <div class="row mx-0">
+    <div class="col-md-4 mr-3">
+      <p>Choose Banner 1</p>
+      <form [formGroup]="bannerConfigurationForm1">
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4 mr-3">
+      <p>Choose Banner 2</p>
+      <form [formGroup]='bannerConfigurationForm2'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <p>Choose Banner 3</p>
+      <form [formGroup]='bannerConfigurationForm3'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>Event Configuration</p>
+      <form [formGroup]='eventConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <p>Articles Configuration</p>
+      <form [formGroup]='articleConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>blogs Configuration</p>
+      <form [formGroup]='blogsConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <p>Videos Configuration</p>
+      <form [formGroup]='videosConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>WhitePapers Configuration</p>
+      <form [formGroup]='whitePaperConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <p>Case Study Configuration</p>
+      <form [formGroup]='caseStudyConfigurationForm'>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select User Type</mat-label>
+            <mat-select formControlName="customer">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{user.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Block</mat-label>
+            <mat-select formControlName="datafieldType">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Data According to Block Selected</mat-label>
+            <mat-select formControlName="dataFieldId">
+              <mat-option *ngFor="let block of blocks" [value]="block.id">{{block.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field class="example-full-width">
+            <mat-label>Sequence Number</mat-label>
+            <mat-select formControlName="sequenceNumber">
+              <mat-option *ngFor="let sequenceNumber of sequenceNumbers" [value]="sequenceNumber">{{sequenceNumber}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
