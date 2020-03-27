@@ -1,3 +1,19 @@
+<div>
+  <ul class="breadcrumb">
+     <li><a href="">Home</a></li>
+     <li><a class="active">Testimonials</a></li>
+  </ul>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a routerLink="/create-testimonials"><button type="button" class="btn button-1 action-good">Create Testimonials</button></a>
+
+  </div>
+</nav>
 <section class="blog">
   <div class="text-center">
     <p class="heading-secondary py-4">
@@ -5,96 +21,21 @@ Testimonials
     </p>
     </div>
   <div class="container-fluid">
-<div class="row">
-  <div class="col-md-4">
-    <div class="card profile-card-2">
+
+  <div class="col-sm-4" *ngFor="let test of filterBlogs">
+    <div class="card profile-card-2" (click)="viewTestimonials(test.id)">
       <div class="card-img-block">
         <img class="img-fluid"
-          src="https://www.netmagicsolutions.com/data/testimonial/Logo_bookmyshow16-08-231471950776.jpg"
+          [src]="test.thumbnailImageUrl"
           alt="Card image cap" />
       </div>
       <div class="card-body pt-5">
-        <img src="https://www.netmagicsolutions.com/data/testimonial/Viraj_patel_bookmyshow16-08-231471950820.jpg"
+        <img [src]="test.detailImageUrl"
           alt="profile-image" class="profile" />
-        <h5 class="card-title">Viraj Patel - (Vice President - Technology)</h5>
-        <p class="card-text">Response time from support teams, solutioning teams and senior management at Netmagic has
-          been a WOW factor. Support and responsiveness from Netmagic has been prompt and highly involving.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card profile-card-2">
-      <div class="card-img-block">
-        <img class="img-fluid"
-          src="https://www.netmagicsolutions.com/data/testimonial/Logo_Myntra16-08-231471950850.jpg"
-          alt="Card image cap" />
-      </div>
-      <div class="card-body pt-5">
-        <img src="https://www.netmagicsolutions.com/data/testimonial/Shamik_Sharma_myntra16-08-231471950898.jpg" alt="profile-image" class="profile" />
-        <h5 class="card-title">Shamik Sharma - (Chief Technology and Product Officer)</h5>
-        <p class="card-text">The good thing about Netmagic is that they manage their servers very well–technical
-          knowledge on how to run a data center was the key reason of us to choose Netmagic. Processes for seamless
-          monitoring, implementation and configuration of hosted infra and the security process at Netmagic was very
-          impressive and as per our needs.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card profile-card-2">
-      <div class="card-img-block">
-        <img class="img-fluid"
-          src="https://www.netmagicsolutions.com/data/testimonial/DishTV_logo16-08-231471951396.jpg"
-          alt="Card image cap" />
-      </div>
-      <div class="card-body pt-5">
-        <img src="https://www.netmagicsolutions.com/data/testimonial/manpreet16-08-231471951407.jpg" alt="profile-image"
-          class="profile" />
-        <h5 class="card-title">Manpreet Singh Sabharwal -
-          (Deputy Vice President)</h5>
-        <p class="card-text">One of the key aspects which helped us choose Netmagic was the knowledge bank that the
-          technical and business teams at Netmagic possess – as well as the understanding of our business criticality.
-          To quote an example, we have a few in-house developed applications that had some issues porting onto the cloud
-          model.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card profile-card-2">
-      <div class="card-img-block">
-        <img class="img-fluid"
-          src="https://www.netmagicsolutions.com/data/testimonial/Logo_Hungama16-08-231471951119.jpg"
-          alt="Card image cap" />
-      </div>
-      <div class="card-body pt-5">
-        <img src="https://www.netmagicsolutions.com/data/testimonial/Amit_Vora_Hungama16-08-231471951150.jpg"
-          alt="profile-image" class="profile" />
-        <h5 class="card-title">Amit Vora
-          - (CTO)</h5>
-        <p class="card-text">We have a long lasting relationship with Netmagic. We have access to their senior
-          architects, technology experts and database experts. The senior management, including the CEO, is always
-          available to discuss issues and innovations that we might need addressed at any point in time</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card profile-card-2">
-      <div class="card-img-block">
-        <img class="img-fluid"
-          src="https://www.netmagicsolutions.com/data/testimonial/logo_ratnakarbank16-08-231471952020.jpg"
-          alt="Card image cap" />
-      </div>
-      <div class="card-body pt-5">
-        <img src="https://www.netmagicsolutions.com/data/testimonial/Anup_Purohit116-08-231471952188.jpg"
-          alt="profile-image" class="profile" />
-        <h5 class="card-title">Anup Purohit
-          - (Head – IT)</h5>
-        <p class="card-text">We have worked out a model with Netmagic where our spend on IT is not only cost efficient
-          but also gives us the flexibility to manage our cash flows. We adopted a linear way of allocating IT spends
-          where we do not have to provision for a huge CapEx initially and we only pay for what we use</p>
+        <h5 class="card-title">{{test.title}}{{test.longDescription !=null ? '('+test.longDescription+')':''}}</h5>
+        <p class="card-text">{{test.shortDescription}}</p>
       </div>
     </div>
   </div>
 
-
-</div>
 </div></section>

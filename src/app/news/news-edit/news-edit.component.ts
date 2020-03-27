@@ -26,7 +26,7 @@ export class NewsEditComponent implements OnInit {
   catagoryData:any[]=[];
   tagData:any[]=[];
     newsId;
-
+    public dateTime1;
   ngOnInit(): void {
 
     this.createVideoForm = this.formBuilder.group({
@@ -44,10 +44,13 @@ export class NewsEditComponent implements OnInit {
   }
   getNewsVideoById(id){
       this.service.getNewsById(id).subscribe(res=>{
+        console.log(res);
+        this.getDate(res.body.date);
         this.createVideoForm.get(['title']).setValue(res.body.title);
         this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
-        this.createVideoForm.get(['date']).setValue(res.body.date);
+       // this.createVideoForm.get(['date']).setValue(res.body.date);
         this.createVideoForm.get(['location']).setValue(res.body.location);
+        this.previewUrl=res.body.thumbnailImageUrl;
         this.speakerImage=res.body.thumbnailImageUrl;
       })
   }
@@ -86,7 +89,7 @@ export class NewsEditComponent implements OnInit {
 
     let dataObj=this.createVideoForm.value;
     dataObj['thumbnailImageUrl']=this.speakerImage;
-    dataObj['date']=date[1]+','+date[2]+','+date[3];
+    dataObj['date']=this.createVideoForm.get(['date']).value.toString();
     dataObj['year']=date[3];
     dataObj['id']=this.newsId;
     console.log(dataObj);
@@ -101,5 +104,15 @@ export class NewsEditComponent implements OnInit {
 BackMe(){
   this.location.back();
 }
+getDate(date){
+let dObj=date.split(' ');
+console.log(dObj[3],'=',MONTH[dObj[1]],'=',dObj[2]);
+//  this.dateTime1=new Date(2019, 3, 3);
+this.dateTime1=new Date(dObj[3],MONTH[dObj[1]],dObj[2]);
+}
 
+}
+const MONTH={
+    'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,
+    'Sep':8,'Oct':9,'Nov':10,'Dec':11
 }

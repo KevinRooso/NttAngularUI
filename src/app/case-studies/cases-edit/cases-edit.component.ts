@@ -55,7 +55,7 @@ export class CasesEditComponent implements OnInit {
     getCasesData(id){
       this.authService.getBlogById(id).subscribe(res=>{
         console.log(res);
-
+        this.previewUrl=res.body.thumbnailImageUrl;
         this.speakerImage=res.body.thumbnailImageUrl;
         this.createCases.get(['title']).setValue(res.body.title);
         this.createCases.get(['longDescription']).setValue(res.body.longDescription);

@@ -39,6 +39,9 @@ import { NewsComponent } from './news/news.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { NewsViewComponent } from './news/news-view/news-view.component';
 import { NewsEditComponent } from './news/news-edit/news-edit.component';
+import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view-testimonials.component';
+import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
+import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 
 
 
@@ -85,7 +88,12 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent, canActivate: [AuthguardServiceService]},
   { path: 'create-news', component: CreateNewsComponent, canActivate: [AuthguardServiceService]},
   { path: 'view-news', component: NewsViewComponent, canActivate: [AuthguardServiceService]},
-  { path: 'edit-news', component: NewsEditComponent, canActivate: [AuthguardServiceService]}
+  { path: 'edit-news', component: NewsEditComponent, canActivate: [AuthguardServiceService]},
+  { path: 'view-testimonials', component: ViewTestimonialsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'create-testimonials', component: CreateTestimonialsComponent, canActivate: [AuthguardServiceService]},
+  { path: 'edit-testimonials', component: EditTestimonialsComponent, canActivate: [AuthguardServiceService]}
+
+
 
 
 

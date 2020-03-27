@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-create-news',
-  templateUrl: './create-news.component.html',
-  styleUrls: ['./create-news.component.css']
+  selector: 'app-create-testimonials',
+  templateUrl: './create-testimonials.component.html',
+  styleUrls: ['./create-testimonials.component.css']
 })
-export class CreateNewsComponent implements OnInit {
+export class CreateTestimonialsComponent implements OnInit {
+
   speakerImage: string="";
 
   constructor(private formBuilder:FormBuilder,
@@ -19,18 +20,19 @@ export class CreateNewsComponent implements OnInit {
   // personForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
+  previewUrl1: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   catagoryData:any[]=[];
   tagData:any[]=[];
-
+    logo:string="";
 
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
       shortDescription: ['',Validators.required],
-      date: ['',Validators.required],
-      location: ['',Validators.required],
+      longDescription: ['',Validators.required],
+      detailImageUrl:[''],
       thumbnailImageUrl:['']
 
     });
@@ -65,19 +67,57 @@ export class CreateNewsComponent implements OnInit {
       })
   }
 
+
+  fileProgress1(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview1();
+  }
+  preview1() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl1 = reader.result;
+    }
+  }
+  uploadImage1() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.service.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.logo = res.fileDownloadUri;
+      })
+  }
+
+
   generateBlog(){
     if(this.createVideoForm.valid){
-      let date=this.createVideoForm.get(['date']).value.toString().split(' ');
-      console.log(date);
+      let obj=this.createVideoForm.value;
+      let dataObj={
+            "detailImageUrl":this.logo,
+          "isDraft": true,
+          "longDescription": obj.longDescription,
+          "person": {
+          },
+          "resourceType":4,
+          "shortDescription": obj.shortDescription,
+          "tagList": [],
+          "thumbnailImageUrl": this.speakerImage,
+          "title": obj.title
 
-    let dataObj=this.createVideoForm.value;
-    dataObj['thumbnailImageUrl']=this.speakerImage;
-    dataObj['date']=this.createVideoForm.get(['date']).value.toString();
-    dataObj['year']=date[3];
+     }
+
     console.log(dataObj);
-    this.service.saveNews(dataObj).subscribe(res=>{
-      alert("News Added Successfully");
-      this.router.navigate(['/news']);
+    this.service.saveResource(dataObj).subscribe(res=>{
+      console.log(res);
+      alert("Testimonials Added Successfully");
+      this.router.navigate(['testimonials']);
     })
     }
 }

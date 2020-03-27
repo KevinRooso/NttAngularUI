@@ -143,4 +143,7 @@ export class AuthServiceService {
   updateNews(obj):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/news', obj, {headers:this.headers});
   }
+  getAllTestimonials():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/resources/testimonials', {headers:this.headers})
+  }
 }

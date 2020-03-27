@@ -63,6 +63,9 @@ import { NewsComponent } from './news/news.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { NewsViewComponent } from './news/news-view/news-view.component';
 import { NewsEditComponent } from './news/news-edit/news-edit.component';
+import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view-testimonials.component';
+import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
+import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +109,10 @@ import { NewsEditComponent } from './news/news-edit/news-edit.component';
     NewsComponent,
     CreateNewsComponent,
     NewsViewComponent,
-    NewsEditComponent
+    NewsEditComponent,
+    ViewTestimonialsComponent,
+    CreateTestimonialsComponent,
+    EditTestimonialsComponent
     ],
   imports: [
     BrowserModule,
