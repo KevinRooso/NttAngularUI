@@ -41,12 +41,12 @@ Blogs
         <div class="card blog-card" (click)="showBlogDetail(blog.id)">
           <img
             [src]="blog.thumbnailImageUrl!=null?blog.thumbnailImageUrl:'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'"
-            class="w-100" height="280px">
+            class="w-100" style="min-height: 280px;height:280px;">
 
           <div class="card-block">
             <h3 class="card-title">{{blog.title}}</h3>
             <mat-divider></mat-divider>
-            <p>{{blog.shortDescription | truncate : 130 : false}}</p>
+            <p  style="font-size: 14px;">{{blog.shortDescription | truncate : 130 : false}}</p>
 
           </div>
         </div>

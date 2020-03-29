@@ -28,7 +28,7 @@
             <textarea matInput placeholder="Description..." formControlName="shortDescription" rows="4"></textarea>
           </mat-form-field>
         </div>
-        <div class="form-row">
+        <div class="form-row mt-3 mb-4">
           <label class="col-sm-3 col-form-label">Date</label>
           <input [owlDateTimeTrigger]="regstartdt" [(ngModel)]="dateTime1" [owlDateTime]="regstartdt" class="form-control col-sm-9"
             placeholder="Date" formControlName="date">
@@ -66,7 +66,7 @@
 
 
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Submit
+          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Update
             Details</button>
         </div>
       </form>

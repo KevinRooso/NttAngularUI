@@ -27,7 +27,7 @@
             <textarea matInput placeholder="Description..." formControlName="shortDescription" rows="4"></textarea>
           </mat-form-field>
         </div>
-        <div class="form-row">
+        <div class="form-row mt-3 mb-4">
           <label class="col-sm-3 col-form-label">Date</label>
           <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
             placeholder="Date" formControlName="date">
@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="form-row">
+        <div class="form-row my-3">
           <label class="col-sm-3 col-form-label"> Image</label>
           <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
             (change)="fileProgress($event)" />
@@ -66,8 +66,7 @@
 
 
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Submit
-            Details</button>
+          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Create News</button>
         </div>
       </form>
     </div>
