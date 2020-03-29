@@ -10,14 +10,14 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a routerLink="/create-cases"><button type="button" class="btn button-1 action-good">Create Cases</button></a>
+    <a routerLink="/create-cases"><button type="button" class="btn button-1 action-good">Create Case</button></a>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item active mx-2">
+      <!-- <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
           <option  value="" hidden>Please Select Category</option>
            <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
-      </li>
+      </li> -->
 
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
@@ -29,25 +29,26 @@
   </div>
 </nav>
 <section class="blog">
-  <div class="text-center">
+  <!-- <div class="text-center">
     <p class="heading-secondary py-4">
 Case Studies
     </p>
-    </div>
-  <div class="container-fluid">
+    </div> -->
+  <!-- <div class="container-fluid"> -->
+<div class="row">
 
   <div class="col-md-6 pr-0" *ngFor="let cases of filterCases">
-      <div class="category-list-card" (click)="viewCases(cases.id)">
-          <div class="category-image">
-              <img [src]="cases.thumbnailImageUrl">
-          </div>
-          <div class="category-name">
-              <h3>{{cases.title}}</h3>
-              <p>{{cases.shortDescription}}</p>
-          </div>
-
-      </div>
-  </div>
-
+    <div class="category-list-card" (click)="viewCases(cases.id)">
+        <div class="d-inline">
+            <img [src]="cases.thumbnailImageUrl" class="category-image">
+        </div>
+        <div class="category-name">
+            <h3>{{cases.title}}</h3>
+            <p>{{cases.shortDescription}}</p>
+        </div>
+    </div>
 </div>
+</div>
+
+<!-- </div> -->
 </section>

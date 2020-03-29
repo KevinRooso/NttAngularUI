@@ -11,31 +11,49 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a routerLink="/create-testimonials"><button type="button" class="btn button-1 action-good">Create Testimonials</button></a>
-
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <!-- <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
+          <option  value="" hidden>Please Select Category</option>
+           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+        </select>
+      </li> -->
+      <!-- <li class="nav-item mx-2">
+        <select class="form-control">
+          <option value="" hidden>Select Tag</option>
+         </select>
+      </li> -->
+      <li class="nav-item ml-2">
+        <select class="form-control">
+          <option value="" hidden>Select Date</option>
+          <!-- <option>{{getEventData.createdAt}}</option> -->
+        </select>
+      </li>
+      <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
+        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
-<section class="blog">
-  <div class="text-center">
-    <p class="heading-secondary py-4">
-Testimonials
-    </p>
-    </div>
-  <div class="container-fluid">
-
-  <div class="col-sm-4" *ngFor="let test of filterBlogs">
-    <div class="card profile-card-2" (click)="viewTestimonials(test.id)">
-      <div class="card-img-block">
-        <img class="img-fluid"
-          [src]="test.thumbnailImageUrl"
-          alt="Card image cap" />
-      </div>
-      <div class="card-body pt-5">
-        <img [src]="test.detailImageUrl"
-          alt="profile-image" class="profile" />
-        <h5 class="card-title">{{test.title}}{{test.longDescription !=null ? '('+test.longDescription+')':''}}</h5>
-        <p class="card-text">{{test.shortDescription}}</p>
+<section class="blog px-3">
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let test of filterBlogs">
+      <div class="card profile-card-2" (click)="viewTestimonials(test.id)">
+        <div class="card-img-block">
+          <img class="img-fluid"
+            [src]="test.thumbnailImageUrl"
+            alt="Card image cap" />
+        </div>
+        <div class="card-body pt-5">
+          <img [src]="test.detailImageUrl"
+            alt="profile-image" class="profile" />
+          <p class="card-title">{{test.title}}{{test.longDescription !=null ? '('+test.longDescription+')':''}}</p>
+          <!-- <p class="card-text">{{test.shortDescription}}</p> -->
+        </div>
       </div>
     </div>
   </div>
-
-</div></section>
+</section>
