@@ -16,6 +16,7 @@ export class TestimonialsComponent implements OnInit {
   searchBlog;
   categoryList:any[]=[];
   cat:string="";
+  searchTests;
   constructor(private service:AuthServiceService,
     private router:Router) { }
 
@@ -54,7 +55,8 @@ export class TestimonialsComponent implements OnInit {
         console.log( this.searchBlog);
         //return m.title.includes(this.searchBlog);
         let titleData=m.title.toUpperCase();
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchTests.toUpperCase());
       })
   }
+
 }

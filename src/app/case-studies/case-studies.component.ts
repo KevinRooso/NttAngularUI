@@ -22,6 +22,7 @@ export class CaseStudiesComponent implements OnInit {
   caseid;
   ngOnInit(): void {
     this.getCasestudies();
+     this.getAllCategory();
   }
   getCasestudies(){
     this.service.getCasestudies().subscribe(res=>{
@@ -38,7 +39,7 @@ export class CaseStudiesComponent implements OnInit {
   }
   getAllCategory(){
     this.service.getCategoryList().subscribe(res=>{
-      console.log(res);
+      console.log("cat=",res);
       this.categoryList=res.body;
     });
   }

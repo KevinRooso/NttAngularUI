@@ -67,6 +67,7 @@ import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view
 import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
+import { TruncatePipe } from './truncate.pipe';
 
 
 @NgModule({
@@ -115,7 +116,8 @@ import { ConfigurationComponent } from './home-Configuration/configuration/confi
     ViewTestimonialsComponent,
     CreateTestimonialsComponent,
     EditTestimonialsComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    TruncatePipe
     ],
   imports: [
     BrowserModule,
