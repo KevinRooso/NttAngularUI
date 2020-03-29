@@ -44,7 +44,7 @@ Case Studies
         </div>
         <div class="category-name">
             <h3>{{cases.title}}</h3>
-            <p>{{cases.shortDescription}}</p>
+            <p>{{cases.longDescription | truncate : 100 : false}}</p>
         </div>
     </div>
 </div>

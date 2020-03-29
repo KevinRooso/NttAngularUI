@@ -35,7 +35,7 @@
       </div>
       <div class="p-2">
         <p class="videos-title">{{card.title}}</p>
-        <p class="videos-title">Tags: {{card.category.displayName}}</p>
+        <p class="videos-title">Tags: {{card.category.displayName| truncate : 70 : false}}</p>
       </div>
     </mat-card>
   </div>

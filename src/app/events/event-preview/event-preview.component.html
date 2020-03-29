@@ -45,7 +45,7 @@
           <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
           <div class="card-body">
             <h5 class="card-title">{{card.title}}</h5>
-            <p class="card-text">{{card.desciption}}</p>
+            <p class="card-text">{{card.desciption| truncate : 175 : false}}</p>
           </div>
           <div class="event-card-body">
             <!-- <p class="card-text">{{card.totalSeat}}</p>
