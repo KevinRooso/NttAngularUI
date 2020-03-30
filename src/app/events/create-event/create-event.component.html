@@ -46,13 +46,12 @@
             </mat-select>
           </mat-form-field>
         </div>
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Tags</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
-            <mat-select multiple formControlName="name">
-              <mat-option *ngFor="let tag of tagsList" [value]="tag">{{tag}}</mat-option>
+            <mat-select multiple formControlName="tagList">
+            <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -61,7 +60,7 @@
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
             <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal"
-              data-target="#tagModal">Add Tags</button>
+              data-target="#tagModal1">Add Tags</button>
           </div>
         </div>
 
@@ -239,52 +238,33 @@
 </div>
 <!-- [disabled]='!createEventForm.valid' -->
 
-<div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]='addSpeakerForm'>
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" placeholder="Full Name" formControlName="fullName">
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-success mb-2 mt-3"
-              (click)="createSpeaker()">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form [formGroup]='addTagForm'>
-          <div class="form-group">
-            <label>Tag Name</label>
-            <input type="text" class="form-control" placeholder="Tag Name" formControlName="name">
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Tag Name" formControlName="name">
+            </mat-form-field>
           </div>
-          <div class="form-group">
-            <label>Tag Keyword</label>
-            <input type="text" class="form-control" placeholder="Keyword Name" formControlName="keywords">
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+            </mat-form-field>
           </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-success mb-2 mt-3"
-              (click)="createTag()">Submit</button>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+
           </div>
         </form>
       </div>

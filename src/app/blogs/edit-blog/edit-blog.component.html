@@ -73,7 +73,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
-            <mat-option *ngFor="let tag of tagData" [value]="tag.name">{{tag.name}}</mat-option>
+            <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

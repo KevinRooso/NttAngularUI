@@ -59,13 +59,12 @@
 
           </mat-form-field>
         </div>
-
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Tags</label>
+          <label class="col-sm-3 col-form-label">Select Tags</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
-            <mat-select multiple formControlName="name" [(ngModel)]="valuesSelectedTag">
-              <mat-option *ngFor="let tag of tagsList" [value]="tag">{{tag}}</mat-option>
+            <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
+            <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -286,23 +285,29 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form [formGroup]='addTagForm'>
-          <div class="form-group">
-            <label>Tag Name</label>
-            <input type="text" class="form-control" placeholder="Tag Name" formControlName="name">
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Tag Name" formControlName="name">
+            </mat-form-field>
           </div>
-          <div class="form-group">
-            <label>Tag Keyword</label>
-            <input type="text" class="form-control" placeholder="Keyword Name" formControlName="keywords">
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+            </mat-form-field>
           </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary mb-2 mt-3"
-              (click)="createTag()">Submit</button>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+
           </div>
         </form>
       </div>

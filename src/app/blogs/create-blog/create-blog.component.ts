@@ -236,7 +236,7 @@ export class CreateBlogComponent implements OnInit {
     obj1['keySkills']=fruit1.substring(1, fruit1.length - 0);
     obj1['profileImageUrl']=this.personImage;
     obj1['id']=0;
-    this.persons.push(obj1);
+    this.persons.unshift(obj1);
     this.closebutton.nativeElement.click();
     }
     else
@@ -253,7 +253,7 @@ export class CreateBlogComponent implements OnInit {
     let obj=this.addTagForm.value
     if(flag){
       obj['id']=0;
-    this.tagData.push(obj);
+    this.tagData.unshift(obj);
     this.closeModel.nativeElement.click();
   }
   else

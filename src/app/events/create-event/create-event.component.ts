@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
@@ -30,10 +30,11 @@ export class CreateEventComponent implements OnInit {
   articleImage: any;
   attachUrl: any = null;
   attachFile: any;
-
+  tagData:any[]=[];
   speaker = new FormControl();
   tag = new FormControl();
   today=new Date();
+  @ViewChild('closeModel',{static:true}) closeModel;
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: ['',Validators.required],
@@ -42,6 +43,7 @@ export class CreateEventComponent implements OnInit {
       address1: ['',Validators.required],
       address2: [''],
       city: [''],
+      tagList:[''],
       country: [''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: ['',Validators.required],
@@ -75,7 +77,6 @@ export class CreateEventComponent implements OnInit {
     this.getPolicyTnCDetails();
     this.getSpeakerDetails();
     this.getTagsDetails();
-    this.generateEvent();
   }
 
 
@@ -140,6 +141,7 @@ export class CreateEventComponent implements OnInit {
 
   generateEvent() {
     if(this.createEventForm.valid){
+      // if(true){
     let name:any[]=[];
     let spekaerName:any[] = [];
     spekaerName = this.createEventForm.controls['fullName'].value;
@@ -159,14 +161,14 @@ export class CreateEventComponent implements OnInit {
       }
       console.log("check me", spekaerName[i]);
     }
-
-    let tag:any[]=[];
-      for(let i=0; i<=this.createEventForm.controls['name'].value.length;i++){
-        let tags={
-          "name":this.createEventForm.controls['name'].value[i]
-          };
-         tag.push(tags);
-      }
+    console.log("check me twice", this.createEventForm.value);
+    // let tag:any[]=[];
+    //   for(let i=0; i<=this.createEventForm.controls['name'].value.length;i++){
+    //     let tags={
+    //       "name":this.createEventForm.controls['name'].value[i]
+    //       };
+    //      tag.push(tags);
+    //   }
       // this.createEventForm.controls['name'].value.forEach(tname=>{
       //   let tags={
       //     "name":tname
@@ -181,7 +183,18 @@ export class CreateEventComponent implements OnInit {
       };
       schedule.push(scheduling);
 
-    let obj={
+    let tags:any[]=[];
+
+    this.createEventForm.value.tagList.forEach(m=>{
+      let tag={
+        "id":m.id,
+      "keywords": m.keywords,
+      "name": m.name
+      }
+      tags.push(tag);
+    });
+
+    let objData={
       "title":this.createEventForm.controls['title'].value,
       "detail":this.createEventForm.controls['detail'].value,
       "shortDescription":this.createEventForm.controls['shortDescription'].value,
@@ -202,7 +215,7 @@ export class CreateEventComponent implements OnInit {
       "detailImageUrl":this.attachFile,
       "categoryTypeId":this.createEventForm.controls['categoryTypeId'].value,
       "speakerList":name,
-      "tagList": tag,
+      "tagList": tags,
       "eventSchedule": schedule,
       "autoApproveParticipant": false,
       "isbreak": false,
@@ -215,15 +228,15 @@ export class CreateEventComponent implements OnInit {
       "id":0
     }
 
-    console.log("Post Data",obj);
+    console.log("Post Data",objData);
 
-    this.authService.saveEventDetails(obj).subscribe(
+    this.authService.saveEventDetails(objData).subscribe(
       (response) => {
         alert("Successfully Created");
         console.log("responsne", response)},
       (error) => console.log(error)
     )
-      }
+  }
   }
   createSpeaker(){
     if(this.addSpeakerForm.valid){
@@ -239,23 +252,25 @@ export class CreateEventComponent implements OnInit {
   }
   createTag(){
     if(this.addTagForm.valid){
-    //  alert("Tag Called");
-      this.tagsList.unshift(this.addTagForm.value.name);
-      console.log(this.addTagForm.value.name);
-      console.log("New Array", this.tagsList);
-    }
-    // alert("Tag Called");
-    // console.log(this.addTagForm.value.name);
-    // console.log(this.addTagForm.value.keywords);
-
-    // console.log(this.tagsList);
+          let flag=true;
+    this.tagData.forEach(m=>{
+      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      flag=false;
+    })
+    let obj=this.addTagForm.value
+    if(flag){
+      obj['id']=0;
+    this.tagData.push(obj);
+    this.closeModel.nativeElement.click();
   }
+  else
+  alert("Tag Already EXist");
+  }
+}
   getTagsDetails(){
     this.authService.getTagsList().subscribe((res)=>{
       // console.log("Tag", res.body);
-      res.body.forEach(m=>{
-        this.tagsList.push(m.name);
-      })
+      this.tagData=res.body;
     })
   }
   getCategoryDetails(){

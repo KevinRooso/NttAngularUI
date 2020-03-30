@@ -88,7 +88,7 @@ export class EditBlogComponent  implements OnInit {
 
         this.selected3=res.body.person.id;
         for(let i=0;i<res.body.resourceTags.length;i++)
-        this.selected4.push(res.body.resourceTags[i].name);
+        this.selected4.push(res.body.resourceTags[i].id);
         console.log("tags=",this.selected4);
 
          this.speakerImage=res.body.thumbnailImageUrl;
@@ -220,14 +220,26 @@ export class EditBlogComponent  implements OnInit {
     })
 
     let tags:any[]=[];
-    obj.tagList.forEach(m=>{
-      let tag={
-        "id":m.id,
-      "keywords": m.keywords,
-      "name": m.name
-      }
-      tags.push(tag);
-    });
+    // obj.tagList.forEach(m=>{
+    //   let tag={
+    //     "id":m.id,
+    //   "keywords": m.keywords,
+    //   "name": m.name
+    //   }
+    //   tags.push(tag);
+    // });
+    this.tagData.forEach(m=>{
+      obj.tagList.forEach(n=>{
+          if(n==m.id){
+            let tag={
+            "id":m.id,
+            "keywords": m.keywords,
+            "name": m.name
+            }
+            tags.push(tag);
+          }
+      });
+    })
     let dataObj={
       "longDescription": obj.longDescription,
       "categoryId": catObj.id,
@@ -272,7 +284,7 @@ export class EditBlogComponent  implements OnInit {
     obj1['keySkills']=fruit1.substring(1, fruit1.length - 0);
     obj1['profileImageUrl']=this.personImage;
     obj1['id']=0;
-    this.persons.push(obj1);
+    this.persons.unshift(obj1);
     this.closebutton.nativeElement.click();
   }
   else
@@ -289,7 +301,7 @@ export class EditBlogComponent  implements OnInit {
     let obj=this.addTagForm.value;
     if(flag){
       obj['id']=0;
-    this.tagData.push(obj);
+    this.tagData.unshift(obj);
     this.closeModel.nativeElement.click();
   }
   else
