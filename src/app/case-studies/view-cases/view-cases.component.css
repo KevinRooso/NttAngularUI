@@ -3,7 +3,7 @@
   border-top: 1px solid rgb(221, 221, 221);
 } */
 
-.table-user-information > tbody > tr:first-child {
+/* .table-user-information > tbody > tr:first-child {
   border-top: 0;
 }
 
@@ -22,8 +22,8 @@
 }
 .edit .btn {
   position: absolute;
-  /* top: 2%;
-  left: 90%; */
+  top: 2%;
+  left: 90%;
   z-index: 1;
   width: 50px;
   height: 50px;
@@ -43,4 +43,39 @@
   padding: 0.6rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
+} */
+
+.cpadl {
+  padding-left: 50px;
+}
+/* .service ul {
+  list-style-image: url(/src/assets/pngwave.png);
+} */
+ol, ul {
+  padding-left: 0px;
+}
+.service ul li {
+  /* padding-top: 10px; */
+  padding-left: 0px;
+}
+.mainBlock li {
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+.service ul {
+  margin: 0.75em 0;
+  padding: 0 1em;
+  list-style: none;
+}
+.service li:before {
+  content: "";
+  border-color: transparent #008ece;
+  border-style: solid;
+  border-width: 0.35em 0 0.35em 0.45em;
+  display: block;
+  height: 0;
+  width: 0;
+  left: -1em;
+  top: 0.9em;
+  position: relative;
 }
