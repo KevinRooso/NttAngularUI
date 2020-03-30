@@ -40,8 +40,8 @@
   </nav>
   <div class="container-fluid">
     <div class="row  mt-2">
-      <div class="col-sm-4" *ngFor="let card of filterBlogs">
-          <div class="card mb-3">
+      <div class="col-sm-4 mb-3" *ngFor="let card of filterBlogs">
+          <div class="card">
           <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
           <div class="card-body">
             <h5 class="card-title">{{card.title}}</h5>
