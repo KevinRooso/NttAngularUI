@@ -185,3 +185,85 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: .5em 0;
   border-top: .74375em solid transparent;
 }
+@media (max-width: 1024px) {
+  .action-good {
+    background: #1dbd45;
+    width: 80px;
+    font-size: 12px;
+    padding: 0px 5px;
+}
+.form-control{
+  width: 130px !important;
+}
+ }
+ table.dataTable thead th{
+  /* background: #f1f5f9 !important; */
+  color: #56688A!important;
+  font-size: 14px!important;
+  padding: 8px;
+
+}
+table.dataTable tbody th, table.dataTable tbody td {
+ padding: 8px !important;
+  line-height: 1.42857143 !important;
+  vertical-align: top !important;
+  border-top: 1px solid #ddd !important;
+  font-size: 14px;
+}
+.dataTables_length label{
+  font-size: 14px;
+  font-weight: normal;
+}
+.dataTables_paginate {
+  padding: 0px;
+  text-align: right;
+  float: right;
+}
+.dataTables_paginate a.paginate_disabled_previous, .dataTables_paginate a.paginate_disabled_next, .dataTables_paginate a.paginate_button, .paginate_enabled_next, .paginate_active, .paginate_enabled_previous {
+  padding: 5px 10px;
+  font-size: 12px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  float: left;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #22262e;
+  margin-left: 3px;
+  cursor: pointer;
+}
+.dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:hover {
+  background: #1b1e24;
+  color: #FFF;
+  border-color: #1b1e24;
+}
+.dataTables_paginate .paginate_enabled_next:hover, .dataTables_paginate a.paginate_button:hover, .dataTables_paginate .paginate_enabled_previous:hover {
+  background-color: #eee;
+  border-color: #ddd;
+  color: #222;
+}
+
+.dataTables_wrapper .dataTables_info {
+  clear: both;
+  float: left;
+  padding-top: 0.755em;
+  font-size: 14px;
+}
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+  width: 150px;
+  display: inline;
+  margin-left: 5px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 18px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  border: 1px solid #D5D5D5;
+  background: #F9F9F9;
+  padding: 10px;
+}
+

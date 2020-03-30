@@ -18,22 +18,23 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
-            <div class="py-2 text-right">
-              <a class="blog-btn add-button" (click)=viewParticipant()>View Participants</a>
-            </div>
+
             <ul class="list-group">
-              <li class="list-group-item" *ngFor="let participant of getParticipantDetails">
-                <div class="d-inline-flex" style="align-items: baseline;">
-                  <div class="mr-2"><img _ngcontent-wbm-c23=""
-                      src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" alt="User Image"
-                      class="speaker-image"></div>
-                  <a>{{participant.name}}</a>
-                </div>
+              <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice:0:6; let ind=index;">
+                <a><div class="d-inline-flex" style="align-items: baseline;">
+                  {{participant.name}}
+                </div></a>
               </li>
             </ul>
-            <div class="py-2 text-right">
-              <a class="blog-btn add-button" (click)=addParticipants()>Add Participants</a>
+            <div class="d-inline-flex py-2" style="width: 100%;">
+              <div class="py-2 text-left" style="width: 50%;">
+                <a class="blog-btn add-button" (click)=viewParticipant()>View All</a>
+              </div>
+              <div class="py-2 text-right" style="width: 50%;">
+                <a class="blog-btn add-button" (click)=addParticipants()>Add New</a>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -41,22 +42,24 @@
         <div class="card">
           <div class="card-body medium">
             <h5 class="card-title">{{getEventDetails.title}}</h5>
-            <p class="card-text">{{getEventDetails.detail}}</p>
-            <p class="card-text mb-0">{{getEventDetails.targetUserType.name}}</p>
-            <small *ngFor="let tag of getEventDetails.tags.name">{{tag.name}}</small>
+            <!-- <h6>Description</h6> -->
+            <p class="card-text"><span class="event-label">Description</span>{{getEventDetails.detail}}</p>
+            <p class="card-text mb-0"><span style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
+           <p class="card-text mb-0" style="font-weight: 500;">Tags - <span class="tags" *ngFor="let tag of getEventDetails.tags">{{tag.name}}</span></p>
           </div>
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
               <div class="col-sm-6 float-left px-0">
                 <div class="text-left">
-                  <p>{{getEventDetails.address1}}</p>
-                  <p>Sat 07 Mar - Sun 08 Mar</p>
+                  <p><span style="font-weight: 500;">Address - </span>{{getEventDetails.address1}}</p>
+                  <p><span style="font-weight: 500;">Start Time - </span>{{getEventDetails.eventSchedule[0].startTime}}</p>
+                  <p><span style="font-weight: 500;">End Time - </span>{{getEventDetails.eventSchedule[0].endTime}}</p>
                 </div>
               </div>
               <div class="col-sm-6 float-right px-0">
                 <div class="text-right">
-                  <p>8 HRS</p>
-                  <p>No. of Tickets - {{getEventDetails.totalSeat}}</p>
+                  <!-- <p>8 HRS</p> -->
+                  <p>Total Seats - {{getEventDetails.totalSeat}}</p>
                   <p>No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p>
                 </div>
               </div>

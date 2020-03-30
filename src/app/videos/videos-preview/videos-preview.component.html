@@ -30,12 +30,13 @@
 <section class="section-tours">
   <div class="row" style="padding: .5rem 1rem; ">
     <mat-card class="p-0 m-3 videos-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
-      <div>
+      <div style="min-height: 250px;">
         <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px">
       </div>
       <div class="p-2">
         <p class="videos-title">{{card.title}}</p>
-        <p class="videos-title">Tags: {{card.category.displayName| truncate : 70 : false}}</p>
+        <p class="videos-title">Tags: {{card.resourceTags[0].name}}</p>
+        <p class="videos-title">Posted On: {{card.createdAt| date}}</p>
       </div>
     </mat-card>
   </div>

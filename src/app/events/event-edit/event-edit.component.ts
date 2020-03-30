@@ -278,14 +278,14 @@ export class EventEditComponent implements OnInit {
   createSpeaker() {
     // alert("i Called");
     // console.log(this.addSpeakerForm.value.fullName);
-    this.allspeakers.push(this.addSpeakerForm.value.fullName);
+    this.allspeakers.unshift(this.addSpeakerForm.value.fullName);
     // console.log(this.allspeakers);
   }
   createTag() {
     // alert("Tag Called");
     // console.log(this.addTagForm.value.name);
     // console.log(this.addTagForm.value.keywords);
-    this.tagsList.push(this.addTagForm.value.name);
+    this.tagsList.unshift(this.addTagForm.value.name);
     // console.log(this.tagsList);
   }
   getTagsDetails() {

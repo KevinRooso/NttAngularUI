@@ -38,7 +38,7 @@ export class SpeakerEditComponent implements OnInit {
       email: ['',[Validators.required, Validators.email]],
       personalEmail: ['', [Validators.required, Validators.email]],
       designation: ['', Validators.required],
-      profile: ['', Validators.required],
+      //profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
       keySkills: [''],
@@ -116,7 +116,7 @@ export class SpeakerEditComponent implements OnInit {
       this.updateSpeakerForm.controls['email'].setValue(this.getSpeaker.email);
       this.updateSpeakerForm.controls['personalEmail'].setValue(this.getSpeaker.personalEmail);
       this.updateSpeakerForm.controls['designation'].setValue(this.getSpeaker.designation);
-      this.updateSpeakerForm.controls['profile'].setValue(this.getSpeaker.profile);
+      //this.updateSpeakerForm.controls['profile'].setValue(this.getSpeaker.profile);
       this.updateSpeakerForm.controls['phone'].setValue(this.getSpeaker.phone);
       this.updateSpeakerForm.controls['origanizationName'].setValue(this.getSpeaker.origanizationName);
       this.updateSpeakerForm.controls['keySkills'].setValue(this.getSpeaker.keySkills);
@@ -141,7 +141,7 @@ export class SpeakerEditComponent implements OnInit {
       "email": this.updateSpeakerForm.controls['email'].value,
       "personalEmail": this.updateSpeakerForm.controls['personalEmail'].value,
       "designation": this.updateSpeakerForm.controls['designation'].value,
-      "profile": this.updateSpeakerForm.controls['profile'].value,
+      //"profile": this.updateSpeakerForm.controls['profile'].value,
       "origanizationName": this.updateSpeakerForm.controls['origanizationName'].value,
       "phone": this.updateSpeakerForm.controls['phone'].value,
       "keySkills": fruit1.substring(1, fruit1.length - 0),
