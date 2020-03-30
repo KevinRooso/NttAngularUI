@@ -14,8 +14,11 @@ export class EventPreviewComponent implements OnInit {
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
   searchBlog;
+  tagList;
   categoryList:any[]=[];
   cat:string="";
+  dates:any[]=[];
+  filterDate="";
   // cards = [
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
@@ -30,6 +33,7 @@ export class EventPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.getEventslist();
     this.getAllCategory();
+    this.getAllTags();
   }
 
   getEventslist() {
@@ -40,11 +44,22 @@ export class EventPreviewComponent implements OnInit {
         this.filterBlogs=data.body;
         this.blogs=data.body;
         this.searchFilterData=data.body;
+        data.body.filter(m=>{
+        if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1)
+          this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
+        })
       });
   }
   getDetails(id) {
     // alert(id);
     this.router.navigate(['/details'], { queryParams: { page: id } });
+  }
+  getAllTags(){
+    this.authService.getTagsList().subscribe(res=>{
+      console.log("tag=",res);
+
+        this.tagList=res.body;
+    })
   }
   getAllCategory(){
     this.authService.getCategoryList().subscribe(res=>{
@@ -53,20 +68,34 @@ export class EventPreviewComponent implements OnInit {
     });
   }
   getDataWithCat(){
-    this.filterBlogs=this.blogs;
-    this.filterBlogs=this.blogs.filter(m=>{
+   this.filterBlogs=this.blogs.filter(m=>{
        return m.categoryName==this.cat;
     })
     this.searchFilterData=this.filterBlogs;
   }
+  getDataWithDate(){
+    this.filterBlogs=this.searchFilterData.filter(m=>{
+
+     let titleData=m.eventDate;
+     let d=this.filterDate.split('/').reverse().join('-')
+      console.log("d==",d);
+      console.log("data=",titleData);
+
+      return titleData.includes(d);
+    })
+    console.log("filterblogsss==",this.filterBlogs);
+
+  }
   blogSearch(){
     console.log(this.filterBlogs);
       this.filterBlogs=this.searchFilterData.filter(m=>{
-        console.log( m.title);
-        console.log( this.searchBlog);
+
        // return m.title.includes(this.searchBlog);
        let titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
+  }
+  cancel(){
+    this.filterBlogs=this.blogs;
   }
 }

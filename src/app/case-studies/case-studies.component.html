@@ -10,19 +10,25 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a routerLink="/create-cases"><button type="button" class="btn button-1 action-good">Create Case</button></a>
+    <a routerLink="/create-cases"><button type="button" class="btn button-1 action-good">Create Case Study</button></a>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <!-- <li class="nav-item active mx-2">
+       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
-          <option  value="" hidden>Please Select Category</option>
+          <option  value="" hidden>Please Select Service</option>
            <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
-      </li> -->
+      </li>
+      <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="tag" (change)=getDataWithTag()>
+          <option  value="" hidden>Please Select Industry</option>
+           <option *ngFor="let tag of tags" [value]="tag.id">{{tag.name}}</option>
+        </select>
+      </li>
 
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchCases" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+          <button class="btn button-2 action-info" (click)="blogSearch()" (search)="cancel()">Search</button>
         </div>
       </li>
     </ul>

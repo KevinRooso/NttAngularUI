@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,35 +21,55 @@ export class CasesCreateComponent implements OnInit {
     selectable = true;
     removable = true;
     addOnBlur = true;
+
+    addTagForm: FormGroup;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     fruits: any[] = [];
-
+    tagData: any[] = [];
     fileData: File = null;
     previewUrl: any = null;
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
     speakerImage: string="";
-
-    constructor(private frmbuilder: FormBuilder,
+    catagoryData:any[]=[];
+    @ViewChild('closeModel',{static:true}) closeModel;
+    constructor(private formbuilder: FormBuilder,
       private authService: AuthServiceService,
       private location: Location,
       private router:Router) {
-      let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
-      this.createCases = frmbuilder.group({
-        title: ['', Validators.required],
-        longDescription: [''],
-        serviceUsed: ['', Validators.required],
-        thumbnailImageUrl: ['']
-      });
+
     }
 
 
 
     ngOnInit(): void {
       // this.createSpeaker();
-
+      let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+      this.createCases = this.formbuilder.group({
+        title: ['', Validators.required],
+        longDescription: [''],
+        categoryId: [''],
+        tagList: [''],
+        serviceUsed: ['', Validators.required],
+        thumbnailImageUrl: ['']
+      });
+      this.addTagForm = this.formbuilder.group({
+        name:['',Validators.required],
+        keywords:['',Validators.required],
+      })
+      this.getCategoryDetails();
+      this.getTagsDetails();
     }
-
+    getCategoryDetails(){
+      this.authService.getCategoryList().subscribe((res)=>{
+        this.catagoryData = res.body;
+      })
+    }
+    getTagsDetails(){
+      this.authService.getTagsList().subscribe((res)=>{
+         this.tagData=res.body;
+      })
+    }
     fileProgress(fileInput: any) {
       this.fileData = <File>fileInput.target.files[0];
       this.preview();
@@ -82,15 +102,25 @@ export class CasesCreateComponent implements OnInit {
     createCase() {
       if(this.createCases.valid){
      let obj=this.createCases.value;
+     let tags:any[]=[];
+     obj.tagList.forEach(m=>{
+       let tag={
+         "id":m.id,
+       "keywords": m.keywords,
+       "name": m.name
+       }
+       tags.push(tag);
+     });
 
      let dataObj={
        "isDraft":true,
+       "categoryId": obj.categoryId.id,
        "longDescription": obj.longDescription,
         "person": {
         },
         "resourceType":3,
         "serviceUsed": obj.serviceUsed,
-        "tagList": [],
+        "tagList": tags,
         "thumbnailImageUrl": this.speakerImage,
         "title": obj.title
 
@@ -105,6 +135,23 @@ export class CasesCreateComponent implements OnInit {
       }
 
     }
+    createTag(){
+      if(this.addTagForm.valid){
+            let flag=true;
+      this.tagData.forEach(m=>{
+        if(m.keywords==this.addTagForm.get(['keywords']).value)
+        flag=false;
+      })
+      let obj=this.addTagForm.value
+      if(flag){
+        obj['id']=0;
+      this.tagData.push(obj);
+      this.closeModel.nativeElement.click();
+    }
+    else
+    alert("Tag Already EXist");
+    }
+  }
     BackMe() {
       this.location.back(); // <-- go back to previous location on cancel
     }

@@ -12,28 +12,28 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a routerLink="/article-create"><button type="button" class="btn button-1 action-good">Create Article</button></a>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item active mx-2">
+      <!-- <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
           <option  value="" hidden>Please Select Category</option>
-           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
+           <option *ngFor="let cate of categoryList" [value]="cate.name">{{cate.displayName}}</option>
         </select>
-      </li>
-      <li class="nav-item mx-2">
+      </li> -->
+      <!-- <li class="nav-item mx-2">
         <select class="form-control">
-          <option value="" hidden>Select Tag</option>
-          <!-- <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option> -->
+          <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
+           <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
         </select>
-      </li>
+      </li> -->
       <li class="nav-item ml-2">
-        <select class="form-control">
+        <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
           <option value="" hidden>Select Date</option>
-          <!-- <option>{{getEventData.createdAt}}</option> -->
+          <option *ngFor="let date of dates" [value]="date">{{date}}</option>
         </select>
       </li>
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+          <button class="btn button-2 action-info" (click)="blogSearch()" (search)="cancel()">Search</button>
         </div>
       </li>
     </ul>

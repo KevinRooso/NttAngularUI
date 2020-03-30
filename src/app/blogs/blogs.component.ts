@@ -55,4 +55,7 @@ export class BlogsComponent implements OnInit {
         return titleData.includes(this.searchBlog.toUpperCase());
       })
   }
+  cancel(){
+    this.filterBlogs=this.blogs;
+  }
 }

@@ -64,7 +64,7 @@ getTableData(url){
     },
     {
       title:'Org Name',
-      data:'phoneNumber'
+      data:'name'
     },
 
     {

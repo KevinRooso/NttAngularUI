@@ -10,7 +10,7 @@
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center">
-        <p class="heading-secondary">Edit Cases Study</p>
+        <p class="heading-secondary">Edit Case Study</p>
       </div>
       <form [formGroup]='createCases'>
         <div class="form-row">
@@ -25,6 +25,36 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
           </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Service *</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Service</mat-label>
+            <mat-select formControlName="categoryId" [(value)]="selected3">
+              <mat-option *ngFor="let category of catagoryData" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Industry</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Industry</mat-label>
+            <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
+            <mat-option *ngFor="let tag of tagData" [value]="tag.name">{{tag.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#tagModal1">Add Tags</button>
+          </div>
         </div>
 
         <div class="form-row">
@@ -72,6 +102,39 @@
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='addTagForm'>
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Tag Name" formControlName="name">
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+            </mat-form-field>
+          </div>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

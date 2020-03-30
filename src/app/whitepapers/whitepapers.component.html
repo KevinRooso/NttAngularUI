@@ -18,22 +18,12 @@
            <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
       </li> -->
-      <li class="nav-item mx-2">
-        <select class="form-control">
-          <option value="" hidden>Select Tag</option>
-          <!-- <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option> -->
-        </select>
-      </li>
-      <li class="nav-item ml-2">
-        <select class="form-control">
-          <option value="" hidden>Select Date</option>
-          <!-- <option>{{getEventData.createdAt}}</option> -->
-        </select>
-      </li>
+
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+          <button class="btn button-2 action-info" (click)="blogSearch()" (search)="cancel()"
+          >Search</button>
         </div>
       </li>
     </ul>
@@ -46,7 +36,7 @@
     </p>
   </div> -->
   <div class="row" style="padding: .5rem 1rem; ">
-    <mat-card class="p-0 m-3 whitepaper-card" *ngFor="let card of whitePaperList" (click)="getDetails(card.id)">
+    <mat-card class="p-0 m-3 whitepaper-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
       <div>
         <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px">
       </div>

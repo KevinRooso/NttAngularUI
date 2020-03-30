@@ -4,11 +4,62 @@
      <li><a class="active">Speakers</a></li>
   </ul>
 </div>
-<div class="row justify-content-end pr-4 pb-3 pt-1">
+<!-- <div class="row justify-content-end pr-4 pb-3 pt-1">
  <a routerLink="/create-speaker"> <button type="button" class="btn button-1 action-good">Add Speaker</button></a>
-</div>
+ <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+
+  <li class="nav-item ml-2">
+    <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
+      <option value="" hidden>Select Date</option>
+      <option *ngFor="let date of dates" [value]="date">{{date}}</option>
+    </select>
+  </li>
+  <li class="nav-item ml-2">
+    <div class="form-inline my-2 my-lg-0">
+    <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+    </div>
+  </li>
+</ul>
+</div> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a routerLink="/create-speaker"> <button type="button" class="btn button-1 action-good">Add Speaker</button></a>
+   <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+    <!-- <li class="nav-item mx-2">
+      <select class="form-control">
+        <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
+         <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
+      </select>
+    </li> -->
+    <li class="nav-item ml-2">
+      <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
+        <option value="" hidden>Select Date</option>
+        <option *ngFor="let date of dates" [value]="date">{{date}}</option>
+      </select>
+    </li>
+    <li class="nav-item ml-2">
+      <div class="form-inline my-2 my-lg-0">
+      <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+      </div>
+    </li>
+  </ul>
+  </div>
+</nav>
+
+
+
+
 <div class="row">
-  <div class="col-md-4" *ngFor="let cd of cardData">
+  <div class="col-md-4" *ngFor="let cd of filterBlogs">
     <a class="d-flex card-details" (click)="getDetails(cd.id)">
       <div style="width: 30%;">
         <img [src]="cd.profileImageUrl" class="photo">

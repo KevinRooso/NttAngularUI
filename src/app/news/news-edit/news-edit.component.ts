@@ -96,7 +96,7 @@ export class NewsEditComponent implements OnInit {
     this.service.updateNews(dataObj).subscribe(res=>{
       console.log(res);
 
-      alert("News Added Successfully");
+      alert("News Updated Successfully");
       this.router.navigate(['/news']);
     })
     }

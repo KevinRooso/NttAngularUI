@@ -21,7 +21,7 @@
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+          <button class="btn button-2 action-info" (click)="blogSearch()" (search)="cancel()">Search</button>
         </div>
       </li>
     </ul>

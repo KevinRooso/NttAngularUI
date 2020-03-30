@@ -64,4 +64,7 @@ export class WhitepapersComponent implements OnInit {
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
   }
+   cancel(){
+    this.filterBlogs=this.blogs;
+  }
 }

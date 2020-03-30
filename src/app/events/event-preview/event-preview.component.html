@@ -17,22 +17,22 @@
            <option *ngFor="let cate of categoryList" [value]="cate.name">{{cate.displayName}}</option>
         </select>
       </li>
-      <li class="nav-item mx-2">
+      <!-- <li class="nav-item mx-2">
         <select class="form-control">
-          <option value="" hidden>Select Tag</option>
-          <!-- <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option> -->
+          <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
+           <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
         </select>
-      </li>
+      </li> -->
       <li class="nav-item ml-2">
-        <select class="form-control">
+        <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
           <option value="" hidden>Select Date</option>
-          <!-- <option>{{getEventData.createdAt}}</option> -->
+          <option *ngFor="let date of dates" [value]="date">{{date}}</option>
         </select>
       </li>
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+          <button class="btn button-2 action-info" (click)="blogSearch()" (search)="cancel()"          >Search</button>
         </div>
       </li>
     </ul>
@@ -45,7 +45,7 @@
           <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
           <div class="card-body">
             <h5 class="card-title">{{card.title}}</h5>
-            <p class="card-text">{{card.desciption| truncate : 175 : false}}</p>
+            <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
           </div>
           <div class="event-card-body">
             <!-- <p class="card-text">{{card.totalSeat}}</p>
