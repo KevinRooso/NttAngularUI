@@ -1,0 +1,33 @@
+input.ng-invalid.ng-touched{
+  border-color: red !important;
+}
+.form-row{
+  padding: 1rem 1rem;
+}
+.form-group.hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.modal-remove{
+  opacity: 1;
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  border-radius: 50%;
+  z-index: 999;
+  border: 2px solid #e3e3e3;
+}
+.close:hover{
+  opacity: 1 !important;
+  box-shadow: 0px 0px 10px 0px rgba(153,153,153,.7);
+}
+.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover{
+  color: #555 !important;
+  background: #fff !important;
+  border-radius: 0px !important;
+}
+
