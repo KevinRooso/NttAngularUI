@@ -94,7 +94,7 @@ const routes: Routes = [
   { path: 'create-testimonials', component: CreateTestimonialsComponent, canActivate: [AuthguardServiceService]},
   { path: 'edit-testimonials', component: EditTestimonialsComponent, canActivate: [AuthguardServiceService]},
 
-  { path: 'home-config', component: ConfigurationComponent, canActivate: [AuthguardServiceService]}
+  { path: 'home', component: ConfigurationComponent, canActivate: [AuthguardServiceService]}
 
 
 

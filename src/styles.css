@@ -117,12 +117,12 @@ table.dataTable{
 }
 .mat-form-field-flex{
   background: #fff !important;
-    padding: 8px 10px 0px 10px !important;
+    padding: 10px 10px 0px 10px !important;
     border: 1px solid #ccc !important;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
 }
 .mat-form-field{
-  line-height: .9;
+  line-height: .988;
 }
 .cdk-overlay-container {
   position: fixed !important;
@@ -172,19 +172,20 @@ input[type="number"]::-webkit-outer-spin-button {
   background: #2c2c2c;
   border-radius: 5px !important;
 }
+.mat-form-field-infix {
+  /* padding: .5em 0; */
+  border-top: .94375em solid transparent;
+}
 /* .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0 1px 7px 0px;
 }
-.mat-form-field-infix {
-  padding: .5em 0;
-  border-top: .54375em solid transparent;
+ */
+/* .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: .1375em 0;
 } */
-.mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: .2375em 0;
-}
 .mat-form-field-infix {
-  padding: .5em 0;
-  border-top: .74375em solid transparent;
+  /* padding: .5em 0; */
+  /* border-top: .74375em solid transparent; */
 }
 @media (max-width: 1024px) {
   .action-good {

@@ -58,7 +58,7 @@ transition: background 0.25s;
 }
 .blog-card{
   width: 100%;
-  height: 480px;
+  height: 100%;
 }
 .blog-title{
   margin: 0;
