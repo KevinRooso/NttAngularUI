@@ -21,7 +21,7 @@
 
             <ul class="list-group">
               <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice:0:6; let ind=index;">
-                <a><div class="d-inline-flex" style="align-items: baseline;">
+                <a><div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
                   {{participant.name}}
                 </div></a>
               </li>

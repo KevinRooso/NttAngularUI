@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 // import * as $ from 'jquery'
 
 @Component({
@@ -13,7 +15,6 @@ import { Location} from '@angular/common';
 export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
-  addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
 
   allData:any[]=[];
@@ -30,11 +31,13 @@ export class CreateEventComponent implements OnInit {
   articleImage: any;
   attachUrl: any = null;
   attachFile: any;
+  previewUrl2:any;
   tagData:any[]=[];
   speaker = new FormControl();
   tag = new FormControl();
   today=new Date();
   @ViewChild('closeModel',{static:true}) closeModel;
+  @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: ['',Validators.required],
@@ -51,6 +54,7 @@ export class CreateEventComponent implements OnInit {
       noOfSubUsersAllow: [''],
       startTime: [''],
       endTime: [''],
+      speakerList:[null],
       registrationStartDate: [''],
       registrationEndDate: [''],
       policyTnc: ['',Validators.required],
@@ -62,9 +66,20 @@ export class CreateEventComponent implements OnInit {
       categoryTypeId:['',Validators.required]
 
     })
-    this.addSpeakerForm = formBuilder.group({
-      fullName:['',Validators.required]
-    })
+    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    this.createSpeakerForm = formBuilder.group({
+      fullName: ['', Validators.required],
+      description: ['', Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      personalEmail: ['', [Validators.required, Validators.email]],
+      designation: ['', Validators.required],
+      // profile: ['', Validators.required],
+      origanizationName: ['', Validators.required],
+      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+      keySkills: [''],
+      profileImageUrl: ['']
+    });
+
     this.addTagForm = formBuilder.group({
       name:['',Validators.required],
       keywords:['',Validators.required],
@@ -141,17 +156,11 @@ export class CreateEventComponent implements OnInit {
 
   generateEvent() {
     if(this.createEventForm.valid){
-      // if(true){
+       //if(true){
     let name:any[]=[];
     let spekaerName:any[] = [];
     spekaerName = this.createEventForm.controls['fullName'].value;
-    // console.log("check me", this.createEventForm.controls['fullName'].value)
-    // spekaerName.forEach(sname=>{
-    //   let speakers={
-    //     "fullName":sname
-    //   };
-    //   name.push(speakers);
-    // });
+
     for(let i=0; i<=spekaerName.length;i++){
       if(spekaerName != undefined){
         let speakers={
@@ -162,19 +171,7 @@ export class CreateEventComponent implements OnInit {
       console.log("check me", spekaerName[i]);
     }
     console.log("check me twice", this.createEventForm.value);
-    // let tag:any[]=[];
-    //   for(let i=0; i<=this.createEventForm.controls['name'].value.length;i++){
-    //     let tags={
-    //       "name":this.createEventForm.controls['name'].value[i]
-    //       };
-    //      tag.push(tags);
-    //   }
-      // this.createEventForm.controls['name'].value.forEach(tname=>{
-      //   let tags={
-      //     "name":tname
-      //   };
-      //   tag.push(tags);
-      // });
+
 
     let schedule:any[]=[];
       let scheduling={
@@ -203,6 +200,7 @@ export class CreateEventComponent implements OnInit {
       "city":this.createEventForm.controls['city'].value,
       "country":this.createEventForm.controls['country'].value,
       "pincode":this.createEventForm.controls['pincode'].value,
+      "speakerList":this.createEventForm.controls['speakerList'].value,
       "totalSeat":this.createEventForm.controls['totalSeat'].value,
       "registrationCloseBeforeSeat":this.createEventForm.controls['registrationCloseBeforeSeat'].value,
       "noOfSubUsersAllow":this.createEventForm.controls['noOfSubUsersAllow'].value,
@@ -214,7 +212,6 @@ export class CreateEventComponent implements OnInit {
       "thumbnailImageUrl":this.articleImage,
       "detailImageUrl":this.attachFile,
       "categoryTypeId":this.createEventForm.controls['categoryTypeId'].value,
-      "speakerList":name,
       "tagList": tags,
       "eventSchedule": schedule,
       "autoApproveParticipant": false,
@@ -238,18 +235,7 @@ export class CreateEventComponent implements OnInit {
     )
   }
   }
-  createSpeaker(){
-    if(this.addSpeakerForm.valid){
-     // alert("i Called");
-      this.allspeakers.unshift(this.addSpeakerForm.value.fullName);
-      console.log(this.addSpeakerForm.value.fullName);
-      console.log("new Array", this.allspeakers);
-    }
-    // alert("i Called");
-    // console.log(this.addSpeakerForm.value.fullName);
 
-    // console.log(this.allspeakers);
-  }
   createTag(){
     if(this.addTagForm.valid){
           let flag=true;
@@ -294,9 +280,8 @@ export class CreateEventComponent implements OnInit {
   getSpeakerDetails(){
     this.authService.getAllSpeakers().subscribe((res)=>{
       // console.log("Speakers", res.body);
-      res.body.forEach(m=>{
-        this.allspeakers.push(m.fullName);
-      })
+      this.allspeakers=res.body;
+
     })
   }
   Back() {
@@ -306,4 +291,101 @@ export class CreateEventComponent implements OnInit {
   //   this.addTagForm.resetForm();
   //   this.addSpeakerForm.resetForm();
   // }
+
+  ////speakers
+
+  createSpeakerForm: FormGroup;
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruits: any[] = [];
+
+  fileData1: File = null;
+  previewUrl1: any = null;
+  fileUploadProgress1: string = null;
+  uploadedFilePath1: string = null;
+  speakerImage: any;
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: any): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+
+  fileProgress1(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview1();
+  }
+  preview1() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl2 = reader.result;
+    }
+  }
+  uploadImage1() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.authService.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.speakerImage = res.fileDownloadUri;
+        console.log(this.speakerImage);
+        // alert('SUCCESS !!');
+      })
+  }
+  createSpeaker(){
+    if(this.createSpeakerForm.valid){
+    // if(true){
+      let fruit1 = '';
+      console.log(this.fruits);
+      this.fruits.forEach(m => {
+        fruit1 = fruit1 + ',' + m.name;
+      })
+      let flag=true;
+this.allspeakers.forEach(m=>{
+  if(m.email==this.createSpeakerForm.get(['email']).value)
+  flag=false;
+})
+      let obj=this.createSpeakerForm.value;
+      if(flag){
+      obj['keySkills']=fruit1.substring(1, fruit1.length - 0),
+      obj['id']=0,
+      obj['profileImageUrl']=this.speakerImage,
+      this.allspeakers.unshift(this.createSpeakerForm.value);
+      console.log(this.createSpeakerForm.value);
+      console.log("new Array", this.allspeakers);
+      this.closespeakerModel.nativeElement.click();
+}
+    else
+    alert("Speaker Already EXist");
+        }
+  }
 }

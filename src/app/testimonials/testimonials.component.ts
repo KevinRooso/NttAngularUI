@@ -26,7 +26,7 @@ export class TestimonialsComponent implements OnInit {
   }
   getTestimonials(){
       this.service.getAllTestimonials().subscribe(res=>{
-        console.log(res);
+        console.log("res===",res);
           this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;

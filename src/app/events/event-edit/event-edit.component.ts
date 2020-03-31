@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
-
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
@@ -32,7 +33,7 @@ export class EventEditComponent implements OnInit {
   selected:string;
   getEventDetails: any;
   evntID;
-
+  previewUrl2: any = null;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -41,8 +42,10 @@ export class EventEditComponent implements OnInit {
   attachUrl: any = null;
   attachFile: any;
   selected4:string[]=[];
+  selected6:string[]=[];
   selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
+  @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
       title: ['',Validators.required],
@@ -58,6 +61,7 @@ export class EventEditComponent implements OnInit {
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
       startTime: [''],
+      speakerList:[''],
       endTime: [''],
       registrationStartDate: [''],
       registrationEndDate: [''],
@@ -70,9 +74,21 @@ export class EventEditComponent implements OnInit {
       categoryTypeId: ['']
 
     })
-    this.addSpeakerForm = formBuilder.group({
-      fullName:['']
-    })
+
+    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    this.createSpeakerForm = formBuilder.group({
+      fullName: ['', Validators.required],
+      description: ['', Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      personalEmail: ['', [Validators.required, Validators.email]],
+      designation: ['', Validators.required],
+      // profile: ['', Validators.required],
+      origanizationName: ['', Validators.required],
+      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+      keySkills: [''],
+      profileImageUrl: ['']
+    });
+
     this.addTagForm = formBuilder.group({
       name:['',Validators.required],
       keywords: ['',Validators.required]
@@ -93,10 +109,15 @@ export class EventEditComponent implements OnInit {
 
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
+      console.log("res=====",res);
+
       this.getEventDetails = res.body;
        for(let i=0;i<res.body.tags.length;i++)
         this.selected4.push(res.body.tags[i].id);
         console.log("tags=",this.selected4);
+      for(let i=0;i<res.body.speakers.length;i++)
+        this.selected6.push(res.body.speakers[i].id);
+        console.log("speakerlist=",this.selected6);
 
       console.log("Get Event data", this.getEventDetails);
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
@@ -193,16 +214,11 @@ export class EventEditComponent implements OnInit {
 
   updateEvent() {
      if(this.updateEventForm.valid){
+     // if(true){
 
-    let name: any[] = [];
-    this.updateEventForm.controls['fullName'].value.forEach(sname => {
-      let speakers = {
-        "fullName": sname
-      };
-      name.push(speakers);
-    });
 
     let tags:any[]=[];
+    let speakerList1:any[]=[];
     console.log("eventform==",this.updateEventForm.value);
 
     this.tagData.forEach(m=>{
@@ -214,6 +230,15 @@ export class EventEditComponent implements OnInit {
             "name": m.name
             }
             tags.push(tag);
+          }
+      });
+    })
+
+    this.allspeakers.forEach(m=>{
+      this.updateEventForm.value.speakerList.forEach(n=>{
+          if(n==m.id){
+
+            speakerList1.push(m);
           }
       });
     })
@@ -257,12 +282,12 @@ export class EventEditComponent implements OnInit {
       "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
       "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
+      "speakerList":speakerList1,
       "policyFAQ": faqId,
       "policyTnc": tncId,
       "thumbnailImageUrl": this.articleImage,
       "detailImageUrl": this.attachFile,
       "categoryTypeId": catId,
-      "speakerList": name,
       "tagList": tags,
       "eventSchedule": schedule,
       "autoApproveParticipant": false,
@@ -288,12 +313,7 @@ export class EventEditComponent implements OnInit {
     }
 
   }
-  createSpeaker() {
-    // alert("i Called");
-    // console.log(this.addSpeakerForm.value.fullName);
-    this.allspeakers.unshift(this.addSpeakerForm.value.fullName);
-    // console.log(this.allspeakers);
-  }
+
   createTag(){
     if(this.addTagForm.valid){
           let flag=true;
@@ -340,10 +360,8 @@ export class EventEditComponent implements OnInit {
   getSpeakerDetails() {
     this.authService.getAllSpeakers().subscribe((res) => {
       // console.log("Speakers", res.body);
-      res.body.forEach(m => {
-        this.allspeakers.push(m.fullName);
+      this.allspeakers=res.body;
 
-      })
     })
     // console.log("Checking", this.allspeakers);
     // console.log("Checking cate", this.allData);
@@ -354,4 +372,101 @@ export class EventEditComponent implements OnInit {
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
+
+  //speakerssss
+  createSpeakerForm: FormGroup;
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruits: any[] = [];
+
+  fileData1: File = null;
+  previewUrl1: any = null;
+  fileUploadProgress1: string = null;
+  uploadedFilePath1: string = null;
+  speakerImage:string="";
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: any): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+
+  fileProgress1(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview1();
+  }
+  preview1() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl2 = reader.result;
+    }
+  }
+  uploadImage1() {
+    const formData = new FormData();
+    formData.append('file', this.fileData);
+    this.authService.uploadFile(formData)
+      .subscribe(res => {
+        console.log("Image", res);
+        this.speakerImage = res.fileDownloadUri;
+        console.log(this.speakerImage);
+        // alert('SUCCESS !!');
+      })
+  }
+  createSpeaker(){
+    if(this.createSpeakerForm.valid){
+    // if(true){
+      let fruit1 = '';
+      console.log(this.fruits);
+      this.fruits.forEach(m => {
+        fruit1 = fruit1 + ',' + m.name;
+      })
+      let flag=true;
+this.allspeakers.forEach(m=>{
+  if(m.email==this.createSpeakerForm.get(['email']).value)
+  flag=false;
+})
+      let obj=this.createSpeakerForm.value;
+      if(flag){
+      obj['keySkills']=fruit1.substring(1, fruit1.length - 0),
+      obj['id']=0,
+      obj['profileImageUrl']=this.speakerImage,
+      this.allspeakers.unshift(this.createSpeakerForm.value);
+      console.log(this.createSpeakerForm.value);
+      console.log("new Array", this.allspeakers);
+      this.closespeakerModel.nativeElement.click();
+}
+    else
+    alert("Speaker Already EXist");
+        }
+  }
+
 }

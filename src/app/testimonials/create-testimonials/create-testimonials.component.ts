@@ -62,6 +62,7 @@ export class CreateTestimonialsComponent implements OnInit {
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
+        alert("Image Uploaded Successfully");
         this.speakerImage = res.fileDownloadUri;
         console.log(this.speakerImage);
       })
@@ -90,7 +91,7 @@ export class CreateTestimonialsComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        alert("Image Uploaded Successfully");
         this.logo = res.fileDownloadUri;
       })
   }

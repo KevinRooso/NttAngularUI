@@ -53,6 +53,9 @@ export class EventDetailsComponent implements OnInit {
   viewSpeakers(){
     this.router.navigate(['/speakers'], { queryParams: { page: this.eventId } });
   }
+  jumpDetail(id){
+    this.router.navigate(['participant-details'], { queryParams: { id: id } });
+  }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }

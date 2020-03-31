@@ -96,6 +96,6 @@ export class EventPreviewComponent implements OnInit {
       })
   }
   cancel(){
-    this.filterBlogs=this.blogs;
+   this.filterBlogs=this.blogs;
   }
 }

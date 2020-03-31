@@ -40,6 +40,7 @@ export class ParticipantPreviewComponent {
 }
 getTableData(url){
   this.dtOptions = {
+        "order": [],
     "ajax":{
       url:url,
       type:"GET",

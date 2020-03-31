@@ -9,10 +9,10 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./speakers-preview.component.css']
 })
 export class SpeakersPreviewComponent implements OnInit {
-  cardData:any[]=[];
+  cardData:any;
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
-  searchBlog;
+  searchBlog="";
   tagList;
   categoryList:any[]=[];
   cat:string="";
@@ -57,8 +57,13 @@ export class SpeakersPreviewComponent implements OnInit {
       this.filterBlogs=this.searchFilterData.filter(m=>{
 
        // return m.title.includes(this.searchBlog);
-       let titleData=m.fullName.toUpperCase();
+       let titleData="";
+       if(m['fullName'] !=null)
+          titleData=m['fullName'].toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
+  }
+  cancel(){
+    this.filterBlogs=this.cardData;
   }
 }

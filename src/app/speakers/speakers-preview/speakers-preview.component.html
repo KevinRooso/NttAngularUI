@@ -47,7 +47,7 @@
     </li>
     <li class="nav-item ml-2">
       <div class="form-inline my-2 my-lg-0">
-      <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search">
         <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
       </div>
     </li>
