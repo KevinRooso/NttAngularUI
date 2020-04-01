@@ -57,7 +57,7 @@ export class CreateEventComponent implements OnInit {
       userType:[''],
       country: [''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      totalSeat: ['',Validators.required],
+      totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
       startTime: [''],

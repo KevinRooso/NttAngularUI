@@ -44,6 +44,7 @@ import { CreateTestimonialsComponent } from './testimonials/create-testimonials/
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 
@@ -96,7 +97,8 @@ const routes: Routes = [
   { path: 'create-testimonials', component: CreateTestimonialsComponent, canActivate: [AuthguardServiceService]},
   { path: 'edit-testimonials', component: EditTestimonialsComponent, canActivate: [AuthguardServiceService]},
 
-  { path: 'home', component: ConfigurationComponent, canActivate: [AuthguardServiceService]}
+  { path: 'home-config', component: ConfigurationComponent, canActivate: [AuthguardServiceService]},
+  { path: 'home', component: LandingPageComponent, canActivate: [AuthguardServiceService]}
 
 
 

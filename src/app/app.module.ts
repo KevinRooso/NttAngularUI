@@ -40,6 +40,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
@@ -74,6 +76,8 @@ import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { TruncatePipe } from './truncate.pipe';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -124,7 +128,8 @@ import { CopyEventComponent } from './events/copy-event/copy-event.component';
     EditTestimonialsComponent,
     ConfigurationComponent,
     TruncatePipe,
-    CopyEventComponent
+    CopyEventComponent,
+    LandingPageComponent
     ],
   imports: [
     BrowserModule,
@@ -137,6 +142,7 @@ import { CopyEventComponent } from './events/copy-event/copy-event.component';
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    CKEditorModule,
 
     MatButtonModule,
     MatTableModule,
@@ -152,7 +158,8 @@ import { CopyEventComponent } from './events/copy-event/copy-event.component';
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatSliderModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule
 
   ],
   providers: [HttpClientModule],
