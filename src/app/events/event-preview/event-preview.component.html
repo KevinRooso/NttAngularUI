@@ -1,62 +1,141 @@
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a class="active">Events</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a class="active">Events</a></li>
   </ul>
 </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-     <a routerLink="/create"><button type="button" class="btn button-1 action-good">Create Event</button></a>
-     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a routerLink="/create"><button type="button" class="btn button-1 action-good">Create Event</button></a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
+          <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search"
+            (search)="cancel()" style="width: 300px;">
+          <div class="input-group-btn">
+            <button class="btn button-2 action-info" type="submit" (click)="blogSearch()">
+              <span class="material-icons">
+                search
+              </span>
+            </button>
+          </div>
+          <!-- <button class="btn button-2 action-info" (click)="blogSearch()"> Search</button>
+        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search" (search)="cancel()" style="width: 300px;"> -->
+
+        </div>
+      </li>
+      <li class="nav-item ml-2">
+        <div class="form-inline my-2 my-lg-0">
+          <!-- <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search" (search)="cancel()"> -->
+          <button class="btn button-2 action-info" data-toggle="modal" data-target="#tagModal1">Advance Search</button>
+        </div>
+      </li>
       <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
-          <option  value="" hidden>Please Select Category</option>
-           <option *ngFor="let cate of categoryList" [value]="cate.name">{{cate.displayName}}</option>
+        <select class="form-control">
+          <option value="" hidden>Sort By</option>
+          <option *ngFor="let cate of categoryLis">{{cate}}</option>
         </select>
       </li>
+
+      <!-- <li class="nav-item active mx-2">
+        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
+          <option value="" hidden>Sort By</option>
+          <option *ngFor="let cate of categoryList" [value]="cate.name">{{cate.displayName}}</option>
+        </select>
+      </li> -->
       <!-- <li class="nav-item mx-2">
         <select class="form-control">
           <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
            <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
         </select>
       </li> -->
-      <li class="nav-item ml-2">
+      <!-- <li class="nav-item ml-2">
         <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
           <option value="" hidden>Select Date</option>
           <option *ngFor="let date of dates" [value]="date">{{date}}</option>
         </select>
-      </li>
-      <li class="nav-item ml-2">
-        <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search" (search)="cancel()">
-          <button class="btn button-2 action-info" (click)="blogSearch()"  >Search</button>
-        </div>
-      </li>
+      </li> -->
+
     </ul>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <div class="row  mt-2">
-      <div class="col-sm-4 mb-3" *ngFor="let card of filterBlogs">
-          <div class="card">
-          <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-          <div class="card-body">
-            <h5 class="card-title">{{card.title}}</h5>
-            <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
-          </div>
-          <div class="event-card-body">
-            <!-- <p class="card-text">{{card.totalSeat}}</p>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row  mt-2">
+    <div class="col-sm-4 mb-3" *ngFor="let card of filterBlogs">
+      <div class="card">
+        <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
+        <div class="card-body">
+          <h5 class="card-title">{{card.title}}</h5>
+          <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
+        </div>
+        <div class="event-card-body">
+          <!-- <p class="card-text">{{card.totalSeat}}</p>
             <p class="card-text">{{card.targetUserType.name}}</p> -->
-          </div>
-          <div class="event-card-body-footer text-center">
-            <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-            <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View Details</button></a>
-          </div>
+        </div>
+        <div class="event-card-body-footer text-center">
+          <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+          <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
+              Details</button></a>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width: 800px;">
+    <div class="modal-content" >
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='advanceFilterForm'>
+          <div class="form-row">
+            <mat-form-field class="example-full-width col-sm-12">
+              <mat-label>Select Tags</mat-label>
+              <mat-select multiple formControlName="tagList">
+              <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width col-sm-12">
+              <mat-label>Select Category</mat-label>
+              <mat-select multiple formControlName="categoryTypeId">
+                <mat-option *ngFor="let category of allData" [value]="category.id">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width col-sm-12">
+              <mat-label>Event Type</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let type of eventType" [value]="type.value">
+                  {{type.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
+            <div class="form-group example-full-width col-sm-12">
+              <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="today" class="form-control col-sm-12"
+                placeholder="Start Date" formControlName="registrationStartDate">
+              <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+            </div>
+
+           <div class="form-group example-full-width col-sm-12">
+              <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="today" class="form-control col-sm-12"
+                placeholder="Closing Date" formControlName="registrationEndDate">
+              <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
+            </div>
+          </div>
+          <div class="text-right">
+            <button class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

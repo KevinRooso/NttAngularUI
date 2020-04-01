@@ -34,7 +34,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
@@ -68,6 +69,8 @@ import { CreateTestimonialsComponent } from './testimonials/create-testimonials/
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { TruncatePipe } from './truncate.pipe';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -117,7 +120,8 @@ import { TruncatePipe } from './truncate.pipe';
     CreateTestimonialsComponent,
     EditTestimonialsComponent,
     ConfigurationComponent,
-    TruncatePipe
+    TruncatePipe,
+    LandingPageComponent
     ],
   imports: [
     BrowserModule,
@@ -130,6 +134,7 @@ import { TruncatePipe } from './truncate.pipe';
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    CKEditorModule,
 
     MatButtonModule,
     MatTableModule,
@@ -140,7 +145,8 @@ import { TruncatePipe } from './truncate.pipe';
     MatChipsModule,
     MatIconModule,
     DataTablesModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
 
   ],
   providers: [HttpClientModule],

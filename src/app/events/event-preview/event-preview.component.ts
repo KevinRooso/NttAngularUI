@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-event-preview',
@@ -10,15 +11,20 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class EventPreviewComponent implements OnInit {
   allEventsData: any;
+  advanceFilterForm: FormGroup;
   blogs;
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
   searchBlog;
   tagList;
+  tagData:any[]=[];
+  allData:any[]=[];
   categoryList:any[]=[];
   cat:string="";
   dates:any[]=[];
   filterDate="";
+    today=new Date();
+    categoryLis:any[]=['Sort By','Date','Tag','Category'];
   // cards = [
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
@@ -28,12 +34,19 @@ export class EventPreviewComponent implements OnInit {
   category: string[] = [];
   tags: string[] = [];
   getEventData: any;
+  eventType: any= [
+    {value: '0', viewValue: 'Webinar'},
+    {value: '1', viewValue: 'Public'},
+    {value: '2', viewValue: 'Customer'}
+  ];
   constructor(private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
     this.getEventslist();
     this.getAllCategory();
     this.getAllTags();
+    this.getTagsDetails();
+    this.getCategoryDetails();
   }
 
   getEventslist() {
@@ -49,6 +62,18 @@ export class EventPreviewComponent implements OnInit {
           this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
         })
       });
+  }
+  getTagsDetails(){
+    this.authService.getTagsList().subscribe((res)=>{
+      console.log("Tag", res.body);
+      this.tagData=res.body;
+    })
+  }
+  getCategoryDetails(){
+    this.authService.getCategoryList().subscribe((res)=>{
+      // console.log("category", res.body);
+      this.allData = res.body;
+    })
   }
   getDetails(id) {
     // alert(id);
