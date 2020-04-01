@@ -34,7 +34,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
@@ -68,6 +73,7 @@ import { CreateTestimonialsComponent } from './testimonials/create-testimonials/
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { TruncatePipe } from './truncate.pipe';
+import { CopyEventComponent } from './events/copy-event/copy-event.component';
 
 
 @NgModule({
@@ -117,7 +123,8 @@ import { TruncatePipe } from './truncate.pipe';
     CreateTestimonialsComponent,
     EditTestimonialsComponent,
     ConfigurationComponent,
-    TruncatePipe
+    TruncatePipe,
+    CopyEventComponent
     ],
   imports: [
     BrowserModule,
@@ -140,7 +147,12 @@ import { TruncatePipe } from './truncate.pipe';
     MatChipsModule,
     MatIconModule,
     DataTablesModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatSliderModule,
+    MatRadioModule
 
   ],
   providers: [HttpClientModule],

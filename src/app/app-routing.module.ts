@@ -43,6 +43,7 @@ import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view
 import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
+import { CopyEventComponent } from './events/copy-event/copy-event.component';
 
 
 
@@ -72,6 +73,7 @@ const routes: Routes = [
   { path: 'white-details', component: WhitepaperDetailComponent, canActivate: [AuthguardServiceService]},
   { path: 'white-edit', component: WhitepaperEditComponent, canActivate: [AuthguardServiceService]},
   { path: 'white-create', component: WhitepaperCreateComponent, canActivate: [AuthguardServiceService]},
+  { path: 'copy-event', component: CopyEventComponent, canActivate: [AuthguardServiceService]},
 
 
   { path: 'article-create', component: ArticleCreateComponent, canActivate: [AuthguardServiceService]},

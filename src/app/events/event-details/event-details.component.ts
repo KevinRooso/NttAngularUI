@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location} from '@angular/common';
+import { MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -11,7 +12,7 @@ export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
   getParticipantDetails: any;
   eventId;
-
+  @ViewChild('menumat') trigger: MatMenuTrigger;
   constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
@@ -24,7 +25,9 @@ export class EventDetailsComponent implements OnInit {
 
 
   }
-
+  openMenu(){
+    this.trigger.openMenu();
+  }
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body;
@@ -55,6 +58,12 @@ export class EventDetailsComponent implements OnInit {
   }
   jumpDetail(id){
     this.router.navigate(['participant-details'], { queryParams: { id: id } });
+  }
+  copyDetails(id){
+    this.router.navigate(['/copy-event'], { queryParams: { page: this.eventId } });
+  }
+  jumpDetail1(id){
+    this.router.navigate(['speaker-details'], { queryParams: { page: id } });
   }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel

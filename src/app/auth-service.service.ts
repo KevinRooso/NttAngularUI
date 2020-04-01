@@ -146,4 +146,7 @@ export class AuthServiceService {
   getAllTestimonials():Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/testimonials', {headers:this.headers})
   }
+  getUserList():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/categories/userType', {headers:this.headers})
+  }
 }

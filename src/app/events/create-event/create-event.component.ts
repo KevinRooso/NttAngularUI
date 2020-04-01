@@ -5,6 +5,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ThemePalette } from '@angular/material/core';
 // import * as $ from 'jquery'
 
 @Component({
@@ -22,7 +23,7 @@ export class CreateEventComponent implements OnInit {
   allPolicyFAQ:any[]=[];
   allPolicyTNC:any[]=[];
   allspeakers:any[]=[];
-
+  radio:boolean=false;
 
   fileData: File = null;
   previewUrl: any = null;
@@ -36,6 +37,10 @@ export class CreateEventComponent implements OnInit {
   speaker = new FormControl();
   tag = new FormControl();
   today=new Date();
+  color:string="3" ;
+  userList:any[]=[];
+  favoriteSeason: string;
+  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   @ViewChild('closeModel',{static:true}) closeModel;
   @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
@@ -47,6 +52,9 @@ export class CreateEventComponent implements OnInit {
       address2: [''],
       city: [''],
       tagList:[''],
+      premise:[''],
+      webinarurl:[''],
+      userType:[''],
       country: [''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: ['',Validators.required],
@@ -63,6 +71,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: [''],
       fullName: [''],
       name: [''],
+
       categoryTypeId:['',Validators.required]
 
     })
@@ -92,9 +101,16 @@ export class CreateEventComponent implements OnInit {
     this.getPolicyTnCDetails();
     this.getSpeakerDetails();
     this.getTagsDetails();
+    this.getUserList();
+
   }
 
-
+getUserList(){
+  this.authService.getUserList().subscribe((res)=>{
+    // console.log("Tag", res.body);
+    this.userList=res.body;
+  })
+}
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -153,7 +169,9 @@ export class CreateEventComponent implements OnInit {
       })
   }
 
-
+  // getPremise(){
+  //   alert(this.color);
+  // }
   generateEvent() {
     if(this.createEventForm.valid){
        //if(true){
@@ -361,6 +379,7 @@ export class CreateEventComponent implements OnInit {
         // alert('SUCCESS !!');
       })
   }
+
   createSpeaker(){
     if(this.createSpeakerForm.valid){
     // if(true){

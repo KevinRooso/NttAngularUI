@@ -3,14 +3,14 @@
       <li><a href="/home">Home</a></li>
       <li><a href="/events">Events</a></li>
      <li><a (click)="Back()">Event Preview</a></li>
-     <li><a class="active">Update Event</a></li>
+     <li><a class="active">Create Event</a></li>
   </ul>
 </div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center">
-        <p class="heading-secondary">Edit Event Details</p>
+        <p class="heading-secondary">Create Event</p>
       </div>
       <form [formGroup]='updateEventForm'>
 
@@ -291,7 +291,7 @@
         </div> -->
 
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Update
+          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Submit
             Details</button>
         </div>
       </form>
