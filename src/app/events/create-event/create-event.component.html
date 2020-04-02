@@ -2,7 +2,7 @@
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
     <li><a (click)="Back()">Events</a></li>
-     <li><a class="active">Create Events</a></li>
+    <li><a class="active">Create Events</a></li>
   </ul>
 </div>
 <div class="container">
@@ -13,7 +13,6 @@
       </div>
 
       <form [formGroup]='createEventForm'>
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title *</label>
           <mat-form-field class="example-full-width col-sm-9">
@@ -21,17 +20,31 @@
           </mat-form-field>
         </div>
 
+        <!-- <div class="form-row"> Tine Mce Editor
+          <label class="col-sm-3 col-form-label">Description (Agenda) *</label>
+          <textarea formControlName="detail" id="longDescription" class="example-full-width col-sm-9" matInput
+            placeholder="Description..." cols="40" rows="4">
+          </textarea>
+        </div> -->
+
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Description (Agenda) *</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea id="mytextarea" matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
+            <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
           </mat-form-field>
         </div>
+<!-- Tine Mce Editor
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Short Description</label>
+          <textarea formControlName="shortDescription" id="shortDescription" class="example-full-width col-sm-9"
+            matInput placeholder="Details..." rows="2">
+            </textarea>
+        </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
+            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2ng "></textarea>
           </mat-form-field>
         </div>
 
@@ -51,7 +64,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
-            <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
+              <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -68,7 +81,7 @@
           <label class="col-sm-3 col-form-label">Targeted User</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Event Type</mat-label>
-            <mat-select formControlName="userType">
+            <mat-select formControlName="targetUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
               </mat-option>
@@ -76,33 +89,30 @@
           </mat-form-field>
         </div>
 
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Event Type</label>
-            <div class="example-full-width col-sm-9">
-              <mat-radio-group
-              aria-labelledby="example-radio-group-label"
-              class="example-radio-group"
-              [(ngModel)]="color"
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Type</label>
+          <div class="example-full-width col-sm-9">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="color"
               [ngModelOptions]="{standalone: true}">
-              <mat-radio-button class="example-radio-button"  value="1">
+              <mat-radio-button class="example-radio-button" value="1">
                 On-Premise
               </mat-radio-button>
-               <mat-radio-button class="example-radio-button"  value="2">
+              <mat-radio-button class="example-radio-button" value="2">
                 Webinar
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  value="3" checked>
+              <mat-radio-button class="example-radio-button" value="3" checked>
                 Both
               </mat-radio-button>
             </mat-radio-group>
 
-            </div>
           </div>
-          <div class="form-row" *ngIf="color=='3' || color=='2'">
-            <label class="col-sm-3 col-form-label">Webinar URL</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Webinar URL" value="" formControlName="webinarurl">
-            </mat-form-field>
-          </div>
+        </div>
+        <div class="form-row" *ngIf="color=='3' || color=='2'">
+          <label class="col-sm-3 col-form-label">Webinar URL</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Webinar URL" value="" formControlName="webinarUrl">
+          </mat-form-field>
+        </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
           <label class="col-sm-3 col-form-label">Address 1 *</label>
           <mat-form-field class="example-full-width col-sm-9">
@@ -131,11 +141,11 @@
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label" >Total No. of Seats *</label>
+          <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
           <mat-form-field class="example-full-width col-sm-3">
             <input matInput type="number" placeholder="Seats" value="" formControlName="totalSeat">
           </mat-form-field>
-          <label class="col-sm-3 col-form-label text-right" >Registration Close Before Seats</label>
+          <label class="col-sm-3 col-form-label text-right">Registration Close Before Seats</label>
           <mat-form-field class="example-full-width col-sm-3">
             <input matInput type="number" placeholder="Closer Seats" value=""
               formControlName="registrationCloseBeforeSeat">
@@ -166,64 +176,80 @@
             <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal"
               data-target="#speakerModal">Add Speakers</button>
           </div>
+
         </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Starting Date & Time</label>
-          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today" class="form-control col-sm-9"
-            placeholder="Starting Date & Time" formControlName="startTime">
+          <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
+            class="form-control col-sm-9" placeholder="Starting Date & Time" formControlName="startDate">
           <owl-date-time #startdt></owl-date-time>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time</label>
-          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="today" class="form-control col-sm-9"
-            placeholder="Closing Date & Time" formControlName="endTime">
+          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control col-sm-9"
+            placeholder="Closing Date & Time" formControlName="endDate">
           <owl-date-time #enddt></owl-date-time>
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label" >Registration Start Date</label>
-          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="today" class="form-control col-sm-9"
-            placeholder="Start Date" formControlName="registrationStartDate">
+          <label class="col-sm-3 col-form-label">Registration Start Date</label>
+          <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
+            [min]="today" [max]="regStartDate" class="form-control col-sm-9" placeholder="Start Date"
+            formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
           <label class="col-sm-3 col-form-label">Registration Closing Date</label>
-          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="today" class="form-control col-sm-9"
-            placeholder="Closing Date" formControlName="registrationEndDate">
+          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
+            class="form-control col-sm-9" placeholder="Closing Date" formControlName="registrationEndDate">
           <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
         </div>
 
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions *</label>
+          <textarea id="policyTnc" class="example-full-width col-sm-9" matInput placeholder="Description..." cols="40"
+            rows="4" formControlName="policyTnc">
+        </textarea>
+        </div> -->
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy Terms & Conditions *</label>
           <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Details..." formControlName="policyTnc" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+          <!-- <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyTnc">
               <mat-option *ngFor="let policy of allPolicyTNC" [value]="policy.id">
                 {{policy.description}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="form-row">
+          </mat-form-field> -->
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Policy FAQs *</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+        <!-- <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy FAQs *</label>
-          <mat-form-field class="example-full-width col-sm-9">
+          <textarea id="policyFAQ" class="example-full-width col-sm-9" matInput placeholder="Description..." cols="40"
+            rows="4" formControlName="policyFAQ">
+        </textarea>
+      </div> -->
+          <!-- <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyFAQ">
               <mat-option *ngFor="let policy of allPolicyFAQ" [value]="policy.id">
                 {{policy.displayName}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
-        </div>
+          </mat-form-field> -->
 
-        <!-- <div class="form-row">
-          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl">
-        </div> -->
+
         <div class="form-row ">
           <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
           <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
@@ -262,10 +288,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="form-row">
-          <label class="col-sm-3 col-form-label">Choose Banner Image</label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="detailImageUrl" />
-        </div> -->
 
         <div class="text-right">
           <button type="submit" class="btn button-1 action-good" (click)="generateEvent()">Submit
@@ -275,7 +297,6 @@
     </div>
   </div>
 </div>
-<!-- [disabled]='!createEventForm.valid' -->
 
 <div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -297,12 +318,12 @@
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Keyword</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+              <input matInput placeholder="Keyword Name" formControlName="keywords">
             </mat-form-field>
           </div>
 
           <div class="text-right">
-            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+            <button class="btn button-1 action-good" (click)="createTag()">Submit</button>
 
           </div>
         </form>
@@ -310,12 +331,13 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- <div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" class="close p-0 modal-remove " #closespeakerModel data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close p-0 modal-remove " #closespeakerModel data-dismiss="modal"
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -355,13 +377,6 @@
               <input matInput placeholder="Designation" formControlName="designation">
             </mat-form-field>
           </div>
-
-          <!-- <div class="form-row">
-            <label class="col-sm-3 col-form-label">Profile</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Profile" formControlName="profile">
-            </mat-form-field>
-          </div> -->
 
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Phone</label>
@@ -416,10 +431,10 @@
 
           <div class="text-right">
             <button class="btn button-1 action-good" (click)="createSpeaker()">Submit Details</button>
-            <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
+
           </div>
         </form>
       </div>
     </div>
   </div>
-</div>
+</div> -->
