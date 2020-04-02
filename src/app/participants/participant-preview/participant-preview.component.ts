@@ -12,6 +12,7 @@ export class ParticipantPreviewComponent {
   dataSource=new BehaviorSubject<any[]>([]);
   dataTable:any;
   tableData:any[]=[];
+  eName="";
   dtOptions: DataTables.Settings = {};
   @ViewChild('datatable',{static:true}) table;
   tabled;
@@ -29,8 +30,11 @@ export class ParticipantPreviewComponent {
      let url;
       if(params.page==undefined)
         url="https://ntt-backend-app.herokuapp.com/api/public/participants";
-      else
+      else{
+        console.log("eventName=",params);
+        this.eName= params.name
         url="https://ntt-backend-app.herokuapp.com/api/public/participants/event/"+params.page;
+      }
 
       this.getTableData(url);
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-event-preview',
@@ -22,9 +22,14 @@ export class EventPreviewComponent implements OnInit {
   categoryList:any[]=[];
   cat:string="";
   dates:any[]=[];
+  tagFilterList:any[]=[];
+  categoryFilterList:any[]=[];
+  eventTypeFilterList:any[]=[];
   filterDate="";
-    today=new Date();
-    categoryLis:any[]=['Sort By','Date','Tag','Category'];
+  sort:string="";
+    startDate=new Date();
+    endDate=new Date();
+    categoryLis:any[]=['Sort By','Title','Date','Category'];
   // cards = [
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
   //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
@@ -39,9 +44,18 @@ export class EventPreviewComponent implements OnInit {
     {value: '1', viewValue: 'Public'},
     {value: '2', viewValue: 'Customer'}
   ];
-  constructor(private authService: AuthServiceService, private router:Router) { }
+  constructor(private authService: AuthServiceService,
+    private formBuilder:FormBuilder,
+    private router:Router) { }
 
   ngOnInit(): void {
+    this.advanceFilterForm = this.formBuilder.group({
+      tagList:[''],
+      categoryTypeId:[''],
+      eventTypeData:[''],
+      registrationStartDate:[''],
+      registrationEndDate:['']
+    })
     this.getEventslist();
     this.getAllCategory();
     this.getAllTags();
@@ -54,6 +68,11 @@ export class EventPreviewComponent implements OnInit {
       (data) => {
         this.getEventData = data.body;
         console.log("Json Data", this.getEventData);
+        this.getEventData.filter(m=>{
+          if(this.categoryFilterList.indexOf(m.categoryName)==-1)
+          this.categoryFilterList.push(m.categoryName);
+        })
+
         this.filterBlogs=data.body;
         this.blogs=data.body;
         this.searchFilterData=data.body;
@@ -122,5 +141,38 @@ export class EventPreviewComponent implements OnInit {
   }
   cancel(){
    this.filterBlogs=this.blogs;
+  }
+  emitValue(){
+   let date1=this.advanceFilterForm.get(['registrationStartDate']).value;
+   let  date2=this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
+    this.endDate=this.advanceFilterForm.get(['registrationStartDate']).value;
+    console.log("startdate==",this.startDate);
+    console.log("enddate==",this.endDate);
+    console.log("compare==",date1 >date2);
+    if(date1 >date2){
+      this.advanceFilterForm.get(['registrationEndDate']).setValue(' ');
+      console.log("inside if");
+    }
+   //alert(this.endDate==new Date())
+  }
+  emitValue1(){
+   // this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
+  }
+  filterData(){
+    if(this.sort=="Sort By"){
+      this.filterBlogs=this.blogs;
+    }
+    if(this.sort=="Title"){
+      this.searchFilterData.sort((a,b) => a.title.localeCompare(b.title));
+      this.filterBlogs=this.searchFilterData;
+    }
+    if(this.sort=="Category"){
+      this.searchFilterData.sort((a,b) => a.categoryName.localeCompare(b.categoryName));
+      this.filterBlogs=this.searchFilterData;
+    }
+    if(this.sort=="Date"){
+      this.searchFilterData.sort((a,b) => a.eventDate.localeCompare(b.eventDate));
+      this.filterBlogs=this.searchFilterData;
+    }
   }
 }

@@ -35,30 +35,13 @@
         </div>
       </li>
       <li class="nav-item active mx-2">
-        <select class="form-control">
+        <select class="form-control" [(ngModel)]="sort" (change)="filterData()">
           <option value="" hidden>Sort By</option>
-          <option *ngFor="let cate of categoryLis">{{cate}}</option>
+          <option *ngFor="let cate of categoryLis" [value]="cate" >{{cate}}</option>
         </select>
       </li>
 
-      <!-- <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
-          <option value="" hidden>Sort By</option>
-          <option *ngFor="let cate of categoryList" [value]="cate.name">{{cate.displayName}}</option>
-        </select>
-      </li> -->
-      <!-- <li class="nav-item mx-2">
-        <select class="form-control">
-          <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
-           <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
-        </select>
-      </li> -->
-      <!-- <li class="nav-item ml-2">
-        <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
-          <option value="" hidden>Select Date</option>
-          <option *ngFor="let date of dates" [value]="date">{{date}}</option>
-        </select>
-      </li> -->
+
 
     </ul>
   </div>
@@ -105,14 +88,14 @@
             <mat-form-field class="example-full-width col-sm-12">
               <mat-label>Select Category</mat-label>
               <mat-select multiple formControlName="categoryTypeId">
-                <mat-option *ngFor="let category of allData" [value]="category.id">
-                  {{category.name}}
+                <mat-option *ngFor="let category of categoryFilterList" [value]="category">
+                  {{category}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="example-full-width col-sm-12">
               <mat-label>Event Type</mat-label>
-              <mat-select>
+              <mat-select formControlName="eventTypeData">
                 <mat-option *ngFor="let type of eventType" [value]="type.value">
                   {{type.viewValue}}
                 </mat-option>
@@ -120,14 +103,14 @@
             </mat-form-field>
 
             <div class="form-group example-full-width col-sm-12">
-              <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="today" class="form-control col-sm-12"
-                placeholder="Start Date" formControlName="registrationStartDate">
+              <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="startDate" class="form-control col-sm-12"
+              (dateTimeInput)="emitValue()" placeholder="Start Date" formControlName="registrationStartDate">
               <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
             </div>
 
            <div class="form-group example-full-width col-sm-12">
-              <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="today" class="form-control col-sm-12"
-                placeholder="Closing Date" formControlName="registrationEndDate">
+              <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="endDate" class="form-control col-sm-12"
+              (dateTimeInput)="emitValue1()"  placeholder="Closing Date" formControlName="registrationEndDate">
               <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
             </div>
           </div>
