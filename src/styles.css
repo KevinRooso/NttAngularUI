@@ -283,3 +283,12 @@ table.dataTable tbody th, table.dataTable tbody td {
 .tox-tinymce{
   width: 74%;
 }
+.fab-container{
+  bottom:-80px !important;
+}
+.fab-container > div{
+  margin-bottom: 1px !important;
+}
+.fab-container> div > button {
+  margin-bottom: 5px !important;
+}
