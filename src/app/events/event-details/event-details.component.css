@@ -188,3 +188,38 @@ a:hover{
   background-color: #007bff;
   min-width: 35px;
 }
+
+.fab-container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column-reverse;
+  /* flex-direction:row-reverse; */
+  align-items: center;
+  color: #007bff;
+   /* div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 5px;
+
+    button {
+      margin-bottom: 17px;
+    }
+  }  */
+}
+.fab-container> div{
+  display: flex;
+    flex-direction: column-reverse;
+    align-items:baseline;
+    margin-bottom: 5px;
+}
+.fab-container> div> button{
+  margin-bottom: 17px;
+}
+.fab-toggler {
+  float: right;
+  z-index: 100;
+}

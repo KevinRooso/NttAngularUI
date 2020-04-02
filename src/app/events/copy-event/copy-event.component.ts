@@ -316,7 +316,7 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        alert("Successfully Updated");
+        alert("Successfully Created");
       },
       (error) => console.log(error)
     )

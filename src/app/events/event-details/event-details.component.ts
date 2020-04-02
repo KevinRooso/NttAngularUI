@@ -3,15 +3,20 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location} from '@angular/common';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { speedDialFabAnimations } from 'src/app/fab-animation';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
-  styleUrls: ['./event-details.component.css']
+  styleUrls: ['./event-details.component.css'],
+  animations: speedDialFabAnimations
 })
 export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
   getParticipantDetails: any;
   eventId;
+  eventName;
+  startTime="";
+  endTime="";
   @ViewChild('menumat') trigger: MatMenuTrigger;
   constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute, private location: Location) { }
 
@@ -31,8 +36,30 @@ export class EventDetailsComponent implements OnInit {
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body;
+        this.eventName=this.getEventDetails.title;
+        if(this.getEventDetails.eventSchedule[0].startTime!=null){
+        this.startTime=this.getDateTime(this.getEventDetails.eventSchedule[0].startTime);
+        this.endTime=this.getDateTime(this.getEventDetails.eventSchedule[0].endTime);
+        }
       console.log("ID Data", this.getEventDetails);
     })
+  }
+  getDateTime(dateTime){
+      let date=new Date(dateTime);
+
+      let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+       let  minutess = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutess + ' ' + ampm;
+      console.log("date=",strTime);
+      console.log("date333=",date.toString());
+      let sdate=date.toString().split(' ')
+      console.log(sdate[1]+' '+sdate[2]+','+sdate[3]+' '+strTime);
+
+        return sdate[1]+' '+sdate[2]+','+sdate[3]+' '+strTime;
   }
   getEventParticipant(id) {
     this.authService.getParticipant(id).subscribe(res => {
@@ -51,7 +78,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['/create-speaker'], { queryParams: { page: this.eventId } });
   }
   viewParticipant(){
-    this.router.navigate(['/participants'], { queryParams: { page: this.eventId } });
+    this.router.navigate(['/participants'], { queryParams: { page: this.eventId,name:this.eventName } });
   }
   viewSpeakers(){
     this.router.navigate(['/speakers'], { queryParams: { page: this.eventId } });
@@ -68,5 +95,33 @@ export class EventDetailsComponent implements OnInit {
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
+  fabButtons = [
+    {
+      icon: 'file_copy'
+    },
+    {
+      icon: 'edit'
+    }
+  ];
+  buttons = [];
+  fabTogglerState = 'inactive';
+  showItems() {
+    this.fabTogglerState = 'active';
+    this.buttons = this.fabButtons;
+  }
 
+  hideItems() {
+    this.fabTogglerState = 'inactive';
+    this.buttons = [];
+  }
+
+  onToggleFab() {
+    this.buttons.length ? this.hideItems() : this.showItems();
+  }
+  duplicateEdit(icon,id){
+      if(icon=='file_copy')
+        this.router.navigate(['/copy-event'], { queryParams: { page: this.eventId } });
+      if(icon=='edit')
+      this.router.navigate(['/edit'], { queryParams: { page: this.eventId } });
+  }
 }

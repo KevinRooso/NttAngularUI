@@ -236,7 +236,7 @@ getUserList(){
       "isbreak": false,
       "status": false,
       "isActive": false,
-      "isDraft": false,
+      "isDraft": true,
       "isPublish": false,
       "isRegOpen": false,
       "publishStatus": false,

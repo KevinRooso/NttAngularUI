@@ -42,8 +42,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 
-
-
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
 import {MatChipsModule} from '@angular/material/chips';
@@ -78,6 +76,7 @@ import { TruncatePipe } from './truncate.pipe';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SortByPipe } from './sorting.pipe';
 
 
 @NgModule({
@@ -129,7 +128,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ConfigurationComponent,
     TruncatePipe,
     CopyEventComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SortByPipe
     ],
   imports: [
     BrowserModule,
@@ -160,7 +160,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatSliderModule,
     MatRadioModule,
     MatDialogModule
-
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
