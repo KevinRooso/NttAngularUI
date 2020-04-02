@@ -34,6 +34,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 
 
@@ -69,6 +75,7 @@ import { CreateTestimonialsComponent } from './testimonials/create-testimonials/
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { TruncatePipe } from './truncate.pipe';
+import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -121,6 +128,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     EditTestimonialsComponent,
     ConfigurationComponent,
     TruncatePipe,
+    CopyEventComponent,
     LandingPageComponent
     ],
   imports: [
@@ -146,6 +154,11 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatIconModule,
     DataTablesModule,
     MatDividerModule,
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatSliderModule,
+    MatRadioModule,
     MatDialogModule
 
   ],

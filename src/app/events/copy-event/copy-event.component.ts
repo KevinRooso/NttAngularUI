@@ -6,12 +6,11 @@ import { Location} from '@angular/common';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 @Component({
-  selector: 'app-event-edit',
-  templateUrl: './event-edit.component.html',
-  styleUrls: ['./event-edit.component.css']
+  selector: 'app-copy-event',
+  templateUrl: './copy-event.component.html',
+  styleUrls: ['./copy-event.component.css']
 })
-export class EventEditComponent implements OnInit {
-
+export class CopyEventComponent implements OnInit {
   updateEventForm: FormGroup;
   addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
@@ -62,7 +61,7 @@ export class EventEditComponent implements OnInit {
       webinarurl:[''],
       userType:[''],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      totalSeat: [''],
+      totalSeat: ['',Validators.required],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
       startTime: [''],
@@ -309,7 +308,7 @@ export class EventEditComponent implements OnInit {
       "isPublish": false,
       "isRegOpen": false,
       "publishStatus": false,
-      "id": this.evntID
+      "id": 0
     }
 
     console.log("Updated Data", obj);
