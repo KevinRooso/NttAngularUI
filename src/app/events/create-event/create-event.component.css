@@ -71,3 +71,6 @@ textarea {
   padding: 0;
   border-width: 0;
   }
+.error{
+  color: red;
+}

@@ -13,10 +13,13 @@
       </div>
 
       <form [formGroup]='createEventForm'>
+        <!-- <form [formGroup]='createEventForm' (ngSubmit)="generateEvent()"> -->
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title *</label>
+          <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title" value="">
+            <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 300 characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -28,9 +31,11 @@
         </div> -->
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Description (Agenda) *</label>
+          <label class="col-sm-3 col-form-label">Description (Agenda) <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
+            <textarea matInput placeholder="Description..." formControlName="detail" rows="6"></textarea>
+            <mat-error *ngIf="checkError('detail', 'required')">(Description is required)</mat-error>
+            <mat-error *ngIf="checkError('detail', 'maxlength')">Description should be less than 2000 characters</mat-error>
           </mat-form-field>
         </div>
 <!-- Tine Mce Editor
@@ -42,14 +47,16 @@
         </div> -->
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Short Description</label>
+          <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2ng "></textarea>
+            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="3"></textarea>
+            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
+            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 700 characters</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category *</label>
+          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId">
@@ -57,15 +64,17 @@
                 {{category.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags</label>
+          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
               <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -78,7 +87,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Targeted User</label>
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Event Type</mat-label>
             <mat-select formControlName="targetUserType">
@@ -86,11 +95,12 @@
                 {{user.displayName}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Event Type</label>
+          <label class="col-sm-3 col-form-label">Event Type <span class="error">*</span></label>
           <div class="example-full-width col-sm-9">
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="color"
               [ngModelOptions]="{standalone: true}">
@@ -104,19 +114,20 @@
                 Both
               </mat-radio-button>
             </mat-radio-group>
-
           </div>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='2'">
-          <label class="col-sm-3 col-form-label">Webinar URL</label>
+          <label class="col-sm-3 col-form-label">Webinar URL <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Webinar URL" value="" formControlName="webinarUrl">
+            <mat-error *ngIf="checkError('webinarUrl', 'required')">(Webinar URL is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 1 *</label>
+          <label class="col-sm-3 col-form-label">Address 1 <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
+            <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -130,43 +141,47 @@
         <div class="form-row" *ngIf="color=='3' || color=='1'">
           <label class="col-sm-3 col-form-label"></label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput placeholder="City" value="" formControlName="city">
+            <input matInput placeholder="City *" value="" formControlName="city">
+            <mat-error *ngIf="checkError('city', 'required')">(City is required)</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width col-sm-4">
-            <input matInput placeholder="Country" value="" formControlName="country">
+            <input matInput placeholder="Country *" value="" formControlName="country">
+            <mat-error *ngIf="checkError('country', 'required')">(Country is required)</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width col-sm-2">
-            <input matInput placeholder="Pincode" value="" formControlName="pincode">
+            <input matInput placeholder="Pincode *" value="" formControlName="pincode" type="number">
+            <mat-error *ngIf="checkError('pincode', 'required')">(Pincode is required)</mat-error>
+            <mat-error *ngIf="checkError('pincode', 'pattern')">(Only 6 numeric digits should be allowed)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Total No. of Seats *</label>
+          <label class="col-sm-3 col-form-label">Total No. of Seats</label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput type="number" placeholder="Seats" value="" formControlName="totalSeat">
+            <input matInput type="number" placeholder="Seats" formControlName="totalSeat">
           </mat-form-field>
           <label class="col-sm-3 col-form-label text-right">Registration Close Before Seats</label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput type="number" placeholder="Closer Seats" value=""
-              formControlName="registrationCloseBeforeSeat">
+            <input matInput type="number" placeholder="Closer Seats" formControlName="registrationCloseBeforeSeat">
           </mat-form-field>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">No. of Co-Participants</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput type="number" placeholder="Subusers Allow" value="" formControlName="noOfSubUsersAllow">
+            <input matInput type="number" placeholder="Subusers Allow" formControlName="noOfSubUsersAllow">
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Speakers *</label>
+          <label class="col-sm-3 col-form-label">Select Speakers <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Speakers</mat-label>
             <mat-select formControlName="speakerList" multiple>
               <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers.fullName}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('speakerList', 'required')">(Atleast one speaker is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -180,32 +195,57 @@
         </div> -->
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Starting Date & Time</label>
+          <label class="col-sm-3 col-form-label">Starting Date & Time <span class="error">*</span></label>
+         <div class="col-sm-9">
           <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
-            class="form-control col-sm-9" placeholder="Starting Date & Time" formControlName="startDate">
-          <owl-date-time #startdt></owl-date-time>
+           placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
+
+          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+        <owl-date-time #startdt></owl-date-time>
+        <div *ngIf="checkError('startDate', 'required')" style="color:red;font-size: 12px;">
+          (Event start date & time is required)
+        </div>
+         </div>
+
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Closing Date & Time</label>
-          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control col-sm-9"
+          <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
+          <div class="col-sm-9">
+          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
             placeholder="Closing Date & Time" formControlName="endDate">
           <owl-date-time #enddt></owl-date-time>
+          <div *ngIf="checkError('endDate', 'required')" style="color:red;font-size: 12px;">
+            (Event end date & time is required)
+          </div>
+        </div>
+          <!-- <mat-error *ngIf="checkError('endDate', 'required')">(Event end date & time is required)</mat-error> -->
         </div>
 
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Registration Start Date</label>
-          <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-            [min]="today" [max]="regStartDate" class="form-control col-sm-9" placeholder="Start Date"
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
+            [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
             formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+          <div *ngIf="checkError('registrationStartDate', 'required')" style="color:red;font-size: 12px;">
+            (Registration start date is required)
+          </div>
+          </div>
+
         </div>
 
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Registration Closing Date</label>
-          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
-            class="form-control col-sm-9" placeholder="Closing Date" formControlName="registrationEndDate">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Registration Closing Date <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
+            class="form-control" placeholder="Closing Date" formControlName="registrationEndDate">
           <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
+          <div *ngIf="checkError('registrationEndDate', 'required',true)" style="color:red;font-size: 12px;">
+            (Registration end date is required)
+          </div>
+          </div>
         </div>
 
         <!-- <div class="form-row">
@@ -215,9 +255,11 @@
         </textarea>
         </div> -->
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Policy Terms & Conditions *</label>
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="policyTnc" rows="4"></textarea>
+            <mat-error *ngIf="checkError('policyTnc', 'required')">Terms & Conditions is required</mat-error>
+            <mat-error *ngIf="checkError('policyTnc', 'maxlength')">Terms & Conditions should be less than 3000 characters</mat-error>
           </mat-form-field>
         </div>
           <!-- <mat-form-field class="example-full-width col-sm-9">
@@ -229,9 +271,10 @@
             </mat-select>
           </mat-form-field> -->
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy FAQs *</label>
+            <label class="col-sm-3 col-form-label">Policy FAQs</label>
             <mat-form-field class="example-full-width col-sm-9">
               <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
+              <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters</mat-error>
             </mat-form-field>
           </div>
         <!-- <div class="form-row">
@@ -251,7 +294,7 @@
 
 
         <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image</label>
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
           <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
             (change)="fileProgress($event)" />
           <div class="col-sm-2">
@@ -270,7 +313,7 @@
           </div>
         </div>
         <div class="form-row my-3">
-          <label class="col-sm-3 col-form-label">Choose Banner Image</label>
+          <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">*</span></label>
           <input type="file" class="form-control-file col-sm-7" formControlName="detailImageUrl"
             (change)="fileProgress2($event)" />
           <div class="col-sm-2">
@@ -288,11 +331,18 @@
             </div>
           </div>
         </div>
-
-        <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" (click)="generateEvent()">Submit
-            Details</button>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Save as draft</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isDraft">Draft</mat-slide-toggle>
         </div>
+        <div class="text-right">
+          <button type="submit" class="btn button-1 action-good" (click)="generateEvent()">Submit Details</button>
+        </div>
+
+        <!-- <div class="text-right">
+          <input type="submit" class="btn button-1 action-good" [disabled]="!createEventForm.valid" value="Submit Details">
+        </div> -->
+        <!-- (click)="generateEvent()"    -->
       </form>
     </div>
   </div>
