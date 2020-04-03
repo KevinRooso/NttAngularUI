@@ -41,6 +41,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
@@ -159,7 +161,8 @@ import { SortByPipe } from './sorting.pipe';
     MatButtonToggleModule,
     MatSliderModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
