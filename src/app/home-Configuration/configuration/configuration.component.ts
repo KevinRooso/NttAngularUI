@@ -27,13 +27,14 @@ export class ConfigurationComponent implements OnInit {
   ]
 
   blocks: any[] = [
+    { id: 0, name: 'Event' },
     { id: 1, name: 'Article' },
     { id: 2, name: 'Blogs' },
     { id: 3, name: 'Videos' },
     { id: 4, name: 'Whitepapers' },
     { id: 5, name: 'CaseStudies' },
   ]
-  sequenceNumbers: any[] = [1, 2, 3, 4, 5, 6, 7, 7]
+  sequenceNumbersBanner: any[] = [1, 2, 3]
 
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService,
     private router1: ActivatedRoute, private router: Router) {
