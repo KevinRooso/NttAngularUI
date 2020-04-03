@@ -30,6 +30,11 @@ export class EventEditComponent implements OnInit {
   speaker = new FormControl();
   tag = new FormControl();
 
+  today=new Date();
+  closingDate = new Date();
+  regStartDate = new Date();
+  regEndDate = new Date();
+
   selected:string;
   getEventDetails: any;
   evntID;
@@ -479,5 +484,14 @@ this.allspeakers.forEach(m=>{
     alert("Speaker Already EXist");
         }
   }
+  maxCDate(){
+    console.log("Closing Date", this.updateEventForm.get(['startTime']).value);
+    this.closingDate = this.updateEventForm.get(['startTime']).value;
+    this.regStartDate = this.closingDate;
+  }
+  maxRegDate(){
+    this.regEndDate = this.updateEventForm.get(['registrationStartDate']).value;
+  }
+
 
 }

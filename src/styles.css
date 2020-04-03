@@ -269,3 +269,26 @@ table.dataTable tbody th, table.dataTable tbody td {
   padding: 10px;
 }
 
+.tox-statusbar__branding{
+ display: none;
+}
+.tox .tox-statusbar__path{
+  display: none !important;
+}
+/* Tiny MCE */
+.mat-form-field-appearance-legacy .mat-form-field-infix textarea{
+  padding: 0;
+  border:0;
+}
+.tox-tinymce{
+  width: 74%;
+}
+.fab-container{
+  bottom:-80px !important;
+}
+.fab-container > div{
+  margin-bottom: 1px !important;
+}
+.fab-container> div > button {
+  margin-bottom: 5px !important;
+}

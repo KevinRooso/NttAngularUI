@@ -23,16 +23,33 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Description (Agenda) *</label>
-          <mat-form-field class="example-full-width col-sm-9">
+          <textarea
+          id="longDescription"
+          class="example-full-width col-sm-9"
+          matInput
+          placeholder="Description..."
+          cols="40"
+          rows="4"
+          formControlName="detail">
+        </textarea>
+          <!-- <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description..." formControlName="detail" rows="4"></textarea>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description</label>
-          <mat-form-field class="example-full-width col-sm-9">
+          <textarea
+          id="shortDescription"
+          class="example-full-width col-sm-9"
+          matInput
+          placeholder="Details..."
+          formControlName="shortDescription"
+          rows="2">
+        </textarea>
+          <!-- <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div class="form-row">
@@ -186,7 +203,7 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Starting Date & Time</label>
-          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" class="form-control col-sm-9"
+          <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [min]="today" [owlDateTime]="startdt" class="form-control col-sm-9"
             formControlName="startTime">
           <owl-date-time #startdt></owl-date-time>
         </div>
@@ -194,38 +211,57 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time</label>
           <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control col-sm-9"
-            formControlName="endTime">
+            formControlName="endTime" [min]="closingDate">
           <owl-date-time #enddt></owl-date-time>
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
           <label class="col-sm-3 col-form-label">Registration Start Date</label>
-          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
-            placeholder="Start Date" formControlName="registrationStartDate">
+          <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="today" [max]="regStartDate"
+          class="form-control col-sm-9" placeholder="Start Date" formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
           <label class="col-sm-3 col-form-label">Registration Closing Date</label>
-          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" class="form-control col-sm-9"
+          <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" class="form-control col-sm-9" [min]="regEndDate" [max]="regStartDate"
             placeholder="Closing Date" formControlName="registrationEndDate">
           <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy Terms & Conditions</label>
-          <mat-form-field class="example-full-width col-sm-9">
+          <textarea
+          id="policyTnc"
+          class="example-full-width col-sm-9"
+          matInput
+          placeholder="Description..."
+          cols="40"
+          rows="4"
+          formControlName="policyTnc">
+          </textarea>
+          <!-- <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyTnc">
               <mat-option *ngFor="let policy of allPolicyTNC" [value]="policy.displayName">
                 {{policy.displayName}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy FAQs</label>
+          <textarea
+          id="policyFAQ"
+          class="example-full-width col-sm-9"
+          matInput
+          placeholder="Description..."
+          cols="40"
+          rows="4"
+          formControlName="policyFAQ">
+        </textarea>
+        <!-- </textarea>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Policies</mat-label>
             <mat-select formControlName="policyFAQ">
@@ -233,7 +269,7 @@
                 {{policy.displayName}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div class="form-row ">

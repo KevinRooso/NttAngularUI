@@ -65,3 +65,9 @@ mat-radio-button{
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
     background-color:rgb(255, 37, 37,.26) !important;
 }
+textarea {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  }
