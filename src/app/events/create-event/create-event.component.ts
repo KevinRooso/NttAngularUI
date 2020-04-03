@@ -52,15 +52,15 @@ export class CreateEventComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      address1: ['', Validators.required],
+      address1: [''],
       address2: [''],
-      city: ['', Validators.required],
+      city: [''],
       tagList: ['', Validators.required],
       premise: [''],
       webinarUrl: [''],
       targetUserType: ['', Validators.required],
-      country: ['', Validators.required],
-      pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
+      country: [''],
+      pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
@@ -168,25 +168,50 @@ export class CreateEventComponent implements OnInit {
       })
   }
 
+
+  setAddressFieldValidation(validatorType: any) {
+    this.createEventForm.controls['address1'].setValidators(validatorType);
+    this.createEventForm.controls['address1'].updateValueAndValidity();
+
+    this.createEventForm.controls['city'].setValidators(validatorType);
+    this.createEventForm.controls['city'].updateValueAndValidity();
+
+    this.createEventForm.controls['country'].setValidators(validatorType);
+    this.createEventForm.controls['country'].updateValueAndValidity();
+
+    this.createEventForm.controls['pincode'].setValidators(validatorType);
+    this.createEventForm.controls['pincode'].updateValueAndValidity();
+  }
+
+  setWebinarFieldValidation(validatorType: any) {
+    this.createEventForm.controls['webinarUrl'].setValidators(validatorType);
+    this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+  }
+
   generateEvent() {
-    if(this.color=="1"){
+    const ON_PREMISE = "1";
+    const WEBINAR = "2";
+    const BOTH = "3";
+
+    if(this.color == ON_PREMISE){
       this.isEvent = true;
       this.isWebinar = false;
       this.createEventForm.controls['webinarUrl'].setValidators(null);
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
-    }
-    if(this.color=="2"){
+      this.setWebinarFieldValidation(null);
+      this.setAddressFieldValidation(Validators.required);
+    } else if(this.color == WEBINAR){
       this.isWebinar = true;
       this.isEvent = false;
-      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
-      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
-    }
-    if(this.color=="3"){
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(null);
+    } else if(this.color == BOTH){
       this.isWebinar = true;
       this.isEvent = true;
-      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
-      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(Validators.required);
     }
+
     this.submitted = true;
    if (this.createEventForm.valid) {
 

@@ -51,6 +51,8 @@ export class EventEditComponent implements OnInit {
   selected4:string[]=[];
   selected6:string[]=[];
   checkError:any;
+  isEvent:boolean = false;
+  isWebinar:boolean = false;
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
@@ -65,7 +67,7 @@ export class EventEditComponent implements OnInit {
       tagList: ['', Validators.required],
       premise: [''],
       webinarUrl: [''],
-      targetUserType: ['', Validators.required],
+      targetUserType: [''],
       country: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
@@ -85,13 +87,13 @@ export class EventEditComponent implements OnInit {
       isDraft:[''],
       categoryTypeId: ['', Validators.required]
     })
-    this.submitted = true;
+    // this.submitted = true;
     this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted == true){
-        if(this.submitted ==true){
+      if(checkSubmitted){
+        if(this.submitted){
           return this.updateEventForm.controls[controlName].hasError(errorName);
         }
-      }else{
+      } else {
         return this.updateEventForm.controls[controlName].hasError(errorName);
       }
 
@@ -160,10 +162,17 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['country'].setValue(this.getEventDetails.country);
       this.updateEventForm.controls['pincode'].setValue(this.getEventDetails.pincode);
       this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
-      this.attachUrl =this.getEventDetails.detailImageUrl;
-      this.previewUrl=this.getEventDetails.thumbnailImageUrl;
+      this.attachUrl = this.getEventDetails.detailImageUrl;
+      this.previewUrl= this.getEventDetails.thumbnailImageUrl;
       this.articleImage= this.getEventDetails.thumbnailImageUrl
       this.attachFile= this.getEventDetails.detailImageUrl
+      //this.updateEventForm.controls['tagList'].setValue(this.getEventDetails.tags);
+      this.updateEventForm.controls['tagList'].setValidators(null);
+      this.updateEventForm.controls['tagList'].updateValueAndValidity();
+
+      this.updateEventForm.controls['speakerList'].setValidators(null);
+      this.updateEventForm.controls['speakerList'].updateValueAndValidity();
+
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
       this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
@@ -237,8 +246,51 @@ export class EventEditComponent implements OnInit {
       })
   }
 
+  setAddressFieldValidation(validatorType: any) {
+    this.updateEventForm.controls['address1'].setValidators(validatorType);
+    this.updateEventForm.controls['address1'].updateValueAndValidity();
+
+    this.updateEventForm.controls['city'].setValidators(validatorType);
+    this.updateEventForm.controls['city'].updateValueAndValidity();
+
+    this.updateEventForm.controls['country'].setValidators(validatorType);
+    this.updateEventForm.controls['country'].updateValueAndValidity();
+
+    this.updateEventForm.controls['pincode'].setValidators(validatorType);
+    this.updateEventForm.controls['pincode'].updateValueAndValidity();
+  }
+
+  setWebinarFieldValidation(validatorType: any) {
+    this.updateEventForm.controls['webinarUrl'].setValidators(validatorType);
+    this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
+  }
+
   updateEvent() {
-     if(this.updateEventForm.valid){
+    const ON_PREMISE = "1";
+    const WEBINAR = "2";
+    const BOTH = "3";
+
+    if(this.color == ON_PREMISE){
+      this.isEvent = true;
+      this.isWebinar = false;
+      this.updateEventForm.controls['webinarUrl'].setValidators(null);
+      this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
+      this.setWebinarFieldValidation(null);
+      this.setAddressFieldValidation(Validators.required);
+    } else if(this.color == WEBINAR){
+      this.isWebinar = true;
+      this.isEvent = false;
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(null);
+    } else if(this.color == BOTH){
+      this.isWebinar = true;
+      this.isEvent = true;
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(Validators.required);
+    }
+
+    this.submitted = true;
+    if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
     console.log("eventform==",this.updateEventForm.value);
@@ -267,8 +319,8 @@ export class EventEditComponent implements OnInit {
 
     let schedule: any[] = [];
     let scheduling = {
-      "endDate": this.updateEventForm.controls['endTime'].value,
-      "startDate": this.updateEventForm.controls['startTime'].value
+      "endDate": this.updateEventForm.controls['endDate'].value,
+      "startDate": this.updateEventForm.controls['startDate'].value
     };
     schedule.push(scheduling);
     let catId;
@@ -329,10 +381,11 @@ export class EventEditComponent implements OnInit {
       (response) => {
         console.log("responsne", response);
         alert("Successfully Updated");
+        this.submitted = false;
       },
       (error) => console.log(error)
     )
-    }
+   }
 
   }
 
