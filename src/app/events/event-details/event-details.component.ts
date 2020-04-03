@@ -37,6 +37,7 @@ export class EventDetailsComponent implements OnInit {
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body;
         this.eventName=this.getEventDetails.title;
+
         if(this.getEventDetails.eventSchedule[0].startTime!=null){
         this.startTime=this.getDateTime(this.getEventDetails.eventSchedule[0].startTime);
         this.endTime=this.getDateTime(this.getEventDetails.eventSchedule[0].endTime);

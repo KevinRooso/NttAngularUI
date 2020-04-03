@@ -407,4 +407,11 @@ this.allspeakers.forEach(m=>{
     alert("Speaker Already EXist");
         }
   }
+  getLocation(){
+    alert("inside location");
+    this.authService.getLocation().subscribe(res=>{
+        console.log(res);
+
+    })
+  }
 }
