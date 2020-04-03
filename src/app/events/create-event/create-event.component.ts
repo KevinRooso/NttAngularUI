@@ -51,39 +51,53 @@ export class CreateEventComponent implements OnInit {
 
  isEvent:boolean = false;
  isWebinar:boolean = false;
+ isAnonymous:boolean = false;
+ checkError:any;
+submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
-      title: ['', Validators.required],
-      detail: [''],
-      shortDescription: [''],
-      address1: [''],
+      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      address1: ['', Validators.required],
       address2: [''],
-      city: [''],
-      tagList: [''],
+      city: ['', Validators.required],
+      tagList: ['', Validators.required],
       premise: [''],
-      webinarurl: [''],
-      targetUserType: [''],
-      country: [''],
+      webinarUrl: [''],
+      targetUserType: ['', Validators.required],
+      country: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
-      startDate: [''],
-      endDate: [''],
-      speakerList: [''],
-      registrationStartDate: [''],
-      registrationEndDate: [''],
-      policyTnc: [''],
-      policyFAQ: [''],
-      thumbnailImageUrl: [''],
-      detailImageUrl: [''],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      speakerList: ['', Validators.required],
+      registrationStartDate: ['', Validators.required],
+      registrationEndDate: ['', Validators.required],
+      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
+      thumbnailImageUrl: ['', Validators.required],
+      detailImageUrl: ['', Validators.required],
       fullName: [''],
       name: [''],
-      webinarUrl: [''],
+      isDraft:[''],
       categoryTypeId: ['', Validators.required]
-
     })
+
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted == true){
+        if(this.submitted ==true){
+          return this.createEventForm.controls[controlName].hasError(errorName);
+        }
+      }else{
+        return this.createEventForm.controls[controlName].hasError(errorName);
+      }
+
+    }
+
     // let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     // this.createSpeakerForm = formBuilder.group({
     //   fullName: ['', Validators.required],
@@ -181,8 +195,27 @@ export class CreateEventComponent implements OnInit {
   //   alert(this.color);
   // }
   generateEvent() {
-    // if (this.createEventForm.valid) {
-      //if(true){
+    if(this.color=="1"){
+      this.isEvent = true;
+      this.isWebinar = false;
+      this.createEventForm.controls['webinarUrl'].setValidators(null);
+      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+    }
+    if(this.color=="2"){
+      this.isWebinar = true;
+      this.isEvent = false;
+      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
+      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+    }
+    if(this.color=="3"){
+      this.isWebinar = true;
+      this.isEvent = true;
+      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
+      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+    }
+    this.submitted = true;
+   if (this.createEventForm.valid) {
+
       let name: any[] = [];
       let spekaerName: any[] = [];
       spekaerName = this.createEventForm.controls['fullName'].value;
@@ -217,18 +250,7 @@ export class CreateEventComponent implements OnInit {
         tags.push(tag);
       });
 
-      if(this.color=="1"){
-        this.isEvent = true;
-        this.isWebinar = false;
-      }
-      if(this.color=="2"){
-        this.isWebinar = true;
-        this.isEvent = false
-      }
-      if(this.color=="3"){
-        this.isWebinar = true;
-        this.isEvent = true;
-      }
+
 
       let objData = {
         "title": this.createEventForm.controls['title'].value,
@@ -245,7 +267,6 @@ export class CreateEventComponent implements OnInit {
         "noOfSubUsersAllow": this.createEventForm.controls['noOfSubUsersAllow'].value,
         "registrationStartDate": this.createEventForm.controls['registrationStartDate'].value,
         "registrationEndDate": this.createEventForm.controls['registrationEndDate'].value,
-        // "startDate": this.createEventForm.controls['startDate'].value,
         "webinarUrl": this.createEventForm.controls['webinarUrl'].value,
         "policyFAQ": this.createEventForm.controls['policyFAQ'].value,
         "policyTnc": this.createEventForm.controls['policyTnc'].value,
@@ -259,13 +280,13 @@ export class CreateEventComponent implements OnInit {
         "isbreak": false,
         "status": false,
         "isActive": false,
-        "isDraft": false,
         "isPublish": false,
-        "isRegOpen": false,
+        "isRegOpen": true,
         "publishStatus": false,
         "id": 0,
         "isEvent":this.isEvent,
-        "isWebinar":this.isWebinar
+        "isWebinar":this.isWebinar,
+        "isDraft":this.createEventForm.controls['isDraft'].value
       }
 
       console.log("Post Data", objData);
@@ -276,7 +297,10 @@ export class CreateEventComponent implements OnInit {
         (error) => console.log(error)
       )
     }
-
+    else{
+      alert("Please fill all mandatory field");
+    }
+  }
 
   createTag() {
     if (this.addTagForm.valid) {
