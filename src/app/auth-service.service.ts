@@ -6,7 +6,6 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  //http://192.168.1.155:8080/
  //private url = "http://192.168.1.155:8080/";
  private url = "https://ntt-backend-app.herokuapp.com/";
  public headers = new HttpHeaders({
@@ -151,5 +150,17 @@ export class AuthServiceService {
   }
   getLocation():Observable<any>{
     return this.http.get<any>("https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1")
+  }
+  getBannerBlockDetail(obj):Observable<any>{
+    return this.http.get<any>(this.url+obj, {headers:this.headers})
+  }
+  saveBanner(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/homepage/banner', obj, {headers:this.headers});
+  }
+  saveEventBlock(id,obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/homePage/'+id, obj, {headers:this.headers});
+  }
+  saveRescourceBlock(id,obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/public/homePage/'+id, obj, {headers:this.headers});
   }
 }

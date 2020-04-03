@@ -41,6 +41,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
@@ -76,7 +78,6 @@ import { ConfigurationComponent } from './home-Configuration/configuration/confi
 import { TruncatePipe } from './truncate.pipe';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SortByPipe } from './sorting.pipe';
 
 
@@ -143,7 +144,6 @@ import { SortByPipe } from './sorting.pipe';
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    CKEditorModule,
 
     MatButtonModule,
     MatTableModule,
@@ -160,7 +160,8 @@ import { SortByPipe } from './sorting.pipe';
     MatButtonToggleModule,
     MatSliderModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

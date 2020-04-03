@@ -191,7 +191,7 @@
 
           <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
         <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required')" style="color:red;font-size: 12px;">
+        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
           (Event start date & time is required)
         </div>
          </div>
@@ -204,7 +204,7 @@
           <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
             placeholder="Closing Date & Time" formControlName="endDate">
           <owl-date-time #enddt></owl-date-time>
-          <div *ngIf="checkError('endDate', 'required')" style="color:red;font-size: 12px;">
+          <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
             (Event end date & time is required)
           </div>
         </div>
@@ -218,7 +218,7 @@
             [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
             formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationStartDate', 'required')" style="color:red;font-size: 12px;">
+          <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
             (Registration start date is required)
           </div>
           </div>
@@ -230,7 +230,7 @@
             <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
             class="form-control" placeholder="Closing Date" formControlName="registrationEndDate">
           <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationEndDate', 'required',true)" style="color:red;font-size: 12px;">
+          <div *ngIf="checkError('registrationEndDate', 'required', true)" style="color:red;font-size: 12px;">
             (Registration end date is required)
           </div>
           </div>
