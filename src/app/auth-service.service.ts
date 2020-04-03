@@ -149,4 +149,7 @@ export class AuthServiceService {
   getUserList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/categories/userType', {headers:this.headers})
   }
+  getLocation():Observable<any>{
+    return this.http.get<any>("https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1")
+  }
 }

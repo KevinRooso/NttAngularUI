@@ -453,4 +453,11 @@ submitted: boolean = false;
   maxRegDate() {
     this.regEndDate = this.createEventForm.get(['registrationStartDate']).value;
   }
+  getLocation(){
+    alert("inside location");
+    this.authService.getLocation().subscribe(res=>{
+        console.log(res);
+
+    })
+  }
 }
