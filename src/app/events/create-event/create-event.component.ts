@@ -53,7 +53,7 @@ export class CreateEventComponent implements OnInit {
  isWebinar:boolean = false;
  isAnonymous:boolean = false;
  checkError:any;
-submitted: boolean = false;
+ submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
@@ -88,11 +88,11 @@ submitted: boolean = false;
     })
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted == true){
-        if(this.submitted ==true){
+      if(checkSubmitted){
+        if(this.submitted){
           return this.createEventForm.controls[controlName].hasError(errorName);
         }
-      }else{
+      } else {
         return this.createEventForm.controls[controlName].hasError(errorName);
       }
 
@@ -293,7 +293,9 @@ submitted: boolean = false;
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
           alert("Successfully Created");
-          console.log("responsne", response)},
+          console.log("responsne", response);
+          this.submitted = false;
+        },
         (error) => console.log(error)
       )
     }

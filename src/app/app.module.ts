@@ -78,7 +78,6 @@ import { ConfigurationComponent } from './home-Configuration/configuration/confi
 import { TruncatePipe } from './truncate.pipe';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SortByPipe } from './sorting.pipe';
 
 
@@ -145,7 +144,6 @@ import { SortByPipe } from './sorting.pipe';
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    CKEditorModule,
 
     MatButtonModule,
     MatTableModule,

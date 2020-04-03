@@ -6,7 +6,6 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  //http://192.168.1.155:8080/
  //private url = "http://192.168.1.155:8080/";
  private url = "https://ntt-backend-app.herokuapp.com/";
  public headers = new HttpHeaders({
