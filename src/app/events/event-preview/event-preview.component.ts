@@ -27,7 +27,7 @@ export class EventPreviewComponent implements OnInit {
   categoryFilterList:any[]=[];
   eventTypeFilterList:any[]=[];
   filterDate="";
-  sort:string="desc?date";
+  sort:string="desc?cdate";
     startDate=new Date();
     endDate=new Date();
     categoryLis:any[]=['Sort By','Title','Date','Category'];
@@ -80,7 +80,7 @@ export class EventPreviewComponent implements OnInit {
         this.filterBlogs=data.body;
         this.blogs=data.body;
         this.searchFilterData=data.body;
-        this.searchFilterData.sort(this.GFG_sortFunction);
+        this.searchFilterData.sort(this.GFG_sortFunctionc1);
         data.body.filter(m=>{
         if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1)
           this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
@@ -224,22 +224,22 @@ export class EventPreviewComponent implements OnInit {
    GFG_sortFunction(a, b) {
     var dateA = new Date(a.eventDate).getTime();
     var dateB = new Date(b.eventDate).getTime();
-    return dateA < dateB ? 1 : -1;
+    return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunction1(a, b) {
   var dateA = new Date(a.eventDate).getTime();
   var dateB = new Date(b.eventDate).getTime();
-  return dateA > dateB ? 1 : -1;
+  return dateA < dateB ? 1 : -1;
 };
 
 GFG_sortFunctionc(a, b) {
-  var dateA = new Date(a.created_at).getTime();
-  var dateB = new Date(b.created_at).getTime();
-  return dateA < dateB ? 1 : -1;
+  var dateA = new Date(a.createdAt).getTime();
+  var dateB = new Date(b.createdAt).getTime();
+  return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunctionc1(a, b) {
-var dateA = new Date(a.created_at).getTime();
-var dateB = new Date(b.created_at).getTime();
-return dateA > dateB ? 1 : -1;
+var dateA = new Date(a.createdAt).getTime();
+var dateB = new Date(b.createdAt).getTime();
+return dateA < dateB ? 1 : -1;
 };
 }

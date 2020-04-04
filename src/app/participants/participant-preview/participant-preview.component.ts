@@ -79,9 +79,8 @@ getTableData(url){
 
     {
       title:'Action',
-       defaultContent: "<span  ' class='badge badge-success approve' style='cursor: default' >-</span>"
-      //  "&nbsp;<span class='badge badge-danger' style='cursor: pointer'>Reject</span>"
-
+        defaultContent: "<span  ' class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
+        +"&nbsp;<span  ' class='btn btn-danger ' style='cursor: pointer;font-size: 10px;' >Reject</span>"
     }
   ],
   rowCallback: (row: Node, data: any[] | Object, index: number) => {
@@ -92,7 +91,7 @@ getTableData(url){
     // $('td .showIdButton', row).removeClass("badge-success");
     //   $('td .showIdButton', row).addClass("badge-warning");
       $('td .showIdButton', row).html('Pending');
-      $('td:nth-child(7) .approve', row).html('Approve');
+      $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
     Object.keys(data).forEach((key,index)=>{
       if(key=='email'){
@@ -108,10 +107,9 @@ getTableData(url){
     // (see https://github.com/l-lin/angular-datatables/issues/87)
     $('td', row).unbind('click');
     $('td:nth-child(7) .approve', row).bind('click', () => {
+      alert("niceee");
       if($('td:nth-child(7) .approve', row).html()!='-'){
-      self.someClickHandler(data);
-      $('td .showIdButton', row).html('Approved');
-      $('td:nth-child(7) .approve', row).html('-');
+     self.someClickHandler(data,row);
       }
     });
     $('td:nth-child(3) ', row).bind('click', () => {
@@ -124,9 +122,14 @@ getTableData(url){
   this.dataTable=$(this.table.nativeElement);
   this.dataTable.DataTable(this.dtOptions);
 }
-someClickHandler(data) {
+someClickHandler(data,row){
+  console.log(data.id)
   this.service.updateParticipantStatus(data.id).subscribe(res=>{
-
+    $('td .showIdButton', row).html('Approved');
+    $('td:nth-child(7) .approve', row).html('-');
+    },
+    (error) => {
+      alert("something went wrong");
     })
 }
 someClickHandler1(data){

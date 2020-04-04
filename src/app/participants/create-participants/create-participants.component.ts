@@ -14,6 +14,9 @@ export class CreateParticipantsComponent implements OnInit {
   events:any[]=[];
   eventId;
   id;
+  checkError:any;
+  submitted: boolean = false;
+  participant="Add Participant";
   constructor(private formBuilder: FormBuilder,private service:AuthServiceService,
     private router1:ActivatedRoute,private router:Router) { }
 
@@ -24,6 +27,7 @@ export class CreateParticipantsComponent implements OnInit {
       this.id=params.page;
       if(params.page!= undefined){
       this.flag=false;
+      this.participant=this.participant+" for "+params.name;
       this.eventId=params.page;
       }
     });
@@ -31,9 +35,20 @@ export class CreateParticipantsComponent implements OnInit {
       name: ['',Validators.required],
       email: ['',[Validators.required, Validators.email]],
       phoneNo: ['',[Validators.required, Validators.pattern(mobnum)]],
-      event:['']
+      event:['',Validators.required]
     });
     this.getEvents();
+
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.addParForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.addParForm.controls[controlName].hasError(errorName);
+      }
+
+    }
   }
   getEvents(){
     this.service.getAllEventList().subscribe(res=>{
@@ -42,6 +57,10 @@ export class CreateParticipantsComponent implements OnInit {
     })
   }
   submit(){
+      if(!this.flag){
+        this.addParForm.controls['event'].setValidators(null);
+        this.addParForm.controls['event'].updateValueAndValidity();
+      }
     if(this.addParForm.valid){
     let obj={
       "name": this.addParForm.controls['name'].value,
@@ -54,6 +73,7 @@ export class CreateParticipantsComponent implements OnInit {
     if(this.flag){
       this.service.saveParticipent(this.addParForm.controls['event'].value,obj).subscribe(res=>{
       alert("added successfully");
+      this.submitted = false;
       this.router.navigate(['participants']);
     })
   }
@@ -61,14 +81,18 @@ export class CreateParticipantsComponent implements OnInit {
       var arr:any[]=[];
       arr.push(obj);
 
-    this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
+    this.service.saveParticipent(this.eventId,obj).subscribe(res=>{
       alert("added successfully");
+      this.submitted = false;
       if(this.id==undefined)
       this.router.navigate(['participants']);
       else
       this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
     })
   }
+    }
+    else{
+      alert("Please fill all mandatory field");
     }
   }
 }
