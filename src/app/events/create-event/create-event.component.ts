@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
+
 export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
@@ -36,6 +37,8 @@ export class CreateEventComponent implements OnInit {
   regStartDate = new Date();
   regEndDate = new Date();
 
+
+
   color: string = "3";
   userList: any[] = [];
 
@@ -47,6 +50,8 @@ export class CreateEventComponent implements OnInit {
  checkError:any;
  submitted: boolean = false;
 
+
+
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
@@ -57,7 +62,7 @@ export class CreateEventComponent implements OnInit {
       city: [''],
       tagList: ['', Validators.required],
       premise: [''],
-      webinarUrl: [''],
+      webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       targetUserType: ['', Validators.required],
       country: [''],
       pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
