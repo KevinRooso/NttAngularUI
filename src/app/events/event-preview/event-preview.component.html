@@ -65,6 +65,7 @@
         <div class="card-body">
           <h5 class="card-title">{{card.title}}</h5>
           <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p>
+          <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
           <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
         </div>
         <div class="event-card-body">

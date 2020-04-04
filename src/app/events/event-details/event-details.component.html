@@ -50,7 +50,7 @@
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
 
-            <ul class="list-group">
+            <ul class="list-group" >
               <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice:0:6; let ind=index;">
                 <a><div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
                   {{participant.name}}
@@ -59,7 +59,7 @@
             </ul>
             <div class="d-inline-flex py-2" style="width: 100%;">
               <div class="py-2 text-left" style="width: 50%;">
-                <a class="blog-btn add-button" (click)=viewParticipant()>View All</a>
+                <a class="blog-btn add-button" *ngIf="getParticipantDetails.length!=0" (click)=viewParticipant()>View All</a>
               </div>
               <div class="py-2 text-right" style="width: 50%;">
                 <a class="blog-btn add-button" (click)=addParticipants()>Add New</a>

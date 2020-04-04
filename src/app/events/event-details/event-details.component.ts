@@ -61,7 +61,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['/edit'], { queryParams: { page: id } });
   }
   addParticipants(){
-    this.router.navigate(['/participant-add'], { queryParams: { page: this.eventId } });
+    this.router.navigate(['/participant-add'], { queryParams: { page: this.eventId,name:this.eventName } });
   }
   addSpeaker(){
     this.router.navigate(['/create-speaker'], { queryParams: { page: this.eventId } });
