@@ -127,6 +127,9 @@ a:hover{
 .list-group-item{
   border-bottom: 1px solid rgba(0,0,0,.125);
 }
+.list-group-item:last-child{
+  border-bottom: 0;
+}
 .event-label{
   font-weight: 500;
     font-size: 16px;

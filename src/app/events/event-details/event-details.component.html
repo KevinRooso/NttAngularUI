@@ -82,7 +82,9 @@
             <div class="col-sm-12">
               <div class="col-sm-6 float-left px-0">
                 <div class="text-left">
-                  <p><span style="font-weight: 500;">Address - </span>{{getEventDetails.address1}}</p>
+                  <p *ngIf="getEventDetails.address1!= 0"><span style="font-weight: 500;">Address1 - </span>{{getEventDetails.address1}}</p>
+                  <p *ngIf="getEventDetails.address2!= 0"><span style="font-weight: 500;">Address2 - </span>{{getEventDetails.address2}}</p>
+                  <p *ngIf="getEventDetails.webinarUrl!= 0"><span style="font-weight: 500;">Webinar URL - </span>{{getEventDetails.webinarUrl}}</p>
                   <p><span style="font-weight: 500;">Start Time - </span>{{startTime}}</p>
                   <p><span style="font-weight: 500;">End Time - </span>{{endTime}}</p>
                 </div>
@@ -90,8 +92,8 @@
               <div class="col-sm-6 float-right px-0">
                 <div class="text-right">
                   <!-- <p>8 HRS</p> -->
-                  <p>Total Seats - {{getEventDetails.totalSeat}}</p>
-                  <p>No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p>
+                  <p *ngIf="getEventDetails.totalSeat!= 0">Total Seats - {{getEventDetails.totalSeat}}</p>
+                  <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p>
                   <!-- *ngIf="getEventDetails.noOfSubUsersAllow!= 0" -->
                 </div>
               </div>
@@ -100,7 +102,13 @@
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
               <h6>Terms & Conditions *</h6>
-              <small>{{getEventDetails.policyTnc.description}}</small>
+              <small>{{getEventDetails.policyTnc}}</small>
+            </div>
+          </div>
+          <div class="event-card-body-lg py-3">
+            <div class="col-sm-12">
+              <h6>Policy FAQs</h6>
+              <small>{{getEventDetails.policyFAQ}}</small>
             </div>
           </div>
 
