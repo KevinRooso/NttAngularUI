@@ -80,7 +80,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: ['', Validators.required],
       fullName: [''],
       name: [''],
-      isDraft:[''],
+      isDraft:[false],
       categoryTypeId: ['', Validators.required]
     })
 
@@ -291,6 +291,7 @@ export class CreateEventComponent implements OnInit {
         "isEvent":this.isEvent,
         "isWebinar":this.isWebinar,
         "isDraft":this.createEventForm.controls['isDraft'].value
+        //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
       }
 
       console.log("Post Data", objData);
@@ -300,12 +301,13 @@ export class CreateEventComponent implements OnInit {
           console.log("responsne", response);
           this.submitted = false;
         },
-        (error) => console.log(error)
+        (error) => {alert("Error :"+error);}
       )
     }
     else{
       alert("Please fill all mandatory field");
     }
+
   }
 
   createTag() {

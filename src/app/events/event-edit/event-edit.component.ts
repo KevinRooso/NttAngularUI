@@ -148,6 +148,15 @@ export class EventEditComponent implements OnInit {
         this.selected6.push(res.body.speakers[i].id);
         console.log("speakerlist=",this.selected6);
 
+      if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
+        this.color="1";
+      }
+      if(this.getEventDetails.isEvent == false && this.getEventDetails.isWebinar == true){
+        this.color="2";
+      }
+      if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == true){
+        this.color="3";
+      }
       console.log("Get Event data", this.getEventDetails);
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
       this.updateEventForm.controls['detail'].setValue(this.getEventDetails.detail);
@@ -406,6 +415,7 @@ export class EventEditComponent implements OnInit {
       "isEvent":this.isEvent,
       "isWebinar":this.isWebinar,
       "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
+      //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
     }
 
     console.log("Updated Data", obj);
@@ -416,7 +426,7 @@ export class EventEditComponent implements OnInit {
         alert("Successfully Updated");
         this.submitted = false;
       },
-      (error) => console.log(error)
+      (error) => {alert("Error :"+error);}
     )
    } else{
     alert("Please check fields");

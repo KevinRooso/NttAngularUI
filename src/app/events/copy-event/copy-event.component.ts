@@ -29,6 +29,11 @@ export class CopyEventComponent implements OnInit {
   speaker = new FormControl();
   tag = new FormControl();
 
+  today=new Date();
+  closingDate = new Date();
+  regStartDate = new Date();
+  regEndDate = new Date();
+  submitted: boolean = false;
   selected:string;
   getEventDetails: any;
   evntID;
@@ -44,54 +49,67 @@ export class CopyEventComponent implements OnInit {
   userList:any[]=[];
   selected4:string[]=[];
   selected6:string[]=[];
-  selected1:string ='Cloud Computing';
+  checkError:any;
+  isEvent:boolean = false;
+  isWebinar:boolean = false;
+  // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
-  @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
+  // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
-      title: ['',Validators.required],
-      detail: ['',Validators.required],
-      shortDescription: [''],
-      address1: ['',Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      address1: ['', Validators.required],
       address2: [''],
-      city: [''],
-      tagList:[''],
-      country: [''],
-      premise:[''],
-      webinarurl:[''],
-      userType:[''],
+      city: ['', Validators.required],
+      tagList: ['', Validators.required],
+      premise: [''],
+      webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      targetUserType: ['', Validators.required],
+      country: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      totalSeat: ['',Validators.required],
+      totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
-      startTime: [''],
-      speakerList:[''],
-      endTime: [''],
-      registrationStartDate: [''],
-      registrationEndDate: [''],
-      policyTnc: ['',Validators.required],
-      policyFAQ: ['',Validators.required],
-      thumbnailImageUrl: [''],
-      detailImageUrl: [''],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      speakerList: ['', Validators.required],
+      registrationStartDate: ['', Validators.required],
+      registrationEndDate: ['', Validators.required],
+      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
+      thumbnailImageUrl: ['', Validators.required],
+      detailImageUrl: ['', Validators.required],
       fullName: [''],
       name: [''],
-      categoryTypeId: ['']
-
+      isDraft:[],
+      categoryTypeId: ['', Validators.required]
     })
+    // this.submitted = true;
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.updateEventForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.updateEventForm.controls[controlName].hasError(errorName);
+      }
 
-    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
-    this.createSpeakerForm = formBuilder.group({
-      fullName: ['', Validators.required],
-      description: ['', Validators.required],
-      email: ['',[Validators.required, Validators.email]],
-      personalEmail: ['', [Validators.required, Validators.email]],
-      designation: ['', Validators.required],
-      // profile: ['', Validators.required],
-      origanizationName: ['', Validators.required],
-      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
-      keySkills: [''],
-      profileImageUrl: ['']
-    });
+    }
+    // let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    // this.createSpeakerForm = formBuilder.group({
+    //   fullName: ['', Validators.required],
+    //   description: ['', Validators.required],
+    //   email: ['',[Validators.required, Validators.email]],
+    //   personalEmail: ['', [Validators.required, Validators.email]],
+    //   designation: ['', Validators.required],
+    //   // profile: ['', Validators.required],
+    //   origanizationName: ['', Validators.required],
+    //   phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+    //   keySkills: [''],
+    //   profileImageUrl: ['']
+    // });
 
     this.addTagForm = formBuilder.group({
       name:['',Validators.required],
@@ -104,8 +122,8 @@ export class CopyEventComponent implements OnInit {
       this.evntID = params.page;
       this.getEventData(params.page);
     });
-    this.getPolicyFaQDetails();
-    this.getPolicyTnCDetails();
+    // this.getPolicyFaQDetails();
+    // this.getPolicyTnCDetails();
     this.getCategoryDetails();
     this.getSpeakerDetails()
     this.getTagsDetails();
@@ -129,6 +147,16 @@ export class CopyEventComponent implements OnInit {
         this.selected6.push(res.body.speakers[i].id);
         console.log("speakerlist=",this.selected6);
 
+        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
+          this.color="1";
+        }
+        if(this.getEventDetails.isEvent == false && this.getEventDetails.isWebinar == true){
+          this.color="2";
+        }
+        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == true){
+          this.color="3";
+        }
+
       console.log("Get Event data", this.getEventDetails);
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
       this.updateEventForm.controls['detail'].setValue(this.getEventDetails.detail);
@@ -138,24 +166,50 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['address2'].setValue(this.getEventDetails.address2);
       this.updateEventForm.controls['city'].setValue(this.getEventDetails.city);
       this.updateEventForm.controls['totalSeat'].setValue(this.getEventDetails.totalSeat);
+
+      this.updateEventForm.controls['registrationStartDate'].setValidators(null);
+      this.updateEventForm.controls['registrationStartDate'].updateValueAndValidity();
       this.updateEventForm.controls['registrationStartDate'].setValue(this.getEventDetails.registrationStartDate);
+
+      this.updateEventForm.controls['registrationEndDate'].setValidators(null);
+      this.updateEventForm.controls['registrationEndDate'].updateValueAndValidity();
       this.updateEventForm.controls['registrationEndDate'].setValue(this.getEventDetails.registrationEndDate);
+
+
       this.updateEventForm.controls['country'].setValue(this.getEventDetails.country);
       this.updateEventForm.controls['pincode'].setValue(this.getEventDetails.pincode);
       this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
-      this.attachUrl =this.getEventDetails.detailImageUrl;
-      this.previewUrl=this.getEventDetails.thumbnailImageUrl;
-
-      this.articleImage= this.getEventDetails.thumbnailImageUrl
+      this.updateEventForm.controls['detailImageUrl'].setValidators(null);
+      this.updateEventForm.controls['detailImageUrl'].updateValueAndValidity();
+      this.attachUrl = this.getEventDetails.detailImageUrl;
       this.attachFile= this.getEventDetails.detailImageUrl
+      this.updateEventForm.controls['thumbnailImageUrl'].setValidators(null);
+      this.updateEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+      this.previewUrl= this.getEventDetails.thumbnailImageUrl;
+      this.articleImage= this.getEventDetails.thumbnailImageUrl
 
-      // this.updateEventForm.controls['detailImageUrl'].setValue();
-      // this.updateEventForm.controls['thumbnailImageUrl'].setValue(this.getEventDetails.thumbnailImageUrl);
-      this.updateEventForm.controls['startTime'].setValue(this.getEventDetails.eventSchedule[0].startTime);
-      this.updateEventForm.controls['endTime'].setValue(this.getEventDetails.eventSchedule[0].endTime);
-      this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ.displayName);
-      this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc.displayName);
+      this.updateEventForm.controls['tagList'].setValidators(null);
+      this.updateEventForm.controls['tagList'].updateValueAndValidity();
+
+      this.updateEventForm.controls['speakerList'].setValidators(null);
+      this.updateEventForm.controls['speakerList'].updateValueAndValidity();
+
+      this.updateEventForm.controls['startDate'].setValidators(null);
+      this.updateEventForm.controls['startDate'].updateValueAndValidity();
+      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+
+
+      this.updateEventForm.controls['endDate'].setValidators(null);
+      this.updateEventForm.controls['endDate'].updateValueAndValidity();
+      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+
+
+      this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
+      this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
       this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+      this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
+      this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
+      this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
 
       res.body.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
@@ -222,14 +276,54 @@ export class CopyEventComponent implements OnInit {
       })
   }
 
+  setAddressFieldValidation(validatorType: any) {
+    this.updateEventForm.controls['address1'].setValidators(validatorType);
+    this.updateEventForm.controls['address1'].updateValueAndValidity();
+
+    this.updateEventForm.controls['city'].setValidators(validatorType);
+    this.updateEventForm.controls['city'].updateValueAndValidity();
+
+    this.updateEventForm.controls['country'].setValidators(validatorType);
+    this.updateEventForm.controls['country'].updateValueAndValidity();
+
+    this.updateEventForm.controls['pincode'].setValidators(validatorType);
+    this.updateEventForm.controls['pincode'].updateValueAndValidity();
+  }
+
+  setWebinarFieldValidation(validatorType: any) {
+    this.updateEventForm.controls['webinarUrl'].setValidators(validatorType);
+    this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
+  }
+
   updateEvent() {
-     if(this.updateEventForm.valid){
-     // if(true){
+    const ON_PREMISE = "1";
+    const WEBINAR = "2";
+    const BOTH = "3";
 
+    if(this.color == ON_PREMISE){
+      this.isEvent = true;
+      this.isWebinar = false;
+      this.updateEventForm.controls['webinarUrl'].setValidators(null);
+      this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
+      this.setWebinarFieldValidation(null);
+      this.setAddressFieldValidation(Validators.required);
+    } else if(this.color == WEBINAR){
+      this.isWebinar = true;
+      this.isEvent = false;
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(null);
+    } else if(this.color == BOTH){
+      this.isWebinar = true;
+      this.isEvent = true;
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(Validators.required);
+    }
 
+    this.submitted = true;
+   if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
-    console.log("eventform==",this.updateEventForm.value);
+    // console.log("eventform==",this.updateEventForm.value);
 
     this.tagData.forEach(m=>{
       this.updateEventForm.value.tagList.forEach(n=>{
@@ -255,28 +349,36 @@ export class CopyEventComponent implements OnInit {
 
     let schedule: any[] = [];
     let scheduling = {
-      "endTime": this.updateEventForm.controls['endTime'].value,
-      "startTime": this.updateEventForm.controls['startTime'].value
+      "endDate": this.updateEventForm.controls['endDate'].value,
+      "startDate": this.updateEventForm.controls['startDate'].value
     };
     schedule.push(scheduling);
     let catId;
+
     this.allData.forEach(m=>{
       if(m.displayName==this.updateEventForm.controls['categoryTypeId'].value)
         catId=m.id;
     });
-    let tncId;
-    this.allPolicyTNC.forEach(m=>{
-      if(m.displayName==this.updateEventForm.controls['policyTnc'].value)
-      tncId=m.id;
+
+    let userId;
+    this.userList.forEach(m=>{
+      if(m.displayName==this.updateEventForm.controls['targetUserType'].value)
+        userId=m.id;
     });
 
-    let faqId;
-    this.allPolicyFAQ.forEach(m=>{
-      if(m.displayName==this.updateEventForm.controls['policyFAQ'].value)
-      faqId=m.id;
-    });
-    console.log("Thumb", this.articleImage);
-    console.log("dateil Banner",this.attachFile);
+    // let tncId;
+    // this.allPolicyTNC.forEach(m=>{
+    //   if(m.displayName==this.updateEventForm.controls['policyTnc'].value)
+    //   tncId=m.id;
+    // });
+
+    // let faqId;
+    // this.allPolicyFAQ.forEach(m=>{
+    //   if(m.displayName==this.updateEventForm.controls['policyFAQ'].value)
+    //   faqId=m.id;
+    // });
+    // console.log("Thumb", this.articleImage);
+    // console.log("dateil Banner",this.attachFile);
 
     let obj = {
       "title": this.updateEventForm.controls['title'].value,
@@ -293,8 +395,8 @@ export class CopyEventComponent implements OnInit {
       "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
       "speakerList":speakerList1,
-      "policyFAQ": faqId,
-      "policyTnc": tncId,
+      "policyFAQ": this.updateEventForm.controls['policyFAQ'].value,
+      "policyTnc": this.updateEventForm.controls['policyTnc'].value,
       "thumbnailImageUrl": this.articleImage,
       "detailImageUrl": this.attachFile,
       "categoryTypeId": catId,
@@ -304,11 +406,15 @@ export class CopyEventComponent implements OnInit {
       "isbreak": false,
       "status": false,
       "isActive": false,
-      "isDraft": false,
+      "isDraft": this.updateEventForm.controls['isDraft'].value,
       "isPublish": false,
       "isRegOpen": false,
       "publishStatus": false,
-      "id": 0
+      "id": 0,
+      "targetUserType":userId,
+      "isEvent":this.isEvent,
+      "isWebinar":this.isWebinar,
+      "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
     }
 
     console.log("Updated Data", obj);
@@ -316,14 +422,15 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        alert("Successfully Created");
+        alert("Event successfully duplicated");
+        this.submitted = false;
       },
-      (error) => console.log(error)
+      (error) => {alert("Error :"+error);}
     )
-    }
-
+   } else{
+    alert("Please check fields");
   }
-
+  }
   createTag(){
     if(this.addTagForm.valid){
           let flag=true;
@@ -349,79 +456,33 @@ export class CopyEventComponent implements OnInit {
   }
   getCategoryDetails() {
     this.authService.getCategoryList().subscribe((res) => {
-      // console.log("category", res.body);
       this.allData = res.body;
     })
   }
-  getPolicyFaQDetails() {
-    this.authService.getAllPolicyFaq().subscribe((res) => {
-      // console.log("Policies FAQ", res.body);
-      this.allPolicyFAQ = res.body;
-      // console.log("faqssss===",this.allPolicyFAQ);
-      // console.log(this.allPolicyFAQ[0].description==this.selected);
-    })
-  }
-  getPolicyTnCDetails() {
-    this.authService.getAllPolicyTnC().subscribe((res) => {
-      // console.log("Policies TNC", res.body);
-      this.allPolicyTNC = res.body;
-    })
-  }
+  // getPolicyFaQDetails() {
+  //   this.authService.getAllPolicyFaq().subscribe((res) => {
+  //     this.allPolicyFAQ = res.body;
+  //   })
+  // }
+  // getPolicyTnCDetails() {
+  //   this.authService.getAllPolicyTnC().subscribe((res) => {
+  //     this.allPolicyTNC = res.body;
+  //   })
+  // }
   getSpeakerDetails() {
     this.authService.getAllSpeakers().subscribe((res) => {
-      // console.log("Speakers", res.body);
       this.allspeakers=res.body;
 
     })
     // console.log("Checking", this.allspeakers);
     // console.log("Checking cate", this.allData);
   }
-  customCompare(o1, o2) {
-    return o1.id === o2.id;
-  }
+  // customCompare(o1, o2) {
+  //   return o1.id === o2.id;
+  // }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
-  //speakerssss
-  createSpeakerForm: FormGroup;
-
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: any[] = [];
-
-  fileData1: File = null;
-  previewUrl1: any = null;
-  fileUploadProgress1: string = null;
-  uploadedFilePath1: string = null;
-  speakerImage:string="";
-
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push({ name: value.trim() });
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  remove(fruit: any): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
 
   fileProgress1(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -440,43 +501,22 @@ export class CopyEventComponent implements OnInit {
       this.previewUrl2 = reader.result;
     }
   }
-  uploadImage1() {
-    const formData = new FormData();
-    formData.append('file', this.fileData);
-    this.authService.uploadFile(formData)
-      .subscribe(res => {
-        console.log("Image", res);
-        this.speakerImage = res.fileDownloadUri;
-        console.log(this.speakerImage);
-        // alert('SUCCESS !!');
-      })
+
+  maxCDate() {
+    console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
+    this.closingDate = this.updateEventForm.get(['startDate']).value;
+    this.regStartDate = this.closingDate;
   }
-  createSpeaker(){
-    if(this.createSpeakerForm.valid){
-    // if(true){
-      let fruit1 = '';
-      console.log(this.fruits);
-      this.fruits.forEach(m => {
-        fruit1 = fruit1 + ',' + m.name;
-      })
-      let flag=true;
-this.allspeakers.forEach(m=>{
-  if(m.email==this.createSpeakerForm.get(['email']).value)
-  flag=false;
-})
-      let obj=this.createSpeakerForm.value;
-      if(flag){
-      obj['keySkills']=fruit1.substring(1, fruit1.length - 0),
-      obj['id']=0,
-      obj['profileImageUrl']=this.speakerImage,
-      this.allspeakers.unshift(this.createSpeakerForm.value);
-      console.log(this.createSpeakerForm.value);
-      console.log("new Array", this.allspeakers);
-      this.closespeakerModel.nativeElement.click();
-}
-    else
-    alert("Speaker Already EXist");
-        }
+  maxRegDate() {
+    this.regEndDate = this.updateEventForm.get(['registrationStartDate']).value;
   }
+  getLocation(){
+    alert("inside location");
+    this.authService.getLocation().subscribe(res=>{
+        console.log(res);
+
+    })
+  }
+
 
 }
