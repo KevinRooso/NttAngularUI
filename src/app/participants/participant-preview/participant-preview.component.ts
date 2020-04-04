@@ -53,7 +53,7 @@ getTableData(url){
     },
     columns:[{
       title:'Event Name',
-      data:'eventId'
+      defaultContent:'-'
     },
     {
       title:'Participants Name',
@@ -69,7 +69,7 @@ getTableData(url){
     },
     {
       title:'Org Name',
-      data:'name'
+      defaultContent:'-'
     },
 
     {
@@ -79,9 +79,11 @@ getTableData(url){
 
     {
       title:'Action',
-        defaultContent: "<span  ' class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
-        +"&nbsp;<span  ' class='btn btn-danger ' style='cursor: pointer;font-size: 10px;' >Reject</span>"
-    }
+        // defaultContent: "<span   class='btn btn-danger approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
+        // +"&nbsp;<span  class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' >Reject</span>"
+        defaultContent: "<span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>"
+        +"&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span>"
+      }
   ],
   rowCallback: (row: Node, data: any[] | Object, index: number) => {
     console.log("data");
@@ -93,6 +95,12 @@ getTableData(url){
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
+    if(data['approverId']==null){
+      // $('td .showIdButton', row).removeClass("badge-success");
+      //   $('td .showIdButton', row).addClass("badge-warning");
+        $('td .showIdButton', row).html('Pending');
+        $('td:nth-child(7) .approve', row).attr("disabled", true);
+
     Object.keys(data).forEach((key,index)=>{
       if(key=='email'){
         console.log("email");
@@ -107,14 +115,31 @@ getTableData(url){
     // (see https://github.com/l-lin/angular-datatables/issues/87)
     $('td', row).unbind('click');
     $('td:nth-child(7) .approve', row).bind('click', () => {
-      alert("niceee");
-      if($('td:nth-child(7) .approve', row).html()!='-'){
      self.someClickHandler(data,row);
-      }
+
+    });
+    $('td:nth-child(7) .reject', row).bind('click', () => {
+      alert("niceee");
+
+     self.someClickHandler2(data,row);
+
     });
     $('td:nth-child(3) ', row).bind('click', () => {
       self.someClickHandler1(data);
     });
+  }
+  else{
+    $('td:nth-child(7) .approve', row).css('cursor','default')
+    $('td:nth-child(7) .reject', row).css('cursor','default')
+    if(data['registrationStatus']){
+      $('td .showIdButton', row).html('Approved');
+
+    }
+    if(!data['registrationStatus']){
+      $('td .showIdButton', row).html('Rejected');
+
+    }
+  }
     return row;
   }
 
@@ -124,9 +149,25 @@ getTableData(url){
 }
 someClickHandler(data,row){
   console.log(data.id)
-  this.service.updateParticipantStatus(data.id).subscribe(res=>{
+ this.service.updateParticipantStatus(data.id,true).subscribe(res=>{
     $('td .showIdButton', row).html('Approved');
-    $('td:nth-child(7) .approve', row).html('-');
+    $('td:nth-child(7) .approve', row).css('cursor','default');
+    $('td:nth-child(7) .reject', row).css('cursor','default');
+    $('td:nth-child(7) .approve', row).unbind();
+    alert("Approved!!");
+    },
+    (error) => {
+      alert("something went wrong");
+    })
+}
+someClickHandler2(data,row){
+  console.log(data.id)
+   this.service.updateParticipantStatus(data.id,false).subscribe(res=>{
+    $('td .showIdButton', row).html('Rejected');
+    $('td:nth-child(7) .approve', row).css('cursor','default');
+    $('td:nth-child(7) .reject', row).css('cursor','default');
+    $('td:nth-child(7) .reject', row).unbind();
+    alert("Rejected!!");
     },
     (error) => {
       alert("something went wrong");
