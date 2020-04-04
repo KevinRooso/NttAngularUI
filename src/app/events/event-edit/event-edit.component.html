@@ -90,13 +90,26 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Event Type</mat-label>
             <mat-select formControlName="targetUserType">
-              <mat-option *ngFor="let user of userList" [value]="user.id">
-                {{user.displayName}}
+              <mat-option *ngFor="let user of userList" [value]="user.displayName">
+                {{user.name}}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error> -->
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
           </mat-form-field>
         </div>
+
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="categoryTypeId">
+              <mat-option *ngFor="let category of allData" [value]="category.displayName">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
+          </mat-form-field>
+        </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Type <span class="error">*</span></label>
@@ -120,6 +133,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Webinar URL" value="" formControlName="webinarUrl">
             <mat-error *ngIf="checkError('webinarUrl', 'required')">(Webinar URL is required)</mat-error>
+            <mat-error *ngIf="checkError('webinarUrl', 'pattern')">(URL is not valid)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">

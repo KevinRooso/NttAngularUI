@@ -66,8 +66,8 @@ export class EventEditComponent implements OnInit {
       city: ['', Validators.required],
       tagList: ['', Validators.required],
       premise: [''],
-      webinarUrl: [''],
-      targetUserType: [''],
+      webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      targetUserType: ['', Validators.required],
       country: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
@@ -148,6 +148,15 @@ export class EventEditComponent implements OnInit {
         this.selected6.push(res.body.speakers[i].id);
         console.log("speakerlist=",this.selected6);
 
+      if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
+        this.color="1";
+      }
+      if(this.getEventDetails.isEvent == false && this.getEventDetails.isWebinar == true){
+        this.color="2";
+      }
+      if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == true){
+        this.color="3";
+      }
       console.log("Get Event data", this.getEventDetails);
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
       this.updateEventForm.controls['detail'].setValue(this.getEventDetails.detail);
@@ -157,27 +166,48 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['address2'].setValue(this.getEventDetails.address2);
       this.updateEventForm.controls['city'].setValue(this.getEventDetails.city);
       this.updateEventForm.controls['totalSeat'].setValue(this.getEventDetails.totalSeat);
+
+      this.updateEventForm.controls['registrationStartDate'].setValidators(null);
+      this.updateEventForm.controls['registrationStartDate'].updateValueAndValidity();
       this.updateEventForm.controls['registrationStartDate'].setValue(this.getEventDetails.registrationStartDate);
+
+      this.updateEventForm.controls['registrationEndDate'].setValidators(null);
+      this.updateEventForm.controls['registrationEndDate'].updateValueAndValidity();
       this.updateEventForm.controls['registrationEndDate'].setValue(this.getEventDetails.registrationEndDate);
+
+
       this.updateEventForm.controls['country'].setValue(this.getEventDetails.country);
       this.updateEventForm.controls['pincode'].setValue(this.getEventDetails.pincode);
       this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
+      this.updateEventForm.controls['detailImageUrl'].setValidators(null);
+      this.updateEventForm.controls['detailImageUrl'].updateValueAndValidity();
       this.attachUrl = this.getEventDetails.detailImageUrl;
+      this.attachFile= this.getEventDetails.detailImageUrl
+      this.updateEventForm.controls['thumbnailImageUrl'].setValidators(null);
+      this.updateEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl= this.getEventDetails.thumbnailImageUrl;
       this.articleImage= this.getEventDetails.thumbnailImageUrl
-      this.attachFile= this.getEventDetails.detailImageUrl
-      //this.updateEventForm.controls['tagList'].setValue(this.getEventDetails.tags);
+
       this.updateEventForm.controls['tagList'].setValidators(null);
       this.updateEventForm.controls['tagList'].updateValueAndValidity();
 
       this.updateEventForm.controls['speakerList'].setValidators(null);
       this.updateEventForm.controls['speakerList'].updateValueAndValidity();
 
+      this.updateEventForm.controls['startDate'].setValidators(null);
+      this.updateEventForm.controls['startDate'].updateValueAndValidity();
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+
+
+      this.updateEventForm.controls['endDate'].setValidators(null);
+      this.updateEventForm.controls['endDate'].updateValueAndValidity();
       this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+
+
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
       this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+      this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
 
@@ -290,10 +320,10 @@ export class EventEditComponent implements OnInit {
     }
 
     this.submitted = true;
-    if(this.updateEventForm.valid){
+   if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
-    console.log("eventform==",this.updateEventForm.value);
+    // console.log("eventform==",this.updateEventForm.value);
 
     this.tagData.forEach(m=>{
       this.updateEventForm.value.tagList.forEach(n=>{
@@ -324,10 +354,18 @@ export class EventEditComponent implements OnInit {
     };
     schedule.push(scheduling);
     let catId;
+
     this.allData.forEach(m=>{
       if(m.displayName==this.updateEventForm.controls['categoryTypeId'].value)
         catId=m.id;
     });
+
+    let userId;
+    this.userList.forEach(m=>{
+      if(m.displayName==this.updateEventForm.controls['targetUserType'].value)
+        userId=m.id;
+    });
+
     // let tncId;
     // this.allPolicyTNC.forEach(m=>{
     //   if(m.displayName==this.updateEventForm.controls['policyTnc'].value)
@@ -372,7 +410,12 @@ export class EventEditComponent implements OnInit {
       "isPublish": false,
       "isRegOpen": false,
       "publishStatus": false,
-      "id": this.evntID
+      "id": this.evntID,
+      "targetUserType":userId,
+      "isEvent":this.isEvent,
+      "isWebinar":this.isWebinar,
+      "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
+      //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
     }
 
     console.log("Updated Data", obj);
@@ -383,12 +426,12 @@ export class EventEditComponent implements OnInit {
         alert("Successfully Updated");
         this.submitted = false;
       },
-      (error) => console.log(error)
+      (error) => {alert("Error :"+error);}
     )
-   }
-
+   } else{
+    alert("Please check fields");
   }
-
+  }
   createTag(){
     if(this.addTagForm.valid){
           let flag=true;

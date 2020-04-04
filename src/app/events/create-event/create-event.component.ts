@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
+
 export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
@@ -36,6 +37,8 @@ export class CreateEventComponent implements OnInit {
   regStartDate = new Date();
   regEndDate = new Date();
 
+
+
   color: string = "3";
   userList: any[] = [];
 
@@ -47,6 +50,8 @@ export class CreateEventComponent implements OnInit {
  checkError:any;
  submitted: boolean = false;
 
+
+
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
@@ -57,7 +62,7 @@ export class CreateEventComponent implements OnInit {
       city: [''],
       tagList: ['', Validators.required],
       premise: [''],
-      webinarUrl: [''],
+      webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       targetUserType: ['', Validators.required],
       country: [''],
       pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
@@ -75,7 +80,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: ['', Validators.required],
       fullName: [''],
       name: [''],
-      isDraft:[''],
+      isDraft:[false],
       categoryTypeId: ['', Validators.required]
     })
 
@@ -286,6 +291,7 @@ export class CreateEventComponent implements OnInit {
         "isEvent":this.isEvent,
         "isWebinar":this.isWebinar,
         "isDraft":this.createEventForm.controls['isDraft'].value
+        //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
       }
 
       console.log("Post Data", objData);
@@ -295,12 +301,13 @@ export class CreateEventComponent implements OnInit {
           console.log("responsne", response);
           this.submitted = false;
         },
-        (error) => console.log(error)
+        (error) => {alert("Error :"+error);}
       )
     }
     else{
       alert("Please fill all mandatory field");
     }
+
   }
 
   createTag() {
