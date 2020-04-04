@@ -170,12 +170,13 @@ export class ConfigurationComponent implements OnInit {
     obj.push(this.bannerConfigurationForm3.value);
     console.log(obj);
   }
-    if(flag)
+    if(flag){
+
     this.service.saveBanner(obj).subscribe(res=>{
       console.log(res);
       alert("Saved Successfully")
     })
-
+  }
   }
   getSelectedBlockData(value,banner){
     value=value.split('?')[1];

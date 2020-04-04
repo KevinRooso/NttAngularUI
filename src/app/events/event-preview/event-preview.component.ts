@@ -3,6 +3,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { CommonServiceService } from 'src/app/common-service.service';
 
 @Component({
   selector: 'app-event-preview',
@@ -26,7 +27,7 @@ export class EventPreviewComponent implements OnInit {
   categoryFilterList:any[]=[];
   eventTypeFilterList:any[]=[];
   filterDate="";
-  sort:string="";
+  sort:string="desc?date";
     startDate=new Date();
     endDate=new Date();
     categoryLis:any[]=['Sort By','Title','Date','Category'];
@@ -46,7 +47,8 @@ export class EventPreviewComponent implements OnInit {
   ];
   constructor(private authService: AuthServiceService,
     private formBuilder:FormBuilder,
-    private router:Router) { }
+    private router:Router,
+    public commonService:CommonServiceService) { }
 
   ngOnInit(): void {
     this.advanceFilterForm = this.formBuilder.group({
@@ -61,6 +63,8 @@ export class EventPreviewComponent implements OnInit {
     this.getAllTags();
     this.getTagsDetails();
     this.getCategoryDetails();
+
+
   }
 
   getEventslist() {
@@ -76,6 +80,7 @@ export class EventPreviewComponent implements OnInit {
         this.filterBlogs=data.body;
         this.blogs=data.body;
         this.searchFilterData=data.body;
+        this.searchFilterData.sort(this.GFG_sortFunction);
         data.body.filter(m=>{
         if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1)
           this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
@@ -159,20 +164,82 @@ export class EventPreviewComponent implements OnInit {
    // this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
   }
   filterData(){
+    let data=this.sort.split('?');
     if(this.sort=="Sort By"){
       this.filterBlogs=this.blogs;
     }
-    if(this.sort=="Title"){
-      this.searchFilterData.sort((a,b) => a.title.localeCompare(b.title));
+    if(data[1]=="Title"){
+      if(data[0]=='asc'){
+       this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
+
       this.filterBlogs=this.searchFilterData;
     }
-    if(this.sort=="Category"){
-      this.searchFilterData.sort((a,b) => a.categoryName.localeCompare(b.categoryName));
+    else{
+      this.searchFilterData.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
       this.filterBlogs=this.searchFilterData;
     }
-    if(this.sort=="Date"){
-      this.searchFilterData.sort((a,b) => a.eventDate.localeCompare(b.eventDate));
+    }
+
+    if(data[1]=="date"){
+      if(data[0]=='asc'){
+        console.log("adtesort==",this.searchFilterData);
+      this.searchFilterData.sort(this.GFG_sortFunction);
+
+        console.log("dateaftersort==",this.searchFilterData);
+
+        this.filterBlogs=this.searchFilterData;
+    }
+    else{
+      this.searchFilterData.sort(this.GFG_sortFunction1);
+      console.log("dateaftersort==",this.searchFilterData);
       this.filterBlogs=this.searchFilterData;
     }
+    }
+    if(data[1]=="cdate"){
+      if(data[0]=='asc'){
+        console.log("adtesort==",this.searchFilterData);
+      this.searchFilterData.sort(this.GFG_sortFunctionc);
+
+        console.log("dateaftersort==",this.searchFilterData);
+
+        this.filterBlogs=this.searchFilterData;
+    }
+    else{
+      this.searchFilterData.sort(this.GFG_sortFunctionc1);
+      console.log("dateaftersort==",this.searchFilterData);
+      this.filterBlogs=this.searchFilterData;
+    }
+    }
+
+
+    // if(this.sort=="Category"){
+    //   this.searchFilterData.sort((a,b) => a.categoryName.localeCompare(b.categoryName));
+    //   this.filterBlogs=this.searchFilterData;
+    // }
+    // if(this.sort=="Date"){
+    //   this.searchFilterData.sort((a,b) => a.eventDate.localeCompare(b.eventDate));
+    //   this.filterBlogs=this.searchFilterData;
+    // }
   }
+   GFG_sortFunction(a, b) {
+    var dateA = new Date(a.eventDate).getTime();
+    var dateB = new Date(b.eventDate).getTime();
+    return dateA < dateB ? 1 : -1;
+};
+GFG_sortFunction1(a, b) {
+  var dateA = new Date(a.eventDate).getTime();
+  var dateB = new Date(b.eventDate).getTime();
+  return dateA > dateB ? 1 : -1;
+};
+
+GFG_sortFunctionc(a, b) {
+  var dateA = new Date(a.created_at).getTime();
+  var dateB = new Date(b.created_at).getTime();
+  return dateA < dateB ? 1 : -1;
+};
+GFG_sortFunctionc1(a, b) {
+var dateA = new Date(a.created_at).getTime();
+var dateB = new Date(b.created_at).getTime();
+return dateA > dateB ? 1 : -1;
+};
 }

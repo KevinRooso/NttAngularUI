@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location} from '@angular/common';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { speedDialFabAnimations } from 'src/app/fab-animation';
+import { CommonServiceService } from 'src/app/common-service.service';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -18,7 +19,11 @@ export class EventDetailsComponent implements OnInit {
   startTime="";
   endTime="";
   @ViewChild('menumat') trigger: MatMenuTrigger;
-  constructor(private authService: AuthServiceService, private router: Router, private router1: ActivatedRoute, private location: Location) { }
+  constructor(private authService: AuthServiceService,
+     private router: Router,
+     private router1: ActivatedRoute,
+     private location: Location,
+     private commonService:CommonServiceService) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -38,29 +43,13 @@ export class EventDetailsComponent implements OnInit {
       this.getEventDetails = res.body;
         this.eventName=this.getEventDetails.title;
         if(this.getEventDetails.eventSchedule[0].startDate!=null){
-        this.startTime=this.getDateTime(this.getEventDetails.eventSchedule[0].startDate);
-        this.endTime=this.getDateTime(this.getEventDetails.eventSchedule[0].endDate);
+        this.startTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].startDate);
+        this.endTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].endDate);
         }
       console.log("ID Data", this.getEventDetails);
     })
   }
-  getDateTime(dateTime){
-      let date=new Date(dateTime);
 
-      let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-       let  minutess = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutess + ' ' + ampm;
-      console.log("date=",strTime);
-      console.log("date333=",date.toString());
-      let sdate=date.toString().split(' ')
-      console.log(sdate[1]+' '+sdate[2]+','+sdate[3]+' '+strTime);
-
-        return sdate[1]+' '+sdate[2]+','+sdate[3]+' '+strTime;
-  }
   getEventParticipant(id) {
     this.authService.getParticipant(id).subscribe(res => {
       this.getParticipantDetails = res.body;
