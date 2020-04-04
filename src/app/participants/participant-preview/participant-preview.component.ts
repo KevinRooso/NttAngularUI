@@ -119,9 +119,7 @@ getTableData(url){
 
     });
     $('td:nth-child(7) .reject', row).bind('click', () => {
-      alert("niceee");
-
-     self.someClickHandler2(data,row);
+       self.someClickHandler2(data,row);
 
     });
     $('td:nth-child(3) ', row).bind('click', () => {
