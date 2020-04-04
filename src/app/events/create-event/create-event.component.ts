@@ -3,10 +3,6 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
-//import { MatChipInputEvent } from '@angular/material/chips';
-//import { COMMA, ENTER } from '@angular/cdk/keycodes';
-//import { ThemePalette } from '@angular/material/core';
-// import * as $ from 'jquery'
 
 @Component({
   selector: 'app-create-event',
@@ -20,8 +16,6 @@ export class CreateEventComponent implements OnInit {
 
   allData: any[] = [];
   tagsList: string[] = [];
-  allPolicyFAQ: any[] = [];
-  allPolicyTNC: any[] = [];
   allspeakers: any[] = [];
   radio: boolean = false;
 
@@ -44,31 +38,29 @@ export class CreateEventComponent implements OnInit {
 
   color: string = "3";
   userList: any[] = [];
-  favoriteSeason: string;
-  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
   @ViewChild('closeModel', { static: true }) closeModel;
-  // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
 
  isEvent:boolean = false;
  isWebinar:boolean = false;
  isAnonymous:boolean = false;
  checkError:any;
-submitted: boolean = false;
+ submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      address1: ['', Validators.required],
+      address1: [''],
       address2: [''],
-      city: ['', Validators.required],
+      city: [''],
       tagList: ['', Validators.required],
       premise: [''],
       webinarUrl: [''],
       targetUserType: ['', Validators.required],
-      country: ['', Validators.required],
-      pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
+      country: [''],
+      pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
       noOfSubUsersAllow: [''],
@@ -88,28 +80,16 @@ submitted: boolean = false;
     })
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted == true){
-        if(this.submitted ==true){
+      if(checkSubmitted){
+        if(this.submitted){
           return this.createEventForm.controls[controlName].hasError(errorName);
         }
-      }else{
+      } else {
         return this.createEventForm.controls[controlName].hasError(errorName);
       }
 
     }
 
-    // let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
-    // this.createSpeakerForm = formBuilder.group({
-    //   fullName: ['', Validators.required],
-    //   description: ['', Validators.required],
-    //   email: ['',[Validators.required, Validators.email]],
-    //   personalEmail: ['', [Validators.required, Validators.email]],
-    //   designation: ['', Validators.required],
-    //   origanizationName: ['', Validators.required],
-    //   phone: ['',[Validators.required, Validators.pattern(mobnum)]],
-    //   keySkills: [''],
-    //   profileImageUrl: ['']
-    // });
 
     this.addTagForm = formBuilder.group({
       name: ['', Validators.required],
@@ -119,8 +99,6 @@ submitted: boolean = false;
 
   ngOnInit(): void {
     this.getCategoryDetails();
-    // this.getPolicyFaQDetails();
-    // this.getPolicyTnCDetails();
     this.getSpeakerDetails();
     this.getTagsDetails();
     this.getUserList();
@@ -129,7 +107,6 @@ submitted: boolean = false;
 
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
-      // console.log("Tag", res.body);
       this.userList = res.body;
     })
   }
@@ -191,28 +168,50 @@ submitted: boolean = false;
       })
   }
 
-  // getPremise(){
-  //   alert(this.color);
-  // }
+
+  setAddressFieldValidation(validatorType: any) {
+    this.createEventForm.controls['address1'].setValidators(validatorType);
+    this.createEventForm.controls['address1'].updateValueAndValidity();
+
+    this.createEventForm.controls['city'].setValidators(validatorType);
+    this.createEventForm.controls['city'].updateValueAndValidity();
+
+    this.createEventForm.controls['country'].setValidators(validatorType);
+    this.createEventForm.controls['country'].updateValueAndValidity();
+
+    this.createEventForm.controls['pincode'].setValidators(validatorType);
+    this.createEventForm.controls['pincode'].updateValueAndValidity();
+  }
+
+  setWebinarFieldValidation(validatorType: any) {
+    this.createEventForm.controls['webinarUrl'].setValidators(validatorType);
+    this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+  }
+
   generateEvent() {
-    if(this.color=="1"){
+    const ON_PREMISE = "1";
+    const WEBINAR = "2";
+    const BOTH = "3";
+
+    if(this.color == ON_PREMISE){
       this.isEvent = true;
       this.isWebinar = false;
       this.createEventForm.controls['webinarUrl'].setValidators(null);
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
-    }
-    if(this.color=="2"){
+      this.setWebinarFieldValidation(null);
+      this.setAddressFieldValidation(Validators.required);
+    } else if(this.color == WEBINAR){
       this.isWebinar = true;
       this.isEvent = false;
-      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
-      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
-    }
-    if(this.color=="3"){
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(null);
+    } else if(this.color == BOTH){
       this.isWebinar = true;
       this.isEvent = true;
-      this.createEventForm.controls['webinarUrl'].setValidators(Validators.required);
-      this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
+      this.setWebinarFieldValidation(Validators.required);
+      this.setAddressFieldValidation(Validators.required);
     }
+
     this.submitted = true;
    if (this.createEventForm.valid) {
 
@@ -293,7 +292,9 @@ submitted: boolean = false;
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
           alert("Successfully Created");
-          console.log("responsne", response)},
+          console.log("responsne", response);
+          this.submitted = false;
+        },
         (error) => console.log(error)
       )
     }
@@ -321,26 +322,15 @@ submitted: boolean = false;
   }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
-      // console.log("Tag", res.body);
       this.tagData = res.body;
     })
   }
   getCategoryDetails() {
     this.authService.getCategoryList().subscribe((res) => {
-      // console.log("category", res.body);
       this.allData = res.body;
     })
   }
-  // getPolicyFaQDetails(){
-  //   this.authService.getAllPolicyFaq().subscribe((res)=>{
-  //     this.allPolicyFAQ = res.body;
-  //   })
-  // }
-  // getPolicyTnCDetails(){
-  //   this.authService.getAllPolicyTnC().subscribe((res)=>{
-  //     this.allPolicyTNC = res.body;
-  //   })
-  // }
+
   getSpeakerDetails() {
     this.authService.getAllSpeakers().subscribe((res) => {
       this.allspeakers = res.body;
@@ -349,46 +339,6 @@ submitted: boolean = false;
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
-
-  // createSpeakerForm: FormGroup;
-
-  // visible = true;
-  // selectable = true;
-  // removable = true;
-  // addOnBlur = true;
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  // fruits: any[] = [];
-
-  // fileData1: File = null;
-  // previewUrl1: any = null;
-  // fileUploadProgress1: string = null;
-  // uploadedFilePath1: string = null;
-  // speakerImage: any;
-
-  // add(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-
-  //   // Add our fruit
-  //   if ((value || '').trim()) {
-  //     this.fruits.push({ name: value.trim() });
-  //   }
-
-  //   // Reset the input value
-  //   if (input) {
-  //     input.value = '';
-  //   }
-  // }
-
-  // remove(fruit: any): void {
-  //   const index = this.fruits.indexOf(fruit);
-
-  //   if (index >= 0) {
-  //     this.fruits.splice(index, 1);
-  //   }
-  // }
-
 
   fileProgress1(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -407,44 +357,6 @@ submitted: boolean = false;
       this.previewUrl2 = reader.result;
     }
   }
-  // uploadImage1() {
-  //   const formData = new FormData();
-  //   formData.append('file', this.fileData);
-  //   this.authService.uploadFile(formData)
-  //     .subscribe(res => {
-  //       console.log("Image", res);
-  //       this.speakerImage = res.fileDownloadUri;
-  //       console.log(this.speakerImage);
-  //       // alert('SUCCESS !!');
-  //     })
-  // }
-
-  //   createSpeaker(){
-  //     if(this.createSpeakerForm.valid){
-  //       let fruit1 = '';
-  //       console.log(this.fruits);
-  //       this.fruits.forEach(m => {
-  //         fruit1 = fruit1 + ',' + m.name;
-  //       })
-  //       let flag=true;
-  // this.allspeakers.forEach(m=>{
-  //   if(m.email==this.createSpeakerForm.get(['email']).value)
-  //   flag=false;
-  // })
-  //       let obj=this.createSpeakerForm.value;
-  //       if(flag){
-  //       obj['keySkills']=fruit1.substring(1, fruit1.length - 0),
-  //       obj['id']=0,
-  //       obj['profileImageUrl']=this.speakerImage,
-  //       this.allspeakers.unshift(this.createSpeakerForm.value);
-  //       console.log(this.createSpeakerForm.value);
-  //       console.log("new Array", this.allspeakers);
-  //       this.closespeakerModel.nativeElement.click();
-  // }
-  //     else
-  //     alert("Speaker Already EXist");
-  //         }
-  //   }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
     this.closingDate = this.createEventForm.get(['startDate']).value;

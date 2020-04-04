@@ -6,8 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  //http://192.168.1.155:8080/
- //private url = "http://192.168.1.155:8080/";
+ // private url = "http://localhost:8080/";
  private url = "https://ntt-backend-app.herokuapp.com/";
  public headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
@@ -36,7 +35,7 @@ export class AuthServiceService {
   }
 
   getParticipant(id):Observable<any>{
-    return this.http.get<any>(this.url+`api/public/events/${id}/participant`, {headers:this.headers})
+    return this.http.get<any>(this.url+`api/public/participants/event/${id}`, {headers:this.headers})
   }
   saveEventDetails(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/event', obj, {headers:this.headers});
