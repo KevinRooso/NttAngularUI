@@ -53,7 +53,7 @@ getTableData(url){
     },
     columns:[{
       title:'Event Name',
-      defaultContent:'-'
+      data:'eventName'
     },
     {
       title:'Participants Name',
