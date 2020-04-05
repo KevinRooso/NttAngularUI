@@ -81,7 +81,7 @@
         <h2 class="name">{{cd.fullName}}</h2>
         <div class="origin">{{cd.email}}</div>
         <div class="origin">{{cd.designation}}</div>
-        <div class="origin">{{getSkills(cd.keySkills)}}</div>
+        <div class="origin" *ngIf="cd.keySkills!=null">{{getSkills(cd.keySkills)}}</div>
         <div class="sessions">
           <h6>{{cd.origanizationName}}</h6>
         </div>

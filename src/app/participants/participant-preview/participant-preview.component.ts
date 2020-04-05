@@ -53,7 +53,7 @@ getTableData(url){
     },
     columns:[{
       title:'Event Name',
-      defaultContent:'-'
+      data:'eventName'
     },
     {
       title:'Participants Name',
@@ -95,6 +95,9 @@ getTableData(url){
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
+    $('td:nth-child(3) ', row).bind('click', () => {
+      self.someClickHandler1(data);
+    });
     if(data['approverId']==null){
       // $('td .showIdButton', row).removeClass("badge-success");
       //   $('td .showIdButton', row).addClass("badge-warning");
@@ -122,9 +125,7 @@ getTableData(url){
        self.someClickHandler2(data,row);
 
     });
-    $('td:nth-child(3) ', row).bind('click', () => {
-      self.someClickHandler1(data);
-    });
+
   }
   else{
     $('td:nth-child(7) .approve', row).css('cursor','default')

@@ -325,6 +325,7 @@ export class CreateEventComponent implements OnInit {
           //alert("Event successfully created");
          // console.log("responsne", response);
           this.submitted = false;
+          this.router.navigate(['events']);
         },
         (error) => {
           this.snackBar.open(error, 'Close');

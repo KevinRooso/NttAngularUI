@@ -448,6 +448,7 @@ export class EventEditComponent implements OnInit {
         this.snackBar.open('Event successfully updated', 'Close', {duration: 5000});
        // alert("Successfully Updated");
         this.submitted = false;
+        this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
       },
       (error) => {
         //alert("Error :"+error);
