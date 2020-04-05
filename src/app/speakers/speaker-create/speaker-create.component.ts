@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnInit } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
@@ -31,19 +31,21 @@ export class SpeakerCreateComponent implements OnInit {
   checkError:any;
   submitted: boolean = false;
   imageValid:boolean=false;
+  flag:boolean=true;
+  @ViewChild('chipList') chipList: MatChipList;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
-      personalEmail: [''],
+      personalEmail: ['', Validators.email],
       designation: ['', Validators.required],
       // profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
       keySkills: ['', Validators.required],
-      profileImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]
+      profileImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]]
     });
   }
 
@@ -74,7 +76,10 @@ export class SpeakerCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // this.createSpeaker();
-
+    // this.createSpeakerForm.get('keySkills').valueChanges.subscribe(
+    //   // status => this.chipList.errorState = status === 'INVALID'
+    //   alert();
+    // );
     this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
       if(checkSubmitted){
         if(this.submitted){
@@ -156,5 +161,11 @@ export class SpeakerCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  setError(){
+   if(this.fruits.length==0)
+     this.flag=false;
+     else
+     this.flag=true;
   }
 }

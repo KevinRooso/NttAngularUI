@@ -32,18 +32,19 @@ export class SpeakerEditComponent implements OnInit {
   checkError:any;
   submitted: boolean = false;
   imageValid:boolean =false;
+  flag:boolean=true;
   constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.updateSpeakerForm=formbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
-      personalEmail: [''],
+      personalEmail: ['', Validators.email],
       designation: ['', Validators.required],
       //profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
-      keySkills: [''],
+      keySkills: ['', Validators.required],
       profileImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]
     })
   }
@@ -181,5 +182,11 @@ export class SpeakerEditComponent implements OnInit {
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
+  setError(){
+    if(this.fruits.length==0)
+      this.flag=false;
+      else
+      this.flag=true;
+   }
 }
 
