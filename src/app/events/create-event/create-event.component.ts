@@ -37,8 +37,6 @@ export class CreateEventComponent implements OnInit {
   regStartDate = new Date();
   regEndDate = new Date();
 
-
-
   color: string = "3";
   userList: any[] = [];
 
@@ -49,6 +47,9 @@ export class CreateEventComponent implements OnInit {
  isAnonymous:boolean = false;
  checkError:any;
  submitted: boolean = false;
+
+  imageValid: boolean = false;
+  imageValid2: boolean = false;
 
 
 
@@ -76,8 +77,8 @@ export class CreateEventComponent implements OnInit {
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
       policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
-      thumbnailImageUrl: ['', Validators.required],
-      detailImageUrl: ['', Validators.required],
+      thumbnailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
+      detailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
       fullName: [''],
       name: [''],
       isDraft:[false],
@@ -117,15 +118,36 @@ export class CreateEventComponent implements OnInit {
   }
 
   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
+  // fileProgress(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   this.imgValid =true;
+  //   this.preview();
+  // }
+  // fileProgress2(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   //this.imgValid1 =true;
+  //   this.preview2();
+  // }
   fileProgress2(fileInput: any) {
+    this.attachUrl=null;
+    this.imageValid2=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid2=true;
     this.preview2();
+    }
   }
   preview() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
@@ -138,12 +160,10 @@ export class CreateEventComponent implements OnInit {
     }
   }
   preview2() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
