@@ -52,6 +52,11 @@ export class CopyEventComponent implements OnInit {
   checkError:any;
   isEvent:boolean = false;
   isWebinar:boolean = false;
+
+
+  imageValid: boolean = false;
+  imageValid2: boolean = false;
+
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
@@ -79,8 +84,8 @@ export class CopyEventComponent implements OnInit {
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
       policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
-      thumbnailImageUrl: ['', Validators.required],
-      detailImageUrl: ['', Validators.required],
+      thumbnailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
+      detailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
       fullName: [''],
       name: [''],
       isDraft:[],
@@ -220,12 +225,34 @@ export class CopyEventComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
+  // fileProgress(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   this.imgValid =true;
+  //   this.preview();
+  // }
+  // fileProgress2(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   //this.imgValid1 =true;
+  //   this.preview2();
+  // }
   fileProgress2(fileInput: any) {
+    this.attachUrl=null;
+    this.imageValid2=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid2=true;
     this.preview2();
+    }
   }
   preview() {
     // Show preview

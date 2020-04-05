@@ -265,17 +265,21 @@
               <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters</mat-error>
             </mat-form-field>
           </div>
-        <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
-            (change)="fileProgress($event)" />
-          <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
-            <div *ngIf="fileUploadProgress">
-              Upload progress: {{ fileUploadProgress }}
+          <div class="form-row ">
+            <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
+            <div class="col-sm-7">
+              <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
+              (change)="fileProgress($event)" />
+              <mat-error *ngIf="checkError('thumbnailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error>
+              <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+              <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+              </div>
             </div>
           </div>
-        </div>
         <div class="form-row">
           <div class="col-sm-3"></div>
           <div class="col-sm-9">
@@ -286,10 +290,14 @@
         </div>
         <div class="form-row my-3">
           <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">*</span></label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="detailImageUrl"
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="detailImageUrl"
             (change)="fileProgress2($event)" />
+            <mat-error *ngIf="checkError('detailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error>
+            <mat-error *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()">Upload File</button>
+            <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
