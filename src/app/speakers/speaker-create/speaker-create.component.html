@@ -13,23 +13,27 @@
       </div>
       <form [formGroup]='createSpeakerForm'>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Full Name</label>
+          <label class="col-sm-3 col-form-label">Full Name<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="FullName" formControlName="fullName">
+            <mat-error *ngIf="checkError('fullName', 'required')">(Full Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Description</label>
+          <label class="col-sm-3 col-form-label">Description<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="description" rows="4"></textarea>
+            <mat-error *ngIf="checkError('description', 'required')">(Description is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Organization Email</label>
+          <label class="col-sm-3 col-form-label">Organization Email<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Corporate Email Id" formControlName="email">
+            <mat-error *ngIf="checkError('email', 'required')">(Organization Email is required)</mat-error>
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
           </mat-form-field>
         </div>
 
@@ -41,9 +45,10 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Designation</label>
+          <label class="col-sm-3 col-form-label">Designation<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Designation" formControlName="designation">
+            <mat-error *ngIf="checkError('designation', 'required')">(Designation is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -55,21 +60,24 @@
         </div> -->
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Phone</label>
+          <label class="col-sm-3 col-form-label">Phone<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Contact Number" formControlName="phone" maxlength="10">
+            <mat-error *ngIf="checkError('phone', 'required')">(Phone is required)</mat-error>
+            <mat-error *ngIf="checkError('phone', 'phone')">(Enter a valid Phone No.)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Organization Name</label>
+          <label class="col-sm-3 col-form-label">Organization Name<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Company Name" formControlName="origanizationName">
+            <mat-error *ngIf="checkError('origanizationName', 'required')">(Organization Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">keySkills</label>
+          <label class="col-sm-3 col-form-label">KeySkills</label>
           <mat-form-field class="example-chip-list col-sm-9">
             <mat-chip-list #chipList aria-label="Fruit selection">
               <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
@@ -80,16 +88,22 @@
               <input placeholder="Enter Keyskills..." [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                 (matChipInputTokenEnd)="add($event)" formControlName="keySkills">
+
             </mat-chip-list>
+            <mat-error *ngIf="checkError('keySkills', 'required')">(KeySkills is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Speaker Image</label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="profileImageUrl"
+          <label class="col-sm-3 col-form-label">Speaker Image<span class="error">*</span></label>
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file " formControlName="profileImageUrl"
             (change)="fileProgress($event)" />
-          <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
+              <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error> -->
+            <mat-error *ngIf="checkError('profileImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
+            <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -106,7 +120,7 @@
         </div>
 
         <div class="text-right">
-          <button class="btn button-1 action-good" (click)="createSpeaker()">Submit Details</button>
+          <button class="btn button-1 action-good" (click)="createSpeaker()" [disabled]="!createSpeakerForm.valid">Submit Details</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
       </form>

@@ -28,19 +28,22 @@ export class SpeakerCreateComponent implements OnInit {
   uploadedFilePath: string = null;
   speakerImage: any;
 
+  checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean=false;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
-      personalEmail: ['', [Validators.required, Validators.email]],
+      personalEmail: [''],
       designation: ['', Validators.required],
       // profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
-      keySkills: [''],
-      profileImageUrl: ['']
+      keySkills: ['', Validators.required],
+      profileImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]
     });
   }
 
@@ -72,11 +75,27 @@ export class SpeakerCreateComponent implements OnInit {
   ngOnInit(): void {
     // this.createSpeaker();
 
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.createSpeakerForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.createSpeakerForm.controls[controlName].hasError(errorName);
+      }
+
+    }
   }
 
   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
   preview() {
     // Show preview
@@ -128,6 +147,7 @@ export class SpeakerCreateComponent implements OnInit {
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
         alert("Successfully Created");
+        this.submitted = false;
         console.log("response", response);
       },
       (error) => console.log(error)

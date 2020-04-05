@@ -29,7 +29,9 @@ export class SpeakerEditComponent implements OnInit {
   spkrID: any;
   chipsData: string[]=['Hi','Hello'];
 
-
+  checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean =false;
   constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.updateSpeakerForm=formbuilder.group({
@@ -42,7 +44,7 @@ export class SpeakerEditComponent implements OnInit {
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
       keySkills: [''],
-      profileImageUrl: ['']
+      profileImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]
     })
   }
 
@@ -70,6 +72,16 @@ export class SpeakerEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.updateSpeakerForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.updateSpeakerForm.controls[controlName].hasError(errorName);
+      }
+
+    }
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.spkrID = params.page;
@@ -78,9 +90,15 @@ export class SpeakerEditComponent implements OnInit {
     // this.getSpeakersDetails(id);
    }
 
-  fileProgress(fileInput: any) {
+   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
   preview() {
     // Show preview
@@ -102,6 +120,7 @@ export class SpeakerEditComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        alert("SUCCESS!!");
         console.log(this.speakerImage);
         // alert('SUCCESS !!');
       })
