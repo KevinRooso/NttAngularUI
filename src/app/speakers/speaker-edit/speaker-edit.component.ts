@@ -38,7 +38,7 @@ export class SpeakerEditComponent implements OnInit {
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
-      personalEmail: ['', [Validators.required, Validators.email]],
+      personalEmail: [''],
       designation: ['', Validators.required],
       //profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
