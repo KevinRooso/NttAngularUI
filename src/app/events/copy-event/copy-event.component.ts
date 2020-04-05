@@ -451,6 +451,7 @@ export class CopyEventComponent implements OnInit {
         console.log("responsne", response);
         alert("Event successfully duplicated");
         this.submitted = false;
+        this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
       },
       (error) => {alert("Error :"+error);}
     )

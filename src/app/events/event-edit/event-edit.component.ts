@@ -451,6 +451,7 @@ export class EventEditComponent implements OnInit {
         console.log("responsne", response);
         alert("Successfully Updated");
         this.submitted = false;
+        this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
       },
       (error) => {alert("Error :"+error);}
     )

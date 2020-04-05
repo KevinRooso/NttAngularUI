@@ -320,6 +320,7 @@ export class CreateEventComponent implements OnInit {
           alert("Successfully Created");
           console.log("responsne", response);
           this.submitted = false;
+          this.router.navigate(['events']);
         },
         (error) => {alert("Error :"+error);}
       )
