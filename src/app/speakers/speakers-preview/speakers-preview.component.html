@@ -39,17 +39,30 @@
          <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
       </select>
     </li> -->
-    <li class="nav-item ml-2">
-      <select class="form-control" [(ngModel)]="filterDate" (change)="getDataWithDate()">
-        <option value="" hidden>Select Date</option>
-        <option *ngFor="let date of dates" [value]="date">{{date}}</option>
-      </select>
-    </li>
+
     <li class="nav-item ml-2">
       <div class="form-inline my-2 my-lg-0">
-      <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search">
-        <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+        <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search"
+          (search)="cancel()" style="width: 300px;">
+        <div class="input-group-btn">
+          <button class="btn button-2 action-info" type="submit" (click)="blogSearch()">
+            <span class="material-icons">
+              search
+            </span>
+          </button>
+        </div>
+
       </div>
+    </li>
+    <li class="nav-item active mx-2">
+      <select class="form-control" [(ngModel)]="sort"  (change)="filterData()">
+        <option value="Sort By" >Sort By</option>
+
+        <optgroup label="Created At" >
+          <option value="asc?cdate" >asc</option>
+          <option value="desc?cdate">desc</option>
+        </optgroup>
+      </select>
     </li>
   </ul>
   </div>
@@ -67,8 +80,10 @@
       <div class="details">
         <h2 class="name">{{cd.fullName}}</h2>
         <div class="origin">{{cd.email}}</div>
+        <div class="origin">{{cd.designation}}</div>
+        <div class="origin">{{getSkills(cd.keySkills)}}</div>
         <div class="sessions">
-          <h6>{{cd.profile}}</h6>
+          <h6>{{cd.origanizationName}}</h6>
         </div>
       </div>
     </a>

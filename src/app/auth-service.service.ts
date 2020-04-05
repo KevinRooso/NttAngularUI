@@ -77,8 +77,8 @@ export class AuthServiceService {
   getSpeakerDetail(id):Observable<any>{
     return this.http.get<any>(this.url+'api/public/person/'+id, {headers:this.headers});
   }
-  updateParticipantStatus(id):Observable<any>{
-    return this.http.post<any>(this.url+'api/admin/participants/approve/'+id,null,{headers:this.headers});
+  updateParticipantStatus(id,flag):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/participants/approve/'+id+'/'+flag,null,{headers:this.headers});
   }
   saveSpeaker(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
