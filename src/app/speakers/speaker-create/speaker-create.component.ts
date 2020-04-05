@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-speaker-create',
@@ -33,8 +34,9 @@ export class SpeakerCreateComponent implements OnInit {
   imageValid:boolean=false;
   flag:boolean=true;
   @ViewChild('chipList') chipList: MatChipList;
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
+  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
@@ -123,6 +125,7 @@ export class SpeakerCreateComponent implements OnInit {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
         console.log(this.speakerImage);
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         // alert('SUCCESS !!');
       })
   }
@@ -151,12 +154,18 @@ export class SpeakerCreateComponent implements OnInit {
     console.log("post", obj);
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
-        alert("Successfully Created");
+        this.snackBar.open('Speaker successfully created', 'Close', {duration: 5000});
+       // alert("Successfully Created");
         this.submitted = false;
         console.log("response", response);
       },
-      (error) => console.log(error)
+      (error) => {
+        this.snackBar.open(error, 'Close');
+      }
     )
+    }
+    else {
+      this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
     }
   }
   BackMe() {

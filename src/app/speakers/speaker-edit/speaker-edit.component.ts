@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName} from 
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-speaker-edit',
   templateUrl: './speaker-edit.component.html',
@@ -33,7 +34,7 @@ export class SpeakerEditComponent implements OnInit {
   submitted: boolean = false;
   imageValid:boolean =false;
   flag:boolean=true;
-  constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute ) {
+  constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute, public snackBar: MatSnackBar ) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.updateSpeakerForm=formbuilder.group({
       fullName: ['', Validators.required],
@@ -121,7 +122,7 @@ export class SpeakerEditComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
-        alert("SUCCESS!!");
+       this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
         // alert('SUCCESS !!');
       })
@@ -171,11 +172,17 @@ export class SpeakerEditComponent implements OnInit {
     console.log("post", obj);
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
-        alert("Successfully Updated");
+        this.snackBar.open('Speaker successfully updated', 'Close', {duration: 5000});
+        //alert("Successfully Updated");
         console.log("response", response);
       },
-      (error) => console.log(error)
+      (error) => {
+        this.snackBar.open(error, 'Close');
+      }
     )
+  }
+  else {
+    this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
   }
   }
 
