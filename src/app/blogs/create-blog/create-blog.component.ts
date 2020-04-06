@@ -56,6 +56,7 @@ export class CreateBlogComponent implements OnInit {
       categoryId: ['',Validators.required],
       tagList: ['',Validators.required],
       targetUserType:['',Validators.required],
+      isDraft:[false],
       thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -216,7 +217,8 @@ export class CreateBlogComponent implements OnInit {
   }
   generateBlog(){
     let obj=this.createBlogForm.value;
-    if(this.createBlogForm.valid){
+    // if(this.createBlogForm.valid){
+      if(true){
     obj['thumbnailImageUrl']=this.speakerImage;
 
     let tags:any[]=[];
@@ -235,7 +237,7 @@ export class CreateBlogComponent implements OnInit {
          "detailImageUrl": "",
          "downloadUrl": "",
          "categoryId": obj.categoryId.id,
-         "isDraft": true,
+         "isDraft": obj.isDraft,
          "longDescription": obj.longDescription,
          "person": {
            "description": obj.person.description,

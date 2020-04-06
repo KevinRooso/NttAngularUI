@@ -63,6 +63,7 @@ export class EditBlogComponent  implements OnInit {
         categoryId: ['',Validators.required],
         tagList: ['',Validators.required],
         targetUserType:['',Validators.required],
+        isDraft:[false],
         thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       });
       let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -149,6 +150,7 @@ export class EditBlogComponent  implements OnInit {
         this.createBlogForm.get(['title']).setValue(res.body.title);
         this.createBlogForm.get(['longDescription']).setValue(res.body.longDescription);
         this.createBlogForm.get(['shortDescription']).setValue(res.body.shortDescription);
+        this.createBlogForm.get(['isDraft']).setValue(res.body.isDraft);
         this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
         this.createBlogForm.get(['person']).setValue(res.body.person.id);
         this.previewUrl=res.body.thumbnailImageUrl;
@@ -316,7 +318,7 @@ export class EditBlogComponent  implements OnInit {
       "detailImageUrl": "string",
       "downloadUrl": "",
       "id":this.blogId,
-      "isDraft": true,
+      "isDraft": obj.isDraft,
       "person": personObj,
       "shortDescription": obj.longDescription,
       "tagList": tags,

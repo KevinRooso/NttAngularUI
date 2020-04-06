@@ -143,12 +143,12 @@ export class CopyEventComponent implements OnInit {
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
-      this.getEventDetails = res.body;
-       for(let i=0;i<res.body.tags.length;i++)
-        this.selected4.push(res.body.tags[i].id);
+      this.getEventDetails = res.body.events;
+       for(let i=0;i<this.getEventDetails.tags.length;i++)
+        this.selected4.push(this.getEventDetails.tags[i].id);
         console.log("tags=",this.selected4);
-      for(let i=0;i<res.body.speakers.length;i++)
-        this.selected6.push(res.body.speakers[i].id);
+      for(let i=0;i<this.getEventDetails.speakers.length;i++)
+        this.selected6.push(this.getEventDetails.speakers[i].id);
         console.log("speakerlist=",this.selected6);
 
         if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
@@ -215,10 +215,10 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
 
-      res.body.tags.forEach(m => {
+      this.getEventDetails.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
       })
-      res.body.speakers.forEach(m => {
+      this.getEventDetails.speakers.forEach(m => {
         this.valuesSpeakertags.push(m.fullName);
       })
     })
@@ -389,19 +389,6 @@ export class CopyEventComponent implements OnInit {
         userId=m.id;
     });
 
-    // let tncId;
-    // this.allPolicyTNC.forEach(m=>{
-    //   if(m.displayName==this.updateEventForm.controls['policyTnc'].value)
-    //   tncId=m.id;
-    // });
-
-    // let faqId;
-    // this.allPolicyFAQ.forEach(m=>{
-    //   if(m.displayName==this.updateEventForm.controls['policyFAQ'].value)
-    //   faqId=m.id;
-    // });
-    // console.log("Thumb", this.articleImage);
-    // console.log("dateil Banner",this.attachFile);
 
     let obj = {
       "title": this.updateEventForm.controls['title'].value,

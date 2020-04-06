@@ -89,6 +89,7 @@ getTableData(url){
     console.log("data");
     console.log(data);
     const self = this;
+    $('td:nth-child(1) ', row).attr("width", "250px");
     if(data['approverId']==null){
     // $('td .showIdButton', row).removeClass("badge-success");
     //   $('td .showIdButton', row).addClass("badge-warning");
