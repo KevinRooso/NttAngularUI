@@ -13,6 +13,7 @@ import { CommonServiceService } from 'src/app/common-service.service';
 })
 export class EventDetailsComponent implements OnInit {
   getEventDetails: any;
+ // htmlString = '<h1>Dheeraj Kishore<h1>';
   getParticipantDetails: any;
   eventId;
   eventName;
@@ -40,7 +41,7 @@ export class EventDetailsComponent implements OnInit {
   }
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
-      this.getEventDetails = res.body;
+      this.getEventDetails = res.body.events;
         this.eventName=this.getEventDetails.title;
         if(this.getEventDetails.eventSchedule[0].startDate!=null){
         this.startTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].startDate);

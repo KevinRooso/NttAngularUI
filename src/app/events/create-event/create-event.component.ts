@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-event',
@@ -42,18 +43,18 @@ export class CreateEventComponent implements OnInit {
 
   @ViewChild('closeModel', { static: true }) closeModel;
 
- isEvent:boolean = false;
- isWebinar:boolean = false;
- isAnonymous:boolean = false;
- checkError:any;
- submitted: boolean = false;
+  isEvent: boolean = false;
+  isWebinar: boolean = false;
+  isAnonymous: boolean = false;
+  checkError: any;
+  submitted: boolean = false;
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
 
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
@@ -77,17 +78,17 @@ export class CreateEventComponent implements OnInit {
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
       policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
-      thumbnailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
-      detailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       fullName: [''],
       name: [''],
-      isDraft:[false],
+      isDraft: [false],
       categoryTypeId: ['', Validators.required]
     })
 
-    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted){
-        if(this.submitted){
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
           return this.createEventForm.controls[controlName].hasError(errorName);
         }
       } else {
@@ -118,13 +119,13 @@ export class CreateEventComponent implements OnInit {
   }
 
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid = true;
+      this.preview();
     }
   }
   // fileProgress(fileInput: any) {
@@ -138,13 +139,13 @@ export class CreateEventComponent implements OnInit {
   //   this.preview2();
   // }
   fileProgress2(fileInput: any) {
-    this.attachUrl=null;
-    this.imageValid2=false;
+    this.attachUrl = null;
+    this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid2=true;
-    this.preview2();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid2 = true;
+      this.preview2();
     }
   }
   preview() {
@@ -178,7 +179,8 @@ export class CreateEventComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        alert('SUCCESS !!');
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        //alert('SUCCESS !!');
       })
   }
   uploadAttachment() {
@@ -189,7 +191,8 @@ export class CreateEventComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        alert('SUCCESS !!');
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        //alert('SUCCESS !!');
       })
   }
 
@@ -218,19 +221,19 @@ export class CreateEventComponent implements OnInit {
     const WEBINAR = "2";
     const BOTH = "3";
 
-    if(this.color == ON_PREMISE){
+    if (this.color == ON_PREMISE) {
       this.isEvent = true;
       this.isWebinar = false;
       this.createEventForm.controls['webinarUrl'].setValidators(null);
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
-    } else if(this.color == WEBINAR){
+    } else if (this.color == WEBINAR) {
       this.isWebinar = true;
       this.isEvent = false;
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
-    } else if(this.color == BOTH){
+    } else if (this.color == BOTH) {
       this.isWebinar = true;
       this.isEvent = true;
       this.setWebinarFieldValidation(Validators.required);
@@ -238,7 +241,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.submitted = true;
-   if (this.createEventForm.valid) {
+    if (this.createEventForm.valid) {
 
       let name: any[] = [];
       let spekaerName: any[] = [];
@@ -308,25 +311,30 @@ export class CreateEventComponent implements OnInit {
         "isRegOpen": true,
         "publishStatus": false,
         "id": 0,
-        "isEvent":this.isEvent,
-        "isWebinar":this.isWebinar,
-        "isDraft":this.createEventForm.controls['isDraft'].value
+        "isEvent": this.isEvent,
+        "isWebinar": this.isWebinar,
+        "isDraft": this.createEventForm.controls['isDraft'].value
         //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
       }
 
       console.log("Post Data", objData);
+      //this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
-          alert("Successfully Created");
-          console.log("responsne", response);
+          this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+          //alert("Event successfully created");
+         // console.log("responsne", response);
           this.submitted = false;
           this.router.navigate(['events']);
         },
-        (error) => {alert("Error :"+error);}
+        (error) => {
+          this.snackBar.open(error, 'Close');
+          // alert("Error :" + error);
+         }
       )
-    }
-    else{
-      alert("Please fill all mandatory field");
+     }
+    else {
+      this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
     }
 
   }
@@ -368,23 +376,23 @@ export class CreateEventComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
-  fileProgress1(fileInput: any) {
-    this.fileData = <File>fileInput.target.files[0];
-    this.preview1();
-  }
-  preview1() {
-    // Show preview
-    var mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
+  // fileProgress1(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   this.preview1();
+  // }
+  // preview1() {
+  //   // Show preview
+  //   var mimeType = this.fileData.type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     return;
+  //   }
 
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-      this.previewUrl2 = reader.result;
-    }
-  }
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(this.fileData);
+  //   reader.onload = (_event) => {
+  //     this.previewUrl2 = reader.result;
+  //   }
+  // }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
     this.closingDate = this.createEventForm.get(['startDate']).value;
@@ -393,10 +401,10 @@ export class CreateEventComponent implements OnInit {
   maxRegDate() {
     this.regEndDate = this.createEventForm.get(['registrationStartDate']).value;
   }
-  getLocation(){
+  getLocation() {
     alert("inside location");
-    this.authService.getLocation().subscribe(res=>{
-        console.log(res);
+    this.authService.getLocation().subscribe(res => {
+      console.log(res);
 
     })
   }

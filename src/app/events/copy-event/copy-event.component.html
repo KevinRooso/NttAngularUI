@@ -270,8 +270,8 @@
             <div class="col-sm-7">
               <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
               (change)="fileProgress($event)" />
-              <mat-error *ngIf="checkError('thumbnailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error>
-              <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+              <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
+              <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
             </div>
             <div class="col-sm-2">
               <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
@@ -293,8 +293,8 @@
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="detailImageUrl"
             (change)="fileProgress2($event)" />
-            <mat-error *ngIf="checkError('detailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error>
-            <mat-error *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+            <div *ngIf="checkError('detailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
+            <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>

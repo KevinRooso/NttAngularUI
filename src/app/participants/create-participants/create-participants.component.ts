@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-participants',
@@ -18,7 +19,7 @@ export class CreateParticipantsComponent implements OnInit {
   submitted: boolean = false;
   participant="Add Participant";
   constructor(private formBuilder: FormBuilder,private service:AuthServiceService,
-    private router1:ActivatedRoute,private router:Router) { }
+    private router1:ActivatedRoute,private router:Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -72,9 +73,10 @@ export class CreateParticipantsComponent implements OnInit {
     console.log(this.addParForm.controls['event'].value);
     if(this.flag){
       this.service.saveParticipent(this.addParForm.controls['event'].value,obj).subscribe(res=>{
-      alert("added successfully");
+      //alert("added successfully");
+      this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
       this.submitted = false;
-      this.router.navigate(['participants']);
+      //this.router.navigate(['participants']);
     })
   }
     else{
@@ -82,17 +84,18 @@ export class CreateParticipantsComponent implements OnInit {
       arr.push(obj);
 
     this.service.saveParticipent(this.eventId,obj).subscribe(res=>{
-      alert("added successfully");
+      this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
       this.submitted = false;
-      if(this.id==undefined)
-      this.router.navigate(['participants']);
-      else
-      this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
+      // if(this.id==undefined)
+      // this.router.navigate(['participants']);
+      // else
+      // this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
     })
   }
     }
     else{
-      alert("Please fill all mandatory field");
+     // alert("Please fill all mandatory field");
+     this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
     }
   }
 }

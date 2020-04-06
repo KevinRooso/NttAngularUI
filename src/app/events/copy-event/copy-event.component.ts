@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-copy-event',
   templateUrl: './copy-event.component.html',
@@ -60,7 +59,7 @@ export class CopyEventComponent implements OnInit {
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
-  constructor(private formBuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private location: Location, public snackBar: MatSnackBar, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
@@ -84,8 +83,8 @@ export class CopyEventComponent implements OnInit {
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
       policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
-      thumbnailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
-      detailImageUrl: ['', Validators.pattern('(.*?)\.(jpg|png|jpeg)$')],
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       fullName: [''],
       name: [''],
       isDraft:[],
@@ -225,13 +224,13 @@ export class CopyEventComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid = true;
+      this.preview();
     }
   }
   // fileProgress(fileInput: any) {
@@ -245,17 +244,16 @@ export class CopyEventComponent implements OnInit {
   //   this.preview2();
   // }
   fileProgress2(fileInput: any) {
-    this.attachUrl=null;
-    this.imageValid2=false;
+    this.attachUrl = null;
+    this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid2=true;
-    this.preview2();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid2 = true;
+      this.preview2();
     }
   }
   preview() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
@@ -268,12 +266,10 @@ export class CopyEventComponent implements OnInit {
     }
   }
   preview2() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -288,7 +284,7 @@ export class CopyEventComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        alert('SUCCESS !!');
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }
   uploadAttachment() {
@@ -299,7 +295,7 @@ export class CopyEventComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        alert('SUCCESS !!');
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }
 
@@ -449,14 +445,16 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        alert("Event successfully duplicated");
+        this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
         this.submitted = false;
         this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
       },
-      (error) => {alert("Error :"+error);}
+      (error) => {
+        this.snackBar.open(error, 'Close');
+      }
     )
    } else{
-    alert("Please check fields");
+    this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
   }
   }
   createTag(){

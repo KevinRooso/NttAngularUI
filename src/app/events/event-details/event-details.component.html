@@ -102,13 +102,15 @@
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
               <h6>Terms & Conditions *</h6>
-              <small>{{getEventDetails.policyTnc}}</small>
+              <small [innerHTML]="getEventDetails.policyTnc"></small>
+              <!-- <small>{{getEventDetails.policyTnc}}</small> -->
             </div>
           </div>
-          <div class="event-card-body-lg py-3">
+          <div class="event-card-body-lg py-3" *ngIf="getEventDetails.policyFAQ!= 0">
             <div class="col-sm-12">
               <h6>Policy FAQs</h6>
-              <small>{{getEventDetails.policyFAQ}}</small>
+              <small [innerHTML]="getEventDetails.policyFAQ"></small>
+              <!-- <small [innerHTML]="">{{getEventDetails.policyFAQ}}</small> -->
             </div>
           </div>
 
@@ -122,7 +124,7 @@
               <li class="list-group-item" *ngFor="let sdetails of getEventDetails.speakers | sortBy:'asc':'fullName'">
                 <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail1(sdetails.id)">
                   <div class="mr-2">
-                    <img _ngcontent-wbm-c23="" src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg"
+                    <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl"
                       alt="User Image" class="speaker-image"></div>
                   <a>{{sdetails.fullName}}</a>
                 </div>
