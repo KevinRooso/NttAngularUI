@@ -138,278 +138,308 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <p>Event Configuration</p>
-      <form [formGroup]='eventConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+
+
+
+    <div id="accordion" class="col-md-6">
+
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" (click)="getSelectedBlockData1(blocks[0].url)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Event Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+
+          <form [formGroup]='eventConfigurationForm'>
+            <div class="form-row">
+              <div class="example-full-width">
+                <mat-label>Select User Type</mat-label>
+                <section class="example-section" >
+                  <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+                </section>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field class="example-full-width">
+                <mat-label>Select Banner Entity</mat-label>
+                <mat-select formControlName="dataFieldId">
+                  <mat-option *ngFor="let block of eventData" [value]="block.id">{{block.title}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+
+            <div class="text-right">
+              <button type="submit" (click)="submitEvent()" class="btn button-1 action-good" [disabled]="!eventConfigurationForm.valid">Submit
+                </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+
+
+    <div id="accordion" class="col-md-6">
+
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData2(blocks[1].url)" data-toggle="collapse" data-target="#collapseArticle" aria-expanded="true" aria-controls="collapseArticle">
+            Article Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseArticle" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseArticle">
+
+        <form [formGroup]='articleConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of eventData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit" (click)="submitEvent()" class="btn button-1 action-good" [disabled]="!eventConfigurationForm.valid">Submit
-            Details</button>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <p>Articles Configuration</p>
-      <form [formGroup]='articleConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of articleData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of articleData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
 
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
 
-        <div class="text-right">
-          <button type="submit" (click)="submitArticle()" [disabled]="!articleConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
+          <div class="text-right">
+            <button type="submit" (click)="submitArticle()" [disabled]="!articleConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
+
+
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+
+
+
+    <div id="accordion" class="col-md-6">
+
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData3(blocks[2].url)" data-toggle="collapse" data-target="#collapseBlog" aria-expanded="true" aria-controls="collapseBlog">
+            Blogs Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseBlog" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseBlog">
+        <form [formGroup]='blogsConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of blogData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="text-right">
+            <button type="submit" (click)="submitBlog()" [disabled]="!blogsConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+    <div id="accordion" class="col-md-6">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData4(blocks[3].url)" data-toggle="collapse" data-target="#collapseVideo" aria-expanded="true" aria-controls="collapseVideo">
+            Videos Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseVideo" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseVideo">
+        <form [formGroup]='videosConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public" >Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
+          </div>
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of videoData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="text-right">
+            <button type="submit" (click)="submitVideo()" [disabled]="!videosConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <p>Blogs Configuration</p>
-      <form [formGroup]='blogsConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+
+
+    <div id="accordion" class="col-md-6">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData5(blocks[4].url)" data-toggle="collapse" data-target="#collapseWhitePaper" aria-expanded="true" aria-controls="collapseWhitePaper">
+            WhitePapers Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseWhitePaper" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseWhitePaper">
+        <form [formGroup]='whitePaperConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of blogData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit" (click)="submitBlog()" [disabled]="!blogsConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <p>Videos Configuration</p>
-      <form [formGroup]='videosConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public" >Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of whitePaperData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-        </div>
-
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of videoData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit" (click)="submitVideo()" [disabled]="!videosConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
+          <div class="text-right">
+            <button type="submit" (click)="submitWhitpapers()" [disabled]="!whitePaperConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
+
+
+
+
+
+    <div id="accordion" class="col-md-6">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData6(blocks[5].url)" data-toggle="collapse" data-target="#collapseCaseStudey" aria-expanded="true" aria-controls="collapseCaseStudey">
+            Case Study Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseCaseStudey" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseCaseStudey">
+        <form [formGroup]='caseStudyConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of caseStudyData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="text-right">
+            <button type="submit" (click)="submitCases()" [disabled]="!caseStudyConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <p>WhitePapers Configuration</p>
-      <form [formGroup]='whitePaperConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+
+
+
+    <div id="accordion" class="col-md-6">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" (click)="this.getSelectedBlockData7(blocks[6].url)" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+            News Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </h5>
+      </div>
+      <div id="collapseNews" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseNews">
+        <form [formGroup]='newsConfigurationForm'>
+          <div class="form-row">
+            <div class="example-full-width">
+              <mat-label>Select User Type</mat-label>
+              <section class="example-section" >
+                <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
+              </section>
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of whitePaperData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit" (click)="submitWhitpapers()" [disabled]="!whitePaperConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <p>Case Study Configuration</p>
-      <form [formGroup]='caseStudyConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+          <div class="form-row">
+            <mat-form-field class="example-full-width">
+              <mat-label>Select Banner Entity</mat-label>
+              <mat-select formControlName="dataFieldId">
+                <mat-option *ngFor="let block of newsData" [value]="block.id">{{block.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-        </div>
-
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of caseStudyData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-<!--
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit" (click)="submitCases()" [disabled]="!caseStudyConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <p>News Configuration</p>
-      <form [formGroup]='newsConfigurationForm'>
-        <div class="form-row">
-          <div class="example-full-width">
-            <mat-label>Select User Type</mat-label>
-            <section class="example-section" >
-              <mat-checkbox class="example-margin" formControlName="public">Public</mat-checkbox>
-              <mat-checkbox class="example-margin" formControlName="customer">Customer</mat-checkbox>
-            </section>
+          <div class="text-right">
+            <button type="submit"  (click)="submitNews()" [disabled]="!newsConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
           </div>
-        </div>
-
-        <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Select Banner Entity</mat-label>
-            <mat-select formControlName="dataFieldId">
-              <mat-option *ngFor="let block of newsData" [value]="block.id">{{block.title}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="form-row">
-          <mat-form-field class="example-full-width">
-            <mat-label>Sequence Number</mat-label>
-            <mat-select formControlName="sequenceNumber">
-              <mat-option *ngFor="let sequenceNumber of sequenceNumbersBannerBlock" [value]="sequenceNumber">{{sequenceNumber}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-
-        <div class="text-right">
-          <button type="submit"  (click)="submitNews()" [disabled]="!newsConfigurationForm.valid" class="btn button-1 action-good">Submit</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+
 
   </div>
 </div>

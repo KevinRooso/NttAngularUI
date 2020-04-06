@@ -82,3 +82,6 @@ input.ng-invalid.ng-touched{
 p{
   font-weight: bold;
 }
+.col-md-6{
+  border: 0px;
+}
