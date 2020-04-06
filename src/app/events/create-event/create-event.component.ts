@@ -334,7 +334,7 @@ export class CreateEventComponent implements OnInit {
       )
      }
     else {
-      this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
+      this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
     }
 
   }

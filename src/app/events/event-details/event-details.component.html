@@ -122,7 +122,7 @@
               <li class="list-group-item" *ngFor="let sdetails of getEventDetails.speakers | sortBy:'asc':'fullName'">
                 <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail1(sdetails.id)">
                   <div class="mr-2">
-                    <img _ngcontent-wbm-c23="" src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg"
+                    <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl"
                       alt="User Image" class="speaker-image"></div>
                   <a>{{sdetails.fullName}}</a>
                 </div>
