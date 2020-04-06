@@ -58,6 +58,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Contact Number" formControlName="phone" maxlength="10">
             <mat-error *ngIf="checkError('phone', 'required')">(Phone is required)</mat-error>
+            <mat-error *ngIf="checkError('phone', 'pattern')">(Phone is required)</mat-error>
           </mat-form-field>
         </div>
 

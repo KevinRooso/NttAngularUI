@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $;
 @Component({
   selector: 'app-create-blog',
@@ -14,7 +15,8 @@ export class CreateBlogComponent implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
-    private service:AuthServiceService) { }
+    private service:AuthServiceService,
+    public snackBar: MatSnackBar) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
   addTagForm:FormGroup;
@@ -31,6 +33,16 @@ export class CreateBlogComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+
+  checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean=false;
+  checkErrorPerson:any;
+  submittedPerson: boolean = false;
+  imageValidPerson:boolean=false;
+  previewUrl1: any = null;
+  imageValid1:boolean=false;
+  userList:any[]=[];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
@@ -38,25 +50,26 @@ export class CreateBlogComponent implements OnInit {
   ngOnInit(): void {
     this.createBlogForm = this.formBuilder.group({
       title: ['',Validators.required],
-      longDescription: [''],
-      shortDescription: [''],
-      person: [''],
+      longDescription: ['',Validators.required],
+      shortDescription: ['',Validators.required],
+      person: ['',Validators.required],
       categoryId: ['',Validators.required],
       tagList: ['',Validators.required],
-      thumbnailImageUrl: [''],
+      targetUserType:['',Validators.required],
+      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.personForm = this.formBuilder.group({
       fullName:  ['',Validators.required],
       description:  ['',Validators.required],
-      designation:  [''],
+      designation:  ['',Validators.required],
       email:  ['',[Validators.required, Validators.email]],
       keySkills:  [''],
-      origanizationName:  [''],
-      personalEmail:  [''],
-      phone:  ['',[Validators.required, Validators.pattern(mobnum)]],
-      profile:  [''],
-      profileImageUrl:  [''],
+      origanizationName:  ['',Validators.required],
+
+      phone:  ['',Validators.pattern(mobnum)],
+
+      profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     this.addTagForm = this.formBuilder.group({
       name:['',Validators.required],
@@ -65,8 +78,31 @@ export class CreateBlogComponent implements OnInit {
     this.getCategoryDetails();
     this.getTagsDetails();
     this.getPersons();
+    this.getUserList();
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.createBlogForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.createBlogForm.controls[controlName].hasError(errorName);
+      }
+    }
+    this.checkErrorPerson = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submittedPerson){
+          return this.personForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.personForm.controls[controlName].hasError(errorName);
+      }
+    }
   }
-
+  getUserList() {
+    this.service.getUserList().subscribe((res) => {
+      this.userList = res.body;
+    })
+  }
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
@@ -83,8 +119,14 @@ export class CreateBlogComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
   preview() {
     // Show preview
@@ -106,13 +148,20 @@ export class CreateBlogComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
   }
 
   fileProgress1(fileInput: any) {
+    this.previewUrl1=null;
+    this.imageValid1=false;
     this.fileData = <File>fileInput.target.files[0];
-    this.preview();
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid1=true;
+    this.preview1();
+    }
   }
   preview1() {
     // Show preview
@@ -124,7 +173,7 @@ export class CreateBlogComponent implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
-      this.previewUrl = reader.result;
+      this.previewUrl1 = reader.result;
     }
   }
   uploadImage1() {
@@ -134,6 +183,7 @@ export class CreateBlogComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.personImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
       })
   }
@@ -166,6 +216,7 @@ export class CreateBlogComponent implements OnInit {
   }
   generateBlog(){
     let obj=this.createBlogForm.value;
+    if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
 
     let tags:any[]=[];
@@ -199,6 +250,7 @@ export class CreateBlogComponent implements OnInit {
            "profile":obj.person.profile,
            "profileImageUrl": obj.person.profileImageUrl
          },
+         "targetUserType":obj.targetUserType,
          "resourceType":1,
          "serviceUsed": "",
          "shortDescription": obj.longDescription,
@@ -210,11 +262,16 @@ export class CreateBlogComponent implements OnInit {
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
-      alert("Blog Added Successfully");
+      this.snackBar.open('Blog Added Successfully', 'Close', {duration: 5000});
+      //alert("Blog Added Successfully");
       this.router.navigate(['blogs']);
     })
   //console.log(this.createBlogForm.value);
-
+}
+else{
+  //alert("Please fill all mandatory field");
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+}
 
 }
   submitPerson(){
@@ -240,8 +297,11 @@ export class CreateBlogComponent implements OnInit {
     this.closebutton.nativeElement.click();
     }
     else
-    alert("Author Already Exist")
-  }
+    this.snackBar.open('Author Already Exist', 'Close', {duration: 5000});
+   // alert("Author Already Exist")
+  }else
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+  //alert("Please fill all mandatory field");
   }
   createTag(){
     if(this.addTagForm.valid){
@@ -257,7 +317,8 @@ export class CreateBlogComponent implements OnInit {
     this.closeModel.nativeElement.click();
   }
   else
-  alert("Tag Already EXist");
+  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  //alert("Tag Already EXist");
   }
 }
 

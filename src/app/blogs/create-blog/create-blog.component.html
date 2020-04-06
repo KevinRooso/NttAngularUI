@@ -15,28 +15,31 @@
       <form [formGroup]='createBlogForm' >
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title *</label>
+          <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title" value="">
+            <input matInput placeholder="Title" formControlName="title" value="" maxlength="200">
+            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Long Description</label>
+          <label class="col-sm-3 col-form-label">Long Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description..." formControlName="longDescription" rows="4"></textarea>
+            <textarea matInput placeholder="Description..." formControlName="longDescription" maxlength="4000" rows="4"></textarea>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(Long Description is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Short Description</label>
+          <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="2"></textarea>
+            <textarea matInput placeholder="Details..." formControlName="shortDescription" maxlength="2000" rows="2"></textarea>
+            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Author</label>
+          <label class="col-sm-3 col-form-label">Author <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Author</mat-label>
             <mat-select formControlName="person">
@@ -44,6 +47,7 @@
                 {{person.fullName}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('person', 'required')">(Atleast one Author is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -56,7 +60,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category *</label>
+          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
@@ -64,16 +68,18 @@
                 {{category.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Category is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags</label>
+          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
             <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -85,21 +91,44 @@
           </div>
         </div>
 
-
+       <div class="form-row">
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event Type</mat-label>
+            <mat-select formControlName="targetUserType">
+              <mat-option *ngFor="let user of userList" [value]="user.id">
+                {{user.displayName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Atleast one Target User Type is required)</mat-error>
+          </mat-form-field>
+        </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Blog Image</label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
+          <label class="col-sm-3 col-form-label">Blog Image <span class="error">*</span></label>
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
             (change)="fileProgress($event)" />
-          <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
+            <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
+            <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
           </div>
         </div>
 
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div>
+
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Submit
+          <button type="submit" (click)='generateBlog()'  class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>
@@ -123,60 +152,71 @@
             </div>
             <form [formGroup]="personForm">
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Full Name</label>
+                <label class="col-sm-3 col-form-label">Full Name <span class="error">*</span></label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Full Name" formControlName="fullName">
+                  <mat-error *ngIf="checkErrorPerson('fullName', 'required')">(Full Name is required)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Description</label>
+                <label class="col-sm-3 col-form-label">Designation <span class="error">*</span></label>
+                <mat-form-field class="example-full-width col-sm-9">
+                  <input matInput placeholder="Designation" formControlName="designation">
+                  <mat-error *ngIf="checkErrorPerson('designation', 'required')">(Designation is required)</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <textarea matInput placeholder="Description" formControlName="description" rows="4"></textarea>
+                  <mat-error *ngIf="checkErrorPerson('description', 'required')">(Description is required)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Email</label>
+                <label class="col-sm-3 col-form-label">Email <span class="error">*</span></label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Corporate Email Id" formControlName="email">
+                  <mat-error *ngIf="checkErrorPerson('email', 'required')">(Email is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('email', 'email')">(Enter a valid email)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
+                <label class="col-sm-3 col-form-label">Organization Name <span class="error">*</span></label>
+                <mat-form-field class="example-full-width col-sm-9">
+                  <input matInput placeholder="Company Name" formControlName="origanizationName">
+                  <mat-error *ngIf="checkErrorPerson('origanizationName', 'required')">(Organization Name is required)</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="form-row">
                 <label class="col-sm-3 col-form-label">Personal Email</label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Email" formControlName="personalEmail">
                 </mat-form-field>
-              </div>
+              </div> -->
 
-              <div class="form-row">
-                <label class="col-sm-3 col-form-label">Designation</label>
-                <mat-form-field class="example-full-width col-sm-9">
-                  <input matInput placeholder="Designation" formControlName="designation">
-                </mat-form-field>
-              </div>
 
-              <div class="form-row">
+
+              <!-- <div class="form-row">
                 <label class="col-sm-3 col-form-label">Profile</label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Profile" formControlName="profile">
                 </mat-form-field>
-              </div>
+              </div> -->
 
               <div class="form-row">
                 <label class="col-sm-3 col-form-label">Phone</label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Contact Number" formControlName="phone" maxlength="10">
+                  <mat-error *ngIf="checkErrorPerson('phone', 'pattern')">(Enter a valid phone No.)</mat-error>
                 </mat-form-field>
               </div>
 
-              <div class="form-row">
-                <label class="col-sm-3 col-form-label">Organization Name</label>
-                <mat-form-field class="example-full-width col-sm-9">
-                  <input matInput placeholder="Company Name" formControlName="origanizationName">
-                </mat-form-field>
-              </div>
+
 
               <div class="form-row">
                 <label class="col-sm-3 col-form-label">keySkills</label>
@@ -195,11 +235,15 @@
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Author Image</label>
-                <input type="file" class="form-control-file col-sm-7" formControlName="profileImageUrl"
+                <label class="col-sm-3 col-form-label">Author Image <span class="error">*</span></label>
+                <div class="col-sm-7">
+                <input type="file" class="form-control-file " formControlName="profileImageUrl"
                   (change)="fileProgress1($event)" />
-                <div class="col-sm-2">
-                  <button class="btn btn-primary" (click)="uploadImage1()">Upload File</button>
+                  <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')">(Author Image is required)</mat-error> -->
+                  <mat-error *ngIf="checkErrorPerson('profileImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+                </div>
+                  <div class="col-sm-2">
+                  <button class="btn btn-primary" [disabled]="!imageValid1" (click)="uploadImage1()">Upload File</button>
                   <!-- <div *ngIf="fileUploadProgress1">
                     Upload progress: {{ fileUploadProgress1 }}
                   </div> -->
@@ -209,14 +253,14 @@
               <div class="form-row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <div class="image-preview mb-3" *ngIf="previewUrl">
-                    <img [src]="previewUrl" height="200" />
+                  <div class="image-preview mb-3" *ngIf="previewUrl1">
+                    <img [src]="previewUrl1" height="200" />
                   </div>
                 </div>
               </div>
 
               <div class="text-right">
-                <button class="btn button-1 action-good"  (click)="submitPerson()">Create Blogs</button>
+                <button class="btn button-1 action-good"   (click)="submitPerson()">Create Author</button>
                 <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
               </div>
             </form>
@@ -252,7 +296,7 @@
           </div>
 
           <div class="text-right">
-            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+            <button class="btn button-1 action-good"   (click)="createTag()">Submit</button>
 
           </div>
         </form>

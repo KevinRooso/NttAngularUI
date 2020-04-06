@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-configuration',
@@ -51,7 +52,8 @@ export class ConfigurationComponent implements OnInit {
   filterArrForBannerBlock:any[]=[];
 
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService,
-    private router1: ActivatedRoute, private router: Router) {
+    private router1: ActivatedRoute, private router: Router
+    , public snackBar: MatSnackBar) {
 
     this.bannerConfigurationForm1 = formBuilder.group({
       public:[false,Validators.required],
@@ -125,13 +127,13 @@ export class ConfigurationComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.getSelectedBlockData1(this.blocks[0].url);
-    this.getSelectedBlockData2(this.blocks[1].url);
-    this.getSelectedBlockData3(this.blocks[2].url);
-    this.getSelectedBlockData4(this.blocks[3].url);
-    this.getSelectedBlockData5(this.blocks[4].url);
-    this.getSelectedBlockData6(this.blocks[5].url);
-    this.getSelectedBlockData7(this.blocks[6].url);
+    //this.getSelectedBlockData1(this.blocks[0].url);
+    // this.getSelectedBlockData2(this.blocks[1].url);
+    // this.getSelectedBlockData3(this.blocks[2].url);
+    // this.getSelectedBlockData4(this.blocks[3].url);
+    // this.getSelectedBlockData5(this.blocks[4].url);
+    // this.getSelectedBlockData6(this.blocks[5].url);
+    // this.getSelectedBlockData7(this.blocks[6].url);
   }
 
   submit() {
@@ -160,7 +162,8 @@ export class ConfigurationComponent implements OnInit {
    console.log("duplicaac=",data);
     if(data.length>0){
       flag=false;
-      alert("Duplicate Sequence")
+      this.snackBar.open('Duplicate Sequence', 'Close', {duration: 5000});
+     // alert("Duplicate Sequence")
     }else{
       if(this.bannerConfigurationForm1.value.datafieldType!="")
       obj.push(this.bannerConfigurationForm1.value);
@@ -174,12 +177,82 @@ export class ConfigurationComponent implements OnInit {
 
     this.service.saveBanner(obj).subscribe(res=>{
       console.log(res);
-      alert("Saved Successfully")
+      this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+      //alert("Saved Successfully")
     })
   }
   }
   getSelectedBlockData(value,banner){
+    let value1=value.split('?')[0];
     value=value.split('?')[1];
+
+    if(value1=='Event'){
+     if(this.eventData.length!=0){
+        this.setBannerData(banner,this.eventData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='Event'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.eventData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='Article'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.articleData)
+      }
+      else
+    this.callService(value,banner);
+    }
+
+    if(value1=='Blogs'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.blogData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='Videos'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.videoData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='Whitepapers'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.whitePaperData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='CaseStudies'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.caseStudyData)
+      }
+      else
+    this.callService(value,banner);
+    }
+    if(value1=='News'){
+      if(this.eventData.length!=0){
+        this.setBannerData(banner,this.newsData)
+      }
+      else
+    this.callService(value,banner);
+    }
+  }
+  setBannerData(banner,data){
+    if(banner=='banner1')
+    this.selectBlockData1=data;
+    if(banner=='banner2')
+    this.selectBlockData2=data;
+    if(banner=='banner3')
+    this.selectBlockData3=data;
+  }
+  callService(value,banner){
     this.service.getBannerBlockDetail(value).subscribe(res=>{
       console.log(res);
       if(banner=='banner1')
@@ -252,7 +325,6 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence")
       const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
@@ -262,7 +334,8 @@ export class ConfigurationComponent implements OnInit {
     obj.push(this.eventConfigurationForm.value);
      this.service.saveEventBlock('event',obj).subscribe(res=>{
        console.log(res);
-        alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+        //alert("SUCCESS!!");
      })
     }
   }
@@ -273,7 +346,6 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence");
       const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
@@ -282,7 +354,8 @@ export class ConfigurationComponent implements OnInit {
       obj.push(this.articleConfigurationForm.value);
      this.service.saveRescourceBlock('article',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+       //alert("SUCCESS!!");
      })
     }
   }
@@ -293,7 +366,6 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence");
       const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
@@ -302,7 +374,8 @@ export class ConfigurationComponent implements OnInit {
       obj.push(this.blogsConfigurationForm.value);
      this.service.saveRescourceBlock('blog',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+      // alert("SUCCESS!!");
      })
     }
   }
@@ -313,7 +386,6 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence");
       const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
@@ -322,7 +394,8 @@ export class ConfigurationComponent implements OnInit {
       obj.push(this.videosConfigurationForm.value);
      this.service.saveRescourceBlock('video',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+      // alert("SUCCESS!!");
      })
     }
   }
@@ -332,9 +405,7 @@ export class ConfigurationComponent implements OnInit {
     let data= this.filterArrForBannerBlock.filter((item, index) => this.filterArrForBannerBlock.indexOf(item) != index)
 
     if(data.length>0){
-
-      alert("Duplicate Sequence");
-      const index = this.filterArrForBannerBlock.indexOf(data[0]);
+  const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
     }
@@ -342,7 +413,8 @@ export class ConfigurationComponent implements OnInit {
       obj.push(this.whitePaperConfigurationForm.value);
      this.service.saveRescourceBlock('whitePapers',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+      // alert("SUCCESS!!");
      })
     }
   }
@@ -353,8 +425,7 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence");
-      const index = this.filterArrForBannerBlock.indexOf(data[0]);
+     const index = this.filterArrForBannerBlock.indexOf(data[0]);
         this.filterArrForBannerBlock.splice(index, 1);
       data=[];
     }
@@ -362,7 +433,8 @@ export class ConfigurationComponent implements OnInit {
       obj.push(this.caseStudyConfigurationForm.value);
      this.service.saveRescourceBlock('caseStudy',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+       //alert("SUCCESS!!");
      })
     }
   }
@@ -373,7 +445,6 @@ export class ConfigurationComponent implements OnInit {
 
     if(data.length>0){
 
-      alert("Duplicate Sequence")
       const index = this.filterArrForBannerBlock.indexOf(data[0]);
       this.filterArrForBannerBlock.splice(index, 1);
     data=[];
@@ -382,7 +453,8 @@ export class ConfigurationComponent implements OnInit {
     obj.push(this.newsConfigurationForm.value);
      this.service.saveEventBlock('news',obj).subscribe(res=>{
        console.log(res);
-       alert("SUCCESS!!");
+       this.snackBar.open('Saved Successfully', 'Close', {duration: 5000});
+       //alert("SUCCESS!!");
      })
     }
   }
