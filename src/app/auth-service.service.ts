@@ -128,7 +128,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/resources/case-studies', {headers:this.headers});
   }
   getAllNews():Observable<any>{
-    return this.http.get<any>(this.url+'api/public/news', {headers:this.headers})
+    return this.http.get<any>(this.url+'api/admin/news', {headers:this.headers})
   }
   saveNews(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/news', obj, {headers:this.headers});

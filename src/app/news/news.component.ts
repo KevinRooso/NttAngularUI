@@ -9,7 +9,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  videoList: any;
+  newsList: any;
   blogs;
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
@@ -26,15 +26,16 @@ export class NewsComponent implements OnInit {
 
   getAllnews(){
     this.authService.getAllNews().subscribe((res)=>{
-      this.videoList = res.body;
-      console.log("res", this.videoList);
+      this.newsList = res.body;
+      console.log("res data", this.newsList);
+      this.filterBlogs=res.body;
+      console.log("res data", this.filterBlogs);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
     })
   }
   getDetails(id) {
-    // alert(id);
     this.router.navigate(['/view-news'], { queryParams: { page: id } });
   }
   // showBlogDetail(id){

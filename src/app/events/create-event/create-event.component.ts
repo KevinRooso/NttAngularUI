@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-event',
@@ -12,6 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class CreateEventComponent implements OnInit {
+  // safeSrc: SafeResourceUrl;
+  // mapData: any;
+  // mapUrl:any;
 
   createEventForm: FormGroup;
   addTagForm: FormGroup;
@@ -38,6 +42,8 @@ export class CreateEventComponent implements OnInit {
   regStartDate = new Date();
   regEndDate = new Date();
 
+  locationURL:string;
+
   color: string = "3";
   userList: any[] = [];
 
@@ -54,7 +60,7 @@ export class CreateEventComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private sanitizer: DomSanitizer, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
@@ -65,6 +71,7 @@ export class CreateEventComponent implements OnInit {
       tagList: ['', Validators.required],
       premise: [''],
       webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+     // locationMapUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       targetUserType: ['', Validators.required],
       country: [''],
       pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
@@ -295,6 +302,7 @@ export class CreateEventComponent implements OnInit {
         "registrationStartDate": this.createEventForm.controls['registrationStartDate'].value,
         "registrationEndDate": this.createEventForm.controls['registrationEndDate'].value,
         "webinarUrl": this.createEventForm.controls['webinarUrl'].value,
+        //"locationMapUrl": this.createEventForm.controls['locationMapUrl'].value,
         "policyFAQ": this.createEventForm.controls['policyFAQ'].value,
         "policyTnc": this.createEventForm.controls['policyTnc'].value,
         "thumbnailImageUrl": this.articleImage,
@@ -393,6 +401,11 @@ export class CreateEventComponent implements OnInit {
   //     this.previewUrl2 = reader.result;
   //   }
   // }
+  // getNewLocation(){
+  //   this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.createEventForm.get(['locationMapUrl']).value);
+  //   this.mapUrl = this.createEventForm.get(['locationMapUrl']).value;
+  //  console.log("locationMapUrl", this.locationURL);
+  // }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
     this.closingDate = this.createEventForm.get(['startDate']).value;
@@ -405,7 +418,6 @@ export class CreateEventComponent implements OnInit {
     alert("inside location");
     this.authService.getLocation().subscribe(res => {
       console.log(res);
-
     })
   }
 }
