@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location} from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $;
 @Component({
   selector: 'app-edit-blog',
@@ -12,12 +13,6 @@ declare var $;
   styleUrls: ['./edit-blog.component.css']
 })
 export class EditBlogComponent  implements OnInit {
-
-  constructor(private formBuilder:FormBuilder,
-    private router:Router,
-    private service:AuthServiceService,
-    private actRoute:ActivatedRoute,
-    private location: Location) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
   addTagForm:FormGroup;
@@ -54,61 +49,72 @@ export class EditBlogComponent  implements OnInit {
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
   personImage:string="";
+  constructor(private formBuilder:FormBuilder,
+    private router:Router,
+    private service:AuthServiceService,
+    private actRoute:ActivatedRoute,
+    private location: Location,
+    public snackBar: MatSnackBar) {
+      this.createBlogForm = this.formBuilder.group({
+        title: ['',Validators.required],
+        longDescription: ['',Validators.required],
+        shortDescription: ['',Validators.required],
+        person: ['',Validators.required],
+        categoryId: ['',Validators.required],
+        tagList: ['',Validators.required],
+        targetUserType:['',Validators.required],
+        thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      });
+      let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+      this.personForm = this.formBuilder.group({
+        fullName:  ['',Validators.required],
+        description:  ['',Validators.required],
+        designation:  ['',Validators.required],
+        email:  ['',[Validators.required, Validators.email]],
+        keySkills:  [''],
+        origanizationName:  ['',Validators.required],
+
+        phone:  ['',Validators.pattern(mobnum)],
+
+        profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      });
+      this.addTagForm = this.formBuilder.group({
+        name:['',Validators.required],
+        keywords:['',Validators.required],
+      })
+
+
+      this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+        if(checkSubmitted){
+          if(this.submitted){
+            return this.createBlogForm.controls[controlName].hasError(errorName);
+          }
+        } else {
+          return this.createBlogForm.controls[controlName].hasError(errorName);
+        }
+      }
+      this.checkErrorPerson = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+        if(checkSubmitted){
+          if(this.submittedPerson){
+            return this.personForm.controls[controlName].hasError(errorName);
+          }
+        } else {
+          return this.personForm.controls[controlName].hasError(errorName);
+        }
+      }
+     }
+
   ngOnInit(): void {
-    this.getCategoryDetails();
-    this.getTagsDetails();
-    this.getPersons();
-    this.getUserList();
-    this.createBlogForm = this.formBuilder.group({
-      title: ['',Validators.required],
-      longDescription: ['',Validators.required],
-      shortDescription: ['',Validators.required],
-      person: ['',Validators.required],
-      categoryId: ['',Validators.required],
-      tagList: ['',Validators.required],
-      targetUserType:['',Validators.required],
-      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-    });
-    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
-    this.personForm = this.formBuilder.group({
-      fullName:  ['',Validators.required],
-      description:  ['',Validators.required],
-      designation:  ['',Validators.required],
-      email:  ['',[Validators.required, Validators.email]],
-      keySkills:  [''],
-      origanizationName:  ['',Validators.required],
-
-      phone:  ['',Validators.pattern(mobnum)],
-
-      profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-    });
-    this.addTagForm = this.formBuilder.group({
-      name:['',Validators.required],
-      keywords:['',Validators.required],
-    })
     this.actRoute.queryParams.subscribe(params => {
       this.blogId=params.page;
       this.getBlogData(params.page);
     });
+    this.getCategoryDetails();
+    this.getTagsDetails();
+    this.getPersons();
+    this.getUserList();
 
-    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted){
-        if(this.submitted){
-          return this.createBlogForm.controls[controlName].hasError(errorName);
-        }
-      } else {
-        return this.createBlogForm.controls[controlName].hasError(errorName);
-      }
-    }
-    this.checkErrorPerson = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted){
-        if(this.submittedPerson){
-          return this.personForm.controls[controlName].hasError(errorName);
-        }
-      } else {
-        return this.personForm.controls[controlName].hasError(errorName);
-      }
-    }
+
   }
   getUserList() {
     this.service.getUserList().subscribe((res) => {
@@ -118,6 +124,17 @@ export class EditBlogComponent  implements OnInit {
   getBlogData(id){
       this.service.getBlogById(id).subscribe(res=>{
         console.log("blog=",res);
+        this.createBlogForm.controls['targetUserType'].setValidators(null);
+      this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
+      this.createBlogForm.controls['tagList'].setValidators(null);
+      this.createBlogForm.controls['tagList'].updateValueAndValidity();
+      this.createBlogForm.controls['categoryId'].setValidators(null);
+      this.createBlogForm.controls['categoryId'].updateValueAndValidity();
+      this.createBlogForm.controls['person'].setValidators(null);
+      this.createBlogForm.controls['person'].updateValueAndValidity();
+      this.createBlogForm.controls['thumbnailImageUrl'].setValidators(null);
+      this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+        if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
         this.selected2=res.body.category.id;
         console.log("catg=",res.body.category.id);
@@ -148,11 +165,14 @@ export class EditBlogComponent  implements OnInit {
   }
   getTagsDetails(){
     this.service.getTagsList().subscribe((res)=>{
+      console.log("tag==",res.body);
+
        this.tagData=res.body;
     })
   }
   getPersons(){
     this.service.getPersons().subscribe(res=>{
+      console.log("persons==",res.body);
         this.persons=res.body;
 
     })
@@ -191,6 +211,7 @@ export class EditBlogComponent  implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
   }
@@ -225,6 +246,7 @@ export class EditBlogComponent  implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.personImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
       })
   }
@@ -257,6 +279,7 @@ export class EditBlogComponent  implements OnInit {
   }
   generateBlog(){
     let obj=this.createBlogForm.value;
+    if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
     console.log("tags=",obj.tagList);
     let personObj;
@@ -273,14 +296,7 @@ export class EditBlogComponent  implements OnInit {
     })
 
     let tags:any[]=[];
-    // obj.tagList.forEach(m=>{
-    //   let tag={
-    //     "id":m.id,
-    //   "keywords": m.keywords,
-    //   "name": m.name
-    //   }
-    //   tags.push(tag);
-    // });
+
     this.tagData.forEach(m=>{
       obj.tagList.forEach(n=>{
           if(n==m.id){
@@ -307,16 +323,19 @@ export class EditBlogComponent  implements OnInit {
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
       "resourceType":1,
+      "targetUserType":obj.targetUserType
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
-      alert("Blog Updated Successfully");
+
+      this.snackBar.open('Blog Updated Successfully', 'Close', {duration: 5000});
       this.router.navigate(['blogs']);
     })
   //console.log(this.createBlogForm.value);
-
-
+  }
+  else
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
 }
   submitPerson(){
     let flag=false;
@@ -341,8 +360,11 @@ export class EditBlogComponent  implements OnInit {
     this.closebutton.nativeElement.click();
   }
   else
-  alert("Author Already Exist")
+  this.snackBar.open('Author Already Exist', 'Close', {duration: 5000});
+  //alert("Author Already Exist")
   }
+  else
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
   }
   createTag(){
     if(this.addTagForm.valid){
@@ -358,7 +380,8 @@ export class EditBlogComponent  implements OnInit {
     this.closeModel.nativeElement.click();
   }
   else
-  alert("Tag Already EXist");
+  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+
   }
 }
 BackMe() {

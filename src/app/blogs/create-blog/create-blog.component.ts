@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $;
 @Component({
   selector: 'app-create-blog',
@@ -14,7 +15,8 @@ export class CreateBlogComponent implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
-    private service:AuthServiceService) { }
+    private service:AuthServiceService,
+    public snackBar: MatSnackBar) { }
   createBlogForm:FormGroup;
   personForm:FormGroup;
   addTagForm:FormGroup;
@@ -146,6 +148,7 @@ export class CreateBlogComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
   }
@@ -180,6 +183,7 @@ export class CreateBlogComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.personImage = res.fileDownloadUri;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
       })
   }
@@ -256,15 +260,17 @@ export class CreateBlogComponent implements OnInit {
 
     }
     console.log(dataObj);
-    // this.service.saveResource(dataObj).subscribe(res=>{
-    //   console.log(res);
-    //   alert("Blog Added Successfully");
-    //   this.router.navigate(['blogs']);
-    // })
+    this.service.saveResource(dataObj).subscribe(res=>{
+      console.log(res);
+      this.snackBar.open('Blog Added Successfully', 'Close', {duration: 5000});
+      //alert("Blog Added Successfully");
+      this.router.navigate(['blogs']);
+    })
   //console.log(this.createBlogForm.value);
 }
 else{
-  alert("Please fill all mandatory field");
+  //alert("Please fill all mandatory field");
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
 }
 
 }
@@ -291,9 +297,11 @@ else{
     this.closebutton.nativeElement.click();
     }
     else
-    alert("Author Already Exist")
+    this.snackBar.open('Author Already Exist', 'Close', {duration: 5000});
+   // alert("Author Already Exist")
   }else
-  alert("Please fill all mandatory field");
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+  //alert("Please fill all mandatory field");
   }
   createTag(){
     if(this.addTagForm.valid){
@@ -309,7 +317,8 @@ else{
     this.closeModel.nativeElement.click();
   }
   else
-  alert("Tag Already EXist");
+  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  //alert("Tag Already EXist");
   }
 }
 
