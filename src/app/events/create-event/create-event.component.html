@@ -34,10 +34,11 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description..." formControlName="detail" rows="6"></textarea>
             <mat-error *ngIf="checkError('detail', 'required')">(Description is required)</mat-error>
-            <mat-error *ngIf="checkError('detail', 'maxlength')">Description should be less than 2000 characters</mat-error>
+            <mat-error *ngIf="checkError('detail', 'maxlength')">Description should be less than 2000 characters
+            </mat-error>
           </mat-form-field>
         </div>
-<!-- Tine Mce Editor
+        <!-- Tine Mce Editor
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description</label>
           <textarea formControlName="shortDescription" id="shortDescription" class="example-full-width col-sm-9"
@@ -50,7 +51,8 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="3"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 700 characters</mat-error>
+            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 700
+              characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -115,6 +117,22 @@
             </mat-radio-group>
           </div>
         </div>
+        <!-- <div class="form-row" *ngIf="color=='3' || color=='1'">
+          <label class="col-sm-3 col-form-label">Location URL <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Location URL" value="" formControlName="locationMapUrl"
+              (change)="getNewLocation()">
+            <mat-error *ngIf="checkError('locationMapUrl', 'required')">(Location URL is required)</mat-error>
+            <mat-error *ngIf="checkError('locationMapUrl', 'pattern')">(Location URL is not valid)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row" *ngIf="color=='3' || color=='1'">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-7">
+            <iframe [src]="safeSrc" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+          </div> -->
+
         <div class="form-row" *ngIf="color=='3' || color=='2'">
           <label class="col-sm-3 col-form-label">Webinar URL <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
@@ -186,29 +204,29 @@
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Starting Date & Time <span class="error">*</span></label>
-         <div class="col-sm-9">
-          <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
-           placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
+          <div class="col-sm-9">
+            <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
+              placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
 
-          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
-        <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
-          (Event start date & time is required)
-        </div>
-         </div>
+            <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+            <owl-date-time #startdt></owl-date-time>
+            <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+              (Event start date & time is required)
+            </div>
+          </div>
 
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
-            placeholder="Closing Date & Time" formControlName="endDate">
-          <owl-date-time #enddt></owl-date-time>
-          <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
-            (Event end date & time is required)
+            <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
+              placeholder="Closing Date & Time" formControlName="endDate">
+            <owl-date-time #enddt></owl-date-time>
+            <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
+              (Event end date & time is required)
+            </div>
           </div>
-        </div>
           <!-- <mat-error *ngIf="checkError('endDate', 'required')">(Event end date & time is required)</mat-error> -->
         </div>
 
@@ -216,12 +234,12 @@
           <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
           <div class="col-sm-9">
             <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-            [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
-            formControlName="registrationStartDate">
-          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
-            (Registration start date is required)
-          </div>
+              [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
+              formControlName="registrationStartDate">
+            <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+            <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
+              (Registration start date is required)
+            </div>
           </div>
         </div>
 
@@ -229,11 +247,11 @@
           <label class="col-sm-3 col-form-label">Registration Closing Date <span class="error">*</span></label>
           <div class="col-sm-9">
             <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
-            class="form-control" placeholder="Closing Date" formControlName="registrationEndDate">
-          <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationEndDate', 'required', true)" style="color:red;font-size: 12px;">
-            (Registration end date is required)
-          </div>
+              class="form-control" placeholder="Closing Date" formControlName="registrationEndDate">
+            <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
+            <div *ngIf="checkError('registrationEndDate', 'required', true)" style="color:red;font-size: 12px;">
+              (Registration end date is required)
+            </div>
           </div>
         </div>
         <div class="form-row">
@@ -241,23 +259,27 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="policyTnc" rows="4"></textarea>
             <mat-error *ngIf="checkError('policyTnc', 'required')">Terms & Conditions is required</mat-error>
-            <mat-error *ngIf="checkError('policyTnc', 'maxlength')">Terms & Conditions should be less than 3000 characters</mat-error>
+            <mat-error *ngIf="checkError('policyTnc', 'maxlength')">Terms & Conditions should be less than 3000
+              characters</mat-error>
           </mat-form-field>
         </div>
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy FAQs</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
-              <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters</mat-error>
-            </mat-form-field>
-          </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy FAQs</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
+            <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
         <div class="form-row ">
           <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
-            (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
-            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
+              (change)="fileProgress($event)" />
+            <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is
+              required)</div>
+            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
+              JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
@@ -278,9 +300,11 @@
           <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">*</span></label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="detailImageUrl"
-            (change)="fileProgress2($event)" />
-            <div *ngIf="checkError('detailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
-            <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
+              (change)="fileProgress2($event)" />
+            <div *ngIf="checkError('detailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is
+              required)</div>
+            <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
+              JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-news-edit',
@@ -11,55 +12,95 @@ import {Location} from '@angular/common';
 })
 export class NewsEditComponent implements OnInit {
 
-  speakerImage: string="";
+  speakerImage: string = "";
 
-  constructor(private formBuilder:FormBuilder,
-    private router:Router,
-    private actRoute:ActivatedRoute,
-    private service:AuthServiceService, private location: Location) { }
-    createVideoForm:FormGroup;
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private actRoute: ActivatedRoute,
+    private service: AuthServiceService, private location: Location, public snackBar: MatSnackBar) { }
+  updateNewsForm: FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
-  catagoryData:any[]=[];
-  tagData:any[]=[];
-    newsId;
-    public dateTime1;
+  catagoryData: any[] = [];
+  tagData: any[] = [];
+  checkError: any;
+  submitted: boolean = false;
+  newsId;
+  public dateTime1;
+  articleImage: any;
+  imageValid: boolean = false;
+  selected3:string="";
+
+  userList: any[] = [];
   ngOnInit(): void {
 
-    this.createVideoForm = this.formBuilder.group({
-      title: ['',Validators.required],
-      shortDescription: ['',Validators.required],
-      date: ['',Validators.required],
-      location: ['',Validators.required],
-      thumbnailImageUrl:['']
-
+    this.updateNewsForm = this.formBuilder.group({
+      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      topic: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      about: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
+      location: ['', Validators.required],
+      targetUserType: ['', Validators.required],
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      draft: [false],
     });
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.updateNewsForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.updateNewsForm.controls[controlName].hasError(errorName);
+      }
+
+    }
+    this.getUserList();
     this.actRoute.queryParams.subscribe(params => {
-      this.newsId=params.page;
+      this.newsId = params.page;
       this.getNewsVideoById(params.page);
     });
   }
-  getNewsVideoById(id){
-      this.service.getNewsById(id).subscribe(res=>{
-        console.log(res);
-        this.getDate(res.body.date);
-        this.createVideoForm.get(['title']).setValue(res.body.title);
-        this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
-       // this.createVideoForm.get(['date']).setValue(res.body.date);
-        this.createVideoForm.get(['location']).setValue(res.body.location);
-        this.previewUrl=res.body.thumbnailImageUrl;
-        this.speakerImage=res.body.thumbnailImageUrl;
-      })
+  getUserList() {
+    this.service.getUserList().subscribe((res) => {
+      this.userList = res.body;
+      console.log("user", this.userList);
+    })
+  }
+  getNewsVideoById(id) {
+    this.service.getNewsById(id).subscribe(res => {
+      console.log("Data", res);
+      this.selected3=res.body.targetUserType.id;
+      console.log("Data", this.selected3);
+      // this.getDate(res.body.date);
+      this.updateNewsForm.get(['title']).setValue(res.body.title);
+      this.updateNewsForm.get(['topic']).setValue(res.body.topic);
+      this.updateNewsForm.get(['shortDescription']).setValue(res.body.shortDescription);
+      this.updateNewsForm.get(['longDescription']).setValue(res.body.longDescription);
+      this.updateNewsForm.get(['location']).setValue(res.body.location);
+      this.updateNewsForm.get(['about']).setValue(res.body.about);
+      this.updateNewsForm.get(['draft']).setValue(res.body.draft);
+      this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
+      this.updateNewsForm.controls['thumbnailImageUrl'].setValidators(null);
+      this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+      this.previewUrl = res.body.thumbnailImageUrl;
+      this.articleImage = res.body.thumbnailImageUrl;
+    })
   }
   fileProgress(fileInput: any) {
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    this.preview();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid = true;
+      this.preview();
+    }
   }
   preview() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
@@ -77,42 +118,60 @@ export class NewsEditComponent implements OnInit {
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
-        this.speakerImage = res.fileDownloadUri;
-        console.log(this.speakerImage);
+        this.articleImage = res.fileDownloadUri;
+        console.log("Image", this.articleImage);
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        //alert('SUCCESS !!');
       })
   }
 
-  generateBlog(){
-    if(this.createVideoForm.valid){
-      let date=this.createVideoForm.get(['date']).value.toString().split(' ');
-      console.log(date);
+  updateNews() {
+    this.submitted = true;
+    if (this.updateNewsForm.valid) {
 
-    let dataObj=this.createVideoForm.value;
-    dataObj['thumbnailImageUrl']=this.speakerImage;
-    dataObj['date']=this.createVideoForm.get(['date']).value.toString();
-    dataObj['year']=date[3];
-    dataObj['id']=this.newsId;
-    console.log(dataObj);
-    this.service.updateNews(dataObj).subscribe(res=>{
-      console.log(res);
+      let userId;
+      this.userList.forEach(m=>{
+        if(m.displayName==this.updateNewsForm.controls['targetUserType'].value)
+          userId=m.id;
+      });
 
-      alert("News Updated Successfully");
-      this.router.navigate(['/news']);
-    })
+      let objData = {
+        "title": this.updateNewsForm.controls['title'].value,
+        "topic": this.updateNewsForm.controls['topic'].value,
+        "shortDescription": this.updateNewsForm.controls['shortDescription'].value,
+        "longDescription": this.updateNewsForm.controls['longDescription'].value,
+        "location": this.updateNewsForm.controls['location'].value,
+        "about": this.updateNewsForm.controls['about'].value,
+        "active": false,
+        "draft": this.updateNewsForm.controls['draft'].value,
+        "thumbnailImageUrl": this.articleImage,
+        "id": this.newsId,
+        "targetUserType":userId
+      }
+      console.log("post", objData);
+      this.service.saveNews(objData).subscribe((response) => {
+        this.snackBar.open('News successfully updated', 'Close', { duration: 5000 });
+        // console.log("responsne", response);
+        this.submitted = false;
+        //this.router.navigate(['events']);
+      },
+        (error) => {
+          this.snackBar.open(error, 'Close');
+          // alert("Error :" + error);
+        })
     }
-}
-BackMe(){
-  this.location.back();
-}
-getDate(date){
-let dObj=date.split(' ');
-console.log(dObj[3],'=',MONTH[dObj[1]],'=',dObj[2]);
-//  this.dateTime1=new Date(2019, 3, 3);
-this.dateTime1=new Date(dObj[3],MONTH[dObj[1]],dObj[2]);
-}
+  }
+  BackMe() {
+    this.location.back();
+  }
+  // getDate(date){
+  // let dObj=date.split(' ');
+  // console.log(dObj[3],'=',MONTH[dObj[1]],'=',dObj[2]);
+  // this.dateTime1=new Date(dObj[3],MONTH[dObj[1]],dObj[2]);
+  // }
 
 }
-const MONTH={
-    'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,
-    'Sep':8,'Oct':9,'Nov':10,'Dec':11
-}
+// const MONTH={
+//     'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,
+//     'Sep':8,'Oct':9,'Nov':10,'Dec':11
+// }
