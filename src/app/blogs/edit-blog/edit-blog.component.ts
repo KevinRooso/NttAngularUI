@@ -36,35 +36,51 @@ export class EditBlogComponent  implements OnInit {
   addOnBlur = true;
   selected2:string="";
   selected3:string="";
+  tarUserType:string="";
   selected4:string[]=[];
   blogId;
+
+
+  checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean=false;
+  checkErrorPerson:any;
+  submittedPerson: boolean = false;
+  imageValidPerson:boolean=false;
+  previewUrl1: any = null;
+  imageValid1:boolean=false;
+  userList:any[]=[];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
   personImage:string="";
   ngOnInit(): void {
-
+    this.getCategoryDetails();
+    this.getTagsDetails();
+    this.getPersons();
+    this.getUserList();
     this.createBlogForm = this.formBuilder.group({
       title: ['',Validators.required],
-      longDescription: [''],
-      shortDescription: [''],
-      person: [''],
+      longDescription: ['',Validators.required],
+      shortDescription: ['',Validators.required],
+      person: ['',Validators.required],
       categoryId: ['',Validators.required],
-      tagList: [''],
-      thumbnailImageUrl: [''],
+      tagList: ['',Validators.required],
+      targetUserType:['',Validators.required],
+      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     this.personForm = this.formBuilder.group({
       fullName:  ['',Validators.required],
       description:  ['',Validators.required],
-      designation:  [''],
+      designation:  ['',Validators.required],
       email:  ['',[Validators.required, Validators.email]],
       keySkills:  [''],
-      origanizationName:  [''],
-      personalEmail:  [''],
-      phone:  ['',[Validators.required, Validators.pattern(mobnum)]],
-      profile:  [''],
-      profileImageUrl:  [''],
+      origanizationName:  ['',Validators.required],
+
+      phone:  ['',Validators.pattern(mobnum)],
+
+      profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     this.addTagForm = this.formBuilder.group({
       name:['',Validators.required],
@@ -74,14 +90,35 @@ export class EditBlogComponent  implements OnInit {
       this.blogId=params.page;
       this.getBlogData(params.page);
     });
-    this.getCategoryDetails();
-    this.getTagsDetails();
-    this.getPersons();
 
+    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submitted){
+          return this.createBlogForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.createBlogForm.controls[controlName].hasError(errorName);
+      }
+    }
+    this.checkErrorPerson = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+      if(checkSubmitted){
+        if(this.submittedPerson){
+          return this.personForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.personForm.controls[controlName].hasError(errorName);
+      }
+    }
+  }
+  getUserList() {
+    this.service.getUserList().subscribe((res) => {
+      this.userList = res.body;
+    })
   }
   getBlogData(id){
       this.service.getBlogById(id).subscribe(res=>{
         console.log("blog=",res);
+        this.tarUserType=res.body.targetUserType.id;
         this.selected2=res.body.category.id;
         console.log("catg=",res.body.category.id);
         console.log("person=",res.body.person.id);
@@ -120,10 +157,20 @@ export class EditBlogComponent  implements OnInit {
 
     })
   }
+
   fileProgress(fileInput: any) {
+    this.previewUrl=null;
+    this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid=true;
     this.preview();
+    }
   }
+
+
+
   preview() {
     // Show preview
     var mimeType = this.fileData.type;
@@ -147,11 +194,17 @@ export class EditBlogComponent  implements OnInit {
         console.log(this.speakerImage);
       })
   }
-
   fileProgress1(fileInput: any) {
+    this.previewUrl1=null;
+    this.imageValid1=false;
     this.fileData = <File>fileInput.target.files[0];
-    this.preview();
+    let fileType=this.fileData.type;
+     if(fileType=='image/jpeg' || fileType=='image/png'){
+      this.imageValid1=true;
+    this.preview1();
+    }
   }
+
   preview1() {
     // Show preview
     var mimeType = this.fileData.type;
@@ -162,7 +215,7 @@ export class EditBlogComponent  implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
-      this.previewUrl = reader.result;
+      this.previewUrl1 = reader.result;
     }
   }
   uploadImage1() {
