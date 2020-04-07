@@ -28,7 +28,7 @@ export class CreateParticipantsComponent implements OnInit {
       this.id=params.page;
       if(params.page!= undefined){
       this.flag=false;
-      this.participant=this.participant+" for "+params.name;
+      this.participant=this.participant+" for : "+params.name;
       this.eventId=params.page;
       }
     });

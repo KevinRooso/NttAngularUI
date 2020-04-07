@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -32,11 +33,22 @@ export class CasesCreateComponent implements OnInit {
     uploadedFilePath: string = null;
     speakerImage: string="";
     catagoryData:any[]=[];
+
+    checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean=false;
+  checkErrorPerson:any;
+  submittedPerson: boolean = false;
+  imageValidPerson:boolean=false;
+  previewUrl1: any = null;
+  imageValid1:boolean=false;
+  userList:any[]=[];
     @ViewChild('closeModel',{static:true}) closeModel;
     constructor(private formbuilder: FormBuilder,
       private authService: AuthServiceService,
       private location: Location,
-      private router:Router) {
+      private router:Router,
+      public snackBar: MatSnackBar) {
 
     }
 
@@ -47,11 +59,13 @@ export class CasesCreateComponent implements OnInit {
       let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
       this.createCases = this.formbuilder.group({
         title: ['', Validators.required],
-        longDescription: [''],
-        categoryId: [''],
-        tagList: [''],
+        longDescription: ['', Validators.required],
+        categoryId: ['', Validators.required],
+        tagList: ['', Validators.required],
         serviceUsed: ['', Validators.required],
-        thumbnailImageUrl: ['']
+        targetUserType:['',Validators.required],
+        thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+        isDraft:[false]
       });
       this.addTagForm = this.formbuilder.group({
         name:['',Validators.required],
@@ -59,6 +73,21 @@ export class CasesCreateComponent implements OnInit {
       })
       this.getCategoryDetails();
       this.getTagsDetails();
+      this.getUserList();
+      this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+        if(checkSubmitted){
+          if(this.submitted){
+            return this.createCases.controls[controlName].hasError(errorName);
+          }
+        } else {
+          return this.createCases.controls[controlName].hasError(errorName);
+        }
+      }
+    }
+    getUserList() {
+      this.authService.getUserList().subscribe((res) => {
+        this.userList = res.body;
+      })
     }
     getCategoryDetails(){
       this.authService.getCategoryList().subscribe((res)=>{
@@ -71,8 +100,14 @@ export class CasesCreateComponent implements OnInit {
       })
     }
     fileProgress(fileInput: any) {
+      this.previewUrl=null;
+      this.imageValid=false;
       this.fileData = <File>fileInput.target.files[0];
+      let fileType=this.fileData.type;
+       if(fileType=='image/jpeg' || fileType=='image/png'){
+        this.imageValid=true;
       this.preview();
+      }
     }
     preview() {
       // Show preview
@@ -94,6 +129,7 @@ export class CasesCreateComponent implements OnInit {
         .subscribe(res => {
           console.log("Image", res);
           this.speakerImage = res.fileDownloadUri;
+          this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
           console.log(this.speakerImage);
           // alert('SUCCESS !!');
         })
@@ -113,7 +149,7 @@ export class CasesCreateComponent implements OnInit {
      });
 
      let dataObj={
-       "isDraft":true,
+       "isDraft":obj.isDraft,
        "categoryId": obj.categoryId.id,
        "longDescription": obj.longDescription,
         "person": {
@@ -121,6 +157,7 @@ export class CasesCreateComponent implements OnInit {
         "resourceType":3,
         "serviceUsed": obj.serviceUsed,
         "tagList": tags,
+        "targetUserType":obj.targetUserType,
         "thumbnailImageUrl": this.speakerImage,
         "title": obj.title
 
@@ -129,11 +166,13 @@ export class CasesCreateComponent implements OnInit {
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
         console.log(res);
-        alert("Blog Added Successfully");
+      this.snackBar.open('Case Study Added Successfully', 'Close', {duration: 5000});
+        //alert("Blog Added Successfully");
         this.router.navigate(['cases']);
       })
       }
-
+      else
+      this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
     }
     createTag(){
       if(this.addTagForm.valid){
@@ -149,7 +188,8 @@ export class CasesCreateComponent implements OnInit {
       this.closeModel.nativeElement.click();
     }
     else
-    alert("Tag Already EXist");
+    this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+   // alert("Tag Already EXist");
     }
   }
     BackMe() {

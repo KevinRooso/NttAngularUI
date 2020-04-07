@@ -17,6 +17,7 @@
           <label class="col-sm-3 col-form-label">Title</label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -24,6 +25,7 @@
           <label class="col-sm-3 col-form-label">Description</label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -36,6 +38,7 @@
                 {{category.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Service is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -46,6 +49,7 @@
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
             <mat-option *ngFor="let tag of tagData" [value]="tag.name">{{tag.name}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Service is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -61,6 +65,7 @@
           <label class="col-sm-3 col-form-label">Service Used</label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Service Used" formControlName="serviceUsed" rows="4"></textarea>
+            <mat-error *ngIf="checkError('serviceUsed', 'required')">(Service Used is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -73,14 +78,28 @@
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
         </div> -->
 
-
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event Type</mat-label>
+            <mat-select formControlName="targetUserType" [(value)]="tarUserType">
+              <mat-option *ngFor="let user of userList" [value]="user.id">
+                {{user.displayName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Atleast one Target User Type is required)</mat-error>
+          </mat-form-field>
+        </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label"> Image</label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
+          <label class="col-sm-3 col-form-label"> Image <span class="error">*</span></label>
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file " formControlName="thumbnailImageUrl"
             (change)="fileProgress($event)" />
-          <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()">Upload File</button>
+            <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
+            <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -96,7 +115,10 @@
           </div>
         </div>
 
-
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Save as draft</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isDraft">Draft</mat-slide-toggle>
+        </div>
         <div class="text-right">
           <button class="btn button-1 action-good" (click)="createCase()">Update Details</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->

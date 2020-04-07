@@ -20,6 +20,17 @@
   font-weight: 500;
   display: none;
 }
+
+
+
+.table td, .table th {
+  padding: 0.6rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+} */
+.edit .btn:hover {
+  background: #324da1;
+}
 .edit .btn {
   position: absolute;
   top: 2%;
@@ -35,16 +46,6 @@
   box-shadow: 0 3px 6px rgba(0,0,0,.275);
   outline: none;
 }
-
-.edit .btn:hover {
-  background: #324da1;
-}
-.table td, .table th {
-  padding: 0.6rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-} */
-
 .cpadl {
   padding-left: 50px;
 }

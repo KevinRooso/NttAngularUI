@@ -18,9 +18,12 @@
                   class="img-circle img-responsive" width="100%" alt="No Image preview" height="200px">
               </div>
               <div class="py-3">
-                <h6>Client : </h6>
-                <h6>Industry : </h6>
+                <h6>Client : {{cases.category.displayName}}</h6>
+                <h6>Industry : {{cases.resourceTags[0].name}} </h6>
               </div>
+            </div>
+            <div class="col-md-1 edit">
+              <button class="btn" (click)="editcaseRoute()"><span class="fa fa-pencil" aria-hidden="true" ></span></button>
             </div>
             <div class="col-sm-9 customULL col-md-9 service cpadl">
               <span>Services Used: </span><br>

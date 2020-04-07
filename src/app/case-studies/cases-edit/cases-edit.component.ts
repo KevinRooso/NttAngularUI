@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cases-edit',
@@ -32,20 +33,34 @@ export class CasesEditComponent implements OnInit {
     selected3:string="";
     selected4:string[]=[];
     catagoryData:any[]=[];
+
+    checkError:any;
+  submitted: boolean = false;
+  imageValid:boolean=false;
+  checkErrorPerson:any;
+  submittedPerson: boolean = false;
+  imageValidPerson:boolean=false;
+  previewUrl1: any = null;
+  imageValid1:boolean=false;
+  userList:any[]=[];
+  tarUserType:string="";
     @ViewChild('closeModel',{static:true}) closeModel;
     constructor(private frmbuilder: FormBuilder,
       private authService: AuthServiceService,
        private location: Location,
        private actRoute:ActivatedRoute,
-       private router:Router) {
+       private router:Router,
+       public snackBar: MatSnackBar) {
       let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
       this.createCases = frmbuilder.group({
         title: ['', Validators.required],
-        longDescription: [''],
-        categoryId: [''],
-        tagList: [''],
+        longDescription: ['', Validators.required],
+        categoryId: ['', Validators.required],
+        tagList: ['', Validators.required],
         serviceUsed: ['', Validators.required],
-        thumbnailImageUrl: ['']
+        targetUserType:['',Validators.required],
+        thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+        isDraft:[false]
       });
       this.addTagForm = this.frmbuilder.group({
         name:['',Validators.required],
@@ -58,11 +73,27 @@ export class CasesEditComponent implements OnInit {
     ngOnInit(): void {
       // this.createSpeaker();
       this.actRoute.queryParams.subscribe(params => {
-      this.caseId=params.page;
-        this.getCasesData(params.page);
-      });
+        this.caseId=params.page;
+          this.getCasesData(params.page);
+        });
       this.getCategoryDetails();
       this.getTagsDetails();
+      this.getUserList();
+
+      this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
+        if(checkSubmitted){
+          if(this.submitted){
+            return this.createCases.controls[controlName].hasError(errorName);
+          }
+        } else {
+          return this.createCases.controls[controlName].hasError(errorName);
+        }
+      }
+    }
+    getUserList() {
+      this.authService.getUserList().subscribe((res) => {
+        this.userList = res.body;
+      })
     }
     getCasesData(id){
       this.authService.getBlogById(id).subscribe(res=>{
@@ -71,19 +102,32 @@ export class CasesEditComponent implements OnInit {
         this.selected2=res.body.category.id;
         console.log("catg=",res.body.category.id);
         console.log("person=",res.body.person.id);
-
         this.selected3=res.body.person.id;
         for(let i=0;i<res.body.resourceTags.length;i++)
         this.selected4.push(res.body.resourceTags[i].name);
         console.log("tags=",this.selected4);
-
+        console.log("usrrrr=",res.body.targetUserType.id);
+        if(res.body.targetUserType!=null)
+        this.tarUserType=res.body.targetUserType.id;
+        this.createCases.controls['targetUserType'].setValidators(null);
+      this.createCases.controls['targetUserType'].updateValueAndValidity();
+      this.createCases.controls['tagList'].updateValueAndValidity();
+      this.createCases.controls['categoryId'].setValidators(null);
+      this.createCases.controls['categoryId'].updateValueAndValidity();
+      this.createCases.controls['tagList'].setValidators(null);
+      // this.createCases.controls['person'].setValidators(null);
+      // this.createCases.controls['person'].updateValueAndValidity();
+      this.createCases.controls['thumbnailImageUrl'].setValidators(null);
+      this.createCases.controls['thumbnailImageUrl'].updateValueAndValidity();
+      this.createCases.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
+      this.createCases.controls['thumbnailImageUrl'].updateValueAndValidity();
         this.previewUrl=res.body.thumbnailImageUrl;
         this.speakerImage=res.body.thumbnailImageUrl;
         this.createCases.get(['title']).setValue(res.body.title);
         this.createCases.get(['longDescription']).setValue(res.body.longDescription);
         this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
         this.createCases.get(['categoryId']).setValue(res.body.category.id);
-        this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
+       // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
 
       })
     }
@@ -100,8 +144,14 @@ export class CasesEditComponent implements OnInit {
       })
     }
     fileProgress(fileInput: any) {
+      this.previewUrl=null;
+      this.imageValid=false;
       this.fileData = <File>fileInput.target.files[0];
+      let fileType=this.fileData.type;
+       if(fileType=='image/jpeg' || fileType=='image/png'){
+        this.imageValid=true;
       this.preview();
+      }
     }
     preview() {
       // Show preview
@@ -123,6 +173,7 @@ export class CasesEditComponent implements OnInit {
         .subscribe(res => {
           console.log("Image", res);
           this.speakerImage = res.fileDownloadUri;
+          this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
           console.log(this.speakerImage);
           // alert('SUCCESS !!');
         })
@@ -148,7 +199,7 @@ export class CasesEditComponent implements OnInit {
        tags.push(tag);
      });
      let dataObj={
-       "isDraft":true,
+       "isDraft":obj.isDraft,
        "id":this.caseId,
        "categoryId": catObj.id,
        "longDescription": obj.longDescription,
@@ -157,16 +208,20 @@ export class CasesEditComponent implements OnInit {
         "resourceType":3,
         "serviceUsed": obj.serviceUsed,
         "tagList": tags,
+        "targetUserType":obj.targetUserType,
         "thumbnailImageUrl": this.speakerImage,
         "title": obj.title
    }
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
         console.log(res);
-        alert("Case Study Updated Successfully");
+        this.snackBar.open('Case Study Updated Successfully', 'Close', {duration: 5000});
+        //alert("Case Study Updated Successfully");
         this.router.navigate(['cases']);
       })
       }
+      else
+      this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
 
     }
     createTag(){
