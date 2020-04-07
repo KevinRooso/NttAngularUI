@@ -218,7 +218,7 @@ export class CreateBlogComponent implements OnInit {
   generateBlog(){
     let obj=this.createBlogForm.value;
     // if(this.createBlogForm.valid){
-      if(true){
+      if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
 
     let tags:any[]=[];
@@ -271,7 +271,6 @@ export class CreateBlogComponent implements OnInit {
   //console.log(this.createBlogForm.value);
 }
 else{
-  //alert("Please fill all mandatory field");
   this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
 }
 

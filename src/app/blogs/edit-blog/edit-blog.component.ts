@@ -133,8 +133,10 @@ export class EditBlogComponent  implements OnInit {
       this.createBlogForm.controls['categoryId'].updateValueAndValidity();
       this.createBlogForm.controls['person'].setValidators(null);
       this.createBlogForm.controls['person'].updateValueAndValidity();
-      this.createBlogForm.controls['thumbnailImageUrl'].setValidators(null);
-      this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+       this.createBlogForm.controls['thumbnailImageUrl'].setValidators(null);
+       this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+       this.createBlogForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
+       this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
         if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
         this.selected2=res.body.category.id;
