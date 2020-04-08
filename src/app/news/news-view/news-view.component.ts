@@ -22,8 +22,7 @@ export class NewsViewComponent implements OnInit {
   }
   getBlogData(id){
     this.service.getNewsById(id).subscribe((res)=>{
-      console.log(res);
-
+      console.log("News Data",res);
       this.news = res.body;
 
     })

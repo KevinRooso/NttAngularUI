@@ -35,6 +35,7 @@
       </div>
       <div class="p-2">
         <p class="videos-title">{{news.title}}</p>
+        <p class="videos-title">Date : {{news.updatedAt | date}}</p>
         <p class="videos-title">{{news.shortDescription | truncate : 130 : false}}</p>
       </div>
     </mat-card>

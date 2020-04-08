@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-article-create',
@@ -12,7 +13,8 @@ import { Location} from '@angular/common';
 export class ArticleCreateComponent implements OnInit {
 
   createArticleForm: FormGroup;
-
+  addTagForm: FormGroup;
+  tagsList: string[] = [];
 
   fileData: File = null;
   previewUrl: any = null;
@@ -21,29 +23,86 @@ export class ArticleCreateComponent implements OnInit {
   articleImage: any;
   attachUrl: any = null;
   attachFile: any;
-
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location) {
+  checkError: any;
+  submitted: boolean = false;
+  imageValid: boolean = false;
+  imageValid2: boolean = false;
+  userList: any[] = [];
+  allData: any[] = [];
+  tagData: any[] = [];
+  @ViewChild('closeModel', { static: true }) closeModel;
+  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
+    private location: Location, public snackBar: MatSnackBar) {
     this.createArticleForm = frmbuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['',  Validators.required],
-      thumbnailImageUrl: [''],
-      downloadUrl: ['']
+      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(pdf)$')]),
+      draft: [false],
+      tagList: ['', Validators.required],
+      targetUserType: ['', Validators.required],
+      categoryId: ['', Validators.required]
     });
+
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.createArticleForm.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.createArticleForm.controls[controlName].hasError(errorName);
+      }
+
+    }
+    this.addTagForm = frmbuilder.group({
+      name: ['', Validators.required],
+      keywords: ['', Validators.required],
+    })
   }
+
+
 
   ngOnInit(): void {
-    // this.createArticle();
+    this.getUserList();
+    this.getCategoryDetails();
+    this.getTagsDetails();
   }
-
+  getTagsDetails() {
+    this.authService.getTagsList().subscribe((res) => {
+      this.tagData = res.body;
+    })
+  }
+  getUserList() {
+    this.authService.getUserList().subscribe((res) => {
+      this.userList = res.body;
+    })
+  }
+  getCategoryDetails() {
+    this.authService.getCategoryList().subscribe((res) => {
+      this.allData = res.body;
+    })
+  }
 
   fileProgress(fileInput: any) {
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    this.preview();
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      this.imageValid = true;
+      this.preview();
+    }
   }
   fileProgress2(fileInput: any) {
+    this.attachUrl = null;
+    this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
-    this.preview2();
+    let fileType = this.fileData.type;
+    if (fileType == 'application/pdf') {
+      this.imageValid2 = true;
+      this.preview2();
+    }
   }
   preview() {
     // Show preview
@@ -79,7 +138,7 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        // alert('SUCCESS !!');
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
@@ -90,43 +149,78 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        // alert('SUCCESS !!');
+        this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       })
   }
 
   createArticle() {
-    if(this.createArticleForm.valid){
-    let obj = {
+    if (this.createArticleForm.valid) {
 
-      "categoryId": 0,
-      "customerProfile": "string",
-      "detailImageUrl": "string",
-      "downloadUrl": this.attachFile,
-      "isDraft": true,
-      "longDescription": this.createArticleForm.controls['longDescription'].value,
-      "person": {},
-      "resourceType": 2,
-      "serviceUsed": "string",
-      "shortDescription": this.createArticleForm.controls['shortDescription'].value,
-      "tagList": [{}],
-      "thumbnailImageUrl": this.articleImage,
-      "title": this.createArticleForm.controls['title'].value
+      let tags: any[] = [];
+
+      this.createArticleForm.value.tagList.forEach(m => {
+        let tag = {
+          "id": m.id,
+          "keywords": m.keywords,
+          "name": m.name
+        }
+        tags.push(tag);
+      });
+
+      let obj = {
+        "categoryId": this.createArticleForm.controls['categoryId'].value,
+        "customerProfile": "string",
+        "detailImageUrl": "string",
+        "downloadUrl": this.attachFile,
+        "draft": this.createArticleForm.controls['draft'].value,
+        "longDescription": this.createArticleForm.controls['longDescription'].value,
+        "person": {},
+        "resourceType": 2,
+        "serviceUsed": "string",
+        "shortDescription": this.createArticleForm.controls['shortDescription'].value,
+        "tagList": tags,
+        "thumbnailImageUrl": this.articleImage,
+        "title": this.createArticleForm.controls['title'].value,
+        "targetUserType": this.createArticleForm.controls['targetUserType'].value,
+        "approverId": 0,
+      }
+      console.log("post", obj);
+
+      this.authService.saveResource(obj).subscribe(
+        (response) => {
+          this.snackBar.open('Article successfully created', 'Close', { duration: 5000 });
+          console.log("response", response);
+        },
+        (error) => {
+          this.snackBar.open(error, 'Close');
+        }
+      )
     }
-    console.log("post", obj);
+    else {
+      this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
+    }
 
-    this.authService.saveResource(obj).subscribe(
-      (response) => {
-        alert("Successfully Created");
-        console.log("response", response);
-      },
-      (error) => console.log(error)
-    )
   }
-
-}
-BackMe() {
-  this.location.back(); // <-- go back to previous location on cancel
-}
+  createTag() {
+    if (this.addTagForm.valid) {
+      let flag = true;
+      this.tagData.forEach(m => {
+        if (m.keywords == this.addTagForm.get(['keywords']).value)
+          flag = false;
+      })
+      let obj = this.addTagForm.value
+      if (flag) {
+        obj['id'] = 0;
+        this.tagData.unshift(obj);
+        this.closeModel.nativeElement.click();
+      }
+      else
+        alert("Tag Already EXist");
+    }
+  }
+  BackMe() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 
 }
 
