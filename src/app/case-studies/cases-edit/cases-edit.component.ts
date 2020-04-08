@@ -72,14 +72,14 @@ export class CasesEditComponent implements OnInit {
 
     ngOnInit(): void {
       // this.createSpeaker();
+
+      this.getCategoryDetails();
+      this.getTagsDetails();
+      this.getUserList();
       this.actRoute.queryParams.subscribe(params => {
         this.caseId=params.page;
           this.getCasesData(params.page);
         });
-      this.getCategoryDetails();
-      this.getTagsDetails();
-      this.getUserList();
-
       this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
         if(checkSubmitted){
           if(this.submitted){
@@ -92,21 +92,24 @@ export class CasesEditComponent implements OnInit {
     }
     getUserList() {
       this.authService.getUserList().subscribe((res) => {
+        console.log("3");
+        console.log("userlist===",res.body);
+
         this.userList = res.body;
       })
     }
     getCasesData(id){
       this.authService.getBlogById(id).subscribe(res=>{
+        console.log("4");
+
         console.log(res);
-        console.log("blog=",res);
+
         this.selected2=res.body.category.id;
-        console.log("catg=",res.body.category.id);
-        console.log("person=",res.body.person.id);
+
         this.selected3=res.body.person.id;
         for(let i=0;i<res.body.resourceTags.length;i++)
         this.selected4.push(res.body.resourceTags[i].name);
-        console.log("tags=",this.selected4);
-        console.log("usrrrr=",res.body.targetUserType.id);
+
         if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
         this.createCases.controls['targetUserType'].setValidators(null);
@@ -133,13 +136,20 @@ export class CasesEditComponent implements OnInit {
     }
     getCategoryDetails(){
       this.authService.getCategoryList().subscribe((res)=>{
+        console.log("1");
+        console.log("cat=",res.body);
+
         this.catagoryData = res.body;
-        console.log("cat=",this.catagoryData);
+
 
       })
     }
     getTagsDetails(){
+
+
       this.authService.getTagsList().subscribe((res)=>{
+        console.log("2");
+      console.log("tagss==",res.body);
          this.tagData=res.body;
       })
     }

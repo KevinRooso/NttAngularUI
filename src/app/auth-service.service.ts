@@ -111,7 +111,7 @@ export class AuthServiceService {
   getAllBlogs(){
     return this.http.get<any>(this.url+'api/public/resources/blogs', {headers:this.headers});
   }
-  getBlogById(id){
+  getBlogById(id):Observable<any>{
     return this.http.get<any>(this.url+'api/public/resource/'+id, {headers:this.headers});
   }
 
@@ -162,5 +162,9 @@ export class AuthServiceService {
   }
   saveRescourceBlock(id,obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/homePage/'+id, obj, {headers:this.headers});
+  }
+
+  getAllHomeData():Observable<any>{
+    return this.http.get<any>(this.url+'api/public/homePage', {headers:this.headers})
   }
 }

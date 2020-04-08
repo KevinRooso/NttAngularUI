@@ -274,7 +274,7 @@
               <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+              <button class="btn btn-primary" (click)="uploadImage()" [ngClass]="{'cursor' : !imageValid}" [disabled]="!imageValid">Upload File</button>
               <div *ngIf="fileUploadProgress">
                 Upload progress: {{ fileUploadProgress }}
               </div>
@@ -297,7 +297,7 @@
             <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" (click)="uploadAttachment()" [ngClass]="{'cursor' : !imageValid2}" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>

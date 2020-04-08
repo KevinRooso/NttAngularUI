@@ -38,6 +38,7 @@ export class CreateEventComponent implements OnInit {
   tag = new FormControl();
 
   today = new Date();
+  newtoday = new Date();
   closingDate = new Date();
   regStartDate = new Date();
   regEndDate = new Date();
@@ -61,6 +62,8 @@ export class CreateEventComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private sanitizer: DomSanitizer, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
+
+    this.newtoday.setDate(this.newtoday.getDate()-1);
     this.createEventForm = formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
@@ -409,7 +412,7 @@ export class CreateEventComponent implements OnInit {
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
     this.closingDate = this.createEventForm.get(['startDate']).value;
-    this.regStartDate = this.closingDate;
+   this.regStartDate = this.closingDate;
   }
   maxRegDate() {
     this.regEndDate = this.createEventForm.get(['registrationStartDate']).value;

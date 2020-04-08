@@ -83,7 +83,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['speaker-details'], { queryParams: { page: id } });
   }
   Back() {
-    this.location.back(); // <-- go back to previous location on cancel
+    this.router.navigate(['events']);
   }
   fabButtons = [
     {

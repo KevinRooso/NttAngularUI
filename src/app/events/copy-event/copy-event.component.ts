@@ -434,7 +434,7 @@ export class CopyEventComponent implements OnInit {
         console.log("responsne", response);
         this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
         this.submitted = false;
-        this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
+        this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
       },
       (error) => {
         this.snackBar.open(error, 'Close');

@@ -75,16 +75,16 @@
             <h5 class="card-title">{{getEventDetails.title}}</h5>
             <!-- <h6>Description</h6> -->
             <p class="card-text"><span class="event-label">Description</span>{{getEventDetails.detail}}</p>
-            <p class="card-text mb-0"><span style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
+            <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId!=null"><span style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
            <p class="card-text mb-0" style="font-weight: 500;">Tags - <span class="tags" *ngFor="let tag of getEventDetails.tags">{{tag.name}}</span></p>
           </div>
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
               <div class="col-sm-6 float-left px-0">
                 <div class="text-left">
-                  <p *ngIf="getEventDetails.address1!= 0"><span style="font-weight: 500;">Address1 - </span>{{getEventDetails.address1}}</p>
-                  <p *ngIf="getEventDetails.address2!= 0"><span style="font-weight: 500;">Address2 - </span>{{getEventDetails.address2}}</p>
-                  <p *ngIf="getEventDetails.webinarUrl!= 0"><span style="font-weight: 500;">Webinar URL - </span>{{getEventDetails.webinarUrl}}</p>
+                  <p *ngIf="getEventDetails.address1!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Address1 - </span>{{getEventDetails.address1}}</p>
+                  <p *ngIf="getEventDetails.address2!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Address2 - </span>{{getEventDetails.address2}}</p>
+                  <p *ngIf="getEventDetails.webinarUrl!= 0 && getEventDetails.isWebinar || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Webinar URL - </span><a [href]="getEventDetails.webinarUrl" target="_blank">{{getEventDetails.webinarUrl}}</a></p>
                   <p><span style="font-weight: 500;">Start Time - </span>{{startTime}}</p>
                   <p><span style="font-weight: 500;">End Time - </span>{{endTime}}</p>
                 </div>

@@ -234,7 +234,7 @@
           <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
           <div class="col-sm-9">
             <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-              [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
+              [min]="newtoday" [max]="regStartDate" class="form-control" placeholder="Start Date"
               formControlName="registrationStartDate">
             <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
             <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
@@ -282,7 +282,7 @@
               JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -307,7 +307,7 @@
               JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" (click)="uploadAttachment()" [ngClass]="{'cursor' : !imageValid2}" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
