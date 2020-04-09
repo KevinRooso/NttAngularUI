@@ -40,21 +40,20 @@
                   <tr>
                     <td>Phone Number:</td>
                     <td>{{participant.phoneNumber}}</td>
-                    <td>City:</td>
-                    <td>{{participant.city}}</td>
+                    <td>Registration:</td>
+                    <td>{{participant.registrationStatus? 'Approved' : 'Pending'}}</td>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <td>State:</td>
                     <td>{{participant.state}}</td>
                     <td>Pincode:</td>
                     <td>{{participant.pincode}}</td>
-                  </tr>
-                  <tr>
-                    <td>Registration:</td>
-                    <td>{{participant.registrationStatus? 'Approved' : 'Pending'}}</td>
+                  </tr> -->
+                  <!-- <tr>
+
                     <td>Check In:</td>
                     <td>{{participant.checkIn}}</td>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <td>Registration Id:</td>
                     <td>{{participant.registrationUuid}}</td>
@@ -65,7 +64,7 @@
                     <td>Approved By:</td>
                     <td>{{participant.addByUser}}</td>
                     <td>Event Name:</td>
-                    <td>{{event.body.title}}</td>
+                    <td>{{event.body.events.title}}</td>
                   </tr>
                 </tbody>
               </table>

@@ -96,7 +96,8 @@ getTableData(url){
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
-
+    //console.log("rowdattaa===",row);
+    //$('td:nth-child(3)', row).css("color", "red");
     $('td:nth-child(3)', row).bind('click', () => {
      // alert("hi");
       self.someClickHandler1(data);

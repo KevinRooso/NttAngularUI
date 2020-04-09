@@ -66,3 +66,6 @@ color:#fff;
 .card-title{
   font-size: 15px;
 }
+.error{
+  color: red;
+}
