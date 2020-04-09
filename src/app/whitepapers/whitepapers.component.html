@@ -41,7 +41,10 @@
         <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px">
       </div>
       <div class="p-2">
-        <p class="whitepaper-title">{{card.title | truncate : 60 : false}}</p>
+        <p class="whitepaper-title">{{card.title | truncate : 100 : false}}</p>
+      </div>
+      <div class="px-2">
+        <p class="whitepaper-title"><b>Date : </b>{{card.createdAt | date}}</p>
       </div>
     </mat-card>
   </div>
