@@ -21,6 +21,7 @@ export class TestimonialsComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit(): void {
+
     this.getTestimonials();
     this.getAllCategory();
   }
