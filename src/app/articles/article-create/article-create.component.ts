@@ -32,7 +32,8 @@ export class ArticleCreateComponent implements OnInit {
   tagData: any[] = [];
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
-    private location: Location, public snackBar: MatSnackBar) {
+    private location: Location, public snackBar: MatSnackBar,
+    private router:Router) {
     this.createArticleForm = frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
@@ -190,6 +191,7 @@ export class ArticleCreateComponent implements OnInit {
         (response) => {
           this.snackBar.open('Article successfully created', 'Close', { duration: 5000 });
           console.log("response", response);
+          this.router.navigate(['articles']);
         },
         (error) => {
           this.snackBar.open(error, 'Close');

@@ -155,6 +155,7 @@ export class EditBlogComponent  implements OnInit {
         this.createBlogForm.get(['isDraft']).setValue(res.body.isDraft);
         this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
         this.createBlogForm.get(['person']).setValue(res.body.person.id);
+        this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
         this.previewUrl=res.body.thumbnailImageUrl;
         //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
         // this.createBlogForm.get(['title']).setValue(res.body.title);
