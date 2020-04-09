@@ -77,9 +77,7 @@ export class WhitepaperEditComponent implements OnInit {
       console.log(params.page);
       this.wPaperId = params.page;
       this.getWhitePaperDetails(params.page);
-      this.getUserList();
-      this.getCategoryDetails();
-      this.getTagsDetails();
+
     });
     // this.router1.queryParams.subscribe(params => {
     //   console.log(params.page);
@@ -173,16 +171,7 @@ export class WhitepaperEditComponent implements OnInit {
     this.authService.getResourceById(id).subscribe((res)=>{
       this.wPaperData = res.body;
       console.log('resdata', this.wPaperData);
-      // for(let i=0;i<this.wPaperData.resourceTags.length;i++){
-      //   let tag = {
-      //     "id": this.wPaperData.resourceTags[i].id,
-      //     "keywords":this.wPaperData.resourceTags[i].keywords,
-      //     "name": this.wPaperData.resourceTags[i].name
-      //   }
-      //   this.selected4.push(tag);
-      //   console.log("tags=",this.selected4);
 
-      // }
       // this.selected3=res.body.person.id;
       for(let i=0;i<res.body.resourceTags.length;i++)
       this.selected4.push(res.body.resourceTags[i].id);
@@ -198,7 +187,9 @@ export class WhitepaperEditComponent implements OnInit {
       this.updateWhitePaperForm.controls['categoryId'].setValue(this.wPaperData.category.displayName);
       this.updateWhitePaperForm.controls['tagList'].setValue(this.wPaperData.resourceTags.name);
       this.updateWhitePaperForm.controls['draft'].setValue(this.wPaperData.isDraft);
-
+          this.selected4=[];
+      for(let i=0;i<res.body.resourceTags.length;i++)
+      this.selected4.push(res.body.resourceTags[i].id);
       this.updateWhitePaperForm.controls['thumbnailImageUrl'].setValidators(null);
       this.updateWhitePaperForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = this.wPaperData.thumbnailImageUrl;
@@ -214,7 +205,9 @@ export class WhitepaperEditComponent implements OnInit {
 
       this.updateWhitePaperForm.controls['tagList'].setValidators(null);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
-
+      this.getUserList();
+      this.getCategoryDetails();
+      this.getTagsDetails();
 
     })
   }

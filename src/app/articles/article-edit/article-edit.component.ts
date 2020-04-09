@@ -73,15 +73,18 @@ export class ArticleEditComponent implements OnInit {
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.articleId = params.page;
+
       this.getArticlesDetails(params.page);
-      this.getUserList();
-      this.getCategoryDetails();
-      this.getTagsDetails();
+
+
     });
+
   }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
+      console.log("tagdetails==",this.tagData);
+
     })
   }
   getUserList() {
@@ -97,21 +100,29 @@ export class ArticleEditComponent implements OnInit {
 
   getArticlesDetails(id){
     this.authService.getResourceById(id).subscribe((res)=>{
+
       this.articleData = res.body;
       this.selected3=res.body.targetUserType.id;
       console.log("Data", this.selected3);
-      // for(let i=0;i<this.articleData.tags.length;i++)
-      // this.selected4.push(this.articleData.tags[i].id);
-      // console.log("tags=",this.selected4);
+
+
 
       console.log('resdata', this.articleData);
+
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
       this.EditArticleForm.controls['shortDescription'].setValue(this.articleData.shortDescription);
       this.EditArticleForm.controls['categoryId'].setValue(this.articleData.category.displayName);
       this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
       this.EditArticleForm.controls['draft'].setValue(this.articleData.isDraft);
+      this.selected4=[];
+      console.log("tags==",this.selected4);
+      console.log("tagssss=",res.body.resourceTags);
 
+      for(let i=0;i<res.body.resourceTags.length;i++)
+      this.selected4.push(res.body.resourceTags[i].id);
+
+      console.log("tags==",this.selected4);
       this.EditArticleForm.controls['thumbnailImageUrl'].setValidators(null);
       this.EditArticleForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl= this.articleData.thumbnailImageUrl;
@@ -127,10 +138,10 @@ export class ArticleEditComponent implements OnInit {
 
       this.EditArticleForm.controls['tagList'].setValidators(null);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
+      this.getTagsDetails();
+      this.getUserList();
+      this.getCategoryDetails();
 
-      // this.articleData.tags.forEach(m => {
-      //   this.valuesSelectedTag.push(m.name);
-      // })
 
     })
   }

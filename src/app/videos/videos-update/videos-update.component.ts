@@ -40,9 +40,12 @@ export class VideosUpdateComponent implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
+
   tarUserType:string="";
   @ViewChild('closeModel',{static:true}) closeModel;
   ngOnInit(): void {
+
+
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
       longDescription: ['',Validators.required],
@@ -74,9 +77,7 @@ export class VideosUpdateComponent implements OnInit {
       this.getVideosData(params.page);
     });
     // this.getVideosData(params.page);
-    this.getCategoryDetails();
-    this.getTagsDetails();
-    this.getUserList();
+
   }
   getUserList() {
     this.service.getUserList().subscribe((res) => {
@@ -98,12 +99,15 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.createVideoForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-        if(res.body.targetUserType!=null)
+      if(res.body.targetUserType!=null)
+        this.tarUserType=res.body.targetUserType.id;
+        console.log(" this.tarUserType==", this.tarUserType);
+      if(res.body.targetUserType!=null)
       this.selected2=res.body.category.id;
       console.log("catg=",res.body.category.id);
 
       res.body.resourceTags.forEach(m=>{
-        this.selected4.push(m.name);
+        this.selected4.push(m.id);
       })
        this.speakerImage=res.body.thumbnailImageUrl;
       this.createVideoForm.get(['title']).setValue(res.body.title);
@@ -113,8 +117,10 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink)
       //this.createVideoForm.get(['person']).setValue(res.body.person.id);
       this.previewUrl=res.body.thumbnailImageUrl;
-      if(res.body.targetUserType!=null)
-        this.tarUserType=res.body.targetUserType.id;
+      this.getCategoryDetails();
+      this.getTagsDetails();
+      this.getUserList();
+
       //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
       // this.createBlogForm.get(['title']).setValue(res.body.title);
     })

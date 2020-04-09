@@ -109,11 +109,9 @@ export class EditBlogComponent  implements OnInit {
     this.actRoute.queryParams.subscribe(params => {
       this.blogId=params.page;
       this.getBlogData(params.page);
+
+
     });
-    this.getCategoryDetails();
-    this.getTagsDetails();
-    this.getPersons();
-    this.getUserList();
 
 
   }
@@ -123,9 +121,11 @@ export class EditBlogComponent  implements OnInit {
     })
   }
   getBlogData(id){
-      this.service.getBlogById(id).subscribe(res=>{
-        console.log("blog=",res);
-        this.createBlogForm.controls['targetUserType'].setValidators(null);
+    const promise=this.service.getBlogById(id).toPromise();
+    console.log("promisee===",promise);
+    promise.then((res)=>{
+      console.log("Promise resolved with: ", res);
+      this.createBlogForm.controls['targetUserType'].setValidators(null);
       this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
       this.createBlogForm.controls['tagList'].setValidators(null);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
@@ -140,13 +140,12 @@ export class EditBlogComponent  implements OnInit {
         if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
         this.selected2=res.body.category.id;
-        console.log("catg=",res.body.category.id);
-        console.log("person=",res.body.person.id);
+        console.log("cat==",this.selected2);
 
         this.selected3=res.body.person.id;
         for(let i=0;i<res.body.resourceTags.length;i++)
         this.selected4.push(res.body.resourceTags[i].id);
-        console.log("tags=",this.selected4);
+        console.log("selectedtags=",this.selected4);
 
          this.speakerImage=res.body.thumbnailImageUrl;
         this.createBlogForm.get(['title']).setValue(res.body.title);
@@ -157,20 +156,25 @@ export class EditBlogComponent  implements OnInit {
         this.createBlogForm.get(['person']).setValue(res.body.person.id);
         this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
         this.previewUrl=res.body.thumbnailImageUrl;
-        //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
-        // this.createBlogForm.get(['title']).setValue(res.body.title);
-      })
+        this.getCategoryDetails();
+        this.getTagsDetails();
+        this.getPersons();
+        this.getUserList();
+    }, (error)=>{
+      console.log("Promise rejected with ",error);
+    })
+
   }
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
-      console.log("cat=",this.catagoryData);
+      console.log("catsss=",this.catagoryData);
 
     })
   }
   getTagsDetails(){
     this.service.getTagsList().subscribe((res)=>{
-      console.log("tag==",res.body);
+      console.log("tagdetail",res.body);
 
        this.tagData=res.body;
     })

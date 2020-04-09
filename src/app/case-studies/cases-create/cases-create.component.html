@@ -13,7 +13,7 @@
       </div>
       <form [formGroup]='createCases'>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" maxlength="200">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>

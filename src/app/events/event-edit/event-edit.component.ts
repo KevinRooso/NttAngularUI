@@ -128,10 +128,7 @@ export class EventEditComponent implements OnInit {
     });
     // this.getPolicyFaQDetails();
     // this.getPolicyTnCDetails();
-    this.getCategoryDetails();
-    this.getSpeakerDetails()
-    this.getTagsDetails();
-    this.getUserList();
+
   }
   getUserList(){
     this.authService.getUserList().subscribe((res)=>{
@@ -220,6 +217,10 @@ export class EventEditComponent implements OnInit {
       this.getEventDetails.speakers.forEach(m => {
         this.valuesSpeakertags.push(m.fullName);
       })
+      this.getCategoryDetails();
+      this.getSpeakerDetails()
+      this.getTagsDetails();
+      this.getUserList();
     })
   }
   fileProgress(fileInput: any) {
