@@ -43,6 +43,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -80,7 +81,7 @@ import { TruncatePipe } from './truncate.pipe';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
-
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { SortByPipe } from './sorting.pipe';
     TruncatePipe,
     CopyEventComponent,
     LandingPageComponent,
-    SortByPipe
+    SortByPipe,
+    LoaderComponent
     ],
   imports: [
     BrowserModule,
@@ -163,7 +165,8 @@ import { SortByPipe } from './sorting.pipe';
     MatRadioModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

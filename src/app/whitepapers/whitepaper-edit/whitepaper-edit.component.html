@@ -87,11 +87,11 @@
         </div>
 
         <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Whitepaper Image <span class="error">*</span></label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
               (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color:red;font-size: 12px;">(Image is
+            <div *ngIf="checkError('thumbnailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is
               required)</div>
             <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
               JPEG, JPG, PNG)</div>

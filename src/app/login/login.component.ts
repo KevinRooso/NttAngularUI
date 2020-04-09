@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  show = false;
 
   constructor(private router: Router,private authService:AuthServiceService,
     public snackBar: MatSnackBar) { }
@@ -20,14 +21,20 @@ export class LoginComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.show =true;
+    setTimeout(()=>{
+    this.show =false;
+    },1000)
   }
   onSubmit() : void {
+    this.show =true;
     //this.router.navigate(['events']);
     console.log(this.loginform.value);
     this.authService.getAuthourized(this.loginform.value).subscribe(
       (res)=>{
         localStorage.setItem("token",res.body.accessToken);
         console.log(res);
+        this.show =false;
         this.router.navigate(['home']);
   },
   (error: HttpErrorResponse)=>
