@@ -61,7 +61,11 @@ export class CreateEventComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private sanitizer: DomSanitizer, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+     private authService: AuthServiceService,
+      private location: Location, public snackBar: MatSnackBar) {
 
     this.newtoday.setDate(this.newtoday.getDate()-1);
     this.createEventForm = formBuilder.group({
@@ -86,10 +90,10 @@ export class CreateEventComponent implements OnInit {
       speakerList: ['', Validators.required],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
-      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
-      detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      policyTnc: ['', [Validators.required, Validators.maxLength(3000)]],
+      policyFAQ: ['', [Validators.maxLength(3000)]],
+      thumbnailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      detailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       fullName: [''],
       name: [''],
       isDraft: [false],
@@ -112,6 +116,7 @@ export class CreateEventComponent implements OnInit {
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     })
+    console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
   }
 
   ngOnInit(): void {
@@ -129,6 +134,10 @@ export class CreateEventComponent implements OnInit {
   }
 
   fileProgress(fileInput: any) {
+    // console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
+    // this.createEventForm.controls['thumbnailImageUrl'].setValidators(Validators.apply);
+    // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+    // console.log("validation chcek1=",this.createEventForm.controls['thumbnailImageUrl'].valid);
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
@@ -137,17 +146,9 @@ export class CreateEventComponent implements OnInit {
       this.imageValid = true;
       this.preview();
     }
+
   }
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.imgValid =true;
-  //   this.preview();
-  // }
-  // fileProgress2(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   //this.imgValid1 =true;
-  //   this.preview2();
-  // }
+
   fileProgress2(fileInput: any) {
     this.attachUrl = null;
     this.imageValid2 = false;
@@ -182,14 +183,18 @@ export class CreateEventComponent implements OnInit {
     }
   }
   uploadImage() {
-    const formData = new FormData();
+
+   const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        // this.createEventForm.controls['thumbnailImageUrl'].setValidators(null);
+        // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
         //alert('SUCCESS !!');
       })
   }
@@ -201,6 +206,7 @@ export class CreateEventComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         //alert('SUCCESS !!');
       })
@@ -329,20 +335,18 @@ export class CreateEventComponent implements OnInit {
       }
 
       console.log("Post Data", objData);
-      //this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
-      this.authService.saveEventDetails(objData).subscribe(
-        (response) => {
-          this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
-          //alert("Event successfully created");
-         // console.log("responsne", response);
-          this.submitted = false;
-          this.router.navigate(['events']);
-        },
-        (error) => {
-          this.snackBar.open(error, 'Close');
-          // alert("Error :" + error);
-         }
-      )
+
+      // this.authService.saveEventDetails(objData).subscribe(
+      //   (response) => {
+      //     this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+
+      //     this.submitted = false;
+      //     this.router.navigate(['events']);
+      //   },
+      //   (error) => {
+      //     this.snackBar.open(error, 'Close');
+      //    }
+      // )
      }
     else {
       this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});

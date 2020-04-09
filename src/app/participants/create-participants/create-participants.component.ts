@@ -86,10 +86,10 @@ export class CreateParticipantsComponent implements OnInit {
     this.service.saveParticipent(this.eventId,obj).subscribe(res=>{
       this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
       this.submitted = false;
-      // if(this.id==undefined)
-      // this.router.navigate(['participants']);
-      // else
-      // this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
+      if(this.id==undefined)
+      this.router.navigate(['participants']);
+      else
+      this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
     })
   }
     }

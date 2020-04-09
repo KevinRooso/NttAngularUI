@@ -96,9 +96,15 @@ getTableData(url){
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
-    $('td:nth-child(3) ', row).bind('click', () => {
+
+    $('td:nth-child(3)', row).bind('click', () => {
+     // alert("hi");
       self.someClickHandler1(data);
     });
+    // $('td:nth-child(7) .approve', row).bind('click', () => {
+    //   self.someClickHandler(data,row);
+
+    //  });
     if(data['approverId']==null){
       // $('td .showIdButton', row).removeClass("badge-success");
       //   $('td .showIdButton', row).addClass("badge-warning");

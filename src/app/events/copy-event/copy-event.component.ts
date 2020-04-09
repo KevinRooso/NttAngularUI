@@ -284,6 +284,7 @@ export class CopyEventComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }
@@ -295,6 +296,7 @@ export class CopyEventComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }

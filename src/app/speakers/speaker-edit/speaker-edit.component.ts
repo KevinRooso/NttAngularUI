@@ -140,10 +140,17 @@ export class SpeakerEditComponent implements OnInit {
       //this.updateSpeakerForm.controls['profile'].setValue(this.getSpeaker.profile);
       this.updateSpeakerForm.controls['phone'].setValue(this.getSpeaker.phone);
       this.updateSpeakerForm.controls['origanizationName'].setValue(this.getSpeaker.origanizationName);
-      this.updateSpeakerForm.controls['keySkills'].setValue(this.getSpeaker.keySkills);
+      this.updateSpeakerForm.controls['keySkills'].setValue(null);
+      this.updateSpeakerForm.controls['keySkills'].setValidators(null);
+      this.updateSpeakerForm.controls['keySkills'].updateValueAndValidity();
+      let obj =this.getSpeaker.keySkills.split(',');
+      for(let i=0;i<obj.length;i++){
+        this.fruits.push({name:obj[i]});
+      }
+      console.log("Check ME", this.fruits);
       this.previewUrl = this.getSpeaker.profileImageUrl;
       this.speakerImage = res.body.profileImageUrl;
-      console.log("Check ME", res.body.profileImageUrl);
+
 
     })
   }

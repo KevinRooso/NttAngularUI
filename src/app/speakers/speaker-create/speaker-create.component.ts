@@ -34,7 +34,11 @@ export class SpeakerCreateComponent implements OnInit {
   imageValid:boolean=false;
   flag:boolean=true;
   @ViewChild('chipList') chipList: MatChipList;
-  constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService, private location: Location, public snackBar: MatSnackBar) {
+  constructor(private frmbuilder: FormBuilder,
+    private authService: AuthServiceService,
+     private location: Location,
+     public snackBar: MatSnackBar,
+     private router:Router) {
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
 
     this.createSpeakerForm = frmbuilder.group({
@@ -158,6 +162,7 @@ export class SpeakerCreateComponent implements OnInit {
        // alert("Successfully Created");
         this.submitted = false;
         console.log("response", response);
+        this.router.navigate(['/speakers']);
       },
       (error) => {
         this.snackBar.open(error, 'Close');
