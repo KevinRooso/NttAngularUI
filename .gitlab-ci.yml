@@ -1,0 +1,112 @@
+# specifies docker image to use
+image: node: 12.x
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+cache:
+  paths:
+    - node_modules/
+    script:
+      - npm install
+artifacts:
+  paths:
+    - dist/
+
+test:
+  stage: test
+cache:
+  policy: pull
+paths:
+  - node_modules/
+  script:
+    - npm run lint-ci
+    # install to use chrome withpuppeteer
+    - apt update && apt install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+    - npm run test-ci
+    - npm run e2e-ci
+
+# dev team deployment
+deploy_dev_team:
+  stage: deploy
+environment:
+  name: dev_team
+  url: https://ntt-web-dev-team-app.herokuapp.com/
+when: manual
+# deploy only when `production` branch is changed
+only:
+  - ntt-ui
+dependencies:
+  - build
+cache:
+  policy: pull
+paths:
+  - node_modules/
+  script:
+    - npm run build:dev
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_TEAM_APP.git
+    - git push -f heroku HEAD:master
+
+# dev deployment
+deploy_dev:
+  stage: deploy
+environment:
+  name: dev
+  url: https://ntt-web-dev-app.herokuapp.com/
+when: manual
+# deploy only when `production` branch is changed
+only:
+  - develop
+dependencies:
+  - build
+cache:
+  policy: pull
+paths:
+  - node_modules/
+  script:
+    - npm run build:dev
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_APP.git
+    - git push -f heroku HEAD:master
+
+# staging deployment
+deploy_staging:
+  stage: deploy
+environment:
+  name: staging
+  url: https://ntt-web-stage-app.herokuapp.com/
+# deploy only when `production` branch is changed
+only:
+  - staging
+dependencies:
+  - build
+cache:
+  policy: pull
+paths:
+  - node_modules/
+  script:
+    - npm run build:stage
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING_APP.git
+    - git push -f heroku HEAD:master
+
+# production deployment
+# deploy_production:
+#   stage: deploy
+# environment:
+#   name: production
+#   url: https://ntt-web-stage-app.herokuapp.com/
+# when: manual
+# # deploy only when `production` branch is changed
+# only:
+#   - production
+# dependencies:
+#   - build
+# cache:
+#   policy: pull
+# paths:
+#   - node_modules/
+#   script:
+#     - npm run deploy
