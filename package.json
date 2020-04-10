@@ -15,7 +15,7 @@
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start:local": "ng serve",
     "build:local": "ng build",
-    "build:dev": "ng build --aot=true  -c=dev",
+    "build": "ng build --aot=true  -c=dev",
     "build:stage": "ng build --aot=true -c=stage"
   },
   "private": true,
