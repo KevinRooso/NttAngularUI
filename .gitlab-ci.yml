@@ -2,8 +2,7 @@
 image: node:latest
 
 stages:
-  # - build
-  - build_and_test
+  - test
   - deploy
 
 # build:
@@ -37,7 +36,7 @@ deploy_dev_team:
   only:
     - ntt-ui
   dependencies:
-    - build
+    - build_and_test
   cache:
     policy: pull
     paths:
@@ -59,7 +58,7 @@ deploy_dev:
   only:
     - develop
   dependencies:
-    - build
+    - build_and_test
   cache:
     policy: pull
     paths:
@@ -80,7 +79,7 @@ deploy_staging:
   only:
     - staging
   dependencies:
-    - build
+    - build_and_test
   cache:
     policy: pull
     paths:
