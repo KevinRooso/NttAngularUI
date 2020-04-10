@@ -84,6 +84,27 @@
                 }
               ]
             },
+            "dev_team": {
+              "buildOptimizer": true,
+              "commonChunk": true,
+              "sourceMap": false,
+              "extractCss": false,
+              "extractLicenses": false,
+              "forkTypeChecker": false,
+              "namedChunks": false,
+              "optimization": false,
+              "progress": true,
+              "showCircularDependencies": true,
+              "statsJson": false,
+              "vendorChunk": true,
+              "subresourceIntegrity": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev_team.ts"
+                }
+              ]
+            },
             "stage": {
               "fileReplacements": [
                 {
@@ -113,6 +134,9 @@
             },
             "dev": {
               "browserTarget": "NTT:build:dev"
+            },
+            "dev_team": {
+              "browserTarget": "NTT:build:dev_team"
             },
             "stage": {
               "browserTarget": "NTT:build:stage"

@@ -15,8 +15,10 @@
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start:local": "ng serve",
     "build:local": "ng build",
-    "build": "ng build --aot=true  -c=dev",
-    "build:stage": "ng build --aot=true -c=stage"
+    "build:dev": "ng build --aot=true  -c=dev",
+    "build:dev_team": "ng build --aot=true -c=dev_team",
+    "build:stage": "ng build --aot=true -c=stage",
+    "heroku-postbuild": "ng build -c=$NG_ENV"
   },
   "private": true,
   "dependencies": {
