@@ -1,0 +1,162 @@
+<div>
+  <ul class="breadcrumb">
+     <li><a routerLink="/home">Home</a></li>
+     <li><a routerLink="/cases">Case Studies</a></li>
+     <li><a (click)="BackMe()">View Case Study </a></li>
+     <li><a class="active">Edit Case Study </a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Edit Case Study</p>
+      </div>
+      <form [formGroup]='createCases'>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Service <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Service</mat-label>
+            <mat-select formControlName="categoryId" [(value)]="selected3">
+              <mat-option *ngFor="let category of catagoryData" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Service is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Industry <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Industry</mat-label>
+            <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
+            <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Service is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
+              data-target="#tagModal1">Add Industry</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Service Used <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Service Used" formControlName="serviceUsed" rows="4"></textarea>
+            <mat-error *ngIf="checkError('serviceUsed', 'required')">(Service Used is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+
+
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">Create Date</label>
+          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
+            placeholder="Start Date" >
+          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+        </div> -->
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event Type</mat-label>
+            <mat-select formControlName="targetUserType" [(ngModel)]="tarUserType">
+              <mat-option *ngFor="let user of userList" [value]="user.id">
+                {{user.displayName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Atleast one Target User Type is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"> Image <span class="error">*</span></label>
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file " formControlName="thumbnailImageUrl"
+            (change)="fileProgress($event)" />
+            <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
+            <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Save as draft</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isDraft">Draft</mat-slide-toggle>
+        </div>
+        <div class="text-right">
+          <button class="btn button-1 action-good" (click)="createCase()">Update Details</button>
+          <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='addTagForm'>
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Tag Name" formControlName="name">
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+            </mat-form-field>
+          </div>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

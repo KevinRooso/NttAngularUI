@@ -1,0 +1,228 @@
+.event-card-body-lg{
+  border-top: 1px solid #e3e3e3;
+}
+.event-card-body-footer{
+  padding:10px 20px;
+}
+.card-body .card-title{
+  font-size: 18px;
+  margin-bottom: .2rem;
+}
+.card-body .card-text{
+  font-size: 14px;
+  margin-bottom: .2rem;
+}
+.card-body{
+  padding: .8rem .8rem 0.3rem .8rem;
+}
+.location{
+  padding: .8rem;
+  border-bottom: 1px solid #e3e3e3;
+}
+.speaker-image{
+  height: 50px;
+  width: 50px;
+  border: 1px solid #e3e3e3;
+  border-radius: 50%;
+}
+.list-group-item{
+  padding: .5rem 0rem;
+  border: none;
+}
+.medium .card-title{
+  font-size: 25px;
+  margin-bottom: .75rem;
+  /* margin-bottom: .2rem; */
+}
+.medium .card-text{
+  font-size: 15px;
+  margin-bottom: .7rem;
+}
+.event-card-body-lg p{
+  color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: .4rem;
+}
+.tag {
+  float: left;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  background-color: green;
+  z-index: 1000;
+  margin-bottom: -20px;
+}
+
+
+
+.banner-image {
+  position: relative;
+  width: 100%;
+  /* max-width: 400px; */
+}
+
+.banner-image img {
+  width: 100%;
+  min-height: 320px;
+}
+
+.banner-image .btn {
+  position: absolute;
+  top: 85%;
+  left: 94%;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  font-size: 1.5em;
+  color: #fff;
+  background: #2C98DE;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,.275);
+  outline: none;
+}
+
+.banner-image .btn:hover {
+  background: #324da1;
+}
+a{
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+a:hover{
+  color: #007bff;
+}
+.my-card {
+  position: absolute;
+    left: 85%;
+    top: 90%;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 18px;
+    /* margin: 0 auto; */
+    text-align: center;
+}
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+.border-info {
+  border-color: #17a2b8!important;
+}
+.add-button {
+  border: 1px solid #0B428A;
+  color: #0B428A!important;
+  border-radius: 25px;
+  background: transparent;
+  font-size: 11px;
+  width: auto;
+  padding: 7px 20px;
+}
+.add-button:hover {
+  color: #fff!important;
+  background: #0B428A;
+}
+.list-group-item{
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.list-group-item:last-child{
+  border-bottom: 0;
+}
+.event-label{
+  font-weight: 500;
+    font-size: 16px;
+    display: block;
+}
+
+.tags {
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+  margin: 0 16px 8px 0;
+  padding: 0 10px 0 12px;
+  background: #00a6df;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 12px;
+  font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,sans-serif;
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  font-weight: bold;
+  }
+  .tags :before {
+    content: "";
+    position: absolute;
+    top:0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #3243A5 transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+    }
+
+.tags :after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 1px;
+    float: left;
+    width: 5px;
+    height: 5px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+    box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+    }
+.mat-btn{
+  border-radius: 20px !important
+}
+
+:host ::ng-deep  mat-menu-content {
+  background-color: #007bff;
+  min-width: 35px;
+}
+
+.fab-container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column-reverse;
+  /* flex-direction:row-reverse; */
+  align-items: center;
+  color: #007bff;
+   /* div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 5px;
+
+    button {
+      margin-bottom: 17px;
+    }
+  }  */
+}
+.fab-container> div{
+  display: flex;
+    flex-direction: column-reverse;
+    align-items:baseline;
+    margin-bottom: 5px;
+}
+.fab-container> div> button{
+  margin-bottom: 17px;
+}
+.fab-toggler {
+  float: right;
+  z-index: 100;
+}

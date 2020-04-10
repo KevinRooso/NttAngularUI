@@ -1,0 +1,15 @@
+.article-card{
+  width: 22%;
+  height: 385px;
+}
+.article-title{
+  margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    word-break: break-all;
+}
+.article-img{
+  width: 100%;
+  min-height: 250px;
+  height: 250px;
+}

@@ -1,0 +1,65 @@
+<div>
+  <ul class="breadcrumb">
+     <li><a routerLink="/home">Home</a></li>
+     <li><a routerLink="/participants">Participants</a></li>
+     <li><a class="active">Create Participant</a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center" style="  margin-bottom: 51px; ">
+        <p class="heading-secondary">{{participant}}</p>
+      </div>
+
+      <form [formGroup]='addParForm' >
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Name <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Name" formControlName="name" value="">
+             <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Email <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Email" formControlName="email" value="">
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a Valid Email)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Phone No. <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Phone No."  formControlName="phoneNo" value="">
+            <mat-error *ngIf="checkError('phoneNo', 'required')">(Phone No. is required)</mat-error>
+            <mat-error *ngIf="checkError('phoneNo', 'pattern')">(Enter a valid Number)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row" *ngIf="flag">
+          <label class="col-sm-3 col-form-label">Events <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event</mat-label>
+            <mat-select formControlName="event">
+              <mat-option *ngFor="let event of events" [value]="event.id">{{event.title}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('event', 'required')">(Event name is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="text-right">
+          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+            Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- [disabled]='!createEventForm.valid' -->
+

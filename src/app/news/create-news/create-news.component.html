@@ -1,0 +1,135 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a routerLink="/home">Home</a></li>
+    <li><a routerLink="/news">News</a></li>
+     <li><a class="active">Create News</a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Create News</p>
+      </div>
+
+      <form [formGroup]='createNewsForm'>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 200 characters</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Topic <span class="error">*</span></label>
+          <mat-form-field class="example-full-widTopicth col-sm-9">
+            <input matInput placeholder="Topic" formControlName="topic">
+            <mat-error *ngIf="checkError('topic', 'required')">(Topic is required)</mat-error>
+            <mat-error *ngIf="checkError('topic', 'maxlength')">Topic should be less than 500 characters</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Long Description (Agenda)<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Long Description..." formControlName="longDescription" rows="6"></textarea>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(Long Description is required)</mat-error>
+            <mat-error *ngIf="checkError('longDescription', 'maxlength')">Long Description should be less than 8000
+              characters</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Short Description..." formControlName="shortDescription" rows="6"></textarea>
+            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
+            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">About</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="About Us" formControlName="about" rows="6"></textarea>
+            <mat-error *ngIf="checkError('about', 'required')">(about is required)</mat-error>
+            <mat-error *ngIf="checkError('about', 'maxlength')">aboutshould be less than 3000 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- <div class="form-row">
+          <label class="col-sm-3 col-form-label">About</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description..." formControlName="shortDescription" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-row mt-3 mb-4">
+          <label class="col-sm-3 col-form-label">Date</label>
+          <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" class="form-control col-sm-9"
+            placeholder="Date" formControlName="date">
+          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+        </div> -->
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Location</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Location" formControlName="location" value="">
+            <mat-error *ngIf="checkError('location', 'required')">(Location is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Event Type</mat-label>
+            <mat-select formControlName="targetUserType">
+              <mat-option *ngFor="let user of userList" [value]="user.id">
+                {{user.displayName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-row ">
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
+              (change)="fileProgress($event)" />
+            <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is
+              required)</div>
+            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
+              JPEG, JPG, PNG)</div>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Save as draft</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="draft">Draft</mat-slide-toggle>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" (click)='generateNews()' class="btn button-1 action-good">Submit Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
