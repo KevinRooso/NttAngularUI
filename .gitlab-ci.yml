@@ -29,6 +29,7 @@ test:
 
 # dev team deployment
 deploy_dev_team:
+  image: ruby:latest
   stage: deploy
   environment:
     name: dev_team
@@ -44,8 +45,10 @@ deploy_dev_team:
       - node_modules/
   script:
     - npm run build:dev
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_TEAM_APP.git
-    - git push -f heroku HEAD:master
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_DEV_TEAM_APP --api-key=$HEROKU_API_KEY
 
 # dev deployment
 deploy_dev:
