@@ -39,6 +39,7 @@
     "bootstrap": "^4.4.1",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "ng-pick-datetime": "^7.0.0",
     "ng2-ckeditor": "^1.2.7",
