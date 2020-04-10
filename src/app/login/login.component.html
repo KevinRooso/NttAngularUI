@@ -10,10 +10,18 @@
                       <div class="form-group">
                           <label for="username">Username:</label><br>
                           <input type="text" class="form-control" formControlName="usernameOrEmail" placeholder="username">
+                          <div class="msg" *ngIf="f.usernameOrEmail.touched && f.usernameOrEmail.invalid" class="text-danger">
+                            <div *ngIf="f.usernameOrEmail.errors.required">Username is required.</div>
+                            <div *ngIf="f.usernameOrEmail.errors.pattern">Please, enter valid username address.</div>
+                          </div>
                       </div>
                       <div class="form-group">
                           <label for="password">Password:</label><br>
                           <input type="password" class="form-control" formControlName="password" placeholder="password">
+                          <div class="msg" *ngIf="f.password.touched && f.password.invalid" class="text-danger">
+                            <div *ngIf="f.password.errors.required">Password is required.</div>
+                            <div *ngIf="f.password.errors.minlength">Minimum length should be 3</div>
+                          </div>
                       </div>
                       <div class="form-group text-center p-3">
                           <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">

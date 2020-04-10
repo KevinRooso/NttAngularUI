@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { FormGroup, FormControlName, FormControl } from '@angular/forms';
+import { FormGroup, FormControlName, FormControl, Validators } from '@angular/forms';
 import { AuthServiceService } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { style } from '@angular/animations';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,12 +16,17 @@ export class LoginComponent implements OnInit {
     public snackBar: MatSnackBar) { }
 
   loginform = new FormGroup({
-    usernameOrEmail: new FormControl(''),
-    password: new FormControl('')
+    usernameOrEmail: new FormControl('', [Validators.required, Validators.pattern('a-zA-z0-9')],),
+    password: new FormControl('', [Validators.required, Validators.minLength(3)])
   })
 
   ngOnInit(): void {
   }
+
+  get f(){
+    return this.loginform.controls;
+}
+
   onSubmit() : void {
     //this.router.navigate(['events']);
     console.log(this.loginform.value);
@@ -34,7 +40,7 @@ export class LoginComponent implements OnInit {
   {
     console.log(error.error.status);
     if(error.error.status=='401')
-    this.snackBar.open('Please enter valid credentials', 'Close', {duration: 5000});
+    this.snackBar.open('Please enter valid credentials', 'Close', {duration: 3500, verticalPosition: 'top'});
   }
   )
 }
