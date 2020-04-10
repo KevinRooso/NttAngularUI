@@ -85,19 +85,6 @@
               ]
             },
             "dev_team": {
-              "buildOptimizer": false,
-              "commonChunk": false,
-              "sourceMap": false,
-              "extractCss": false,
-              "extractLicenses": false,
-              "forkTypeChecker": false,
-              "namedChunks": false,
-              "optimization": false,
-              "progress": true,
-              "showCircularDependencies": true,
-              "statsJson": false,
-              "vendorChunk": true,
-              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
