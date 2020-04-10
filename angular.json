@@ -85,8 +85,8 @@
               ]
             },
             "dev_team": {
-              "buildOptimizer": true,
-              "commonChunk": true,
+              "buildOptimizer": false,
+              "commonChunk": false,
               "sourceMap": false,
               "extractCss": false,
               "extractLicenses": false,
