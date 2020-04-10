@@ -73,8 +73,7 @@ export class NewsEditComponent implements OnInit {
   getNewsVideoById(id) {
     this.service.getNewsById(id).subscribe(res => {
       console.log("Data", res);
-      this.selected3=res.body.targetUserType.id;
-      console.log("Data", this.selected3);
+
       // this.getDate(res.body.date);
       this.updateNewsForm.get(['title']).setValue(res.body.title);
       this.updateNewsForm.get(['topic']).setValue(res.body.topic);
@@ -83,11 +82,15 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.get(['location']).setValue(res.body.location);
       this.updateNewsForm.get(['about']).setValue(res.body.about);
       this.updateNewsForm.get(['draft']).setValue(res.body.draft);
+      if(res.body.targetUserType!=null)
       this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
       this.updateNewsForm.controls['thumbnailImageUrl'].setValidators(null);
       this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = res.body.thumbnailImageUrl;
       this.articleImage = res.body.thumbnailImageUrl;
+      if(res.body.targetUserType!=null)
+      this.selected3=res.body.targetUserType.id;
+      console.log("Data", this.selected3);
     })
   }
   fileProgress(fileInput: any) {

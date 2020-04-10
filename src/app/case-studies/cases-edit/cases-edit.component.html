@@ -14,7 +14,7 @@
       </div>
       <form [formGroup]='createCases'>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title</label>
+          <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Description</label>
+          <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
             <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Service *</label>
+          <label class="col-sm-3 col-form-label">Select Service <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Service</mat-label>
             <mat-select formControlName="categoryId" [(value)]="selected3">
@@ -43,11 +43,11 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Industry</label>
+          <label class="col-sm-3 col-form-label">Select Industry <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Industry</mat-label>
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
-            <mat-option *ngFor="let tag of tagData" [value]="tag.name">{{tag.name}}</mat-option>
+            <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Service is required)</mat-error>
           </mat-form-field>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Service Used</label>
+          <label class="col-sm-3 col-form-label">Service Used <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Service Used" formControlName="serviceUsed" rows="4"></textarea>
             <mat-error *ngIf="checkError('serviceUsed', 'required')">(Service Used is required)</mat-error>
@@ -82,7 +82,7 @@
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Event Type</mat-label>
-            <mat-select formControlName="targetUserType" [(value)]="tarUserType">
+            <mat-select formControlName="targetUserType" [(ngModel)]="tarUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
               </mat-option>

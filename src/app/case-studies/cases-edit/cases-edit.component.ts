@@ -73,9 +73,7 @@ export class CasesEditComponent implements OnInit {
     ngOnInit(): void {
       // this.createSpeaker();
 
-      this.getCategoryDetails();
-      this.getTagsDetails();
-      this.getUserList();
+
       this.actRoute.queryParams.subscribe(params => {
         this.caseId=params.page;
           this.getCasesData(params.page);
@@ -107,8 +105,7 @@ export class CasesEditComponent implements OnInit {
         this.selected2=res.body.category.id;
 
         this.selected3=res.body.person.id;
-        for(let i=0;i<res.body.resourceTags.length;i++)
-        this.selected4.push(res.body.resourceTags[i].name);
+
 
         if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
@@ -131,7 +128,14 @@ export class CasesEditComponent implements OnInit {
         this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
         this.createCases.get(['categoryId']).setValue(res.body.category.id);
        // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
+       for(let i=0;i<res.body.resourceTags.length;i++)
+        this.selected4.push(res.body.resourceTags[i].id);
+        this.tarUserType=res.body.targetUserType.id;
+        console.log("tarus===",this.tarUserType);
 
+       this.getCategoryDetails();
+       this.getTagsDetails();
+       this.getUserList();
       })
     }
     getCategoryDetails(){
@@ -200,14 +204,19 @@ export class CasesEditComponent implements OnInit {
      })
 
      let tags:any[]=[];
-     obj.tagList.forEach(m=>{
-       let tag={
-         "id":m.id,
-       "keywords": m.keywords,
-       "name": m.name
-       }
-       tags.push(tag);
-     });
+
+    this.tagData.forEach(m=>{
+      obj.tagList.forEach(n=>{
+          if(n==m.id){
+            let tag={
+            "id":m.id,
+            "keywords": m.keywords,
+            "name": m.name
+            }
+            tags.push(tag);
+          }
+      });
+    })
      let dataObj={
        "isDraft":obj.isDraft,
        "id":this.caseId,
