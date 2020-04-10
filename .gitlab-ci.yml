@@ -1,5 +1,5 @@
 # specifies docker image to use
-image: node:12.x
+image: node:latest
 
 stages:
   - build
@@ -38,8 +38,7 @@ deploy_dev_team:
   environment:
     name: dev_team
     url: https://ntt-web-dev-team-app.herokuapp.com/
-  when: manual
-  # deploy only when `production` branch is changed
+  # deploy only when `ntt-ui` branch is changed
   only:
     - ntt-ui
   dependencies:
@@ -59,8 +58,7 @@ deploy_dev:
   environment:
     name: dev
     url: https://ntt-web-dev-app.herokuapp.com/
-  when: manual
-  # deploy only when `production` branch is changed
+  # deploy only when `develop` branch is changed
   only:
     - develop
   dependencies:
@@ -80,7 +78,8 @@ deploy_staging:
   environment:
     name: staging
     url: https://ntt-web-stage-app.herokuapp.com/
-    # deploy only when `production` branch is changed
+  # deploy only when `staging` branch is changed
+  when: manual
   only:
     - staging
   dependencies:
