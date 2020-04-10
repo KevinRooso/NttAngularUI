@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { environment } from '@environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private url = "http://localhost:8080/";
- //private url = "https://ntt-backend-app.herokuapp.com/";
+ // private url = "http://localhost:8080/";
+ // private url = "https://ntt-backend-app.herokuapp.com/";
+ private url = environment.API_ENDPOINT;
  public headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
 });
