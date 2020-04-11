@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  log: true,
+ // API_ENDPOINT: "http://localhost:8080/"
+  API_ENDPOINT: "https://ntt-be-dev-team-app.herokuapp.com/"
 };
 
 /*
