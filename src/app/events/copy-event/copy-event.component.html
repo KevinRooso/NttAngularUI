@@ -317,13 +317,17 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Submit
+          <button type="submit" class="btn button-1 action-good" [disabled]="(updateEventForm.valid && image1button && image2button)? false:true" (click)="updateEvent()">Submit
             Details</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+
+<button type="button" class="btn btn-success button-2 action-good" #msgbutton data-toggle="modal"
+              data-target="#alertMsg" hidden></button>
 
 
 
@@ -358,3 +362,23 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="alertMsg" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <button type="button" #closeModel1 class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Submit Without Any Changes?</p>
+        <div class="text-right">
+          <button class="btn button-1 action-good" style="margin-right: 19px;" (click)="submitChanges()">Yes</button>
+          <button class="btn button-1 action-good"  data-dismiss="modal" >No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

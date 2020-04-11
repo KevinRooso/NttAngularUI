@@ -62,7 +62,7 @@ export class CreateParticipantsComponent implements OnInit {
         this.addParForm.controls['event'].setValidators(null);
         this.addParForm.controls['event'].updateValueAndValidity();
       }
-    if(this.addParForm.valid){
+    // if(this.addParForm.valid){
     let obj={
       "name": this.addParForm.controls['name'].value,
      "email": this.addParForm.controls['email'].value,
@@ -92,10 +92,10 @@ export class CreateParticipantsComponent implements OnInit {
       this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
     })
   }
-    }
-    else{
-     // alert("Please fill all mandatory field");
-     this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
-    }
+    // }
+    // else{
+    //  // alert("Please fill all mandatory field");
+    //  this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
+    // }
   }
 }

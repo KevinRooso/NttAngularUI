@@ -59,7 +59,8 @@ export class CreateEventComponent implements OnInit {
   imageValid: boolean = false;
   imageValid2: boolean = false;
 
-
+  image1button:boolean=false;
+  image2button:boolean=false;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -186,12 +187,14 @@ export class CreateEventComponent implements OnInit {
 
    const formData = new FormData();
     formData.append('file', this.fileData);
+    this.image1button=false;
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
         this.imageValid = false;
+        this.image1button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         // this.createEventForm.controls['thumbnailImageUrl'].setValidators(null);
         // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
@@ -201,12 +204,14 @@ export class CreateEventComponent implements OnInit {
   uploadAttachment() {
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
+    this.image2button=false;
     this.authService.uploadFile(formData1)
       .subscribe(res => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
         this.imageValid2 = false;
+         this.image2button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         //alert('SUCCESS !!');
       })
