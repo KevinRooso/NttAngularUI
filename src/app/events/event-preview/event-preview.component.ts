@@ -27,6 +27,9 @@ export class EventPreviewComponent implements OnInit {
   categoryFilterList:any[]=[];
   eventTypeFilterList:any[]=[];
   filterDate="";
+  publishedList:any[]=[];
+  activeList:any[]=[];
+  draftList:any[]=[];
   sort:string="desc?cdate";
     startDate=new Date();
     endDate=new Date();
@@ -82,8 +85,19 @@ export class EventPreviewComponent implements OnInit {
         this.searchFilterData=data.body;
         this.searchFilterData.sort(this.GFG_sortFunctionc1);
         data.body.filter(m=>{
+          if(m.eventDate !=null)
         if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1)
           this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
+        })
+
+        this.publishedList=this.getEventData.filter(m=>{
+           return m.publish && m.active && !m.draft;
+         })
+         this.activeList=this.getEventData.filter(m=>{
+          return !m.publish && m.active && !m.draft;
+        })
+        this.draftList=this.getEventData.filter(m=>{
+          return !m.publish && !m.active && m.draft;
         })
       });
   }
