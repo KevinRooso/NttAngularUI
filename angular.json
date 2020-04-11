@@ -84,6 +84,14 @@
                 }
               ]
             },
+            "dev_team": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev_team.ts"
+                }
+              ]
+            },
             "stage": {
               "fileReplacements": [
                 {
@@ -113,6 +121,9 @@
             },
             "dev": {
               "browserTarget": "NTT:build:dev"
+            },
+            "dev_team": {
+              "browserTarget": "NTT:build:dev_team"
             },
             "stage": {
               "browserTarget": "NTT:build:stage"

@@ -16,7 +16,9 @@
     "start:local": "ng serve",
     "build:local": "ng build",
     "build:dev": "ng build --aot=true  -c=dev",
-    "build:stage": "ng build --aot=true -c=stage"
+    "build:dev_team": "ng build --aot=true -c=dev_team",
+    "build:stage": "ng build --aot=true -c=stage",
+    "heroku-postbuild": "ng build -c=$NG_ENV"
   },
   "private": true,
   "dependencies": {
