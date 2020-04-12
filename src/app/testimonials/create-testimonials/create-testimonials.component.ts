@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,7 +17,8 @@ export class CreateTestimonialsComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,
     private router:Router,
     private service:AuthServiceService, private location: Location,
-    private snackBar:MatSnackBar) { }
+    private snackBar:MatSnackBar,
+    private router1:ActivatedRoute) { }
     createVideoForm:FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
@@ -38,6 +39,9 @@ export class CreateTestimonialsComponent implements OnInit {
     imageValidPerson:boolean=false;
    imageValid1:boolean=false;
     userList:any[]=[];
+    resourceId;
+    testemonials:any[]=[];
+    tarUserType:string="";
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
@@ -59,6 +63,45 @@ export class CreateTestimonialsComponent implements OnInit {
       }
     }
     this.getUserList();
+    this.router1.queryParams.subscribe(params => {
+      console.log(params.page);
+      this.resourceId = params.page;
+      if(this.resourceId!=undefined)
+     this.getResourceData()
+    });
+  }
+  getResourceData(){
+    this.service.getResourceById(this.resourceId).subscribe(res=>{
+      this.testemonials=res.body;
+      this.createVideoForm.controls['targetUserType'].setValidators(null);
+      this.createVideoForm.controls['targetUserType'].updateValueAndValidity();
+
+      // this.createVideoForm.controls['person'].setValidators(null);
+      // this.createVideoForm.controls['person'].updateValueAndValidity();
+
+      this.createVideoForm.controls['detailImageUrl'].setValidators(null);
+      this.createVideoForm.controls['detailImageUrl'].updateValueAndValidity();
+      this.createVideoForm.controls['detailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
+      this.createVideoForm.controls['detailImageUrl'].updateValueAndValidity();
+
+      this.createVideoForm.controls['thumbnailImageUrl'].setValidators(null);
+      this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+      this.createVideoForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
+      this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
+      if(res.body.targetUserType!=null)
+        this.tarUserType=res.body.targetUserType.id;
+        console.log(" this.tarUserType==", this.tarUserType);
+
+       this.speakerImage=res.body.detailImageUrl;
+       this.logo=res.body.thumbnailImageUrl;
+      this.createVideoForm.get(['title']).setValue(res.body.title);
+      this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
+      this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
+      this.createVideoForm.get(['isDraft']).setValue(res.body.isDraft);
+      this.previewUrl1=res.body.detailImageUrl;
+      this.previewUrl=res.body.thumbnailImageUrl
+
+    })
   }
   getUserList() {
     this.service.getUserList().subscribe((res) => {
@@ -140,7 +183,11 @@ export class CreateTestimonialsComponent implements OnInit {
 
 
   generateBlog(){
-
+    let id;
+    if(this.resourceId!=undefined)
+      id=this.resourceId;
+      else
+      id=0;
       let obj=this.createVideoForm.value;
       let dataObj={
             "thumbnailImageUrl":this.logo,
@@ -154,8 +201,8 @@ export class CreateTestimonialsComponent implements OnInit {
           "detailImageUrl": this.speakerImage,
           "title": obj.title,
           "targetUserType":obj.targetUserType,
-          "categoryId":15
-
+          "categoryId":15,
+            "id":id
      }
 
     console.log(dataObj);
