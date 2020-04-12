@@ -19,6 +19,7 @@ export class CreateEventComponent implements OnInit {
 
   createEventForm: FormGroup;
   addTagForm: FormGroup;
+  addAgenda: FormGroup;
 
   allData: any[] = [];
   tagsList: string[] = [];
@@ -40,6 +41,7 @@ export class CreateEventComponent implements OnInit {
   today = new Date();
   newtoday = new Date();
   closingDate = new Date();
+  endingDate = new Date();
   regStartDate = new Date();
   regEndDate = new Date();
 
@@ -49,6 +51,9 @@ export class CreateEventComponent implements OnInit {
   userList: any[] = [];
 
   @ViewChild('closeModel', { static: true }) closeModel;
+  @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
+  @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
+
 
   isEvent: boolean = false;
   isWebinar: boolean = false;
@@ -61,6 +66,12 @@ export class CreateEventComponent implements OnInit {
 
   image1button:boolean=false;
   image2button:boolean=false;
+  agendaData:any[] = [];
+
+
+  // endingDate: any;
+
+
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -116,6 +127,16 @@ export class CreateEventComponent implements OnInit {
     this.addTagForm = formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
+    })
+    this.addAgenda = formBuilder.group({
+      title: [''],
+      topic: [''],
+      startDate: [''],
+      endDate: [''],
+      speakerList: [''],
+      isBreak:[''],
+      idData:['-1'],
+      id:['0']
     })
     console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
   }
@@ -196,9 +217,6 @@ export class CreateEventComponent implements OnInit {
         this.imageValid = false;
         this.image1button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-        // this.createEventForm.controls['thumbnailImageUrl'].setValidators(null);
-        // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-        //alert('SUCCESS !!');
       })
   }
   uploadAttachment() {
@@ -213,7 +231,6 @@ export class CreateEventComponent implements OnInit {
         this.imageValid2 = false;
          this.image2button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-        //alert('SUCCESS !!');
       })
   }
 
@@ -323,7 +340,8 @@ export class CreateEventComponent implements OnInit {
         "detailImageUrl": this.attachFile,
         "categoryTypeId": this.createEventForm.controls['categoryTypeId'].value,
         "tagList": tags,
-        "eventSchedule": schedule,
+       // "eventSchedule": schedule,
+        "eventSchedule": this.agendaData,
         "targetUserType": this.createEventForm.controls['targetUserType'].value,
         "autoApproveParticipant": false,
         "isbreak": false,
@@ -341,17 +359,17 @@ export class CreateEventComponent implements OnInit {
 
       console.log("Post Data", objData);
 
-      // this.authService.saveEventDetails(objData).subscribe(
-      //   (response) => {
-      //     this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+      this.authService.saveEventDetails(objData).subscribe(
+        (response) => {
+          this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
 
-      //     this.submitted = false;
-      //     this.router.navigate(['events']);
-      //   },
-      //   (error) => {
-      //     this.snackBar.open(error, 'Close');
-      //    }
-      // )
+          this.submitted = false;
+          this.router.navigate(['events']);
+        },
+        (error) => {
+          this.snackBar.open(error, 'Close');
+         }
+      )
      }
     else {
       this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
@@ -359,7 +377,49 @@ export class CreateEventComponent implements OnInit {
 
   }
 
-  createTag() {
+  createAgenda(){
+    // if (this.addAgenda.valid) {
+      console.log("Check",this.addAgenda.controls['idData'].value);
+    let obj= {
+      "title": this.addAgenda.controls['title'].value,
+      "topic": this.addAgenda.controls['topic'].value,
+      "isBreak": this.addAgenda.controls['isBreak'].value,
+      "endDate": this.addAgenda.controls['endDate'].value,
+      "startDate": this.addAgenda.controls['startDate'].value,
+      "speakerList": this.addAgenda.controls['speakerList'].value,
+      "id":0,
+      "idData":-1
+    }
+    if(this.addAgenda.value['idData']!= -1){
+      obj['idData'] = this.addAgenda.value['idData'];
+    }else{
+      obj['idData'] = -1;
+    }
+    if(obj.idData == -1){
+      this.agendaData.push(obj);
+    }else{
+      this.agendaData[(obj.idData)]=obj;
+    }
+
+    console.log("agenda", obj);
+    console.log("updaate data", this.addAgenda.value);
+    this.addAgenda.reset()
+    this.closeModelAgenda.nativeElement.click();
+  }
+// }
+  delete(i){
+    this.agendaData.splice(i,1);
+  }
+  updateAgenda(i){
+    // alert(i);
+    this.agendaData[i].idData = i;
+    console.log("log", this.agendaData[i]);
+    this.addAgenda.setValue(this.agendaData[i]);
+    this.agendaUpdate.nativeElement.click();
+
+    //this.agendaData[i] = this.addAgenda
+  }
+    createTag() {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
@@ -395,33 +455,14 @@ export class CreateEventComponent implements OnInit {
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
-  // fileProgress1(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.preview1();
-  // }
-  // preview1() {
-  //   // Show preview
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     this.previewUrl2 = reader.result;
-  //   }
-  // }
-  // getNewLocation(){
-  //   this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.createEventForm.get(['locationMapUrl']).value);
-  //   this.mapUrl = this.createEventForm.get(['locationMapUrl']).value;
-  //  console.log("locationMapUrl", this.locationURL);
-  // }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
     this.closingDate = this.createEventForm.get(['startDate']).value;
    this.regStartDate = this.closingDate;
+  }
+  maxEDate() {
+    console.log("ending Date", this.createEventForm.get(['endDate']).value);
+    this.endingDate = this.createEventForm.get(['endDate']).value;
   }
   maxRegDate() {
     this.regEndDate = this.createEventForm.get(['registrationStartDate']).value;

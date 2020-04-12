@@ -191,7 +191,7 @@
           </mat-form-field>
         </div>
 
-        <div class="form-row">
+        <!-- <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Speakers <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Speakers</mat-label>
@@ -201,7 +201,7 @@
             </mat-select>
             <mat-error *ngIf="checkError('speakerList', 'required')">(Atleast one speaker is required)</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Starting Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
@@ -214,13 +214,12 @@
               (Event start date & time is required)
             </div>
           </div>
-
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
+            <input [owlDateTimeTrigger]="enddt" (dateTimeInput)="maxEDate()" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
               placeholder="Closing Date & Time" formControlName="endDate">
             <owl-date-time #enddt></owl-date-time>
             <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
@@ -228,6 +227,49 @@
             </div>
           </div>
           <!-- <mat-error *ngIf="checkError('endDate', 'required')">(Event end date & time is required)</mat-error> -->
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal"
+              data-target="#agendaModal" #agendaUpdate>Add Agenda</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <!-- <label class="col-sm-3 col-form-label"></label> -->
+          <div class="col-sm-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Event Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Session Title</th>
+                  <th>Session Topic</th>
+                  <th>Session Speakers</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of agendaData; let i = index">
+                  <td>{{closingDate | date}}</td>
+                  <td>{{data.startDate | date:'shortTime'}}</td>
+                  <td>{{data.endDate | date:'shortTime'}}</td>
+                  <td>{{data.title}}</td>
+                  <td>{{data.topic}}</td>
+                  <td><span *ngFor="let speaker of data.speakerList">{{speaker.fullName}},</span></td>
+                  <td>
+                    <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;">
+                      <i class="fa fa-pencil" style="font-size: 1rem;" (click)="updateAgenda(i)"></i>
+                    </span>
+                    <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i)">
+                      <i class="fa fa-trash" style="font-size: 1rem;"></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="form-row">
@@ -359,6 +401,88 @@
 
           <div class="text-right">
             <button class="btn button-1 action-good" (click)="createTag()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;padding: 0;">
+        <button type="button" #closeModelAgenda class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="text-center">
+        <h5 class="modal-title mb-2">Session Agenda</h5>
+       </div>
+        <form [formGroup]='addAgenda'>
+          <div class="form-row py-0">
+            <mat-form-field class="example-full-width col-sm-12 p-0">
+              <input matInput placeholder="Session Title" formControlName="title">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row py-0">
+            <mat-form-field class="example-full-width col-sm-12 p-0">
+              <input matInput placeholder="Session Topic" formControlName="topic">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row py-0">
+            <mat-form-field class="example-full-width col-sm-12 p-0">
+              <input matInput placeholder="Selected Date" readonly [value]="closingDate | date">
+            </mat-form-field>
+          </div>
+
+         <div class="form-row py-1">
+            <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
+            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
+            <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+          </div>
+
+          <div class="form-row">
+            <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
+            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
+            <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
+          </div>
+
+          <!-- <div class="form-row">
+            <div class="col-sm-9">
+              <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt"
+               placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
+              <owl-date-time #startdt></owl-date-time>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-sm-9">
+              <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt"  class="form-control"
+                placeholder="Closing Date & Time" formControlName="endDate">
+              <owl-date-time #enddt></owl-date-time>
+            </div>
+          </div> -->
+
+          <div class="form-row py-0">
+            <mat-form-field class="example-full-width col-sm-12 p-0">
+              <mat-label>Select Session Speakers</mat-label>
+              <mat-select formControlName="speakerList" multiple>
+                <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers.fullName}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="checkError('speakerList', 'required')">(Atleast one speaker is required)</mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div class="form-row py-0">
+            <mat-slide-toggle class="example-full-width col-sm-3" formControlName="isBreak">Break</mat-slide-toggle>
+          </div>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good" (click)="createAgenda()">Submit Details</button>
           </div>
         </form>
       </div>
