@@ -42,6 +42,7 @@ export class CreateTestimonialsComponent implements OnInit {
     resourceId;
     testemonials:any[]=[];
     tarUserType:string="";
+    title:string="";
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
@@ -62,12 +63,17 @@ export class CreateTestimonialsComponent implements OnInit {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
     }
-    this.getUserList();
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.resourceId = params.page;
-      if(this.resourceId!=undefined)
-     this.getResourceData()
+      if(this.resourceId!=undefined){
+     this.getResourceData();
+          this.title="Edit Testimonial";
+      }
+      else{
+        this.title="Create Testimonial";
+        this.getUserList();
+      }
     });
   }
   getResourceData(){
@@ -100,6 +106,7 @@ export class CreateTestimonialsComponent implements OnInit {
       this.createVideoForm.get(['isDraft']).setValue(res.body.isDraft);
       this.previewUrl1=res.body.detailImageUrl;
       this.previewUrl=res.body.thumbnailImageUrl
+      this.getUserList();
 
     })
   }

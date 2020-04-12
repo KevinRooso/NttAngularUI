@@ -2,14 +2,14 @@
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/testimonials">Testimonial</a></li>
-     <li><a class="active">Create Testimonial</a></li>
+     <li><a class="active">{{title}}l</a></li>
   </ul>
 </div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center">
-        <p class="heading-secondary">Create Testimonial</p>
+        <p class="heading-secondary">{{title}}</p>
       </div>
 
       <form [formGroup]='createVideoForm' >
