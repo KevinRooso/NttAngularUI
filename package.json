@@ -15,8 +15,11 @@
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start:local": "ng serve",
     "build:local": "ng build",
+    "build": "ng build",
     "build:dev": "ng build --aot=true  -c=dev",
-    "build:stage": "ng build --aot=true -c=stage"
+    "build:dev_team": "ng build --aot=true -c=dev_team",
+    "build:stage": "ng build --aot=true -c=stage",
+    "heroku-postbuild": "ng build -c=$NG_ENV"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +42,7 @@
     "bootstrap": "^4.4.1",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "ng-pick-datetime": "^7.0.0",
     "ng2-ckeditor": "^1.2.7",

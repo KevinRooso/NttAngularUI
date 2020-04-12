@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location} from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
+declare var $;
 @Component({
   selector: 'app-copy-event',
   templateUrl: './copy-event.component.html',
@@ -56,8 +58,12 @@ export class CopyEventComponent implements OnInit {
   imageValid: boolean = false;
   imageValid2: boolean = false;
 
+  image1button:boolean=false;
+  image2button:boolean=false;
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
+  @ViewChild('closeModel1',{static:true}) closeModel1;
+  @ViewChild('msgbutton',{static:true}) msgbutton;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, public snackBar: MatSnackBar, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
@@ -144,6 +150,7 @@ export class CopyEventComponent implements OnInit {
        for(let i=0;i<this.getEventDetails.tags.length;i++)
         this.selected4.push(this.getEventDetails.tags[i].id);
         console.log("tags=",this.selected4);
+        if(this.getEventDetails.speakers!=null)
       for(let i=0;i<this.getEventDetails.speakers.length;i++)
         this.selected6.push(this.getEventDetails.speakers[i].id);
         console.log("speakerlist=",this.selected6);
@@ -215,6 +222,7 @@ export class CopyEventComponent implements OnInit {
       this.getEventDetails.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
       })
+      if(this.getEventDetails.speakers!=null)
       this.getEventDetails.speakers.forEach(m => {
         this.valuesSpeakertags.push(m.fullName);
       })
@@ -279,6 +287,7 @@ export class CopyEventComponent implements OnInit {
   }
   uploadImage() {
     const formData = new FormData();
+    this.image1button=false;
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
@@ -286,11 +295,13 @@ export class CopyEventComponent implements OnInit {
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
         this.imageValid = false;
+        this.image1button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }
   uploadAttachment() {
     const formData1 = new FormData();
+    this.image2button=false;
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
       .subscribe(res => {
@@ -298,6 +309,7 @@ export class CopyEventComponent implements OnInit {
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
         this.imageValid2 = false;
+        this.image2button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
       })
   }
@@ -320,8 +332,7 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].setValidators(validatorType);
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
-
-  updateEvent() {
+  submitChanges(){
     const ON_PREMISE = "1";
     const WEBINAR = "2";
     const BOTH = "3";
@@ -346,7 +357,7 @@ export class CopyEventComponent implements OnInit {
     }
 
     this.submitted = true;
-   if(this.updateEventForm.valid){
+   //if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
     // console.log("eventform==",this.updateEventForm.value);
@@ -432,20 +443,32 @@ export class CopyEventComponent implements OnInit {
 
     console.log("Updated Data", obj);
 
-    this.authService.saveEventDetails(obj).subscribe(
-      (response) => {
-        console.log("responsne", response);
-        this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
-        this.submitted = false;
-        this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
-      },
-      (error) => {
-        this.snackBar.open(error, 'Close');
-      }
-    )
-   } else{
-    this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
+    // this.authService.saveEventDetails(obj).subscribe(
+    //   (response) => {
+    //     console.log("responsne", response);
+    //     this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+    //     this.submitted = false;
+    //     this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
+    //   },
+    //   (error) => {
+    //     this.snackBar.open(error, 'Close');
+    //   }
+    // )
+  //  } else{
+  //   this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
+  // }
+  this.closeModel1.nativeElement.click();
   }
+  updateEvent() {
+    if(!this.updateEventForm.dirty){
+      this.msgbutton.nativeElement.click();
+
+    }
+    else{
+      this.submitChanges();
+
+    }
+
   }
   createTag(){
     if(this.addTagForm.valid){

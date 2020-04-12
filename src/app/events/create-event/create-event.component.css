@@ -77,3 +77,13 @@ textarea {
 .cursor{
   cursor: not-allowed;
 }
+.table{
+  font-weight: normal;
+    width: 100%;
+    margin-bottom: 0;
+    color: #495057;
+    font-size: 13px;
+}
+.table td, .table th {
+  padding: .45rem;
+}

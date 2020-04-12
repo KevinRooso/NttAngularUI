@@ -36,7 +36,11 @@
           <img [src]="test.detailImageUrl"
             alt="profile-image" class="profile" />
           <p class="card-title">{{test.title}}:{{test.shortDescription | truncate : 80 : false}}</p>
-           <p class="card-text">{{test.longDescription  | truncate : 160 : false}}</p>
+           <p class="card-text">{{test.longDescription  }}</p>
+        </div>
+        <div class="event-card-body-footer text-center">
+          <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="editTest(test.id)">Edit
+              Details</button></a>
         </div>
       </div>
     </div>

@@ -82,6 +82,9 @@ import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
+import { MatTabsModule }  from '@angular/material/tabs';
+
+
 
 @NgModule({
   declarations: [
@@ -166,7 +169,9 @@ import { LoaderComponent } from './loader/loader.component';
     MatDialogModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
+
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

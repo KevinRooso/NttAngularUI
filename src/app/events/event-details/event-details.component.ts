@@ -5,6 +5,7 @@ import { Location} from '@angular/common';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { speedDialFabAnimations } from 'src/app/fab-animation';
 import { CommonServiceService } from 'src/app/common-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -24,7 +25,8 @@ export class EventDetailsComponent implements OnInit {
      private router: Router,
      private router1: ActivatedRoute,
      private location: Location,
-     private commonService:CommonServiceService) { }
+     private commonService:CommonServiceService,
+     public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -42,12 +44,14 @@ export class EventDetailsComponent implements OnInit {
   getEventData(id) {
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body.events;
+      console.log("ID Data", this.getEventDetails);
         this.eventName=this.getEventDetails.title;
         if(this.getEventDetails.eventSchedule[0].startDate!=null){
         this.startTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].startDate);
         this.endTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].endDate);
         }
-      console.log("ID Data", this.getEventDetails);
+        this.isPublish=this.getEventDetails.isPublish;
+        this.isActive=this.getEventDetails.isActive;
     })
   }
 
@@ -95,6 +99,8 @@ export class EventDetailsComponent implements OnInit {
   ];
   buttons = [];
   fabTogglerState = 'inactive';
+  isPublish:boolean=false;
+  isActive:boolean=false;
   showItems() {
     this.fabTogglerState = 'active';
     this.buttons = this.fabButtons;
@@ -113,5 +119,27 @@ export class EventDetailsComponent implements OnInit {
         this.router.navigate(['/copy-event'], { queryParams: { page: this.eventId } });
       if(icon=='edit')
       this.router.navigate(['/edit'], { queryParams: { page: this.eventId } });
+  }
+  publishChanges(){
+    this.authService.savePublish(this.eventId,this.isPublish).subscribe(res=>{
+      this.snackBar.open('SUCCESS!!', 'Close', {duration: 5000});
+    },
+    (error)=>{
+      this.isPublish=!this.isPublish;
+      console.log(error);
+      if(error.status=='403')
+      this.snackBar.open('You do not have the permission to Publish it', 'Close', {duration: 5000});
+    })
+  }
+  activeChange(){
+    this.authService.saveActive(this.eventId,this.isActive).subscribe(res=>{
+      this.snackBar.open('SUCCESS!!', 'Close', {duration: 5000});
+    },
+    (error)=>{
+      console.log(error);
+      this.isActive=!this.isActive
+      if(error.status=='403')
+      this.snackBar.open('You do not have the permission to Active it', 'Close', {duration: 5000});
+    })
   }
 }

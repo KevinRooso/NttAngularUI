@@ -43,6 +43,22 @@
       </div>
     </div>
   </div>
+  <!-- <div >
+    <div class="col-sm-12 px-0">
+      <div class="card">
+        <div class="card-body">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Publish</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="publishChanges()" [(ngModel)]="isPublish"></mat-slide-toggle>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Active</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="activeChange()" [(ngModel)]="isActive"></mat-slide-toggle>
+        </div>
+      </div>
+        </div>
+      </div>
+  </div> -->
   <div class="row py-3" style="width: 100%;">
     <div class="col-sm-12 d-inline-flex">
       <div class="col-sm-3">
@@ -69,8 +85,20 @@
           </div>
         </div>
       </div>
+
       <div class="col-sm-6 px-0">
         <div class="card">
+          <div class="card-body">
+          <div class="form-row">
+            <label class="col-sm-2 col-form-label">Publish:</label>
+            <mat-slide-toggle class="example-full-width col-sm-3" (change)="publishChanges()" [(ngModel)]="isPublish"></mat-slide-toggle>
+
+            <label class="col-sm-2 col-form-label">Active:</label>
+            <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"></mat-slide-toggle>
+          </div>
+        </div>
+          </div>
+        <div class="card" style="margin-top: 16px;">
           <div class="card-body medium">
             <h5 class="card-title">{{getEventDetails.title}}</h5>
             <!-- <h6>Description</h6> -->

@@ -1,8 +1,8 @@
+import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { environment } from '@environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,11 @@ export class AuthServiceService {
   getAllEventList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/events', {headers:this.headers})
   }
+
+  getUserDetail():Observable<any>{
+    return this.http.get<any>(this.url+'api/users/me', {headers:this.headers})
+  }
+
   getEventDetail(id):Observable<any>{
     return this.http.get<any>(this.url+'api/public/event/'+id, {headers:this.headers})
   }
@@ -169,5 +174,12 @@ export class AuthServiceService {
 
   getAllHomeData():Observable<any>{
     return this.http.get<any>(this.url+'api/public/homePage', {headers:this.headers})
+  }
+
+  savePublish(id,flag):Observable<any>{
+    return this.http.put<any>(this.url+'api/admin/event/publish/'+id+'/'+flag,null, {headers:this.headers});
+  }
+  saveActive(id,flag):Observable<any>{
+    return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
   }
 }
