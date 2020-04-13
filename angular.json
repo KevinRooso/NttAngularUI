@@ -87,7 +87,7 @@
             "dev_team": {
               "commonChunk": false,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "vendorChunk": false,
               "fileReplacements": [
                 {
