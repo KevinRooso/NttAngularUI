@@ -30,6 +30,10 @@ export class EventPreviewComponent implements OnInit {
   publishedList:any[]=[];
   activeList:any[]=[];
   draftList:any[]=[];
+  publishedList1:any[]=[];
+  activeList1:any[]=[];
+  draftList1:any[]=[];
+
   sort:string="desc?cdate";
     startDate=new Date();
     endDate=new Date();
@@ -93,12 +97,15 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList=this.getEventData.filter(m=>{
            return m.publish && m.active && !m.draft;
          })
+         this.publishedList1=this.publishedList;
          this.activeList=this.getEventData.filter(m=>{
           return !m.publish && m.active && !m.draft;
         })
+         this.activeList1=this.activeList;
         this.draftList=this.getEventData.filter(m=>{
           return !m.publish && !m.active && m.draft;
         })
+        this.draftList1=this.draftList;
       });
   }
   getTagsDetails(){
@@ -151,15 +158,31 @@ export class EventPreviewComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
+      this.publishedList=this.publishedList.filter(m=>{
 
        // return m.title.includes(this.searchBlog);
        let titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
-      })
+      });
+      this.activeList=this.activeList.filter(m=>{
+
+        // return m.title.includes(this.searchBlog);
+        let titleData=m.title.toUpperCase();
+         return titleData.includes(this.searchBlog.toUpperCase());
+       });
+       this.draftList=this.draftList.filter(m=>{
+
+        // return m.title.includes(this.searchBlog);
+        let titleData=m.title.toUpperCase();
+         return titleData.includes(this.searchBlog.toUpperCase());
+       })
+
   }
   cancel(){
-   this.filterBlogs=this.blogs;
+
+   this.publishedList=this.publishedList1;
+   this.activeList=this.activeList1;
+   this.draftList=this.draftList1;
   }
   emitValue(){
    let date1=this.advanceFilterForm.get(['registrationStartDate']).value;
