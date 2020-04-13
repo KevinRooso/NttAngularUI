@@ -142,7 +142,7 @@
 
 <div class="container-fluid"  >
   <div class="accordion" id="accordionExample">
-    <div class="card shadow-none ">
+    <div class="card shadow-none " *ngIf="publishedList.length!=0">
       <div class="card-header " id="headingOne" data-toggle="collapse" data-target="#collapseOne">
         <h2 class="mb-0">
           <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
@@ -156,7 +156,7 @@
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="publishedList.length!=0"></h2>
+          <h2 ></h2>
     <div class="row  mt-2">
 
      <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
@@ -184,7 +184,7 @@
       </div>
     </div>
     <br>
-    <div class="card shadow-none">
+    <div class="card shadow-none" *ngIf="activeList.length!=0">
       <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
         <h2 class="mb-0">
            <a type="button"  aria-expanded="true" aria-controls="collapseTwo">
@@ -195,7 +195,7 @@
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="activeList.length!=0"></h2>
+          <h2 ></h2>
           <div class="row  mt-2">
             <div class="col-sm-4 mb-3" *ngFor="let card of activeList">
                <div class="card">
@@ -222,9 +222,9 @@
       </div>
     </div>
     <br>
-    <div class="card shadow-none" *ngIf="draftList==null">
+    <div class="card shadow-none" *ngIf="draftList.length!=0" >
       <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
-        <h2 class="mb-0">
+        <h2 class="mb-0" >
          <a  type="button"  aria-expanded="true" aria-controls="collapseThree">
            Draft
          </a>
@@ -232,7 +232,7 @@
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="draftList.length!=0"></h2>
+
           <div class="row  mt-2">
              <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
                 <div class="card">
