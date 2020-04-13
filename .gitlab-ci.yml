@@ -68,7 +68,7 @@ deploy_dev:
     - apt-get install -y ruby-dev
     - gem install dpl
     # - npm run build:dev
-    - dpl --provider=heroku --app=$HEROKU_DEV_TEAM_APP --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_DEV_APP --api-key=$HEROKU_API_KEY
 
 # staging deployment
 deploy_staging:
@@ -91,7 +91,7 @@ deploy_staging:
     - apt-get install -y ruby-dev
     - gem install dpl
     # - npm run build:dev
-    - dpl --provider=heroku --app=$HEROKU_DEV_TEAM_APP --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_API_KEY
 
 # production deployment
 # deploy_production:
