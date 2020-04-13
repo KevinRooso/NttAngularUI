@@ -83,7 +83,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
-
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -170,7 +170,8 @@ import { MatTabsModule }  from '@angular/material/tabs';
     MatCheckboxModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTabsModule
+    MatTabsModule,
+    CKEditorModule
 
   ],
   providers: [HttpClientModule],
