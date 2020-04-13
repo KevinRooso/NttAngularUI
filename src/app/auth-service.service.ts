@@ -33,6 +33,11 @@ export class AuthServiceService {
   getAllEventList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/events', {headers:this.headers})
   }
+
+  getUserDetail():Observable<any>{
+    return this.http.get<any>(this.url+'api/users/me', {headers:this.headers})
+  }
+
   getEventDetail(id):Observable<any>{
     return this.http.get<any>(this.url+'api/public/event/'+id, {headers:this.headers})
   }

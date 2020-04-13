@@ -62,4 +62,7 @@ export class TestimonialsComponent implements OnInit {
   cancel(){
     this.filterBlogs=this.blogs;
   }
+  editTest(id){
+    this.router.navigate(['create-testimonials'],{queryParams:{page:id}})
+  }
 }

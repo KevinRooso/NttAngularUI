@@ -54,7 +54,7 @@
 
 
         <div class="text-right">
-          <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit
+          <button type="submit" (click)="submit()" [disabled]="!addParForm.valid" class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>
