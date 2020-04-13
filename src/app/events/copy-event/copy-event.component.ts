@@ -15,6 +15,7 @@ export class CopyEventComponent implements OnInit {
   updateEventForm: FormGroup;
   addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
+  addAgenda: FormGroup;
 
   allData: any[] = [];
   valuesSelectedTag: string[] = [];
@@ -26,6 +27,7 @@ export class CopyEventComponent implements OnInit {
   policyFaqs:string[] = [];
   allPolicyFAQ: any[] = [];
   allPolicyTNC: any[] = [];
+  agendaData:any[] = [];
   tagData:any[]=[];
   speaker = new FormControl();
   tag = new FormControl();
@@ -53,7 +55,7 @@ export class CopyEventComponent implements OnInit {
   checkError:any;
   isEvent:boolean = false;
   isWebinar:boolean = false;
-
+  endingDate = new Date();
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
@@ -64,6 +66,8 @@ export class CopyEventComponent implements OnInit {
   @ViewChild('closeModel',{static:true}) closeModel;
   @ViewChild('closeModel1',{static:true}) closeModel1;
   @ViewChild('msgbutton',{static:true}) msgbutton;
+  @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
+  @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, public snackBar: MatSnackBar, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
@@ -81,7 +85,7 @@ export class CopyEventComponent implements OnInit {
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
-      noOfSubUsersAllow: [''],
+      //noOfSubUsersAllow: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       speakerList: ['', Validators.required],
@@ -125,6 +129,17 @@ export class CopyEventComponent implements OnInit {
       name:['',Validators.required],
       keywords: ['',Validators.required]
     })
+    this.addAgenda = formBuilder.group({
+      title: [''],
+      topic: [''],
+      startDate: [''],
+      endDate: [''],
+      speakerList: [''],
+      isBreak:[''],
+      idData:['-1'],
+      id:['0']
+    })
+    console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -150,10 +165,10 @@ export class CopyEventComponent implements OnInit {
        for(let i=0;i<this.getEventDetails.tags.length;i++)
         this.selected4.push(this.getEventDetails.tags[i].id);
         console.log("tags=",this.selected4);
-        if(this.getEventDetails.speakers!=null)
-      for(let i=0;i<this.getEventDetails.speakers.length;i++)
-        this.selected6.push(this.getEventDetails.speakers[i].id);
-        console.log("speakerlist=",this.selected6);
+      //   if(this.getEventDetails.speakers!=null)
+      // for(let i=0;i<this.getEventDetails.speakers.length;i++)
+      //   this.selected6.push(this.getEventDetails.speakers[i].id);
+      //   console.log("speakerlist=",this.selected6);
 
         if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
           this.color="1";
@@ -186,7 +201,7 @@ export class CopyEventComponent implements OnInit {
 
       this.updateEventForm.controls['country'].setValue(this.getEventDetails.country);
       this.updateEventForm.controls['pincode'].setValue(this.getEventDetails.pincode);
-      this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
+      //this.updateEventForm.controls['noOfSubUsersAllow'].setValue(this.getEventDetails.noOfSubUsersAllow);
       this.updateEventForm.controls['detailImageUrl'].setValidators(null);
       this.updateEventForm.controls['detailImageUrl'].updateValueAndValidity();
       this.attachUrl = this.getEventDetails.detailImageUrl;
@@ -199,8 +214,8 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['tagList'].setValidators(null);
       this.updateEventForm.controls['tagList'].updateValueAndValidity();
 
-      this.updateEventForm.controls['speakerList'].setValidators(null);
-      this.updateEventForm.controls['speakerList'].updateValueAndValidity();
+     // this.updateEventForm.controls['speakerList'].setValidators(null);
+     // this.updateEventForm.controls['speakerList'].updateValueAndValidity();
 
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
@@ -222,10 +237,11 @@ export class CopyEventComponent implements OnInit {
       this.getEventDetails.tags.forEach(m => {
         this.valuesSelectedTag.push(m.name);
       })
-      if(this.getEventDetails.speakers!=null)
-      this.getEventDetails.speakers.forEach(m => {
-        this.valuesSpeakertags.push(m.fullName);
-      })
+      this.agendaData = this.getEventDetails.eventSchedule;
+      // if(this.getEventDetails.speakers!=null)
+      // this.getEventDetails.speakers.forEach(m => {
+      //   this.valuesSpeakertags.push(m.fullName);
+      // })
       this.getCategoryDetails();
       this.getSpeakerDetails()
       this.getTagsDetails();
@@ -443,18 +459,19 @@ export class CopyEventComponent implements OnInit {
 
     console.log("Updated Data", obj);
 
-    // this.authService.saveEventDetails(obj).subscribe(
-    //   (response) => {
-    //     console.log("responsne", response);
-    //     this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
-    //     this.submitted = false;
-    //     this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
-    //   },
-    //   (error) => {
-    //     this.snackBar.open(error, 'Close');
-    //   }
-    // )
-  //  } else{
+    this.authService.saveEventDetails(obj).subscribe(
+      (response) => {
+        console.log("responsne", response);
+        this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+        this.submitted = false;
+        this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
+      },
+      (error) => {
+        this.snackBar.open(error, 'Close');
+      }
+    )
+  //  }
+  // else{
   //   this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
   // }
   this.closeModel1.nativeElement.click();
@@ -469,6 +486,46 @@ export class CopyEventComponent implements OnInit {
 
     }
 
+  }
+  createAgenda(){
+    // if (this.addAgenda.valid) {
+      console.log("Check",this.addAgenda.controls['idData'].value);
+    let obj= {
+      "title": this.addAgenda.controls['title'].value,
+      "topic": this.addAgenda.controls['topic'].value,
+      "isBreak": this.addAgenda.controls['isBreak'].value,
+      "endDate": this.addAgenda.controls['endDate'].value,
+      "startDate": this.addAgenda.controls['startDate'].value,
+      "speakerList": this.addAgenda.controls['speakerList'].value,
+      "id":0,
+      "idData":-1
+    }
+    if(this.addAgenda.value['idData']!= -1){
+      obj['idData'] = this.addAgenda.value['idData'];
+    }else{
+      obj['idData'] = -1;
+    }
+    if(obj.idData == -1){
+      this.agendaData.push(obj);
+    }else{
+      this.agendaData[(obj.idData)]=obj;
+    }
+
+    console.log("agenda", obj);
+    console.log("updaate data", this.addAgenda.value);
+    this.addAgenda.reset()
+    this.closeModelAgenda.nativeElement.click();
+  }
+// }
+  delete(i){
+    this.agendaData.splice(i,1);
+  }
+  updateAgenda(i){
+    // alert(i);
+    this.agendaData[i].idData = i;
+    console.log("log", this.agendaData[i]);
+    this.addAgenda.setValue(this.agendaData[i]);
+    this.agendaUpdate.nativeElement.click();
   }
   createTag(){
     if(this.addTagForm.valid){
@@ -489,7 +546,6 @@ export class CopyEventComponent implements OnInit {
 }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
-      console.log("Tags==", res.body);
       this.tagData=res.body;
     })
   }
@@ -498,62 +554,31 @@ export class CopyEventComponent implements OnInit {
       this.allData = res.body;
     })
   }
-  // getPolicyFaQDetails() {
-  //   this.authService.getAllPolicyFaq().subscribe((res) => {
-  //     this.allPolicyFAQ = res.body;
-  //   })
-  // }
-  // getPolicyTnCDetails() {
-  //   this.authService.getAllPolicyTnC().subscribe((res) => {
-  //     this.allPolicyTNC = res.body;
-  //   })
-  // }
   getSpeakerDetails() {
     this.authService.getAllSpeakers().subscribe((res) => {
       this.allspeakers=res.body;
-
     })
-    // console.log("Checking", this.allspeakers);
-    // console.log("Checking cate", this.allData);
   }
-  // customCompare(o1, o2) {
-  //   return o1.id === o2.id;
-  // }
+
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
-  fileProgress1(fileInput: any) {
-    this.fileData = <File>fileInput.target.files[0];
-    this.preview1();
-  }
-  preview1() {
-    // Show preview
-    var mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-      this.previewUrl2 = reader.result;
-    }
-  }
-
   maxCDate() {
     console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
     this.closingDate = this.updateEventForm.get(['startDate']).value;
-    this.regStartDate = this.closingDate;
+   this.regStartDate = this.closingDate;
+  }
+  maxEDate() {
+    console.log("ending Date", this.updateEventForm.get(['endDate']).value);
+    this.endingDate = this.updateEventForm.get(['endDate']).value;
   }
   maxRegDate() {
     this.regEndDate = this.updateEventForm.get(['registrationStartDate']).value;
   }
-  getLocation(){
+  getLocation() {
     alert("inside location");
-    this.authService.getLocation().subscribe(res=>{
-        console.log(res);
-
+    this.authService.getLocation().subscribe(res => {
+      console.log(res);
     })
   }
 
