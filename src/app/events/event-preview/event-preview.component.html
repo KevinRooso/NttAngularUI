@@ -140,20 +140,23 @@
 </div> -->
 
 
-<div class="container-fluid">
+<div class="container-fluid"  >
   <div class="accordion" id="accordionExample">
-    <div class="card">
-      <div class="card-header" id="headingOne">
+    <div class="card shadow-none ">
+      <div class="card-header " id="headingOne" data-toggle="collapse" data-target="#collapseOne">
         <h2 class="mb-0">
-          <button class="btn btn-outline-info collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Publish
-          </button>
+          <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
+            Published
+          </h2>   </a> -->
+         <a  type="button"  aria-expanded="true" aria-controls="collapseOne">
+            Published
+          </a>
         </h2>
       </div>
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="publishedList.length!=0">Publish</h2>
+          <h2 *ngIf="publishedList.length!=0"></h2>
     <div class="row  mt-2">
 
      <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
@@ -180,18 +183,19 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
+    <br>
+    <div class="card shadow-none">
+      <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
         <h2 class="mb-0">
-           <button class="btn  btn-outline-info collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+           <a type="button"  aria-expanded="true" aria-controls="collapseTwo">
             Active
-          </button>
+           </a>
 
         </h2>
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="activeList.length!=0">Active</h2>
+          <h2 *ngIf="activeList.length!=0"></h2>
           <div class="row  mt-2">
             <div class="col-sm-4 mb-3" *ngFor="let card of activeList">
                <div class="card">
@@ -217,17 +221,18 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingThree">
+    <br>
+    <div class="card shadow-none" *ngIf="draftList==null">
+      <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
         <h2 class="mb-0">
-          <button class="btn btn-outline-info collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         <a  type="button"  aria-expanded="true" aria-controls="collapseThree">
            Draft
-          </button>
+         </a>
         </h2>
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 *ngIf="draftList.length!=0">Draft</h2>
+          <h2 *ngIf="draftList.length!=0"></h2>
           <div class="row  mt-2">
              <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
                 <div class="card">
