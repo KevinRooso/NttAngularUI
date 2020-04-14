@@ -85,6 +85,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
+import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
 import { CKEditorModule } from 'ckeditor4-angular';
 
 
@@ -139,7 +140,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     CopyEventComponent,
     LandingPageComponent,
     SortByPipe,
-    LoaderComponent
+    LoaderComponent,
+    HomeUiComponent
     ],
   imports: [
     BrowserModule,

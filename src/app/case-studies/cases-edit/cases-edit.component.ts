@@ -90,10 +90,11 @@ export class CasesEditComponent implements OnInit {
     }
     getUserList() {
       this.authService.getUserList().subscribe((res) => {
-        console.log("3");
-        console.log("userlist===",res.body);
-
         this.userList = res.body;
+        if(this.userList!=null)
+        this.userList=this.userList.filter(m=>{
+          return m.id!=9;
+        })
       })
     }
     getCasesData(id){

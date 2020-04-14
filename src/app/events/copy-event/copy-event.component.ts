@@ -153,8 +153,11 @@ export class CopyEventComponent implements OnInit {
   }
   getUserList(){
     this.authService.getUserList().subscribe((res)=>{
-      // console.log("Tag", res.body);
-      this.userList=res.body;
+      this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   getEventData(id) {
