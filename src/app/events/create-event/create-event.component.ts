@@ -17,6 +17,7 @@ export class CreateEventComponent implements OnInit {
   createEventForm: FormGroup;
   addTagForm: FormGroup;
   addAgenda: FormGroup;
+  show = false;
 
   allData: any[] = [];
   tagsList: string[] = [];
@@ -64,6 +65,7 @@ export class CreateEventComponent implements OnInit {
   image1button:boolean=false;
   image2button:boolean=false;
   agendaData:any[] = [];
+  counter: any;
 
 
   // endingDate: any;
@@ -143,6 +145,8 @@ export class CreateEventComponent implements OnInit {
     this.getSpeakerDetails();
     this.getTagsDetails();
     this.getUserList();
+
+    //this.wordCount = this.createEventForm.get(['detail']).value.length;
 
   }
 
@@ -277,7 +281,7 @@ export class CreateEventComponent implements OnInit {
 
     this.submitted = true;
     if (this.createEventForm.valid) {
-
+      this.show =true;
       let name: any[] = [];
       let spekaerName: any[] = [];
       spekaerName = this.createEventForm.controls['fullName'].value;
@@ -355,16 +359,20 @@ export class CreateEventComponent implements OnInit {
       }
 
       console.log("Post Data", objData);
+      //this.show =false;
 
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
-          this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+
+          this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
           this.submitted = false;
           console.log("Api success res", response);
+          this.show =false;
           this.router.navigate(['events']);
         },
         (error) => {
           this.snackBar.open(error, 'Close');
+           this.show =false;
          }
       )
      }

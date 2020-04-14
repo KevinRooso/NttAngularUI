@@ -16,7 +16,7 @@ export class CopyEventComponent implements OnInit {
   addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
   addAgenda: FormGroup;
-
+  show = false;
   allData: any[] = [];
   valuesSelectedTag: string[] = [];
   tagsList: string[] = [];
@@ -88,7 +88,7 @@ export class CopyEventComponent implements OnInit {
       //noOfSubUsersAllow: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      speakerList: ['', Validators.required],
+      speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
@@ -158,6 +158,7 @@ export class CopyEventComponent implements OnInit {
     })
   }
   getEventData(id) {
+    this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
@@ -246,6 +247,7 @@ export class CopyEventComponent implements OnInit {
       this.getSpeakerDetails()
       this.getTagsDetails();
       this.getUserList();
+      this.show = false;
     })
   }
   fileProgress(fileInput: any) {
@@ -349,6 +351,7 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
   submitChanges(){
+    this.show =true;
     const ON_PREMISE = "1";
     const WEBINAR = "2";
     const BOTH = "3";
@@ -391,14 +394,14 @@ export class CopyEventComponent implements OnInit {
       });
     })
 
-    this.allspeakers.forEach(m=>{
-      this.updateEventForm.value.speakerList.forEach(n=>{
-          if(n==m.id){
+    // this.allspeakers.forEach(m=>{
+    //   this.updateEventForm.value.speakerList.forEach(n=>{
+    //       if(n==m.id){
 
-            speakerList1.push(m);
-          }
-      });
-    })
+    //         speakerList1.push(m);
+    //       }
+    //   });
+    // })
 
     let schedule: any[] = [];
     let scheduling = {
@@ -431,7 +434,7 @@ export class CopyEventComponent implements OnInit {
       "pincode": this.updateEventForm.controls['pincode'].value,
       "totalSeat": this.updateEventForm.controls['totalSeat'].value,
       "registrationCloseBeforeSeat": this.updateEventForm.controls['registrationCloseBeforeSeat'].value,
-      "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
+     // "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
       "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
       "speakerList":speakerList1,
@@ -462,12 +465,14 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+        this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
         this.submitted = false;
+        this.show =false;
         this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
       },
       (error) => {
         this.snackBar.open(error, 'Close');
+        this.show =false;
       }
     )
   //  }

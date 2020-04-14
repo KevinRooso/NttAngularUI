@@ -298,3 +298,36 @@ table.dataTable tbody th, table.dataTable tbody td {
 .fab-container> div > button {
   margin-bottom: 5px !important;
 } */
+.cke_button__pastetext{
+  display: none !important;
+}
+.cke_button__italic{
+  display: none !important;
+}
+.cke_button__strike{
+  display: none !important;
+}
+.cke_button__image{
+  display: none !important;
+}
+.cke_button__anchor{
+  display: none !important;
+}
+.cke_combo__styles{
+  display: none !important;
+}
+.cke_button__about{
+  display: none !important;
+}
+.cke_button__specialchar{
+  display: none !important;
+}
+.cke_combo__format{
+  display: none !important;
+}
+.cke_button__paste{
+  display: none !important;
+}
+.cke_button__pastefromword{
+  display: none !important;
+}

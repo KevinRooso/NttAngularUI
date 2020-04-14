@@ -15,6 +15,7 @@ export class EventEditComponent implements OnInit {
   //addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
   addAgenda: FormGroup;
+  show = false;
   allData: any[] = [];
   valuesSelectedTag: string[] = [];
   tagsList: string[] = [];
@@ -85,7 +86,7 @@ export class EventEditComponent implements OnInit {
       //noOfSubUsersAllow: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      speakerList: ['', Validators.required],
+      speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
       policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
@@ -134,7 +135,8 @@ export class EventEditComponent implements OnInit {
       speakerList: [''],
       isBreak:[''],
       idData:['-1'],
-      id:['0']
+      id:['0'],
+      isActive: [false]
     })
     console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
@@ -155,6 +157,7 @@ export class EventEditComponent implements OnInit {
     })
   }
   getEventData(id) {
+    this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
@@ -243,6 +246,7 @@ export class EventEditComponent implements OnInit {
       this.getSpeakerDetails()
       this.getTagsDetails();
       this.getUserList();
+      this.show = false;
     })
   }
   fileProgress(fileInput: any) {
@@ -373,6 +377,7 @@ export class EventEditComponent implements OnInit {
 
     this.submitted = true;
    if(this.updateEventForm.valid){
+    this.show =true;
     let tags:any[]=[];
     let speakerList1:any[]=[];
     // console.log("eventform==",this.updateEventForm.value);
@@ -390,14 +395,14 @@ export class EventEditComponent implements OnInit {
       });
     })
 
-    this.allspeakers.forEach(m=>{
-      this.updateEventForm.value.speakerList.forEach(n=>{
-          if(n==m.id){
+    // this.allspeakers.forEach(m=>{
+    //   this.updateEventForm.value.speakerList.forEach(n=>{
+    //       if(n==m.id){
 
-            speakerList1.push(m);
-          }
-      });
-    })
+    //         speakerList1.push(m);
+    //       }
+    //   });
+    // })
 
     let schedule: any[] = [];
     let scheduling = {
@@ -430,8 +435,10 @@ export class EventEditComponent implements OnInit {
     //   faqId=m.id;
     // });
     // console.log("Thumb", this.articleImage);
-    // console.log("dateil Banner",this.attachFile);
-
+    // console.log("dateil Banner",this.attachFile);description
+    this.agendaData[0].isActive = false;
+    this.agendaData[0].description = "";
+    this.agendaData[0].speakers[0].isActive = false;
     let obj = {
       "title": this.updateEventForm.controls['title'].value,
       "detail": this.updateEventForm.controls['detail'].value,
@@ -443,21 +450,20 @@ export class EventEditComponent implements OnInit {
       "pincode": this.updateEventForm.controls['pincode'].value,
       "totalSeat": this.updateEventForm.controls['totalSeat'].value,
       "registrationCloseBeforeSeat": this.updateEventForm.controls['registrationCloseBeforeSeat'].value,
-      "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
+     // "noOfSubUsersAllow": this.updateEventForm.controls['noOfSubUsersAllow'].value,
       "registrationStartDate": this.updateEventForm.controls['registrationStartDate'].value,
       "registrationEndDate": this.updateEventForm.controls['registrationEndDate'].value,
-      "speakerList":speakerList1,
+      //"speakerList":speakerList1,
       "policyFAQ": this.updateEventForm.controls['policyFAQ'].value,
       "policyTnc": this.updateEventForm.controls['policyTnc'].value,
       "thumbnailImageUrl": this.articleImage,
       "detailImageUrl": this.attachFile,
       "categoryTypeId": catId,
       "tagList": tags,
-      "eventSchedule": schedule,
+      "eventSchedule": this.agendaData,
       "autoApproveParticipant": false,
       "isbreak": false,
       "status": false,
-      "isActive": false,
       "isDraft": this.updateEventForm.controls['isDraft'].value,
       "isPublish": false,
       "isRegOpen": false,
@@ -474,14 +480,17 @@ export class EventEditComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        this.snackBar.open('Event successfully updated', 'Close', {duration: 5000});
+        this.snackBar.open('Event successfully updated', 'Close', {duration: 2000});
        // alert("Successfully Updated");
         this.submitted = false;
-        this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
+        this.show =false;
+       // this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
       },
       (error) => {
         //alert("Error :"+error);
-        this.snackBar.open(error, 'Close');
+        console.log("Api fail",error)
+        //this.snackBar.open(error, 'Close');
+        this.show =false;
       }
     )
    } else{
@@ -498,6 +507,7 @@ export class EventEditComponent implements OnInit {
       "endDate": this.addAgenda.controls['endDate'].value,
       "startDate": this.addAgenda.controls['startDate'].value,
       "speakerList": this.addAgenda.controls['speakerList'].value,
+      "isActive": false,
       "id":0,
       "idData":-1
     }

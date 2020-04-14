@@ -20,6 +20,7 @@ export class EventDetailsComponent implements OnInit {
   eventName;
   startTime="";
   endTime="";
+  show=false;
   @ViewChild('menumat') trigger: MatMenuTrigger;
   constructor(private authService: AuthServiceService,
      private router: Router,
@@ -42,6 +43,7 @@ export class EventDetailsComponent implements OnInit {
     this.trigger.openMenu();
   }
   getEventData(id) {
+    this.show=true;
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body.events;
       console.log("ID Data", this.getEventDetails);
@@ -52,14 +54,19 @@ export class EventDetailsComponent implements OnInit {
         }
         this.isPublish=this.getEventDetails.isPublish;
         this.isActive=this.getEventDetails.isActive;
+
     })
+    this.show=false;
   }
 
   getEventParticipant(id) {
+    this.show=true;
     this.authService.getParticipant(id).subscribe(res => {
       this.getParticipantDetails = res.body;
       console.log("Participants Data", this.getParticipantDetails);
+
     })
+    this.show=false;
   }
   getDetails(id) {
     // alert(id);
@@ -91,10 +98,12 @@ export class EventDetailsComponent implements OnInit {
   }
   fabButtons = [
     {
-      icon: 'file_copy'
+      icon: 'file_copy',
+      tooltip: 'Duplicate Event'
     },
     {
-      icon: 'edit'
+      icon: 'edit',
+      tooltip: 'Edit Event'
     }
   ];
   buttons = [];
