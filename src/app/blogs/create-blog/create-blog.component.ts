@@ -43,6 +43,12 @@ export class CreateBlogComponent implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
+
+
+  today=new Date();
+
+
+
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
@@ -57,6 +63,7 @@ export class CreateBlogComponent implements OnInit {
       tagList: ['',Validators.required],
       targetUserType:['',Validators.required],
       isDraft:[false],
+      expiryDate:  ['',Validators.required],
       thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
     });
     let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -67,6 +74,7 @@ export class CreateBlogComponent implements OnInit {
       email:  ['',[Validators.required, Validators.email]],
       keySkills:  [''],
       origanizationName:  ['',Validators.required],
+
 
       phone:  ['',Validators.pattern(mobnum)],
 
@@ -142,6 +150,8 @@ export class CreateBlogComponent implements OnInit {
       this.previewUrl = reader.result;
     }
   }
+
+
   uploadImage() {
     const formData = new FormData();
     formData.append('file', this.fileData);
@@ -258,7 +268,8 @@ export class CreateBlogComponent implements OnInit {
          "shortDescription": obj.longDescription,
          "tagList": tags,
          "thumbnailImageUrl": obj.thumbnailImageUrl,
-         "title": obj.title
+         "title": obj.title,
+         "expiryDate": this.createBlogForm.controls['expiryDate'].value
 
     }
     console.log(dataObj);

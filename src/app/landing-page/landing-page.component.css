@@ -20,7 +20,7 @@ body {
 .wrapper {
 display: flex;
 background-repeat: no-repeat;
-background-image: url('https://www.netmagicsolutions.com/data/images/Multi-cloud19-02-261551167252.jpg');
+/*background-image: url('https://www.netmagicsolutions.com/data/images/Multi-cloud19-02-261551167252.jpg'); */
 background-size: cover;
 color: #0B428A;
 line-height: 30px;
