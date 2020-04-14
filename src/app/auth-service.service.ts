@@ -172,8 +172,8 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/public/homePage/'+id, obj, {headers:this.headers});
   }
 
-  getAllHomeData():Observable<any>{
-    return this.http.get<any>(this.url+'api/public/homePage', {headers:this.headers})
+  getAllHomeData(user):Observable<any>{
+    return this.http.get<any>(this.url+'api/public/homePage?userType='+user, {headers:this.headers})
   }
 
   savePublish(id,flag):Observable<any>{
