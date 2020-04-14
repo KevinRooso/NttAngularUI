@@ -32,6 +32,11 @@ export class WhitepaperCreateComponent implements OnInit {
   userList: any[] = [];
   allData: any[] = [];
   tagData: any[] = [];
+
+
+  today=new Date();
+
+
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
     private location: Location, public snackBar: MatSnackBar) {
@@ -44,7 +49,8 @@ export class WhitepaperCreateComponent implements OnInit {
       draft: [false],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      expiryDate: ['', Validators.required]
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -136,6 +142,8 @@ export class WhitepaperCreateComponent implements OnInit {
       this.attachUrl = reader.result;
     }
   }
+
+
   uploadImage() {
     const formData = new FormData();
     formData.append('file', this.fileData);
@@ -189,6 +197,7 @@ export class WhitepaperCreateComponent implements OnInit {
         "title": this.createWhitePaperForm.controls['title'].value,
         "targetUserType": this.createWhitePaperForm.controls['targetUserType'].value,
         "approverId": 0,
+        "expiryDate": this.createWhitePaperForm.controls['expiryDate'].value,
       }
       console.log("post", obj);
 

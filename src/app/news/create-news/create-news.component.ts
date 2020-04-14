@@ -24,6 +24,10 @@ export class CreateNewsComponent implements OnInit {
   userList: any[] = [];
   imageValid: boolean = false;
 
+
+  today=new Date();
+
+
   constructor(private formBuilder: FormBuilder, private router: Router, private service: AuthServiceService, private location: Location, private authService: AuthServiceService, public snackBar: MatSnackBar) { }
   createNewsForm: FormGroup;
 
@@ -41,6 +45,7 @@ export class CreateNewsComponent implements OnInit {
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       draft: [false],
+       expiryDate: ['', Validators.required]
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -84,6 +89,7 @@ export class CreateNewsComponent implements OnInit {
       this.previewUrl = reader.result;
     }
   }
+
   uploadImage() {
     const formData = new FormData();
     formData.append('file', this.fileData);
@@ -119,6 +125,7 @@ export class CreateNewsComponent implements OnInit {
         "draft": this.createNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": 0,
+        "expiryDate": this.createNewsForm.controls['expiryDate'].value,
     }
     console.log("post", objData);
     this.authService.saveNews(objData).subscribe((response) => {

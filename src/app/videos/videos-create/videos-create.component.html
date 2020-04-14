@@ -92,6 +92,19 @@
           </mat-form-field>
         </div>
 
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Expiration Date<span class="error">*</span></label>
+         <div class="col-sm-9">
+          <input  [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
+           placeholder="Expiration Date & Time" formControlName="expiryDate" class="form-control">
+
+          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+        <owl-date-time #startdt></owl-date-time>
+        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+          (Expiration date & time is required)
+        </div>
+         </div>
+        </div>
 
 
         <div class="form-row">
