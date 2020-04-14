@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
     userName;
   ngOnInit(): void {
     this.service.getUserDetail().subscribe(res=>{
+      console.log("userName==",res);
+
       this.userName=res.name;
     })
   }

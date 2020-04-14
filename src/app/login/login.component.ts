@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginform.value);
     this.authService.getAuthourized(this.loginform.value).subscribe(
       (res)=>{
+        localStorage.removeItem('token');
         localStorage.setItem("token",res.body.accessToken);
         console.log(res);
         this.show =false;
