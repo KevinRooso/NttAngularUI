@@ -44,6 +44,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 
 
@@ -83,7 +85,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
-
+import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -137,7 +140,8 @@ import { MatTabsModule }  from '@angular/material/tabs';
     CopyEventComponent,
     LandingPageComponent,
     SortByPipe,
-    LoaderComponent
+    LoaderComponent,
+    HomeUiComponent
     ],
   imports: [
     BrowserModule,
@@ -170,7 +174,9 @@ import { MatTabsModule }  from '@angular/material/tabs';
     MatCheckboxModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTabsModule
+    MatTabsModule,
+    CKEditorModule,
+    MatTooltipModule
 
   ],
   providers: [HttpClientModule],

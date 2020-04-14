@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
      <li><a href="/home">Home</a></li>
@@ -37,6 +38,8 @@
                 direction="down"
                 class="fab-secondary"
                 color="secondary"
+                [matTooltip]="btn.tooltip"
+                matTooltipPosition="left"
                 >
           <i class="material-icons" (click)="duplicateEdit(btn.icon,getEventDetails.id)">{{btn.icon}}</i>
         </button>
@@ -102,7 +105,7 @@
           <div class="card-body medium">
             <h5 class="card-title">{{getEventDetails.title}}</h5>
             <!-- <h6>Description</h6> -->
-            <p class="card-text"><span class="event-label">Description</span>{{getEventDetails.detail}}</p>
+            <p class="card-text" [innerHTML]="getEventDetails.detail"><span class="event-label">Description</span></p>
             <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId!=null"><span style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
            <p class="card-text mb-0" style="font-weight: 500;">Tags - <span class="tags" *ngFor="let tag of getEventDetails.tags">{{tag.name}}</span></p>
           </div>

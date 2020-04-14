@@ -84,6 +84,10 @@ export class WhitepaperCreateComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   getCategoryDetails() {

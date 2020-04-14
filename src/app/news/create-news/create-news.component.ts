@@ -105,6 +105,10 @@ export class CreateNewsComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   generateNews(){
@@ -125,12 +129,15 @@ export class CreateNewsComponent implements OnInit {
     }
     console.log("post", objData);
     this.authService.saveNews(objData).subscribe((response) => {
+      console.log("response=",response);
       this.snackBar.open('News successfully created', 'Close', {duration: 5000});
      // console.log("responsne", response);
       this.submitted = false;
       //this.router.navigate(['events']);
     },
     (error) => {
+      console.log("error==",error);
+
       this.snackBar.open(error, 'Close');
       // alert("Error :" + error);
      })

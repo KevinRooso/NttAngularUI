@@ -106,5 +106,8 @@ p{
  }
 
 .card{
-  background-color: #f5f5f0;
+  background-color: #ffffff;
+}
+form{
+  margin-top: 25px;
 }

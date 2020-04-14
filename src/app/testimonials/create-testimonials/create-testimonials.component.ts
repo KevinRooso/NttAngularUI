@@ -119,6 +119,10 @@ export class CreateTestimonialsComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   fileProgress(fileInput: any) {

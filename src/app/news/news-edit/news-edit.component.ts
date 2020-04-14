@@ -67,7 +67,10 @@ export class NewsEditComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      console.log("user", this.userList);
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   getNewsVideoById(id) {

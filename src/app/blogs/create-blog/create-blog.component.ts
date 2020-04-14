@@ -110,8 +110,13 @@ export class CreateBlogComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
+
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
