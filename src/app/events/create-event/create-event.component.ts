@@ -13,9 +13,6 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 
 export class CreateEventComponent implements OnInit {
-  // safeSrc: SafeResourceUrl;
-  // mapData: any;
-  // mapUrl:any;
 
   createEventForm: FormGroup;
   addTagForm: FormGroup;
@@ -96,10 +93,10 @@ export class CreateEventComponent implements OnInit {
       pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
       totalSeat: [''],
       registrationCloseBeforeSeat: [''],
-      noOfSubUsersAllow: [''],
+      //noOfSubUsersAllow: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      speakerList: ['', Validators.required],
+      speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
       policyTnc: ['', [Validators.required, Validators.maxLength(3000)]],
@@ -326,10 +323,10 @@ export class CreateEventComponent implements OnInit {
         "city": this.createEventForm.controls['city'].value,
         "country": this.createEventForm.controls['country'].value,
         "pincode": this.createEventForm.controls['pincode'].value,
-        "speakerList": this.createEventForm.controls['speakerList'].value,
+        //"speakerList": this.createEventForm.controls['speakerList'].value,
         "totalSeat": this.createEventForm.controls['totalSeat'].value,
         "registrationCloseBeforeSeat": this.createEventForm.controls['registrationCloseBeforeSeat'].value,
-        "noOfSubUsersAllow": this.createEventForm.controls['noOfSubUsersAllow'].value,
+        //"noOfSubUsersAllow": this.createEventForm.controls['noOfSubUsersAllow'].value,
         "registrationStartDate": this.createEventForm.controls['registrationStartDate'].value,
         "registrationEndDate": this.createEventForm.controls['registrationEndDate'].value,
         "webinarUrl": this.createEventForm.controls['webinarUrl'].value,
@@ -362,8 +359,8 @@ export class CreateEventComponent implements OnInit {
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
           this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
-
           this.submitted = false;
+          console.log("Api success res", response);
           this.router.navigate(['events']);
         },
         (error) => {
@@ -416,8 +413,6 @@ export class CreateEventComponent implements OnInit {
     console.log("log", this.agendaData[i]);
     this.addAgenda.setValue(this.agendaData[i]);
     this.agendaUpdate.nativeElement.click();
-
-    //this.agendaData[i] = this.addAgenda
   }
     createTag() {
     if (this.addTagForm.valid) {

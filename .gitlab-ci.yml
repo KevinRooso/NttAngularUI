@@ -64,9 +64,11 @@ deploy_dev:
     paths:
       - node_modules/
   script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
     # - npm run build:dev
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_DEV_APP.git
-    - git push -f heroku HEAD:master
+    - dpl --provider=heroku --app=$HEROKU_DEV_APP --api-key=$HEROKU_API_KEY
 
 # staging deployment
 deploy_staging:
@@ -85,9 +87,11 @@ deploy_staging:
     paths:
       - node_modules/
   script:
-    # - npm run build:stage
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING_APP.git
-    - git push -f heroku HEAD:master
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    # - npm run build:dev
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_API_KEY
 
 # production deployment
 # deploy_production:

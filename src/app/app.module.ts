@@ -84,6 +84,7 @@ import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
 import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -171,7 +172,8 @@ import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component'
     MatCheckboxModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTabsModule
+    MatTabsModule,
+    CKEditorModule
 
   ],
   providers: [HttpClientModule],
