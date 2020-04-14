@@ -40,11 +40,8 @@
     "angular-datatables": "^9.0.1",
     "angular2-multiselect-dropdown": "^4.6.3",
     "bootstrap": "^4.4.1",
-<<<<<<< HEAD
     "chart.js": "^2.9.3",
-=======
     "ckeditor4-angular": "^1.1.0",
->>>>>>> cde37908c84592fb22ad928cdfbf802bf5ea13b7
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "express": "^4.17.1",
