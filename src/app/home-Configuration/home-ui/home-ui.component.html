@@ -7,7 +7,7 @@
 <div class="text-center my-5">
   <p class="heading-secondary">Edit Homepage Configuration</p>
 </div>
-<div class="row">
+<div class="row m-0">
   <div class="col-sm-8">
     <div class="card" *ngIf="publicFlag">
       <div class="brd card-header">
@@ -387,7 +387,7 @@
       <div class="card-header" id="headingOne">
         Preview
       </div>
-      <div class="main-container p-2" style="background: #efefef;    overflow-y: auto;    height: 480px;">
+      <div class="main-container p-2" style="background: #efefef;    overflow-y: auto;  overflow-x: hidden;  height: 480px;">
 
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -396,14 +396,14 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="First slide">
+            <div class="carousel-item active" *ngIf="homeBannerData.length >= 0">
+              <img class="d-block w-100" [src]="homeBannerData[0].companyImageUrl">
             </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://www.w3schools.com/bootstrap/la.jpg" alt="Second slide">
+            <div class="carousel-item" *ngIf="homeBannerData.length >= 1">
+              <img class="d-block w-100" [src]="homeBannerData[1].companyImageUrl">
             </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://www.w3schools.com/bootstrap/ny.jpg" alt="Third slide">
+            <div class="carousel-item" *ngIf="homeBannerData.length >= 2">
+              <img class="d-block w-100" [src]="homeBannerData[2].companyImageUrl">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -417,30 +417,108 @@
         </div>
 
 
-        <div class="preview-card my-2">
+        <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
           <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Recent News</div>
+            <div class="col-sm-6 preview-header-text text-left">{{list.title}}</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
           </div>
           <div class="preview-card-body p-0">
             <img
-              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
+              [src]="list.thumbnailImageUrl"
               alt="" width="100%" height="100%">
           </div>
-        </div>
-
-        <div class="preview-card my-2">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
+        </div> -->
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='news'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Recent News</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+            </div>
           </div>
-          <div class="preview-card-body p-0">
-            <img
-              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
-              alt="" width="100%" height="100%">
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='event'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+            </div>
           </div>
         </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='articles'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='testimonials'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <p>"{{list.title}}"</p>
+              <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='caseStudies'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <p>{{list.title}}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='videos'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='blogs'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='articles'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div> -->
 
+        <!--
         <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Whitepaper</div>
@@ -451,9 +529,9 @@
               src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
               alt="" width="100%" height="100%">
           </div>
-        </div>
+        </div> -->
 
-        <div class="preview-card my-2" style="height: 130px;">
+        <!-- <div class="preview-card my-2" style="height: 130px;">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -462,9 +540,9 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est recusandae ut quam ipsa nemo cupiditate solu
             </p>
           </div>
-        </div>
+        </div> -->
 
-        <div class="preview-card my-2">
+        <!-- <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -476,11 +554,10 @@
           <div class="preview-card-footer">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
-        </div>
-        <div class="preview-card my-2" style="height: 260px;">
+        </div> -->
+        <!-- <div class="preview-card my-2" style="height: 260px;">
           <div class="row preview-header">
             <div class="col-sm-12 preview-header-text text-left">Top 5 managed security trends</div>
-            <!-- <div class="col-sm-6 preview-header-text text-right">view all</div> -->
           </div>
           <div class="preview-card-body pt-2">
             <img
@@ -490,8 +567,8 @@
           <div class="preview-card-footer">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
-        </div>
-        <div class="preview-card my-2">
+        </div> -->
+        <!-- <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Articles</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -501,7 +578,7 @@
               src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
               alt="" width="100%" height="100%">
           </div>
-        </div>
+        </div> -->
       </div>
 
     </div>
