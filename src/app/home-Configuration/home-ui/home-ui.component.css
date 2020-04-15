@@ -65,7 +65,7 @@ input.ng-invalid.ng-touched{
 .col-md-4 {
   border: 0px solid #d4d2d2;
   /* margin: 6px; */
-  max-width: 32%;
+  /* max-width: 32%; */
   padding: 1rem;
   border-radius: 5px;
 }
@@ -79,9 +79,9 @@ input.ng-invalid.ng-touched{
 .example-margin {
   margin: 0 10px;
 }
-p{
+/* p{
   font-weight: bold;
-}
+} */
 .col-md-6{
   border: 0px;
 }
@@ -106,8 +106,12 @@ p{
  }
 
 .card{
-  background-color: #f5f5f0;
+  background-color: #ffffff;
 }
 form{
   margin-top: 25px;
+}
+.collapse{
+  border: 1px solid rgb(239, 239, 239) !important;
+  padding: 1rem !important;
 }

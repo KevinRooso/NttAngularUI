@@ -43,6 +43,11 @@ export class CreateTestimonialsComponent implements OnInit {
     testemonials:any[]=[];
     tarUserType:string="";
     title:string="";
+
+
+  today=new Date();
+
+
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
@@ -51,7 +56,8 @@ export class CreateTestimonialsComponent implements OnInit {
       targetUserType:['',Validators.required],
       isDraft:[false],
       detailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]]
+      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      expiryDate:['',Validators.required]
 
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
@@ -113,6 +119,10 @@ export class CreateTestimonialsComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
   fileProgress(fileInput: any) {
@@ -138,6 +148,9 @@ export class CreateTestimonialsComponent implements OnInit {
       this.previewUrl = reader.result;
     }
   }
+
+
+
   uploadImage() {
     const formData = new FormData();
     formData.append('file', this.fileData);
@@ -209,7 +222,8 @@ export class CreateTestimonialsComponent implements OnInit {
           "title": obj.title,
           "targetUserType":obj.targetUserType,
           "categoryId":15,
-            "id":id
+            "id":id,
+            "expiryDate": this.createVideoForm.controls['expiryDate'].value,
      }
 
     console.log(dataObj);

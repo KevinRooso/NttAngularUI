@@ -17,6 +17,7 @@ export class CreateEventComponent implements OnInit {
   createEventForm: FormGroup;
   addTagForm: FormGroup;
   addAgenda: FormGroup;
+  show = false;
 
   allData: any[] = [];
   tagsList: string[] = [];
@@ -64,6 +65,7 @@ export class CreateEventComponent implements OnInit {
   image1button:boolean=false;
   image2button:boolean=false;
   agendaData:any[] = [];
+  counter: any;
 
 
   // endingDate: any;
@@ -76,8 +78,21 @@ export class CreateEventComponent implements OnInit {
      private authService: AuthServiceService,
       private location: Location, public snackBar: MatSnackBar) {
 
+
+
+  }
+
+  ngOnInit(): void {
+    this.initializeForm();
+    this.getCategoryDetails();
+    this.getSpeakerDetails();
+    this.getTagsDetails();
+    this.getUserList();
+
+  }
+  initializeForm(){
     this.newtoday.setDate(this.newtoday.getDate()-1);
-    this.createEventForm = formBuilder.group({
+    this.createEventForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
@@ -121,11 +136,11 @@ export class CreateEventComponent implements OnInit {
     }
 
 
-    this.addTagForm = formBuilder.group({
+    this.addTagForm = this.formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     })
-    this.addAgenda = formBuilder.group({
+    this.addAgenda = this.formBuilder.group({
       title: [''],
       topic: [''],
       startDate: [''],
@@ -135,23 +150,16 @@ export class CreateEventComponent implements OnInit {
       idData:['-1'],
       id:['0']
     })
-    console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
   }
-
-  ngOnInit(): void {
-    this.getCategoryDetails();
-    this.getSpeakerDetails();
-    this.getTagsDetails();
-    this.getUserList();
-
-  }
-
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
+      if(this.userList!=null)
+      this.userList=this.userList.filter(m=>{
+        return m.id!=9;
+      })
     })
   }
-
   fileProgress(fileInput: any) {
     // console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
     // this.createEventForm.controls['thumbnailImageUrl'].setValidators(Validators.apply);
@@ -277,7 +285,7 @@ export class CreateEventComponent implements OnInit {
 
     this.submitted = true;
     if (this.createEventForm.valid) {
-
+      this.show =true;
       let name: any[] = [];
       let spekaerName: any[] = [];
       spekaerName = this.createEventForm.controls['fullName'].value;
@@ -355,16 +363,20 @@ export class CreateEventComponent implements OnInit {
       }
 
       console.log("Post Data", objData);
+      //this.show =false;
 
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
-          this.snackBar.open('Event successfully created', 'Close', {duration: 5000});
+
+          this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
           this.submitted = false;
           console.log("Api success res", response);
+          this.show =false;
           this.router.navigate(['events']);
         },
         (error) => {
           this.snackBar.open(error, 'Close');
+           this.show =false;
          }
       )
      }
@@ -376,7 +388,6 @@ export class CreateEventComponent implements OnInit {
 
   createAgenda(){
     // if (this.addAgenda.valid) {
-      console.log("Check",this.addAgenda.controls['idData'].value);
     let obj= {
       "title": this.addAgenda.controls['title'].value,
       "topic": this.addAgenda.controls['topic'].value,
@@ -387,20 +398,16 @@ export class CreateEventComponent implements OnInit {
       "id":0,
       "idData":-1
     }
+    console.log("id=", this.addAgenda.controls['idData'].value);
     if(this.addAgenda.value['idData']!= -1){
       obj['idData'] = this.addAgenda.value['idData'];
     }else{
       obj['idData'] = -1;
     }
-    if(obj.idData == -1){
-      this.agendaData.push(obj);
-    }else{
-      this.agendaData[(obj.idData)]=obj;
-    }
+    console.log("id=", obj.idData);
 
-    console.log("agenda", obj);
-    console.log("updaate data", this.addAgenda.value);
     this.addAgenda.reset()
+    this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
   }
 // }

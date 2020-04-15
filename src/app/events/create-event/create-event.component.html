@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -66,13 +67,14 @@
               (Short Description should be less than 2000 characters)
             </div>
           </div>
+        </div>
           <!-- <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="3"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
             <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 700
               characters</mat-error>
           </mat-form-field> -->
-        </div>
+
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
@@ -325,13 +327,14 @@
               Terms & Conditions should be less than 3000 characters
             </div>
           </div>
+        </div>
           <!-- <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="policyTnc" rows="4"></textarea>
             <mat-error *ngIf="checkError('policyTnc', 'required')">Terms & Conditions is required</mat-error>
             <mat-error *ngIf="checkError('policyTnc', 'maxlength')">Terms & Conditions should be less than 3000
               characters</mat-error>
           </mat-form-field> -->
-        </div>
+
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy FAQs</label>
           <div class="col-sm-9">
@@ -343,12 +346,13 @@
               Policy FAQs should be less than 3000 characters
             </div>
           </div>
+        </div>
           <!-- <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
             <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters
             </mat-error>
           </mat-form-field> -->
-        </div>
+
         <div class="form-row ">
           <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
           <div class="col-sm-7">

@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
       <li><a href="/home">Home</a></li>
@@ -28,14 +29,17 @@
             placeholder="Description..." cols="40" rows="4">
           </textarea>
         </div> -->
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Description (Agenda) <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description..." formControlName="detail" rows="6"></textarea>
-            <mat-error *ngIf="checkError('detail', 'required')">(Description is required)</mat-error>
-            <mat-error *ngIf="checkError('detail', 'maxlength')">Description should be less than 2000 characters</mat-error>
-          </mat-form-field>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="detail" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('detail', 'required', true)" style="color:red;font-size: 12px;">
+              (Description is required)
+            </div>
+            <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
+              Description should be less than 2000 characters
+            </div>
+          </div>
         </div>
 <!-- Tine Mce Editor
         <div class="form-row">
@@ -44,14 +48,17 @@
             matInput placeholder="Details..." rows="2">
             </textarea>
         </div> -->
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="shortDescription" rows="3"></textarea>
-            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 700 characters</mat-error>
-          </mat-form-field>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Details..." formControlName="shortDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('shortDescription', 'required', true)" style="color:red;font-size: 12px;">
+              (Short Description is required)
+            </div>
+            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
+              (Short Description should be less than 2000 characters)
+            </div>
+          </div>
         </div>
 
         <div class="form-row">
@@ -295,19 +302,28 @@
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy Terms & Conditions <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="policyTnc" rows="4"></textarea>
-            <mat-error *ngIf="checkError('policyTnc', 'required')">Terms & Conditions is required</mat-error>
-            <mat-error *ngIf="checkError('policyTnc', 'maxlength')">Terms & Conditions should be less than 3000 characters</mat-error>
-          </mat-form-field>
-        </div>
-          <div class="form-row">
-            <label class="col-sm-3 col-form-label">Policy FAQs</label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <textarea matInput placeholder="Details..." formControlName="policyFAQ" rows="4"></textarea>
-              <mat-error *ngIf="checkError('policyFAQ', 'maxlength')">Policy FAQs should be less than 3000 characters</mat-error>
-            </mat-form-field>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="policyTnc" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('policyTnc', 'required', true)" style="color:red;font-size: 12px;">
+              (Terms & Conditions is required)
+            </div>
+            <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
+              Terms & Conditions should be less than 3000 characters
+            </div>
           </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy FAQs</label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="policyFAQ" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <!-- <div *ngIf="checkError('policyFAQ', 'required', true)" style="color:red;font-size: 12px;">
+              (Terms & Conditions is required)
+            </div> -->
+            <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
+              Policy FAQs should be less than 3000 characters
+            </div>
+          </div>
+        </div>
           <div class="form-row ">
             <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
             <div class="col-sm-7">
@@ -360,7 +376,9 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" [disabled]="(updateEventForm.valid && image1button && image2button)? false:true" (click)="updateEvent()">Update
+          <!-- <button type="submit" class="btn button-1 action-good" [disabled]="(updateEventForm.valid && image1button && image2button)? false:true" (click)="updateEvent()">Update
+            Details</button> -->
+          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Update
             Details</button>
         </div>
       </form>

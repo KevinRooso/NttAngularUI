@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
      <li><a href="/home">Home</a></li>
@@ -37,6 +38,8 @@
                 direction="down"
                 class="fab-secondary"
                 color="secondary"
+                [matTooltip]="btn.tooltip"
+                matTooltipPosition="left"
                 >
           <i class="material-icons" (click)="duplicateEdit(btn.icon,getEventDetails.id)">{{btn.icon}}</i>
         </button>

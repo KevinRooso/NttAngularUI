@@ -44,6 +44,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 
 
@@ -173,7 +175,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTabsModule,
-    CKEditorModule
+    CKEditorModule,
+    MatTooltipModule
 
   ],
   providers: [HttpClientModule],
