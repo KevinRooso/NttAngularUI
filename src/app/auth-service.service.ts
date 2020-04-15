@@ -186,4 +186,8 @@ export class AuthServiceService {
   // getHomePageDetails(user):Observable<any>{
   //   return this.http.get<any>(this.url+'api/public/homePage?userType='+user, {headers:this.headers})
   // }
+  //home-page-charts
+  getChartUser():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
+  }
 }
