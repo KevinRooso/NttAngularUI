@@ -56,6 +56,9 @@
      <div class="p-2">
       <p class="article-title"><b>Date : </b>{{card.updatedAt | date}}</p>
      </div>
+     <div class="p-2">
+      <p class="article-title"><b></b>{{card.shortDescription | truncate : 130 : false}}</p>
+     </div>
     </mat-card>
   </div>
 </section>

@@ -182,4 +182,8 @@ export class AuthServiceService {
   saveActive(id,flag):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
   }
+
+  // getHomePageDetails(user):Observable<any>{
+  //   return this.http.get<any>(this.url+'api/public/homePage?userType='+user, {headers:this.headers})
+  // }
 }

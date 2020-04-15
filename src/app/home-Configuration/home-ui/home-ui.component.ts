@@ -33,6 +33,9 @@ export class HomeUiComponent implements OnInit {
   caseStudyData: any[] = [];
   newsData: any[] = [];
   testData: any[] = [];
+  homePageData: any[] = [];
+  homeBannerData: any[] = [];
+  homeListData: any[] = [];
 
   bannerData: any[] = [];
   resourceData: any[] = [];
@@ -107,7 +110,7 @@ export class HomeUiComponent implements OnInit {
   ngOnInit(): void {
     console.log("usertype==",this.userType);
 
-
+    this.getHomepageData();
     this.createForms();
     this.getAllData();
   }
@@ -612,5 +615,15 @@ export class HomeUiComponent implements OnInit {
         //alert("SUCCESS!!");
       });
 
+  }
+  getHomepageData(){
+    this.service.getAllHomeData(this.userType).subscribe((res) => {
+      this.homePageData = res.body;
+      this.homeBannerData = res.body.banners;
+      this.homeListData = res.body.list;
+      console.log("HomeData",this.homePageData);
+      console.log("BannerData",this.homeBannerData);
+      console.log("ListData",this.homeListData);
+    });
   }
 }
