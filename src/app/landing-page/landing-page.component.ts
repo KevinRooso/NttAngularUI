@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import  {Chart} from 'chart.js';
+import { AuthServiceService } from '../auth-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,7 +12,8 @@ import  {Chart} from 'chart.js';
 })
 export class LandingPageComponent implements OnInit {
 
-  title = 'chartjsangular';
+  // title = 'chartjsangular';
+
   canvas  : any;
   ctx     : any;
 
@@ -21,40 +25,37 @@ export class LandingPageComponent implements OnInit {
 
   canvas3 : any;
   ctx3    : any;
-
-
-
-
   LineChart=[];
-  constructor() { }
-  // ngOnInit() {
-	// 	let chart = new Chart("chartContainer", {
-	// 	animationEnabled: true,
-	// 	exportEnabled: true,
-	// 	title: {
-	// 		text: "Basic Column Chart in Angular"
-	// 	},
-	// 	data: [{
-	// 		type: "column",
-	// 		dataPoints: [
-	// 			{ y: 71, label: "Apple" },
-	// 			{ y: 55, label: "Mango" },
-	// 			{ y: 50, label: "Orange" },
-	// 			{ y: 65, label: "Banana" },
-	// 			{ y: 95, label: "Pineapple" },
-	// 			{ y: 68, label: "Pears" },
-	// 			{ y: 28, label: "Grapes" },
-	// 			{ y: 34, label: "Lychee" },
-	// 			{ y: 14, label: "Jackfruit" }
-	// 		]
-	// 	}]
-	// });
+  data=[];
+  androidDevice:any;
+  iosDevice:any;
 
-	// chart.render();
-  //   }
+  totalDownload:any;
+  totalArticleDownload:any;
+  totalCaseStudyDownload:any;
+  totalWhitepaperDownload:any;
+
+  totalEvent:any;
+  totalPublishEvent:any;
+  totalActiveEvent:any;
+  totalDraftEvent:any;
+
+  totalEvent1:any;
+  totalPublishEvent1:any;
+  totalCustomerEvent:any;
+  totalEmployeeEvent:any;
+
+  constructor( private service:AuthServiceService, private queryString:ActivatedRoute) { }
+
 
   ngOnInit() {
-    this.canvas = document.getElementById('myChart');
+
+    this.userDevice();
+    this.resourceDownload();
+    this.eventStatusDetails();
+    this.eventTargetUserTypeDetails();
+
+    this.canvas = document.getElementById('respie');
     this.ctx = this.canvas.getContext('2d');
     let myChart = new Chart(this.ctx, {
       type: 'pie',
@@ -77,68 +78,55 @@ export class LandingPageComponent implements OnInit {
       }
     });
 
-    this.canvas1 = document.getElementById('myChart1');
-    this.ctx1 = this.canvas1.getContext('2d');
-    let myChart1 = new Chart(this.ctx1, {
-      type: 'line',
-      data: {
-          labels: ['January', 'February', 'March', 'April'],
-          datasets: [{
-              label: '# of Votes',
-              fill: false,
-              data: [5,3,4,2],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
-              ],
-              borderColor: "#ffbd35",
-              borderWidth: 1
-          }]
-      },
-      options: {
-        responsive: false,
-        display:true,
-        scales: { yAxes: [{ display: false }],xAxes: [{
-                display: false //this will remove all the x-axis grid lines
-            }] }
-      },
-    });
-
-
-    // this.canvas2 = document.getElementById('myChart2');
-    // this.ctx2 = this.canvas2.getContext('2d');
-    // let myChart2 = new Chart(this.ctx2, {
-    //   type: 'line',
+    // this.canvas1 = document.getElementById('userpie');
+    // this.ctx1 = this.canvas1.getContext('2d');
+    // let myChart1 = new Chart(this.ctx, {
+    //   type: 'pie',
     //   data: {
-    //       labels: ['January', 'February', 'March', 'April'],
+    //       labels: ["New", "In Progress", "On Hold"],
     //       datasets: [{
     //           label: '# of Votes',
-    //           fill: false,
-    //           data: [5,3,4,2],
+    //           data: [1,2,3],
     //           backgroundColor: [
     //               'rgba(255, 99, 132, 1)',
     //               'rgba(54, 162, 235, 1)',
     //               'rgba(255, 206, 86, 1)'
     //           ],
-    //           borderColor: "#ffbd35",
     //           borderWidth: 1
     //       }]
     //   },
     //   options: {
     //     responsive: false,
-    //     display:true,
-    //     scales: { yAxes: [{ display: false }],xAxes: [{
-    //             display: false //this will remove all the x-axis grid lines
-    //         }] },
-    //     elements: {
-    //     line: {
-    //       tension: 0.000001
-    //     }
-    // },
-    //   },
+    //     display:true
+    //   }
     // });
-    this.canvas3 = document.getElementById('myChart3');
+
+    // new Chart('bar',{
+    //   type:'bar',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       dispay:true,
+    //       text:'Bar chart'
+    //     },
+    //     data:{
+    //       labels:['a','b','c','d','e','f','g','h'],
+    //       datasets:[
+    //         {
+    //           type:'bar',
+    //           labels:'My  First dataset',
+    //           data:[433,585,165,263,10,265,156,458],
+    //           backgroundColor:'rgba(255,0,255,0.4)',
+    //           fill:false,
+    //         },
+    //       ]
+    //     }
+    //   }
+    // });
+
+
+
+    this.canvas3 = document.getElementById('resbar');
     this.ctx3 = this.canvas3.getContext('2d');
      let myChart3 = new Chart(this.ctx3, {
       type: 'bar',
@@ -168,49 +156,269 @@ export class LandingPageComponent implements OnInit {
       }
     });
 
-
-
-
-
-
-    this.LineChart=new Chart('lineChart',{
-      type:'line',
-      data:{
-        labels:["jan","feb","mar","apr","may","jun","jul","aug","sept","oct","nov","dec"],
-        datasets:[{
-          label:'Number of items sold in Months',
-          data:[7,8,9,8,7,8,4,2,1,3,5,6],
-          fill:false,
-        lineTension:0.2,
-        borderColor:"blue",
-        borderWidth:1
-
-        },
-        {
-          label:'Number of items sold in Months',
-          data:[5,2,7,4,9,3,4,2,1,3,5,6],
-          fill:false,
-        lineTension:0.2,
-        borderColor:"red",
-        borderWidth:1
-
-        }],
-    },
-    options:{
-      title:{
-        text:"Line Chart",
-        display:true
-
+    this.canvas3 = document.getElementById('userbar');
+    this.ctx3 = this.canvas3.getContext('2d');
+     let myChart4 = new Chart(this.ctx3, {
+      type: 'bar',
+      data: {
+          labels: ["New", "In Progress", "On Hold"],
+          datasets: [{
+              label: '# of Votes',
+              data: [3,4,3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)'
+              ],
+              borderWidth: 1
+          }]
       },
-      scales: {
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
-          }
+      options: {
+        responsive: false,
+        display:true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero:true
+            }
         }]
-      }
     }
-    }) ;
+      }
+    });
+
+    new Chart('resdoughnut',{
+      type:'doughnut',
+      options:{
+        responsive:true,
+        title:{
+          display:true,
+          text:'Doughnut Chart'
+        }, legend:{
+          position:'top',
+        }, animation:{
+          animateScale:true,
+          animareRotate:true
+        }
+      },
+      data:{
+        datasets:[{
+          data:[45,10,5,25,15],
+          backgroundColor:["red","orange","yellow","green","blue"],
+          labels:'Dataset 1'
+        }],
+        labels:['Red','Orange','Yellow','Green','Blue']
+      }
+    });
+    new Chart('doughnut',{
+      type:'doughnut',
+      options:{
+        responsive:true,
+        title:{
+          display:true,
+          text:'Doughnut Chart'
+        }, legend:{
+          position:'top',
+        }, animation:{
+          animateScale:true,
+          animareRotate:true
+        }
+      },
+      data:{
+        datasets:[{
+          data:[45,10,5,25,15],
+          backgroundColor:["red","orange","yellow","green","blue"],
+          labels:'Dataset 1'
+        }],
+        labels:['Red','Orange','Yellow','Green','Blue']
+      }
+    });
+
+    new Chart('userdoughnut',{
+      type:'doughnut',
+      options:{
+        responsive:true,
+        title:{
+          display:true,
+          text:'Doughnut Chart'
+        }, legend:{
+          position:'top',
+        }, animation:{
+          animateScale:true,
+          animareRotate:true
+        }
+      },
+      data:{
+        datasets:[{
+          data:[45,10,5,25,15],
+          backgroundColor:["red","orange","yellow","green","blue"],
+          labels:'Dataset 1'
+        }],
+        labels:['Red','Orange','Yellow','Green','Blue']
+      }
+    });
+    new Chart('doughnut',{
+      type:'doughnut',
+      options:{
+        responsive:true,
+        title:{
+          display:true,
+          text:'Doughnut Chart'
+        }, legend:{
+          position:'top',
+        }, animation:{
+          animateScale:true,
+          animareRotate:true
+        }
+      },
+    });
   }
+
+  userDevice(){
+    this.service.getUserDevices()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('userDeviceChart');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Android ", "Ios "],
+            datasets: [{
+                data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true
+        }
+      });
+    })
+  }
+
+
+  resourceDownload(){
+    this.service.getresourceDownloadDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('resourceDownload');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["total ", "article ","casestudy","whitepaper"],
+            datasets: [{
+              labels: '# of downloads',
+                data: [(userdeviceData.totalDownload ||2), (userdeviceData.totalArticleDownload||3 ),
+                  (userdeviceData.totalCaseStudyDownload||3 ),(userdeviceData.totalWhitepaperDownload||5 )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+        }
+      });
+    })
+  }
+
+
+  eventStatusDetails(){
+    this.service.geteventStatusDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('eventStatus');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Event ", "Publish","Active","Draft"],
+            datasets: [{
+                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublishEvent ),
+                  (userdeviceData.totalActiveEvent ),(userdeviceData.totalDraftEvent )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true
+        }
+      });
+    })
+  }
+
+  eventTargetUserTypeDetails(){
+    this.service.geteventTargetUserTypeDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('eventTargetUserType');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Event ", "Public ","Customer","Employee"],
+            datasets: [{
+              labels: '# of downloads',
+                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublicEvent),
+                  (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+        }
+      });
+    })
+  }
+
 
 }

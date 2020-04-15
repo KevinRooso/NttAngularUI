@@ -183,4 +183,18 @@ export class AuthServiceService {
   saveActive(id,flag):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
   }
+
+  //Dashboad-charts
+  getUserDevices():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
+  }
+  getresourceDownloadDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/resourceDownloadDetails', {headers:this.headers})
+  }
+  geteventStatusDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventStatusDetails', {headers:this.headers})
+  }
+  geteventTargetUserTypeDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventTargetUserTypeDetails', {headers:this.headers})
+  }
 }

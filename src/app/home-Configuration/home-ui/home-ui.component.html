@@ -7,7 +7,7 @@
 <div class="text-center my-5">
   <p class="heading-secondary">Edit Homepage Configuration</p>
 </div>
-<div class="row">
+<div class="row m-0">
   <div class="col-sm-8">
     <div class="card" *ngIf="publicFlag">
       <div class="brd card-header">
@@ -128,7 +128,8 @@
               <h5 class="mb-0">
                 <button class="btn" #eventButton (click)="getSelectedBlockData1(blocks[0].url)" data-toggle="collapse"
                   data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Event Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Event Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -153,37 +154,38 @@
           </div>
         </div>
       </div>
-        <div class="container my-2">
-          <div class="row">
-            <div id="accordion" class="col-md-12">
-              <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn" #articleButton (click)="this.getSelectedBlockData2(blocks[1].url)"
-                    data-toggle="collapse" data-target="#collapseArticle" aria-expanded="true"
-                    aria-controls="collapseArticle">
-                    Article Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseArticle" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseArticle">
-                <form [formGroup]='articleConfigurationForm'>
-                  <div class="form-row">
-                    <mat-form-field class="example-full-width">
-                      <mat-label>Select Banner Entity</mat-label>
-                      <mat-select formControlName="dataFieldId" [(ngModel)]="articleBlockData">
-                        <mat-option *ngFor="let block of articleData" [value]="block.id">{{block.title}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="text-right">
-                    <button type="submit" (click)="submitArticle()" [disabled]="!articleConfigurationForm.valid"
-                      class="btn button-1 action-good">Submit</button>
-                  </div>
-                </form>
-              </div>
+      <div class="container my-2">
+        <div class="row">
+          <div id="accordion" class="col-md-12">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn" #articleButton (click)="this.getSelectedBlockData2(blocks[1].url)"
+                  data-toggle="collapse" data-target="#collapseArticle" aria-expanded="true"
+                  aria-controls="collapseArticle">
+                  Article Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
+                </button>
+              </h5>
+            </div>
+            <div id="collapseArticle" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseArticle">
+              <form [formGroup]='articleConfigurationForm'>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-select formControlName="dataFieldId" [(ngModel)]="articleBlockData">
+                      <mat-option *ngFor="let block of articleData" [value]="block.id">{{block.title}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="text-right">
+                  <button type="submit" (click)="submitArticle()" [disabled]="!articleConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
+      </div>
       <div class="container my-2">
         <div class="row">
           <div id="accordion" class="col-md-12">
@@ -191,7 +193,8 @@
               <h5 class="mb-0">
                 <button class="btn " #blogButton (click)="this.getSelectedBlockData3(blocks[2].url)"
                   data-toggle="collapse" data-target="#collapseBlog" aria-expanded="true" aria-controls="collapseBlog">
-                  Blogs Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Blogs Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -215,14 +218,15 @@
         </div>
       </div>
       <div class="container my-2">
-      <div class="row">
+        <div class="row">
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button class="btn" #videoButton (click)="this.getSelectedBlockData4(blocks[3].url)"
                   data-toggle="collapse" data-target="#collapseVideo" aria-expanded="true"
                   aria-controls="collapseVideo">
-                  Videos Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Videos Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -253,7 +257,8 @@
                 <button class="btn " #whitepaperButton (click)="this.getSelectedBlockData5(blocks[4].url)"
                   data-toggle="collapse" data-target="#collapseWhitePaper" aria-expanded="true"
                   aria-controls="collapseWhitePaper">
-                  WhitePapers Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  WhitePapers Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -285,7 +290,8 @@
                 <button class="btn" #caseButton (click)="this.getSelectedBlockData6(blocks[5].url)"
                   data-toggle="collapse" data-target="#collapseCaseStudey" aria-expanded="true"
                   aria-controls="collapseCaseStudey">
-                  Case Study Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Case Study Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -316,7 +322,8 @@
               <h5 class="mb-0">
                 <button class="btn" #newsButton (click)="this.getSelectedBlockData7(blocks[6].url)"
                   data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                  News Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  News Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -346,7 +353,8 @@
               <h5 class="mb-0">
                 <button class="btn" #testButton (click)="this.getSelectedBlockData8(blocks[7].url)"
                   data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                  Testimonials Configuration<i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Testimonials Configuration
+                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -375,10 +383,204 @@
   </div>
 
   <div class="col-sm-4 text-center" *ngIf="publicFlag">
-    <div class="card" style="height:580px">
+    <div class="card">
       <div class="card-header" id="headingOne">
         Preview
       </div>
+      <div class="main-container p-2" style="background: #efefef;    overflow-y: auto;  overflow-x: hidden;  height: 480px;">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active" *ngIf="homeBannerData.length >= 0">
+              <img class="d-block w-100" [src]="homeBannerData[0].companyImageUrl">
+            </div>
+            <div class="carousel-item" *ngIf="homeBannerData.length >= 1">
+              <img class="d-block w-100" [src]="homeBannerData[1].companyImageUrl">
+            </div>
+            <div class="carousel-item" *ngIf="homeBannerData.length >= 2">
+              <img class="d-block w-100" [src]="homeBannerData[2].companyImageUrl">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+
+        <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
+          <div class="row preview-header">
+            <div class="col-sm-6 preview-header-text text-left">{{list.title}}</div>
+            <div class="col-sm-6 preview-header-text text-right">view all</div>
+          </div>
+          <div class="preview-card-body p-0">
+            <img
+              [src]="list.thumbnailImageUrl"
+              alt="" width="100%" height="100%">
+          </div>
+        </div> -->
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='news'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Recent News</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='event'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='articles'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='testimonials'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <p>"{{list.title}}"</p>
+              <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='caseStudies'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <p>{{list.title}}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='videos'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='blogs'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='articles'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl" alt="">
+            </div>
+          </div>
+        </div> -->
+
+        <!--
+        <div class="preview-card my-2">
+          <div class="row preview-header">
+            <div class="col-sm-6 preview-header-text text-left">Whitepaper</div>
+            <div class="col-sm-6 preview-header-text text-right">view all</div>
+          </div>
+          <div class="preview-card-body p-0">
+            <img
+              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
+              alt="" width="100%" height="100%">
+          </div>
+        </div> -->
+
+        <!-- <div class="preview-card my-2" style="height: 130px;">
+          <div class="row preview-header">
+            <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
+            <div class="col-sm-6 preview-header-text text-right">view all</div>
+          </div>
+          <div class="preview-card-body pt-2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est recusandae ut quam ipsa nemo cupiditate solu
+            </p>
+          </div>
+        </div> -->
+
+        <!-- <div class="preview-card my-2">
+          <div class="row preview-header">
+            <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
+            <div class="col-sm-6 preview-header-text text-right">view all</div>
+          </div>
+          <div class="preview-card-body pt-2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est recusandae ut quam ipsa nemo cupiditate solu
+            </p>
+          </div>
+          <div class="preview-card-footer">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+        </div> -->
+        <!-- <div class="preview-card my-2" style="height: 260px;">
+          <div class="row preview-header">
+            <div class="col-sm-12 preview-header-text text-left">Top 5 managed security trends</div>
+          </div>
+          <div class="preview-card-body pt-2">
+            <img
+              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
+              alt="" width="100%" height="100%">
+          </div>
+          <div class="preview-card-footer">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+        </div> -->
+        <!-- <div class="preview-card my-2">
+          <div class="row preview-header">
+            <div class="col-sm-6 preview-header-text text-left">Articles</div>
+            <div class="col-sm-6 preview-header-text text-right">view all</div>
+          </div>
+          <div class="preview-card-body p-0">
+            <img
+              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
+              alt="" width="100%" height="100%">
+          </div>
+        </div> -->
+      </div>
+
     </div>
   </div>
 
