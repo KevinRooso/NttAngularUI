@@ -115,3 +115,18 @@ form{
   border: 1px solid rgb(239, 239, 239) !important;
   padding: 1rem !important;
 }
+.preview-card{
+  width: 100%;
+  height: 200px;
+  /* //border: 1px solid red; */
+  background:#fff;
+}
+.preview-header-text{
+  width: 100%;
+}
+.preview-header{
+  padding: 5px 8px;
+}
+.preview-card-footer{
+  border-top: 1px solid;
+}

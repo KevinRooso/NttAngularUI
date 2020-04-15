@@ -1,10 +1,11 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit, Pipe, Inject } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormGroup, FormControlName, FormControl, Validators } from '@angular/forms';
 import { AuthServiceService } from '../auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { style } from '@angular/animations';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   // loading = false;
 
   constructor(private router: Router,private authService:AuthServiceService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,@Inject(DOCUMENT) private document: Document) { }
 
   loginform = new FormGroup({
     usernameOrEmail: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$')]),
@@ -45,7 +46,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("token",res.body.accessToken);
         console.log(res);
         this.show =false;
-        this.router.navigate(['home']);
+        this.document.location.href = '/home';
+        //this.router.navigate(['home']);
   },
   (error: HttpErrorResponse)=>
   {

@@ -407,6 +407,11 @@ export class CreateEventComponent implements OnInit {
     console.log("id=", obj.idData);
 
     this.addAgenda.reset()
+    if(obj.idData == -1){
+      this.agendaData.push(obj);
+    }else{
+      this.agendaData[(obj.idData)]=obj;
+    }
     this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
   }
