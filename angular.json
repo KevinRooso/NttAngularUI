@@ -85,10 +85,10 @@
               ]
             },
             "dev_team": {
-              "commonChunk": false,
+              "commonChunk": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
