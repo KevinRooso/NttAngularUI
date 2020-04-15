@@ -263,8 +263,8 @@ export class CopyEventComponent implements OnInit {
       // this.getEventDetails.speakers.forEach(m => {
       //   this.valuesSpeakertags.push(m.fullName);
       // })
-      for(let i=0;i<this.getEventDetails.tags.length;i++)
-      this.selected4.push(this.getEventDetails.tags[i].id);
+          for(let i=0;i<this.getEventDetails.tags.length;i++)
+        this.selected4.push(this.getEventDetails.tags[i].id);
       this.getCategoryDetails();
       this.getSpeakerDetails()
       this.getTagsDetails();
@@ -525,10 +525,11 @@ export class CopyEventComponent implements OnInit {
       "startDate": this.addAgenda.controls['startDate'].value,
       "speakerList": this.addAgenda.controls['speakerList'].value,
       "isActive": false,
-      "id":this.addAgenda.controls['id'].value,
+      "id":0,
       "idData":-1
     }
 
+    console.log("id=", this.addAgenda.controls['idData'].value);
     if(this.addAgenda.value['idData']!= -1){
       obj['idData'] = this.addAgenda.value['idData'];
     }else{
@@ -542,7 +543,7 @@ export class CopyEventComponent implements OnInit {
     }else{
       this.agendaData[(obj.idData)]=obj;
     }
-
+    this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
   }
 // }

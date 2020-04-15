@@ -152,7 +152,7 @@
           <div class="card-body">
             <h5 class="card-title">Speakers</h5>
             <ul class="list-group">
-              <li class="list-group-item" *ngFor="let sdetails of getEventDetails.speakers | sortBy:'asc':'fullName'">
+              <li class="list-group-item" *ngFor="let sdetails of speakers | sortBy:'asc':'fullName'">
                 <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail1(sdetails.id)">
                   <div class="mr-2">
                     <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl"

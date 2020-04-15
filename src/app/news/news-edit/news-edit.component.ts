@@ -149,6 +149,7 @@ export class NewsEditComponent implements OnInit {
         "location": this.updateNewsForm.controls['location'].value,
         "about": this.updateNewsForm.controls['about'].value,
         "active": false,
+        "tagList":[],
         "draft": this.updateNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": this.newsId,
@@ -157,11 +158,12 @@ export class NewsEditComponent implements OnInit {
       console.log("post", objData);
       this.service.saveNews(objData).subscribe((response) => {
         this.snackBar.open('News successfully updated', 'Close', { duration: 5000 });
-        // console.log("responsne", response);
+         console.log("responsne", response);
         this.submitted = false;
         //this.router.navigate(['events']);
       },
         (error) => {
+          console.log("error", error);
           this.snackBar.open(error, 'Close');
           // alert("Error :" + error);
         })
