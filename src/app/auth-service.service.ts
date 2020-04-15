@@ -182,4 +182,9 @@ export class AuthServiceService {
   saveActive(id,flag):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
   }
+
+  //home-page-charts
+  getChartUser():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
+  }
 }

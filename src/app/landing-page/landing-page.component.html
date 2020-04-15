@@ -1,33 +1,72 @@
 <div class="container-fluid">
+
   <!-- Content -->
+  <h1 align="center">Dashboard</h1>
   <div class="main-content">
-<div class="row ">
-  <div class="col">
-    <div style="float: left;width: 400px;height:330px;background-color: white;border: 1px solid #000;margin: 2px; padding: 5px;">
-      <canvas id="lineChart" width="250" height="200"></canvas>
-     </div>
-  </div>
-  <div class="col">
-    <div style="float: left;width: 400px;height:330px;background-color: white;border: 1px solid #000;margin: 2px; padding: 5px;">
-      <canvas id="myChart" width="250" height="200"></canvas>
-     </div>
 
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <div style="float: left;width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
-      <canvas id="myChart1" width="250" height="200"></canvas>
-     </div>
+<section class="p-2">
+  <h3 class="my-3">Resource</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="respie" class="card-div"></canvas>
+         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="resbar" class="card-div"></canvas>
+         </div>
 
+      </div>
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="resdoughnut" class="card-div"></canvas>
+         </div>
+      </div>
+    </div>
   </div>
-  <div class="col">
-    <div style="float: left;width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
+</section>
+
+<section class="p-2">
+  <h3 class="my-3">Users</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" >
+        <div class="card-container" *ngIf="canvas">
+          <canvas id="userDeviceChart" class="card-div">{{canvas}}</canvas>
+         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="userbar" class="card-div"></canvas>
+         </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="userdoughnut" class="card-div"></canvas>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <div class="row">
+  <div class="col-md-4">
+    <div style="width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
       <canvas id="myChart3" width="250" height="200"></canvas>
      </div>
+  </div>
+  <div class="col-md-4">
+    <div style="width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
+      <canvas id="doughnut" width="250" height="200"></canvas>
+     </div>
 
   </div>
-</div>
+</div> -->
 
   </div>
 </div>
