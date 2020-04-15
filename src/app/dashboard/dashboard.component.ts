@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as $ from 'jquery';
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,6 +25,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
    // $('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon

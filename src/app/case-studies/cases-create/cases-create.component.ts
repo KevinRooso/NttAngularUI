@@ -43,6 +43,12 @@ export class CasesCreateComponent implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
+
+
+  today=new Date();
+
+
+
     @ViewChild('closeModel',{static:true}) closeModel;
     constructor(private formbuilder: FormBuilder,
       private authService: AuthServiceService,
@@ -64,6 +70,7 @@ export class CasesCreateComponent implements OnInit {
         tagList: ['', Validators.required],
         serviceUsed: ['', Validators.required],
         targetUserType:['',Validators.required],
+        expiryDate:['',Validators.required],
         thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
         isDraft:[false]
       });
@@ -126,6 +133,7 @@ export class CasesCreateComponent implements OnInit {
         this.previewUrl = reader.result;
       }
     }
+
     uploadImage() {
       const formData = new FormData();
       formData.append('file', this.fileData);
@@ -163,7 +171,9 @@ export class CasesCreateComponent implements OnInit {
         "tagList": tags,
         "targetUserType":obj.targetUserType,
         "thumbnailImageUrl": this.speakerImage,
-        "title": obj.title
+        "title": obj.title,
+        "expiryDate": this.createCases.controls['expiryDate'].value
+
 
    }
 

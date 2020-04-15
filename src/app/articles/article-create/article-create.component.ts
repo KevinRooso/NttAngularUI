@@ -30,6 +30,9 @@ export class ArticleCreateComponent implements OnInit {
   userList: any[] = [];
   allData: any[] = [];
   tagData: any[] = [];
+
+  today=new Date();
+
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
     private location: Location, public snackBar: MatSnackBar,
@@ -43,7 +46,8 @@ export class ArticleCreateComponent implements OnInit {
       draft: [false],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      expiryDate: ['', Validators.required],
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -109,6 +113,9 @@ export class ArticleCreateComponent implements OnInit {
       this.preview2();
     }
   }
+
+
+
   preview() {
     // Show preview
     var mimeType = this.fileData.type;
@@ -188,6 +195,7 @@ export class ArticleCreateComponent implements OnInit {
         "title": this.createArticleForm.controls['title'].value,
         "targetUserType": this.createArticleForm.controls['targetUserType'].value,
         "approverId": 0,
+        "expiryDate": this.createArticleForm.controls['expiryDate'].value
       }
       console.log("post", obj);
 
