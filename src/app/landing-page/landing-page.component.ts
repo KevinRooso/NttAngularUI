@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   // title = 'chartjsangular';
+
   canvas  : any;
   ctx     : any;
 
@@ -26,39 +27,33 @@ export class LandingPageComponent implements OnInit {
   ctx3    : any;
   LineChart=[];
   data=[];
-  totalDevice:any;
   androidDevice:any;
-  iosDevice:any
-  constructor( private service:AuthServiceService, private queryString:ActivatedRoute) { }
-  // ngOnInit() {
-	// 	let chart = new Chart("chartContainer", {
-	// 	animationEnabled: true,
-	// 	exportEnabled: true,
-	// 	title: {
-	// 		text: "Basic Column Chart in Angular"
-	// 	},
-	// 	data: [{
-	// 		type: "column",
-	// 		dataPoints: [
-	// 			{ y: 71, label: "Apple" },
-	// 			{ y: 55, label: "Mango" },
-	// 			{ y: 50, label: "Orange" },
-	// 			{ y: 65, label: "Banana" },
-	// 			{ y: 95, label: "Pineapple" },
-	// 			{ y: 68, label: "Pears" },
-	// 			{ y: 28, label: "Grapes" },
-	// 			{ y: 34, label: "Lychee" },
-	// 			{ y: 14, label: "Jackfruit" }
-	// 		]
-	// 	}]
-	// });
+  iosDevice:any;
 
-	// chart.render();
-  //   }
+  totalDownload:any;
+  totalArticleDownload:any;
+  totalCaseStudyDownload:any;
+  totalWhitepaperDownload:any;
+
+  totalEvent:any;
+  totalPublishEvent:any;
+  totalActiveEvent:any;
+  totalDraftEvent:any;
+
+  totalEvent1:any;
+  totalPublishEvent1:any;
+  totalCustomerEvent:any;
+  totalEmployeeEvent:any;
+
+  constructor( private service:AuthServiceService, private queryString:ActivatedRoute) { }
+
 
   ngOnInit() {
 
-    this.deviceChart();
+    this.userDevice();
+    this.resourceDownload();
+    this.eventStatusDetails();
+    this.eventTargetUserTypeDetails();
 
     this.canvas = document.getElementById('respie');
     this.ctx = this.canvas.getContext('2d');
@@ -275,19 +270,11 @@ export class LandingPageComponent implements OnInit {
           animareRotate:true
         }
       },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
     });
   }
 
-  deviceChart(){
-    this.service.getChartUser()
+  userDevice(){
+    this.service.getUserDevices()
     .subscribe(res =>{
       console.log(res.body)
 
@@ -298,10 +285,9 @@ export class LandingPageComponent implements OnInit {
       let myChart = new Chart(this.ctx, {
         type: 'pie',
         data: {
-            labels: ["Total Device","Android Device", "Ios Device"],
+            labels: ["Android ", "Ios "],
             datasets: [{
-                label: '# of Votes',
-                data: [(userdeviceData.totalDevice ),(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
+                data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -313,6 +299,122 @@ export class LandingPageComponent implements OnInit {
         options: {
           responsive: false,
           display:true
+        }
+      });
+    })
+  }
+
+
+  resourceDownload(){
+    this.service.getresourceDownloadDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('resourceDownload');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["total ", "article ","casestudy","whitepaper"],
+            datasets: [{
+              labels: '# of downloads',
+                data: [(userdeviceData.totalDownload ||2), (userdeviceData.totalArticleDownload||3 ),
+                  (userdeviceData.totalCaseStudyDownload||3 ),(userdeviceData.totalWhitepaperDownload||5 )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+        }
+      });
+    })
+  }
+
+
+  eventStatusDetails(){
+    this.service.geteventStatusDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('eventStatus');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Event ", "Publish","Active","Draft"],
+            datasets: [{
+                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublishEvent ),
+                  (userdeviceData.totalActiveEvent ),(userdeviceData.totalDraftEvent )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true
+        }
+      });
+    })
+  }
+
+  eventTargetUserTypeDetails(){
+    this.service.geteventTargetUserTypeDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('eventTargetUserType');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Event ", "Public ","Customer","Employee"],
+            datasets: [{
+              labels: '# of downloads',
+                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublicEvent),
+                  (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
         }
       });
     })

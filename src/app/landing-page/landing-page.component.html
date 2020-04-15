@@ -6,16 +6,26 @@
 
 <section class="p-2">
   <h3 class="my-3">Resource</h3>
+  <!-- <div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Panel with panel-default class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
+</div> -->
+
   <div class="container">
+
+
     <div class="row">
       <div class="col-md-4">
+        <!-- <h5 class="bg-light text-dark" >Download</h5> -->
         <div class="card-container">
           <canvas id="respie" class="card-div"></canvas>
          </div>
       </div>
       <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="resbar" class="card-div"></canvas>
+        <div class="card-container"  *ngIf="canvas">
+          <canvas id="resourceDownload" class="card-div">{{canvas}}</canvas>
          </div>
 
       </div>
@@ -52,21 +62,30 @@
   </div>
 </section>
 
+<section class="p-2">
+  <h3 class="my-3">Events</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" >
+        <div class="card-container" *ngIf="canvas" >
+          <canvas id="eventStatus" class="card-div">{{canvas}}</canvas>
+         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-container" *ngIf="canvas">
+          <canvas id="eventTargetUserType" class="card-div">{{canvas}}</canvas>
+         </div>
 
-
-<!-- <div class="row">
-  <div class="col-md-4">
-    <div style="width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
-      <canvas id="myChart3" width="250" height="200"></canvas>
-     </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-container">
+          <canvas id="userdoughnut" class="card-div"></canvas>
+         </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-4">
-    <div style="width: 500px;background-color: white;border: 1px solid #000;border: 1px solid #000;margin: 2px; padding: 5px;">
-      <canvas id="doughnut" width="250" height="200"></canvas>
-     </div>
+</section>
 
-  </div>
-</div> -->
 
   </div>
 </div>
