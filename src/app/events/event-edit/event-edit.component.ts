@@ -240,11 +240,25 @@ export class EventEditComponent implements OnInit {
         this.valuesSelectedTag.push(m.name);
       })
 
-      this.agendaData = this.getEventDetails.eventSchedule;
+      if(this.getEventDetails.eventSchedule!=null)
+      this.getEventDetails.eventSchedule.forEach((m,n)=>{
+        console.log("nnnnn=",n);
 
-      // this.getEventDetails.speakers.forEach(m => {
-      //   this.valuesSpeakertags.push(m.fullName);
-      // })
+        let obj= {
+          "title": m.title,
+          "topic": m.topic,
+          "isBreak": m.isBreak,
+          "endDate": m.endDate,
+          "startDate": m.startDate,
+          "speakerList": m.speakers,
+          "isActive": false,
+          "id":m.id,
+          "idData":n
+        }
+        this.agendaData.push(obj);
+      })
+     console.log("agenda data=", this.agendaData);
+
       this.getCategoryDetails();
       this.getSpeakerDetails()
       this.getTagsDetails();
@@ -439,9 +453,9 @@ export class EventEditComponent implements OnInit {
     // });
     // console.log("Thumb", this.articleImage);
     // console.log("dateil Banner",this.attachFile);description
-    this.agendaData[0].isActive = false;
-    this.agendaData[0].description = "";
-    this.agendaData[0].speakers[0].isActive = false;
+    // this.agendaData[0].isActive = false;
+    // this.agendaData[0].description = "";
+    // this.agendaData[0].speakers[0].isActive = false;
     let obj = {
       "title": this.updateEventForm.controls['title'].value,
       "detail": this.updateEventForm.controls['detail'].value,
@@ -471,11 +485,13 @@ export class EventEditComponent implements OnInit {
       "isPublish": false,
       "isRegOpen": false,
       "publishStatus": false,
+      "isActive":false,
       "id": this.evntID,
       "targetUserType":userId,
       "isEvent":this.isEvent,
       "isWebinar":this.isWebinar,
       "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
+
     }
 
     console.log("Updated Data", obj);
@@ -511,23 +527,24 @@ export class EventEditComponent implements OnInit {
       "startDate": this.addAgenda.controls['startDate'].value,
       "speakerList": this.addAgenda.controls['speakerList'].value,
       "isActive": false,
-      "id":0,
+      "id":this.addAgenda.controls['id'].value,
       "idData":-1
     }
+
     if(this.addAgenda.value['idData']!= -1){
       obj['idData'] = this.addAgenda.value['idData'];
     }else{
       obj['idData'] = -1;
     }
+    console.log("id=", obj.idData);
+
+    this.addAgenda.reset()
     if(obj.idData == -1){
       this.agendaData.push(obj);
     }else{
       this.agendaData[(obj.idData)]=obj;
     }
 
-    console.log("agenda", obj);
-    console.log("updaate data", this.addAgenda.value);
-    this.addAgenda.reset()
     this.closeModelAgenda.nativeElement.click();
   }
 // }
