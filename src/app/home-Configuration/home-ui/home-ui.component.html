@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div class="container btn-cnt">
   <div class="text-left" *ngIf="!publicFlag">
     <button type="submit" (click)="createForm()" class="btn button-1 action-good">Create
@@ -370,7 +371,7 @@
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button type="submit" (click)="submitTest()" [disabled]="!newsConfigurationForm.valid"
+                  <button type="submit" (click)="submitTest()" [disabled]="!testConfigurationForm.valid"
                     class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
@@ -382,10 +383,13 @@
     </div>
   </div>
 
-  <div class="col-sm-4 text-center" *ngIf="publicFlag">
+  <div class="col-sm-4" *ngIf="publicFlag">
     <div class="card">
-      <div class="card-header" id="headingOne">
-        Preview
+      <div class="card-header d-flex" id="headingOne">
+       Preview
+       <span class="btn btn-success approve" style="cursor: pointer;font-size: 10px;margin-left: auto;" (click)="getHomepageData()">
+        <i class="fa fa-refresh" style="font-size: 1rem;"></i>
+      </span>
       </div>
       <div class="main-container p-2" style="background: #efefef;    overflow-y: auto;  overflow-x: hidden;  height: 480px;">
 
@@ -474,7 +478,7 @@
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type =='caseStudies'">
+          <div class="preview-card my-3" *ngIf="list.type =='case studies'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -487,7 +491,7 @@
         <div *ngFor="let list of homeListData">
           <div class="preview-card my-3" *ngIf="list.type =='videos'">
             <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-left">Videos</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
@@ -498,11 +502,11 @@
         <div *ngFor="let list of homeListData">
           <div class="preview-card my-3" *ngIf="list.type =='blogs'">
             <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Articles</div>
+              <div class="col-sm-6 preview-header-text text-left">Blogs</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="">
+              <img [src]="list.thumbnailImageUrl" alt=""  width="100%" height="166px">
             </div>
           </div>
         </div>

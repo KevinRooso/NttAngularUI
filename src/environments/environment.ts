@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   log: true,
   //API_ENDPOINT: "http://localhost:8080/"
- //API_ENDPOINT: "https://ntt-backend-app.herokuapp.com/"
+ //API_ENDPOINT: "https://ntt-backend-app.herokuapp.com/"//
 //API_ENDPOINT: "https://ntt-be-dev-app.herokuapp.com/"
 API_ENDPOINT: "https://ntt-be-dev-team-app.herokuapp.com/"
 //API_ENDPOINT: "https://ntt-dev-team-app.herokuapp.com/"
