@@ -223,7 +223,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-          <input [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
+          <input [owlDateTimeTrigger]="enddt" (dateTimeInput)="maxEDate()"  [owlDateTime]="enddt" [min]="closingDate" class="form-control"
             placeholder="Closing Date & Time" formControlName="endDate">
           <owl-date-time #enddt></owl-date-time>
           <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
@@ -450,7 +450,7 @@
             </mat-form-field>
           </div>
 
-         <div class="form-row py-1">
+          <div class="form-row py-1">
             <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
             [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
@@ -461,7 +461,6 @@
             [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
             <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
           </div>
-
           <!-- <div class="form-row">
             <div class="col-sm-9">
               <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt"

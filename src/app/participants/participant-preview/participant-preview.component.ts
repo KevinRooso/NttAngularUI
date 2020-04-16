@@ -2,6 +2,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 declare var $;
 @Component({
   selector: 'app-participant-preview',
@@ -29,11 +30,11 @@ export class ParticipantPreviewComponent {
       $.fn.dataTable.ext.errMode = 'none';
      let url;
       if(params.page==undefined)
-        url="https://ntt-backend-app.herokuapp.com/api/public/participants";
+        url=environment.API_ENDPOINT+"api/public/participants";
       else{
         console.log("eventName=",params);
         this.eName= "Event: "+params.name
-        url="https://ntt-backend-app.herokuapp.com/api/public/participants/event/"+params.page;
+        url=environment.API_ENDPOINT+"api/public/participants/event/"+params.page;
       }
 
       this.getTableData(url);

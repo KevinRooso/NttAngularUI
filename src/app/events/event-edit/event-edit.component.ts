@@ -240,7 +240,9 @@ export class EventEditComponent implements OnInit {
         this.valuesSelectedTag.push(m.name);
       })
 
-      if(this.getEventDetails.eventSchedule!=null)
+      if(this.getEventDetails.eventSchedule!=null){
+        this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
+        this.closingDate=this.getEventDetails.eventSchedule[0].startDate;
       this.getEventDetails.eventSchedule.forEach((m,n)=>{
         console.log("nnnnn=",n);
 
@@ -257,6 +259,7 @@ export class EventEditComponent implements OnInit {
         }
         this.agendaData.push(obj);
       })
+    }
      console.log("agenda data=", this.agendaData);
 
       this.getCategoryDetails();
