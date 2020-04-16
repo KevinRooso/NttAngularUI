@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthServiceService {
  // private url = "http://localhost:8080/";
  // private url = "https://ntt-backend-app.herokuapp.com/";
- private url = environment.API_ENDPOINT;
+ public url = environment.API_ENDPOINT;
  public headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
 });
@@ -109,7 +109,7 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/public/self/participant/event/'+id, obj, {headers:this.headers});
   }
   saveParticipentnonEvent(id,obj):Observable<any>{
-    return this.http.post<any>(this.url+'api/public/addOn/participant/list/event/'+id, obj, {headers:this.headers});
+    return this.http.post<any>(this.url+'api/admin/addOn/participant/list/event/'+id, obj, {headers:this.headers});
   }
 
   //Whitepapers Apis

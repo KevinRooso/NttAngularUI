@@ -29,11 +29,11 @@ export class ParticipantPreviewComponent {
       $.fn.dataTable.ext.errMode = 'none';
      let url;
       if(params.page==undefined)
-        url="https://ntt-backend-app.herokuapp.com/api/public/participants";
+        url=this.service.url+"api/public/participants";
       else{
         console.log("eventName=",params);
         this.eName= "Event: "+params.name
-        url="https://ntt-backend-app.herokuapp.com/api/public/participants/event/"+params.page;
+        url=this.service.url+"api/public/participants/event/"+params.page;
       }
 
       this.getTableData(url);
