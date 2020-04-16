@@ -239,6 +239,8 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
 
       this.getEventDetails.tags.forEach(m => {
+        this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
+        this.closingDate=this.getEventDetails.eventSchedule[0].startDate;
         this.valuesSelectedTag.push(m.name);
       })
 
