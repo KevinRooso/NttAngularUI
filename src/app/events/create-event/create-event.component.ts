@@ -295,7 +295,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.submitted = true;
-    if (this.createEventForm.valid && this.addAgenda.valid) {
+    if (this.createEventForm.valid ) {
       this.show =true;
       let name: any[] = [];
       let spekaerName: any[] = [];

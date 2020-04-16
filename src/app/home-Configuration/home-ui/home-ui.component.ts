@@ -248,7 +248,7 @@ export class HomeUiComponent implements OnInit {
           this.videoButton.nativeElement.click();
 
         }
-        if (m.type == "whitepapers") {
+        if (m.type == "white papers") {
           this.whitePaperBlockData = m.id;
           this.whitpaperButton.nativeElement.click();
 
