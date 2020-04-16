@@ -48,6 +48,7 @@ export class HomeUiComponent implements OnInit {
   banner1Sequence;
   banner2Sequence;
   banner3Sequence;
+  show = false;
 
   eventBlockData: string = "";
   articleBlockData: string = "";
@@ -617,6 +618,7 @@ export class HomeUiComponent implements OnInit {
 
   }
   getHomepageData(){
+    this.show = true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
       this.homePageData = res.body;
       this.homeBannerData = res.body.banners;
@@ -625,5 +627,6 @@ export class HomeUiComponent implements OnInit {
       console.log("BannerData",this.homeBannerData);
       console.log("ListData",this.homeListData);
     });
+    this.show= false;
   }
 }

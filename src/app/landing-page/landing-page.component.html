@@ -4,87 +4,99 @@
   <h1 align="center">Dashboard</h1>
   <div class="main-content">
 
-<section class="p-2">
-  <h3 class="my-3">Resource</h3>
-  <!-- <div class="panel-group">
+    <section class="p-2">
+      <h3 class="my-3">Resource</h3>
+      <!-- <div class="panel-group">
   <div class="panel panel-primary">
     <div class="panel-heading">Panel with panel-default class</div>
     <div class="panel-body">Panel Content</div>
   </div>
 </div> -->
 
-  <div class="container">
+      <div class="container">
 
 
-    <div class="row">
-      <div class="col-md-4">
-        <!-- <h5 class="bg-light text-dark" >Download</h5> -->
-        <div class="card-container">
-          <canvas id="respie" class="card-div"></canvas>
-         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card-container"  *ngIf="canvas">
-          <canvas id="resourceDownload" class="card-div">{{canvas}}</canvas>
-         </div>
+        <div class="row">
+          <div class="col-sm-6 pr-2">
+            <!-- <h5 class="bg-light text-dark" >Download</h5> -->
+            <div class="card-container">
+             <div class="card-div">
+              <canvas id="respie" height="280px" width="500px"></canvas>
+             </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-container" *ngIf="canvas">
+              <div class="card-div">
+                <canvas id="resourceDownload" height="280px" width="500px">{{canvas}}</canvas>
+              </div>
+            </div>
 
+          </div>
+          <div class="col-sm-4" style="display: none;">
+            <div class="card-container">
+              <canvas id="resdoughnut" class="card-div"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="resdoughnut" class="card-div"></canvas>
-         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="p-2">
-  <h3 class="my-3">Users</h3>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" >
-        <div class="card-container" *ngIf="canvas">
-          <canvas id="userDeviceChart" class="card-div">{{canvas}}</canvas>
-         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="userbar" class="card-div"></canvas>
-         </div>
+    <section class="p-2">
+      <h3 class="my-3">Users</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 pr-2">
+            <div class="card-container" *ngIf="canvas">
+             <div  class="card-div">
+              <canvas id="userDeviceChart" height="280px" width="500px">{{canvas}}</canvas>
+             </div>
+            </div>
+          </div>
+          <div class="col-sm-4" style="display: none;">
+            <div class="card-container">
+              <canvas id="userbar" class="card-div"></canvas>
+            </div>
 
+          </div>
+          <div class="col-sm-4" style="display: none;">
+            <div class="card-container">
+              <canvas id="userdoughnut" class="card-div"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="userdoughnut" class="card-div"></canvas>
-         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="p-2">
-  <h3 class="my-3">Events</h3>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" >
-        <div class="card-container" *ngIf="canvas" >
-          <canvas id="eventStatus" class="card-div">{{canvas}}</canvas>
-         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card-container" *ngIf="canvas">
-          <canvas id="eventTargetUserType" class="card-div">{{canvas}}</canvas>
-         </div>
+    <section class="p-2">
+      <h3 class="my-3">Events</h3>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 pr-2">
+            <div class="card-container" *ngIf="canvas">
+              <div class="card-div p-2 text-center">
+                <canvas id="eventStatus" height="280px" width="500px">{{canvas}}</canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-container" *ngIf="canvas">
+              <div class="card-div p-2 text-center">
+                <canvas id="eventTargetUserType" height="280px" width="500px">{{canvas}}</canvas>
+              </div>
+            </div>
 
+          </div>
+          <div class="col-sm-6" style="display: none;">
+            <div class="card-container">
+              <div class="card-div p-2">
+                <canvas id="userdoughnut"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="userdoughnut" class="card-div"></canvas>
-         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
   </div>
