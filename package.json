@@ -7,10 +7,11 @@
   },
   "scripts": {
     "ng": "ng",
-    "lint": "ng lint",
     "test": "ng test",
     "e2e": "ng e2e",
-    "lint-ci": "ng lint --type-check --force",
+    "lint:styles": "stylelint \"src/app/**/**/*.css\" && stylelint \"src/app/**/*.css\" && stylelint \"src/app/*.css\"",
+    "lint": "ng lint && npm run lint:styles",
+    "lint-ci": "ng lint --type-check --force && npm run lint:styles",
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start:local": "ng serve",
@@ -20,6 +21,11 @@
     "build:dev_team": "ng build --aot=true -c=dev_team",
     "build:stage": "ng build --aot=true -c=stage",
     "heroku-postbuild": "ng build -c=$NG_ENV"
+  },
+  "husky": {
+    "hooks": {
+      "prre-commit": "pretty-quick --staged && ng lint"
+    }
   },
   "private": true,
   "dependencies": {
@@ -64,6 +70,7 @@
     "@types/jquery": "^3.3.33",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "husky": "^4.2.5",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.3.0",
@@ -71,11 +78,18 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "prettier": "^2.0.4",
+    "pretty-quick": "^2.0.1",
     "protractor": "~5.4.3",
     "puppeteer": "^2.1.1",
+    "rxjs-tslint-rules": "^4.30.1",
     "source-map-explorer": "^2.4.2",
+    "stylelint": "^13.3.2",
+    "stylelint-config-standard": "^20.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
+    "tslint-angular": "^3.0.2",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.7.5"
   }
 }
