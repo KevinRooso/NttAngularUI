@@ -48,8 +48,8 @@
          </div>
       </div>
       <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="userbar" class="card-div"></canvas>
+        <div class="card-container" *ngIf="canvas" >
+          <canvas id="users" class="card-div">{{canvas}}</canvas>
          </div>
 
       </div>
@@ -78,8 +78,8 @@
 
       </div>
       <div class="col-md-4">
-        <div class="card-container">
-          <canvas id="userdoughnut" class="card-div"></canvas>
+        <div class="card-container" *ngIf="canvas" >
+          <canvas id="eventCategoryType" class="card-div">{{canvas}}</canvas>
          </div>
       </div>
     </div>

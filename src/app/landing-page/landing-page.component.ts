@@ -49,11 +49,12 @@ export class LandingPageComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.eventCategoryTypeDetails();
     this.userDevice();
     this.resourceDownload();
     this.eventStatusDetails();
     this.eventTargetUserTypeDetails();
+    this.users();
 
     this.canvas = document.getElementById('respie');
     this.ctx = this.canvas.getContext('2d');
@@ -317,11 +318,11 @@ export class LandingPageComponent implements OnInit {
       let myChart = new Chart(this.ctx, {
         type: 'bar',
         data: {
-            labels: ["total ", "article ","casestudy","whitepaper"],
+            labels: [ "Article ","Casestudy","Whitepaper"],
             datasets: [{
-              labels: '# of downloads',
-                data: [(userdeviceData.totalDownload ||2), (userdeviceData.totalArticleDownload||3 ),
-                  (userdeviceData.totalCaseStudyDownload||3 ),(userdeviceData.totalWhitepaperDownload||5 )],
+              label: '# of downloads',
+                data: [(userdeviceData.totalArticleDownload||3 ),(userdeviceData.totalCaseStudyDownload||3 ),
+                  (userdeviceData.totalWhitepaperDownload||5 )],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -359,9 +360,9 @@ export class LandingPageComponent implements OnInit {
       let myChart = new Chart(this.ctx, {
         type: 'pie',
         data: {
-            labels: ["Event ", "Publish","Active","Draft"],
+            labels: [ "Publish","Active","Draft"],
             datasets: [{
-                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublishEvent ),
+                data: [(userdeviceData.totalPublishEvent ),
                   (userdeviceData.totalActiveEvent ),(userdeviceData.totalDraftEvent )],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
@@ -391,11 +392,94 @@ export class LandingPageComponent implements OnInit {
       let myChart = new Chart(this.ctx, {
         type: 'bar',
         data: {
-            labels: ["Event ", "Public ","Customer","Employee"],
+            labels: [ "Public ","Customer","Employee"],
             datasets: [{
               labels: '# of downloads',
-                data: [(userdeviceData.totalEvent ), (userdeviceData.totalPublicEvent),
+                data: [ (userdeviceData.totalPublicEvent),
                   (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+        }
+      });
+    })
+  }
+
+  users(){
+    this.service.getUsers()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('users');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Public ","Customer","Employee"],
+            datasets: [{
+              label: '# of downloads',
+                data: [(userdeviceData.totalPublicUser),
+                  (userdeviceData.totalCustomerUser ),(userdeviceData.totalEmployeeUser )],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: false,
+          display:true,
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+        }
+      });
+    })
+  }
+
+  eventCategoryTypeDetails(){
+    this.service.geteventCategoryTypeDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+
+      this.canvas = document.getElementById('eventCategoryType');
+      this.ctx = this.canvas.getContext('2d');
+      let myChart = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Computing","Recovery","Datacenter ","General"],
+            datasets: [{
+              label: '# of downloads',
+                // data: [(userdeviceData.Datacenter),(userdeviceData.General)],
+                data: [(userdeviceData.CloudComputing),(userdeviceData.CloudComputingHybricloudDisasterRecovery),
+                  (userdeviceData.Datacenter),(userdeviceData.General)],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
