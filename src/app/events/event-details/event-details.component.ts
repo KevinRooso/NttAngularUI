@@ -21,6 +21,8 @@ export class EventDetailsComponent implements OnInit {
   startTime="";
   endTime="";
   show=false;
+  speakers:any[]=[];
+  speakerList:any[]=[];
   @ViewChild('menumat') trigger: MatMenuTrigger;
   constructor(private authService: AuthServiceService,
      private router: Router,
@@ -54,8 +56,23 @@ export class EventDetailsComponent implements OnInit {
         }
         this.isPublish=this.getEventDetails.isPublish;
         this.isActive=this.getEventDetails.isActive;
+        console.log("eventschedule==",this.getEventDetails);
+        if(this.getEventDetails.eventSchedule!=null)
+          this.getEventDetails.eventSchedule.forEach(m=>{
+            m.speakers.forEach(n=>{
+                this.speakerList.push(n);
+            })
+          })
+
+
+
+          this.speakers = this.speakerList.map(e => e['id'])
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    .filter(e => this.speakerList[e]).map(e => this.speakerList[e]);
+          console.log("speakers=====",this.speakers);
 
     })
+
     this.show=false;
   }
 
@@ -137,7 +154,7 @@ export class EventDetailsComponent implements OnInit {
       this.isPublish=!this.isPublish;
       console.log(error);
       if(error.status=='403')
-      this.snackBar.open('You do not have the permission to Publish it', 'Close', {duration: 5000});
+      this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', {duration: 5000});
     })
   }
   activeChange(){
@@ -148,7 +165,7 @@ export class EventDetailsComponent implements OnInit {
       console.log(error);
       this.isActive=!this.isActive
       if(error.status=='403')
-      this.snackBar.open('You do not have the permission to Active it', 'Close', {duration: 5000});
+      this.snackBar.open('You do not have the permission to Active or DeActive it', 'Close', {duration: 5000});
     })
   }
 }

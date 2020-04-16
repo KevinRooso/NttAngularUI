@@ -321,8 +321,8 @@ export class LandingPageComponent implements OnInit {
             labels: [ "Article ","Casestudy","Whitepaper"],
             datasets: [{
               label: '# of downloads',
-                data: [(userdeviceData.totalArticleDownload||3 ),(userdeviceData.totalCaseStudyDownload||3 ),
-                  (userdeviceData.totalWhitepaperDownload||5 )],
+                data: [(userdeviceData.totalArticleDownload||2 ),(userdeviceData.totalCaseStudyDownload||4 ),
+                  (userdeviceData.totalWhitepaperDownload||6 )],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -330,7 +330,7 @@ export class LandingPageComponent implements OnInit {
                     'rgba(255, 206, 86, 1)'
                 ],
                 borderWidth: 1
-            }]
+            },]
         },
         options: {
           responsive: false,

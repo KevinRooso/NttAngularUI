@@ -122,6 +122,7 @@ export class CreateNewsComponent implements OnInit {
         "location": this.createNewsForm.controls['location'].value,
         "about": this.createNewsForm.controls['about'].value,
         "active": false,
+        "tagList":[],
         "draft": this.createNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": 0,
