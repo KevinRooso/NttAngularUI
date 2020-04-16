@@ -295,7 +295,34 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.submitted = true;
-    if (this.createEventForm.valid ) {
+    // event start time should be equal to agenda min start time
+    // event end time should be equal to agenda max end time
+    let minAgendaStartTime = null;
+    let maxAgendaEndTime = null;
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      if (index === '0') {
+        minAgendaStartTime = agenda.startDate;
+        maxAgendaEndTime = agenda.endDate;
+      }
+      if (minAgendaStartTime > agenda.startDate) {
+        minAgendaStartTime = agenda.startDate
+      }
+
+      if (maxAgendaEndTime < agenda.endDate) {
+        maxAgendaEndTime = agenda.endDate;
+      }
+    }
+
+    if (minAgendaStartTime.getTime() !== this.createEventForm.controls['startDate'].value.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(errorMsg, 'Close');
+    } else if (maxAgendaEndTime.getTime() !== this.createEventForm.controls['endDate'].value.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event end time';
+      this.snackBar.open(errorMsg, 'Close');
+    }
+
+    if (this.createEventForm.valid) {
       this.show =true;
       let name: any[] = [];
       let spekaerName: any[] = [];
