@@ -40,7 +40,7 @@ export class VideosUpdateComponent implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
-
+  today=new Date();
   tarUserType:string="";
   @ViewChild('closeModel',{static:true}) closeModel;
   ngOnInit(): void {
@@ -57,6 +57,7 @@ export class VideosUpdateComponent implements OnInit {
       isDraft:[false],
       thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       downloadUrl: ['',Validators.required],
+      expiryDate:['',Validators.required]
 
     });
     this.addTagForm = this.formBuilder.group({
@@ -105,6 +106,8 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
+        this.today=res.body.expiryDate;
+        this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
         console.log(" this.tarUserType==", this.tarUserType);
       if(res.body.targetUserType!=null)
       this.selected2=res.body.category.id;
@@ -210,7 +213,8 @@ export class VideosUpdateComponent implements OnInit {
       "resourceType": 6,
       "id":this.videoID,
       "isDraft": obj.isDraft,
-      "targetUserType":obj.targetUserType
+      "targetUserType":obj.targetUserType,
+      "expiryDate":obj.expiryDate
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{

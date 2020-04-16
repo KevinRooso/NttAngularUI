@@ -37,6 +37,7 @@ export class ArticleEditComponent implements OnInit {
   selected4:string[]=[];
   valuesSelectedTag: string[] = [];
   selected3:string="";
+  today=new Date();
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router,
@@ -50,7 +51,8 @@ export class ArticleEditComponent implements OnInit {
       draft: [false],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -142,6 +144,12 @@ export class ArticleEditComponent implements OnInit {
 
       this.EditArticleForm.controls['tagList'].setValidators(null);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
+
+
+      this.today=this.articleData.expiryDate;
+      this.EditArticleForm.controls['expiryDate'].setValue(this.articleData.expiryDate);
+      console.log("date=",this.today);
+
       this.getTagsDetails();
       this.getUserList();
       this.getCategoryDetails();
@@ -253,7 +261,8 @@ export class ArticleEditComponent implements OnInit {
       "tagList": tags,
       "thumbnailImageUrl": this.articleImage,
       "title": this.EditArticleForm.controls['title'].value,
-      "targetUserType": this.EditArticleForm.controls['targetUserType'].value
+      "targetUserType": this.EditArticleForm.controls['targetUserType'].value,
+      "expiryDate":this.EditArticleForm.controls['expiryDate'].value
     }
     console.log("post", obj);
 

@@ -573,7 +573,7 @@ export class HomeUiComponent implements OnInit {
 
       obj.push(this.whitePaperConfigurationForm.value);
       console.log(obj);
-      this.service.saveRescourceBlock("whitePapers", obj).subscribe((res) => {
+      this.service.saveRescourceBlock("whitepaper", obj).subscribe((res) => {
         console.log("resss=",res);
 
        this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
