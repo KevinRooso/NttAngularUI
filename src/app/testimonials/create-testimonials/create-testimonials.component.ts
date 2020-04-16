@@ -70,7 +70,7 @@ export class CreateTestimonialsComponent implements OnInit {
       }
     }
     this.router1.queryParams.subscribe(params => {
-      console.log(params.page);
+
       this.resourceId = params.page;
       if(this.resourceId!=undefined){
      this.getResourceData();
