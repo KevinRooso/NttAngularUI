@@ -136,7 +136,8 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/resources/case-studies', {headers:this.headers});
   }
   getAllNews():Observable<any>{
-    return this.http.get<any>(this.url+'api/admin/news', {headers:this.headers})
+    let obj=false;
+    return this.http.get<any>(this.url+'api/public/news?isPublish='+obj, {headers:this.headers})
   }
   saveNews(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/news', obj, {headers:this.headers});
@@ -181,5 +182,19 @@ export class AuthServiceService {
   }
   saveActive(id,flag):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
+  }
+
+  //Dashboad-charts
+  getUserDevices():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
+  }
+  getresourceDownloadDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/resourceDownloadDetails', {headers:this.headers})
+  }
+  geteventStatusDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventStatusDetails', {headers:this.headers})
+  }
+  geteventTargetUserTypeDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventTargetUserTypeDetails', {headers:this.headers})
   }
 }

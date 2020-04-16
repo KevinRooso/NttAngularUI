@@ -527,10 +527,13 @@ export class EventEditComponent implements OnInit {
       "startDate": this.addAgenda.controls['startDate'].value,
       "speakerList": this.addAgenda.controls['speakerList'].value,
       "isActive": false,
-      "id":this.addAgenda.controls['id'].value,
+      "id":0,
       "idData":-1
     }
 
+    console.log("myobj",obj);
+
+    console.log("id=", this.addAgenda.controls['idData'].value);
     if(this.addAgenda.value['idData']!= -1){
       obj['idData'] = this.addAgenda.value['idData'];
     }else{
@@ -544,7 +547,7 @@ export class EventEditComponent implements OnInit {
     }else{
       this.agendaData[(obj.idData)]=obj;
     }
-
+    this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
   }
 // }
