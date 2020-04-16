@@ -317,9 +317,11 @@ export class CreateEventComponent implements OnInit {
     if (minAgendaStartTime.getTime() !== this.createEventForm.controls['startDate'].value.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event start time';
       this.snackBar.open(errorMsg, 'Close');
+      return false;
     } else if (maxAgendaEndTime.getTime() !== this.createEventForm.controls['endDate'].value.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event end time';
       this.snackBar.open(errorMsg, 'Close');
+      return false;
     }
 
     if (this.createEventForm.valid) {
@@ -415,7 +417,7 @@ export class CreateEventComponent implements OnInit {
         (error) => {
           console.log("error",error);
 
-          this.snackBar.open(error, 'Close');
+          this.snackBar.open('Something went wrong', 'Close');
            this.show =false;
          }
       )
@@ -454,6 +456,10 @@ export class CreateEventComponent implements OnInit {
     }
     this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
+    // this.addAgenda.setValidators(null);
+    // this.addAgenda.updateValueAndValidity();
+    // this.addAgenda.controls['speakerList'].setValidators(null);
+    // this.addAgenda.controls['speakerList'].updateValueAndValidity();
   }
 else{
   alert("please fill mandatory");
