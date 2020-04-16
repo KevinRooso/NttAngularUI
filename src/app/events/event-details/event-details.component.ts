@@ -50,9 +50,9 @@ export class EventDetailsComponent implements OnInit {
       this.getEventDetails = res.body.events;
       console.log("ID Data", this.getEventDetails);
         this.eventName=this.getEventDetails.title;
-        if(this.getEventDetails.eventSchedule[0].startDate!=null){
-        this.startTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].startDate);
-        this.endTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].endDate);
+        if(this.getEventDetails.eventStartDate!=null && this.getEventDetails.eventEndDate!=null){
+        this.startTime=this.commonService.getDateTime(this.getEventDetails.eventStartDate);
+        this.endTime=this.commonService.getDateTime(this.getEventDetails.eventEndDate);
         }
         this.isPublish=this.getEventDetails.isPublish;
         this.isActive=this.getEventDetails.isActive;

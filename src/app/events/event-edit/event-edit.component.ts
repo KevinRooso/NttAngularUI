@@ -221,12 +221,12 @@ export class EventEditComponent implements OnInit {
 
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
-      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
 
 
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
-      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventEndDate);
 
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
@@ -240,7 +240,7 @@ export class EventEditComponent implements OnInit {
         this.valuesSelectedTag.push(m.name);
       })
 
-      if(this.getEventDetails.eventSchedule!=null){
+      if(this.getEventDetails.eventSchedule!=null && this.getEventDetails.eventSchedule.length >0){
         this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
         this.closingDate=this.getEventDetails.eventSchedule[0].startDate;
       this.getEventDetails.eventSchedule.forEach((m,n)=>{

@@ -66,6 +66,7 @@ export class CreateEventComponent implements OnInit {
   image2button:boolean=false;
   agendaData:any[] = [];
   counter: any;
+  checkErrorAgenda: any
 
 
   // endingDate: any;
@@ -134,6 +135,16 @@ export class CreateEventComponent implements OnInit {
       }
 
     }
+    this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.addAgenda.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.addAgenda.controls[controlName].hasError(errorName);
+      }
+
+    }
 
 
     this.addTagForm = this.formBuilder.group({
@@ -141,11 +152,11 @@ export class CreateEventComponent implements OnInit {
       keywords: ['', Validators.required],
     })
     this.addAgenda = this.formBuilder.group({
-      title: [''],
-      topic: [''],
-      startDate: [''],
-      endDate: [''],
-      speakerList: [''],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      topic:new FormControl('', [Validators.maxLength(41)]),
+      startDate: ['', Validators.required],
+      endDate:['', Validators.required],
+      speakerList: ['', Validators.required],
       isBreak:[''],
       idData:['-1'],
       id:['0']
@@ -284,7 +295,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.submitted = true;
-    if (this.createEventForm.valid) {
+    if (this.createEventForm.valid && this.addAgenda.valid) {
       this.show =true;
       let name: any[] = [];
       let spekaerName: any[] = [];
@@ -363,7 +374,7 @@ export class CreateEventComponent implements OnInit {
       }
 
       console.log("Post Data", objData);
-      //this.show =false;
+      this.show =false;
 
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
@@ -389,7 +400,7 @@ export class CreateEventComponent implements OnInit {
   }
 
   createAgenda(){
-    // if (this.addAgenda.valid) {
+    if (this.addAgenda.valid) {
     let obj= {
       "title": this.addAgenda.controls['title'].value,
       "topic": this.addAgenda.controls['topic'].value,
@@ -417,7 +428,11 @@ export class CreateEventComponent implements OnInit {
     this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
   }
-// }
+else{
+  alert("please fill mandatory");
+}
+  }
+
   delete(i){
     this.agendaData.splice(i,1);
   }
