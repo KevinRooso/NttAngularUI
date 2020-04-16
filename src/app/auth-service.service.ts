@@ -185,6 +185,7 @@ export class AuthServiceService {
   }
 
   //Dashboad-charts
+
   getUserDevices():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
   }
@@ -196,5 +197,11 @@ export class AuthServiceService {
   }
   geteventTargetUserTypeDetails():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/eventTargetUserTypeDetails', {headers:this.headers})
+  }
+  getUsers():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/users', {headers:this.headers})
+  }
+  geteventCategoryTypeDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventCategoryTypeDetails', {headers:this.headers})
   }
 }
