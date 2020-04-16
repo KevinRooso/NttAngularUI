@@ -95,15 +95,15 @@ export class EventPreviewComponent implements OnInit {
         })
 
         this.publishedList=this.getEventData.filter(m=>{
-           return m.publish && m.active && !m.draft;
+           return m.publish;
          })
          this.publishedList1=this.publishedList;
          this.activeList=this.getEventData.filter(m=>{
-          return !m.publish && m.active && !m.draft;
+          return !m.publish && m.active;
         })
          this.activeList1=this.activeList;
         this.draftList=this.getEventData.filter(m=>{
-          return !m.publish && !m.active && m.draft;
+          return !m.publish && !m.active && (m.draft || !m.draft);
         })
         this.draftList1=this.draftList;
       });
