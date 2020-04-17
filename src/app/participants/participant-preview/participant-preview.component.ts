@@ -3,6 +3,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $;
 @Component({
   selector: 'app-participant-preview',
@@ -17,9 +18,11 @@ export class ParticipantPreviewComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild('datatable',{static:true}) table;
   tabled;
+  show:boolean=false;
   constructor(private service: AuthServiceService,
     private elementRef:ElementRef,private router:Router
-    ,private queryString:ActivatedRoute) {}
+    ,private queryString:ActivatedRoute,
+    public snackBar: MatSnackBar) {}
   ngOnInit(){
     // this.service.getAllParticipants().subscribe(res=>{
     //   this.tableData=res.body;
@@ -90,18 +93,22 @@ getTableData(url){
     console.log("data");
     console.log(data);
     const self = this;
+
+    if(data['email']!=null){
+      $('td:nth-child(3)', row).bind('click', () => {
+        self.someClickHandler1(data);
+      });
+    }
     if(data['eventName']==null){
 
       $('td:nth-child(1)', row).html(this.eName);
     }
-    $('td:nth-child(3)', row).bind('click', () => {
-      self.someClickHandler1(data);
-    });
+
     console.log('rowoo==',row);
 
     $('td:nth-child(1) ', row).attr("width", "250px");
     if(data['approverId']==null){
-
+      console.log("data");
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
@@ -113,15 +120,15 @@ getTableData(url){
         $('td .showIdButton', row).html('Pending');
         $('td:nth-child(7) .approve', row).attr("disabled", true);
 
-    Object.keys(data).forEach((key,index)=>{
-      if(key=='email'){
-        console.log("email");
+    // Object.keys(data).forEach((key,index)=>{
+    //   if(key=='email'){
+    //     console.log("email");
 
 
-      }
-    })
+    //   }
+    // })
 
-    $('td', row).unbind('click');
+    // $('td', row).unbind('click');
     $('td:nth-child(7) .approve', row).bind('click', () => {
      self.someClickHandler(data,row);
 
@@ -153,28 +160,36 @@ getTableData(url){
 }
 someClickHandler(data,row){
   console.log(data.id)
+  this.show=true;
  this.service.updateParticipantStatus(data.id,true).subscribe(res=>{
     $('td .showIdButton', row).html('Approved');
     $('td:nth-child(7) .approve', row).css('cursor','default');
     $('td:nth-child(7) .reject', row).css('cursor','default');
     $('td:nth-child(7) .approve', row).unbind();
-    alert("Approved!!");
+    this.snackBar.open('Approved!!', 'Close', { duration: 5000 });
+    this.show=false;
     },
     (error) => {
-      alert("something went wrong");
+      this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+      this.show=false;
     })
 }
 someClickHandler2(data,row){
+  this.show=true;
   console.log(data.id)
    this.service.updateParticipantStatus(data.id,false).subscribe(res=>{
     $('td .showIdButton', row).html('Rejected');
     $('td:nth-child(7) .approve', row).css('cursor','default');
     $('td:nth-child(7) .reject', row).css('cursor','default');
     $('td:nth-child(7) .reject', row).unbind();
-    alert("Rejected!!");
+
+    this.snackBar.open('Rejected!!', 'Close', { duration: 5000 });
+    this.show=false;
     },
     (error) => {
-      alert("something went wrong");
+      this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+      this.show=false;
+      //alert("something went wrong");
     })
 }
 someClickHandler1(data){

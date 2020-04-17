@@ -224,7 +224,7 @@ export class CasesEditComponent implements OnInit {
       });
     })
      let dataObj={
-       "isDraft":obj.isDraft,
+       "draft":obj.isDraft,
        "id":this.caseId,
        "categoryId": catObj.id,
        "longDescription": obj.longDescription,

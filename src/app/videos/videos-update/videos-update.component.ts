@@ -212,7 +212,7 @@ export class VideosUpdateComponent implements OnInit {
       "title": obj.title,
       "resourceType": 6,
       "id":this.videoID,
-      "isDraft": obj.isDraft,
+      "draft": obj.isDraft,
       "targetUserType":obj.targetUserType,
       "expiryDate":obj.expiryDate
     }

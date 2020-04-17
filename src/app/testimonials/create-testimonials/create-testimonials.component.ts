@@ -47,7 +47,9 @@ export class CreateTestimonialsComponent implements OnInit {
 
   today=new Date();
 
-
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
@@ -113,6 +115,8 @@ export class CreateTestimonialsComponent implements OnInit {
       this.today=res.body.expiryDate;
       this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
       this.previewUrl1=res.body.detailImageUrl;
+      this.image1button=true;
+      this.image2button=true;
       this.previewUrl=res.body.thumbnailImageUrl
       this.getUserList();
 
@@ -128,14 +132,19 @@ export class CreateTestimonialsComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    console.log("fileData==", this.fileData);
+if(this.fileData!=undefined){
+  this.image1button=false;
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      this.imageValid = true;
+      this.preview();
     }
+  }
   }
   preview() {
     // Show preview
@@ -154,7 +163,9 @@ export class CreateTestimonialsComponent implements OnInit {
 
 
   uploadImage() {
+    this.show=true;
     const formData = new FormData();
+    this.image1button=false;
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
@@ -162,6 +173,8 @@ export class CreateTestimonialsComponent implements OnInit {
        // alert("Image Uploaded Successfully");
         this.logo = res.fileDownloadUri;
         this.imageValid = false;
+        this.image1button=true;
+        this.show=false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
@@ -169,15 +182,34 @@ export class CreateTestimonialsComponent implements OnInit {
 
 
   fileProgress1(fileInput: any) {
+    this.image2button=false;
     this.previewUrl1=null;
-    this.imageValid1=false;
+    this.imageValid1 = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
+    if(this.fileData!=undefined){
+      this.image2button=false;
+    let fileType = this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid1=true;
     this.preview1();
     }
   }
+  }
+  // fileProgress1(fileInput: any) {
+
+  //   this.image2button=false;
+  //   this.previewUrl1=null;
+  //   this.imageValid1 = false;
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   if(this.fileData!=undefined){
+  //     this.image2button=false;
+  //   let fileType = this.fileData.type;
+  //   if (fileType == 'application/pdf') {
+  //     this.imageValid1 = true;
+  //     this.preview1();
+  //   }
+  // }
+  // }
   preview1() {
     // Show preview
     var mimeType = this.fileData.type;
@@ -192,28 +224,64 @@ export class CreateTestimonialsComponent implements OnInit {
     }
   }
   uploadImage1() {
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        //alert("Image Uploaded Successfully");
         this.speakerImage = res.fileDownloadUri;
         this.imageValid1 = false;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        this.image2button=true;
+        this.show=false;
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
-
+  // uploadImage1() {
+  //   this.show=true;
+  //   this.image2button=false;
+  //   const formData1 = new FormData();
+  //   formData1.append('file', this.fileData);
+  //   this.service.uploadFile(formData1)
+  //     .subscribe((res) => {
+  //       console.log("Image", res);
+  //       this.speakerImage = res.fileDownloadUri;
+  //       this.imageValid1 = false;
+  //       this.image2button=true;
+  //       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+  //     },
+  //     (error)=>{
+  //       this.show=false;
+  //       this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
+  //     })
+  // }
 
   generateBlog(){
     let id;
+
     if(this.resourceId!=undefined)
       id=this.resourceId;
       else
       id=0;
+      if(!this.image1button){
+        this.snackBar.open('Please Upload Logo', 'Close', { duration: 5000 });
+        this.show=false;
+        return false;
+      }
+      if(!this.image2button){
+        this.snackBar.open('Please Upload Publisher Image ', 'Close', { duration: 5000 });
+        this.show=false;
+        return false;
+      }
+      if(this.createVideoForm.valid){
+        this.show=true;
       let obj=this.createVideoForm.value;
       let dataObj={
             "thumbnailImageUrl":this.logo,
-          "isDraft": obj.isDraft,
+          "draft": obj.isDraft,
           "longDescription": obj.longDescription,
           "person": {
           },
@@ -232,10 +300,18 @@ export class CreateTestimonialsComponent implements OnInit {
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
       //alert("Testimonials Added Successfully");
-      this.snackBar.open('Testimonials Added Successfully', 'Close', {duration: 5000});
+      if(this.resourceId!=undefined)
+      this.snackBar.open('Testimonials Updated Successfully', 'Close', {duration: 5000});
+      else
+        this.snackBar.open('Testimonials Added Successfully', 'Close', {duration: 5000});
+      this.show=false;
       this.router.navigate(['testimonials']);
     })
-
+  }
+  else {
+    this.show=false;
+    this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
+  }
 }
 BackMe(){
   this.location.back();

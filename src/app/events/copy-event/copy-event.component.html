@@ -146,7 +146,7 @@
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 1 <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Venue <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
             <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
@@ -154,7 +154,7 @@
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 2</label>
+          <label class="col-sm-3 col-form-label">Address </label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 2" value="" formControlName="address2">
           </mat-form-field>
@@ -296,6 +296,18 @@
           <div *ngIf="checkError('registrationEndDate', 'required',true)" style="color:red;font-size: 12px;">
             (Registration end date is required)
           </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="policyTnc" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('policyTnc', 'required', true)" style="color:red;font-size: 12px;">
+              (Terms & Conditions is required)
+            </div>
+            <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
+              Terms & Conditions should be less than 3000 characters
+            </div>
           </div>
         </div>
         <div class="form-row">

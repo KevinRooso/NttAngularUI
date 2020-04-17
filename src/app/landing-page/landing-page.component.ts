@@ -113,91 +113,91 @@ export class LandingPageComponent implements OnInit {
     // });
 
 
-    new Chart('resdoughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
-    });
-    new Chart('doughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
-    });
+    // new Chart('resdoughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    //   data:{
+    //     datasets:[{
+    //       data:[45,10,5,25,15],
+    //       backgroundColor:["red","orange","yellow","green","blue"],
+    //       labels:'Dataset 1'
+    //     }],
+    //     labels:['Red','Orange','Yellow','Green','Blue']
+    //   }
+    // });
+    // new Chart('doughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    //   data:{
+    //     datasets:[{
+    //       data:[45,10,5,25,15],
+    //       backgroundColor:["red","orange","yellow","green","blue"],
+    //       labels:'Dataset 1'
+    //     }],
+    //     labels:['Red','Orange','Yellow','Green','Blue']
+    //   }
+    // });
 
-    new Chart('userdoughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
-    });
-    new Chart('doughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-    });
+    // new Chart('userdoughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    //   data:{
+    //     datasets:[{
+    //       data:[45,10,5,25,15],
+    //       backgroundColor:["red","orange","yellow","green","blue"],
+    //       labels:'Dataset 1'
+    //     }],
+    //     labels:['Red','Orange','Yellow','Green','Blue']
+    //   }
+    // });
+    // new Chart('doughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    // });
   }
 
   userDevice(){
@@ -464,7 +464,15 @@ export class LandingPageComponent implements OnInit {
           responsive: false,
           display:true,
           scales: {
+            xAxes: [{
+              // gridLines: {
+              //     color: "rgba(0, 0, 0, 0)",
+              // }
+          }],
             yAxes: [{
+            //   gridLines: {
+            //     color: "rgba(0, 0, 0, 0)",
+            // },
                 ticks: {
                   stepSize:3,
                     beginAtZero:true

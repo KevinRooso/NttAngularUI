@@ -46,8 +46,10 @@ export class CreateBlogComponent implements OnInit {
 
 
   today=new Date();
-
-
+  show1:boolean=false;
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
@@ -160,12 +162,17 @@ export class CreateBlogComponent implements OnInit {
 
 
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
@@ -195,11 +202,16 @@ export class CreateBlogComponent implements OnInit {
     }
   }
   uploadImage1() {
+    this.image2button=false;
+    this.show1=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
+        this.image2button=true;
+        this.show1=false;
+        this.imageValid1 = false;
         this.personImage = res.fileDownloadUri;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
@@ -230,11 +242,19 @@ export class CreateBlogComponent implements OnInit {
     }
   }
   addPerson(){
+    this.previewUrl1= null;
+    this.personForm.reset();
 
   }
   generateBlog(){
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Blog Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     let obj=this.createBlogForm.value;
-    // if(this.createBlogForm.valid){
+
       if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
 
@@ -254,7 +274,7 @@ export class CreateBlogComponent implements OnInit {
          "detailImageUrl": "",
          "downloadUrl": "",
          "categoryId": obj.categoryId.id,
-         "isDraft": obj.isDraft,
+         "draft": obj.isDraft,
          "longDescription": obj.longDescription,
          "person": {
            "description": obj.person.description,
@@ -282,6 +302,7 @@ export class CreateBlogComponent implements OnInit {
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
+      this.show=false;
       this.snackBar.open('Blog Added Successfully', 'Close', {duration: 5000});
       //alert("Blog Added Successfully");
       this.router.navigate(['blogs']);
@@ -289,12 +310,19 @@ export class CreateBlogComponent implements OnInit {
   //console.log(this.createBlogForm.value);
 }
 else{
+  this.show=false;
   this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
 }
 
 }
   submitPerson(){
     let flag=false;
+    this.show1=true;
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Author Image', 'Close', { duration: 5000 });
+      this.show1=false;
+      return false;
+    }
     if(this.personForm.valid){
     console.log(this.personForm.value);
     let fruit1 = '';
@@ -315,11 +343,15 @@ else{
     this.persons.unshift(obj1);
     this.closebutton.nativeElement.click();
     }
-    else
+    else{
+      this.show1=false;
     this.snackBar.open('Author Already Exist', 'Close', {duration: 5000});
+    }
    // alert("Author Already Exist")
-  }else
+  }else{
+    this.show1=false;
   this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+  }
   //alert("Please fill all mandatory field");
   }
   createTag(){

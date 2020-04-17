@@ -162,7 +162,7 @@
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 1 <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Venue <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
             <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 2</label>
+          <label class="col-sm-3 col-form-label">Address</label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 2" value="" formControlName="address2">
           </mat-form-field>

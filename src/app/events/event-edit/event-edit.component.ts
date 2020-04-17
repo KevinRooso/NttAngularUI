@@ -566,7 +566,7 @@ export class EventEditComponent implements OnInit {
        // alert("Successfully Updated");
         this.submitted = false;
         this.show =false;
-       // this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
+        this.router.navigate(['/events'], { queryParams: { page: this.evntID } });
       },
       (error) => {
         //alert("Error :"+error);
@@ -699,8 +699,51 @@ export class EventEditComponent implements OnInit {
   }
   maxCDate() {
     console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
-    this.closingDate = this.updateEventForm.get(['startDate']).value;
-   this.regStartDate = this.closingDate;
+    let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    this.closingDate = eventStartDate;
+    this.regStartDate = eventStartDate;
+
+    if (eventStartDate && typeof(eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    let eventEndDate = this.updateEventForm.controls['endDate'].value;
+
+    if (eventEndDate && typeof(eventEndDate) == 'string') {
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    // setting event end date equal to start date as no is allowed to select in end date field
+    eventEndDate.setDate(eventStartDate.getDate());
+    eventEndDate.setMonth(eventStartDate.getMonth());
+    eventEndDate.setFullYear(eventStartDate.getFullYear());
+
+    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+     // update all agenda start date if start dates changes
+     for (let index in this.agendaData) {
+       let agenda = this.agendaData[index];
+       let agenStartDateObj = null;
+       let agendaEndDate = null;
+
+       if (agenda.startDate && typeof(agenda.startDate) == 'string') {
+         agenStartDateObj = new Date(agenda.startDate);
+       }
+
+       if (agenda.endDate && typeof(agenda.endDate) == 'string') {
+         agendaEndDate = new Date(agenda.endDate);
+       }
+
+       agenStartDateObj.setDate(eventStartDate.getDate());
+       agenStartDateObj.setMonth(eventStartDate.getMonth());
+       agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+
+       agendaEndDate.setDate(eventStartDate.getDate());
+       agendaEndDate.setMonth(eventStartDate.getMonth());
+       agendaEndDate.setFullYear(eventStartDate.getFullYear());
+       agenda.startDate = agenStartDateObj.toISOString();
+       agenda.endDate = agendaEndDate.toISOString();
+     }
   }
   maxEDate() {
     console.log("ending Date", this.updateEventForm.get(['endDate']).value);

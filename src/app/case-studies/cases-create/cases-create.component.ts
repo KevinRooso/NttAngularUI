@@ -161,7 +161,7 @@ export class CasesCreateComponent implements OnInit {
      });
 
      let dataObj={
-       "isDraft":obj.isDraft,
+       "draft":obj.isDraft,
        "categoryId": obj.categoryId.id,
        "longDescription": obj.longDescription,
         "person": {
