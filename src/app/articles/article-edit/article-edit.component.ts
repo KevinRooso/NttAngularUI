@@ -38,6 +38,10 @@ export class ArticleEditComponent implements OnInit {
   valuesSelectedTag: string[] = [];
   selected3:string="";
   today=new Date();
+
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router,
@@ -72,6 +76,7 @@ export class ArticleEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.show=true;
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.articleId = params.page;
@@ -149,34 +154,44 @@ export class ArticleEditComponent implements OnInit {
       this.today=this.articleData.expiryDate;
       this.EditArticleForm.controls['expiryDate'].setValue(this.articleData.expiryDate);
       console.log("date=",this.today);
-
+      this.image1button=true;
+      this.image2button=true;
       this.getTagsDetails();
       this.getUserList();
       this.getCategoryDetails();
 
-
+      this.show=false;
     })
   }
 
   fileProgress(fileInput: any) {
+
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
+    console.log("fileData==", this.fileData);
+if(this.fileData!=undefined){
+  this.image1button=false;
     let fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
     }
   }
+  }
   fileProgress2(fileInput: any) {
+    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
+    if(this.fileData!=undefined){
+      this.image2button=false;
     let fileType = this.fileData.type;
     if (fileType == 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
     }
+  }
   }
   preview() {
     var mimeType = this.fileData.type;
@@ -198,41 +213,70 @@ export class ArticleEditComponent implements OnInit {
     }
   }
   uploadImage() {
+    this.show=true;
+    this.image1button=false;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.show=false;
+        this.image1button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
+    this.show=true;
+    this.image1button=false;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+        this.image1button=true;
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
 
   updateArticle() {
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Article Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     if(this.EditArticleForm.valid){
-      let tags: any[] = [];
-
-      // this.EditArticleForm.value.tagList.forEach(m => {
-      //   let tag = {
-      //     "id": m.id,
-      //     "keywords": m.keywords,
-      //     "name": m.name
-      //   }
-      //   tags.push(tag);
-      // });
+      let tags:any[]=[];
+      this.tagData.forEach(m=>{
+        this.EditArticleForm.value.tagList.forEach(n=>{
+            if(n==m.id){
+              let tag={
+              "id":m.id,
+              "keywords": m.keywords,
+              "name": m.name
+              }
+              tags.push(tag);
+            }
+        });
+      })
       let catId;
       this.allData.forEach(m=>{
         if(m.displayName==this.EditArticleForm.controls['categoryId'].value)
@@ -270,16 +314,19 @@ export class ArticleEditComponent implements OnInit {
       (response) => {
         // alert("Successfully Updated");
         console.log("response", response);
+        this.show=false;
         this.snackBar.open('Article successfully updated', 'Close', {duration: 5000});
         this.submitted = false;
       },
       (error) => {
         //alert("Error :"+error);
-        this.snackBar.open(error, 'Close');
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', {duration: 5000});
       }
     )
   }
   else{
+    this.show=false;
     this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
   }
   }

@@ -150,56 +150,56 @@ export class HomeUiComponent implements OnInit {
       customer: [this.cFlag],
       datafieldType: ["event", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.articleConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["article", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.blogsConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["blog", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.videosConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["videos", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.whitePaperConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["whitePapers", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.caseStudyConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["caseStudy", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.newsConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["news", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
     this.testConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
       datafieldType: ["testimonials", Validators.required],
       dataFieldId: ["", Validators.required],
-      sequenceNumber: [""],
+      sequenceNumber: ["1"],
     });
   }
   createForm(){
