@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -127,7 +128,7 @@
             <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
           </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -156,6 +157,7 @@
 </div>
 
 <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <app-loader *ngIf="show1"></app-loader>
   <div class="modal-dialog"  role="document">
     <div class="modal-content" style="width: 836px;">
       <div class="modal-header" style="border-bottom: none;padding: 0;">
@@ -262,7 +264,7 @@
                   <mat-error *ngIf="checkErrorPerson('profileImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
                 </div>
                   <div class="col-sm-2">
-                  <button class="btn btn-primary" [disabled]="!imageValid1" (click)="uploadImage1()">Upload File</button>
+                  <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid1}" [disabled]="!imageValid1"  (click)="uploadImage1()">Upload File</button>
                   <!-- <div *ngIf="fileUploadProgress1">
                     Upload progress: {{ fileUploadProgress1 }}
                   </div> -->

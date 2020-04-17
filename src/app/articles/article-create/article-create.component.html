@@ -139,7 +139,7 @@
               pdf only)</div>
           </div>
           <div class="col-sm-2">
-            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>

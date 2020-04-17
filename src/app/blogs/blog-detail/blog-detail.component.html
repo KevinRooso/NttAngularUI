@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -13,7 +14,7 @@
           <div class="row">
             <div class="col-md-3 col-lg-3">
               <img alt="User Pic"
-              [src]="blog.thumbnailImageUrl"
+              [src]="imageurl"
                 class="img-circle img-responsive" width="100%" alt="No Image preview" height="250px">
             </div>
 
