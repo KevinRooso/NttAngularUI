@@ -49,6 +49,7 @@ export class EventEditComponent implements OnInit {
   color:string="3" ;
   userList:any[]=[];
   selected4:string[]=[];
+  selectedSpeaker: string[] = [];
   selected6:string[]=[];
   agendaData:any[] = [];
   checkError:any;
@@ -60,6 +61,8 @@ export class EventEditComponent implements OnInit {
 
   endingDate = new Date();
   checkErrorAgenda: any
+
+  speakerList1:any[] = [];
 
   image1button:boolean=false;
   image2button:boolean=false;
@@ -180,8 +183,9 @@ export class EventEditComponent implements OnInit {
        for(let i=0;i<this.getEventDetails.tags.length;i++)
         this.selected4.push(this.getEventDetails.tags[i].id);
         console.log("tags=",this.selected4);
-      // for(let i=0;i<this.getEventDetails.speakers.length;i++)
-      //   this.selected6.push(this.getEventDetails.speakers[i].id);
+
+      // for(let i=0;i<this.getEventDetails.eventSchedule.speakers.length;i++)
+      //   this.selected6.push(this.getEventDetails.eventSchedule.speakers[i].id);
       //   console.log("speakerlist=",this.selected6);
 
       if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
@@ -410,32 +414,47 @@ export class EventEditComponent implements OnInit {
 
         // event start time should be equal to agenda min start time
     // event end time should be equal to agenda max end time
-    // let minAgendaStartTime = null;
-    // let maxAgendaEndTime = null;
-    // for (let index in this.agendaData) {
-    //   let agenda = this.agendaData[index];
-    //   if (index === '0') {
-    //     minAgendaStartTime = agenda.startDate;
-    //     maxAgendaEndTime = agenda.endDate;
-    //   }
-    //   if (minAgendaStartTime > agenda.startDate) {
-    //     minAgendaStartTime = agenda.startDate
-    //   }
+    let minAgendaStartTime = null;
+    let maxAgendaEndTime = null;
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      if (index === '0') {
+        minAgendaStartTime = agenda.startDate;
+        maxAgendaEndTime = agenda.endDate;
+      }
+      if (minAgendaStartTime > agenda.startDate) {
+        minAgendaStartTime = agenda.startDate
+      }
 
-    //   if (maxAgendaEndTime < agenda.endDate) {
-    //     maxAgendaEndTime = agenda.endDate;
-    //   }
-    // }
+      if (maxAgendaEndTime < agenda.endDate) {
+        maxAgendaEndTime = agenda.endDate;
+      }
+    }
 
-    // if (minAgendaStartTime.getTime() !== this.updateEventForm.controls['startDate'].value.getTime()) {
-    //   let errorMsg = 'Please select one of the agenda time equals to event start time';
-    //   this.snackBar.open(errorMsg, 'Close');
-    //   return false;
-    // } else if (maxAgendaEndTime.getTime() !== this.updateEventForm.controls['endDate'].value.getTime()) {
-    //   let errorMsg = 'Please select one of the agenda time equals to event end time';
-    //   this.snackBar.open(errorMsg, 'Close');
-    //   return false;
-    // }
+    if(typeof(minAgendaStartTime)=='string'){
+      minAgendaStartTime = new Date(minAgendaStartTime);
+    }
+    if(typeof(maxAgendaEndTime)=='string'){
+      maxAgendaEndTime = new Date(maxAgendaEndTime);
+    }
+    let eventStartDate = this.updateEventForm.controls['startDate'].value;
+    if(typeof(eventStartDate)=='string'){
+      eventStartDate = new Date(eventStartDate);
+    }
+    let eventEndDate = this.updateEventForm.controls['endDate'].value;
+    if(typeof(eventEndDate)=='string'){
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    } else if (maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event end time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    }
 
    if(this.updateEventForm.valid){
     this.show =true;
@@ -561,7 +580,17 @@ export class EventEditComponent implements OnInit {
   }
   }
   createAgenda(){
-    // if (this.addAgenda.valid) {
+    this.addAgenda.controls['title'].setValidators(Validators.required);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(Validators.required);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(Validators.required);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(Validators.required);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    this.addAgenda.controls['speakerList'].setValidators(Validators.required);
+    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    if (this.addAgenda.valid) {
       console.log("Check",this.addAgenda.controls['idData'].value);
     let obj= {
       "title": this.addAgenda.controls['title'].value,
@@ -591,15 +620,41 @@ export class EventEditComponent implements OnInit {
     }else{
       this.agendaData[(obj.idData)]=obj;
     }
+
     this.addAgenda.controls['idData'].setValue("-1");
+
     this.closeModelAgenda.nativeElement.click();
+
+  }else{
+    alert("please fill mandatory");
   }
-// }
+    }
+    clearValidation(){
+      this.addAgenda.controls['title'].setValidators(null);
+      this.addAgenda.controls['title'].updateValueAndValidity();
+      this.addAgenda.controls['topic'].setValidators(null);
+      this.addAgenda.controls['topic'].updateValueAndValidity();
+      this.addAgenda.controls['isBreak'].setValidators(null);
+      this.addAgenda.controls['isBreak'].updateValueAndValidity();
+      this.addAgenda.controls['endDate'].setValidators(null);
+      this.addAgenda.controls['endDate'].updateValueAndValidity();
+      this.addAgenda.controls['startDate'].setValidators(null);
+      this.addAgenda.controls['startDate'].updateValueAndValidity();
+      this.addAgenda.controls['speakerList'].setValidators(null);
+      this.addAgenda.controls['speakerList'].updateValueAndValidity();
+      // this.addAgenda.reset();
+    }
   delete(i){
     this.agendaData.splice(i,1);
   }
   updateAgenda(i){
-    // alert(i);
+    // this.allspeakers = [];
+    //   for(let i=0;i<data.speakerList.length;i++){
+    //     this.selected6.push(data.speakerList[i].id);
+    //     console.log("speakerlist=",this.selected6);
+    //   }
+    // this.allspeakers = this.speakerList1;
+
     this.agendaData[i].idData = i;
     console.log("log", this.agendaData[i]);
     this.addAgenda.setValue(this.agendaData[i]);
@@ -635,6 +690,7 @@ export class EventEditComponent implements OnInit {
   getSpeakerDetails() {
     this.authService.getAllSpeakers().subscribe((res) => {
       this.allspeakers=res.body;
+      this.speakerList1 =res.body
     })
   }
 

@@ -260,7 +260,7 @@
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
             <button type="button" class="btn button-2 action-good" data-toggle="modal"
-              data-target="#agendaModal" #agendaUpdate>Add Agenda</button>
+              data-target="#agendaModal" #agendaUpdate (click)="clearValidation()">Add Agenda</button>
           </div>
         </div>
         <div class="form-row">
@@ -287,8 +287,8 @@
                   <td>{{data.topic}}</td>
                   <td><span *ngFor="let speaker of data.speakerList">{{speaker.fullName}},</span></td>
                   <td>
-                    <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;">
-                      <i class="fa fa-pencil" style="font-size: 1rem;" (click)="updateAgenda(i)"></i>
+                    <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;" (click)="updateAgenda(i)">
+                      <i class="fa fa-pencil" style="font-size: 1rem;"></i>
                     </span>
                     <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i)">
                       <i class="fa fa-trash" style="font-size: 1rem;"></i>
@@ -471,7 +471,7 @@
         <form [formGroup]='addAgenda'>
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Title" formControlName="title">
+              <input matInput placeholder="Session Title" formControlName="title" maxlength="40">
               <mat-error *ngIf="checkErrorAgenda('title', 'required')">(Title is required)</mat-error>
               <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be less than 40 characters</mat-error>
             </mat-form-field>
@@ -479,7 +479,7 @@
 
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Topic" formControlName="topic">
+              <input matInput placeholder="Session Topic" formControlName="topic" maxlength="41">
               <!-- //<mat-error *ngIf="checkError('topic', 'required')">(Title is required)</mat-error> -->
               <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be less than 41 characters</mat-error>
             </mat-form-field>

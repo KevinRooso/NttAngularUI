@@ -27,23 +27,6 @@ export class LandingPageComponent implements OnInit {
   ctx3    : any;
   LineChart=[];
   data=[];
-  androidDevice:any;
-  iosDevice:any;
-
-  totalDownload:any;
-  totalArticleDownload:any;
-  totalCaseStudyDownload:any;
-  totalWhitepaperDownload:any;
-
-  totalEvent:any;
-  totalPublishEvent:any;
-  totalActiveEvent:any;
-  totalDraftEvent:any;
-
-  totalEvent1:any;
-  totalPublishEvent1:any;
-  totalCustomerEvent:any;
-  totalEmployeeEvent:any;
 
   constructor( private service:AuthServiceService, private queryString:ActivatedRoute) { }
 
@@ -61,7 +44,7 @@ export class LandingPageComponent implements OnInit {
     let myChart = new Chart(this.ctx, {
       type: 'pie',
       data: {
-          labels: ["New", "In Progress", "On Hold"],
+          labels: ["New", "Progress", "Hold"],
           datasets: [{
               label: '# of Votes',
               data: [1,2,3],
@@ -74,6 +57,10 @@ export class LandingPageComponent implements OnInit {
           }]
       },
       options: {
+        title:{
+          display:true,
+          text:'Resource'
+        },
         responsive: false,
         display:true
       }
@@ -125,67 +112,6 @@ export class LandingPageComponent implements OnInit {
     //   }
     // });
 
-
-
-    this.canvas3 = document.getElementById('resbar');
-    this.ctx3 = this.canvas3.getContext('2d');
-     let myChart3 = new Chart(this.ctx3, {
-      type: 'bar',
-      data: {
-          labels: ["New", "In Progress", "On Hold"],
-          datasets: [{
-              label: '# of Votes',
-              data: [3,4,3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        responsive: false,
-        display:true,
-        scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:true
-            }
-        }]
-    }
-      }
-    });
-
-    this.canvas3 = document.getElementById('userbar');
-    this.ctx3 = this.canvas3.getContext('2d');
-     let myChart4 = new Chart(this.ctx3, {
-      type: 'bar',
-      data: {
-          labels: ["New", "In Progress", "On Hold"],
-          datasets: [{
-              label: '# of Votes',
-              data: [3,4,3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        responsive: false,
-        display:true,
-        scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:true
-            }
-        }]
-    }
-      }
-    });
 
     new Chart('resdoughnut',{
       type:'doughnut',
@@ -286,7 +212,7 @@ export class LandingPageComponent implements OnInit {
       let myChart = new Chart(this.ctx, {
         type: 'pie',
         data: {
-            labels: ["Android ", "Ios "],
+            labels: ["Android ", "iOs "],
             datasets: [{
                 data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
                 backgroundColor: [
@@ -298,6 +224,10 @@ export class LandingPageComponent implements OnInit {
             }]
         },
         options: {
+          title:{
+            display:true,
+            text:'User Devices'
+          },
           responsive: false,
           display:true
         }
@@ -317,28 +247,47 @@ export class LandingPageComponent implements OnInit {
       this.ctx = this.canvas.getContext('2d');
       let myChart = new Chart(this.ctx, {
         type: 'bar',
+        fontSize:1,
         data: {
             labels: [ "Article ","Casestudy","Whitepaper"],
             datasets: [{
-              label: '# of downloads',
-                data: [(userdeviceData.totalArticleDownload||2 ),(userdeviceData.totalCaseStudyDownload||4 ),
-                  (userdeviceData.totalWhitepaperDownload||6 )],
+              label:"No. of resources",
+              maxBarThickness: 30,
+            // borderColor: "blue",
+            // hoverBackgroundColor: "rgba(255,99,132,0.4)",
+            // hoverBorderColor: "rgba(255,99,132,1)",
+
+
+                data: [(userdeviceData.totalArticleDownload ),(userdeviceData.totalCaseStudyDownload ),
+                  (userdeviceData.totalWhitepaperDownload)],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(255, 206, 86, 1)'
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)'
                 ],
                 borderWidth: 1
             },]
         },
         options: {
+          legend: {
+            label: {
+
+                // This more specific font property overrides the global property
+
+
+            }
+        },
+          title:{
+            display:true,
+            text:'Resource Download'
+          },
           responsive: false,
           display:true,
           scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    stepSize:3,
                 }
             }]
         }
@@ -370,9 +319,14 @@ export class LandingPageComponent implements OnInit {
                     'rgba(255, 206, 86, 1)'
                 ],
                 borderWidth: 1
-            }]
+            },
+          ]
         },
         options: {
+          title:{
+            display:true,
+            text:'Status'
+          },
           responsive: false,
           display:true
         }
@@ -394,7 +348,8 @@ export class LandingPageComponent implements OnInit {
         data: {
             labels: [ "Public ","Customer","Employee"],
             datasets: [{
-              labels: '# of downloads',
+              label:"No. of target users",
+              maxBarThickness: 30,
                 data: [ (userdeviceData.totalPublicEvent),
                   (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
                 backgroundColor: [
@@ -407,11 +362,16 @@ export class LandingPageComponent implements OnInit {
             }]
         },
         options: {
+          title:{
+            display:true,
+            text:'Target User'
+          },
           responsive: false,
           display:true,
           scales: {
             yAxes: [{
                 ticks: {
+                  stepSize:5,
                     beginAtZero:true
                 }
             }]
@@ -435,7 +395,8 @@ export class LandingPageComponent implements OnInit {
         data: {
             labels: ["Public ","Customer","Employee"],
             datasets: [{
-              label: '# of downloads',
+              label:"No. of users",
+              maxBarThickness: 30,
                 data: [(userdeviceData.totalPublicUser),
                   (userdeviceData.totalCustomerUser ),(userdeviceData.totalEmployeeUser )],
                 backgroundColor: [
@@ -448,11 +409,16 @@ export class LandingPageComponent implements OnInit {
             }]
         },
         options: {
+          title:{
+            display:true,
+            text:' Users '
+          },
           responsive: false,
           display:true,
           scales: {
             yAxes: [{
                 ticks: {
+                  stepSize: 5,
                     beginAtZero:true
                 }
             }]
@@ -476,7 +442,8 @@ export class LandingPageComponent implements OnInit {
         data: {
             labels: ["Computing","Recovery","Datacenter ","General"],
             datasets: [{
-              label: '# of downloads',
+              label:"No. of categories",
+              maxBarThickness: 30,
                 // data: [(userdeviceData.Datacenter),(userdeviceData.General)],
                 data: [(userdeviceData.CloudComputing),(userdeviceData.CloudComputingHybricloudDisasterRecovery),
                   (userdeviceData.Datacenter),(userdeviceData.General)],
@@ -490,11 +457,16 @@ export class LandingPageComponent implements OnInit {
             }]
         },
         options: {
+          title:{
+            display:true,
+            text:'Category'
+          },
           responsive: false,
           display:true,
           scales: {
             yAxes: [{
                 ticks: {
+                  stepSize:3,
                     beginAtZero:true
                 }
             }]
