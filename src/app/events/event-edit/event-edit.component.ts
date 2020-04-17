@@ -566,7 +566,7 @@ export class EventEditComponent implements OnInit {
        // alert("Successfully Updated");
         this.submitted = false;
         this.show =false;
-       // this.router.navigate(['/details'], { queryParams: { page: this.evntID } });
+        this.router.navigate(['/events'], { queryParams: { page: this.evntID } });
       },
       (error) => {
         //alert("Error :"+error);
