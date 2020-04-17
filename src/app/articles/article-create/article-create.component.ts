@@ -32,7 +32,9 @@ export class ArticleCreateComponent implements OnInit {
   tagData: any[] = [];
 
   today=new Date();
-
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
     private location: Location, public snackBar: MatSnackBar,
@@ -143,6 +145,8 @@ export class ArticleCreateComponent implements OnInit {
     }
   }
   uploadImage() {
+    this.show=true;
+    this.image1button=false;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
@@ -150,10 +154,14 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.show=false;
+        this.image1button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
+    this.image2button=false;
+    this.show=true;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
@@ -161,11 +169,24 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.show=false;
+        this.image2button=true;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       })
   }
 
   createArticle() {
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Article Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     if (this.createArticleForm.valid) {
 
       let tags: any[] = [];
@@ -203,14 +224,18 @@ export class ArticleCreateComponent implements OnInit {
         (response) => {
           this.snackBar.open('Article successfully created', 'Close', { duration: 5000 });
           console.log("response", response);
+          this.show=false;
           this.router.navigate(['articles']);
+
         },
         (error) => {
-          this.snackBar.open(error, 'Close');
+          this.show=false;
+          this.snackBar.open('Oops, something went wrong..', 'Close');
         }
       )
     }
     else {
+      this.show=false;
       this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
     }
 
@@ -219,7 +244,7 @@ export class ArticleCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
-        if (m.keywords == this.addTagForm.get(['keywords']).value)
+        if (m.keywords == this.addTagForm.get(['name']).value)
           flag = false;
       })
       let obj = this.addTagForm.value

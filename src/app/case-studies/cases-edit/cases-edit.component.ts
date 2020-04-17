@@ -44,6 +44,8 @@ export class CasesEditComponent implements OnInit {
   imageValid1:boolean=false;
   userList:any[]=[];
   tarUserType:string="";
+
+  today=new Date();
     @ViewChild('closeModel',{static:true}) closeModel;
     constructor(private frmbuilder: FormBuilder,
       private authService: AuthServiceService,
@@ -60,7 +62,8 @@ export class CasesEditComponent implements OnInit {
         serviceUsed: ['', Validators.required],
         targetUserType:['',Validators.required],
         thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-        isDraft:[false]
+        isDraft:[false],
+        expiryDate: ['', Validators.required]
       });
       this.addTagForm = this.frmbuilder.group({
         name:['',Validators.required],
@@ -112,10 +115,11 @@ export class CasesEditComponent implements OnInit {
         this.tarUserType=res.body.targetUserType.id;
         this.createCases.controls['targetUserType'].setValidators(null);
       this.createCases.controls['targetUserType'].updateValueAndValidity();
-      this.createCases.controls['tagList'].updateValueAndValidity();
+
       this.createCases.controls['categoryId'].setValidators(null);
       this.createCases.controls['categoryId'].updateValueAndValidity();
       this.createCases.controls['tagList'].setValidators(null);
+      this.createCases.controls['tagList'].updateValueAndValidity();
       // this.createCases.controls['person'].setValidators(null);
       // this.createCases.controls['person'].updateValueAndValidity();
       this.createCases.controls['thumbnailImageUrl'].setValidators(null);
@@ -133,7 +137,8 @@ export class CasesEditComponent implements OnInit {
         this.selected4.push(res.body.resourceTags[i].id);
         this.tarUserType=res.body.targetUserType.id;
         console.log("tarus===",this.tarUserType);
-
+        this.today=res.body.expiryDate;
+        this.createCases.controls['expiryDate'].setValue(res.body.expiryDate);
        this.getCategoryDetails();
        this.getTagsDetails();
        this.getUserList();
@@ -230,7 +235,8 @@ export class CasesEditComponent implements OnInit {
         "tagList": tags,
         "targetUserType":obj.targetUserType,
         "thumbnailImageUrl": this.speakerImage,
-        "title": obj.title
+        "title": obj.title,
+        "expiryDate":obj.expiryDate
    }
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{

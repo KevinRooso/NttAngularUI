@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
      <li><a href="/home">Home</a></li>
@@ -85,7 +86,20 @@
             <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
           </mat-form-field>
         </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Expiration Date<span class="error">*</span></label>
+         <div class="col-sm-9">
+          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
+           placeholder="Expiration Date & Time" formControlName="expiryDate" class="form-control">
 
+          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+        <owl-date-time #startdt></owl-date-time>
+        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+          (Expiration date & time is required)
+        </div>
+         </div>
+
+        </div>
         <div class="form-row ">
           <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
           <div class="col-sm-7">
@@ -129,6 +143,15 @@
             </div>
           </div>
         </div>
+<!-- {{attachUrl}}
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="attachUrl">
+              <iframe [src]="attachUrl" height="200" ></iframe>
+            </div>
+          </div>
+        </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>

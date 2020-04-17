@@ -40,6 +40,8 @@ export class WhitepaperEditComponent implements OnInit {
   selected4:any[]=[];
   valuesSelectedTag: string[] = [];
   selected3:string="";
+
+  today=new Date();
   @ViewChild('closeModel', { static: true }) closeModel;
 
   constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router,
@@ -53,7 +55,8 @@ export class WhitepaperEditComponent implements OnInit {
       draft: [false],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      expiryDate: ['', Validators.required]
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -209,6 +212,8 @@ export class WhitepaperEditComponent implements OnInit {
 
       this.updateWhitePaperForm.controls['tagList'].setValidators(null);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
+      this.today=res.body.expiryDate;
+      this.updateWhitePaperForm.controls['expiryDate'].setValue(res.body.expiryDate);
       this.getUserList();
       this.getCategoryDetails();
       this.getTagsDetails();
@@ -217,16 +222,20 @@ export class WhitepaperEditComponent implements OnInit {
   }
   updateWhitepaper() {
     if (this.updateWhitePaperForm.valid) {
-      let tags: any[] = [];
-
-      // this.updateWhitePaperForm.value.tagList.forEach(m => {
-      //   let tag = {
-      //     "id": m.id,
-      //     "keywords": m.keywords,
-      //     "name": m.name
-      //   }
-      //   tags.push(tag);
-      // });
+     let tags:any[]=[];
+      let obj1=this.updateWhitePaperForm.value;
+    this.tagData.forEach(m=>{
+      obj1.tagList.forEach(n=>{
+          if(n==m.id){
+            let tag={
+            "id":m.id,
+            "keywords": m.keywords,
+            "name": m.name
+            }
+            tags.push(tag);
+          }
+      });
+    })
       let catId;
       this.allData.forEach(m => {
         if (m.displayName == this.updateWhitePaperForm.controls['categoryId'].value)
@@ -255,8 +264,10 @@ export class WhitepaperEditComponent implements OnInit {
         "tagList": tags,
         "thumbnailImageUrl": this.articleImage,
         "title": this.updateWhitePaperForm.controls['title'].value,
-        "targetUserType": this.updateWhitePaperForm.controls['targetUserType'].value
-      }
+        "targetUserType": this.updateWhitePaperForm.controls['targetUserType'].value,
+        "expiryDate":this.updateWhitePaperForm.controls['expiryDate'].value
+   }
+
       console.log("post", obj);
 
       this.authService.saveResource(obj).subscribe(

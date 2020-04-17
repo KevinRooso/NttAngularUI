@@ -70,7 +70,7 @@ export class CreateTestimonialsComponent implements OnInit {
       }
     }
     this.router1.queryParams.subscribe(params => {
-      console.log(params.page);
+
       this.resourceId = params.page;
       if(this.resourceId!=undefined){
      this.getResourceData();
@@ -110,6 +110,8 @@ export class CreateTestimonialsComponent implements OnInit {
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
       this.createVideoForm.get(['isDraft']).setValue(res.body.isDraft);
+      this.today=res.body.expiryDate;
+      this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
       this.previewUrl1=res.body.detailImageUrl;
       this.previewUrl=res.body.thumbnailImageUrl
       this.getUserList();

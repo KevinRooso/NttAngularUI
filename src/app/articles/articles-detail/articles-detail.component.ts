@@ -12,22 +12,22 @@ export class ArticlesDetailComponent implements OnInit {
   articleData: any;
 
   constructor(private authService: AuthServiceService, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
-
+ show:boolean=false;
   ngOnInit(): void {
+    this.show=true;
     this.router1.queryParams.subscribe(params => {
       this.getArticleData(params.page);
     });
   }
   getArticleData(id){
+
     this.authService.getResourceById(id).subscribe((res)=>{
       this.articleData = res.body;
+      this.show=false;
       console.log("Get Articles", this.articleData);
     })
   }
-  // editSpeaker(id){
-  //   alert(id);
-  //   this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
-  // }
+
   getDetails(id){
     // alert(id);
     this.router.navigate(['/article-edit'], { queryParams: { page: id } });

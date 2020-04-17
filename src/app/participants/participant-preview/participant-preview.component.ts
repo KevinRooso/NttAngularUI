@@ -90,41 +90,37 @@ getTableData(url){
     console.log("data");
     console.log(data);
     const self = this;
+    if(data['eventName']==null){
+
+      $('td:nth-child(1)', row).html(this.eName);
+    }
+    $('td:nth-child(3)', row).bind('click', () => {
+      self.someClickHandler1(data);
+    });
+    console.log('rowoo==',row);
+
     $('td:nth-child(1) ', row).attr("width", "250px");
     if(data['approverId']==null){
-    // $('td .showIdButton', row).removeClass("badge-success");
-    //   $('td .showIdButton', row).addClass("badge-warning");
+
       $('td .showIdButton', row).html('Pending');
       $('td:nth-child(7) .approve', row).attr("disabled", true);
     }
-    //console.log("rowdattaa===",row);
-    //$('td:nth-child(3)', row).css("color", "red");
-    $('td:nth-child(3)', row).bind('click', () => {
-     // alert("hi");
-      self.someClickHandler1(data);
-    });
-    // $('td:nth-child(7) .approve', row).bind('click', () => {
-    //   self.someClickHandler(data,row);
 
-    //  });
+
+
     if(data['approverId']==null){
-      // $('td .showIdButton', row).removeClass("badge-success");
-      //   $('td .showIdButton', row).addClass("badge-warning");
+
         $('td .showIdButton', row).html('Pending');
         $('td:nth-child(7) .approve', row).attr("disabled", true);
 
     Object.keys(data).forEach((key,index)=>{
       if(key=='email'){
         console.log("email");
-        // var $td = $('<td>').html('<a href="#"></a>');
-        // $('td:nth-child(2)', row).append($td);
-        //$('td:nth-child(2) ', row).html('<a href="#">Foo</a>');
+
 
       }
     })
 
-    // Unbind first in order to avoid any duplicate handler
-    // (see https://github.com/l-lin/angular-datatables/issues/87)
     $('td', row).unbind('click');
     $('td:nth-child(7) .approve', row).bind('click', () => {
      self.someClickHandler(data,row);
@@ -182,6 +178,6 @@ someClickHandler2(data,row){
     })
 }
 someClickHandler1(data){
-    this.router.navigate(['participant-details'], { queryParams: { id: data.id } });
+   this.router.navigate(['participant-details'], { queryParams: { id: data.id } });
 }
 }

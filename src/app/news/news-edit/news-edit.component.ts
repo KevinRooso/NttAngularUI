@@ -33,7 +33,7 @@ export class NewsEditComponent implements OnInit {
   articleImage: any;
   imageValid: boolean = false;
   selected3:string="";
-
+  today=new Date();
   userList: any[] = [];
   ngOnInit(): void {
 
@@ -47,6 +47,7 @@ export class NewsEditComponent implements OnInit {
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       draft: [false],
+      expiryDate: ['', Validators.required]
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -91,6 +92,8 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = res.body.thumbnailImageUrl;
       this.articleImage = res.body.thumbnailImageUrl;
+      this.today=res.body.expiryDate;
+      this.updateNewsForm.controls['expiryDate'].setValue(res.body.expiryDate);
       if(res.body.targetUserType!=null)
       this.selected3=res.body.targetUserType.id;
       console.log("Data", this.selected3);
@@ -153,7 +156,8 @@ export class NewsEditComponent implements OnInit {
         "draft": this.updateNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": this.newsId,
-        "targetUserType":userId
+        "targetUserType":userId,
+        "expiryDate":this.updateNewsForm.controls['expiryDate'].value
       }
       console.log("post", objData);
       this.service.saveNews(objData).subscribe((response) => {
