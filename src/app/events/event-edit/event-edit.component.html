@@ -275,7 +275,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let data of agendaData; let i = index">
-                  <td>{{closingDate | date}}</td>
+                  <td>{{data.startDate | date}}</td>
                   <td>{{data.startDate | date:'shortTime'}}</td>
                   <td>{{data.endDate | date:'shortTime'}}</td>
                   <td>{{data.title}}</td>
