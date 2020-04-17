@@ -135,6 +135,7 @@ crateFrorm(){
     })
   }
   getBlogData(id){
+    this.show=true;
     const promise=this.service.getBlogById(id).toPromise();
     console.log("promisee===",promise);
     promise.then((res)=>{
@@ -177,7 +178,9 @@ crateFrorm(){
         this.getTagsDetails();
         this.getPersons();
         this.getUserList();
+        this.show=false;
     }, (error)=>{
+      this.show=false;
       console.log("Promise rejected with ",error);
     })
 
