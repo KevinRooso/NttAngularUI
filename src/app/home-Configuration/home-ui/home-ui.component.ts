@@ -36,6 +36,8 @@ export class HomeUiComponent implements OnInit {
   homePageData: any[] = [];
   homeBannerData: any[] = [];
   homeListData: any[] = [];
+  defaultImage: string = "https://www.pakshows.pk/img/default-image.jpg";
+  defaultProfile:string = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRq3gK2kpKsUiI3lL-U7uPUl_ET7zfXpPtSE9SghDF0_w4C2_9o&usqp=CAU";
 
   bannerData: any[] = [];
   resourceData: any[] = [];
