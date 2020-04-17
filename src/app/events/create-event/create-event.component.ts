@@ -429,6 +429,19 @@ export class CreateEventComponent implements OnInit {
   }
 
   createAgenda(){
+    this.addAgenda.controls['title'].setValidators(Validators.required);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(Validators.required);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    // this.addAgenda.controls['isBreak'].setValidators(null);
+    // this.addAgenda.controls['isBreak'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(Validators.required);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(Validators.required);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    this.addAgenda.controls['speakerList'].setValidators(Validators.required);
+    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+
     if (this.addAgenda.valid) {
     let obj= {
       "title": this.addAgenda.controls['title'].value,
@@ -456,8 +469,7 @@ export class CreateEventComponent implements OnInit {
     }
     this.addAgenda.controls['idData'].setValue("-1");
     this.closeModelAgenda.nativeElement.click();
-    // this.addAgenda.setValidators(null);
-    // this.addAgenda.updateValueAndValidity();
+
     // this.addAgenda.controls['speakerList'].setValidators(null);
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
   }
@@ -465,10 +477,27 @@ else{
   alert("please fill mandatory");
 }
   }
-
+  clearValidation(){
+    this.addAgenda.controls['title'].setValidators(null);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(null);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    this.addAgenda.controls['isBreak'].setValidators(null);
+    this.addAgenda.controls['isBreak'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(null);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(null);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    this.addAgenda.controls['speakerList'].setValidators(null);
+    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    // this.addAgenda.reset();
+  }
   delete(i){
     this.agendaData.splice(i,1);
   }
+  // resetForm(){
+  //   this.addAgenda.reset();
+  // }
   updateAgenda(i){
     // alert(i);
     this.agendaData[i].idData = i;

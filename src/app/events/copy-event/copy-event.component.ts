@@ -52,7 +52,9 @@ export class CopyEventComponent implements OnInit {
   userList:any[]=[];
   selected4:string[]=[];
   selected6:string[]=[];
+  speakerList1:string[] = [];
   checkError:any;
+  checkErrorAgenda: any
   isEvent:boolean = false;
   isWebinar:boolean = false;
   endingDate = new Date();
@@ -111,6 +113,16 @@ export class CopyEventComponent implements OnInit {
       }
 
     }
+    this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.addAgenda.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.addAgenda.controls[controlName].hasError(errorName);
+      }
+
+    }
     // let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     // this.createSpeakerForm = formBuilder.group({
     //   fullName: ['', Validators.required],
@@ -130,11 +142,11 @@ export class CopyEventComponent implements OnInit {
       keywords: ['',Validators.required]
     })
     this.addAgenda = formBuilder.group({
-      title: [''],
-      topic: [''],
-      startDate: [''],
-      endDate: [''],
-      speakerList: [''],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      topic:new FormControl('', [Validators.maxLength(41)]),
+      startDate: ['', Validators.required],
+      endDate:['', Validators.required],
+      speakerList: ['', Validators.required],
       isBreak:[''],
       idData:['-1'],
       id:['0'],
@@ -400,6 +412,51 @@ export class CopyEventComponent implements OnInit {
     }
 
     this.submitted = true;
+
+    // event start time should be equal to agenda min start time
+    // event end time should be equal to agenda max end time
+    let minAgendaStartTime = null;
+    let maxAgendaEndTime = null;
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      if (index === '0') {
+        minAgendaStartTime = agenda.startDate;
+        maxAgendaEndTime = agenda.endDate;
+      }
+      if (minAgendaStartTime > agenda.startDate) {
+        minAgendaStartTime = agenda.startDate
+      }
+
+      if (maxAgendaEndTime < agenda.endDate) {
+        maxAgendaEndTime = agenda.endDate;
+      }
+    }
+
+    if(typeof(minAgendaStartTime)=='string'){
+      minAgendaStartTime = new Date(minAgendaStartTime);
+    }
+    if(typeof(maxAgendaEndTime)=='string'){
+      maxAgendaEndTime = new Date(maxAgendaEndTime);
+    }
+    let eventStartDate = this.updateEventForm.controls['startDate'].value;
+    if(typeof(eventStartDate)=='string'){
+      eventStartDate = new Date(eventStartDate);
+    }
+    let eventEndDate = this.updateEventForm.controls['endDate'].value;
+    if(typeof(eventEndDate)=='string'){
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    } else if (maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event end time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    }
+
    //if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
@@ -516,8 +573,24 @@ export class CopyEventComponent implements OnInit {
     }
 
   }
+  getSpeakerDetails() {
+    this.authService.getAllSpeakers().subscribe((res) => {
+      this.allspeakers=res.body;
+      this.speakerList1 =res.body
+    })
+  }
   createAgenda(){
-    // if (this.addAgenda.valid) {
+    this.addAgenda.controls['title'].setValidators(Validators.required);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(Validators.required);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(Validators.required);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(Validators.required);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    this.addAgenda.controls['speakerList'].setValidators(Validators.required);
+    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    if (this.addAgenda.valid) {
       console.log("Check",this.addAgenda.controls['idData'].value);
     let obj= {
       "title": this.addAgenda.controls['title'].value,
@@ -530,6 +603,8 @@ export class CopyEventComponent implements OnInit {
       "id":0,
       "idData":-1
     }
+
+    console.log("myobj",obj);
 
     console.log("id=", this.addAgenda.controls['idData'].value);
     if(this.addAgenda.value['idData']!= -1){
@@ -545,15 +620,40 @@ export class CopyEventComponent implements OnInit {
     }else{
       this.agendaData[(obj.idData)]=obj;
     }
+
     this.addAgenda.controls['idData'].setValue("-1");
+
     this.closeModelAgenda.nativeElement.click();
+
+  }else{
+    alert("please fill mandatory");
   }
-// }
+    }
   delete(i){
     this.agendaData.splice(i,1);
   }
+  clearValidation(){
+    this.addAgenda.controls['title'].setValidators(null);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(null);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    this.addAgenda.controls['isBreak'].setValidators(null);
+    this.addAgenda.controls['isBreak'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(null);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(null);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    this.addAgenda.controls['speakerList'].setValidators(null);
+    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    // this.addAgenda.reset();
+  }
   updateAgenda(i){
-    // alert(i);
+    // this.allspeakers = [];
+    //   for(let i=0;i<data.speakerList.length;i++){
+    //     this.selected6.push(data.speakerList[i].id);
+    //     console.log("speakerlist=",this.selected6);
+    //   }
+    // this.allspeakers = this.speakerList1;
     this.agendaData[i].idData = i;
     console.log("log", this.agendaData[i]);
     this.addAgenda.setValue(this.agendaData[i]);
@@ -586,11 +686,7 @@ export class CopyEventComponent implements OnInit {
       this.allData = res.body;
     })
   }
-  getSpeakerDetails() {
-    this.authService.getAllSpeakers().subscribe((res) => {
-      this.allspeakers=res.body;
-    })
-  }
+
 
   Back() {
     this.location.back(); // <-- go back to previous location on cancel

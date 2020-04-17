@@ -331,3 +331,6 @@ table.dataTable tbody th, table.dataTable tbody td {
 .cke_button__pastefromword{
   display: none !important;
 }
+.cursor{
+  cursor: not-allowed;
+}
