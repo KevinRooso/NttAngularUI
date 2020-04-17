@@ -46,9 +46,15 @@ export class EditBlogComponent  implements OnInit {
   imageValid1:boolean=false;
   userList:any[]=[];
   today=new Date();
+
+  show1:boolean=false;
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
+  @ViewChild('personButton',{static:true}) personButton;
   personImage:string="";
   constructor(private formBuilder:FormBuilder,
     private router:Router,
@@ -68,19 +74,7 @@ export class EditBlogComponent  implements OnInit {
       expiryDate: ['', Validators.required],
         thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       });
-      let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
-      this.personForm = this.formBuilder.group({
-        fullName:  ['',Validators.required],
-        description:  ['',Validators.required],
-        designation:  ['',Validators.required],
-        email:  ['',[Validators.required, Validators.email]],
-        keySkills:  [''],
-        origanizationName:  ['',Validators.required],
-
-        phone:  ['',Validators.pattern(mobnum)],
-
-        profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      });
+      this.crateFrorm();
       this.addTagForm = this.formBuilder.group({
         name:['',Validators.required],
         keywords:['',Validators.required],
@@ -106,7 +100,21 @@ export class EditBlogComponent  implements OnInit {
         }
       }
      }
+crateFrorm(){
+  let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+  this.personForm = this.formBuilder.group({
+    fullName:  ['',Validators.required],
+    description:  ['',Validators.required],
+    designation:  ['',Validators.required],
+    email:  ['',[Validators.required, Validators.email]],
+    keySkills:  [''],
+    origanizationName:  ['',Validators.required],
 
+    phone:  ['',Validators.pattern(mobnum)],
+
+    profileImageUrl:  ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+  });
+}
   ngOnInit(): void {
     this.actRoute.queryParams.subscribe(params => {
       this.blogId=params.page;
@@ -127,6 +135,7 @@ export class EditBlogComponent  implements OnInit {
     })
   }
   getBlogData(id){
+    this.show=true;
     const promise=this.service.getBlogById(id).toPromise();
     console.log("promisee===",promise);
     promise.then((res)=>{
@@ -164,11 +173,14 @@ export class EditBlogComponent  implements OnInit {
         this.previewUrl=res.body.thumbnailImageUrl;
         this.today=res.body.expiryDate;
       this.createBlogForm.controls['expiryDate'].setValue(res.body.expiryDate);
+      this.image1button=true;
         this.getCategoryDetails();
         this.getTagsDetails();
         this.getPersons();
         this.getUserList();
+        this.show=false;
     }, (error)=>{
+      this.show=false;
       console.log("Promise rejected with ",error);
     })
 
@@ -199,11 +211,14 @@ export class EditBlogComponent  implements OnInit {
     this.previewUrl=null;
     this.imageValid=false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
-    }
+    if(this.fileData!=undefined){
+      this.image1button=false;
+        let fileType = this.fileData.type;
+        if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+          this.imageValid = true;
+          this.preview();
+        }
+      }
   }
 
 
@@ -222,12 +237,17 @@ export class EditBlogComponent  implements OnInit {
     }
   }
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
       })
@@ -257,16 +277,22 @@ export class EditBlogComponent  implements OnInit {
     }
   }
   uploadImage1() {
+    this.image2button=false;
+    this.show1=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
+        this.image2button=true;
+        this.show1=false;
+        this.imageValid1 = false;
         this.personImage = res.fileDownloadUri;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
       })
   }
+
 
 
   add(event: MatChipInputEvent): void {
@@ -292,9 +318,18 @@ export class EditBlogComponent  implements OnInit {
     }
   }
   addPerson(){
-
+    this.previewUrl1= null;
+   // this.personForm.reset();
+    this.crateFrorm();
+    this.personButton.nativeElement.click();
   }
   generateBlog(){
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Blog Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     let obj=this.createBlogForm.value;
     if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
@@ -346,17 +381,29 @@ export class EditBlogComponent  implements OnInit {
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
-
+      this.show=false;
       this.snackBar.open('Blog Updated Successfully', 'Close', {duration: 5000});
       this.router.navigate(['blogs']);
-    })
+    },
+    (error)=>{
+      this.show=false;
+      this.snackBar.open('Oops, Something Went Wrong!!', 'Close', {duration: 5000});
+    }
+    )
   //console.log(this.createBlogForm.value);
   }
-  else
+  else{
+    this.show=false;
   this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+  }
 }
   submitPerson(){
     let flag=false;
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Author Image', 'Close', { duration: 5000 });
+      this.show1=false;
+      return false;
+    }
     if(this.personForm.valid){
     console.log(this.personForm.value);
     let fruit1 = '';
