@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthServiceService {
  // private url = "http://localhost:8080/";
  // private url = "https://ntt-backend-app.herokuapp.com/";
- private url = environment.API_ENDPOINT;
+ public url = environment.API_ENDPOINT;
  public headers = new HttpHeaders({
   Authorization : 'Bearer ' + localStorage.getItem("token")
 });
@@ -109,7 +109,7 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/public/self/participant/event/'+id, obj, {headers:this.headers});
   }
   saveParticipentnonEvent(id,obj):Observable<any>{
-    return this.http.post<any>(this.url+'api/public/addOn/participant/list/event/'+id, obj, {headers:this.headers});
+    return this.http.post<any>(this.url+'api/admin/addOn/participant/list/event/'+id, obj, {headers:this.headers});
   }
 
   //Whitepapers Apis
@@ -185,6 +185,7 @@ export class AuthServiceService {
   }
 
   //Dashboad-charts
+
   getUserDevices():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})
   }
@@ -196,5 +197,11 @@ export class AuthServiceService {
   }
   geteventTargetUserTypeDetails():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/eventTargetUserTypeDetails', {headers:this.headers})
+  }
+  getUsers():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/users', {headers:this.headers})
+  }
+  geteventCategoryTypeDetails():Observable<any>{
+    return this.http.get<any>(this.url+'api/admin/eventCategoryTypeDetails', {headers:this.headers})
   }
 }

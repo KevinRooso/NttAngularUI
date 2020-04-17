@@ -1,4 +1,4 @@
-<app-loader *ngIf="show"></app-loader>
+<!-- <app-loader *ngIf="show"></app-loader> -->
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -227,26 +227,34 @@
           <div class="col-sm-9">
             <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
               placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
-
-            <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
             <owl-date-time #startdt></owl-date-time>
             <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
               (Event start date & time is required)
             </div>
           </div>
         </div>
-
+<!--
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input [owlDateTimeTrigger]="enddt" (dateTimeInput)="maxEDate()" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
-              placeholder="Closing Date & Time" formControlName="endDate">
-            <owl-date-time #enddt></owl-date-time>
+          <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
+          [min]="closingDate" class="col-sm-12 p-2" formControlName="endDate">
+          <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
+          <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
+            (Event Agenda end time is required)
+          </div>
+          </div>
+        </div> -->
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Closing Time <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <input (dateTimeInput)="maxEDate()" [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control"
+              placeholder="Closing Time" formControlName="endDate" [min]="closingDate">
+            <owl-date-time #enddt [pickerType]="'timer'"></owl-date-time>
             <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
               (Event end date & time is required)
             </div>
           </div>
-          <!-- <mat-error *ngIf="checkError('endDate', 'required')">(Event end date & time is required)</mat-error> -->
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
@@ -464,12 +472,16 @@
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
               <input matInput placeholder="Session Title" formControlName="title">
+              <mat-error *ngIf="checkErrorAgenda('title', 'required')">(Title is required)</mat-error>
+              <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be less than 40 characters</mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
               <input matInput placeholder="Session Topic" formControlName="topic">
+              <!-- //<mat-error *ngIf="checkError('topic', 'required')">(Title is required)</mat-error> -->
+              <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be less than 41 characters</mat-error>
             </mat-form-field>
           </div>
 
@@ -483,12 +495,19 @@
             <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
             [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+            <div *ngIf="checkErrorAgenda('startDate', 'required',true)" style="color:red;font-size: 12px;">
+              (Event Agenda start time is required)
+            </div>
+
           </div>
 
           <div class="form-row">
             <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
             [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
             <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
+            <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
+              (Event Agenda end time is required)
+            </div>
           </div>
 
           <!-- <div class="form-row">
@@ -514,6 +533,7 @@
                 <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers.fullName}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="checkErrorAgenda('speakerList', 'required')">(Atleast one speaker is required)</mat-error>
             </mat-form-field>
           </div>
 

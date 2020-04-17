@@ -45,14 +45,22 @@ export class EventDetailsComponent implements OnInit {
     this.trigger.openMenu();
   }
   getEventData(id) {
+    let arr:any[]=[];
     this.show=true;
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body.events;
       console.log("ID Data", this.getEventDetails);
         this.eventName=this.getEventDetails.title;
-        if(this.getEventDetails.eventSchedule[0].startDate!=null){
-        this.startTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].startDate);
-        this.endTime=this.commonService.getDateTime(this.getEventDetails.eventSchedule[0].endDate);
+        if(this.getEventDetails.eventSchedule!=null){
+          this.getEventDetails.eventSchedule.forEach(m=>{
+            arr.push(m);
+
+          })
+          console.log("arr=",arr);
+
+          let objs=this.getMinMaxDate(arr);
+        this.startTime=this.commonService.getDateTime(objs.min);
+        this.endTime=this.commonService.getDateTime(objs.max);
         }
         this.isPublish=this.getEventDetails.isPublish;
         this.isActive=this.getEventDetails.isActive;
@@ -74,6 +82,30 @@ export class EventDetailsComponent implements OnInit {
     })
 
     this.show=false;
+  }
+
+  getMinMaxDate(arr){
+    let minAgendaStartTime = null;
+    let maxAgendEndTime = null;
+    for (let index in arr) {
+      let agenda = arr[index];
+      if (index === '0') {
+        minAgendaStartTime = agenda.startDate;
+        maxAgendEndTime = agenda.endDate;
+      }
+      if (minAgendaStartTime > agenda.startDate) {
+        minAgendaStartTime = agenda.startDate
+      }
+
+      if (maxAgendEndTime < agenda.endDate) {
+        maxAgendEndTime = agenda.endDate;
+      }
+    }
+    let obj={
+      "min":minAgendaStartTime,
+      "max":maxAgendEndTime
+    }
+    return obj;
   }
 
   getEventParticipant(id) {

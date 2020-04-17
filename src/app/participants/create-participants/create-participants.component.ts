@@ -50,6 +50,10 @@ export class CreateParticipantsComponent implements OnInit {
       }
 
     }
+    if(!this.flag){
+      this.addParForm.controls['event'].setValidators(null);
+      this.addParForm.controls['event'].updateValueAndValidity();
+    }
   }
   getEvents(){
     this.service.getAllEventList().subscribe(res=>{
@@ -58,10 +62,7 @@ export class CreateParticipantsComponent implements OnInit {
     })
   }
   submit(){
-      if(!this.flag){
-        this.addParForm.controls['event'].setValidators(null);
-        this.addParForm.controls['event'].updateValueAndValidity();
-      }
+
     // if(this.addParForm.valid){
     let obj={
       "name": this.addParForm.controls['name'].value,
@@ -70,9 +71,11 @@ export class CreateParticipantsComponent implements OnInit {
       "registrationType": ""
     }
     console.log(obj);
+    var arr:any[]=[];
+      arr.push(obj);
     console.log(this.addParForm.controls['event'].value);
     if(this.flag){
-      this.service.saveParticipent(this.addParForm.controls['event'].value,obj).subscribe(res=>{
+      this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value,arr).subscribe(res=>{
       //alert("added successfully");
       this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
       this.submitted = false;
@@ -82,8 +85,11 @@ export class CreateParticipantsComponent implements OnInit {
     else{
       var arr:any[]=[];
       arr.push(obj);
+      console.log("addpart",arr);
+      console.log("idddd",this.eventId);
 
-    this.service.saveParticipent(this.eventId,obj).subscribe(res=>{
+
+    this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
       this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
       this.submitted = false;
       if(this.id==undefined)

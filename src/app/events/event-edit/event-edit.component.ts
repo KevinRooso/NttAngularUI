@@ -59,6 +59,7 @@ export class EventEditComponent implements OnInit {
   imageValid2: boolean = false;
 
   endingDate = new Date();
+  checkErrorAgenda: any
 
   image1button:boolean=false;
   image2button:boolean=false;
@@ -109,6 +110,16 @@ export class EventEditComponent implements OnInit {
       }
 
     }
+    this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.addAgenda.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.addAgenda.controls[controlName].hasError(errorName);
+      }
+
+    }
     // let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
     // this.createSpeakerForm = formBuilder.group({
     //   fullName: ['', Validators.required],
@@ -128,11 +139,11 @@ export class EventEditComponent implements OnInit {
       keywords: ['',Validators.required]
     });
     this.addAgenda = formBuilder.group({
-      title: [''],
-      topic: [''],
-      startDate: [''],
-      endDate: [''],
-      speakerList: [''],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      topic:new FormControl('', [Validators.maxLength(41)]),
+      startDate: ['', Validators.required],
+      endDate:['', Validators.required],
+      speakerList: ['', Validators.required],
       isBreak:[''],
       idData:['-1'],
       id:['0'],
@@ -221,12 +232,12 @@ export class EventEditComponent implements OnInit {
 
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
-      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
 
 
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
-      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventEndDate);
 
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
@@ -240,7 +251,9 @@ export class EventEditComponent implements OnInit {
         this.valuesSelectedTag.push(m.name);
       })
 
-      if(this.getEventDetails.eventSchedule!=null)
+      if(this.getEventDetails.eventSchedule!=null && this.getEventDetails.eventSchedule.length >0){
+        this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
+        this.closingDate=this.getEventDetails.eventSchedule[0].startDate;
       this.getEventDetails.eventSchedule.forEach((m,n)=>{
         console.log("nnnnn=",n);
 
@@ -257,6 +270,7 @@ export class EventEditComponent implements OnInit {
         }
         this.agendaData.push(obj);
       })
+    }
      console.log("agenda data=", this.agendaData);
 
       this.getCategoryDetails();
@@ -393,6 +407,36 @@ export class EventEditComponent implements OnInit {
     }
 
     this.submitted = true;
+
+        // event start time should be equal to agenda min start time
+    // event end time should be equal to agenda max end time
+    // let minAgendaStartTime = null;
+    // let maxAgendaEndTime = null;
+    // for (let index in this.agendaData) {
+    //   let agenda = this.agendaData[index];
+    //   if (index === '0') {
+    //     minAgendaStartTime = agenda.startDate;
+    //     maxAgendaEndTime = agenda.endDate;
+    //   }
+    //   if (minAgendaStartTime > agenda.startDate) {
+    //     minAgendaStartTime = agenda.startDate
+    //   }
+
+    //   if (maxAgendaEndTime < agenda.endDate) {
+    //     maxAgendaEndTime = agenda.endDate;
+    //   }
+    // }
+
+    // if (minAgendaStartTime.getTime() !== this.updateEventForm.controls['startDate'].value.getTime()) {
+    //   let errorMsg = 'Please select one of the agenda time equals to event start time';
+    //   this.snackBar.open(errorMsg, 'Close');
+    //   return false;
+    // } else if (maxAgendaEndTime.getTime() !== this.updateEventForm.controls['endDate'].value.getTime()) {
+    //   let errorMsg = 'Please select one of the agenda time equals to event end time';
+    //   this.snackBar.open(errorMsg, 'Close');
+    //   return false;
+    // }
+
    if(this.updateEventForm.valid){
     this.show =true;
     let tags:any[]=[];

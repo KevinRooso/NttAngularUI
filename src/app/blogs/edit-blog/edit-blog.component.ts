@@ -45,6 +45,7 @@ export class EditBlogComponent  implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
+  today=new Date();
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
@@ -64,6 +65,7 @@ export class EditBlogComponent  implements OnInit {
         tagList: ['',Validators.required],
         targetUserType:['',Validators.required],
         isDraft:[false],
+      expiryDate: ['', Validators.required],
         thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       });
       let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -160,6 +162,8 @@ export class EditBlogComponent  implements OnInit {
         this.createBlogForm.get(['person']).setValue(res.body.person.id);
         this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
         this.previewUrl=res.body.thumbnailImageUrl;
+        this.today=res.body.expiryDate;
+      this.createBlogForm.controls['expiryDate'].setValue(res.body.expiryDate);
         this.getCategoryDetails();
         this.getTagsDetails();
         this.getPersons();
@@ -336,7 +340,8 @@ export class EditBlogComponent  implements OnInit {
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
       "resourceType":1,
-      "targetUserType":obj.targetUserType
+      "targetUserType":obj.targetUserType,
+      "expiryDate":obj.expiryDate
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{

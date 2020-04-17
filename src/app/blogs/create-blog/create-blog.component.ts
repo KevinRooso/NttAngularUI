@@ -129,6 +129,8 @@ export class CreateBlogComponent implements OnInit {
   }
   getPersons(){
     this.service.getPersons().subscribe(res=>{
+      console.log("persons==",res);
+
         this.persons=res.body;
     })
   }
