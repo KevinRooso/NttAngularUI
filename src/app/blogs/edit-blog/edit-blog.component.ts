@@ -368,7 +368,7 @@ crateFrorm(){
       "detailImageUrl": "string",
       "downloadUrl": "",
       "id":this.blogId,
-      "isDraft": obj.isDraft,
+      "draft": obj.isDraft,
       "person": personObj,
       "shortDescription": obj.longDescription,
       "tagList": tags,

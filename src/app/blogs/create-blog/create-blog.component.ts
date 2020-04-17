@@ -274,7 +274,7 @@ export class CreateBlogComponent implements OnInit {
          "detailImageUrl": "",
          "downloadUrl": "",
          "categoryId": obj.categoryId.id,
-         "isDraft": obj.isDraft,
+         "draft": obj.isDraft,
          "longDescription": obj.longDescription,
          "person": {
            "description": obj.person.description,

@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -72,7 +73,7 @@
             <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
           </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
 
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
@@ -97,7 +98,7 @@
             <mat-error *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
           </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage1()" [disabled]="!imageValid1">Upload File</button>
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid1}" (click)="uploadImage1()" [disabled]="!imageValid1">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -121,7 +122,7 @@
 
 
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' [disabled]="!createVideoForm.valid" class="btn button-1 action-good">Submit
+          <button type="submit" (click)='generateBlog()'  class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>

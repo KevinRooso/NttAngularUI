@@ -233,7 +233,7 @@ if(this.fileData!=undefined){
   }
   uploadAttachment() {
     this.show=true;
-    this.image1button=false;
+    this.image2button=false;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
@@ -241,7 +241,7 @@ if(this.fileData!=undefined){
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        this.image1button=true;
+        this.image2button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
       (error)=>{
@@ -296,7 +296,7 @@ if(this.fileData!=undefined){
       "detailImageUrl": "string",
       "downloadUrl": this.articelAttach,
       "id": this.articleId,
-      "isDraft": true,
+      "draft": true,
       "longDescription": this.EditArticleForm.controls['longDescription'].value,
       "person": {},
       "resourceType": 2,
