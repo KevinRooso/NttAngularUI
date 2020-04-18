@@ -5,7 +5,7 @@
       {{userType=='public'?'Public':'Customer'}} User Configuration</button>
   </div>
 </div>
-<div class="text-center my-5">
+<div class="text-center my-5" *ngIf="publicFlag">
   <p class="heading-secondary">Edit Homepage Configuration</p>
 </div>
 <div class="row m-0">
@@ -23,7 +23,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner1Block" #block
                   (selectionChange)="getSelectedBlockData(block.value,'banner1')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                  <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+              </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -55,7 +57,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner2Block" #block1
                   (selectionChange)="getSelectedBlockData(block1.value,'banner2')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -87,7 +91,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner3Block" #block2
                   (selectionChange)="getSelectedBlockData(block2.value,'banner3')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -353,13 +359,13 @@
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button class="btn" #testButton (click)="this.getSelectedBlockData8(blocks[7].url)"
-                  data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+                  data-toggle="collapse" data-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
                   Testimonials Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
-            <div id="collapseNews" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseNews">
+            <div id="collapseTest" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseTest">
               <form [formGroup]='testConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
