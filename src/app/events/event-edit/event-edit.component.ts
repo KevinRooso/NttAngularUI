@@ -55,6 +55,7 @@ export class EventEditComponent implements OnInit {
   checkError:any;
   isEvent:boolean = false;
   isWebinar:boolean = false;
+  newtoday = new Date();
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
@@ -155,6 +156,7 @@ export class EventEditComponent implements OnInit {
     console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
   ngOnInit(): void {
+    this.newtoday.setDate(this.newtoday.getDate()-1);
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.evntID = params.page;

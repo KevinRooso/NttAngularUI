@@ -278,7 +278,7 @@
           <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
           <div class="col-sm-9">
             <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-            [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
+            [min]=" newtoday" [max]="regStartDate" class="form-control" placeholder="Start Date"
             formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
           <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
@@ -479,7 +479,7 @@
 
          <div class="form-row py-1">
             <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
+            class="col-sm-12 p-2" formControlName="startDate">
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
             <div *ngIf="checkErrorAgenda('startDate', 'required',true)" style="color:red;font-size: 12px;">
               (Event Agenda start time is required)
@@ -489,7 +489,7 @@
 
           <div class="form-row">
             <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
+            class="col-sm-12 p-2" formControlName="endDate">
             <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
             <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
               (Event Agenda end time is required)
