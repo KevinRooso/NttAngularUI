@@ -1,4 +1,4 @@
-<!-- <app-loader *ngIf="show"></app-loader> -->
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
       <li><a href="/home">Home</a></li>
@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 300 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -37,7 +37,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Description should be less than 2000 characters
+              Description should be less than 700 characters
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
-              (Short Description should be less than 2000 characters)
+              (Short Description should be less than 80 characters)
             </div>
           </div>
         </div>
@@ -285,7 +285,7 @@
                     <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;" (click)="updateAgenda(i)">
                       <i class="fa fa-pencil" style="font-size: 1rem;"></i>
                     </span>
-                    <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i)">
+                    <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i,data)">
                       <i class="fa fa-trash" style="font-size: 1rem;"></i>
                     </span>
                   </td>
@@ -327,7 +327,7 @@
               (Terms & Conditions is required)
             </div>
             <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Terms & Conditions should be less than 3000 characters
+              Terms & Conditions should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -339,7 +339,7 @@
               (Terms & Conditions is required)
             </div> -->
             <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Policy FAQs should be less than 3000 characters
+              Policy FAQs should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -352,7 +352,7 @@
               <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-primary" (click)="uploadImage()" [ngClass]="{'cursor' : !imageValid}" [disabled]="!imageValid">Upload File</button>
+              <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
               <div *ngIf="fileUploadProgress">
                 Upload progress: {{ fileUploadProgress }}
               </div>
@@ -375,7 +375,7 @@
             <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [ngClass]="{'cursor' : !imageValid2}" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()"[disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>

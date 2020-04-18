@@ -64,6 +64,7 @@ export class CreateEventComponent implements OnInit {
 
   image1button:boolean=false;
   image2button:boolean=false;
+
   agendaData:any[] = [];
   counter: any;
   checkErrorAgenda: any
@@ -94,9 +95,9 @@ export class CreateEventComponent implements OnInit {
   initializeForm(){
     this.newtoday.setDate(this.newtoday.getDate()-1);
     this.createEventForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       address1: [''],
       address2: [''],
       city: [''],
@@ -115,8 +116,8 @@ export class CreateEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: ['', [Validators.required, Validators.maxLength(3000)]],
-      policyFAQ: ['', [Validators.maxLength(3000)]],
+      policyTnc: ['', [Validators.required, Validators.maxLength(1500)]],
+      policyFAQ: ['', [Validators.maxLength(1500)]],
       thumbnailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       detailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       fullName: [''],
@@ -172,10 +173,6 @@ export class CreateEventComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
-    // console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
-    // this.createEventForm.controls['thumbnailImageUrl'].setValidators(Validators.apply);
-    // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-    // console.log("validation chcek1=",this.createEventForm.controls['thumbnailImageUrl'].valid);
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
@@ -221,7 +218,8 @@ export class CreateEventComponent implements OnInit {
     }
   }
   uploadImage() {
-
+    this.show=true;
+    this.image1button=false;
    const formData = new FormData();
     formData.append('file', this.fileData);
     this.image1button=false;
@@ -230,12 +228,19 @@ export class CreateEventComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        this.imageValid = false;
+        this.show=false;
         this.image1button=true;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        this.imageValid = false;
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
+    this.image2button=false;
+    this.show=true;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.image2button=false;
@@ -244,9 +249,14 @@ export class CreateEventComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.show=false;
+        this.image2button=true;
         this.imageValid2 = false;
-         this.image2button=true;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -368,6 +378,18 @@ export class CreateEventComponent implements OnInit {
       return false;
     }
 
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Banner Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+
     if (this.createEventForm.valid) {
       this.show =true;
       let name: any[] = [];
@@ -447,7 +469,7 @@ export class CreateEventComponent implements OnInit {
       }
 
       console.log("Post Data", objData);
-      this.show =false;
+      //this.show =false;
 
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
@@ -460,9 +482,9 @@ export class CreateEventComponent implements OnInit {
         },
         (error) => {
           console.log("error",error);
+          this.show =false;
+          this.snackBar.open('Oops, something went wrong..', 'Close');
 
-          this.snackBar.open('Something went wrong', 'Close');
-           this.show =false;
          }
       )
      }
@@ -498,7 +520,7 @@ export class CreateEventComponent implements OnInit {
       "idData":-1
     }
 
-    let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    let eventStartDate = this.createEventForm.get(['startDate']).value;
     let agendaStartDate = obj.startDate;
     let agendaEndDate = obj.endDate;
 
