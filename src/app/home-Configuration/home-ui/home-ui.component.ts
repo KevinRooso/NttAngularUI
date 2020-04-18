@@ -118,6 +118,7 @@ export class HomeUiComponent implements OnInit {
     this.getAllData();
   }
   createForms(){
+    this.show=true;
     if(this.userType=="public"){
       this.pFlag=true;
       this.cFlag=false;
@@ -203,6 +204,7 @@ export class HomeUiComponent implements OnInit {
       dataFieldId: ["", Validators.required],
       sequenceNumber: ["1"],
     });
+    this.show=false;
   }
   createForm(){
     this.publicFlag=!this.publicFlag;
@@ -480,15 +482,16 @@ export class HomeUiComponent implements OnInit {
   }
   getSelectedBlockData1(url) {
     url = url.split("?")[1];
-
+    console.log("data",this.eventData.length);
     if(this.eventData.length==0)
   {  this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.eventData = res.body;
-      $('#eventId').val(this.resourceData[0].id);
      this.show=false;
+     console.log("loggeed");
     },
     (error)=>{
+      console.log("error");
       this.show=false;
     }
     );}

@@ -406,13 +406,13 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active" *ngIf="homeBannerData.length >= 0">
+            <div class="carousel-item active" *ngIf="homeBannerData.length > 0">
               <img class="d-block w-100 img-size" [src]="homeBannerData[0].thumbnailImageUrl ? homeBannerData[0].thumbnailImageUrl : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length >= 1">
+            <div class="carousel-item" *ngIf="homeBannerData.length > 1">
               <img class="d-block w-100 img-size" [src]="homeBannerData[1].thumbnailImageUrl ? homeBannerData[1].thumbnailImageUrl : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length >= 2">
+            <div class="carousel-item" *ngIf="homeBannerData.length > 2">
               <img class="d-block w-100 img-size" [src]="homeBannerData[2].thumbnailImageUrl ? homeBannerData[2].thumbnailImageUrl : defaultImage">
             </div>
           </div>
