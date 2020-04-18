@@ -156,6 +156,7 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", this.articleImage);
         this.show=false;
         this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       })
   }
@@ -171,6 +172,7 @@ export class ArticleCreateComponent implements OnInit {
         console.log("File", this.attachFile);
         this.show=false;
         this.image2button=true;
+        this.imageValid2 = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       })
   }

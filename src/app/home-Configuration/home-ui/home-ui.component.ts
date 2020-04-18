@@ -83,19 +83,19 @@ export class HomeUiComponent implements OnInit {
 
   blocks: any[] = [
     { url: "event?api/public/events", name: "event" },
-    { url: "articles?api/public/resources/articles", name: "articles" },
-    { url: "blogs?api/public/resources/blogs", name: "blogs" },
-    { url: "videos?api/public/resources/videos", name: "videos" },
+    { url: "article?api/public/resources/articles", name: "articles" },
+    { url: "blog?api/public/resources/blogs", name: "blogs" },
+    { url: "video?api/public/resources/videos", name: "videos" },
     {
-      url: "whitepapers?api/public/resources/whitepapers",
+      url: "whitepaper?api/public/resources/whitepapers",
       name: "whitepapers",
     },
     {
-      url: "caseStudies?api/public/resources/case-studies",
+      url: "casestudy?api/public/resources/case-studies",
       name: "caseStudies",
     },
     { url: "news?api/public/news", name: "News" },
-    { url: "testimonials?api/public/resources/testimonials", name: "Testimonials" },
+    { url: "testimonial?api/public/resources/testimonials", name: "Testimonials" },
   ];
   sequenceNumbersBanner: any[] = [1, 2, 3];
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
@@ -171,14 +171,14 @@ export class HomeUiComponent implements OnInit {
     this.videosConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ["videos", Validators.required],
+      datafieldType: ["video", Validators.required],
       dataFieldId: ["", Validators.required],
       sequenceNumber: ["1"],
     });
     this.whitePaperConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ["whitePapers", Validators.required],
+      datafieldType: ["whitepaper", Validators.required],
       dataFieldId: ["", Validators.required],
       sequenceNumber: ["1"],
     });
@@ -199,7 +199,7 @@ export class HomeUiComponent implements OnInit {
     this.testConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ["testimonials", Validators.required],
+      datafieldType: ["testimonial", Validators.required],
       dataFieldId: ["", Validators.required],
       sequenceNumber: ["1"],
     });
@@ -235,17 +235,17 @@ export class HomeUiComponent implements OnInit {
           this.eventButton.nativeElement.click();
 
         }
-        if (m.type == "articles") {
+        if (m.type == "article") {
           this.articleBlockData = m.id;
           this.articleButton.nativeElement.click();
 
         }
-        if (m.type == "blogs") {
+        if (m.type == "blog") {
           this.blogBlockData = m.id;
           this.blogButton.nativeElement.click();
 
         }
-        if (m.type == "videos") {
+        if (m.type == "video") {
           this.videoBlockData = m.id;
           this.videoButton.nativeElement.click();
 

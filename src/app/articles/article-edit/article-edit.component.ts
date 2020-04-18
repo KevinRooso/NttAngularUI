@@ -224,6 +224,7 @@ if(this.fileData!=undefined){
         console.log("Image", this.articleImage);
         this.show=false;
         this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
       (error)=>{
@@ -242,6 +243,7 @@ if(this.fileData!=undefined){
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
         this.image2button=true;
+        this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
       (error)=>{

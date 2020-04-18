@@ -85,8 +85,8 @@ getTableData(url){
       title:'Action',
         // defaultContent: "<span   class='btn btn-danger approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
         // +"&nbsp;<span  class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' >Reject</span>"
-        defaultContent: "<span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>"
-        +"&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span>"
+        defaultContent: "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>"
+        +"&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>"
       }
   ],
   rowCallback: (row: Node, data: any[] | Object, index: number) => {
@@ -94,11 +94,11 @@ getTableData(url){
     console.log(data);
     const self = this;
 
-    if(data['email']!=null){
+    $('td:nth-child(3)', row).css('cursor','pointer');
       $('td:nth-child(3)', row).bind('click', () => {
         self.someClickHandler1(data);
       });
-    }
+
     if(data['eventName']==null){
 
       $('td:nth-child(1)', row).html(this.eName);
@@ -140,14 +140,17 @@ getTableData(url){
 
   }
   else{
-    $('td:nth-child(7) .approve', row).css('cursor','default')
-    $('td:nth-child(7) .reject', row).css('cursor','default')
+
+    // $('td:nth-child(7) .approve', row).css('cursor','default')
+    // $('td:nth-child(7) .reject', row).css('cursor','default')
     if(data['registrationStatus']){
       $('td .showIdButton', row).html('Approved');
+      $('td:nth-child(7) .mydiv', row).html('Approved');
 
     }
     if(!data['registrationStatus']){
       $('td .showIdButton', row).html('Rejected');
+      $('td:nth-child(7) .mydiv', row).html('Rejected');
 
     }
   }
@@ -163,8 +166,8 @@ someClickHandler(data,row){
   this.show=true;
  this.service.updateParticipantStatus(data.id,true).subscribe(res=>{
     $('td .showIdButton', row).html('Approved');
-    $('td:nth-child(7) .approve', row).css('cursor','default');
-    $('td:nth-child(7) .reject', row).css('cursor','default');
+    $('td:nth-child(7) .mydiv', row).html('Approved');
+    //$('td:nth-child(7) .reject', row).css('cursor','default');
     $('td:nth-child(7) .approve', row).unbind();
     this.snackBar.open('Approved!!', 'Close', { duration: 5000 });
     this.show=false;
@@ -179,8 +182,9 @@ someClickHandler2(data,row){
   console.log(data.id)
    this.service.updateParticipantStatus(data.id,false).subscribe(res=>{
     $('td .showIdButton', row).html('Rejected');
-    $('td:nth-child(7) .approve', row).css('cursor','default');
-    $('td:nth-child(7) .reject', row).css('cursor','default');
+    $('td:nth-child(7) .mydiv', row).html('Rejected');
+    // $('td:nth-child(7) .approve', row).css('cursor','default');
+    // $('td:nth-child(7) .reject', row).css('cursor','default');
     $('td:nth-child(7) .reject', row).unbind();
 
     this.snackBar.open('Rejected!!', 'Close', { duration: 5000 });
