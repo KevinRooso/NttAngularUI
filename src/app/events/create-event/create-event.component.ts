@@ -301,24 +301,68 @@ export class CreateEventComponent implements OnInit {
     let maxAgendaEndTime = null;
     for (let index in this.agendaData) {
       let agenda = this.agendaData[index];
-      if (index === '0') {
-        minAgendaStartTime = agenda.startDate;
-        maxAgendaEndTime = agenda.endDate;
-      }
-      if (minAgendaStartTime > agenda.startDate) {
-        minAgendaStartTime = agenda.startDate
+      let aStartDate = agenda.startDate;
+      let aEndDate = agenda.endDate;
+
+      if(aStartDate && typeof(aStartDate)=='string'){
+        aStartDate = new Date(aStartDate);
       }
 
-      if (maxAgendaEndTime < agenda.endDate) {
-        maxAgendaEndTime = agenda.endDate;
+      if(aEndDate && typeof(aEndDate)=='string'){
+        aEndDate = new Date(aEndDate);
+      }
+
+      if (index === '0') {
+        minAgendaStartTime = aStartDate;
+        maxAgendaEndTime = aEndDate;
+      }
+      if (minAgendaStartTime > aStartDate) {
+        minAgendaStartTime = aStartDate
+      }
+
+      if (maxAgendaEndTime < aEndDate) {
+        maxAgendaEndTime = aEndDate;
       }
     }
 
-    if (minAgendaStartTime.getTime() !== this.createEventForm.controls['startDate'].value.getTime()) {
+    if(typeof(minAgendaStartTime)=='string'){
+      minAgendaStartTime = new Date(minAgendaStartTime);
+    }
+    if(typeof(maxAgendaEndTime)=='string'){
+      maxAgendaEndTime = new Date(maxAgendaEndTime);
+    }
+    let eventStartDate = this.createEventForm.controls['startDate'].value;
+    if(typeof(eventStartDate)=='string'){
+      eventStartDate = new Date(eventStartDate);
+    }
+    let eventEndDate = this.createEventForm.controls['endDate'].value;
+    if(typeof(eventEndDate)=='string'){
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    eventStartDate.setSeconds(0);
+    eventStartDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.createEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
+
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.createEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+    minAgendaStartTime.setSeconds(0);
+    minAgendaStartTime.setMilliseconds(0);
+
+    maxAgendaEndTime.setSeconds(0);
+    maxAgendaEndTime.setMilliseconds(0);
+
+    if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event start time';
       this.snackBar.open(errorMsg, 'Close');
       return false;
-    } else if (maxAgendaEndTime.getTime() !== this.createEventForm.controls['endDate'].value.getTime()) {
+    } else if (maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event end time';
       this.snackBar.open(errorMsg, 'Close');
       return false;
@@ -453,6 +497,40 @@ export class CreateEventComponent implements OnInit {
       "id":0,
       "idData":-1
     }
+
+    let eventStartDate = this.createEventForm.get(['startDate']).value;
+    let agendaStartDate = obj.startDate;
+    let agendaEndDate = obj.endDate;
+
+    if (agendaStartDate && typeof(agendaStartDate) == 'string') {
+      agendaStartDate = new Date(agendaStartDate);
+    }
+
+    if (agendaEndDate && typeof(agendaEndDate) == 'string') {
+      agendaEndDate = new Date(agendaEndDate);
+    }
+
+    if (eventStartDate && typeof(eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    agendaStartDate.setDate(eventStartDate.getDate());
+    agendaStartDate.setMonth(eventStartDate.getMonth());
+    agendaStartDate.setFullYear(eventStartDate.getFullYear());
+    agendaStartDate.setSeconds(0);
+    agendaStartDate.setMilliseconds(0);
+
+    agendaEndDate.setDate(eventStartDate.getDate());
+    agendaEndDate.setMonth(eventStartDate.getMonth());
+    agendaEndDate.setFullYear(eventStartDate.getFullYear());
+    agendaEndDate.setSeconds(0);
+    agendaEndDate.setMilliseconds(0);
+
+    obj.startDate = agendaStartDate;
+    obj.endDate = agendaEndDate
+
+    console.log("myobj",obj);
+
     console.log("id=", this.addAgenda.controls['idData'].value);
     if(this.addAgenda.value['idData']!= -1){
       obj['idData'] = this.addAgenda.value['idData'];
@@ -543,8 +621,57 @@ else{
   }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
-    this.closingDate = this.createEventForm.get(['startDate']).value;
-   this.regStartDate = this.closingDate;
+    let eventStartDate = this.createEventForm.get(['startDate']).value;
+    this.closingDate = eventStartDate;
+    this.regStartDate = eventStartDate;
+    if (eventStartDate && typeof(eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    let eventEndDate = this.createEventForm.controls['endDate'].value;
+
+    if (eventEndDate && typeof(eventEndDate) == 'string') {
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    // setting event end date equal to start date as no is allowed to select in end date field
+    eventEndDate.setDate(eventStartDate.getDate());
+    eventEndDate.setMonth(eventStartDate.getMonth());
+    eventEndDate.setFullYear(eventStartDate.getFullYear());
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
+
+    this.createEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+     // update all agenda start date if start dates changes
+     for (let index in this.agendaData) {
+       let agenda = this.agendaData[index];
+       let agenStartDateObj = null;
+       let agendaEndDate = null;
+
+       if (agenda.startDate && typeof(agenda.startDate) == 'string') {
+         agenStartDateObj = new Date(agenda.startDate);
+       }
+
+       if (agenda.endDate && typeof(agenda.endDate) == 'string') {
+         agendaEndDate = new Date(agenda.endDate);
+       }
+
+       agenStartDateObj.setDate(eventStartDate.getDate());
+       agenStartDateObj.setMonth(eventStartDate.getMonth());
+       agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+       agenStartDateObj.setSeconds(0);
+       agenStartDateObj.setMilliseconds(0);
+
+       agendaEndDate.setDate(eventStartDate.getDate());
+       agendaEndDate.setMonth(eventStartDate.getMonth());
+       agendaEndDate.setFullYear(eventStartDate.getFullYear());
+       agendaEndDate.setSeconds(0);
+       agendaEndDate.setMilliseconds(0);
+
+       agenda.startDate = agenStartDateObj.toISOString();
+       agenda.endDate = agendaEndDate.toISOString();
+     }
   }
   maxEDate() {
     console.log("ending Date", this.createEventForm.get(['endDate']).value);
