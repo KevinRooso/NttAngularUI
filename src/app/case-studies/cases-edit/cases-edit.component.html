@@ -16,7 +16,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title">
+            <input matInput placeholder="Client Name" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
@@ -81,7 +81,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target User Type</mat-label>
             <mat-select formControlName="targetUserType" [(ngModel)]="tarUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}

@@ -82,7 +82,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target Type</mat-label>
             <mat-select formControlName="targetUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
