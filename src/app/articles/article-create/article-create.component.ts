@@ -158,8 +158,13 @@ export class ArticleCreateComponent implements OnInit {
         this.image1button=true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
   uploadAttachment() {
     this.image2button=false;
     this.show=true;
@@ -174,8 +179,13 @@ export class ArticleCreateComponent implements OnInit {
         this.image2button=true;
         this.imageValid2 = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
 
   createArticle() {
     this.show=true;

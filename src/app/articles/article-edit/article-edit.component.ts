@@ -165,7 +165,6 @@ export class ArticleEditComponent implements OnInit {
   }
 
   fileProgress(fileInput: any) {
-
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
@@ -244,6 +243,7 @@ if(this.fileData!=undefined){
         console.log("File", this.attachFile);
         this.image2button=true;
         this.imageValid2 = false;
+        this.show=false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
       (error)=>{

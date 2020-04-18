@@ -1,4 +1,4 @@
-<!-- <app-loader *ngIf="show"></app-loader> -->
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 300 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
         </div>
         <!-- <ckeditor data="<p>Hello, world!</p>"></ckeditor> -->
@@ -38,7 +38,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Description should be less than 2000 characters
+              Description should be less than 700 characters
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
-              (Short Description should be less than 2000 characters)
+              (Short Description should be less than 80 characters)
             </div>
           </div>
         </div>
@@ -332,7 +332,7 @@
               (Terms & Conditions is required)
             </div>
             <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Terms & Conditions should be less than 3000 characters
+              Terms & Conditions should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -351,7 +351,7 @@
               (Terms & Conditions is required)
             </div> -->
             <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Policy FAQs should be less than 3000 characters
+              Policy FAQs should be less than 1500 characters
             </div>
           </div>
         </div>

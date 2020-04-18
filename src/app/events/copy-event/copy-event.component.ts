@@ -74,9 +74,9 @@ export class CopyEventComponent implements OnInit {
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, public snackBar: MatSnackBar, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       address1: ['', Validators.required],
       address2: [''],
       city: ['', Validators.required],
@@ -94,8 +94,8 @@ export class CopyEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
+      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(1500)]),
+      policyFAQ: new FormControl('', [Validators.maxLength(1500)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       fullName: [''],
@@ -252,6 +252,9 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
 
+      this.image1button=true;
+      this.image2button=true;
+
       this.getEventDetails.tags.forEach(m => {
         this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
         this.closingDate=this.getEventDetails.eventSchedule[0].startDate;
@@ -288,42 +291,38 @@ export class CopyEventComponent implements OnInit {
       this.show = false;
     })
   }
-  fileProgress(fileInput: any) {
+    fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
-      this.imageValid = true;
-      this.preview();
-    }
+    if(this.fileData!=undefined){
+      this.image1button=false;
+        let fileType = this.fileData.type;
+        if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+          this.imageValid = true;
+          this.preview();
+        }
+      }
   }
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.imgValid =true;
-  //   this.preview();
-  // }
-  // fileProgress2(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   //this.imgValid1 =true;
-  //   this.preview2();
-  // }
   fileProgress2(fileInput: any) {
+    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
+    if(this.fileData!=undefined){
+      this.image2button=false;
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid2 = true;
       this.preview2();
     }
+  }
   }
   preview() {
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -342,31 +341,45 @@ export class CopyEventComponent implements OnInit {
     }
   }
   uploadImage() {
-    const formData = new FormData();
+    this.show=true;
     this.image1button=false;
+    const formData = new FormData();
     formData.append('file', this.fileData);
+    this.image1button=false;
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        this.imageValid = false;
+        this.show=false;
         this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
-    const formData1 = new FormData();
+    this.show=true;
     this.image2button=false;
+    const formData1 = new FormData();
     formData1.append('file', this.fileData);
+    // this.image2button=false;
     this.authService.uploadFile(formData1)
       .subscribe(res => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        this.imageValid2 = false;
         this.image2button=true;
+        this.imageValid2 = false;
+        this.show=false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -389,7 +402,17 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
   submitChanges(){
-    this.show =true;
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Banner', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     const ON_PREMISE = "1";
     const WEBINAR = "2";
     const BOTH = "3";
@@ -488,7 +511,7 @@ export class CopyEventComponent implements OnInit {
       return false;
     }
 
-   //if(this.updateEventForm.valid){
+   if(this.updateEventForm.valid){
     let tags:any[]=[];
     let speakerList1:any[]=[];
     // console.log("eventform==",this.updateEventForm.value);
@@ -587,10 +610,11 @@ export class CopyEventComponent implements OnInit {
         this.show =false;
       }
     )
-  //  }
-  // else{
-  //   this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
-  // }
+   }
+  else{
+    this.show =false;
+    this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
+  }
   this.closeModel1.nativeElement.click();
   }
   updateEvent() {
@@ -600,7 +624,6 @@ export class CopyEventComponent implements OnInit {
     }
     else{
       this.submitChanges();
-
     }
 
   }
