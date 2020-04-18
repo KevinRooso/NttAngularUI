@@ -498,7 +498,7 @@ export class CreateEventComponent implements OnInit {
       "idData":-1
     }
 
-    let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    let eventStartDate = this.createEventForm.get(['startDate']).value;
     let agendaStartDate = obj.startDate;
     let agendaEndDate = obj.endDate;
 
