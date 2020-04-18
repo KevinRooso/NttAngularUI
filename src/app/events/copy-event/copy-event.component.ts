@@ -58,6 +58,7 @@ export class CopyEventComponent implements OnInit {
   isEvent:boolean = false;
   isWebinar:boolean = false;
   endingDate = new Date();
+  newtoday = new Date();
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
@@ -155,6 +156,7 @@ export class CopyEventComponent implements OnInit {
     console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
   ngOnInit(): void {
+    this.newtoday.setDate(this.newtoday.getDate()-1);
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.evntID = params.page;
@@ -235,12 +237,12 @@ export class CopyEventComponent implements OnInit {
 
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
-      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
 
 
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
-      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventEndDate);
 
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
@@ -692,9 +694,52 @@ export class CopyEventComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   maxCDate() {
-    console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
-    this.closingDate = this.updateEventForm.get(['startDate']).value;
-   this.regStartDate = this.closingDate;
+   console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
+   let eventStartDate = this.updateEventForm.get(['startDate']).value;
+   this.closingDate = eventStartDate;
+   this.regStartDate = eventStartDate;
+
+   if (eventStartDate && typeof(eventStartDate) == 'string') {
+     eventStartDate = new Date(eventStartDate);
+   }
+
+   let eventEndDate = this.updateEventForm.controls['endDate'].value;
+
+   if (eventEndDate && typeof(eventEndDate) == 'string') {
+     eventEndDate = new Date(eventEndDate);
+   }
+
+   // setting event end date equal to start date as no is allowed to select in end date field
+   eventEndDate.setDate(eventStartDate.getDate());
+   eventEndDate.setMonth(eventStartDate.getMonth());
+   eventEndDate.setFullYear(eventStartDate.getFullYear());
+
+   this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+    // update all agenda start date if start dates changes
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      let agenStartDateObj = null;
+      let agendaEndDate = null;
+
+      if (agenda.startDate && typeof(agenda.startDate) == 'string') {
+        agenStartDateObj = new Date(agenda.startDate);
+      }
+
+      if (agenda.endDate && typeof(agenda.endDate) == 'string') {
+        agendaEndDate = new Date(agenda.endDate);
+      }
+
+      agenStartDateObj.setDate(eventStartDate.getDate());
+      agenStartDateObj.setMonth(eventStartDate.getMonth());
+      agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+
+      agendaEndDate.setDate(eventStartDate.getDate());
+      agendaEndDate.setMonth(eventStartDate.getMonth());
+      agendaEndDate.setFullYear(eventStartDate.getFullYear());
+      agenda.startDate = agenStartDateObj.toISOString();
+      agenda.endDate = agendaEndDate.toISOString();
+    }
   }
   maxEDate() {
     console.log("ending Date", this.updateEventForm.get(['endDate']).value);
