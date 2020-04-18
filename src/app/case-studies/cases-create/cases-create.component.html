@@ -47,7 +47,7 @@
             <mat-select multiple formControlName="tagList">
             <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Service is required)</mat-error>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Industry is required)</mat-error>
           </mat-form-field>
         </div>
 

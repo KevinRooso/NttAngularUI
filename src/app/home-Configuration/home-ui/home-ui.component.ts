@@ -208,6 +208,7 @@ export class HomeUiComponent implements OnInit {
     this.publicFlag=!this.publicFlag;
   }
   getAllData() {
+    this.show=true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
 
       this.bannerData = res.body.banners;
@@ -235,17 +236,17 @@ export class HomeUiComponent implements OnInit {
           this.eventButton.nativeElement.click();
 
         }
-        if (m.type == "article") {
+        if (m.type == "articles") {
           this.articleBlockData = m.id;
           this.articleButton.nativeElement.click();
 
         }
-        if (m.type == "blog") {
+        if (m.type == "blogs") {
           this.blogBlockData = m.id;
           this.blogButton.nativeElement.click();
 
         }
-        if (m.type == "video") {
+        if (m.type == "videos") {
           this.videoBlockData = m.id;
           this.videoButton.nativeElement.click();
 
@@ -273,9 +274,12 @@ export class HomeUiComponent implements OnInit {
       });
 
     }
+    this.show=false;
     });
+
   }
   getGlobalDataForBanner1() {
+    this.show=true;
     this.banner1Block = this.bannerData[0].type;
     this.banner1SelectedValue = this.bannerData[0].id;
     this.bannerConfigurationForm1
@@ -294,12 +298,13 @@ export class HomeUiComponent implements OnInit {
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
       this.selectBlockData1 = res.body;
 
-
+      this.show=false;
 
     });
   }
 
   getGlobalDataForBanner2() {
+    this.show=true;
     this.banner2Block = this.bannerData[1].type;
     this.banner2SelectedValue = this.bannerData[1].id;
     this.bannerConfigurationForm2
@@ -313,16 +318,17 @@ export class HomeUiComponent implements OnInit {
     .setValue("2");
     this.banner2Sequence=2;
     let durl = this.blocks
-      .find((x) => x.name === this.banner1Block)
+      .find((x) => x.name === this.banner2Block)
       .url.split("?")[1];
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
       this.selectBlockData2 = res.body;
-
+      this.show=false;
 
 
     });
   }
   getGlobalDataForBanner3() {
+    this.show=true;
     this.banner3Block = this.bannerData[2].type;
     this.banner3SelectedValue=this.bannerData[2].id;
     this.bannerConfigurationForm3
@@ -341,12 +347,13 @@ export class HomeUiComponent implements OnInit {
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
 
       this.selectBlockData3 = res.body;
-
+      this.show=false;
     });
   }
 
   submit() {}
   submitBanner() {
+    this.show=true;
     let flag = true;
 
     let obj: any[] = [];
@@ -391,6 +398,7 @@ export class HomeUiComponent implements OnInit {
     if (flag) {
       this.service.saveBanner(obj).subscribe((res) => {
         console.log(res);
+        this.show=false
         this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         //alert("Saved Successfully")
       });
@@ -401,7 +409,6 @@ export class HomeUiComponent implements OnInit {
 
     let value1 = this.blocks.find((x) => x.name === value).url.split("?")[0];
     value = this.blocks.find((x) => x.name === value).url.split("?")[1];
-
     if (value1 == "event") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.eventData);
@@ -414,23 +421,23 @@ export class HomeUiComponent implements OnInit {
     //   else
     // this.callService(value,banner);
     // }
-    if (value1 == "articles") {
+    if (value1 == "article") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.articleData);
       } else this.callService(value, banner);
     }
 
-    if (value1 == "blogs") {
+    if (value1 == "blog") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.blogData);
       } else this.callService(value, banner);
     }
-    if (value1 == "videos") {
+    if (value1 == "video") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.videoData);
       } else this.callService(value, banner);
     }
-    if (value1 == "whitepapers") {
+    if (value1 == "whitepaper") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.whitePaperData);
       } else this.callService(value, banner);
@@ -457,72 +464,145 @@ export class HomeUiComponent implements OnInit {
     if (banner == "banner3") this.selectBlockData3 = data;
   }
   callService(value, banner) {
+    this.show=true;
     this.service.getBannerBlockDetail(value).subscribe((res) => {
-     if (banner == "banner1") this.selectBlockData1 = res.body;
+     if (banner == "banner1") {
+
+       this.selectBlockData1 = res.body;
+      }
       if (banner == "banner2") this.selectBlockData2 = res.body;
       if (banner == "banner3") this.selectBlockData3 = res.body;
+      this.show=false;
+    },
+    (error)=>{
+      this.show=false;
     });
   }
   getSelectedBlockData1(url) {
     url = url.split("?")[1];
 
+    if(this.eventData.length==0)
+  {  this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.eventData = res.body;
-     // alert(this.resourceData[0].id);
-      // this.eventBlockData = this.resourceData[0].id;
       $('#eventId').val(this.resourceData[0].id);
-     // alert($('#eventId').val());
-    });
+     this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
 
   getSelectedBlockData2(url) {
     url = url.split("?")[1];
+
+    if(this.articleData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
      this.articleData = res.body;
-    });
+     this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
   getSelectedBlockData3(url) {
     url = url.split("?")[1];
+
+    if(this.blogData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.blogData = res.body;
-    });
+      this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
   getSelectedBlockData4(url) {
     url = url.split("?")[1];
+
+    if(this.videoData.length==0)
+  {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.videoData = res.body;
-    });
+      this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
   getSelectedBlockData5(url) {
     url = url.split("?")[1];
 
+    if(this.whitePaperData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
     this.whitePaperData = res.body;
-    });
+    this.show=false;
+  },
+  (error)=>{
+    this.show=false;
   }
+  );}
+}
   getSelectedBlockData6(url) {
     url = url.split("?")[1];
+
+    if(this.caseStudyData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.caseStudyData = res.body;
-    });
+      this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
   getSelectedBlockData7(url) {
     url = url.split("?")[1];
+
+    if(this.newsData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
      this.newsData = res.body;
-    });
+     this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
-
   getSelectedBlockData8(url) {
     url = url.split("?")[1];
 
+    if(this.newsData.length==0)
+   {
+    this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
       this.testData = res.body;
-    });
+      this.show=false;
+    },
+    (error)=>{
+      this.show=false;
+    }
+    );}
   }
 
   ///-------submit event
   submitEvent() {
+    this.show=true;
     console.log("event");
 
     let obj: any[] = [];
@@ -531,12 +611,18 @@ export class HomeUiComponent implements OnInit {
       console.log(obj);
 
       this.service.saveEventBlock("event", obj).subscribe((res) => {
+
        this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
-        //alert("SUCCESS!!");
+       this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitArticle() {
+    this.show=true;
     console.log("article");
     let obj: any[] = [];
 
@@ -544,11 +630,16 @@ export class HomeUiComponent implements OnInit {
       console.log(obj);
       this.service.saveRescourceBlock("article", obj).subscribe((res) => {
         this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
-        //alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitBlog() {
+    this.show=true;
     let obj: any[] = [];
 
       obj.push(this.blogsConfigurationForm.value);
@@ -556,10 +647,16 @@ export class HomeUiComponent implements OnInit {
       this.service.saveRescourceBlock("blog", obj).subscribe((res) => {
         this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         // alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitVideo() {
+    this.show=true;
     let obj: any[] = [];
 
       obj.push(this.videosConfigurationForm.value);
@@ -567,10 +664,16 @@ export class HomeUiComponent implements OnInit {
       this.service.saveRescourceBlock("video", obj).subscribe((res) => {
         this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         // alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitWhitpapers() {
+    this.show=true;
     let obj: any[] = [];
 
       obj.push(this.whitePaperConfigurationForm.value);
@@ -580,10 +683,16 @@ export class HomeUiComponent implements OnInit {
 
        this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         // alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitCases() {
+    this.show=true;
     let obj: any[] = [];
 
       obj.push(this.caseStudyConfigurationForm.value);
@@ -591,10 +700,16 @@ export class HomeUiComponent implements OnInit {
       this.service.saveRescourceBlock("caseStudy", obj).subscribe((res) => {
        this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         //alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
 
   }
   submitNews() {
+    this.show=true;
     let obj: any[] = [];
 
       obj.push(this.newsConfigurationForm.value);
@@ -602,10 +717,15 @@ export class HomeUiComponent implements OnInit {
       this.service.saveEventBlock("news", obj).subscribe((res) => {
         this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
         //alert("SUCCESS!!");
+        this.show=false;
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
       });
-
   }
   submitTest() {
+    this.show=true;
     let obj: any[] = [];
     console.log("testtt==",this.testConfigurationForm.value);
 
@@ -615,10 +735,14 @@ export class HomeUiComponent implements OnInit {
         console.log("res==",res);
 
          this.snackBar.open("Saved Successfully", "Close", { duration: 5000 });
-        //alert("SUCCESS!!");
-      });
+         this.show=false;
+        },
+        (error)=>{
+          this.show=false;
+          this.snackBar.open("Oops, Something Went Wrong", "Close", { duration: 5000 });
+        });
 
-  }
+    }
   getHomepageData(){
     this.show = true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
@@ -628,7 +752,8 @@ export class HomeUiComponent implements OnInit {
       console.log("HomeData",this.homePageData);
       console.log("BannerData",this.homeBannerData);
       console.log("ListData",this.homeListData);
+      this.show= false;
     });
-    this.show= false;
+
   }
 }
