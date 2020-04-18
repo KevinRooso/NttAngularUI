@@ -10,9 +10,10 @@ import { AuthServiceService } from '../auth-service.service';
 export class HeaderComponent implements OnInit {
   constructor( private router: Router,
     private service:AuthServiceService) { }
-
     userName;
   ngOnInit(): void {
+    let token=localStorage.getItem('token');
+    if(token!=null)
     this.service.getUserDetail().subscribe(res=>{
       console.log("userName==",res);
 

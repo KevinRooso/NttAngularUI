@@ -44,16 +44,18 @@ export class LoginComponent implements OnInit {
       (res)=>{
         localStorage.removeItem('token');
         localStorage.setItem("token",res.body.accessToken);
-        console.log(res);
+        console.log("errorrr==",res);
         this.show =false;
         this.document.location.href = '/home';
         //this.router.navigate(['home']);
   },
   (error: HttpErrorResponse)=>
   {
-    console.log(error.error.status);
-    if(error.error.status=='401')
+    console.log("error",error.status);
+    if(error.status==401)
     this.snackBar.open('Please enter valid credentials', 'Close', {duration: 3500, verticalPosition: 'top'});
+    else
+    this.snackBar.open('Oops, Something Went Wrong!!', 'Close', {duration: 3500, verticalPosition: 'top'});
     this.show =false;
   }
   )

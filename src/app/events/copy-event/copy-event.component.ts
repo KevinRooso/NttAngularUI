@@ -58,6 +58,7 @@ export class CopyEventComponent implements OnInit {
   isEvent:boolean = false;
   isWebinar:boolean = false;
   endingDate = new Date();
+  newtoday = new Date();
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
@@ -155,6 +156,7 @@ export class CopyEventComponent implements OnInit {
     console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
   ngOnInit(): void {
+    this.newtoday.setDate(this.newtoday.getDate()-1);
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.evntID = params.page;
@@ -419,16 +421,27 @@ export class CopyEventComponent implements OnInit {
     let maxAgendaEndTime = null;
     for (let index in this.agendaData) {
       let agenda = this.agendaData[index];
-      if (index === '0') {
-        minAgendaStartTime = agenda.startDate;
-        maxAgendaEndTime = agenda.endDate;
-      }
-      if (minAgendaStartTime > agenda.startDate) {
-        minAgendaStartTime = agenda.startDate
+      let aStartDate = agenda.startDate;
+      let aEndDate = agenda.endDate;
+
+      if(aStartDate && typeof(aStartDate)=='string'){
+        aStartDate = new Date(aStartDate);
       }
 
-      if (maxAgendaEndTime < agenda.endDate) {
-        maxAgendaEndTime = agenda.endDate;
+      if(aEndDate && typeof(aEndDate)=='string'){
+        aEndDate = new Date(aEndDate);
+      }
+
+      if (index === '0') {
+        minAgendaStartTime = aStartDate;
+        maxAgendaEndTime = aEndDate;
+      }
+      if (minAgendaStartTime > aStartDate) {
+        minAgendaStartTime = aStartDate
+      }
+
+      if (maxAgendaEndTime < aEndDate) {
+        maxAgendaEndTime = aEndDate;
       }
     }
 
@@ -446,6 +459,24 @@ export class CopyEventComponent implements OnInit {
     if(typeof(eventEndDate)=='string'){
       eventEndDate = new Date(eventEndDate);
     }
+
+    eventStartDate.setSeconds(0);
+    eventStartDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
+
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+    minAgendaStartTime.setSeconds(0);
+    minAgendaStartTime.setMilliseconds(0);
+
+    maxAgendaEndTime.setSeconds(0);
+    maxAgendaEndTime.setMilliseconds(0);
 
     if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event start time';
@@ -604,6 +635,37 @@ export class CopyEventComponent implements OnInit {
       "idData":-1
     }
 
+    let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    let agendaStartDate = obj.startDate;
+    let agendaEndDate = obj.endDate;
+
+    if (agendaStartDate && typeof(agendaStartDate) == 'string') {
+      agendaStartDate = new Date(agendaStartDate);
+    }
+
+    if (agendaEndDate && typeof(agendaEndDate) == 'string') {
+      agendaEndDate = new Date(agendaEndDate);
+    }
+
+    if (eventStartDate && typeof(eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    agendaStartDate.setDate(eventStartDate.getDate());
+    agendaStartDate.setMonth(eventStartDate.getMonth());
+    agendaStartDate.setFullYear(eventStartDate.getFullYear());
+    agendaStartDate.setSeconds(0);
+    agendaStartDate.setMilliseconds(0);
+
+    agendaEndDate.setDate(eventStartDate.getDate());
+    agendaEndDate.setMonth(eventStartDate.getMonth());
+    agendaEndDate.setFullYear(eventStartDate.getFullYear());
+    agendaEndDate.setSeconds(0);
+    agendaEndDate.setMilliseconds(0);
+
+    obj.startDate = agendaStartDate;
+    obj.endDate = agendaEndDate
+
     console.log("myobj",obj);
 
     console.log("id=", this.addAgenda.controls['idData'].value);
@@ -711,6 +773,8 @@ export class CopyEventComponent implements OnInit {
    eventEndDate.setDate(eventStartDate.getDate());
    eventEndDate.setMonth(eventStartDate.getMonth());
    eventEndDate.setFullYear(eventStartDate.getFullYear());
+   eventEndDate.setSeconds(0);
+   eventEndDate.setMilliseconds(0);
 
    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
 
@@ -731,10 +795,15 @@ export class CopyEventComponent implements OnInit {
       agenStartDateObj.setDate(eventStartDate.getDate());
       agenStartDateObj.setMonth(eventStartDate.getMonth());
       agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+      agenStartDateObj.setSeconds(0);
+      agenStartDateObj.setMilliseconds(0);
 
       agendaEndDate.setDate(eventStartDate.getDate());
       agendaEndDate.setMonth(eventStartDate.getMonth());
       agendaEndDate.setFullYear(eventStartDate.getFullYear());
+      agendaEndDate.setSeconds(0);
+      agendaEndDate.setMilliseconds(0);
+
       agenda.startDate = agenStartDateObj.toISOString();
       agenda.endDate = agendaEndDate.toISOString();
     }
