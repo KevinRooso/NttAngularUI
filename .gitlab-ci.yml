@@ -26,12 +26,12 @@ build_and_test:
     # - npm run test-ci
     # - npm run e2e-ci
 
-# dev team deployment
-deploy_dev_team:
+# dev deployment
+deploy_dev:
   stage: deploy
   environment:
-    name: dev_team
-    url: https://ntt-web-dev-team-app.herokuapp.com/
+    name: dev
+    url: https://ntt-web-dev-app.herokuapp.com/
   # deploy only when `ntt-ui` branch is changed
   only:
     - ntt-ui
@@ -46,14 +46,14 @@ deploy_dev_team:
     - apt-get install -y ruby-dev
     - gem install dpl
     # - npm run build:dev
-    - dpl --provider=heroku --app=$HEROKU_DEV_TEAM_APP --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_DEV_APP --api-key=$HEROKU_API_KEY
 
-# dev deployment
-deploy_dev:
+# testing deployment
+deploy_testing:
   stage: deploy
   environment:
-    name: dev
-    url: https://ntt-web-dev-app.herokuapp.com/
+    name: testing
+    url: https://ntt-web-testing-app.herokuapp.com/
   # deploy only when `develop` branch is changed
   only:
     - develop
@@ -68,7 +68,7 @@ deploy_dev:
     - apt-get install -y ruby-dev
     - gem install dpl
     # - npm run build:dev
-    - dpl --provider=heroku --app=$HEROKU_DEV_APP --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_TESTING_APP --api-key=$HEROKU_API_KEY
 
 # staging deployment
 deploy_staging:

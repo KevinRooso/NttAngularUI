@@ -84,7 +84,7 @@
                 }
               ]
             },
-            "dev_team": {
+            "testing": {
               "commonChunk": true,
               "outputHashing": "all",
               "sourceMap": true,
@@ -92,7 +92,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev_team.ts"
+                  "with": "src/environments/environment.testing.ts"
                 }
               ]
             },
@@ -129,14 +129,14 @@
             "production": {
               "browserTarget": "NTT:build:production"
             },
-            "dev": {
-              "browserTarget": "NTT:build:dev"
-            },
-            "dev_team": {
-              "browserTarget": "NTT:build:dev_team"
-            },
             "stage": {
               "browserTarget": "NTT:build:stage"
+            },
+            "testing": {
+              "browserTarget": "NTT:build:testing"
+            },
+            "dev": {
+              "browserTarget": "NTT:build:dev"
             }
           }
         },
