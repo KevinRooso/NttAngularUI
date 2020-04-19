@@ -15,7 +15,7 @@
     "config": "ts-node --compiler-options '{\"module\": \"commonjs\"}' set-env.ts",
     "start:local": "npm run config && ng serve",
     "build:local": "npm run config && ng build",
-    "heroku-postbuild": "npm run config && ng build --aot=$AOT -c=$NG_ENV"
+    "heroku-postbuild": "npm run config && ng build --aot=$AOT_BUILD_OPTIMIZER --buildOptimizer=$AOT_BUILD_OPTIMIZER -c=$NG_ENV"
   },
   "private": true,
   "dependencies": {

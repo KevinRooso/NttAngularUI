@@ -49,6 +49,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "aot": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -63,7 +64,6 @@
               ]
             },
             "dev": {
-              "buildOptimizer": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
@@ -97,7 +97,6 @@
               ]
             },
             "stage": {
-              "buildOptimizer": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
