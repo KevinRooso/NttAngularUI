@@ -32,6 +32,7 @@ export class WhitepaperCreateComponent implements OnInit {
   userList: any[] = [];
   allData: any[] = [];
   tagData: any[] = [];
+  show:boolean=false;
 
 
   today=new Date();
@@ -39,7 +40,7 @@ export class WhitepaperCreateComponent implements OnInit {
 
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
-    private location: Location, public snackBar: MatSnackBar) {
+    private location: Location, public snackBar: MatSnackBar,private router:Router) {
     this.createWhitePaperForm = frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
@@ -168,6 +169,7 @@ export class WhitepaperCreateComponent implements OnInit {
   }
 
   createArticle() {
+    this.show=true;
     if (this.createWhitePaperForm.valid) {
 
       let tags: any[] = [];
@@ -203,15 +205,19 @@ export class WhitepaperCreateComponent implements OnInit {
 
       this.authService.saveResource(obj).subscribe(
         (response) => {
-          this.snackBar.open('Whitepaper successfully created', 'Close', { duration: 5000 });
+          this.show=false;
+          this.snackBar.open('Whitepaper successfully created', 'Close', { duration: 2000 });
           console.log("response", response);
+          this.router.navigate(['whitepapers']);
         },
         (error) => {
-          this.snackBar.open(error, 'Close');
+          this.show=false;
+          this.snackBar.open('Oops, something went wrong..', 'Close');
         }
       )
     }
     else {
+      this.show=false;
       this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
     }
 

@@ -134,7 +134,7 @@ export class CreateNewsComponent implements OnInit {
       console.log("response=",response);
       this.snackBar.open('News successfully created', 'Close', {duration: 5000});
       this.submitted = false;
-      //this.router.navigate(['events']);
+      this.router.navigate(['news']);
     },
     (error) => {
       console.log("error==",error);
