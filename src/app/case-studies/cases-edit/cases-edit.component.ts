@@ -116,8 +116,10 @@ export class CasesEditComponent implements OnInit {
         console.log(res);
 
         this.selected2=res.body.category.id;
+        if(res.body.person!=null){
+          this.selected3=res.body.person.id;
+        }
 
-        this.selected3=res.body.person.id;
 
 
         if(res.body.targetUserType!=null)
@@ -136,7 +138,7 @@ export class CasesEditComponent implements OnInit {
       this.createCases.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
       this.createCases.controls['thumbnailImageUrl'].updateValueAndValidity();
         this.previewUrl=res.body.thumbnailImageUrl;
-        this.speakerImage=res.body.thumbnailImageUrl;
+        this.articleImage=res.body.thumbnailImageUrl;
         this.createCases.get(['title']).setValue(res.body.title);
         this.createCases.get(['longDescription']).setValue(res.body.longDescription);
         this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
@@ -144,7 +146,7 @@ export class CasesEditComponent implements OnInit {
 
         this.createCases.controls['downloadUrl'].setValidators(null);
         this.createCases.controls['downloadUrl'].updateValueAndValidity();
-        this.articelAttach = res.body.resourceLink;
+        this.attachFile = res.body.resourceLink;
 
        // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
        for(let i=0;i<res.body.resourceTags.length;i++)
@@ -153,6 +155,8 @@ export class CasesEditComponent implements OnInit {
         console.log("tarus===",this.tarUserType);
         this.today=res.body.expiryDate;
         this.createCases.controls['expiryDate'].setValue(res.body.expiryDate);
+        this.image1button=true;
+        this.image2button=true;
        this.getCategoryDetails();
        this.getTagsDetails();
        this.getUserList();
@@ -265,6 +269,17 @@ export class CasesEditComponent implements OnInit {
         })
     }
     createCase() {
+      this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
       if(this.createCases.valid){
      let obj=this.createCases.value;
      let catObj;
@@ -305,19 +320,27 @@ export class CasesEditComponent implements OnInit {
         "detailImageUrl": "string",
         "approverId": 0,
         "thumbnailImageUrl": this.articleImage,
-        "downloadUrl": this.articelAttach,
+        "downloadUrl": this.attachFile,
 
    }
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
         console.log(res);
+        this.show=false;
         this.snackBar.open('Case Study Updated Successfully', 'Close', {duration: 5000});
         //alert("Case Study Updated Successfully");
         this.router.navigate(['cases']);
+      },
+      (error) => {
+        this.show=false;
+        this.snackBar.open('Oops, something went wrong..', 'Close');
       })
       }
-      else
+      else{
+        this.show=false;
       this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+      }
+
 
     }
     createTag(){
