@@ -53,7 +53,7 @@ export class CreateEventComponent implements OnInit {
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
 
 
-  isEvent: boolean = false;
+  isOnPremise: boolean = false;
   isWebinar: boolean = false;
   isAnonymous: boolean = false;
   checkError: any;
@@ -286,20 +286,26 @@ export class CreateEventComponent implements OnInit {
     const BOTH = "3";
 
     if (this.color == ON_PREMISE) {
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.isWebinar = false;
+      this.createEventForm.controls['webinarUrl'].setValue(null);
       this.createEventForm.controls['webinarUrl'].setValidators(null);
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
     } else if (this.color == WEBINAR) {
       this.isWebinar = true;
-      this.isEvent = false;
+      this.isOnPremise = false;
+      this.createEventForm.controls['address1'].setValue(null);
+      this.createEventForm.controls['address2'].setValue(null);
+      this.createEventForm.controls['city'].setValue(null);
+      this.createEventForm.controls['country'].setValue(null);
+      this.createEventForm.controls['pincode'].setValue(null);
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
     } else if (this.color == BOTH) {
       this.isWebinar = true;
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(Validators.required);
     }
@@ -462,8 +468,9 @@ export class CreateEventComponent implements OnInit {
         "isRegOpen": true,
         "publishStatus": false,
         "id": 0,
-        "isEvent": this.isEvent,
+        "isOnPremise": this.isOnPremise,
         "isWebinar": this.isWebinar,
+        "isEvent":true,
         "isDraft": this.createEventForm.controls['isDraft'].value
         //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
       }

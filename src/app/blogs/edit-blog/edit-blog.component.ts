@@ -379,7 +379,7 @@ crateFrorm(){
       "id":this.blogId,
       "draft": obj.isDraft,
       "person": personObj,
-      "shortDescription": obj.longDescription,
+      "shortDescription": obj.shortDescription,
       "tagList": tags,
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
