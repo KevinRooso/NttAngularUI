@@ -55,7 +55,7 @@ export class CopyEventComponent implements OnInit {
   speakerList1:string[] = [];
   checkError:any;
   checkErrorAgenda: any
-  isEvent:boolean = false;
+  isOnPremise:boolean = false;
   isWebinar:boolean = false;
   endingDate = new Date();
   newtoday = new Date();
@@ -188,13 +188,13 @@ export class CopyEventComponent implements OnInit {
       //   this.selected6.push(this.getEventDetails.speakers[i].id);
       //   console.log("speakerlist=",this.selected6);
 
-        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
+        if(this.getEventDetails.isOnPremise == true && this.getEventDetails.isWebinar == false){
           this.color="1";
         }
-        if(this.getEventDetails.isEvent == false && this.getEventDetails.isWebinar == true){
+        if(this.getEventDetails.isOnPremise == false && this.getEventDetails.isWebinar == true){
           this.color="2";
         }
-        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == true){
+        if(this.getEventDetails.isOnPremise == true && this.getEventDetails.isWebinar == true){
           this.color="3";
         }
 
@@ -417,21 +417,27 @@ export class CopyEventComponent implements OnInit {
     const WEBINAR = "2";
     const BOTH = "3";
 
-    if(this.color == ON_PREMISE){
-      this.isEvent = true;
+    if (this.color == ON_PREMISE) {
+      this.isOnPremise = true;
       this.isWebinar = false;
+      this.updateEventForm.controls['webinarUrl'].setValue(null);
       this.updateEventForm.controls['webinarUrl'].setValidators(null);
       this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
-    } else if(this.color == WEBINAR){
+    } else if (this.color == WEBINAR) {
       this.isWebinar = true;
-      this.isEvent = false;
+      this.isOnPremise = false;
+      this.updateEventForm.controls['address1'].setValue(null);
+      this.updateEventForm.controls['address2'].setValue(null);
+      this.updateEventForm.controls['city'].setValue(null);
+      this.updateEventForm.controls['country'].setValue(null);
+      this.updateEventForm.controls['pincode'].setValue(null);
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
-    } else if(this.color == BOTH){
+    } else if (this.color == BOTH) {
       this.isWebinar = true;
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(Validators.required);
     }
@@ -590,8 +596,9 @@ export class CopyEventComponent implements OnInit {
       "isActive":false,
       "id": 0,
       "targetUserType":userId,
-      "isEvent":this.isEvent,
+      "isOnPremise":this.isOnPremise,
       "isWebinar":this.isWebinar,
+      "isEvent":true,
       "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
     }
 
