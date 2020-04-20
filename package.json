@@ -12,7 +12,7 @@
     "lint-ci": "ng lint --type-check --force",
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
-    "config": "ts-node --compiler-options '{\"module\": \"commonjs\"}' set-env.ts",
+    "config": "ts-node --skip-project set-env.ts",
     "start:local": "npm run config && ng serve",
     "build:local": "npm run config && ng build",
     "heroku-postbuild": "npm run config && ng build --aot=$AOT_BUILD_OPTIMIZER --buildOptimizer=$AOT_BUILD_OPTIMIZER -c=$NG_ENV"
