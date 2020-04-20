@@ -32,14 +32,14 @@ export class LandingPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.eventCategoryTypeDetails();
+    // this.eventCategoryTypeDetails();
     this.userDevice();
     this.resourceDownload();
     this.eventStatusDetails();
     this.eventTargetUserTypeDetails();
     this.users();
 
-    // this.eventCategoryTypeDetailsTest();
+    this.eventCategoryTypeDetails();
 
     this.canvas = document.getElementById('respie');
     this.ctx = this.canvas.getContext('2d');
@@ -88,75 +88,75 @@ export class LandingPageComponent implements OnInit {
       },
       data:{
         datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
-    });
-    new Chart('doughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
-          backgroundColor:["red","orange","yellow","green","blue"],
-          labels:'Dataset 1'
-        }],
-        labels:['Red','Orange','Yellow','Green','Blue']
-      }
-    });
-
-    new Chart('userdoughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-      data:{
-        datasets:[{
-          data:[45,10,5,25,15],
+          data:[45,10,5,25],
           backgroundColor:["red","orange","yellow","green"],
           labels:'Dataset 1'
         }],
         labels:['Red','Orange','Yellow','Green']
       }
     });
-    new Chart('doughnut',{
-      type:'doughnut',
-      options:{
-        responsive:true,
-        title:{
-          display:true,
-          text:'Doughnut Chart'
-        }, legend:{
-          position:'top',
-        }, animation:{
-          animateScale:true,
-          animareRotate:true
-        }
-      },
-    });
+    // new Chart('doughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    //   data:{
+    //     datasets:[{
+    //       data:[45,10,5,25,15],
+    //       backgroundColor:["red","orange","yellow","green","blue"],
+    //       labels:'Dataset 1'
+    //     }],
+    //     labels:['Red','Orange','Yellow','Green','Blue']
+    //   }
+    // });
+
+    // new Chart('userdoughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    //   data:{
+    //     datasets:[{
+    //       data:[45,10,5,25,15],
+    //       backgroundColor:["red","orange","yellow","green"],
+    //       labels:'Dataset 1'
+    //     }],
+    //     labels:['Red','Orange','Yellow','Green']
+    //   }
+    // });
+    // new Chart('doughnut',{
+    //   type:'doughnut',
+    //   options:{
+    //     responsive:true,
+    //     title:{
+    //       display:true,
+    //       text:'Doughnut Chart'
+    //     }, legend:{
+    //       position:'top',
+    //     }, animation:{
+    //       animateScale:true,
+    //       animareRotate:true
+    //     }
+    //   },
+    // });
   }
 
 //Resources Graphs
@@ -397,70 +397,14 @@ export class LandingPageComponent implements OnInit {
 
 //Event Category
 
-  eventCategoryTypeDetails(){
-    this.service.geteventCategoryTypeDetails()
-    .subscribe(res =>{
-      console.log(res.body)
-
-      let userdeviceData=res.body;
-
-      this.canvas = document.getElementById('eventCategoryType');
-      this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Computing","Recovery","Datacenter ","General"],
-            datasets: [{
-              label:"No. of categories",
-              maxBarThickness: 30,
-                // data: [(userdeviceData.Datacenter),(userdeviceData.General)],
-                data: [(userdeviceData.CloudComputing),(userdeviceData.CloudComputingHybricloudDisasterRecovery),
-                  (userdeviceData.Datacenter),(userdeviceData.General)],
-                backgroundColor: [
-                  '#2CD5B6',
-                  '#0FC8F2',
-                  '#753BBD',
-                  '#E6442B'
-              ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-          title:{
-            display:true,
-            text:'Categories'
-          },
-          responsive: false,
-          display:true,
-          scales: {
-            xAxes: [{
-              // gridLines: {
-              //     color: "rgba(0, 0, 0, 0)",
-              // }
-          }],
-            yAxes: [{
-            //   gridLines: {
-            //     color: "rgba(0, 0, 0, 0)",
-            // },
-                ticks: {
-                  stepSize:10,
-                    beginAtZero:true
-                }
-            }]
-        }
-        }
-      });
-    })
-  }
-  //--------------test----------//
-  // eventCategoryTypeDetailsTest(){
+  // eventCategoryTypeDetails(){
   //   this.service.geteventCategoryTypeDetails()
   //   .subscribe(res =>{
   //     console.log(res.body)
 
   //     let userdeviceData=res.body;
 
-  //     this.canvas = document.getElementById('eventCategoryTypeTest');
+  //     this.canvas = document.getElementById('eventCategoryType');
   //     this.ctx = this.canvas.getContext('2d');
   //     let myChart = new Chart(this.ctx, {
   //       type: 'bar',
@@ -508,6 +452,44 @@ export class LandingPageComponent implements OnInit {
   //     });
   //   })
   // }
+  //--------------test----------//
+  eventCategoryTypeDetails(){
+    this.service.geteventCategoryTypeDetails()
+    .subscribe(res =>{
+      console.log(res.body)
+
+      let userdeviceData=res.body;
+      new Chart('eventCategoryType',{
+        type:'doughnut',
+        options:{
+          responsive:true,
+          title:{
+            display:true,
+            text:'Categories'
+          }, legend:{
+            position:'right',
+          }, animation:{
+            animateScale:true,
+            animareRotate:true
+          }
+        },
+        data:{
+          datasets:[{
+            data: [(userdeviceData.CloudComputing),(userdeviceData.CloudComputingHybricloudDisasterRecovery),
+              (userdeviceData.Datacenter),(userdeviceData.General)],
+            backgroundColor:[
+              '#2CD5B6',
+              '#0FC8F2',
+              '#753BBD',
+              '#E6442B'
+          ],
+            labels:'Dataset 1'
+          }],
+          labels:['Computing','Recovery','Datacenter','General']
+        }
+      });
+    })
+  }
 
 
 
