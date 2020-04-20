@@ -175,8 +175,13 @@ export class CreateBlogComponent implements OnInit {
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
 
   fileProgress1(fileInput: any) {
     this.previewUrl1=null;
@@ -215,6 +220,10 @@ export class CreateBlogComponent implements OnInit {
         this.personImage = res.fileDownloadUri;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -274,7 +283,7 @@ export class CreateBlogComponent implements OnInit {
          "detailImageUrl": "",
          "downloadUrl": "",
          "categoryId": obj.categoryId.id,
-         "isDraft": obj.isDraft,
+         "draft": obj.isDraft,
          "longDescription": obj.longDescription,
          "person": {
            "description": obj.person.description,
@@ -292,7 +301,7 @@ export class CreateBlogComponent implements OnInit {
          "targetUserType":obj.targetUserType,
          "resourceType":1,
          "serviceUsed": "",
-         "shortDescription": obj.longDescription,
+         "shortDescription": obj.shortDescription,
          "tagList": tags,
          "thumbnailImageUrl": obj.thumbnailImageUrl,
          "title": obj.title,

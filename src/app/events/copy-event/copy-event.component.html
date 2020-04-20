@@ -1,4 +1,4 @@
-<!-- <app-loader *ngIf="show"></app-loader> -->
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
       <li><a href="/home">Home</a></li>
@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 300 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -38,7 +38,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Description should be less than 2000 characters
+              Description should be less than 700 characters
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
-              (Short Description should be less than 2000 characters)
+              (Short Description should be less than 80 characters)
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 1 <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Venue <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
             <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
@@ -154,7 +154,7 @@
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 2</label>
+          <label class="col-sm-3 col-form-label">Address </label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 2" value="" formControlName="address2">
           </mat-form-field>
@@ -278,7 +278,7 @@
           <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
           <div class="col-sm-9">
             <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-            [min]="today" [max]="regStartDate" class="form-control" placeholder="Start Date"
+            [min]=" newtoday" [max]="regStartDate" class="form-control" placeholder="Start Date"
             formControlName="registrationStartDate">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
           <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
@@ -299,14 +299,26 @@
           </div>
         </div>
         <div class="form-row">
+          <label class="col-sm-3 col-form-label">Policy Terms & Conditions <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="policyTnc" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('policyTnc', 'required', true)" style="color:red;font-size: 12px;">
+              (Terms & Conditions is required)
+            </div>
+            <div *ngIf="checkError('policyTnc', 'maxlength',true)" style="color:red;font-size: 12px;">
+              Terms & Conditions should be less than 1500 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy FAQs</label>
           <div class="col-sm-9">
             <ckeditor placeholder="Description..." formControlName="policyFAQ" class="example-full-width col-sm-9 p-0"></ckeditor>
             <!-- <div *ngIf="checkError('policyFAQ', 'required', true)" style="color:red;font-size: 12px;">
               (Terms & Conditions is required)
             </div> -->
-            <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Policy FAQs should be less than 3000 characters
+            <div *ngIf="checkError('policyFAQ', 'maxlength',true)" style="color:red;font-size: 12px;">
+              Policy FAQs should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -320,7 +332,7 @@
               <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-primary" (click)="uploadImage()" [ngClass]="{'cursor' : !imageValid}" [disabled]="!imageValid">Upload File</button>
+              <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
               <div *ngIf="fileUploadProgress">
                 Upload progress: {{ fileUploadProgress }}
               </div>
@@ -343,7 +355,7 @@
             <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [ngClass]="{'cursor' : !imageValid2}" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()"[disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -467,7 +479,7 @@
 
          <div class="form-row py-1">
             <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
+            class="col-sm-12 p-2" formControlName="startDate">
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
             <div *ngIf="checkErrorAgenda('startDate', 'required',true)" style="color:red;font-size: 12px;">
               (Event Agenda start time is required)
@@ -477,7 +489,7 @@
 
           <div class="form-row">
             <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
+            class="col-sm-12 p-2" formControlName="endDate">
             <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
             <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
               (Event Agenda end time is required)

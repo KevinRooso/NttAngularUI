@@ -5,7 +5,7 @@
       {{userType=='public'?'Public':'Customer'}} User Configuration</button>
   </div>
 </div>
-<div class="text-center my-5">
+<div class="text-center my-5" *ngIf="publicFlag">
   <p class="heading-secondary">Edit Homepage Configuration</p>
 </div>
 <div class="row m-0">
@@ -23,7 +23,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner1Block" #block
                   (selectionChange)="getSelectedBlockData(block.value,'banner1')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                  <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+              </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -55,7 +57,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner2Block" #block1
                   (selectionChange)="getSelectedBlockData(block1.value,'banner2')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -87,7 +91,9 @@
                 <mat-label>Select Block</mat-label>
                 <mat-select formControlName="datafieldType" [(value)]="banner3Block" #block2
                   (selectionChange)="getSelectedBlockData(block2.value,'banner3')">
-                  <mat-option *ngFor="let block of blocks" [value]="block.name">{{block.name}}</mat-option>
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -353,20 +359,20 @@
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button class="btn" #testButton (click)="this.getSelectedBlockData8(blocks[7].url)"
-                  data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+                  data-toggle="collapse" data-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
                   Testimonials Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
-            <div id="collapseNews" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseNews">
+            <div id="collapseTest" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseTest">
               <form [formGroup]='testConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="testBlockData">
                       <mat-option *ngFor="let block of testData" [value]="block.id">
-                        {{block.title}}{{block.id}}{{testBlockData}}</mat-option>
+                        {{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -400,16 +406,17 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active" *ngIf="homeBannerData.length >= 0">
-              <img class="d-block w-100" [src]="homeBannerData[0].companyImageUrl">
+            <div class="carousel-item active" *ngIf="homeBannerData.length > 0">
+              <img class="d-block w-100 img-size" [src]="homeBannerData[0].thumbnailImageUrl ? homeBannerData[0].thumbnailImageUrl : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length >= 1">
-              <img class="d-block w-100" [src]="homeBannerData[1].companyImageUrl">
+            <div class="carousel-item" *ngIf="homeBannerData.length > 1">
+              <img class="d-block w-100 img-size" [src]="homeBannerData[1].thumbnailImageUrl ? homeBannerData[1].thumbnailImageUrl : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length >= 2">
-              <img class="d-block w-100" [src]="homeBannerData[2].companyImageUrl">
+            <div class="carousel-item" *ngIf="homeBannerData.length > 2">
+              <img class="d-block w-100 img-size" [src]="homeBannerData[2].thumbnailImageUrl ? homeBannerData[2].thumbnailImageUrl : defaultImage">
             </div>
           </div>
+          <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -439,7 +446,7 @@
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
@@ -450,7 +457,7 @@
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="" width="100%" height="166px">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
@@ -461,30 +468,40 @@
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type =='testimonials'">
+          <div class="preview-card my-3" *ngIf="list.type =='testimonials'" style="height: 100%;">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
-            <div class="preview-card-body p-0">
+            <div class="preview-card-body px-2 py-2">
               <p>"{{list.title}}"</p>
+              <hr class="m-0">
+              <ul class="list-group">
+                <li class="list-group-item">
+                   <div class="d-inline-flex" style="align-items: baseline;">
+                      <div class="mr-2">
+                        <img  [src]="list.imageUrl ? list.imageUrl :  defaultProfile" alt="User Image" class="speaker-image"></div>
+                      <a>{{list.personName}}</a>
+                   </div>
+                </li>
+             </ul>
               <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type =='case studies'">
+          <div class="preview-card my-3" *ngIf="list.type =='case studies'" style="height: 100%;">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
-            <div class="preview-card-body p-0">
-              <p>{{list.title}}</p>
+            <div class="preview-card-body px-2 py-2">
+              <p class="m-0">{{list.title}}</p>
             </div>
           </div>
         </div>
@@ -495,7 +512,7 @@
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
@@ -506,7 +523,18 @@
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt=""  width="100%" height="166px">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt=""  class="img-size">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let list of homeListData">
+          <div class="preview-card my-3" *ngIf="list.type =='white papers'">
+            <div class="row preview-header">
+              <div class="col-sm-6 preview-header-text text-left">Whitepapers</div>
+              <div class="col-sm-6 preview-header-text text-right">view all</div>
+            </div>
+            <div class="preview-card-body p-0">
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt=""  class="img-size">
             </div>
           </div>
         </div>

@@ -162,7 +162,7 @@ export class VideosCreateComponent implements OnInit {
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
       "resourceType": 6,
-      "isDraft": obj.isDraft,
+      "draft": obj.isDraft,
       "targetUserType":obj.targetUserType,
       "expiryDate": this.createVideoForm.controls['expiryDate'].value,
     }

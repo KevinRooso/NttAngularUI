@@ -123,6 +123,7 @@ export class CreateNewsComponent implements OnInit {
         "about": this.createNewsForm.controls['about'].value,
         "active": false,
         "tagList":[],
+        "targetUserType":this.createNewsForm.controls['targetUserType'].value,
         "draft": this.createNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": 0,
@@ -132,34 +133,16 @@ export class CreateNewsComponent implements OnInit {
     this.authService.saveNews(objData).subscribe((response) => {
       console.log("response=",response);
       this.snackBar.open('News successfully created', 'Close', {duration: 5000});
-     // console.log("responsne", response);
       this.submitted = false;
-      //this.router.navigate(['events']);
+      this.router.navigate(['news']);
     },
     (error) => {
       console.log("error==",error);
-
       this.snackBar.open(error, 'Close');
-      // alert("Error :" + error);
      })
 
   }
-  // generateBlog() {
-  //   this.submitted = true;
-  //   if (this.createNewsForm.valid) {
-  //     let date = this.createNewsForm.get(['date']).value.toString().split(' ');
-  //     console.log(date);
 
-  //     let dataObj = this.createNewsForm.value;
-  //     dataObj['thumbnailImageUrl'] = this.speakerImage;
-  //     dataObj['date'] = this.createNewsForm.get(['date']).value.toString();
-  //     dataObj['year'] = date[3];
-  //     console.log(dataObj);
-  //     this.service.saveNews(dataObj).subscribe(res => {
-  //       alert("News Added Successfully");
-  //       this.router.navigate(['/news']);
-  //     })
-  //   }
   }
   BackMe() {
     this.location.back();

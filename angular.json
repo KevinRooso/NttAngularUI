@@ -49,6 +49,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "aot": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -63,7 +64,6 @@
               ]
             },
             "dev": {
-              "buildOptimizer": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
@@ -84,7 +84,7 @@
                 }
               ]
             },
-            "dev_team": {
+            "testing": {
               "commonChunk": true,
               "outputHashing": "all",
               "sourceMap": true,
@@ -92,25 +92,30 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev_team.ts"
+                  "with": "src/environments/environment.testing.ts"
                 }
               ]
             },
             "stage": {
+              "commonChunk": true,
+              "sourceMap": true,
+              "extractCss": true,
+              "extractLicenses": true,
+              "forkTypeChecker": true,
+              "namedChunks": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "progress": true,
+              "showCircularDependencies": true,
+              "statsJson": true,
+              "vendorChunk": true,
+              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.stage.ts"
                 }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": true,
-              "extractLicenses": true,
-              "vendorChunk": true,
-              "buildOptimizer": true,
+              ]
             }
           }
         },
@@ -123,14 +128,14 @@
             "production": {
               "browserTarget": "NTT:build:production"
             },
-            "dev": {
-              "browserTarget": "NTT:build:dev"
-            },
-            "dev_team": {
-              "browserTarget": "NTT:build:dev_team"
-            },
             "stage": {
               "browserTarget": "NTT:build:stage"
+            },
+            "testing": {
+              "browserTarget": "NTT:build:testing"
+            },
+            "dev": {
+              "browserTarget": "NTT:build:dev"
             }
           }
         },

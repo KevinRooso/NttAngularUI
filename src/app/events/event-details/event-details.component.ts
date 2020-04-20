@@ -13,9 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   animations: speedDialFabAnimations
 })
 export class EventDetailsComponent implements OnInit {
-  getEventDetails: any;
+  getEventDetails: any = [];
  // htmlString = '<h1>Dheeraj Kishore<h1>';
-  getParticipantDetails: any;
+  getParticipantDetails: any = [];
   eventId;
   eventName;
   startTime="";

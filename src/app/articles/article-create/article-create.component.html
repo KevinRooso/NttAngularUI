@@ -16,7 +16,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="FullName" formControlName="title">
+            <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
             <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 200 characters</mat-error>
           </mat-form-field>
@@ -25,7 +25,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
+            <textarea matInput placeholder="Long Description" formControlName="longDescription" rows="4"></textarea>
             <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
             <mat-error *ngIf="checkError('longDescription', 'maxlength')">Description should be less than 8000
               characters</mat-error>
@@ -35,7 +35,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description" formControlName="shortDescription" rows="2"></textarea>
+            <textarea matInput placeholder="Short Description" formControlName="shortDescription" rows="2"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
             <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000
               characters</mat-error>

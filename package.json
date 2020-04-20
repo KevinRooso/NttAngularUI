@@ -6,20 +6,16 @@
     "npm": "6.12.x"
   },
   "scripts": {
-    "ng": "ng",
     "lint": "ng lint",
     "test": "ng test",
     "e2e": "ng e2e",
     "lint-ci": "ng lint --type-check --force",
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
-    "start:local": "ng serve",
-    "build:local": "ng build",
-    "build": "ng build",
-    "build:dev": "ng build --aot=true  -c=dev",
-    "build:dev_team": "ng build --aot=true -c=dev_team",
-    "build:stage": "ng build --aot=true -c=stage",
-    "heroku-postbuild": "ng build -c=$NG_ENV"
+    "config": "ts-node --skip-project set-env.ts",
+    "start:local": "npm run config && ng serve",
+    "build:local": "npm run config && ng build",
+    "heroku-postbuild": "npm run config && ng build --aot=$AOT_BUILD_OPTIMIZER --buildOptimizer=$AOT_BUILD_OPTIMIZER -c=$NG_ENV"
   },
   "private": true,
   "dependencies": {
@@ -45,10 +41,12 @@
     "compression": "^1.7.4",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
     "ng-pick-datetime": "^7.0.0",
     "ng2-ckeditor": "^1.2.7",
+    "rollbar": "^2.15.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -74,7 +72,7 @@
     "protractor": "~5.4.3",
     "puppeteer": "^2.1.1",
     "source-map-explorer": "^2.4.2",
-    "ts-node": "~8.3.0",
+    "ts-node": "^8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
   }

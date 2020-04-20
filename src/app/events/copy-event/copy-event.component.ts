@@ -55,9 +55,10 @@ export class CopyEventComponent implements OnInit {
   speakerList1:string[] = [];
   checkError:any;
   checkErrorAgenda: any
-  isEvent:boolean = false;
+  isOnPremise:boolean = false;
   isWebinar:boolean = false;
   endingDate = new Date();
+  newtoday = new Date();
 
   imageValid: boolean = false;
   imageValid2: boolean = false;
@@ -73,9 +74,9 @@ export class CopyEventComponent implements OnInit {
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(private formBuilder: FormBuilder, private location: Location, public snackBar: MatSnackBar, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute) {
     this.updateEventForm = formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       address1: ['', Validators.required],
       address2: [''],
       city: ['', Validators.required],
@@ -93,8 +94,8 @@ export class CopyEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      policyFAQ: new FormControl('', [Validators.maxLength(3000)]),
+      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(1500)]),
+      policyFAQ: new FormControl('', [Validators.maxLength(1500)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       fullName: [''],
@@ -155,6 +156,7 @@ export class CopyEventComponent implements OnInit {
     console.log("validation chcek=",this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }
   ngOnInit(): void {
+    this.newtoday.setDate(this.newtoday.getDate()-1);
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.evntID = params.page;
@@ -174,7 +176,7 @@ export class CopyEventComponent implements OnInit {
     })
   }
   getEventData(id) {
-    this.show = true;
+    // this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
@@ -186,13 +188,13 @@ export class CopyEventComponent implements OnInit {
       //   this.selected6.push(this.getEventDetails.speakers[i].id);
       //   console.log("speakerlist=",this.selected6);
 
-        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == false){
+        if(this.getEventDetails.isOnPremise == true && this.getEventDetails.isWebinar == false){
           this.color="1";
         }
-        if(this.getEventDetails.isEvent == false && this.getEventDetails.isWebinar == true){
+        if(this.getEventDetails.isOnPremise == false && this.getEventDetails.isWebinar == true){
           this.color="2";
         }
-        if(this.getEventDetails.isEvent == true && this.getEventDetails.isWebinar == true){
+        if(this.getEventDetails.isOnPremise == true && this.getEventDetails.isWebinar == true){
           this.color="3";
         }
 
@@ -235,12 +237,12 @@ export class CopyEventComponent implements OnInit {
 
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
-      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventSchedule[0].startDate);
+      this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
 
 
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
-      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventSchedule[0].endDate);
+      this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventEndDate);
 
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
@@ -249,6 +251,9 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
+
+      this.image1button=true;
+      this.image2button=true;
 
       this.getEventDetails.tags.forEach(m => {
         this.endingDate=this.getEventDetails.eventSchedule[0].endDate;
@@ -283,45 +288,41 @@ export class CopyEventComponent implements OnInit {
       this.getSpeakerDetails()
       this.getTagsDetails();
       this.getUserList();
-      this.show = false;
+      // this.show = false;
     })
   }
-  fileProgress(fileInput: any) {
+    fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
-      this.imageValid = true;
-      this.preview();
-    }
+    if(this.fileData!=undefined){
+      this.image1button=false;
+        let fileType = this.fileData.type;
+        if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+          this.imageValid = true;
+          this.preview();
+        }
+      }
   }
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.imgValid =true;
-  //   this.preview();
-  // }
-  // fileProgress2(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   //this.imgValid1 =true;
-  //   this.preview2();
-  // }
   fileProgress2(fileInput: any) {
+    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
+    if(this.fileData!=undefined){
+      this.image2button=false;
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid2 = true;
       this.preview2();
     }
+  }
   }
   preview() {
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -340,31 +341,45 @@ export class CopyEventComponent implements OnInit {
     }
   }
   uploadImage() {
-    const formData = new FormData();
+    this.show=true;
     this.image1button=false;
+    const formData = new FormData();
     formData.append('file', this.fileData);
+    this.image1button=false;
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
-        this.imageValid = false;
+        this.show=false;
         this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
-    const formData1 = new FormData();
+    this.show=true;
     this.image2button=false;
+    const formData1 = new FormData();
     formData1.append('file', this.fileData);
+    // this.image2button=false;
     this.authService.uploadFile(formData1)
       .subscribe(res => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
-        this.imageValid2 = false;
         this.image2button=true;
+        this.imageValid2 = false;
+        this.show=false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -387,26 +402,42 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
   submitChanges(){
-    this.show =true;
+    // this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Banner', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     const ON_PREMISE = "1";
     const WEBINAR = "2";
     const BOTH = "3";
 
-    if(this.color == ON_PREMISE){
-      this.isEvent = true;
+    if (this.color == ON_PREMISE) {
+      this.isOnPremise = true;
       this.isWebinar = false;
+      this.updateEventForm.controls['webinarUrl'].setValue(null);
       this.updateEventForm.controls['webinarUrl'].setValidators(null);
       this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
-    } else if(this.color == WEBINAR){
+    } else if (this.color == WEBINAR) {
       this.isWebinar = true;
-      this.isEvent = false;
+      this.isOnPremise = false;
+      this.updateEventForm.controls['address1'].setValue(null);
+      this.updateEventForm.controls['address2'].setValue(null);
+      this.updateEventForm.controls['city'].setValue(null);
+      this.updateEventForm.controls['country'].setValue(null);
+      this.updateEventForm.controls['pincode'].setValue(null);
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
-    } else if(this.color == BOTH){
+    } else if (this.color == BOTH) {
       this.isWebinar = true;
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(Validators.required);
     }
@@ -419,16 +450,27 @@ export class CopyEventComponent implements OnInit {
     let maxAgendaEndTime = null;
     for (let index in this.agendaData) {
       let agenda = this.agendaData[index];
-      if (index === '0') {
-        minAgendaStartTime = agenda.startDate;
-        maxAgendaEndTime = agenda.endDate;
-      }
-      if (minAgendaStartTime > agenda.startDate) {
-        minAgendaStartTime = agenda.startDate
+      let aStartDate = agenda.startDate;
+      let aEndDate = agenda.endDate;
+
+      if(aStartDate && typeof(aStartDate)=='string'){
+        aStartDate = new Date(aStartDate);
       }
 
-      if (maxAgendaEndTime < agenda.endDate) {
-        maxAgendaEndTime = agenda.endDate;
+      if(aEndDate && typeof(aEndDate)=='string'){
+        aEndDate = new Date(aEndDate);
+      }
+
+      if (index === '0') {
+        minAgendaStartTime = aStartDate;
+        maxAgendaEndTime = aEndDate;
+      }
+      if (minAgendaStartTime > aStartDate) {
+        minAgendaStartTime = aStartDate
+      }
+
+      if (maxAgendaEndTime < aEndDate) {
+        maxAgendaEndTime = aEndDate;
       }
     }
 
@@ -447,6 +489,24 @@ export class CopyEventComponent implements OnInit {
       eventEndDate = new Date(eventEndDate);
     }
 
+    eventStartDate.setSeconds(0);
+    eventStartDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['startDate'].setValue(eventStartDate);
+
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['endDate'].setValue(eventEndDate);
+
+    minAgendaStartTime.setSeconds(0);
+    minAgendaStartTime.setMilliseconds(0);
+
+    maxAgendaEndTime.setSeconds(0);
+    maxAgendaEndTime.setMilliseconds(0);
+
     if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       let errorMsg = 'Please select one of the agenda time equals to event start time';
       this.snackBar.open(errorMsg, 'Close');
@@ -457,7 +517,8 @@ export class CopyEventComponent implements OnInit {
       return false;
     }
 
-   //if(this.updateEventForm.valid){
+   if(this.updateEventForm.valid){
+     this.show=true;
     let tags:any[]=[];
     let speakerList1:any[]=[];
     // console.log("eventform==",this.updateEventForm.value);
@@ -536,8 +597,9 @@ export class CopyEventComponent implements OnInit {
       "isActive":false,
       "id": 0,
       "targetUserType":userId,
-      "isEvent":this.isEvent,
+      "isOnPremise":this.isOnPremise,
       "isWebinar":this.isWebinar,
+      "isEvent":true,
       "webinarUrl":this.updateEventForm.controls['webinarUrl'].value
     }
 
@@ -546,9 +608,9 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
-        this.submitted = false;
         this.show =false;
+        this.submitted = false;
+        this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
         this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
       },
       (error) => {
@@ -556,10 +618,11 @@ export class CopyEventComponent implements OnInit {
         this.show =false;
       }
     )
-  //  }
-  // else{
-  //   this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
-  // }
+   }
+  else{
+    this.show =false;
+    this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
+  }
   this.closeModel1.nativeElement.click();
   }
   updateEvent() {
@@ -569,7 +632,6 @@ export class CopyEventComponent implements OnInit {
     }
     else{
       this.submitChanges();
-
     }
 
   }
@@ -603,6 +665,37 @@ export class CopyEventComponent implements OnInit {
       "id":0,
       "idData":-1
     }
+
+    let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    let agendaStartDate = obj.startDate;
+    let agendaEndDate = obj.endDate;
+
+    if (agendaStartDate && typeof(agendaStartDate) == 'string') {
+      agendaStartDate = new Date(agendaStartDate);
+    }
+
+    if (agendaEndDate && typeof(agendaEndDate) == 'string') {
+      agendaEndDate = new Date(agendaEndDate);
+    }
+
+    if (eventStartDate && typeof(eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    agendaStartDate.setDate(eventStartDate.getDate());
+    agendaStartDate.setMonth(eventStartDate.getMonth());
+    agendaStartDate.setFullYear(eventStartDate.getFullYear());
+    agendaStartDate.setSeconds(0);
+    agendaStartDate.setMilliseconds(0);
+
+    agendaEndDate.setDate(eventStartDate.getDate());
+    agendaEndDate.setMonth(eventStartDate.getMonth());
+    agendaEndDate.setFullYear(eventStartDate.getFullYear());
+    agendaEndDate.setSeconds(0);
+    agendaEndDate.setMilliseconds(0);
+
+    obj.startDate = agendaStartDate;
+    obj.endDate = agendaEndDate
 
     console.log("myobj",obj);
 
@@ -692,9 +785,59 @@ export class CopyEventComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   maxCDate() {
-    console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
-    this.closingDate = this.updateEventForm.get(['startDate']).value;
-   this.regStartDate = this.closingDate;
+   console.log("Closing Date", this.updateEventForm.get(['startDate']).value);
+   let eventStartDate = this.updateEventForm.get(['startDate']).value;
+   this.closingDate = eventStartDate;
+   this.regStartDate = eventStartDate;
+
+   if (eventStartDate && typeof(eventStartDate) == 'string') {
+     eventStartDate = new Date(eventStartDate);
+   }
+
+   let eventEndDate = this.updateEventForm.controls['endDate'].value;
+
+   if (eventEndDate && typeof(eventEndDate) == 'string') {
+     eventEndDate = new Date(eventEndDate);
+   }
+
+   // setting event end date equal to start date as no is allowed to select in end date field
+   eventEndDate.setDate(eventStartDate.getDate());
+   eventEndDate.setMonth(eventStartDate.getMonth());
+   eventEndDate.setFullYear(eventStartDate.getFullYear());
+   eventEndDate.setSeconds(0);
+   eventEndDate.setMilliseconds(0);
+
+   this.updateEventForm.controls['endDate'].setValue(eventEndDate);
+
+    // update all agenda start date if start dates changes
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      let agenStartDateObj = null;
+      let agendaEndDate = null;
+
+      if (agenda.startDate && typeof(agenda.startDate) == 'string') {
+        agenStartDateObj = new Date(agenda.startDate);
+      }
+
+      if (agenda.endDate && typeof(agenda.endDate) == 'string') {
+        agendaEndDate = new Date(agenda.endDate);
+      }
+
+      agenStartDateObj.setDate(eventStartDate.getDate());
+      agenStartDateObj.setMonth(eventStartDate.getMonth());
+      agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+      agenStartDateObj.setSeconds(0);
+      agenStartDateObj.setMilliseconds(0);
+
+      agendaEndDate.setDate(eventStartDate.getDate());
+      agendaEndDate.setMonth(eventStartDate.getMonth());
+      agendaEndDate.setFullYear(eventStartDate.getFullYear());
+      agendaEndDate.setSeconds(0);
+      agendaEndDate.setMilliseconds(0);
+
+      agenda.startDate = agenStartDateObj.toISOString();
+      agenda.endDate = agendaEndDate.toISOString();
+    }
   }
   maxEDate() {
     console.log("ending Date", this.updateEventForm.get(['endDate']).value);

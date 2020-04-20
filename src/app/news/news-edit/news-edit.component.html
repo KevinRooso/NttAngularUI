@@ -84,7 +84,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType" [(value)]="selected3">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
@@ -102,7 +102,7 @@
 
           <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
         <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+        <div *ngIf="checkError('expiryDate', 'required', true)" style="color:red;font-size: 12px;">
           (Expiration date & time is required)
         </div>
          </div>

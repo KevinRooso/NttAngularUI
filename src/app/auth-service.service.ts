@@ -204,4 +204,8 @@ export class AuthServiceService {
   geteventCategoryTypeDetails():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/eventCategoryTypeDetails', {headers:this.headers})
   }
+
+  removeEventSchedule(id):Observable<any>{
+    return this.http.delete<any>(this.url+'api/admin/event/schedule/' +id, {headers:this.headers})
+  }
 }

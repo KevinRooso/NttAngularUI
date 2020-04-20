@@ -250,8 +250,13 @@ crateFrorm(){
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
   fileProgress1(fileInput: any) {
     this.previewUrl1=null;
     this.imageValid1=false;
@@ -290,6 +295,10 @@ crateFrorm(){
         this.personImage = res.fileDownloadUri;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.personImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -368,9 +377,9 @@ crateFrorm(){
       "detailImageUrl": "string",
       "downloadUrl": "",
       "id":this.blogId,
-      "isDraft": obj.isDraft,
+      "draft": obj.isDraft,
       "person": personObj,
-      "shortDescription": obj.longDescription,
+      "shortDescription": obj.shortDescription,
       "tagList": tags,
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,

@@ -26,7 +26,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Long Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description..." formControlName="longDescription" maxlength="8000" rows="4"></textarea>
+            <textarea matInput placeholder="Long Description..." formControlName="longDescription" maxlength="8000" rows="4"></textarea>
             <mat-error *ngIf="checkError('longDescription', 'required')">(Long Description is required)</mat-error>
           </mat-form-field>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Details..." formControlName="shortDescription" maxlength="3000" rows="2"></textarea>
+            <textarea matInput placeholder="Short Description..." formControlName="shortDescription" maxlength="3000" rows="2"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
           </mat-form-field>
         </div>
@@ -78,7 +78,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType" [(ngModel)]="tarUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}

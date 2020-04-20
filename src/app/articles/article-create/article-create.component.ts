@@ -156,9 +156,15 @@ export class ArticleCreateComponent implements OnInit {
         console.log("Image", this.articleImage);
         this.show=false;
         this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
   uploadAttachment() {
     this.image2button=false;
     this.show=true;
@@ -171,9 +177,15 @@ export class ArticleCreateComponent implements OnInit {
         console.log("File", this.attachFile);
         this.show=false;
         this.image2button=true;
+        this.imageValid2 = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
 
   createArticle() {
     this.show=true;
@@ -222,11 +234,10 @@ export class ArticleCreateComponent implements OnInit {
 
       this.authService.saveResource(obj).subscribe(
         (response) => {
-          this.snackBar.open('Article successfully created', 'Close', { duration: 5000 });
-          console.log("response", response);
           this.show=false;
+          this.snackBar.open('Article successfully created', 'Close', { duration: 2000 });
+          console.log("response", response);
           this.router.navigate(['articles']);
-
         },
         (error) => {
           this.show=false;
