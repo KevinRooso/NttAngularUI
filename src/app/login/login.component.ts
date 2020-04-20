@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
   },
   (error: HttpErrorResponse)=>
   {
+
     console.log(error.error.status);
     if(error.error.status=='401')
     this.snackBar.open('Please enter valid credentials', 'Close', {duration: 3500, verticalPosition: 'top'});

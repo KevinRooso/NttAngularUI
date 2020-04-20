@@ -19,6 +19,8 @@ export class ArticlesComponent implements OnInit {
   filterDate="";
   dates:any[]=[];
   sort:string="desc?date";
+  sortList:any[]=[];
+  sortList1:any[]=[]
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -39,7 +41,9 @@ export class ArticlesComponent implements OnInit {
         if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1)
           this.dates.push(m.createdAt.substring(0,10).split('-').reverse().join('/'))
         })
+        this.sortList=this.articleList;
     })
+    this.sortList1=this.sortList;
   }
   getDetails(id) {
     // alert(id);
@@ -73,7 +77,7 @@ export class ArticlesComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
+      this.sortList=this.sortList.filter(m=>{
 
        // return m.title.includes(this.searchBlog);
        let titleData=m.title.toUpperCase();
@@ -81,7 +85,7 @@ export class ArticlesComponent implements OnInit {
       })
   }
    cancel(){
-    this.filterBlogs=this.blogs;
+    this.sortList=this.articleList;
   }
 
   filterData(){

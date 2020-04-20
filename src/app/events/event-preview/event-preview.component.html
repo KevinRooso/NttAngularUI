@@ -142,7 +142,7 @@
 
 <div class="container-fluid"  >
   <div class="accordion" id="accordionExample">
-    <div class="card shadow-none " *ngIf="publishedList.length!=0">
+    <div class="card shadow-none " *ngIf="publishedList?.length>0">
       <div class="card-header " id="headingOne" data-toggle="collapse" data-target="#collapseOne">
         <!-- <h2 class="mb-0"> -->
           <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
@@ -183,8 +183,9 @@
         </div>
       </div>
     </div>
+
     <br>
-    <div class="card shadow-none" *ngIf="activeList.length!=0">
+    <div class="card shadow-none" *ngIf="activeList?.length>0">
       <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
         <!-- <h2 class="mb-0"> -->
            <a type="button"  aria-expanded="true" aria-controls="collapseTwo" style="font-size: 20px;font-weight: 400;">
@@ -222,7 +223,7 @@
       </div>
     </div>
     <br>
-    <div class="card shadow-none" *ngIf="draftList.length!=0" >
+    <div class="card shadow-none" *ngIf="draftList?.length>0" >
       <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
         <!-- <h2 class="mb-0" > -->
          <a  type="button"  aria-expanded="true" aria-controls="collapseThree" style="font-size: 20px;font-weight: 400;">
@@ -260,6 +261,11 @@
     </div>
   </div>
   </div>
+  <!-- <div class="text-center">
+    <span *ngIf="publishedList?.length ==0 || activeList?.length==0 || draftList?.length==0" >
+      <i class="fa fa-database" aria-hidden="true"></i>  No Data Available
+    </span>
+  </div> -->
 
 
 

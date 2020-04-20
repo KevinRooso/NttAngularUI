@@ -17,6 +17,8 @@ export class VideosPreviewComponent implements OnInit {
   searchBlog="";
   categoryList:any[]=[];
   cat:string="";
+  // sortVideosList:any[]=[];
+  // sortVideosList1:any[]=[];
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {

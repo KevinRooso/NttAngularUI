@@ -65,3 +65,7 @@ transition: background 0.25s;
     font-size: 14px;
     font-weight: 400;
 }
+
+.text-center{
+  padding: 100px;
+}

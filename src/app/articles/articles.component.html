@@ -33,14 +33,14 @@
     </ul>
   </div>
 </nav>
-<section class="section-tours">
+<section class="section-tours" >
   <!-- <div class=" text-center">
     <p class="heading-secondary py-4">
       Articles
     </p>
   </div> -->
-  <div class="row" style="padding: .5rem 1rem; ">
-    <mat-card class="p-0 m-3 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
+  <div class="row" style="padding: .5rem 1rem; " *ngIf="sortList?.length>0">
+    <mat-card class="p-0 m-3 article-card" *ngFor="let card of sortList" (click)="getDetails(card.id)">
       <div>
         <img [src]="card.thumbnailImageUrl" alt="" class="article-img">
       </div>
@@ -54,5 +54,11 @@
       <p class="article-title"><b></b>{{card.shortDescription | truncate : 30 : false}}</p>
      </div>
     </mat-card>
+  </div>
+  <div class="text-center">
+  <span *ngIf="sortList?.length == 0" >
+    <i class="fa fa-database" aria-hidden="true"></i>
+    No Data Available
+  </span>
   </div>
 </section>
