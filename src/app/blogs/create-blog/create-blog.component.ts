@@ -301,7 +301,7 @@ export class CreateBlogComponent implements OnInit {
          "targetUserType":obj.targetUserType,
          "resourceType":1,
          "serviceUsed": "",
-         "shortDescription": obj.longDescription,
+         "shortDescription": obj.shortDescription,
          "tagList": tags,
          "thumbnailImageUrl": obj.thumbnailImageUrl,
          "title": obj.title,
