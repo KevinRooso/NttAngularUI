@@ -24,7 +24,7 @@
                 <mat-select formControlName="datafieldType" [(value)]="banner1Block" #block
                   (selectionChange)="getSelectedBlockData(block.value,'banner1')">
                   <ng-container  *ngFor="let block of blocks">
-                  <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+                  <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
               </ng-container>
                 </mat-select>
               </mat-form-field>
@@ -58,7 +58,7 @@
                 <mat-select formControlName="datafieldType" [(value)]="banner2Block" #block1
                   (selectionChange)="getSelectedBlockData(block1.value,'banner2')">
                   <ng-container  *ngFor="let block of blocks">
-                    <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
                 </ng-container>
                 </mat-select>
               </mat-form-field>
@@ -92,7 +92,7 @@
                 <mat-select formControlName="datafieldType" [(value)]="banner3Block" #block2
                   (selectionChange)="getSelectedBlockData(block2.value,'banner3')">
                   <ng-container  *ngFor="let block of blocks">
-                    <mat-option [value]="block.name" *ngIf="block.name=='Testimonials' || block.name=='caseStudies' ? false : true ">{{block.name}}</mat-option>
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
                 </ng-container>
                 </mat-select>
               </mat-form-field>

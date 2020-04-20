@@ -82,20 +82,20 @@ export class HomeUiComponent implements OnInit {
   ];
 
   blocks: any[] = [
-    { url: "event?api/public/events", name: "event" },
-    { url: "article?api/public/resources/articles", name: "articles" },
-    { url: "blog?api/public/resources/blogs", name: "blogs" },
-    { url: "video?api/public/resources/videos", name: "videos" },
+    { url: "event?api/public/events", name: "event",apiName:'event' },
+    { url: "article?api/public/resources/articles", name: "article" ,apiName:'articles'},
+    { url: "blog?api/public/resources/blogs", name: "blog" ,apiName:'blogs'},
+    { url: "video?api/public/resources/videos", name: "video",apiName:'videos' },
     {
       url: "whitepaper?api/public/resources/whitepapers",
-      name: "whitepapers",
+      name: "whitepaper",apiName:'white papers'
     },
     {
       url: "casestudy?api/public/resources/case-studies",
-      name: "caseStudies",
+      name: "casestudy",apiName:'case studies'
     },
-    { url: "news?api/public/news", name: "News" },
-    { url: "testimonial?api/public/resources/testimonials", name: "Testimonials" },
+    { url: "news?api/public/news", name: "news" ,apiName:'news'},
+    { url: "testimonial?api/public/resources/testimonials", name: "testimonial" ,apiName:'testimonials'},
   ];
   sequenceNumbersBanner: any[] = [1, 2, 3];
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
@@ -295,7 +295,7 @@ export class HomeUiComponent implements OnInit {
     .setValue("1");
     this.banner1Sequence=1;
     let durl = this.blocks
-      .find((x) => x.name === this.banner1Block)
+      .find((x) => x.apiName === this.banner1Block)
       .url.split("?")[1];
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
       this.selectBlockData1 = res.body;
@@ -320,7 +320,7 @@ export class HomeUiComponent implements OnInit {
     .setValue("2");
     this.banner2Sequence=2;
     let durl = this.blocks
-      .find((x) => x.name === this.banner2Block)
+      .find((x) => x.apiName === this.banner2Block)
       .url.split("?")[1];
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
       this.selectBlockData2 = res.body;
@@ -343,7 +343,7 @@ export class HomeUiComponent implements OnInit {
     .get(["sequenceNumber"])
     .setValue("3");
     this.banner3Sequence=3;
-    let durl = this.blocks.find((x) => x.name === this.banner3Block)
+    let durl = this.blocks.find((x) => x.apiName === this.banner3Block)
       .url.split("?")[1];
 
     this.service.getBannerBlockDetail(durl).subscribe((res) => {
@@ -362,19 +362,29 @@ export class HomeUiComponent implements OnInit {
     let obj1 = this.bannerConfigurationForm1.value;
     let obj2 = this.bannerConfigurationForm2.value;
     let obj3 = this.bannerConfigurationForm3.value;
-    console.log(obj1);
+    console.log("obj1==",obj1);
     console.log(obj2);
     console.log(obj3);
-
-    obj1.datafieldType = this.bannerConfigurationForm1
-      .get(["datafieldType"])
-      .value.split("?")[0];
-    obj2.datafieldType = this.bannerConfigurationForm2
-      .get(["datafieldType"])
-      .value.split("?")[0];
-    obj3.datafieldType = this.bannerConfigurationForm3
-      .get(["datafieldType"])
-      .value.split("?")[0];
+    this.blocks
+    .find((x) => x.apiName ===this.bannerConfigurationForm1
+    .get(["datafieldType"])
+    .value)
+    .name;
+    obj1.datafieldType =  this.blocks
+    .find((x) => x.apiName ===this.bannerConfigurationForm1
+    .get(["datafieldType"])
+    .value)
+    .name;
+    obj2.datafieldType = this.blocks
+    .find((x) => x.apiName ===this.bannerConfigurationForm2
+    .get(["datafieldType"])
+    .value)
+    .name;
+    obj3.datafieldType =  this.blocks
+    .find((x) => x.apiName ===this.bannerConfigurationForm3
+    .get(["datafieldType"])
+    .value)
+    .name;
     let seq = [];
     if (obj1.sequenceNumber != "" && obj1.sequenceNumber != undefined) seq.push(obj1.sequenceNumber);
     if (obj2.sequenceNumber != "" && obj2.sequenceNumber != undefined) seq.push(obj2.sequenceNumber);
@@ -409,8 +419,8 @@ export class HomeUiComponent implements OnInit {
   }
   getSelectedBlockData(value, banner) {
 
-    let value1 = this.blocks.find((x) => x.name === value).url.split("?")[0];
-    value = this.blocks.find((x) => x.name === value).url.split("?")[1];
+    let value1 = this.blocks.find((x) => x.apiName === value).url.split("?")[0];
+    value = this.blocks.find((x) => x.apiName === value).url.split("?")[1];
     if (value1 == "event") {
       if (this.eventData.length != 0) {
         this.setBannerData(banner, this.eventData);
@@ -590,7 +600,7 @@ export class HomeUiComponent implements OnInit {
   getSelectedBlockData8(url) {
     url = url.split("?")[1];
 
-    if(this.newsData.length==0)
+    if(this.testData.length==0)
    {
     this.show=true;
     this.service.getBannerBlockDetail(url).subscribe((res) => {
