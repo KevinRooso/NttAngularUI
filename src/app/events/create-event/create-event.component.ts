@@ -391,6 +391,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (this.createEventForm.valid) {
+      this.show =true;
       // let name: any[] = [];
       // let spekaerName: any[] = [];
       // spekaerName = this.createEventForm.controls['fullName'].value;
@@ -469,14 +470,13 @@ export class CreateEventComponent implements OnInit {
 
       console.log("Post Data", objData);
       //this.show =false;
-      this.show =true;
+
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
-
-          this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
-          this.submitted = false;
-          console.log("Api success res", response);
           this.show =false;
+          this.submitted = false;
+          this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
+          console.log("Api success res", response);
           this.router.navigate(['events']);
         },
         (error) => {
@@ -488,6 +488,7 @@ export class CreateEventComponent implements OnInit {
       )
      }
     else {
+      this.show =false;
       this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
     }
 

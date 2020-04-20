@@ -19,6 +19,7 @@ export class CasesEditComponent implements OnInit {
     visible = true;
     selectable = true;
     removable = true;
+    attachFile: any;
     addOnBlur = true;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     fruits: any[] = [];
@@ -33,17 +34,24 @@ export class CasesEditComponent implements OnInit {
     selected3:string="";
     selected4:string[]=[];
     catagoryData:any[]=[];
+    show:boolean=false;
+    articleImage: any;
+    articelAttach: any;
 
     checkError:any;
   submitted: boolean = false;
-  imageValid:boolean=false;
   checkErrorPerson:any;
   submittedPerson: boolean = false;
   imageValidPerson:boolean=false;
   previewUrl1: any = null;
-  imageValid1:boolean=false;
+  imageValid: boolean = false;
+  imageValid2: boolean = false;
   userList:any[]=[];
   tarUserType:string="";
+  attachUrl: any = null;
+
+  image1button:boolean=false;
+  image2button:boolean=false;
 
   today=new Date();
     @ViewChild('closeModel',{static:true}) closeModel;
@@ -61,7 +69,8 @@ export class CasesEditComponent implements OnInit {
         tagList: ['', Validators.required],
         serviceUsed: ['', Validators.required],
         targetUserType:['',Validators.required],
-        thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+        thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+        downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(pdf)$')]),
         isDraft:[false],
         expiryDate: ['', Validators.required]
       });
@@ -132,6 +141,11 @@ export class CasesEditComponent implements OnInit {
         this.createCases.get(['longDescription']).setValue(res.body.longDescription);
         this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
         this.createCases.get(['categoryId']).setValue(res.body.category.id);
+
+        this.createCases.controls['downloadUrl'].setValidators(null);
+        this.createCases.controls['downloadUrl'].updateValueAndValidity();
+        this.articelAttach = res.body.resourceLink;
+
        // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
        for(let i=0;i<res.body.resourceTags.length;i++)
         this.selected4.push(res.body.resourceTags[i].id);
@@ -164,41 +178,92 @@ export class CasesEditComponent implements OnInit {
       })
     }
     fileProgress(fileInput: any) {
-      this.previewUrl=null;
-      this.imageValid=false;
+      this.previewUrl = null;
+      this.imageValid = false;
       this.fileData = <File>fileInput.target.files[0];
-      let fileType=this.fileData.type;
-       if(fileType=='image/jpeg' || fileType=='image/png'){
-        this.imageValid=true;
-      this.preview();
+      console.log("fileData==", this.fileData);
+  if(this.fileData!=undefined){
+    this.image1button=false;
+      let fileType = this.fileData.type;
+      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+        this.imageValid = true;
+        this.preview();
       }
     }
+    }
+    fileProgress2(fileInput: any) {
+      this.image2button=false;
+      this.attachUrl = null;
+      this.imageValid2 = false;
+      this.fileData = <File>fileInput.target.files[0];
+      if(this.fileData!=undefined){
+        this.image2button=false;
+      let fileType = this.fileData.type;
+      if (fileType == 'application/pdf') {
+        this.imageValid2 = true;
+        this.preview2();
+      }
+    }
+    }
     preview() {
-      // Show preview
       var mimeType = this.fileData.type;
       if (mimeType.match(/image\/*/) == null) {
         return;
       }
-
       var reader = new FileReader();
       reader.readAsDataURL(this.fileData);
       reader.onload = (_event) => {
         this.previewUrl = reader.result;
       }
     }
+    preview2() {
+      var mimeType = this.fileData.type;
+      var reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = (_event) => {
+        this.attachUrl = reader.result;
+      }
+    }
     uploadImage() {
+      this.show=true;
+      this.image1button=false;
       const formData = new FormData();
       formData.append('file', this.fileData);
       this.authService.uploadFile(formData)
-        .subscribe(res => {
+        .subscribe((res) => {
           console.log("Image", res);
-          this.speakerImage = res.fileDownloadUri;
-          this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-          console.log(this.speakerImage);
-          // alert('SUCCESS !!');
+          this.articleImage = res.fileDownloadUri;
+          console.log("Image", this.articleImage);
+          this.show=false;
+          this.image1button=true;
+          this.imageValid = false;
+          this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        },
+        (error)=>{
+          this.show=false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
         })
     }
-
+    uploadAttachment() {
+      this.show=true;
+      this.image2button=false;
+      const formData1 = new FormData();
+      formData1.append('file', this.fileData);
+      this.authService.uploadFile(formData1)
+        .subscribe((res) => {
+          console.log("Image", res);
+          this.attachFile = res.fileDownloadUri;
+          console.log("File", this.attachFile);
+          this.image2button=true;
+          this.imageValid2 = false;
+          this.show=false;
+          this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        },
+        (error)=>{
+          this.show=false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
+        })
+    }
     createCase() {
       if(this.createCases.valid){
      let obj=this.createCases.value;
@@ -234,9 +299,14 @@ export class CasesEditComponent implements OnInit {
         "serviceUsed": obj.serviceUsed,
         "tagList": tags,
         "targetUserType":obj.targetUserType,
-        "thumbnailImageUrl": this.speakerImage,
         "title": obj.title,
-        "expiryDate":obj.expiryDate
+        "expiryDate":obj.expiryDate,
+        "customerProfile": "string",
+        "detailImageUrl": "string",
+        "approverId": 0,
+        "thumbnailImageUrl": this.articleImage,
+        "downloadUrl": this.articelAttach,
+
    }
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
