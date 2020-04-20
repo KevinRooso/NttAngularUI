@@ -176,7 +176,7 @@ export class EventEditComponent implements OnInit {
     })
   }
   getEventData(id) {
-    this.show = true;
+    // this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
@@ -285,7 +285,7 @@ export class EventEditComponent implements OnInit {
       this.getSpeakerDetails()
       this.getTagsDetails();
       this.getUserList();
-      this.show = false;
+      // this.show = false;
     })
   }
   fileProgress(fileInput: any) {
@@ -513,7 +513,7 @@ export class EventEditComponent implements OnInit {
       return false;
     }
 
-    this.show=true;
+    // this.show=true;
     if(!this.image1button){
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
       this.show=false;

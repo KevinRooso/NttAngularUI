@@ -176,7 +176,7 @@ export class CopyEventComponent implements OnInit {
     })
   }
   getEventData(id) {
-    this.show = true;
+    // this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
@@ -288,7 +288,7 @@ export class CopyEventComponent implements OnInit {
       this.getSpeakerDetails()
       this.getTagsDetails();
       this.getUserList();
-      this.show = false;
+      // this.show = false;
     })
   }
     fileProgress(fileInput: any) {
@@ -402,7 +402,7 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
   submitChanges(){
-    this.show=true;
+    // this.show=true;
     if(!this.image1button){
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
       this.show=false;
@@ -493,13 +493,13 @@ export class CopyEventComponent implements OnInit {
     eventStartDate.setMilliseconds(0);
 
     // update event start daate as well to remove seconds and milis before save
-    this.updateEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
+    this.updateEventForm.controls['startDate'].setValue(eventStartDate);
 
     eventEndDate.setSeconds(0);
     eventEndDate.setMilliseconds(0);
 
     // update event start daate as well to remove seconds and milis before save
-    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+    this.updateEventForm.controls['endDate'].setValue(eventEndDate);
 
     minAgendaStartTime.setSeconds(0);
     minAgendaStartTime.setMilliseconds(0);
@@ -518,6 +518,7 @@ export class CopyEventComponent implements OnInit {
     }
 
    if(this.updateEventForm.valid){
+     this.show=true;
     let tags:any[]=[];
     let speakerList1:any[]=[];
     // console.log("eventform==",this.updateEventForm.value);
@@ -607,9 +608,9 @@ export class CopyEventComponent implements OnInit {
     this.authService.saveEventDetails(obj).subscribe(
       (response) => {
         console.log("responsne", response);
-        this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
-        this.submitted = false;
         this.show =false;
+        this.submitted = false;
+        this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
         this.router.navigate(['/details'], { queryParams: { page: response.body.id } });
       },
       (error) => {
@@ -806,7 +807,7 @@ export class CopyEventComponent implements OnInit {
    eventEndDate.setSeconds(0);
    eventEndDate.setMilliseconds(0);
 
-   this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+   this.updateEventForm.controls['endDate'].setValue(eventEndDate);
 
     // update all agenda start date if start dates changes
     for (let index in this.agendaData) {
