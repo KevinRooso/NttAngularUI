@@ -120,8 +120,8 @@ export class CreateEventComponent implements OnInit {
       policyFAQ: ['', [Validators.maxLength(1500)]],
       thumbnailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
       detailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      fullName: [''],
-      name: [''],
+      // fullName: [''],
+      // name: [''],
       isDraft: [false],
       categoryTypeId: ['', Validators.required]
     })
@@ -354,13 +354,13 @@ export class CreateEventComponent implements OnInit {
     eventStartDate.setMilliseconds(0);
 
     // update event start daate as well to remove seconds and milis before save
-    this.createEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
+    this.createEventForm.controls['startDate'].setValue(eventStartDate);
 
     eventEndDate.setSeconds(0);
     eventEndDate.setMilliseconds(0);
 
     // update event start daate as well to remove seconds and milis before save
-    this.createEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+    this.createEventForm.controls['endDate'].setValue(eventEndDate);
 
     minAgendaStartTime.setSeconds(0);
     minAgendaStartTime.setMilliseconds(0);
@@ -378,7 +378,7 @@ export class CreateEventComponent implements OnInit {
       return false;
     }
 
-    this.show=true;
+    // this.show=true;
     if(!this.image1button){
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
       this.show=false;
@@ -391,21 +391,20 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (this.createEventForm.valid) {
-      this.show =true;
-      let name: any[] = [];
-      let spekaerName: any[] = [];
-      spekaerName = this.createEventForm.controls['fullName'].value;
+      // let name: any[] = [];
+      // let spekaerName: any[] = [];
+      // spekaerName = this.createEventForm.controls['fullName'].value;
 
-      for (let i = 0; i <= spekaerName.length; i++) {
-        if (spekaerName != undefined) {
-          let speakers = {
-            "fullName": spekaerName[i]
-          };
-          name.push(speakers);
-        }
-        console.log("check me", spekaerName[i]);
-      }
-      console.log("check me twice", this.createEventForm.value);
+      // for (let i = 0; i <= spekaerName.length; i++) {
+      //   if (spekaerName != undefined) {
+      //     let speakers = {
+      //       "fullName": spekaerName[i]
+      //     };
+      //     name.push(speakers);
+      //   }
+      //   console.log("check me", spekaerName[i]);
+      // }
+      // console.log("check me twice", this.createEventForm.value);
 
 
       let schedule: any[] = [];
@@ -470,7 +469,7 @@ export class CreateEventComponent implements OnInit {
 
       console.log("Post Data", objData);
       //this.show =false;
-
+      this.show =true;
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
 
@@ -654,16 +653,21 @@ else{
 
     if (eventEndDate && typeof(eventEndDate) == 'string') {
       eventEndDate = new Date(eventEndDate);
+     // eventEndDate = eventEndDate ? new Date(eventEndDate) : new Date();
     }
 
     // setting event end date equal to start date as no is allowed to select in end date field
-    eventEndDate.setDate(eventStartDate.getDate());
-    eventEndDate.setMonth(eventStartDate.getMonth());
-    eventEndDate.setFullYear(eventStartDate.getFullYear());
-    eventEndDate.setSeconds(0);
-    eventEndDate.setMilliseconds(0);
+    if(eventEndDate){
+      eventEndDate.setDate(eventStartDate.getDate());
+      eventEndDate.setMonth(eventStartDate.getMonth());
+      eventEndDate.setFullYear(eventStartDate.getFullYear());
+      eventEndDate.setSeconds(0);
+      eventEndDate.setMilliseconds(0);
+      this.createEventForm.controls['endDate'].setValue(eventEndDate);
+    }
 
-    this.createEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+
+
 
      // update all agenda start date if start dates changes
      for (let index in this.agendaData) {

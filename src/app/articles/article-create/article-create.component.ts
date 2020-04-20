@@ -234,11 +234,10 @@ export class ArticleCreateComponent implements OnInit {
 
       this.authService.saveResource(obj).subscribe(
         (response) => {
-          this.snackBar.open('Article successfully created', 'Close', { duration: 5000 });
-          console.log("response", response);
           this.show=false;
+          this.snackBar.open('Article successfully created', 'Close', { duration: 2000 });
+          console.log("response", response);
           this.router.navigate(['articles']);
-
         },
         (error) => {
           this.show=false;
