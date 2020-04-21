@@ -42,6 +42,9 @@ export class WhitepaperEditComponent implements OnInit {
   selected3:string="";
 
   today=new Date();
+  show:boolean=false;
+  image1button:boolean=false;
+  image2button:boolean=false;
   @ViewChild('closeModel', { static: true }) closeModel;
 
   constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router,
@@ -111,25 +114,34 @@ export class WhitepaperEditComponent implements OnInit {
     })
   }
 
+
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
+    console.log("fileData==", this.fileData);
+if(this.fileData!=undefined){
+  this.image1button=false;
     let fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
     }
   }
+  }
   fileProgress2(fileInput: any) {
+    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
+    if(this.fileData!=undefined){
+      this.image2button=false;
     let fileType = this.fileData.type;
     if (fileType == 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
     }
+  }
   }
   preview() {
     var mimeType = this.fileData.type;
@@ -151,25 +163,43 @@ export class WhitepaperEditComponent implements OnInit {
     }
   }
   uploadImage() {
+    this.show=true;
+    this.image1button=false;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   uploadAttachment() {
+    this.show=true;
+    this.image2button=false;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.image2button=true;
+        this.imageValid2 = false;
+        this.show=false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
@@ -203,7 +233,7 @@ export class WhitepaperEditComponent implements OnInit {
       this.articleImage = this.wPaperData.thumbnailImageUrl;
       this.updateWhitePaperForm.controls['downloadUrl'].setValidators(null);
       this.updateWhitePaperForm.controls['downloadUrl'].updateValueAndValidity();
-      this.articelAttach = this.wPaperData.resourceLink;
+      this.attachFile = this.wPaperData.resourceLink;
 
       this.updateWhitePaperForm.controls['targetUserType'].setValidators(null);
       this.updateWhitePaperForm.controls['targetUserType'].updateValueAndValidity();
@@ -214,6 +244,8 @@ export class WhitepaperEditComponent implements OnInit {
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
       this.today=res.body.expiryDate;
       this.updateWhitePaperForm.controls['expiryDate'].setValue(res.body.expiryDate);
+      this.image1button=true;
+      this.image2button=true;
       this.getUserList();
       this.getCategoryDetails();
       this.getTagsDetails();
@@ -221,6 +253,17 @@ export class WhitepaperEditComponent implements OnInit {
     })
   }
   updateWhitepaper() {
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Article Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     if (this.updateWhitePaperForm.valid) {
      let tags:any[]=[];
       let obj1=this.updateWhitePaperForm.value;
@@ -253,7 +296,7 @@ export class WhitepaperEditComponent implements OnInit {
         "categoryId": catId,
         "customerProfile": "string",
         "detailImageUrl": "string",
-        "downloadUrl": this.articelAttach,
+        "downloadUrl": this.attachFile,
         "id": this.wPaperId,
         "draft": true,
         "longDescription": this.updateWhitePaperForm.controls['longDescription'].value,
@@ -274,16 +317,20 @@ export class WhitepaperEditComponent implements OnInit {
         (response) => {
           // alert("Successfully Updated");
           console.log("response", response);
-          this.snackBar.open('Whitepaper successfully updated', 'Close', { duration: 5000 });
+          this.show=false;
           this.submitted = false;
+          this.snackBar.open('Whitepaper successfully updated', 'Close', { duration: 5000 });
+          this.router.navigate(['whitepapers']);
         },
         (error) => {
           //alert("Error :"+error);
-          this.snackBar.open(error, 'Close');
+          this.show=false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', {duration: 5000});
         }
       )
     }
     else {
+      this.show=false;
       this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
     }
   }

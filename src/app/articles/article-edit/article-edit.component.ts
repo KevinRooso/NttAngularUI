@@ -140,7 +140,8 @@ export class ArticleEditComponent implements OnInit {
       this.articleImage= this.articleData.thumbnailImageUrl;
       this.EditArticleForm.controls['downloadUrl'].setValidators(null);
       this.EditArticleForm.controls['downloadUrl'].updateValueAndValidity();
-      this.articelAttach = this.articleData.resourceLink;
+      this.attachFile = this.articleData.resourceLink;
+
 
       this.EditArticleForm.controls['targetUserType'].setValidators(null);
       this.EditArticleForm.controls['targetUserType'].updateValueAndValidity();
@@ -244,7 +245,7 @@ if(this.fileData!=undefined){
         this.image2button=true;
         this.imageValid2 = false;
         this.show=false;
-        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       },
       (error)=>{
         this.show=false;
@@ -296,7 +297,7 @@ if(this.fileData!=undefined){
       "categoryId": catId,
       "customerProfile": "string",
       "detailImageUrl": "string",
-      "downloadUrl": this.articelAttach,
+      "downloadUrl": this.attachFile,
       "id": this.articleId,
       "draft": true,
       "longDescription": this.EditArticleForm.controls['longDescription'].value,
@@ -317,8 +318,9 @@ if(this.fileData!=undefined){
         // alert("Successfully Updated");
         console.log("response", response);
         this.show=false;
-        this.snackBar.open('Article successfully updated', 'Close', {duration: 5000});
         this.submitted = false;
+        this.snackBar.open('Article successfully updated', 'Close', {duration: 2000});
+        this.router.navigate(['articles']);
       },
       (error) => {
         //alert("Error :"+error);
