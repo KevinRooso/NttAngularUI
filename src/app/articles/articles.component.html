@@ -39,7 +39,7 @@
       Articles
     </p>
   </div> -->
-  <div class="row" style="padding: .5rem 1rem; ">
+  <div class="row" style="padding: .5rem 1rem; " >
     <mat-card class="p-0 m-3 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
       <div>
         <img [src]="card.thumbnailImageUrl" alt="" class="article-img">

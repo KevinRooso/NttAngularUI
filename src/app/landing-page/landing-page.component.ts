@@ -65,10 +65,10 @@ export class LandingPageComponent implements OnInit {
                 data: [(userdeviceData.totalArticleDownload ),(userdeviceData.totalCaseStudyDownload ),
                   (userdeviceData.totalWhitepaperDownload)],
                 backgroundColor: [
-                  '#2CD5B6',
-                  '#0FC8F2',
-                  '#753BBD',
-                  '#E6442B'
+                  '#32e6c5',
+                  '#27cdf2',
+                  '#9a58ed',
+                  '#f56953'
               ],
                 borderWidth: 1
             },]
@@ -114,8 +114,8 @@ export class LandingPageComponent implements OnInit {
             datasets: [{
                 data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
                 backgroundColor: [
-                    '#2CD5B6',
-                    '#753BBD',
+                    '#32e6c5',
+                    '#9a58ed',
                 ],
                 borderWidth: 1
             }]
@@ -153,10 +153,10 @@ export class LandingPageComponent implements OnInit {
                 data: [(userdeviceData.totalPublicUser),
                   (userdeviceData.totalCustomerUser ),(userdeviceData.totalEmployeeUser )],
                 backgroundColor: [
-                    '#2CD5B6',
-                    '#0FC8F2',
-                    '#753BBD',
-                    '#E6442B'
+                    '#32e6c5',
+                    '#27cdf2',
+                    '#9a58ed',
+                    '#f56953'
                 ],
                 borderWidth: 1
             }]
@@ -205,10 +205,10 @@ export class LandingPageComponent implements OnInit {
                 data: [(userdeviceData.totalPublishEvent ),
                   (userdeviceData.totalActiveEvent ),(userdeviceData.totalDraftEvent )],
                 backgroundColor: [
-                  '#753BBD',
-                  '#0FC8F2',
-                  '#2CD5B6',
-                  '#E6442B'
+                  '#9a58ed',
+                  '#27cdf2',
+                  '#32e6c5',
+                  '#f56953'
               ],
                 borderWidth: 1
             },
@@ -246,10 +246,10 @@ export class LandingPageComponent implements OnInit {
                 data: [ (userdeviceData.totalPublicEvent),
                   (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
                 backgroundColor: [
-                  '#2CD5B6',
-                  '#0FC8F2',
-                  '#753BBD',
-                  '#E6442B'
+                  '#32e6c5',
+                  '#27cdf2',
+                  '#9a58ed',
+                  '#f56953'
               ],
                 borderWidth: 1
             }]
@@ -303,10 +303,10 @@ export class LandingPageComponent implements OnInit {
             data: [(userdeviceData.CloudComputing),(userdeviceData.CloudComputingHybricloudDisasterRecovery),
               (userdeviceData.Datacenter),(userdeviceData.General)],
             backgroundColor:[
-              '#2CD5B6',
-              '#0FC8F2',
-              '#753BBD',
-              '#E6442B'
+              '#32e6c5',
+              '#27cdf2',
+              '#9a58ed',
+              '#f56953'
           ],
             labels:'Dataset 1'
           }],
