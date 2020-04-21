@@ -22,6 +22,9 @@ export class CaseStudiesComponent implements OnInit {
 
   caseStudies:any[]=[];
   caseid;
+  sortCaseList:any[]=[];
+  sortCaseList1:any[]=[]
+  caseList:any
   ngOnInit(): void {
     this.getCasestudies();
      this.getAllCategory();
@@ -29,13 +32,16 @@ export class CaseStudiesComponent implements OnInit {
   }
   getCasestudies(){
     this.service.getCasestudies().subscribe(res=>{
+      this.caseList = res.body;
       console.log(res);
       this.caseid=res.body.id;
         this.caseStudies=res.body;
         this.filterCases=res.body;
       this.cases=res.body;
       this.searchFilterData=res.body;
+      this.sortCaseList=this.caseList;
     })
+    this.sortCaseList1=this.sortCaseList;
   }
   getTags(){
     this.service.getTagsList().subscribe(res=>{
@@ -61,7 +67,7 @@ export class CaseStudiesComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterCases);
-      this.filterCases=this.searchFilterData.filter(m=>{
+      this.sortCaseList=this.sortCaseList.filter(m=>{
         console.log( m.title);
         console.log( this.searchCases);
         //return m.title.includes(this.searchBlog);
@@ -83,6 +89,6 @@ export class CaseStudiesComponent implements OnInit {
   }
 
  cancel(){
-  this.filterCases=this.cases;
+  this.sortCaseList=this.caseList;
 }
 }

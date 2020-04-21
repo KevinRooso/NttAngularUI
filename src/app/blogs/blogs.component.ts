@@ -15,6 +15,9 @@ export class BlogsComponent implements OnInit {
   searchBlog;
   categoryList:any[]=[];
   cat:string="cat";
+  sortBlogsList:any[]=[];
+  sortBlogsList1:any[]=[];
+  blogsList:any
   constructor(private service:AuthServiceService,private router:Router) { }
 
   ngOnInit(): void {
@@ -23,11 +26,14 @@ export class BlogsComponent implements OnInit {
   }
   getBlogs(){
     this.service.getAllBlogs().subscribe(res=>{
+      this.blogsList = res.body;
       console.log(res);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
+      this.sortBlogsList=this.blogsList;
     })
+    this.sortBlogsList1=this.sortBlogsList;
   }
   showBlogDetail(id){
     this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
@@ -52,7 +58,7 @@ export class BlogsComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
+      this.sortBlogsList=this.sortBlogsList.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
         //return m.title.includes(this.searchBlog);
@@ -61,6 +67,6 @@ export class BlogsComponent implements OnInit {
       })
   }
   cancel(){
-    this.filterBlogs=this.blogs;
+    this.sortBlogsList=this.blogsList;
   }
 }
