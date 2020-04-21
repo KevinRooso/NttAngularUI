@@ -444,7 +444,7 @@ crateFrorm(){
     if(this.addTagForm.valid){
           let flag=true;
     this.tagData.forEach(m=>{
-      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
       flag=false;
     })
     let obj=this.addTagForm.value;
