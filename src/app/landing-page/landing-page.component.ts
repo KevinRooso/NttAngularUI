@@ -26,7 +26,7 @@ export class LandingPageComponent implements OnInit {
   canvas3 : any;
   ctx3    : any;
 
-  data:any[]=[];
+  // data:any[]=[];
   userdeviceData:any[]
 
   constructor( private service:AuthServiceService, private queryString:ActivatedRoute) { }
@@ -115,7 +115,7 @@ export class LandingPageComponent implements OnInit {
                 data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
                 backgroundColor: [
                     '#2CD5B6',
-                    '#0FC8F2',
+                    '#753BBD',
                 ],
                 borderWidth: 1
             }]
@@ -131,6 +131,8 @@ export class LandingPageComponent implements OnInit {
       });
     })
   }
+
+  //Users
 
   users(){
     this.service.getUsers()

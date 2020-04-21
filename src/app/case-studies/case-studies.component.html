@@ -43,7 +43,7 @@ Case Studies
   <!-- <div class="container-fluid"> -->
 <div class="row">
 
-  <div class="col-md-6 pr-0" *ngFor="let cases of sortCaseList">
+  <div class="col-md-6 pr-0" *ngFor="let cases of filterCases">
     <div class="category-list-card" (click)="viewCases(cases.id)">
         <div class="d-inline">
             <img [src]="cases.thumbnailImageUrl" class="category-image">
@@ -57,10 +57,10 @@ Case Studies
 </div>
 
 <!-- </div> -->
-<div class="text-center">
-  <span *ngIf="sortCaseList?.length == 0" >
+<!-- <div class="text-center">
+  <span *ngIf="filterCases?.length == 0" >
     <i class="fa fa-database" aria-hidden="true"></i>
     No Data Available
   </span>
-  </div>
+  </div> -->
 </section>
