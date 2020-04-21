@@ -76,7 +76,7 @@ export class CreateParticipantsComponent implements OnInit {
     console.log(this.addParForm.controls['event'].value);
     if(this.flag){
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value,arr).subscribe(res=>{
-      //alert("added successfully");
+      console.log("res==",res);
       this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
       this.submitted = false;
       //this.router.navigate(['participants']);
@@ -92,6 +92,8 @@ export class CreateParticipantsComponent implements OnInit {
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
       this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
       this.submitted = false;
+      console.log("res==",res);
+
       if(this.id==undefined)
       this.router.navigate(['participants']);
       else
