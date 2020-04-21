@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -12,8 +13,7 @@
         <p class="heading-secondary">Create Video</p>
       </div>
 
-      <form [formGroup]='createVideoForm' >
-
+      <form [formGroup]='createVideoForm'>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
@@ -107,6 +107,7 @@
         </div>
 
 
+
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Image <span class="error">*</span></label>
           <div class="col-sm-7">
@@ -115,7 +116,7 @@
             <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
           </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -137,7 +138,7 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' [disabled]='!createVideoForm.valid' class="btn button-1 action-good">Submit
+          <button type="submit" (click)='generateBlog()' class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>
@@ -155,7 +156,6 @@
       </div>
       <div class="modal-body">
         <form [formGroup]='addTagForm'>
-
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Name</label>
             <mat-form-field class="example-full-width col-sm-9">

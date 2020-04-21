@@ -16,6 +16,7 @@ export class NewsComponent implements OnInit {
   searchBlog="";
   dates:any[]=[];
   cat:string="";
+  sort:string="desc?date";
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class NewsComponent implements OnInit {
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
+      this.searchFilterData.sort(this.GFG_sortFunction1);
     })
   }
   getDetails(id) {
@@ -57,7 +59,7 @@ export class NewsComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
+      this.newsList=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
         // alert(m.title.toUpperCase());
@@ -67,6 +69,40 @@ export class NewsComponent implements OnInit {
       })
   }
   cancel(){
-    this.filterBlogs=this.blogs;
+    this.newsList=this.blogs;
   }
+  filterData(){
+    let data=this.sort.split('?');
+    if(this.sort=="Sort By"){
+      this.filterBlogs=this.blogs;
+    }
+
+
+    if(data[1]=="date"){
+      if(data[0]=='asc'){
+      //   console.log("adtesort==",this.searchFilterData);
+       this.searchFilterData.sort(this.GFG_sortFunction);
+        // console.log("dateaftersort==",this.searchFilterData);
+
+         this.filterBlogs=this.searchFilterData;
+    }
+    else{
+       this.searchFilterData.sort(this.GFG_sortFunction1);
+      // console.log("dateaftersort==",this.searchFilterData);
+       this.filterBlogs=this.searchFilterData;
+
+    }
+    }
+
+  }
+   GFG_sortFunction(a, b) {
+    var dateA = new Date(a.updatedAt).getTime();
+    var dateB = new Date(b.updatedAt).getTime();
+    return dateA > dateB ? 1 : -1;
+};
+GFG_sortFunction1(a, b) {
+  var dateA = new Date(a.updatedAt).getTime();
+  var dateB = new Date(b.updatedAt).getTime();
+  return dateA < dateB ? 1 : -1;
+};
 }

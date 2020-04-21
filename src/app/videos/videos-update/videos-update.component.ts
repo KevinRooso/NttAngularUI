@@ -42,6 +42,8 @@ export class VideosUpdateComponent implements OnInit {
   userList:any[]=[];
   today=new Date();
   tarUserType:string="";
+  show:boolean=false;
+  image1button:boolean=false;
   @ViewChild('closeModel',{static:true}) closeModel;
   ngOnInit(): void {
 
@@ -124,6 +126,7 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink)
       //this.createVideoForm.get(['person']).setValue(res.body.person.id);
       this.previewUrl=res.body.thumbnailImageUrl;
+      this.image1button=true;
       this.getCategoryDetails();
       this.getTagsDetails();
       this.getUserList();
@@ -143,14 +146,18 @@ export class VideosUpdateComponent implements OnInit {
     })
   }
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    console.log("fileData==", this.fileData);
+if(this.fileData!=undefined){
+  this.image1button=false;
+    let fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      this.imageValid = true;
+      this.preview();
     }
+  }
   }
   preview() {
     // Show preview
@@ -166,20 +173,34 @@ export class VideosUpdateComponent implements OnInit {
     }
   }
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.show=false;
+        this.image1button=true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
 
   generateBlog(){
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     if(this.createVideoForm.valid){
     let obj=this.createVideoForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
@@ -218,18 +239,27 @@ export class VideosUpdateComponent implements OnInit {
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
-      console.log("Post Dat",res);
-      this.snackBar.open('Video Updated Successfully', 'Close', {duration: 5000});
-    //  alert("Video Updated Successfully");
-      // this.router.navigate(['blogs']);
+      console.log(res);
+      this.show=false;
+      this.snackBar.open('Videos Updated Successfully', 'Close', {duration: 5000});
+      //alert("Case Study Updated Successfully");
+      this.router.navigate(['videos']);
+    },
+    (error) => {
+      this.show=false;
+      this.snackBar.open('Oops, something went wrong..', 'Close');
     })
+    }
+    else{
+      this.show=false;
+    this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
     }
 }
 createTag(){
   if(this.addTagForm.valid){
         let flag=true;
   this.tagData.forEach(m=>{
-    if(m.keywords==this.addTagForm.get(['keywords']).value)
+   if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
     flag=false;
   })
   let obj=this.addTagForm.value

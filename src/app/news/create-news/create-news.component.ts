@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-news.component.css']
 })
 export class CreateNewsComponent implements OnInit {
+  createNewsForm: FormGroup;
   speakerImage: string = "";
   articleImage: any;
   checkError: any;
@@ -23,13 +24,15 @@ export class CreateNewsComponent implements OnInit {
   tagData: any[] = [];
   userList: any[] = [];
   imageValid: boolean = false;
+  show:boolean=false;
+  image1button:boolean=false;
 
 
   today=new Date();
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private service: AuthServiceService, private location: Location, private authService: AuthServiceService, public snackBar: MatSnackBar) { }
-  createNewsForm: FormGroup;
+  // createNewsForm: FormGroup;
 
 
 
@@ -91,15 +94,23 @@ export class CreateNewsComponent implements OnInit {
   }
 
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
-        console.log("Image", this.articleImage);
-        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        //alert('SUCCESS !!');
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        console.log(this.articleImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
   getUserList() {
@@ -112,6 +123,12 @@ export class CreateNewsComponent implements OnInit {
     })
   }
   generateNews(){
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload news Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     this.submitted = true;
     if (this.createNewsForm.valid) {
       let objData = {
@@ -132,16 +149,22 @@ export class CreateNewsComponent implements OnInit {
     console.log("post", objData);
     this.authService.saveNews(objData).subscribe((response) => {
       console.log("response=",response);
-      this.snackBar.open('News successfully created', 'Close', {duration: 5000});
+      this.show=false;
       this.submitted = false;
+      this.snackBar.open('News successfully created', 'Close', {duration: 2000});
       this.router.navigate(['news']);
     },
     (error) => {
       console.log("error==",error);
-      this.snackBar.open(error, 'Close');
+      this.show=false;
+      this.snackBar.open('Oops Something went wrong...', 'Close');
      })
 
-  }
+    }
+    else{
+      this.show=false;
+      this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+    }
 
   }
   BackMe() {
