@@ -261,7 +261,7 @@ export class CasesEditComponent implements OnInit {
           this.image2button=true;
           this.imageValid2 = false;
           this.show=false;
-          this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+          this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
         },
         (error)=>{
           this.show=false;

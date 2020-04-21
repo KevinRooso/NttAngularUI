@@ -315,7 +315,12 @@ export class CreateBlogComponent implements OnInit {
       this.snackBar.open('Blog Added Successfully', 'Close', {duration: 5000});
       //alert("Blog Added Successfully");
       this.router.navigate(['blogs']);
-    })
+    },
+    (error) => {
+      console.log("error==",error);
+      this.show=false;
+      this.snackBar.open(error, 'Close');
+     })
   //console.log(this.createBlogForm.value);
 }
 else{

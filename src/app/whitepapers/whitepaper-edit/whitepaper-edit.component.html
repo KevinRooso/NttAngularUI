@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
      <li><a href="/home">Home</a></li>
@@ -102,17 +103,17 @@
         </div>
 
         <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Whitepaper Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
               (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is
+            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color:red;font-size: 12px;">(Image is
               required)</div>
             <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
               JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -138,7 +139,7 @@
               pdf only)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>

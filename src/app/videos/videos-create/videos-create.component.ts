@@ -36,7 +36,8 @@ export class VideosCreateComponent implements OnInit {
   previewUrl1: any = null;
   imageValid1:boolean=false;
   userList:any[]=[];
-
+  show:boolean=false;
+  image1button:boolean=false;
 
   today=new Date();
 
@@ -118,22 +119,48 @@ export class VideosCreateComponent implements OnInit {
     }
   }
 
+  // uploadImage() {
+  //   const formData = new FormData();
+  //   formData.append('file', this.fileData);
+  //   this.service.uploadFile(formData)
+  //     .subscribe(res => {
+  //       console.log("Image", res);
+  //       this.speakerImage = res.fileDownloadUri;
+  //       this.imageValid = false;
+  //       this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+  //       console.log(this.speakerImage);
+  //     })
+  // }
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.speakerImage = res.fileDownloadUri;
+        this.show=false;
+        this.image1button=true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
-
   generateBlog(){
-
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    this.submitted = true;
+    if (this.createVideoForm.valid) {
     let obj=this.createVideoForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
 
@@ -168,13 +195,23 @@ export class VideosCreateComponent implements OnInit {
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
+      this.show=false;
+      this.submitted = false;
       console.log("Post Dat",res);
       this.snackBar.open('Video Added Successfully', 'Close', {duration: 5000});
-     // alert("Video Added Successfully");
        this.router.navigate(['videos']);
-    })
-
+    },
+    (error) => {
+      console.log("error==",error);
+      this.show=false;
+      this.snackBar.open('Oops Something went wrong...', 'Close');
+     })
 }
+else{
+  this.show=false;
+  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+}
+  }
 createTag(){
   if(this.addTagForm.valid){
         let flag=true;
