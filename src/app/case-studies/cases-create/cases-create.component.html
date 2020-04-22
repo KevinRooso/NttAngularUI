@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -15,16 +16,16 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title" maxlength="200">
-            <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
+            <input matInput placeholder="Client Name" formControlName="title" maxlength="200">
+            <mat-error *ngIf="checkError('title', 'required')">(Client Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">About Customer <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description" formControlName="longDescription" maxlength="8000"rows="4"></textarea>
-            <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
+            <textarea matInput placeholder="Customer Profile" formControlName="longDescription" maxlength="8000"rows="4"></textarea>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(About Customer is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -47,7 +48,7 @@
             <mat-select multiple formControlName="tagList">
             <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Service is required)</mat-error>
+            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one Industry is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -69,7 +70,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
@@ -93,7 +94,7 @@
 
           <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
         <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+        <div *ngIf="checkError('expiryDate', 'required', true)" style="color:red;font-size: 12px;">
           (Expiration date & time is required)
         </div>
          </div>
@@ -101,7 +102,7 @@
         </div>
 
 
-        <div class="form-row">
+        <!-- <div class="form-row">
           <label class="col-sm-3 col-form-label"> Image <span class="error">*</span></label>
           <div class="col-sm-7">
           <input type="file" class="form-control-file " formControlName="thumbnailImageUrl"
@@ -114,8 +115,24 @@
               Upload progress: {{ fileUploadProgress }}
             </div>
           </div>
+        </div> -->
+        <div class="form-row ">
+          <label class="col-sm-3 col-form-label">Image <span class="error">*</span></label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
+              (change)="fileProgress($event)" />
+            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color:red;font-size: 12px;">(Image is
+              required)</div>
+            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
+              JPEG, JPG, PNG)</div>
+          </div>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
         </div>
-
         <div class="form-row">
           <div class="col-sm-3"></div>
           <div class="col-sm-9">
@@ -124,6 +141,33 @@
             </div>
           </div>
         </div>
+
+        <div class="form-row my-3">
+          <label class="col-sm-3 col-form-label">Attachment <span class="error">*</span></label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="downloadUrl"
+              (change)="fileProgress2($event)" />
+            <div *ngIf="checkError('downloadUrl', 'required',true)" style="color:red;font-size: 12px;">(Attachment is
+              required)</div>
+            <div *ngIf="checkError('downloadUrl', 'pattern')" style="color:red;font-size: 12px;">(Attachment should be
+              pdf only)</div>
+          </div>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>
@@ -149,15 +193,15 @@
         <form [formGroup]='addTagForm'>
 
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <label class="col-sm-3 col-form-label">Industry Name</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Tag Name" formControlName="name">
+              <input matInput placeholder="Industry Name" formControlName="name">
             </mat-form-field>
           </div>
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <label class="col-sm-3 col-form-label">Industry Keyword</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+              <input matInput  placeholder="Industry Keyword" formControlName="keywords">
             </mat-form-field>
           </div>
 

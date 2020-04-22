@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -39,7 +40,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType" [(ngModel)]="tarUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
@@ -66,11 +67,14 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label"> Logo <span class="error">*</span></label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="thumbnailImageUrl"
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file " formControlName="thumbnailImageUrl"
             (change)="fileProgress($event)" />
             <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -88,11 +92,13 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label"> Publisher Image <span class="error">*</span></label>
-          <input type="file" class="form-control-file col-sm-7" formControlName="detailImageUrl"
+          <div class="col-sm-7">
+          <input type="file" class="form-control-file " formControlName="detailImageUrl"
             (change)="fileProgress1($event)" />
             <mat-error *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+          </div>
             <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage1()" [disabled]="!imageValid1">Upload File</button>
+            <button type="button" class="btn btn-primary" [ngClass]="{'cursor' : !imageValid1}" (click)="uploadImage1()" [disabled]="!imageValid1">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -116,7 +122,7 @@
 
 
         <div class="text-right">
-          <button type="submit" (click)='generateBlog()' [disabled]="!createVideoForm.valid" class="btn button-1 action-good">Submit
+          <button type="submit" (click)='generateBlog()'  class="btn button-1 action-good">Submit
             Details</button>
         </div>
       </form>

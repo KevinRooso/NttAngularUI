@@ -43,7 +43,7 @@ export class CreateEventComponent implements OnInit {
   regStartDate = new Date();
   regEndDate = new Date();
 
-  locationURL:string;
+  locationURL: string;
 
   color: string = "3";
   userList: any[] = [];
@@ -53,7 +53,7 @@ export class CreateEventComponent implements OnInit {
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
 
 
-  isEvent: boolean = false;
+  isOnPremise: boolean = false;
   isWebinar: boolean = false;
   isAnonymous: boolean = false;
   checkError: any;
@@ -62,10 +62,12 @@ export class CreateEventComponent implements OnInit {
   imageValid: boolean = false;
   imageValid2: boolean = false;
 
-  image1button:boolean=false;
-  image2button:boolean=false;
-  agendaData:any[] = [];
+  image1button: boolean = false;
+  image2button: boolean = false;
+
+  agendaData: any[] = [];
   counter: any;
+  checkErrorAgenda: any
 
 
   // endingDate: any;
@@ -75,8 +77,8 @@ export class CreateEventComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private sanitizer: DomSanitizer,
-     private authService: AuthServiceService,
-      private location: Location, public snackBar: MatSnackBar) {
+    private authService: AuthServiceService,
+    private location: Location, public snackBar: MatSnackBar) {
 
 
 
@@ -90,19 +92,19 @@ export class CreateEventComponent implements OnInit {
     this.getUserList();
 
   }
-  initializeForm(){
-    this.newtoday.setDate(this.newtoday.getDate()-1);
+  initializeForm() {
+    this.newtoday.setDate(this.newtoday.getDate() - 1);
     this.createEventForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(300)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       address1: [''],
       address2: [''],
       city: [''],
       tagList: ['', Validators.required],
       premise: [''],
       webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
-     // locationMapUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      // locationMapUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       targetUserType: ['', Validators.required],
       country: [''],
       pincode: ['', [Validators.pattern('^[0-9]{6}$')]],
@@ -114,12 +116,12 @@ export class CreateEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: ['', [Validators.required, Validators.maxLength(3000)]],
-      policyFAQ: ['', [Validators.maxLength(3000)]],
-      thumbnailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      detailImageUrl:['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      fullName: [''],
-      name: [''],
+      policyTnc: ['', [Validators.required, Validators.maxLength(1500)]],
+      policyFAQ: ['', [Validators.maxLength(1500)]],
+      thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
+      // fullName: [''],
+      // name: [''],
       isDraft: [false],
       categoryTypeId: ['', Validators.required]
     })
@@ -134,6 +136,16 @@ export class CreateEventComponent implements OnInit {
       }
 
     }
+    this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
+          return this.addAgenda.controls[controlName].hasError(errorName);
+        }
+      } else {
+        return this.addAgenda.controls[controlName].hasError(errorName);
+      }
+
+    }
 
 
     this.addTagForm = this.formBuilder.group({
@@ -141,50 +153,91 @@ export class CreateEventComponent implements OnInit {
       keywords: ['', Validators.required],
     })
     this.addAgenda = this.formBuilder.group({
-      title: [''],
-      topic: [''],
-      startDate: [''],
-      endDate: [''],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      topic: new FormControl('', [Validators.maxLength(41)]),
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
       speakerList: [''],
-      isBreak:[''],
-      idData:['-1'],
-      id:['0']
+      isBreak: [''],
+      idData: ['-1'],
+      id: ['0']
     })
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
-      this.userList=this.userList.filter(m=>{
-        return m.id!=9;
-      })
+      if (this.userList != null)
+        this.userList = this.userList.filter(m => {
+          return m.id != 9;
+        })
     })
   }
   fileProgress(fileInput: any) {
-    // console.log("validation chcek=",this.createEventForm.controls['thumbnailImageUrl'].valid);
-    // this.createEventForm.controls['thumbnailImageUrl'].setValidators(Validators.apply);
-    // this.createEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-    // console.log("validation chcek1=",this.createEventForm.controls['thumbnailImageUrl'].valid);
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
       this.imageValid = true;
-      this.preview();
     }
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
 
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 240 && width <= 480) && (height >= 180 && height <= 240 )) {
+          this.imageValid = true;
+          this.preview();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid = false;
+          this.previewUrl = null;
+        }
+      }, 2000);
+    };
   }
 
   fileProgress2(fileInput: any) {
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
-      this.imageValid2 = true;
-      this.preview2();
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 300000) {
+      this.imageValid = true;
     }
+        var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 720 && width <= 1080) && (height >= 360 && height <= 580)) {
+          this.imageValid2 = true;
+          this.preview2();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid2 = false;
+          this.attachUrl = null;
+        }
+      }, 2000);
+    };
   }
   preview() {
     var mimeType = this.fileData.type;
@@ -210,33 +263,46 @@ export class CreateEventComponent implements OnInit {
     }
   }
   uploadImage() {
-
-   const formData = new FormData();
+    this.show = true;
+    this.image1button = false;
+    const formData = new FormData();
     formData.append('file', this.fileData);
-    this.image1button=false;
+    this.image1button = false;
     this.authService.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.show = false;
+        this.image1button = true;
         this.imageValid = false;
-        this.image1button=true;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-      })
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+        (error) => {
+          this.show = false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
+        })
   }
   uploadAttachment() {
+    this.image2button = false;
+    this.show = true;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
-    this.image2button=false;
+    this.image2button = false;
     this.authService.uploadFile(formData1)
       .subscribe(res => {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.show = false;
+        this.image2button = true;
         this.imageValid2 = false;
-         this.image2button=true;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-      })
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+        (error) => {
+          this.show = false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
+        })
   }
 
 
@@ -265,41 +331,132 @@ export class CreateEventComponent implements OnInit {
     const BOTH = "3";
 
     if (this.color == ON_PREMISE) {
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.isWebinar = false;
+      this.createEventForm.controls['webinarUrl'].setValue(null);
       this.createEventForm.controls['webinarUrl'].setValidators(null);
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
     } else if (this.color == WEBINAR) {
       this.isWebinar = true;
-      this.isEvent = false;
+      this.isOnPremise = false;
+      this.createEventForm.controls['address1'].setValue(null);
+      this.createEventForm.controls['address2'].setValue(null);
+      this.createEventForm.controls['city'].setValue(null);
+      this.createEventForm.controls['country'].setValue(null);
+      this.createEventForm.controls['pincode'].setValue(null);
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
     } else if (this.color == BOTH) {
       this.isWebinar = true;
-      this.isEvent = true;
+      this.isOnPremise = true;
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(Validators.required);
     }
 
     this.submitted = true;
-    if (this.createEventForm.valid) {
-      this.show =true;
-      let name: any[] = [];
-      let spekaerName: any[] = [];
-      spekaerName = this.createEventForm.controls['fullName'].value;
+    // event start time should be equal to agenda min start time
+    // event end time should be equal to agenda max end time
+    let minAgendaStartTime = null;
+    let maxAgendaEndTime = null;
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      let aStartDate = agenda.startDate;
+      let aEndDate = agenda.endDate;
 
-      for (let i = 0; i <= spekaerName.length; i++) {
-        if (spekaerName != undefined) {
-          let speakers = {
-            "fullName": spekaerName[i]
-          };
-          name.push(speakers);
-        }
-        console.log("check me", spekaerName[i]);
+      if (aStartDate && typeof (aStartDate) == 'string') {
+        aStartDate = new Date(aStartDate);
       }
-      console.log("check me twice", this.createEventForm.value);
+
+      if (aEndDate && typeof (aEndDate) == 'string') {
+        aEndDate = new Date(aEndDate);
+      }
+
+      if (index === '0') {
+        minAgendaStartTime = aStartDate;
+        maxAgendaEndTime = aEndDate;
+      }
+      if (minAgendaStartTime > aStartDate) {
+        minAgendaStartTime = aStartDate
+      }
+
+      if (maxAgendaEndTime < aEndDate) {
+        maxAgendaEndTime = aEndDate;
+      }
+    }
+
+    if (typeof (minAgendaStartTime) == 'string') {
+      minAgendaStartTime = new Date(minAgendaStartTime);
+    }
+    if (typeof (maxAgendaEndTime) == 'string') {
+      maxAgendaEndTime = new Date(maxAgendaEndTime);
+    }
+    let eventStartDate = this.createEventForm.controls['startDate'].value;
+    if (typeof (eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+    let eventEndDate = this.createEventForm.controls['endDate'].value;
+    if (typeof (eventEndDate) == 'string') {
+      eventEndDate = new Date(eventEndDate);
+    }
+
+    eventStartDate.setSeconds(0);
+    eventStartDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.createEventForm.controls['startDate'].setValue(eventStartDate);
+
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
+
+    // update event start daate as well to remove seconds and milis before save
+    this.createEventForm.controls['endDate'].setValue(eventEndDate);
+
+    minAgendaStartTime.setSeconds(0);
+    minAgendaStartTime.setMilliseconds(0);
+
+    maxAgendaEndTime.setSeconds(0);
+    maxAgendaEndTime.setMilliseconds(0);
+
+    if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    } else if (maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+      let errorMsg = 'Please select one of the agenda time equals to event end time';
+      this.snackBar.open(errorMsg, 'Close');
+      return false;
+    }
+
+    // this.show=true;
+    if (!this.image1button) {
+      this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
+      this.show = false;
+      return false;
+    }
+    if (!this.image2button) {
+      this.snackBar.open('Please Upload Banner Image', 'Close', { duration: 5000 });
+      this.show = false;
+      return false;
+    }
+
+    if (this.createEventForm.valid) {
+      this.show = true;
+      // let name: any[] = [];
+      // let spekaerName: any[] = [];
+      // spekaerName = this.createEventForm.controls['fullName'].value;
+
+      // for (let i = 0; i <= spekaerName.length; i++) {
+      //   if (spekaerName != undefined) {
+      //     let speakers = {
+      //       "fullName": spekaerName[i]
+      //     };
+      //     name.push(speakers);
+      //   }
+      //   console.log("check me", spekaerName[i]);
+      // }
+      // console.log("check me twice", this.createEventForm.value);
 
 
       let schedule: any[] = [];
@@ -345,7 +502,7 @@ export class CreateEventComponent implements OnInit {
         "detailImageUrl": this.attachFile,
         "categoryTypeId": this.createEventForm.controls['categoryTypeId'].value,
         "tagList": tags,
-       // "eventSchedule": schedule,
+        // "eventSchedule": schedule,
         "eventSchedule": this.agendaData,
         "targetUserType": this.createEventForm.controls['targetUserType'].value,
         "autoApproveParticipant": false,
@@ -356,8 +513,9 @@ export class CreateEventComponent implements OnInit {
         "isRegOpen": true,
         "publishStatus": false,
         "id": 0,
-        "isEvent": this.isEvent,
+        "isOnPremise": this.isOnPremise,
         "isWebinar": this.isWebinar,
+        "isEvent": true,
         "isDraft": this.createEventForm.controls['isDraft'].value
         //"isDraft": (this.createEventForm.controls['isDraft'].value || false)
       }
@@ -367,70 +525,143 @@ export class CreateEventComponent implements OnInit {
 
       this.authService.saveEventDetails(objData).subscribe(
         (response) => {
-
-          this.snackBar.open('Event successfully created', 'Close', {duration: 2000});
+          this.show = false;
           this.submitted = false;
+          this.snackBar.open('Event successfully created', 'Close', { duration: 2000 });
           console.log("Api success res", response);
-          this.show =false;
           this.router.navigate(['events']);
         },
         (error) => {
-          this.snackBar.open(error, 'Close');
-           this.show =false;
-         }
+          console.log("error", error);
+          this.show = false;
+          this.snackBar.open('Oops, something went wrong..', 'Close');
+
+        }
       )
-     }
+    }
     else {
-      this.snackBar.open('Please fill all mandatory fields', 'Close', {duration: 5000});
+      this.show = false;
+      this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
     }
 
   }
 
-  createAgenda(){
-    // if (this.addAgenda.valid) {
-    let obj= {
-      "title": this.addAgenda.controls['title'].value,
-      "topic": this.addAgenda.controls['topic'].value,
-      "isBreak": this.addAgenda.controls['isBreak'].value,
-      "endDate": this.addAgenda.controls['endDate'].value,
-      "startDate": this.addAgenda.controls['startDate'].value,
-      "speakerList": this.addAgenda.controls['speakerList'].value,
-      "id":0,
-      "idData":-1
-    }
-    console.log("id=", this.addAgenda.controls['idData'].value);
-    if(this.addAgenda.value['idData']!= -1){
-      obj['idData'] = this.addAgenda.value['idData'];
-    }else{
-      obj['idData'] = -1;
-    }
-    console.log("id=", obj.idData);
+  createAgenda() {
+    this.addAgenda.controls['title'].setValidators(Validators.required);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(Validators.required);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    // this.addAgenda.controls['isBreak'].setValidators(null);
+    // this.addAgenda.controls['isBreak'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(Validators.required);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(Validators.required);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    // this.addAgenda.controls['speakerList'].setValidators(Validators.required);
+    // this.addAgenda.controls['speakerList'].updateValueAndValidity();
 
-    this.addAgenda.reset()
-    if(obj.idData == -1){
-      this.agendaData.push(obj);
-    }else{
-      this.agendaData[(obj.idData)]=obj;
+    if (this.addAgenda.valid) {
+      let obj = {
+        "title": this.addAgenda.controls['title'].value,
+        "topic": this.addAgenda.controls['topic'].value,
+        "isBreak": this.addAgenda.controls['isBreak'].value,
+        "endDate": this.addAgenda.controls['endDate'].value,
+        "startDate": this.addAgenda.controls['startDate'].value,
+        "speakerList": this.addAgenda.controls['speakerList'].value,
+        "id": 0,
+        "idData": -1
+      }
+
+      let eventStartDate = this.createEventForm.get(['startDate']).value;
+      let agendaStartDate = obj.startDate;
+      let agendaEndDate = obj.endDate;
+
+      if (agendaStartDate && typeof (agendaStartDate) == 'string') {
+        agendaStartDate = new Date(agendaStartDate);
+      }
+
+      if (agendaEndDate && typeof (agendaEndDate) == 'string') {
+        agendaEndDate = new Date(agendaEndDate);
+      }
+
+      if (eventStartDate && typeof (eventStartDate) == 'string') {
+        eventStartDate = new Date(eventStartDate);
+      }
+
+      agendaStartDate.setDate(eventStartDate.getDate());
+      agendaStartDate.setMonth(eventStartDate.getMonth());
+      agendaStartDate.setFullYear(eventStartDate.getFullYear());
+      agendaStartDate.setSeconds(0);
+      agendaStartDate.setMilliseconds(0);
+
+      agendaEndDate.setDate(eventStartDate.getDate());
+      agendaEndDate.setMonth(eventStartDate.getMonth());
+      agendaEndDate.setFullYear(eventStartDate.getFullYear());
+      agendaEndDate.setSeconds(0);
+      agendaEndDate.setMilliseconds(0);
+
+      obj.startDate = agendaStartDate;
+      obj.endDate = agendaEndDate
+
+      console.log("myobj", obj);
+
+      console.log("id=", this.addAgenda.controls['idData'].value);
+      if (this.addAgenda.value['idData'] != -1) {
+        obj['idData'] = this.addAgenda.value['idData'];
+      } else {
+        obj['idData'] = -1;
+      }
+      console.log("id=", obj.idData);
+
+      this.addAgenda.reset()
+      if (obj.idData == -1) {
+        this.agendaData.push(obj);
+      } else {
+        this.agendaData[(obj.idData)] = obj;
+      }
+      this.addAgenda.controls['idData'].setValue("-1");
+      this.closeModelAgenda.nativeElement.click();
+
+      // this.addAgenda.controls['speakerList'].setValidators(null);
+      // this.addAgenda.controls['speakerList'].updateValueAndValidity();
     }
-    this.addAgenda.controls['idData'].setValue("-1");
-    this.closeModelAgenda.nativeElement.click();
+    else {
+      alert("please fill mandatory");
+    }
   }
-// }
-  delete(i){
-    this.agendaData.splice(i,1);
+  clearValidation() {
+    this.addAgenda.controls['title'].setValidators(null);
+    this.addAgenda.controls['title'].updateValueAndValidity();
+    this.addAgenda.controls['topic'].setValidators(null);
+    this.addAgenda.controls['topic'].updateValueAndValidity();
+    this.addAgenda.controls['isBreak'].setValidators(null);
+    this.addAgenda.controls['isBreak'].updateValueAndValidity();
+    this.addAgenda.controls['endDate'].setValidators(null);
+    this.addAgenda.controls['endDate'].updateValueAndValidity();
+    this.addAgenda.controls['startDate'].setValidators(null);
+    this.addAgenda.controls['startDate'].updateValueAndValidity();
+    // this.addAgenda.controls['speakerList'].setValidators(null);
+    // this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    // this.addAgenda.reset();
   }
-  updateAgenda(i){
+  delete(i) {
+    this.agendaData.splice(i, 1);
+  }
+  // resetForm(){
+  //   this.addAgenda.reset();
+  // }
+  updateAgenda(i) {
     // alert(i);
     this.agendaData[i].idData = i;
     console.log("log", this.agendaData[i]);
     this.addAgenda.setValue(this.agendaData[i]);
     this.agendaUpdate.nativeElement.click();
   }
-    createTag() {
+  createTag() {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
-        if (m.keywords == this.addTagForm.get(['keywords']).value)
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
           flag = false;
       })
       let obj = this.addTagForm.value
@@ -440,7 +671,7 @@ export class CreateEventComponent implements OnInit {
         this.closeModel.nativeElement.click();
       }
       else
-        alert("Tag Already EXist");
+        alert("Tag Already Exist");
     }
   }
   getTagsDetails() {
@@ -464,8 +695,62 @@ export class CreateEventComponent implements OnInit {
   }
   maxCDate() {
     console.log("Closing Date", this.createEventForm.get(['startDate']).value);
-    this.closingDate = this.createEventForm.get(['startDate']).value;
-   this.regStartDate = this.closingDate;
+    let eventStartDate = this.createEventForm.get(['startDate']).value;
+    this.closingDate = eventStartDate;
+    this.regStartDate = eventStartDate;
+    if (eventStartDate && typeof (eventStartDate) == 'string') {
+      eventStartDate = new Date(eventStartDate);
+    }
+
+    let eventEndDate = this.createEventForm.controls['endDate'].value;
+
+    if (eventEndDate && typeof (eventEndDate) == 'string') {
+      eventEndDate = new Date(eventEndDate);
+      // eventEndDate = eventEndDate ? new Date(eventEndDate) : new Date();
+    }
+
+    // setting event end date equal to start date as no is allowed to select in end date field
+    if (eventEndDate) {
+      eventEndDate.setDate(eventStartDate.getDate());
+      eventEndDate.setMonth(eventStartDate.getMonth());
+      eventEndDate.setFullYear(eventStartDate.getFullYear());
+      eventEndDate.setSeconds(0);
+      eventEndDate.setMilliseconds(0);
+      this.createEventForm.controls['endDate'].setValue(eventEndDate);
+    }
+
+
+
+
+    // update all agenda start date if start dates changes
+    for (let index in this.agendaData) {
+      let agenda = this.agendaData[index];
+      let agenStartDateObj = null;
+      let agendaEndDate = null;
+
+      if (agenda.startDate && typeof (agenda.startDate) == 'string') {
+        agenStartDateObj = new Date(agenda.startDate);
+      }
+
+      if (agenda.endDate && typeof (agenda.endDate) == 'string') {
+        agendaEndDate = new Date(agenda.endDate);
+      }
+
+      agenStartDateObj.setDate(eventStartDate.getDate());
+      agenStartDateObj.setMonth(eventStartDate.getMonth());
+      agenStartDateObj.setFullYear(eventStartDate.getFullYear());
+      agenStartDateObj.setSeconds(0);
+      agenStartDateObj.setMilliseconds(0);
+
+      agendaEndDate.setDate(eventStartDate.getDate());
+      agendaEndDate.setMonth(eventStartDate.getMonth());
+      agendaEndDate.setFullYear(eventStartDate.getFullYear());
+      agendaEndDate.setSeconds(0);
+      agendaEndDate.setMilliseconds(0);
+
+      agenda.startDate = agenStartDateObj.toISOString();
+      agenda.endDate = agendaEndDate.toISOString();
+    }
   }
   maxEDate() {
     console.log("ending Date", this.createEventForm.get(['endDate']).value);

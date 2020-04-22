@@ -14,7 +14,7 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)=getDataWithCat()>
-          <option value="" hidden>Please Select Category</option>
+          <option value="cat" >Please Select Category</option>
           <option *ngFor="let cate of categoryList" [value]="cate.id">{{cate.displayName}}</option>
         </select>
       </li>
@@ -53,4 +53,10 @@ Blogs
       </div>
     </div>
   </div>
+  <div class="text-center">
+    <span *ngIf="filterBlogs?.length == 0" >
+      <i class="fa fa-database" aria-hidden="true"></i>
+      No Data Available
+    </span>
+    </div>
 </section>

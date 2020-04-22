@@ -10,11 +10,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class BlogsComponent implements OnInit {
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
-  cat:string="";
+  cat:string="cat";
   constructor(private service:AuthServiceService,private router:Router) { }
 
   ngOnInit(): void {
@@ -27,6 +27,7 @@ export class BlogsComponent implements OnInit {
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
+
     })
   }
   showBlogDetail(id){
@@ -40,6 +41,11 @@ export class BlogsComponent implements OnInit {
   }
   getDataWithCat(){
     this.filterBlogs=this.blogs;
+    if(this.cat=="cat")
+      {
+        this.filterBlogs=this.blogs;
+        return false;
+      }
     this.filterBlogs=this.blogs.filter(m=>{
        return m.category.id==this.cat;
     })
@@ -52,7 +58,7 @@ export class BlogsComponent implements OnInit {
         console.log( this.searchBlog);
         //return m.title.includes(this.searchBlog);
         let titleData=m.title.toUpperCase();
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
       })
   }
   cancel(){

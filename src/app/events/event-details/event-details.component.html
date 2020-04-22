@@ -1,15 +1,15 @@
-<app-loader *ngIf="show"></app-loader>
+  <app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a (click)="Back()">Events</a></li>
-     <li><a class="active">Event Preview</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a (click)="Back()">Events</a></li>
+    <li><a class="active">Event Preview</a></li>
   </ul>
 </div>
 <div class="row">
   <div class="col-sm-12">
     <div class="banner-image">
-      <img [src]="getEventDetails.detailImageUrl" alt="No Image Available" width="100%" height="320px;">
+      <img [src]="getEventDetails.detailImageUrl" alt="No Image Available" width="100%" height="320px;" *ngIf="getEventDetails.detailImageUrl" >
 
       <!-- <button mat-icon-button class="btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <span class="fa fa-pencil" aria-hidden="true"></span>
@@ -27,20 +27,14 @@
 
     </div>
     <div class="fab-container">
-      <button mat-fab  direction="down" class="fab-toggler"
-              (click)="onToggleFab()"
-              >
-        <i class="material-icons"  direction="down" [@fabToggler]="{value: fabTogglerState}">add</i> <!-- Animation here -->
+      <button mat-fab direction="down" class="fab-toggler" (click)="onToggleFab()">
+        <i class="material-icons" direction="down" [@fabToggler]="{value: fabTogglerState}">add</i>
+        <!-- Animation here -->
       </button>
-      <div [@speedDialStagger]="buttons.length"> <!-- and here -->
-        <button *ngFor="let btn of buttons"
-                mat-mini-fab
-                direction="down"
-                class="fab-secondary"
-                color="secondary"
-                [matTooltip]="btn.tooltip"
-                matTooltipPosition="left"
-                >
+      <div [@speedDialStagger]="buttons.length">
+        <!-- and here -->
+        <button *ngFor="let btn of buttons" mat-mini-fab direction="down" class="fab-secondary" color="secondary"
+          [matTooltip]="btn.tooltip" matTooltipPosition="left">
           <i class="material-icons" (click)="duplicateEdit(btn.icon,getEventDetails.id)">{{btn.icon}}</i>
         </button>
       </div>
@@ -69,16 +63,19 @@
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
 
-            <ul class="list-group" >
+            <ul class="list-group">
               <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice:0:6; let ind=index;">
-                <a><div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
-                  {{participant.name}}
-                </div></a>
+                <a>
+                  <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
+                    {{participant.name}}
+                  </div>
+                </a>
               </li>
             </ul>
             <div class="d-inline-flex py-2" style="width: 100%;">
               <div class="py-2 text-left" style="width: 50%;">
-                <a class="blog-btn add-button" *ngIf="getParticipantDetails.length!=0" (click)=viewParticipant()>View All</a>
+                <a class="blog-btn add-button" *ngIf="getParticipantDetails.length!=0" (click)=viewParticipant()>View
+                  All</a>
               </div>
               <div class="py-2 text-right" style="width: 50%;">
                 <a class="blog-btn add-button" (click)=addParticipants()>Add New</a>
@@ -92,39 +89,53 @@
       <div class="col-sm-6 px-0">
         <div class="card">
           <div class="card-body">
-          <div class="form-row">
-            <label class="col-sm-2 col-form-label">Publish:</label>
-            <mat-slide-toggle class="example-full-width col-sm-3" (change)="publishChanges()" [(ngModel)]="isPublish"></mat-slide-toggle>
+            <div class="form-row">
+              <label class="col-sm-2 col-form-label">Publish:</label>
+              <mat-slide-toggle class="example-full-width col-sm-3" (change)="publishChanges()" [(ngModel)]="isPublish">
+              </mat-slide-toggle>
 
-            <label class="col-sm-2 col-form-label">Active:</label>
-            <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"></mat-slide-toggle>
+              <label class="col-sm-2 col-form-label">Active:</label>
+              <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive">
+              </mat-slide-toggle>
+            </div>
           </div>
         </div>
-          </div>
         <div class="card" style="margin-top: 16px;">
           <div class="card-body medium">
             <h5 class="card-title">{{getEventDetails.title}}</h5>
             <!-- <h6>Description</h6> -->
             <p class="card-text" [innerHTML]="getEventDetails.detail"><span class="event-label">Description</span></p>
-            <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId!=null"><span style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
-           <p class="card-text mb-0" style="font-weight: 500;">Tags - <span class="tags" *ngFor="let tag of getEventDetails.tags">{{tag.name}}</span></p>
+            <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId!=null"><span
+                style="font-weight: 500;">Category - </span> {{getEventDetails.categoryTypeId.displayName}}</p>
+            <p class="card-text mb-0" style="font-weight: 500;">Tags - <span class="tags"
+                *ngFor="let tag of getEventDetails.tags">{{tag.name}}</span></p>
           </div>
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
-              <div class="col-sm-6 float-left px-0">
+              <div class="col-sm-9 float-left px-0">
                 <div class="text-left">
-                  <p *ngIf="getEventDetails.address1!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Address1 - </span>{{getEventDetails.address1}}</p>
-                  <p *ngIf="getEventDetails.address2!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Address2 - </span>{{getEventDetails.address2}}</p>
-                  <p *ngIf="getEventDetails.webinarUrl!= 0 && getEventDetails.isWebinar || (getEventDetails.isEvent && getEventDetails.isWebinar)"><span style="font-weight: 500;">Webinar URL - </span><a [href]="getEventDetails.webinarUrl" target="_blank">{{getEventDetails.webinarUrl}}</a></p>
+                  <p
+                    *ngIf="getEventDetails.address1!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
+                    <span style="font-weight: 500;">Venue - </span>{{getEventDetails.address1}}</p>
+                  <p
+                    *ngIf="getEventDetails.address2!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
+                    <span style="font-weight: 500;">Address - </span>{{getEventDetails.address2}}</p>
+                  <p
+                    *ngIf="getEventDetails.address2!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
+                    <span style="font-weight: 500;" style="visibility: hidden;">Address - </span>{{getEventDetails.city}}, {{getEventDetails.country}}, {{getEventDetails.pincode}}</p>
+                  <p
+                    *ngIf="getEventDetails.webinarUrl!= '' && getEventDetails.isWebinar || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
+                    <span style="font-weight: 500;">Webinar URL - </span><a [href]="getEventDetails.webinarUrl"
+                      target="_blank">{{getEventDetails.webinarUrl}}</a></p>
                   <p><span style="font-weight: 500;">Start Time - </span>{{startTime}}</p>
                   <p><span style="font-weight: 500;">End Time - </span>{{endTime}}</p>
                 </div>
               </div>
-              <div class="col-sm-6 float-right px-0">
+              <div class="col-sm-3 float-right px-0">
                 <div class="text-right">
                   <!-- <p>8 HRS</p> -->
                   <p *ngIf="getEventDetails.totalSeat!= 0">Total Seats - {{getEventDetails.totalSeat}}</p>
-                  <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p>
+                  <!-- <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p> -->
                   <!-- *ngIf="getEventDetails.noOfSubUsersAllow!= 0" -->
                 </div>
               </div>
@@ -132,7 +143,7 @@
           </div>
           <div class="event-card-body-lg py-3">
             <div class="col-sm-12">
-              <h6>Terms & Conditions *</h6>
+              <h6>Terms & Conditions</h6>
               <small [innerHTML]="getEventDetails.policyTnc"></small>
               <!-- <small>{{getEventDetails.policyTnc}}</small> -->
             </div>
@@ -152,11 +163,11 @@
           <div class="card-body">
             <h5 class="card-title">Speakers</h5>
             <ul class="list-group">
-              <li class="list-group-item" *ngFor="let sdetails of getEventDetails.speakers | sortBy:'asc':'fullName'">
+              <li class="list-group-item" *ngFor="let sdetails of speakers | sortBy:'asc':'fullName'">
                 <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail1(sdetails.id)">
                   <div class="mr-2">
-                    <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl"
-                      alt="User Image" class="speaker-image"></div>
+                    <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl" alt="User Image" class="speaker-image">
+                  </div>
                   <a>{{sdetails.fullName}}</a>
                 </div>
               </li>

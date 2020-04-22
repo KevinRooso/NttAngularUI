@@ -95,15 +95,15 @@ export class EventPreviewComponent implements OnInit {
         })
 
         this.publishedList=this.getEventData.filter(m=>{
-           return m.publish && m.active && !m.draft;
+           return m.publish;
          })
          this.publishedList1=this.publishedList;
          this.activeList=this.getEventData.filter(m=>{
-          return !m.publish && m.active && !m.draft;
+          return !m.publish && m.active;
         })
          this.activeList1=this.activeList;
         this.draftList=this.getEventData.filter(m=>{
-          return !m.publish && !m.active && m.draft;
+          return !m.publish && !m.active && (m.draft || !m.draft);
         })
         this.draftList1=this.draftList;
       });
@@ -207,44 +207,60 @@ export class EventPreviewComponent implements OnInit {
     }
     if(data[1]=="Title"){
       if(data[0]=='asc'){
-       this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
-
-      this.filterBlogs=this.searchFilterData;
+      // this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
+        this.publishedList.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
+        this.activeList.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
+       this.draftList.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
+     // this.filterBlogs=this.searchFilterData;
     }
     else{
-      this.searchFilterData.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
-      this.filterBlogs=this.searchFilterData;
+     // this.searchFilterData.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
+      this.publishedList.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
+      this.activeList.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
+      this.draftList.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
+     // this.filterBlogs=this.searchFilterData;
     }
     }
 
     if(data[1]=="date"){
       if(data[0]=='asc'){
-        console.log("adtesort==",this.searchFilterData);
-      this.searchFilterData.sort(this.GFG_sortFunction);
+      //   console.log("adtesort==",this.searchFilterData);
+      // this.searchFilterData.sort(this.GFG_sortFunction);
 
-        console.log("dateaftersort==",this.searchFilterData);
+      this.publishedList.sort(this.GFG_sortFunction);
+      this.activeList.sort(this.GFG_sortFunction);
+      this.draftList.sort(this.GFG_sortFunction);
 
-        this.filterBlogs=this.searchFilterData;
+        // console.log("dateaftersort==",this.searchFilterData);
+
+        // this.filterBlogs=this.searchFilterData;
     }
     else{
-      this.searchFilterData.sort(this.GFG_sortFunction1);
-      console.log("dateaftersort==",this.searchFilterData);
-      this.filterBlogs=this.searchFilterData;
+      // this.searchFilterData.sort(this.GFG_sortFunction1);
+      // console.log("dateaftersort==",this.searchFilterData);
+      // this.filterBlogs=this.searchFilterData;
+      this.publishedList.sort(this.GFG_sortFunction1);
+      this.activeList.sort(this.GFG_sortFunction1);
+      this.draftList.sort(this.GFG_sortFunction1);
     }
     }
     if(data[1]=="cdate"){
       if(data[0]=='asc'){
-        console.log("adtesort==",this.searchFilterData);
-      this.searchFilterData.sort(this.GFG_sortFunctionc);
-
-        console.log("dateaftersort==",this.searchFilterData);
-
-        this.filterBlogs=this.searchFilterData;
+      //   console.log("adtesort==",this.searchFilterData);
+      // this.searchFilterData.sort(this.GFG_sortFunctionc);
+      //   console.log("dateaftersort==",this.searchFilterData);
+      //   this.filterBlogs=this.searchFilterData;
+      this.publishedList.sort(this.GFG_sortFunctionc);
+      this.activeList.sort(this.GFG_sortFunctionc);
+      this.draftList.sort(this.GFG_sortFunctionc);
     }
     else{
-      this.searchFilterData.sort(this.GFG_sortFunctionc1);
-      console.log("dateaftersort==",this.searchFilterData);
-      this.filterBlogs=this.searchFilterData;
+      // this.searchFilterData.sort(this.GFG_sortFunctionc1);
+      // console.log("dateaftersort==",this.searchFilterData);
+      // this.filterBlogs=this.searchFilterData;
+      this.publishedList.sort(this.GFG_sortFunctionc1);
+      this.activeList.sort(this.GFG_sortFunctionc1);
+      this.draftList.sort(this.GFG_sortFunctionc1);
     }
     }
 

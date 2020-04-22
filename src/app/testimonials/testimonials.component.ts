@@ -11,7 +11,8 @@ import { BehaviorSubject } from 'rxjs';
 export class TestimonialsComponent implements OnInit {
   testimonials:any[]=[];
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
@@ -32,6 +33,7 @@ export class TestimonialsComponent implements OnInit {
       this.blogs=res.body;
       this.searchFilterData=res.body;
       })
+
   }
   viewTestimonials(id){
     this.router.navigate(['view-testimonials'],{queryParams:{page:id}})

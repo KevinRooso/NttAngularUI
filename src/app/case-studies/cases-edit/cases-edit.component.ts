@@ -19,6 +19,7 @@ export class CasesEditComponent implements OnInit {
     visible = true;
     selectable = true;
     removable = true;
+    attachFile: any;
     addOnBlur = true;
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     fruits: any[] = [];
@@ -33,17 +34,26 @@ export class CasesEditComponent implements OnInit {
     selected3:string="";
     selected4:string[]=[];
     catagoryData:any[]=[];
+    show:boolean=false;
+    articleImage: any;
+    articelAttach: any;
 
     checkError:any;
   submitted: boolean = false;
-  imageValid:boolean=false;
   checkErrorPerson:any;
   submittedPerson: boolean = false;
   imageValidPerson:boolean=false;
   previewUrl1: any = null;
-  imageValid1:boolean=false;
+  imageValid: boolean = false;
+  imageValid2: boolean = false;
   userList:any[]=[];
   tarUserType:string="";
+  attachUrl: any = null;
+
+  image1button:boolean=false;
+  image2button:boolean=false;
+
+  today=new Date();
     @ViewChild('closeModel',{static:true}) closeModel;
     constructor(private frmbuilder: FormBuilder,
       private authService: AuthServiceService,
@@ -59,8 +69,10 @@ export class CasesEditComponent implements OnInit {
         tagList: ['', Validators.required],
         serviceUsed: ['', Validators.required],
         targetUserType:['',Validators.required],
-        thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-        isDraft:[false]
+        thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+        downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(pdf)$')]),
+        isDraft:[false],
+        expiryDate: ['', Validators.required]
       });
       this.addTagForm = this.frmbuilder.group({
         name:['',Validators.required],
@@ -104,18 +116,21 @@ export class CasesEditComponent implements OnInit {
         console.log(res);
 
         this.selected2=res.body.category.id;
+        if(res.body.person!=null){
+          this.selected3=res.body.person.id;
+        }
 
-        this.selected3=res.body.person.id;
 
 
         if(res.body.targetUserType!=null)
         this.tarUserType=res.body.targetUserType.id;
         this.createCases.controls['targetUserType'].setValidators(null);
       this.createCases.controls['targetUserType'].updateValueAndValidity();
-      this.createCases.controls['tagList'].updateValueAndValidity();
+
       this.createCases.controls['categoryId'].setValidators(null);
       this.createCases.controls['categoryId'].updateValueAndValidity();
       this.createCases.controls['tagList'].setValidators(null);
+      this.createCases.controls['tagList'].updateValueAndValidity();
       // this.createCases.controls['person'].setValidators(null);
       // this.createCases.controls['person'].updateValueAndValidity();
       this.createCases.controls['thumbnailImageUrl'].setValidators(null);
@@ -123,17 +138,25 @@ export class CasesEditComponent implements OnInit {
       this.createCases.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
       this.createCases.controls['thumbnailImageUrl'].updateValueAndValidity();
         this.previewUrl=res.body.thumbnailImageUrl;
-        this.speakerImage=res.body.thumbnailImageUrl;
+        this.articleImage=res.body.thumbnailImageUrl;
         this.createCases.get(['title']).setValue(res.body.title);
         this.createCases.get(['longDescription']).setValue(res.body.longDescription);
         this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
         this.createCases.get(['categoryId']).setValue(res.body.category.id);
+
+        this.createCases.controls['downloadUrl'].setValidators(null);
+        this.createCases.controls['downloadUrl'].updateValueAndValidity();
+        this.attachFile = res.body.resourceLink;
+
        // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
        for(let i=0;i<res.body.resourceTags.length;i++)
         this.selected4.push(res.body.resourceTags[i].id);
         this.tarUserType=res.body.targetUserType.id;
         console.log("tarus===",this.tarUserType);
-
+        this.today=res.body.expiryDate;
+        this.createCases.controls['expiryDate'].setValue(res.body.expiryDate);
+        this.image1button=true;
+        this.image2button=true;
        this.getCategoryDetails();
        this.getTagsDetails();
        this.getUserList();
@@ -159,42 +182,108 @@ export class CasesEditComponent implements OnInit {
       })
     }
     fileProgress(fileInput: any) {
-      this.previewUrl=null;
-      this.imageValid=false;
+      this.previewUrl = null;
+      this.imageValid = false;
       this.fileData = <File>fileInput.target.files[0];
-      let fileType=this.fileData.type;
-       if(fileType=='image/jpeg' || fileType=='image/png'){
-        this.imageValid=true;
-      this.preview();
+      console.log("fileData==", this.fileData);
+  if(this.fileData!=undefined){
+    this.image1button=false;
+      let fileType = this.fileData.type;
+      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+        this.imageValid = true;
+        this.preview();
       }
     }
+    }
+    fileProgress2(fileInput: any) {
+      this.image2button=false;
+      this.attachUrl = null;
+      this.imageValid2 = false;
+      this.fileData = <File>fileInput.target.files[0];
+      if(this.fileData!=undefined){
+        this.image2button=false;
+      let fileType = this.fileData.type;
+      if (fileType == 'application/pdf') {
+        this.imageValid2 = true;
+        this.preview2();
+      }
+    }
+    }
     preview() {
-      // Show preview
       var mimeType = this.fileData.type;
       if (mimeType.match(/image\/*/) == null) {
         return;
       }
-
       var reader = new FileReader();
       reader.readAsDataURL(this.fileData);
       reader.onload = (_event) => {
         this.previewUrl = reader.result;
       }
     }
+    preview2() {
+      var mimeType = this.fileData.type;
+      var reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = (_event) => {
+        this.attachUrl = reader.result;
+      }
+    }
     uploadImage() {
+      this.show=true;
+      this.image1button=false;
       const formData = new FormData();
       formData.append('file', this.fileData);
       this.authService.uploadFile(formData)
-        .subscribe(res => {
+        .subscribe((res) => {
           console.log("Image", res);
-          this.speakerImage = res.fileDownloadUri;
-          this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-          console.log(this.speakerImage);
-          // alert('SUCCESS !!');
+          this.articleImage = res.fileDownloadUri;
+          console.log("Image", this.articleImage);
+          this.show=false;
+          this.image1button=true;
+          this.imageValid = false;
+          this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        },
+        (error)=>{
+          this.show=false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
         })
     }
-
+    uploadAttachment() {
+      this.show=true;
+      this.image2button=false;
+      const formData1 = new FormData();
+      formData1.append('file', this.fileData);
+      this.authService.uploadFile(formData1)
+        .subscribe((res) => {
+          console.log("Image", res);
+          this.attachFile = res.fileDownloadUri;
+          console.log("File", this.attachFile);
+          this.image2button=true;
+          this.imageValid2 = false;
+          this.show=false;
+          this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+        },
+        (error)=>{
+          this.show=false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
+        })
+    }
     createCase() {
+      this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if( this.createCases.value.tagList.length==0){
+      this.createCases.controls['tagList'].setValidators(Validators.required);
+    this.createCases.controls['tagList'].updateValueAndValidity();
+    }
       if(this.createCases.valid){
      let obj=this.createCases.value;
      let catObj;
@@ -219,7 +308,7 @@ export class CasesEditComponent implements OnInit {
       });
     })
      let dataObj={
-       "isDraft":obj.isDraft,
+       "draft":obj.isDraft,
        "id":this.caseId,
        "categoryId": catObj.id,
        "longDescription": obj.longDescription,
@@ -229,26 +318,40 @@ export class CasesEditComponent implements OnInit {
         "serviceUsed": obj.serviceUsed,
         "tagList": tags,
         "targetUserType":obj.targetUserType,
-        "thumbnailImageUrl": this.speakerImage,
-        "title": obj.title
+        "title": obj.title,
+        "expiryDate":obj.expiryDate,
+        "customerProfile": "string",
+        "detailImageUrl": "string",
+        "approverId": 0,
+        "thumbnailImageUrl": this.articleImage,
+        "downloadUrl": this.attachFile,
+
    }
       console.log("post", dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
         console.log(res);
+        this.show=false;
         this.snackBar.open('Case Study Updated Successfully', 'Close', {duration: 5000});
         //alert("Case Study Updated Successfully");
         this.router.navigate(['cases']);
+      },
+      (error) => {
+        this.show=false;
+        this.snackBar.open('Oops, something went wrong..', 'Close');
       })
       }
-      else
+      else{
+        this.show=false;
       this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+      }
+
 
     }
     createTag(){
       if(this.addTagForm.valid){
             let flag=true;
       this.tagData.forEach(m=>{
-        if(m.keywords==this.addTagForm.get(['keywords']).value)
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
         flag=false;
       })
       let obj=this.addTagForm.value;
@@ -258,7 +361,7 @@ export class CasesEditComponent implements OnInit {
       this.closeModel.nativeElement.click();
     }
     else
-    alert("Tag Already EXist");
+    alert("Tag Already Exist");
     }
   }
     BackMe() {

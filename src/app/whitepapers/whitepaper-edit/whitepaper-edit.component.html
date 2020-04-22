@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
      <li><a href="/home">Home</a></li>
@@ -16,7 +17,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="FullName" formControlName="title">
+            <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
             <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 200 characters</mat-error>
           </mat-form-field>
@@ -35,7 +36,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description" formControlName="shortDescription" rows="5"></textarea>
+            <textarea matInput placeholder="Short Description" formControlName="shortDescription" rows="5"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
             <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000
               characters</mat-error>
@@ -76,7 +77,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Targeted User</mat-label>
+            <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType" [(value)]="selected3">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
@@ -86,18 +87,33 @@
           </mat-form-field>
         </div>
 
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Expiration Date<span class="error">*</span></label>
+         <div class="col-sm-9">
+          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
+           placeholder="Expiration Date & Time" formControlName="expiryDate" class="form-control">
+
+          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+        <owl-date-time #startdt></owl-date-time>
+        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+          (Expiration date & time is required)
+        </div>
+         </div>
+
+        </div>
+
         <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Whitepaper Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
               (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is
+            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color:red;font-size: 12px;">(Image is
               required)</div>
             <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
               JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
@@ -123,7 +139,7 @@
               pdf only)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>

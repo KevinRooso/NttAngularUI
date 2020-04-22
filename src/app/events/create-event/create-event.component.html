@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title">
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 300 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
         </div>
         <!-- <ckeditor data="<p>Hello, world!</p>"></ckeditor> -->
@@ -38,7 +38,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Description should be less than 2000 characters
+              Description should be less than 700 characters
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
-              (Short Description should be less than 2000 characters)
+              (Short Description should be less than 80 characters)
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
-            <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal"
+            <button type="button" class="btn button-2 action-good" data-toggle="modal"
               data-target="#tagModal1">Add Tags</button>
           </div>
         </div>
@@ -162,7 +162,7 @@
           </mat-form-field>
         </div>
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 1 <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Venue <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 1" value="" formControlName="address1">
             <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="form-row" *ngIf="color=='3' || color=='1'">
-          <label class="col-sm-3 col-form-label">Address 2</label>
+          <label class="col-sm-3 col-form-label">Address</label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Street 2" value="" formControlName="address2">
           </mat-form-field>
@@ -227,32 +227,40 @@
           <div class="col-sm-9">
             <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
               placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
-
-            <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
             <owl-date-time #startdt></owl-date-time>
             <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
               (Event start date & time is required)
             </div>
           </div>
         </div>
-
+<!--
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Closing Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input [owlDateTimeTrigger]="enddt" (dateTimeInput)="maxEDate()" [owlDateTime]="enddt" [min]="closingDate" class="form-control"
-              placeholder="Closing Date & Time" formControlName="endDate">
-            <owl-date-time #enddt></owl-date-time>
+          <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
+          [min]="closingDate" class="col-sm-12 p-2" formControlName="endDate">
+          <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
+          <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
+            (Event Agenda end time is required)
+          </div>
+          </div>
+        </div> -->
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Event Closing Time <span class="error">*</span></label>
+          <div class="col-sm-9">
+            <input (dateTimeInput)="maxEDate()" [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control"
+              placeholder="Closing Time" formControlName="endDate" [min]="closingDate">
+            <owl-date-time #enddt [pickerType]="'timer'"></owl-date-time>
             <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
               (Event end date & time is required)
             </div>
           </div>
-          <!-- <mat-error *ngIf="checkError('endDate', 'required')">(Event end date & time is required)</mat-error> -->
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
-            <button type="button" class="btn btn-primary button-2 action-good" data-toggle="modal"
-              data-target="#agendaModal" #agendaUpdate>Add Agenda</button>
+            <button type="button" class="btn button-2 action-good" data-toggle="modal"
+              data-target="#agendaModal" #agendaUpdate (click)="clearValidation()">Add Agenda</button>
           </div>
         </div>
         <div class="form-row">
@@ -279,8 +287,8 @@
                   <td>{{data.topic}}</td>
                   <td><span *ngFor="let speaker of data.speakerList">{{speaker.fullName}},</span></td>
                   <td>
-                    <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;">
-                      <i class="fa fa-pencil" style="font-size: 1rem;" (click)="updateAgenda(i)"></i>
+                    <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;" (click)="updateAgenda(i)">
+                      <i class="fa fa-pencil" style="font-size: 1rem;"></i>
                     </span>
                     <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i)">
                       <i class="fa fa-trash" style="font-size: 1rem;"></i>
@@ -324,7 +332,7 @@
               (Terms & Conditions is required)
             </div>
             <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Terms & Conditions should be less than 3000 characters
+              Terms & Conditions should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -343,7 +351,7 @@
               (Terms & Conditions is required)
             </div> -->
             <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
-              Policy FAQs should be less than 3000 characters
+              Policy FAQs should be less than 1500 characters
             </div>
           </div>
         </div>
@@ -354,7 +362,15 @@
           </mat-form-field> -->
 
         <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Choose Thumbnail Image <span class="error">* </span>
+            <i class="fa fa-info-circle"
+               aria-hidden="true"
+               matTooltip="1.Thumbnail image Width should be between (480 x 240)px &#13;2.Thumbnail image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+               matTooltipPosition="right"
+               matTooltipClass="custom-tooltip"
+               style="font-size: 18px;">
+            </i>
+          </label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
               (change)="fileProgress($event)" />
@@ -379,7 +395,15 @@
           </div>
         </div>
         <div class="form-row my-3">
-          <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">* </span>
+            <i class="fa fa-info-circle"
+               aria-hidden="true"
+               matTooltip="1.Banner image Width should be between (1080 x 480)px &#13;2.Banner image Height should be between (580 x 360)px &#13;3. Maximum image size allowed:1MB"
+               style="font-size: 18px;"
+               matTooltipPosition="right"
+               matTooltipClass="custom-tooltip">
+          </i>
+          </label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="detailImageUrl"
               (change)="fileProgress2($event)" />
@@ -463,13 +487,17 @@
         <form [formGroup]='addAgenda'>
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Title" formControlName="title">
+              <input matInput placeholder="Session Title" formControlName="title" maxlength="40">
+              <mat-error *ngIf="checkErrorAgenda('title', 'required')">(Title is required)</mat-error>
+              <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be less than 40 characters</mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Topic" formControlName="topic">
+              <input matInput placeholder="Session Topic" formControlName="topic" maxlength="41">
+              <!-- //<mat-error *ngIf="checkError('topic', 'required')">(Title is required)</mat-error> -->
+              <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be less than 41 characters</mat-error>
             </mat-form-field>
           </div>
 
@@ -481,14 +509,21 @@
 
          <div class="form-row py-1">
             <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="startDate">
+            class="col-sm-12 p-2" formControlName="startDate">
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+            <div *ngIf="checkErrorAgenda('startDate', 'required',true)" style="color:red;font-size: 12px;">
+              (Event Agenda start time is required)
+            </div>
+
           </div>
 
           <div class="form-row">
             <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
-            [min]="closingDate" [max]="endingDate" class="col-sm-12 p-2" formControlName="endDate">
+             class="col-sm-12 p-2" formControlName="endDate">
             <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
+            <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
+              (Event Agenda end time is required)
+            </div>
           </div>
 
           <!-- <div class="form-row">
@@ -514,6 +549,7 @@
                 <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers.fullName}}
                 </mat-option>
               </mat-select>
+              <!-- <mat-error *ngIf="checkErrorAgenda('speakerList', 'required')">(Atleast one speaker is required)</mat-error> -->
             </mat-form-field>
           </div>
 

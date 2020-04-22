@@ -10,24 +10,34 @@ import { Location} from '@angular/common';
 })
 export class ArticlesDetailComponent implements OnInit {
   articleData: any;
+  resourceTags:any[]=[];
+  // restags:string='';
 
   constructor(private authService: AuthServiceService, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
-
+ show:boolean=false;
   ngOnInit(): void {
+    this.show=true;
     this.router1.queryParams.subscribe(params => {
       this.getArticleData(params.page);
     });
   }
   getArticleData(id){
+
     this.authService.getResourceById(id).subscribe((res)=>{
       this.articleData = res.body;
+      this.show=false;
       console.log("Get Articles", this.articleData);
+      this.resourceTags=this.articleData.resourceTags;
+      console.log(this.articleData.resourceTags);
+      // this.resourceTags.forEach((value,index)=>{
+      //   if(index!=this.resourceTags.length-1)
+      //   this.restags=this.restags+value.name + ','
+      // })
+
+
     })
   }
-  // editSpeaker(id){
-  //   alert(id);
-  //   this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
-  // }
+
   getDetails(id){
     // alert(id);
     this.router.navigate(['/article-edit'], { queryParams: { page: id } });

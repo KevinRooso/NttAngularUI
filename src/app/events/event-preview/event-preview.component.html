@@ -28,12 +28,12 @@
 
         </div>
       </li>
-      <li class="nav-item ml-2">
+      <!-- <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-          <!-- <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search" (search)="cancel()"> -->
+
           <button class="btn button-2 action-info" data-toggle="modal" data-target="#tagModal1">Advance Search</button>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="sort"  (change)="filterData()" style="width: 150px;">
           <option value="Sort By" >Sort By</option>
@@ -142,16 +142,16 @@
 
 <div class="container-fluid"  >
   <div class="accordion" id="accordionExample">
-    <div class="card shadow-none " *ngIf="publishedList.length!=0">
+    <div class="card shadow-none " *ngIf="publishedList?.length>0">
       <div class="card-header " id="headingOne" data-toggle="collapse" data-target="#collapseOne">
-        <h2 class="mb-0">
+        <!-- <h2 class="mb-0"> -->
           <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
             Published
           </h2>   </a> -->
-         <a  type="button"  aria-expanded="true" aria-controls="collapseOne">
+         <a  type="button"  aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px;font-weight: 400;">
             Published
           </a>
-        </h2>
+        <!-- </h2> -->
       </div>
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -183,15 +183,16 @@
         </div>
       </div>
     </div>
+
     <br>
-    <div class="card shadow-none" *ngIf="activeList.length!=0">
+    <div class="card shadow-none" *ngIf="activeList?.length>0">
       <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
-        <h2 class="mb-0">
-           <a type="button"  aria-expanded="true" aria-controls="collapseTwo">
+        <!-- <h2 class="mb-0"> -->
+           <a type="button"  aria-expanded="true" aria-controls="collapseTwo" style="font-size: 20px;font-weight: 400;">
             Active
            </a>
 
-        </h2>
+        <!-- </h2> -->
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
         <div class="card-body">
@@ -222,13 +223,13 @@
       </div>
     </div>
     <br>
-    <div class="card shadow-none" *ngIf="draftList.length!=0" >
+    <div class="card shadow-none" *ngIf="draftList?.length>0" >
       <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
-        <h2 class="mb-0" >
-         <a  type="button"  aria-expanded="true" aria-controls="collapseThree">
+        <!-- <h2 class="mb-0" > -->
+         <a  type="button"  aria-expanded="true" aria-controls="collapseThree" style="font-size: 20px;font-weight: 400;">
            Draft
          </a>
-        </h2>
+        <!-- </h2> -->
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
@@ -260,6 +261,11 @@
     </div>
   </div>
   </div>
+  <!-- <div class="text-center">
+    <span *ngIf="publishedList?.length ==0 || activeList?.length==0 || draftList?.length==0" >
+      <i class="fa fa-database" aria-hidden="true"></i>  No Data Available
+    </span>
+  </div> -->
 
 
 

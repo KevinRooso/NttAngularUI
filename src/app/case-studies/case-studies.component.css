@@ -46,3 +46,6 @@ display: flex;
   font-size: 30px;
   line-height: 30px;
 }
+.text-center{
+  padding: 100px;
+}

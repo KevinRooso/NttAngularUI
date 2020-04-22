@@ -33,8 +33,10 @@ export class NewsEditComponent implements OnInit {
   articleImage: any;
   imageValid: boolean = false;
   selected3:string="";
-
+  today=new Date();
   userList: any[] = [];
+  show:boolean=false;
+  image1button:boolean=false;
   ngOnInit(): void {
 
     this.updateNewsForm = this.formBuilder.group({
@@ -47,6 +49,7 @@ export class NewsEditComponent implements OnInit {
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
       draft: [false],
+      expiryDate: ['', Validators.required]
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -91,20 +94,27 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = res.body.thumbnailImageUrl;
       this.articleImage = res.body.thumbnailImageUrl;
+      this.today=res.body.expiryDate;
+      this.updateNewsForm.controls['expiryDate'].setValue(res.body.expiryDate);
       if(res.body.targetUserType!=null)
       this.selected3=res.body.targetUserType.id;
       console.log("Data", this.selected3);
+      this.image1button=true;
     })
   }
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
+    console.log("fileData==", this.fileData);
+if(this.fileData!=undefined){
+  this.image1button=false;
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
     }
+  }
   }
   preview() {
     var mimeType = this.fileData.type;
@@ -119,22 +129,36 @@ export class NewsEditComponent implements OnInit {
     }
   }
   uploadImage() {
+    this.image1button=false;
+    this.show=true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
-        console.log("Image", this.articleImage);
-        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        //alert('SUCCESS !!');
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
+        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        console.log(this.articleImage);
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
   updateNews() {
+    this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload news Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     this.submitted = true;
-    if (this.updateNewsForm.valid) {
 
+    if (this.updateNewsForm.valid) {
       let userId;
       this.userList.forEach(m=>{
         if(m.displayName==this.updateNewsForm.controls['targetUserType'].value)
@@ -149,23 +173,32 @@ export class NewsEditComponent implements OnInit {
         "location": this.updateNewsForm.controls['location'].value,
         "about": this.updateNewsForm.controls['about'].value,
         "active": false,
+        "tagList":[],
         "draft": this.updateNewsForm.controls['draft'].value,
         "thumbnailImageUrl": this.articleImage,
         "id": this.newsId,
-        "targetUserType":userId
+        "targetUserType":userId,
+        "expiryDate":this.updateNewsForm.controls['expiryDate'].value
       }
       console.log("post", objData);
       this.service.saveNews(objData).subscribe((response) => {
-        this.snackBar.open('News successfully updated', 'Close', { duration: 5000 });
-        // console.log("responsne", response);
+        console.log("response=",response);
+        this.show=false;
         this.submitted = false;
-        //this.router.navigate(['events']);
+        this.snackBar.open('News successfully updated', 'Close', {duration: 2000});
+        this.router.navigate(['news']);
       },
-        (error) => {
-          this.snackBar.open(error, 'Close');
-          // alert("Error :" + error);
-        })
-    }
+      (error) => {
+        console.log("error==",error);
+        this.show=false;
+        this.snackBar.open('Oops Something went wrong...', 'Close');
+       })
+
+      }
+      else{
+        this.show=false;
+        this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+      }
   }
   BackMe() {
     this.location.back();

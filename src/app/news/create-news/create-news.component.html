@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -82,7 +83,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Select Event Type</mat-label>
+            <mat-label>Select Target Type</mat-label>
             <mat-select formControlName="targetUserType">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{user.displayName}}
@@ -100,7 +101,7 @@
 
           <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
         <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+        <div *ngIf="checkError('expiryDate', 'required', true)" style="color:red;font-size: 12px;">
           (Expiration date & time is required)
         </div>
          </div>
@@ -108,24 +109,20 @@
         </div>
 
 
-        <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Choose Thumbnail Card Image <span class="error">*</span></label>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Image <span class="error">*</span></label>
           <div class="col-sm-7">
-            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
-              (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is
-              required)</div>
-            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
-              JPEG, JPG, PNG)</div>
+          <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
+            (change)="fileProgress($event)" />
+            <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
           </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
+            <div class="col-sm-2">
+            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
           </div>
         </div>
-
 
         <div class="form-row">
           <div class="col-sm-3"></div>
