@@ -14,7 +14,7 @@ export class VideosDetailsComponent implements OnInit {
   videosData: any;
   videosUrl:any;
 
-  vde= "https://www.youtube.com/embed/sU4fhCHAt5Q";
+  vde= 'https://www.youtube.com/embed/sU4fhCHAt5Q';
 
   constructor(private authService: AuthServiceService, private sanitizer: DomSanitizer, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
 
@@ -26,9 +26,9 @@ export class VideosDetailsComponent implements OnInit {
   getVideosData(id){
     this.authService.getResourceById(id).subscribe((res)=>{
       this.videosData = res.body;
-      let vdoUrl=this.videosData.resourceLink.split('/');
-      let code="https://www.youtube.com/embed/"+vdoUrl[vdoUrl.length-1];
-      console.log("code--",code);
+      const vdoUrl=this.videosData.resourceLink.split('/');
+      const code='https://www.youtube.com/embed/'+vdoUrl[vdoUrl.length-1];
+      console.log('code--',code);
       this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(code);
       this.videosUrl = this.videosData.resourceLink;
       // console.log("Get videos", this.videosData);

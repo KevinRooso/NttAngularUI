@@ -28,30 +28,30 @@ export class CasesEditComponent implements OnInit {
     previewUrl: any = null;
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
-    speakerImage: string="";
+    speakerImage='';
     caseId;
-    selected2:string="";
-    selected3:string="";
+    selected2='';
+    selected3='';
     selected4:string[]=[];
     catagoryData:any[]=[];
-    show:boolean=false;
+    show=false;
     articleImage: any;
     articelAttach: any;
 
     checkError:any;
-  submitted: boolean = false;
+  submitted = false;
   checkErrorPerson:any;
-  submittedPerson: boolean = false;
-  imageValidPerson:boolean=false;
+  submittedPerson = false;
+  imageValidPerson=false;
   previewUrl1: any = null;
-  imageValid: boolean = false;
-  imageValid2: boolean = false;
+  imageValid = false;
+  imageValid2 = false;
   userList:any[]=[];
-  tarUserType:string="";
+  tarUserType='';
   attachUrl: any = null;
 
-  image1button:boolean=false;
-  image2button:boolean=false;
+  image1button=false;
+  image2button=false;
 
   today=new Date();
     @ViewChild('closeModel',{static:true}) closeModel;
@@ -61,7 +61,7 @@ export class CasesEditComponent implements OnInit {
        private actRoute:ActivatedRoute,
        private router:Router,
        public snackBar: MatSnackBar) {
-      let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+      const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
       this.createCases = frmbuilder.group({
         title: ['', Validators.required],
         longDescription: ['', Validators.required],
@@ -103,15 +103,16 @@ export class CasesEditComponent implements OnInit {
     getUserList() {
       this.authService.getUserList().subscribe((res) => {
         this.userList = res.body;
-        if(this.userList!=null)
+        if(this.userList!=null) {
         this.userList=this.userList.filter(m=>{
           return m.id!=9;
         })
+        }
       })
     }
     getCasesData(id){
       this.authService.getBlogById(id).subscribe(res=>{
-        console.log("4");
+        console.log('4');
 
         console.log(res);
 
@@ -122,8 +123,9 @@ export class CasesEditComponent implements OnInit {
 
 
 
-        if(res.body.targetUserType!=null)
+        if(res.body.targetUserType!=null) {
         this.tarUserType=res.body.targetUserType.id;
+        }
         this.createCases.controls['targetUserType'].setValidators(null);
       this.createCases.controls['targetUserType'].updateValueAndValidity();
 
@@ -149,10 +151,11 @@ export class CasesEditComponent implements OnInit {
         this.attachFile = res.body.resourceLink;
 
        // this.createCases.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
-       for(let i=0;i<res.body.resourceTags.length;i++)
+       for(let i=0;i<res.body.resourceTags.length;i++) {
         this.selected4.push(res.body.resourceTags[i].id);
+       }
         this.tarUserType=res.body.targetUserType.id;
-        console.log("tarus===",this.tarUserType);
+        console.log('tarus===',this.tarUserType);
         this.today=res.body.expiryDate;
         this.createCases.controls['expiryDate'].setValue(res.body.expiryDate);
         this.image1button=true;
@@ -164,8 +167,8 @@ export class CasesEditComponent implements OnInit {
     }
     getCategoryDetails(){
       this.authService.getCategoryList().subscribe((res)=>{
-        console.log("1");
-        console.log("cat=",res.body);
+        console.log('1');
+        console.log('cat=',res.body);
 
         this.catagoryData = res.body;
 
@@ -176,19 +179,19 @@ export class CasesEditComponent implements OnInit {
 
 
       this.authService.getTagsList().subscribe((res)=>{
-        console.log("2");
-      console.log("tagss==",res.body);
+        console.log('2');
+      console.log('tagss==',res.body);
          this.tagData=res.body;
       })
     }
     fileProgress(fileInput: any) {
       this.previewUrl = null;
       this.imageValid = false;
-      this.fileData = <File>fileInput.target.files[0];
-      console.log("fileData==", this.fileData);
+      this.fileData = fileInput.target.files[0] as File;
+      console.log('fileData==', this.fileData);
   if(this.fileData!=undefined){
     this.image1button=false;
-      let fileType = this.fileData.type;
+      const fileType = this.fileData.type;
       if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
         this.imageValid = true;
         this.preview();
@@ -199,10 +202,10 @@ export class CasesEditComponent implements OnInit {
       this.image2button=false;
       this.attachUrl = null;
       this.imageValid2 = false;
-      this.fileData = <File>fileInput.target.files[0];
+      this.fileData = fileInput.target.files[0] as File;
       if(this.fileData!=undefined){
         this.image2button=false;
-      let fileType = this.fileData.type;
+      const fileType = this.fileData.type;
       if (fileType == 'application/pdf') {
         this.imageValid2 = true;
         this.preview2();
@@ -210,19 +213,19 @@ export class CasesEditComponent implements OnInit {
     }
     }
     preview() {
-      var mimeType = this.fileData.type;
+      const mimeType = this.fileData.type;
       if (mimeType.match(/image\/*/) == null) {
         return;
       }
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(this.fileData);
       reader.onload = (_event) => {
         this.previewUrl = reader.result;
       }
     }
     preview2() {
-      var mimeType = this.fileData.type;
-      var reader = new FileReader();
+      const mimeType = this.fileData.type;
+      const reader = new FileReader();
       reader.readAsDataURL(this.fileData);
       reader.onload = (_event) => {
         this.attachUrl = reader.result;
@@ -235,9 +238,9 @@ export class CasesEditComponent implements OnInit {
       formData.append('file', this.fileData);
       this.authService.uploadFile(formData)
         .subscribe((res) => {
-          console.log("Image", res);
+          console.log('Image', res);
           this.articleImage = res.fileDownloadUri;
-          console.log("Image", this.articleImage);
+          console.log('Image', this.articleImage);
           this.show=false;
           this.image1button=true;
           this.imageValid = false;
@@ -255,9 +258,9 @@ export class CasesEditComponent implements OnInit {
       formData1.append('file', this.fileData);
       this.authService.uploadFile(formData1)
         .subscribe((res) => {
-          console.log("Image", res);
+          console.log('Image', res);
           this.attachFile = res.fileDownloadUri;
-          console.log("File", this.attachFile);
+          console.log('File', this.attachFile);
           this.image2button=true;
           this.imageValid2 = false;
           this.show=false;
@@ -285,54 +288,55 @@ export class CasesEditComponent implements OnInit {
     this.createCases.controls['tagList'].updateValueAndValidity();
     }
       if(this.createCases.valid){
-     let obj=this.createCases.value;
+     const obj=this.createCases.value;
      let catObj;
      this.catagoryData.forEach(m=>{
-       if(this.createCases.get(['categoryId']).value==m.id)
+       if(this.createCases.get(['categoryId']).value==m.id) {
        catObj=m;
+       }
 
      })
 
-     let tags:any[]=[];
+     const tags:any[]=[];
 
     this.tagData.forEach(m=>{
       obj.tagList.forEach(n=>{
           if(n==m.id){
-            let tag={
-            "id":m.id,
-            "keywords": m.keywords,
-            "name": m.name
+            const tag={
+            id:m.id,
+            keywords: m.keywords,
+            name: m.name
             }
             tags.push(tag);
           }
       });
     })
-     let dataObj={
-       "draft":obj.isDraft,
-       "id":this.caseId,
-       "categoryId": catObj.id,
-       "longDescription": obj.longDescription,
-        "person": {
+     const dataObj={
+       draft:obj.isDraft,
+       id:this.caseId,
+       categoryId: catObj.id,
+       longDescription: obj.longDescription,
+        person: {
         },
-        "resourceType":3,
-        "serviceUsed": obj.serviceUsed,
-        "tagList": tags,
-        "targetUserType":obj.targetUserType,
-        "title": obj.title,
-        "expiryDate":obj.expiryDate,
-        "customerProfile": "string",
-        "detailImageUrl": "string",
-        "approverId": 0,
-        "thumbnailImageUrl": this.articleImage,
-        "downloadUrl": this.attachFile,
+        resourceType:3,
+        serviceUsed: obj.serviceUsed,
+        tagList: tags,
+        targetUserType:obj.targetUserType,
+        title: obj.title,
+        expiryDate:obj.expiryDate,
+        customerProfile: 'string',
+        detailImageUrl: 'string',
+        approverId: 0,
+        thumbnailImageUrl: this.articleImage,
+        downloadUrl: this.attachFile,
 
    }
-      console.log("post", dataObj);
+      console.log('post', dataObj);
       this.authService.saveResource(dataObj).subscribe(res=>{
         console.log(res);
         this.show=false;
         this.snackBar.open('Case Study Updated Successfully', 'Close', {duration: 5000});
-        //alert("Case Study Updated Successfully");
+        // alert("Case Study Updated Successfully");
         this.router.navigate(['cases']);
       },
       (error) => {
@@ -351,17 +355,19 @@ export class CasesEditComponent implements OnInit {
       if(this.addTagForm.valid){
             let flag=true;
       this.tagData.forEach(m=>{
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
         flag=false;
+        }
       })
-      let obj=this.addTagForm.value;
+      const obj=this.addTagForm.value;
       if(flag){
         obj['id']=0;
       this.tagData.push(obj);
       this.closeModel.nativeElement.click();
     }
-    else
-    alert("Tag Already Exist");
+    else {
+    alert('Tag Already Exist');
+      }
     }
   }
     BackMe() {

@@ -20,7 +20,7 @@ export class EditBlogComponent  implements OnInit {
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
-  speakerImage: string="";
+  speakerImage='';
   catagoryData:any[]=[];
   tagData:any[]=[];
   persons:any[]=[];
@@ -29,33 +29,33 @@ export class EditBlogComponent  implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  selected2:string="";
-  selected3:string="";
-  tarUserType:string="";
+  selected2='';
+  selected3='';
+  tarUserType='';
   selected4:string[]=[];
   blogId;
 
 
   checkError:any;
-  submitted: boolean = false;
-  imageValid:boolean=false;
+  submitted = false;
+  imageValid=false;
   checkErrorPerson:any;
-  submittedPerson: boolean = false;
-  imageValidPerson:boolean=false;
+  submittedPerson = false;
+  imageValidPerson=false;
   previewUrl1: any = null;
-  imageValid1:boolean=false;
+  imageValid1=false;
   userList:any[]=[];
   today=new Date();
 
-  show1:boolean=false;
-  show:boolean=false;
-  image1button:boolean=false;
-  image2button:boolean=false;
+  show1=false;
+  show=false;
+  image1button=false;
+  image2button=false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('closebutton',{static:true}) closebutton;
   @ViewChild('closeModel',{static:true}) closeModel;
   @ViewChild('personButton',{static:true}) personButton;
-  personImage:string="";
+  personImage='';
   constructor(private formBuilder:FormBuilder,
     private router:Router,
     private service:AuthServiceService,
@@ -101,7 +101,7 @@ export class EditBlogComponent  implements OnInit {
       }
      }
 crateFrorm(){
-  let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+  const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
   this.personForm = this.formBuilder.group({
     fullName:  ['',Validators.required],
     description:  ['',Validators.required],
@@ -128,18 +128,19 @@ crateFrorm(){
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getBlogData(id){
     this.show=true;
     const promise=this.service.getBlogById(id).toPromise();
-    console.log("promisee===",promise);
+    console.log('promisee===',promise);
     promise.then((res)=>{
-      console.log("Promise resolved with: ", res);
+      console.log('Promise resolved with: ', res);
       this.createBlogForm.controls['targetUserType'].setValidators(null);
       this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
       this.createBlogForm.controls['tagList'].setValidators(null);
@@ -152,15 +153,17 @@ crateFrorm(){
        this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
        this.createBlogForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
        this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-        if(res.body.targetUserType!=null)
+        if(res.body.targetUserType!=null) {
         this.tarUserType=res.body.targetUserType.id;
+        }
         this.selected2=res.body.category.id;
-        console.log("cat==",this.selected2);
+        console.log('cat==',this.selected2);
 
         this.selected3=res.body.person.id;
-        for(let i=0;i<res.body.resourceTags.length;i++)
+        for(let i=0;i<res.body.resourceTags.length;i++) {
         this.selected4.push(res.body.resourceTags[i].id);
-        console.log("selectedtags=",this.selected4);
+        }
+        console.log('selectedtags=',this.selected4);
 
          this.speakerImage=res.body.thumbnailImageUrl;
         this.createBlogForm.get(['title']).setValue(res.body.title);
@@ -181,27 +184,27 @@ crateFrorm(){
         this.show=false;
     }, (error)=>{
       this.show=false;
-      console.log("Promise rejected with ",error);
+      console.log('Promise rejected with ',error);
     })
 
   }
   getCategoryDetails(){
     this.service.getCategoryList().subscribe((res)=>{
       this.catagoryData = res.body;
-      console.log("catsss=",this.catagoryData);
+      console.log('catsss=',this.catagoryData);
 
     })
   }
   getTagsDetails(){
     this.service.getTagsList().subscribe((res)=>{
-      console.log("tagdetail",res.body);
+      console.log('tagdetail',res.body);
 
        this.tagData=res.body;
     })
   }
   getPersons(){
     this.service.getPersons().subscribe(res=>{
-      console.log("persons==",res.body);
+      console.log('persons==',res.body);
         this.persons=res.body;
 
     })
@@ -210,10 +213,10 @@ crateFrorm(){
   fileProgress(fileInput: any) {
     this.previewUrl=null;
     this.imageValid=false;
-    this.fileData = <File>fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     if(this.fileData!=undefined){
       this.image1button=false;
-        let fileType = this.fileData.type;
+        const fileType = this.fileData.type;
         if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
           this.imageValid = true;
           this.preview();
@@ -225,12 +228,12 @@ crateFrorm(){
 
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -243,7 +246,7 @@ crateFrorm(){
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show=false;
         this.image1button=true;
@@ -260,8 +263,8 @@ crateFrorm(){
   fileProgress1(fileInput: any) {
     this.previewUrl1=null;
     this.imageValid1=false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType=this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid1=true;
     this.preview1();
@@ -270,12 +273,12 @@ crateFrorm(){
 
   preview1() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl1 = reader.result;
@@ -288,7 +291,7 @@ crateFrorm(){
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.image2button=true;
         this.show1=false;
         this.imageValid1 = false;
@@ -339,57 +342,59 @@ crateFrorm(){
       this.show=false;
       return false;
     }
-    let obj=this.createBlogForm.value;
+    const obj=this.createBlogForm.value;
     if( this.createBlogForm.value.tagList.length==0){
       this.createBlogForm.controls['tagList'].setValidators(Validators.required);
     this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
     if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
-    console.log("tags=",obj.tagList);
+    console.log('tags=',obj.tagList);
     let personObj;
 
     this.persons.forEach(m=>{
-     if(this.createBlogForm.get(['person']).value==m.id)
+     if(this.createBlogForm.get(['person']).value==m.id) {
       personObj=m;
+     }
     })
     let catObj;
     this.catagoryData.forEach(m=>{
-      if(this.createBlogForm.get(['categoryId']).value==m.id)
+      if(this.createBlogForm.get(['categoryId']).value==m.id) {
       catObj=m;
+      }
 
     })
 
-    let tags:any[]=[];
+    const tags:any[]=[];
 
     this.tagData.forEach(m=>{
       obj.tagList.forEach(n=>{
           if(n==m.id){
-            let tag={
-            "id":m.id,
-            "keywords": m.keywords,
-            "name": m.name
+            const tag={
+            id:m.id,
+            keywords: m.keywords,
+            name: m.name
             }
             tags.push(tag);
           }
       });
     })
-    let dataObj={
-      "longDescription": obj.longDescription,
-      "categoryId": catObj.id,
-      "customerProfile": "string",
-      "detailImageUrl": "string",
-      "downloadUrl": "",
-      "id":this.blogId,
-      "draft": obj.isDraft,
-      "person": personObj,
-      "shortDescription": obj.shortDescription,
-      "tagList": tags,
-      "thumbnailImageUrl":obj.thumbnailImageUrl,
-      "title": obj.title,
-      "resourceType":1,
-      "targetUserType":obj.targetUserType,
-      "expiryDate":obj.expiryDate
+    const dataObj={
+      longDescription: obj.longDescription,
+      categoryId: catObj.id,
+      customerProfile: 'string',
+      detailImageUrl: 'string',
+      downloadUrl: '',
+      id:this.blogId,
+      draft: obj.isDraft,
+      person: personObj,
+      shortDescription: obj.shortDescription,
+      tagList: tags,
+      thumbnailImageUrl:obj.thumbnailImageUrl,
+      title: obj.title,
+      resourceType:1,
+      targetUserType:obj.targetUserType,
+      expiryDate:obj.expiryDate
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
@@ -403,7 +408,7 @@ crateFrorm(){
       this.snackBar.open('Oops, Something Went Wrong!!', 'Close', {duration: 5000});
     }
     )
-  //console.log(this.createBlogForm.value);
+  // console.log(this.createBlogForm.value);
   }
   else{
     this.show=false;
@@ -430,35 +435,39 @@ crateFrorm(){
       }
   });
   if(!flag){
-    let obj1=this.personForm.value;
+    const obj1=this.personForm.value;
     obj1['keySkills']=fruit1.substring(1, fruit1.length - 0);
     obj1['profileImageUrl']=this.personImage;
     obj1['id']=0;
     this.persons.unshift(obj1);
     this.closebutton.nativeElement.click();
   }
-  else
+  else {
   this.snackBar.open('Author Already Exist', 'Close', {duration: 5000});
-  //alert("Author Already Exist")
   }
-  else
+  // alert("Author Already Exist")
+  }
+  else {
   this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
+    }
   }
   createTag(){
     if(this.addTagForm.valid){
           let flag=true;
     this.tagData.forEach(m=>{
-      if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+      if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
       flag=false;
+      }
     })
-    let obj=this.addTagForm.value;
+    const obj=this.addTagForm.value;
     if(flag){
       obj['id']=0;
     this.tagData.unshift(obj);
     this.closeModel.nativeElement.click();
   }
-  else
+  else {
   this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
+    }
 
   }
 }

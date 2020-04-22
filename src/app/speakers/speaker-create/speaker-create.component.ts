@@ -30,16 +30,16 @@ export class SpeakerCreateComponent implements OnInit {
   speakerImage: any;
 
   checkError:any;
-  submitted: boolean = false;
-  imageValid:boolean=false;
-  flag:boolean=true;
+  submitted = false;
+  imageValid=false;
+  flag=true;
   @ViewChild('chipList') chipList: MatChipList;
   constructor(private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
      private location: Location,
      public snackBar: MatSnackBar,
      private router:Router) {
-    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
 
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
@@ -101,8 +101,8 @@ export class SpeakerCreateComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl=null;
     this.imageValid=false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType=this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid=true;
     this.preview();
@@ -110,12 +110,12 @@ export class SpeakerCreateComponent implements OnInit {
   }
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -126,7 +126,7 @@ export class SpeakerCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         console.log(this.speakerImage);
         this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
@@ -142,26 +142,26 @@ export class SpeakerCreateComponent implements OnInit {
       fruit1 = fruit1 + ',' + m.name;
     })
 
-    let obj = {
-      "fullName": this.createSpeakerForm.controls['fullName'].value,
-      "description": this.createSpeakerForm.controls['description'].value,
-      "email": this.createSpeakerForm.controls['email'].value,
-      "personalEmail": this.createSpeakerForm.controls['personalEmail'].value,
-      "designation": this.createSpeakerForm.controls['designation'].value,
+    const obj = {
+      fullName: this.createSpeakerForm.controls['fullName'].value,
+      description: this.createSpeakerForm.controls['description'].value,
+      email: this.createSpeakerForm.controls['email'].value,
+      personalEmail: this.createSpeakerForm.controls['personalEmail'].value,
+      designation: this.createSpeakerForm.controls['designation'].value,
      // "profile": this.createSpeakerForm.controls['profile'].value,
-      "origanizationName": this.createSpeakerForm.controls['origanizationName'].value,
-      "phone": this.createSpeakerForm.controls['phone'].value,
-      "keySkills": fruit1.substring(1, fruit1.length - 0),
-      "profileImageUrl": this.speakerImage,
-      "id": 0
+      origanizationName: this.createSpeakerForm.controls['origanizationName'].value,
+      phone: this.createSpeakerForm.controls['phone'].value,
+      keySkills: fruit1.substring(1, fruit1.length - 0),
+      profileImageUrl: this.speakerImage,
+      id: 0
     }
-    console.log("post", obj);
+    console.log('post', obj);
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
         this.snackBar.open('Speaker successfully created', 'Close', {duration: 5000});
        // alert("Successfully Created");
         this.submitted = false;
-        console.log("response", response);
+        console.log('response', response);
         this.router.navigate(['/speakers']);
       },
       (error) => {
@@ -177,9 +177,11 @@ export class SpeakerCreateComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   setError(){
-   if(this.fruits.length==0)
+   if(this.fruits.length==0) {
      this.flag=false;
-     else
+   }
+     else {
      this.flag=true;
+   }
   }
 }

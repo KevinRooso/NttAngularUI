@@ -12,10 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateNewsComponent implements OnInit {
   createNewsForm: FormGroup;
-  speakerImage: string = "";
+  speakerImage = '';
   articleImage: any;
   checkError: any;
-  submitted: boolean = false;
+  submitted = false;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -23,9 +23,9 @@ export class CreateNewsComponent implements OnInit {
   catagoryData: any[] = [];
   tagData: any[] = [];
   userList: any[] = [];
-  imageValid: boolean = false;
-  show:boolean=false;
-  image1button:boolean=false;
+  imageValid = false;
+  show=false;
+  image1button=false;
 
 
   today=new Date();
@@ -73,20 +73,20 @@ export class CreateNewsComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png') {
       this.imageValid = true;
       this.preview();
     }
   }
   preview() {
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -100,7 +100,7 @@ export class CreateNewsComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
         this.show=false;
         this.image1button=true;
@@ -116,10 +116,11 @@ export class CreateNewsComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   generateNews(){
@@ -131,31 +132,31 @@ export class CreateNewsComponent implements OnInit {
     }
     this.submitted = true;
     if (this.createNewsForm.valid) {
-      let objData = {
-        "title": this.createNewsForm.controls['title'].value,
-        "topic": this.createNewsForm.controls['topic'].value,
-        "shortDescription": this.createNewsForm.controls['shortDescription'].value,
-        "longDescription": this.createNewsForm.controls['longDescription'].value,
-        "location": this.createNewsForm.controls['location'].value,
-        "about": this.createNewsForm.controls['about'].value,
-        "active": false,
-        "tagList":[],
-        "targetUserType":this.createNewsForm.controls['targetUserType'].value,
-        "draft": this.createNewsForm.controls['draft'].value,
-        "thumbnailImageUrl": this.articleImage,
-        "id": 0,
-        "expiryDate": this.createNewsForm.controls['expiryDate'].value,
+      const objData = {
+        title: this.createNewsForm.controls['title'].value,
+        topic: this.createNewsForm.controls['topic'].value,
+        shortDescription: this.createNewsForm.controls['shortDescription'].value,
+        longDescription: this.createNewsForm.controls['longDescription'].value,
+        location: this.createNewsForm.controls['location'].value,
+        about: this.createNewsForm.controls['about'].value,
+        active: false,
+        tagList:[],
+        targetUserType:this.createNewsForm.controls['targetUserType'].value,
+        draft: this.createNewsForm.controls['draft'].value,
+        thumbnailImageUrl: this.articleImage,
+        id: 0,
+        expiryDate: this.createNewsForm.controls['expiryDate'].value,
     }
-    console.log("post", objData);
+    console.log('post', objData);
     this.authService.saveNews(objData).subscribe((response) => {
-      console.log("response=",response);
+      console.log('response=',response);
       this.show=false;
       this.submitted = false;
       this.snackBar.open('News successfully created', 'Close', {duration: 2000});
       this.router.navigate(['news']);
     },
     (error) => {
-      console.log("error==",error);
+      console.log('error==',error);
       this.show=false;
       this.snackBar.open('Oops Something went wrong...', 'Close');
      })

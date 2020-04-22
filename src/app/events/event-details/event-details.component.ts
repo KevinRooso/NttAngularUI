@@ -13,23 +13,37 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   animations: speedDialFabAnimations
 })
 export class EventDetailsComponent implements OnInit {
-  getEventDetails: any = [];
- // htmlString = '<h1>Dheeraj Kishore<h1>';
-  getParticipantDetails: any = [];
-  eventId;
-  eventName;
-  startTime="";
-  endTime="";
-  show=false;
-  speakers:any[]=[];
-  speakerList:any[]=[];
-  @ViewChild('menumat') trigger: MatMenuTrigger;
   constructor(private authService: AuthServiceService,
      private router: Router,
      private router1: ActivatedRoute,
      private location: Location,
      private commonService:CommonServiceService,
      public snackBar: MatSnackBar) { }
+  getEventDetails: any = [];
+ // htmlString = '<h1>Dheeraj Kishore<h1>';
+  getParticipantDetails: any = [];
+  eventId;
+  eventName;
+  startTime='';
+  endTime='';
+  show=false;
+  speakers:any[]=[];
+  speakerList:any[]=[];
+  @ViewChild('menumat') trigger: MatMenuTrigger;
+  fabButtons = [
+    {
+      icon: 'file_copy',
+      tooltip: 'Duplicate Event'
+    },
+    {
+      icon: 'edit',
+      tooltip: 'Edit Event'
+    }
+  ];
+  buttons = [];
+  fabTogglerState = 'inactive';
+  isPublish=false;
+  isActive=false;
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe(params => {
@@ -45,39 +59,40 @@ export class EventDetailsComponent implements OnInit {
     this.trigger.openMenu();
   }
   getEventData(id) {
-    let arr:any[]=[];
+    const arr:any[]=[];
     this.show=true;
     this.authService.getEventDetail(id).subscribe(res => {
       this.getEventDetails = res.body.events;
-      console.log("ID Data", this.getEventDetails);
+      console.log('ID Data', this.getEventDetails);
         this.eventName=this.getEventDetails.title;
         if(this.getEventDetails.eventSchedule!=null){
           this.getEventDetails.eventSchedule.forEach(m=>{
             arr.push(m);
 
           })
-          console.log("arr=",arr);
+          console.log('arr=',arr);
 
-          let objs=this.getMinMaxDate(arr);
+          const objs=this.getMinMaxDate(arr);
         this.startTime=this.commonService.getDateTime(objs.min);
         this.endTime=this.commonService.getDateTime(objs.max);
         }
         this.isPublish=this.getEventDetails.isPublish;
         this.isActive=this.getEventDetails.isActive;
-        console.log("eventschedule==",this.getEventDetails);
-        if(this.getEventDetails.eventSchedule!=null)
+        console.log('eventschedule==',this.getEventDetails);
+        if(this.getEventDetails.eventSchedule!=null) {
           this.getEventDetails.eventSchedule.forEach(m=>{
             m.speakers.forEach(n=>{
                 this.speakerList.push(n);
             })
           })
+        }
 
 
 
           this.speakers = this.speakerList.map(e => e['id'])
     .map((e, i, final) => final.indexOf(e) === i && i)
     .filter(e => this.speakerList[e]).map(e => this.speakerList[e]);
-          console.log("speakers=====",this.speakers);
+          console.log('speakers=====',this.speakers);
 
     })
 
@@ -87,8 +102,8 @@ export class EventDetailsComponent implements OnInit {
   getMinMaxDate(arr){
     let minAgendaStartTime = null;
     let maxAgendEndTime = null;
-    for (let index in arr) {
-      let agenda = arr[index];
+    for (const index in arr) {
+      const agenda = arr[index];
       if (index === '0') {
         minAgendaStartTime = agenda.startDate;
         maxAgendEndTime = agenda.endDate;
@@ -101,9 +116,9 @@ export class EventDetailsComponent implements OnInit {
         maxAgendEndTime = agenda.endDate;
       }
     }
-    let obj={
-      "min":minAgendaStartTime,
-      "max":maxAgendEndTime
+    const obj={
+      min:minAgendaStartTime,
+      max:maxAgendEndTime
     }
     return obj;
   }
@@ -112,7 +127,7 @@ export class EventDetailsComponent implements OnInit {
     this.show=true;
     this.authService.getParticipant(id).subscribe(res => {
       this.getParticipantDetails = res.body;
-      console.log("Participants Data", this.getParticipantDetails);
+      console.log('Participants Data', this.getParticipantDetails);
 
     })
     this.show=false;
@@ -134,7 +149,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['/speakers'], { queryParams: { page: this.eventId } });
   }
   jumpDetail(id){
-    this.router.navigate(['participant-details'], { queryParams: { id: id } });
+    this.router.navigate(['participant-details'], { queryParams: { id } });
   }
   copyDetails(id){
     this.router.navigate(['/copy-event'], { queryParams: { page: this.eventId } });
@@ -145,20 +160,6 @@ export class EventDetailsComponent implements OnInit {
   Back() {
     this.router.navigate(['events']);
   }
-  fabButtons = [
-    {
-      icon: 'file_copy',
-      tooltip: 'Duplicate Event'
-    },
-    {
-      icon: 'edit',
-      tooltip: 'Edit Event'
-    }
-  ];
-  buttons = [];
-  fabTogglerState = 'inactive';
-  isPublish:boolean=false;
-  isActive:boolean=false;
   showItems() {
     this.fabTogglerState = 'active';
     this.buttons = this.fabButtons;
@@ -173,10 +174,12 @@ export class EventDetailsComponent implements OnInit {
     this.buttons.length ? this.hideItems() : this.showItems();
   }
   duplicateEdit(icon,id){
-      if(icon=='file_copy')
+      if(icon=='file_copy') {
         this.router.navigate(['/copy-event'], { queryParams: { page: this.eventId } });
-      if(icon=='edit')
+      }
+      if(icon=='edit') {
       this.router.navigate(['/edit'], { queryParams: { page: this.eventId } });
+      }
   }
   publishChanges(){
     this.authService.savePublish(this.eventId,this.isPublish).subscribe(res=>{
@@ -185,8 +188,9 @@ export class EventDetailsComponent implements OnInit {
     (error)=>{
       this.isPublish=!this.isPublish;
       console.log(error);
-      if(error.status=='403')
+      if(error.status=='403') {
       this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', {duration: 5000});
+      }
     })
   }
   activeChange(){
@@ -196,8 +200,9 @@ export class EventDetailsComponent implements OnInit {
     (error)=>{
       console.log(error);
       this.isActive=!this.isActive
-      if(error.status=='403')
+      if(error.status=='403') {
       this.snackBar.open('You do not have the permission to Active or DeActive it', 'Close', {duration: 5000});
+      }
     })
   }
 }

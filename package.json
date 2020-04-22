@@ -6,10 +6,10 @@
     "npm": "6.12.x"
   },
   "scripts": {
-    "lint": "ng lint && npm run lint:styles",
     "test": "ng test",
     "e2e": "ng e2e",
     "lint:styles": "stylelint \"src/app/**/**/*.css\" && stylelint \"src/app/**/*.css\" && stylelint \"src/app/*.css\"",
+    "lint": "ng lint && npm run lint:styles",
     "lint-ci": "ng lint --type-check --force && npm run lint:styles",
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
@@ -84,6 +84,7 @@
     "source-map-explorer": "^2.4.2",
     "stylelint": "^13.3.2",
     "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "tslint-angular": "^3.0.2",

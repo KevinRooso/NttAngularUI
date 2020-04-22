@@ -13,10 +13,10 @@ export class NewsComponent implements OnInit {
   blogs;
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
-  searchBlog="";
+  searchBlog='';
   dates:any[]=[];
-  cat:string="";
-  sort:string="desc?date";
+  cat='';
+  sort='desc?date';
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -28,9 +28,9 @@ export class NewsComponent implements OnInit {
   getAllnews(){
     this.authService.getAllNews().subscribe((res)=>{
       this.newsList = res.body;
-      console.log("res data", this.newsList);
+      console.log('res data', this.newsList);
       this.filterBlogs=res.body;
-      console.log("res data", this.filterBlogs);
+      console.log('res data', this.filterBlogs);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
@@ -64,7 +64,7 @@ export class NewsComponent implements OnInit {
         console.log( this.searchBlog);
         // alert(m.title.toUpperCase());
         // alert(this.searchBlog.toUpperCase());
-        let titleData=m.title.toUpperCase();
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
   }
@@ -72,13 +72,13 @@ export class NewsComponent implements OnInit {
     this.newsList=this.blogs;
   }
   filterData(){
-    let data=this.sort.split('?');
-    if(this.sort=="Sort By"){
+    const data=this.sort.split('?');
+    if(this.sort=='Sort By'){
       this.filterBlogs=this.blogs;
     }
 
 
-    if(data[1]=="date"){
+    if(data[1]=='date'){
       if(data[0]=='asc'){
       //   console.log("adtesort==",this.searchFilterData);
        this.searchFilterData.sort(this.GFG_sortFunction);
@@ -96,13 +96,13 @@ export class NewsComponent implements OnInit {
 
   }
    GFG_sortFunction(a, b) {
-    var dateA = new Date(a.updatedAt).getTime();
-    var dateB = new Date(b.updatedAt).getTime();
+    const dateA = new Date(a.updatedAt).getTime();
+    const dateB = new Date(b.updatedAt).getTime();
     return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunction1(a, b) {
-  var dateA = new Date(a.updatedAt).getTime();
-  var dateB = new Date(b.updatedAt).getTime();
+  const dateA = new Date(a.updatedAt).getTime();
+  const dateB = new Date(b.updatedAt).getTime();
   return dateA < dateB ? 1 : -1;
 };
 }

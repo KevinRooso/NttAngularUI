@@ -12,13 +12,14 @@ export class HeaderComponent implements OnInit {
     private service:AuthServiceService) { }
     userName;
   ngOnInit(): void {
-    let token=localStorage.getItem('token');
-    if(token!=null)
+    const token=localStorage.getItem('token');
+    if(token!=null) {
     this.service.getUserDetail().subscribe(res=>{
-      console.log("userName==",res);
+      console.log('userName==',res);
 
       this.userName=res.name;
     })
+    }
   }
   logOut(){
     localStorage.removeItem('token');

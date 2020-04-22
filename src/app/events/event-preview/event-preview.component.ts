@@ -21,12 +21,12 @@ export class EventPreviewComponent implements OnInit {
   tagData:any[]=[];
   allData:any[]=[];
   categoryList:any[]=[];
-  cat:string="";
+  cat='';
   dates:any[]=[];
   tagFilterList:any[]=[];
   categoryFilterList:any[]=[];
   eventTypeFilterList:any[]=[];
-  filterDate="";
+  filterDate='';
   publishedList:any[]=[];
   activeList:any[]=[];
   draftList:any[]=[];
@@ -34,7 +34,7 @@ export class EventPreviewComponent implements OnInit {
   activeList1:any[]=[];
   draftList1:any[]=[];
 
-  sort:string="desc?cdate";
+  sort='desc?cdate';
     startDate=new Date();
     endDate=new Date();
     categoryLis:any[]=['Sort By','Title','Date','Category'];
@@ -78,10 +78,11 @@ export class EventPreviewComponent implements OnInit {
     this.authService.getAllEventList().subscribe(
       (data) => {
         this.getEventData = data.body;
-        console.log("Json Data", this.getEventData);
+        console.log('Json Data', this.getEventData);
         this.getEventData.filter(m=>{
-          if(this.categoryFilterList.indexOf(m.categoryName)==-1)
+          if(this.categoryFilterList.indexOf(m.categoryName)==-1) {
           this.categoryFilterList.push(m.categoryName);
+          }
         })
 
         this.filterBlogs=data.body;
@@ -89,9 +90,11 @@ export class EventPreviewComponent implements OnInit {
         this.searchFilterData=data.body;
         this.searchFilterData.sort(this.GFG_sortFunctionc1);
         data.body.filter(m=>{
-          if(m.eventDate !=null)
-        if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1)
+          if(m.eventDate !=null) {
+        if(this.dates.indexOf(m.eventDate.substring(0,10).split('-').reverse().join('/'))==-1) {
           this.dates.push(m.eventDate.substring(0,10).split('-').reverse().join('/'))
+        }
+          }
         })
 
         this.publishedList=this.getEventData.filter(m=>{
@@ -110,7 +113,7 @@ export class EventPreviewComponent implements OnInit {
   }
   getTagsDetails(){
     this.authService.getTagsList().subscribe((res)=>{
-      console.log("Tag", res.body);
+      console.log('Tag', res.body);
       this.tagData=res.body;
     })
   }
@@ -126,7 +129,7 @@ export class EventPreviewComponent implements OnInit {
   }
   getAllTags(){
     this.authService.getTagsList().subscribe(res=>{
-      console.log("tag=",res);
+      console.log('tag=',res);
 
         this.tagList=res.body;
     })
@@ -146,14 +149,14 @@ export class EventPreviewComponent implements OnInit {
   getDataWithDate(){
     this.filterBlogs=this.searchFilterData.filter(m=>{
 
-     let titleData=m.eventDate;
-     let d=this.filterDate.split('/').reverse().join('-')
-      console.log("d==",d);
-      console.log("data=",titleData);
+     const titleData=m.eventDate;
+     const d=this.filterDate.split('/').reverse().join('-')
+      console.log('d==',d);
+      console.log('data=',titleData);
 
       return titleData.includes(d);
     })
-    console.log("filterblogsss==",this.filterBlogs);
+    console.log('filterblogsss==',this.filterBlogs);
 
   }
   blogSearch(){
@@ -161,19 +164,19 @@ export class EventPreviewComponent implements OnInit {
       this.publishedList=this.publishedList.filter(m=>{
 
        // return m.title.includes(this.searchBlog);
-       let titleData=m.title.toUpperCase();
+       const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       });
       this.activeList=this.activeList.filter(m=>{
 
         // return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
+        const titleData=m.title.toUpperCase();
          return titleData.includes(this.searchBlog.toUpperCase());
        });
        this.draftList=this.draftList.filter(m=>{
 
         // return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
+        const titleData=m.title.toUpperCase();
          return titleData.includes(this.searchBlog.toUpperCase());
        })
 
@@ -185,27 +188,27 @@ export class EventPreviewComponent implements OnInit {
    this.draftList=this.draftList1;
   }
   emitValue(){
-   let date1=this.advanceFilterForm.get(['registrationStartDate']).value;
-   let  date2=this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
+   const date1=this.advanceFilterForm.get(['registrationStartDate']).value;
+   const  date2=this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
     this.endDate=this.advanceFilterForm.get(['registrationStartDate']).value;
-    console.log("startdate==",this.startDate);
-    console.log("enddate==",this.endDate);
-    console.log("compare==",date1 >date2);
+    console.log('startdate==',this.startDate);
+    console.log('enddate==',this.endDate);
+    console.log('compare==',date1 >date2);
     if(date1 >date2){
       this.advanceFilterForm.get(['registrationEndDate']).setValue(' ');
-      console.log("inside if");
+      console.log('inside if');
     }
-   //alert(this.endDate==new Date())
+   // alert(this.endDate==new Date())
   }
   emitValue1(){
    // this.startDate=this.advanceFilterForm.get(['registrationEndDate']).value;
   }
   filterData(){
-    let data=this.sort.split('?');
-    if(this.sort=="Sort By"){
+    const data=this.sort.split('?');
+    if(this.sort=='Sort By'){
       this.filterBlogs=this.blogs;
     }
-    if(data[1]=="Title"){
+    if(data[1]=='Title'){
       if(data[0]=='asc'){
       // this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
         this.publishedList.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
@@ -222,7 +225,7 @@ export class EventPreviewComponent implements OnInit {
     }
     }
 
-    if(data[1]=="date"){
+    if(data[1]=='date'){
       if(data[0]=='asc'){
       //   console.log("adtesort==",this.searchFilterData);
       // this.searchFilterData.sort(this.GFG_sortFunction);
@@ -244,7 +247,7 @@ export class EventPreviewComponent implements OnInit {
       this.draftList.sort(this.GFG_sortFunction1);
     }
     }
-    if(data[1]=="cdate"){
+    if(data[1]=='cdate'){
       if(data[0]=='asc'){
       //   console.log("adtesort==",this.searchFilterData);
       // this.searchFilterData.sort(this.GFG_sortFunctionc);
@@ -275,24 +278,24 @@ export class EventPreviewComponent implements OnInit {
     // }
   }
    GFG_sortFunction(a, b) {
-    var dateA = new Date(a.eventDate).getTime();
-    var dateB = new Date(b.eventDate).getTime();
+    const dateA = new Date(a.eventDate).getTime();
+    const dateB = new Date(b.eventDate).getTime();
     return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunction1(a, b) {
-  var dateA = new Date(a.eventDate).getTime();
-  var dateB = new Date(b.eventDate).getTime();
+  const dateA = new Date(a.eventDate).getTime();
+  const dateB = new Date(b.eventDate).getTime();
   return dateA < dateB ? 1 : -1;
 };
 
 GFG_sortFunctionc(a, b) {
-  var dateA = new Date(a.createdAt).getTime();
-  var dateB = new Date(b.createdAt).getTime();
+  const dateA = new Date(a.createdAt).getTime();
+  const dateB = new Date(b.createdAt).getTime();
   return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunctionc1(a, b) {
-var dateA = new Date(a.createdAt).getTime();
-var dateB = new Date(b.createdAt).getTime();
+const dateA = new Date(a.createdAt).getTime();
+const dateB = new Date(b.createdAt).getTime();
 return dateA < dateB ? 1 : -1;
 };
 }

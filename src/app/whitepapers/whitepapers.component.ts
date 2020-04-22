@@ -15,9 +15,9 @@ export class WhitepapersComponent implements OnInit {
   // filterBlogs=new BehaviorSubject<any[]>([]);
   filterBlogs:any[]=[];
   searchFilterData;
-  searchBlog="";
+  searchBlog='';
   categoryList:any[]=[];
-  cat:string="";
+  cat='';
 
   constructor( private authService: AuthServiceService, private router:Router, private location: Location,) { }
 
@@ -28,7 +28,7 @@ export class WhitepapersComponent implements OnInit {
   getAllArticleList(){
     this.authService.getAllWhitepaper().subscribe((res)=>{
       this.whitePaperList = res.body;
-      console.log("res", this.whitePaperList);
+      console.log('res', this.whitePaperList);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
@@ -59,7 +59,7 @@ export class WhitepapersComponent implements OnInit {
         console.log( this.searchBlog);
         // alert(m.title.toUpperCase());
         // alert(this.searchBlog.toUpperCase());
-        let titleData=m.title.toUpperCase();
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
   }

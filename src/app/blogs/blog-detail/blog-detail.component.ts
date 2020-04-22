@@ -14,8 +14,8 @@ export class BlogDetailComponent implements OnInit {
     private route:Router) { }
   blog;
   blogId;
-  show:boolean=false;
-  imageurl="";
+  show=false;
+  imageurl='';
   ngOnInit(): void {
 
     this.actRoute.queryParams.subscribe(params => {

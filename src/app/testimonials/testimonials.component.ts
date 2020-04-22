@@ -16,8 +16,8 @@ export class TestimonialsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
-  cat:string="";
-  searchTests="";
+  cat='';
+  searchTests='';
   constructor(private service:AuthServiceService,
     private router:Router) { }
 
@@ -28,7 +28,7 @@ export class TestimonialsComponent implements OnInit {
   }
   getTestimonials(){
       this.service.getAllTestimonials().subscribe(res=>{
-        console.log("res===",res);
+        console.log('res===',res);
           this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
@@ -56,8 +56,8 @@ export class TestimonialsComponent implements OnInit {
       this.filterBlogs=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
-        //return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
+        // return m.title.includes(this.searchBlog);
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchTests.toUpperCase());
       })
   }

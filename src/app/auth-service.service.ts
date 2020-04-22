@@ -12,7 +12,7 @@ export class AuthServiceService {
  // private url = "https://ntt-backend-app.herokuapp.com/";
  public url = environment.API_ENDPOINT;
  public headers = new HttpHeaders({
-  Authorization : 'Bearer ' + localStorage.getItem("token")
+  Authorization : 'Bearer ' + localStorage.getItem('token')
 });
 
 
@@ -27,7 +27,7 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/auth/signin', auth)
   }
   isUserLoggedIn(){
-    let user = localStorage.getItem('token');
+    const user = localStorage.getItem('token');
     return !(user==null);
   }
   getAllEventList():Observable<any>{
@@ -66,7 +66,7 @@ export class AuthServiceService {
   getAllSpeakers():Observable<any>{
     return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers})
   }
-  //File Controller APis
+  // File Controller APis
   uploadFile(obj):Observable<any>{
     return this.http.post<any>(this.url+'api/admin/uploadFile', obj, {headers:this.headers});
   }
@@ -78,7 +78,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/admin/participant/'+id, {headers:this.headers})
   }
 
-  //Speaker Apis
+  // Speaker Apis
   getAllSpeakersList():Observable<any>{
     return this.http.get<any>(this.url+'api/public/speakers', {headers:this.headers});
   }
@@ -92,7 +92,7 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/public/person', obj, {headers:this.headers});
   }
 
-  //Articles Apis
+  // Articles Apis
   getAllArticle():Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/articles', {headers:this.headers})
   }
@@ -104,7 +104,7 @@ export class AuthServiceService {
   }
 
 
-  //Participants Apis
+  // Participants Apis
   saveParticipent(id,obj):Observable<any>{
     return this.http.post<any>(this.url+'api/public/self/participant/event/'+id, obj, {headers:this.headers});
   }
@@ -112,7 +112,7 @@ export class AuthServiceService {
     return this.http.post<any>(this.url+'api/admin/addOn/participant/list/event/'+id, obj, {headers:this.headers});
   }
 
-  //Whitepapers Apis
+  // Whitepapers Apis
   getAllWhitepaper():Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/whitepapers', {headers:this.headers})
   }
@@ -127,7 +127,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/authors', {headers:this.headers});
   }
 
-  //Videos Apis
+  // Videos Apis
   getAllVideosList()
   :Observable<any>{
     return this.http.get<any>(this.url+'api/public/resources/videos', {headers:this.headers})
@@ -136,7 +136,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/resources/case-studies', {headers:this.headers});
   }
   getAllNews():Observable<any>{
-    let obj=false;
+    const obj=false;
     return this.http.get<any>(this.url+'api/public/news?isPublish='+obj, {headers:this.headers})
   }
   saveNews(obj):Observable<any>{
@@ -158,7 +158,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url+'api/public/categories/userType', {headers:this.headers})
   }
   getLocation():Observable<any>{
-    return this.http.get<any>("https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1")
+    return this.http.get<any>('https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1')
   }
   getBannerBlockDetail(obj):Observable<any>{
     return this.http.get<any>(this.url+obj, {headers:this.headers})
@@ -184,7 +184,7 @@ export class AuthServiceService {
     return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
   }
 
-  //Dashboad-charts
+  // Dashboad-charts
 
   getUserDevices():Observable<any>{
     return this.http.get<any>(this.url+'api/admin/userDevices', {headers:this.headers})

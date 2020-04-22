@@ -16,8 +16,8 @@ export class CaseStudiesComponent implements OnInit {
   searchFilterData;
   searchCases;
   categoryList:any[]=[];
-  cat:string="";
-  tag:string="";
+  cat='';
+  tag='';
   tags:any[]=[];
   constructor(private service:AuthServiceService,private router:Router) { }
 
@@ -40,7 +40,7 @@ export class CaseStudiesComponent implements OnInit {
   }
   getTags(){
     this.service.getTagsList().subscribe(res=>{
-      console.log("tag=",res);
+      console.log('tag=',res);
       this.tags=res.body;
     });
   }
@@ -49,7 +49,7 @@ export class CaseStudiesComponent implements OnInit {
   }
   getAllCategory(){
     this.service.getCategoryList().subscribe(res=>{
-      console.log("cat=",res);
+      console.log('cat=',res);
       this.categoryList=res.body;
     });
   }
@@ -65,8 +65,8 @@ export class CaseStudiesComponent implements OnInit {
       this.filterCases=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchCases);
-        //return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
+        // return m.title.includes(this.searchBlog);
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchCases.toUpperCase());
       })
   }
@@ -74,10 +74,11 @@ export class CaseStudiesComponent implements OnInit {
     this.filterCases=this.searchFilterData.filter(m=>{
       let flag=false;
       m.resourceTags.forEach(ele => {
-        console.log("ele=",ele.id);
-        console.log("tag=",this.tag);
-      if(ele.id==this.tag)
+        console.log('ele=',ele.id);
+        console.log('tag=',this.tag);
+      if(ele.id==this.tag) {
           flag=true;
+      }
       });
       return flag;
    })

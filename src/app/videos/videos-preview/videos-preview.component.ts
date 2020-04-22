@@ -15,9 +15,9 @@ export class VideosPreviewComponent implements OnInit {
   // filterBlogs=new BehaviorSubject<any[]>([]);
   filterBlogs:any[]=[];
   searchFilterData;
-  searchBlog="";
+  searchBlog='';
   categoryList:any[]=[];
-  cat:string="";
+  cat='';
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class VideosPreviewComponent implements OnInit {
   getAllVideos(){
     this.authService.getAllVideosList().subscribe((res)=>{
       this.videoList = res.body;
-      console.log("res", this.videoList);
+      console.log('res', this.videoList);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
@@ -64,7 +64,7 @@ export class VideosPreviewComponent implements OnInit {
         console.log( this.searchBlog);
         // alert(m.title.toUpperCase());
         // alert(this.searchBlog.toUpperCase());
-        let titleData=m.title.toUpperCase();
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
   }

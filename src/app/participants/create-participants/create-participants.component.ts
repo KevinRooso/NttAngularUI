@@ -16,19 +16,19 @@ export class CreateParticipantsComponent implements OnInit {
   eventId;
   id;
   checkError:any;
-  submitted: boolean = false;
-  participant="Add Participant";
+  submitted = false;
+  participant='Add Participant';
   constructor(private formBuilder: FormBuilder,private service:AuthServiceService,
     private router1:ActivatedRoute,private router:Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.router1.queryParams.subscribe(params => {
       console.log(params.page);
       this.id=params.page;
       if(params.page!= undefined){
       this.flag=false;
-      this.participant=this.participant+" for : "+params.name;
+      this.participant=this.participant+' for : '+params.name;
       this.eventId=params.page;
       }
     });
@@ -64,19 +64,19 @@ export class CreateParticipantsComponent implements OnInit {
   submit(){
 
     // if(this.addParForm.valid){
-    let obj={
-      "name": this.addParForm.controls['name'].value,
-     "email": this.addParForm.controls['email'].value,
-      "phoneNumber": this.addParForm.controls['phoneNo'].value,
-      "registrationType": ""
+    const obj={
+      name: this.addParForm.controls['name'].value,
+     email: this.addParForm.controls['email'].value,
+      phoneNumber: this.addParForm.controls['phoneNo'].value,
+      registrationType: ''
     }
     console.log(obj);
-    var arr:any[]=[];
+    const arr:any[]=[];
       arr.push(obj);
     console.log(this.addParForm.controls['event'].value);
     if(this.flag){
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value,arr).subscribe(res=>{
-      console.log("res==",res);
+      console.log('res==',res);
       if(res.body.length !=0)
      {
        this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
@@ -85,27 +85,29 @@ export class CreateParticipantsComponent implements OnInit {
     else{
       this.snackBar.open('Duplicate Participant !!', 'Close', {duration: 5000});
     }
-      //this.router.navigate(['participants']);
+      // this.router.navigate(['participants']);
     })
   }
     else{
-      var arr:any[]=[];
+      const arr:any[]=[];
       arr.push(obj);
-      console.log("addpart",arr);
-      console.log("idddd",this.eventId);
+      console.log('addpart',arr);
+      console.log('idddd',this.eventId);
 
 
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
 
-      console.log("res==",res);
+      console.log('res==',res);
       if(res.body.length !=0)
        {
         this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
         this.submitted = false;
-      if(this.id==undefined)
+      if(this.id==undefined) {
       this.router.navigate(['participants']);
-      else
+      }
+      else {
       this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
+      }
        }
        else{
         this.snackBar.open('Duplicate Participant !!', 'Close', {duration: 5000});

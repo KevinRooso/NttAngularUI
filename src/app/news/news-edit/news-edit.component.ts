@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NewsEditComponent implements OnInit {
 
-  speakerImage: string = "";
+  speakerImage = '';
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -27,16 +27,16 @@ export class NewsEditComponent implements OnInit {
   catagoryData: any[] = [];
   tagData: any[] = [];
   checkError: any;
-  submitted: boolean = false;
+  submitted = false;
   newsId;
   public dateTime1;
   articleImage: any;
-  imageValid: boolean = false;
-  selected3:string="";
+  imageValid = false;
+  selected3='';
   today=new Date();
   userList: any[] = [];
-  show:boolean=false;
-  image1button:boolean=false;
+  show=false;
+  image1button=false;
   ngOnInit(): void {
 
     this.updateNewsForm = this.formBuilder.group({
@@ -70,15 +70,16 @@ export class NewsEditComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getNewsVideoById(id) {
     this.service.getNewsById(id).subscribe(res => {
-      console.log("Data", res);
+      console.log('Data', res);
 
       // this.getDate(res.body.date);
       this.updateNewsForm.get(['title']).setValue(res.body.title);
@@ -88,28 +89,30 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.get(['location']).setValue(res.body.location);
       this.updateNewsForm.get(['about']).setValue(res.body.about);
       this.updateNewsForm.get(['draft']).setValue(res.body.draft);
-      if(res.body.targetUserType!=null)
+      if(res.body.targetUserType!=null) {
       this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
+      }
       this.updateNewsForm.controls['thumbnailImageUrl'].setValidators(null);
       this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = res.body.thumbnailImageUrl;
       this.articleImage = res.body.thumbnailImageUrl;
       this.today=res.body.expiryDate;
       this.updateNewsForm.controls['expiryDate'].setValue(res.body.expiryDate);
-      if(res.body.targetUserType!=null)
+      if(res.body.targetUserType!=null) {
       this.selected3=res.body.targetUserType.id;
-      console.log("Data", this.selected3);
+      }
+      console.log('Data', this.selected3);
       this.image1button=true;
     })
   }
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    console.log("fileData==", this.fileData);
+    this.fileData = fileInput.target.files[0] as File;
+    console.log('fileData==', this.fileData);
 if(this.fileData!=undefined){
   this.image1button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
@@ -117,12 +120,12 @@ if(this.fileData!=undefined){
   }
   }
   preview() {
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -135,7 +138,7 @@ if(this.fileData!=undefined){
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
         this.show=false;
         this.image1button=true;
@@ -161,35 +164,36 @@ if(this.fileData!=undefined){
     if (this.updateNewsForm.valid) {
       let userId;
       this.userList.forEach(m=>{
-        if(m.displayName==this.updateNewsForm.controls['targetUserType'].value)
+        if(m.displayName==this.updateNewsForm.controls['targetUserType'].value) {
           userId=m.id;
+        }
       });
 
-      let objData = {
-        "title": this.updateNewsForm.controls['title'].value,
-        "topic": this.updateNewsForm.controls['topic'].value,
-        "shortDescription": this.updateNewsForm.controls['shortDescription'].value,
-        "longDescription": this.updateNewsForm.controls['longDescription'].value,
-        "location": this.updateNewsForm.controls['location'].value,
-        "about": this.updateNewsForm.controls['about'].value,
-        "active": false,
-        "tagList":[],
-        "draft": this.updateNewsForm.controls['draft'].value,
-        "thumbnailImageUrl": this.articleImage,
-        "id": this.newsId,
-        "targetUserType":userId,
-        "expiryDate":this.updateNewsForm.controls['expiryDate'].value
+      const objData = {
+        title: this.updateNewsForm.controls['title'].value,
+        topic: this.updateNewsForm.controls['topic'].value,
+        shortDescription: this.updateNewsForm.controls['shortDescription'].value,
+        longDescription: this.updateNewsForm.controls['longDescription'].value,
+        location: this.updateNewsForm.controls['location'].value,
+        about: this.updateNewsForm.controls['about'].value,
+        active: false,
+        tagList:[],
+        draft: this.updateNewsForm.controls['draft'].value,
+        thumbnailImageUrl: this.articleImage,
+        id: this.newsId,
+        targetUserType:userId,
+        expiryDate:this.updateNewsForm.controls['expiryDate'].value
       }
-      console.log("post", objData);
+      console.log('post', objData);
       this.service.saveNews(objData).subscribe((response) => {
-        console.log("response=",response);
+        console.log('response=',response);
         this.show=false;
         this.submitted = false;
         this.snackBar.open('News successfully updated', 'Close', {duration: 2000});
         this.router.navigate(['news']);
       },
       (error) => {
-        console.log("error==",error);
+        console.log('error==',error);
         this.show=false;
         this.snackBar.open('Oops Something went wrong...', 'Close');
        })

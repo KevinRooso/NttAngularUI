@@ -20,7 +20,7 @@ export class WhitepaperDetailComponent implements OnInit {
   getArticleData(id){
     this.authService.getResourceById(id).subscribe((res)=>{
       this.whitePaperData = res.body;
-      console.log("Get Articles", this.whitePaperData);
+      console.log('Get Articles', this.whitePaperData);
     })
   }
   // editSpeaker(id){

@@ -14,12 +14,12 @@ export class ArticlesComponent implements OnInit {
   // filterBlogs=new BehaviorSubject<any[]>([]);
   filterBlogs:any[]=[];
   searchFilterData;
-  searchBlog="";
+  searchBlog='';
   categoryList:any[]=[];
-  cat:string="";
-  filterDate="";
+  cat='';
+  filterDate='';
   dates:any[]=[];
-  sort:string="desc?date";
+  sort='desc?date';
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -31,14 +31,15 @@ export class ArticlesComponent implements OnInit {
   getAllArticleList(){
     this.authService.getAllArticle().subscribe((res)=>{
       this.articleList = res.body;
-      console.log("res", this.articleList);
+      console.log('res', this.articleList);
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
       res.body.filter(m=>{
-        if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1)
+        if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1) {
           this.dates.push(m.createdAt.substring(0,10).split('-').reverse().join('/'))
+        }
         })
 
     })
@@ -65,12 +66,12 @@ export class ArticlesComponent implements OnInit {
   getDataWithDate(){
     this.filterBlogs=this.searchFilterData.filter(m=>{
 
-     let titleData=m.createdAt;
-     let d=this.filterDate.split('/').reverse().join('-')
+     const titleData=m.createdAt;
+     const d=this.filterDate.split('/').reverse().join('-')
 
       return titleData.includes(d);
     })
-    console.log("filterblogsss==",this.filterBlogs);
+    console.log('filterblogsss==',this.filterBlogs);
 
   }
   blogSearch(){
@@ -78,7 +79,7 @@ export class ArticlesComponent implements OnInit {
       this.filterBlogs=this.searchFilterData.filter(m=>{
 
        // return m.title.includes(this.searchBlog);
-       let titleData=m.title.toUpperCase();
+       const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase());
       })
   }
@@ -87,13 +88,13 @@ export class ArticlesComponent implements OnInit {
   }
 
   filterData(){
-    let data=this.sort.split('?');
-    if(this.sort=="Sort By"){
+    const data=this.sort.split('?');
+    if(this.sort=='Sort By'){
       this.filterBlogs=this.blogs;
     }
 
 
-    if(data[1]=="date"){
+    if(data[1]=='date'){
       if(data[0]=='asc'){
       //   console.log("adtesort==",this.searchFilterData);
        this.searchFilterData.sort(this.GFG_sortFunction);
@@ -111,13 +112,13 @@ export class ArticlesComponent implements OnInit {
 
   }
    GFG_sortFunction(a, b) {
-    var dateA = new Date(a.updatedAt).getTime();
-    var dateB = new Date(b.updatedAt).getTime();
+    const dateA = new Date(a.updatedAt).getTime();
+    const dateB = new Date(b.updatedAt).getTime();
     return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunction1(a, b) {
-  var dateA = new Date(a.updatedAt).getTime();
-  var dateB = new Date(b.updatedAt).getTime();
+  const dateA = new Date(a.updatedAt).getTime();
+  const dateB = new Date(b.updatedAt).getTime();
   return dateA < dateB ? 1 : -1;
 };
 

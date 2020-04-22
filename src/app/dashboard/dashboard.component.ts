@@ -43,7 +43,7 @@ function SidebarCollapse () {
     $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
 
     // Treating d-flex/d-none on separators with title
-    var SeparatorTitle = $('.sidebar-separator-title');
+    let SeparatorTitle = $('.sidebar-separator-title');
     if ( SeparatorTitle.hasClass('d-flex') ) {
         SeparatorTitle.removeClass('d-flex');
     } else {

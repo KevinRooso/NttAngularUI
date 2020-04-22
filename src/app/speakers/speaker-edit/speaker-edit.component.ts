@@ -31,18 +31,18 @@ export class SpeakerEditComponent implements OnInit {
   chipsData: string[]=['Hi','Hello'];
 
   checkError:any;
-  submitted: boolean = false;
-  imageValid:boolean =false;
-  flag:boolean=true;
+  submitted = false;
+  imageValid =false;
+  flag=true;
   constructor(private formbuilder: FormBuilder, private location: Location, private router: Router, private authService: AuthServiceService, private router1: ActivatedRoute, public snackBar: MatSnackBar ) {
-    let mobnum = "^((\\+91-?)|0)?[0-9]{10}$";
+    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.updateSpeakerForm=formbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
       personalEmail: ['', Validators.email],
       designation: ['', Validators.required],
-      //profile: ['', Validators.required],
+      // profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
       phone: ['',[Validators.required, Validators.pattern(mobnum)]],
       keySkills: ['', Validators.required],
@@ -95,8 +95,8 @@ export class SpeakerEditComponent implements OnInit {
    fileProgress(fileInput: any) {
     this.previewUrl=null;
     this.imageValid=false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType=this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid=true;
     this.preview();
@@ -104,12 +104,12 @@ export class SpeakerEditComponent implements OnInit {
   }
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -120,7 +120,7 @@ export class SpeakerEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
         console.log(this.speakerImage);
@@ -137,17 +137,17 @@ export class SpeakerEditComponent implements OnInit {
       this.updateSpeakerForm.controls['email'].setValue(this.getSpeaker.email);
       this.updateSpeakerForm.controls['personalEmail'].setValue(this.getSpeaker.personalEmail);
       this.updateSpeakerForm.controls['designation'].setValue(this.getSpeaker.designation);
-      //this.updateSpeakerForm.controls['profile'].setValue(this.getSpeaker.profile);
+      // this.updateSpeakerForm.controls['profile'].setValue(this.getSpeaker.profile);
       this.updateSpeakerForm.controls['phone'].setValue(this.getSpeaker.phone);
       this.updateSpeakerForm.controls['origanizationName'].setValue(this.getSpeaker.origanizationName);
       this.updateSpeakerForm.controls['keySkills'].setValue(null);
       this.updateSpeakerForm.controls['keySkills'].setValidators(null);
       this.updateSpeakerForm.controls['keySkills'].updateValueAndValidity();
-      let obj =this.getSpeaker.keySkills.split(',');
+      const obj =this.getSpeaker.keySkills.split(',');
       for(let i=0;i<obj.length;i++){
         this.fruits.push({name:obj[i]});
       }
-      console.log("Check ME", this.fruits);
+      console.log('Check ME', this.fruits);
       this.previewUrl = this.getSpeaker.profileImageUrl;
       this.speakerImage = res.body.profileImageUrl;
 
@@ -163,25 +163,25 @@ export class SpeakerEditComponent implements OnInit {
       fruit1 = fruit1 + ',' + m.name;
     })
 
-    let obj = {
-      "fullName": this.updateSpeakerForm.controls['fullName'].value,
-      "description": this.updateSpeakerForm.controls['description'].value,
-      "email": this.updateSpeakerForm.controls['email'].value,
-      "personalEmail": this.updateSpeakerForm.controls['personalEmail'].value,
-      "designation": this.updateSpeakerForm.controls['designation'].value,
-      //"profile": this.updateSpeakerForm.controls['profile'].value,
-      "origanizationName": this.updateSpeakerForm.controls['origanizationName'].value,
-      "phone": this.updateSpeakerForm.controls['phone'].value,
-      "keySkills": fruit1.substring(1, fruit1.length - 0),
-      "profileImageUrl": this.speakerImage,
-      "id": this.spkrID
+    const obj = {
+      fullName: this.updateSpeakerForm.controls['fullName'].value,
+      description: this.updateSpeakerForm.controls['description'].value,
+      email: this.updateSpeakerForm.controls['email'].value,
+      personalEmail: this.updateSpeakerForm.controls['personalEmail'].value,
+      designation: this.updateSpeakerForm.controls['designation'].value,
+      // "profile": this.updateSpeakerForm.controls['profile'].value,
+      origanizationName: this.updateSpeakerForm.controls['origanizationName'].value,
+      phone: this.updateSpeakerForm.controls['phone'].value,
+      keySkills: fruit1.substring(1, fruit1.length - 0),
+      profileImageUrl: this.speakerImage,
+      id: this.spkrID
     }
-    console.log("post", obj);
+    console.log('post', obj);
     this.authService.saveSpeaker(obj).subscribe(
       (response) => {
         this.snackBar.open('Speaker successfully updated', 'Close', {duration: 5000});
-        //alert("Successfully Updated");
-        console.log("response", response);
+        // alert("Successfully Updated");
+        console.log('response', response);
       },
       (error) => {
         this.snackBar.open(error, 'Close');
@@ -197,10 +197,12 @@ export class SpeakerEditComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   setError(){
-    if(this.fruits.length==0)
+    if(this.fruits.length==0) {
       this.flag=false;
-      else
+    }
+      else {
       this.flag=true;
+    }
    }
 }
 

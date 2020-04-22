@@ -38,24 +38,26 @@ export class LoginComponent implements OnInit {
   onSubmit() : void {
     this.show =true;
 
-    //this.router.navigate(['events']);
+    // this.router.navigate(['events']);
     console.log(this.loginform.value);
     this.authService.getAuthourized(this.loginform.value).subscribe(
       (res)=>{
         localStorage.removeItem('token');
-        localStorage.setItem("token",res.body.accessToken);
-        console.log("errorrr==",res);
+        localStorage.setItem('token',res.body.accessToken);
+        console.log('errorrr==',res);
         this.show =false;
         this.document.location.href = '/home';
-        //this.router.navigate(['home']);
+        // this.router.navigate(['home']);
   },
   (error: HttpErrorResponse)=>
   {
-    console.log("error",error.status);
-    if(error.status==401)
+    console.log('error',error.status);
+    if(error.status==401) {
     this.snackBar.open('Please enter valid credentials', 'Close', {duration: 3500, verticalPosition: 'top'});
-    else
+    }
+    else {
     this.snackBar.open('Oops, Something Went Wrong!!', 'Close', {duration: 3500, verticalPosition: 'top'});
+    }
     this.show =false;
   }
   )

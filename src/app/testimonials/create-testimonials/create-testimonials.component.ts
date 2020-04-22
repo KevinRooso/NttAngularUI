@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateTestimonialsComponent implements OnInit {
 
-  speakerImage: string="";
+  speakerImage='';
 
   constructor(private formBuilder:FormBuilder,
     private router:Router,
@@ -28,28 +28,28 @@ export class CreateTestimonialsComponent implements OnInit {
   uploadedFilePath: string = null;
   catagoryData:any[]=[];
   tagData:any[]=[];
-    logo:string="";
+    logo='';
 
     addTagForm:FormGroup;
     checkError:any;
-    submitted: boolean = false;
-    imageValid:boolean=false;
+    submitted = false;
+    imageValid=false;
     checkErrorPerson:any;
-    submittedPerson: boolean = false;
-    imageValidPerson:boolean=false;
-   imageValid1:boolean=false;
+    submittedPerson = false;
+    imageValidPerson=false;
+   imageValid1=false;
     userList:any[]=[];
     resourceId;
     testemonials:any[]=[];
-    tarUserType:string="";
-    title:string="";
+    tarUserType='';
+    title='';
 
 
   today=new Date();
 
-  show:boolean=false;
-  image1button:boolean=false;
-  image2button:boolean=false;
+  show=false;
+  image1button=false;
+  image2button=false;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: ['',Validators.required],
@@ -76,10 +76,10 @@ export class CreateTestimonialsComponent implements OnInit {
       this.resourceId = params.page;
       if(this.resourceId!=undefined){
      this.getResourceData();
-          this.title="Edit Testimonial";
+          this.title='Edit Testimonial';
       }
       else{
-        this.title="Create Testimonial";
+        this.title='Create Testimonial';
         this.getUserList();
       }
     });
@@ -102,9 +102,10 @@ export class CreateTestimonialsComponent implements OnInit {
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.createVideoForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-      if(res.body.targetUserType!=null)
+      if(res.body.targetUserType!=null) {
         this.tarUserType=res.body.targetUserType.id;
-        console.log(" this.tarUserType==", this.tarUserType);
+      }
+        console.log(' this.tarUserType==', this.tarUserType);
 
        this.speakerImage=res.body.detailImageUrl;
        this.logo=res.body.thumbnailImageUrl;
@@ -125,21 +126,22 @@ export class CreateTestimonialsComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   fileProgress(fileInput: any) {
 
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    console.log("fileData==", this.fileData);
+    this.fileData = fileInput.target.files[0] as File;
+    console.log('fileData==', this.fileData);
 if(this.fileData!=undefined){
   this.image1button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
@@ -148,12 +150,12 @@ if(this.fileData!=undefined){
   }
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -169,7 +171,7 @@ if(this.fileData!=undefined){
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
        // alert("Image Uploaded Successfully");
         this.logo = res.fileDownloadUri;
         this.imageValid = false;
@@ -189,10 +191,10 @@ if(this.fileData!=undefined){
     this.image2button=false;
     this.previewUrl1=null;
     this.imageValid1 = false;
-    this.fileData = <File>fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     if(this.fileData!=undefined){
       this.image2button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid1=true;
     this.preview1();
@@ -216,12 +218,12 @@ if(this.fileData!=undefined){
   // }
   preview1() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl1 = reader.result;
@@ -266,10 +268,12 @@ if(this.fileData!=undefined){
   generateBlog(){
     let id;
 
-    if(this.resourceId!=undefined)
+    if(this.resourceId!=undefined) {
       id=this.resourceId;
-      else
+    }
+      else {
       id=0;
+    }
       if(!this.image1button){
         this.snackBar.open('Please Upload Logo', 'Close', { duration: 5000 });
         this.show=false;
@@ -282,32 +286,34 @@ if(this.fileData!=undefined){
       }
       if(this.createVideoForm.valid){
         this.show=true;
-      let obj=this.createVideoForm.value;
-      let dataObj={
-            "thumbnailImageUrl":this.logo,
-          "draft": obj.isDraft,
-          "longDescription": obj.longDescription,
-          "person": {
+      const obj=this.createVideoForm.value;
+      const dataObj={
+            thumbnailImageUrl:this.logo,
+          draft: obj.isDraft,
+          longDescription: obj.longDescription,
+          person: {
           },
-          "resourceType":4,
-          "shortDescription": obj.shortDescription,
-          "tagList": [],
-          "detailImageUrl": this.speakerImage,
-          "title": obj.title,
-          "targetUserType":obj.targetUserType,
-          "categoryId":15,
-            "id":id,
-            "expiryDate": this.createVideoForm.controls['expiryDate'].value,
+          resourceType:4,
+          shortDescription: obj.shortDescription,
+          tagList: [],
+          detailImageUrl: this.speakerImage,
+          title: obj.title,
+          targetUserType:obj.targetUserType,
+          categoryId:15,
+            id,
+            expiryDate: this.createVideoForm.controls['expiryDate'].value,
      }
 
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
-      //alert("Testimonials Added Successfully");
-      if(this.resourceId!=undefined)
+      // alert("Testimonials Added Successfully");
+      if(this.resourceId!=undefined) {
       this.snackBar.open('Testimonials Updated Successfully', 'Close', {duration: 5000});
-      else
+      }
+      else {
         this.snackBar.open('Testimonials Added Successfully', 'Close', {duration: 5000});
+      }
       this.show=false;
       this.router.navigate(['testimonials']);
     })

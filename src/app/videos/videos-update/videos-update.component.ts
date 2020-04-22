@@ -27,23 +27,23 @@ export class VideosUpdateComponent implements OnInit {
   uploadedFilePath: string = null;
   catagoryData:any[]=[];
   tagData:any[]=[];
-  selected2:string="";
+  selected2='';
   selected4:string[]=[];
 
   addTagForm:FormGroup;
   checkError:any;
-  submitted: boolean = false;
-  imageValid:boolean=false;
+  submitted = false;
+  imageValid=false;
   checkErrorPerson:any;
-  submittedPerson: boolean = false;
-  imageValidPerson:boolean=false;
+  submittedPerson = false;
+  imageValidPerson=false;
   previewUrl1: any = null;
-  imageValid1:boolean=false;
+  imageValid1=false;
   userList:any[]=[];
   today=new Date();
-  tarUserType:string="";
-  show:boolean=false;
-  image1button:boolean=false;
+  tarUserType='';
+  show=false;
+  image1button=false;
   @ViewChild('closeModel',{static:true}) closeModel;
   ngOnInit(): void {
 
@@ -85,15 +85,16 @@ export class VideosUpdateComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getVideosData(id){
     this.service.getResourceById(id).subscribe(res=>{
-      console.log("Videos=",res);
+      console.log('Videos=',res);
       this.createVideoForm.controls['targetUserType'].setValidators(null);
       this.createVideoForm.controls['targetUserType'].updateValueAndValidity();
       this.createVideoForm.controls['tagList'].setValidators(null);
@@ -106,14 +107,16 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.createVideoForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]);
       this.createVideoForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-      if(res.body.targetUserType!=null)
+      if(res.body.targetUserType!=null) {
         this.tarUserType=res.body.targetUserType.id;
+      }
         this.today=res.body.expiryDate;
         this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
-        console.log(" this.tarUserType==", this.tarUserType);
-      if(res.body.targetUserType!=null)
+        console.log(' this.tarUserType==', this.tarUserType);
+      if(res.body.targetUserType!=null) {
       this.selected2=res.body.category.id;
-      console.log("catg=",res.body.category.id);
+      }
+      console.log('catg=',res.body.category.id);
 
       res.body.resourceTags.forEach(m=>{
         this.selected4.push(m.id);
@@ -124,14 +127,14 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
       this.createVideoForm.get(['categoryId']).setValue(res.body.category.id);
       this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink)
-      //this.createVideoForm.get(['person']).setValue(res.body.person.id);
+      // this.createVideoForm.get(['person']).setValue(res.body.person.id);
       this.previewUrl=res.body.thumbnailImageUrl;
       this.image1button=true;
       this.getCategoryDetails();
       this.getTagsDetails();
       this.getUserList();
 
-      //this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
+      // this.createBlogForm.get(['thumbnailImageUrl']).setValue(res.body.thumbnailImageUrl);
       // this.createBlogForm.get(['title']).setValue(res.body.title);
     })
 }
@@ -148,11 +151,11 @@ export class VideosUpdateComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    console.log("fileData==", this.fileData);
+    this.fileData = fileInput.target.files[0] as File;
+    console.log('fileData==', this.fileData);
 if(this.fileData!=undefined){
   this.image1button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
@@ -161,12 +164,12 @@ if(this.fileData!=undefined){
   }
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -179,7 +182,7 @@ if(this.fileData!=undefined){
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show=false;
         this.image1button=true;
@@ -206,47 +209,47 @@ if(this.fileData!=undefined){
     this.createVideoForm.controls['tagList'].updateValueAndValidity();
     }
     if(this.createVideoForm.valid){
-    let obj=this.createVideoForm.value;
+    const obj=this.createVideoForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
-      console.log("tagssss===",obj.tagList);
+      console.log('tagssss===',obj.tagList);
 
-    let tags:any[]=[];
+    const tags:any[]=[];
     this.tagData.forEach(m=>{
       obj.tagList.forEach(n=>{
           if(n==m.id){
-            let tag={
-            "id":m.id,
-            "keywords": m.keywords,
-            "name": m.name
+            const tag={
+            id:m.id,
+            keywords: m.keywords,
+            name: m.name
             }
             tags.push(tag);
           }
       });
     })
 
-    let dataObj={
-      "longDescription": obj.longDescription,
-      "categoryId": obj.categoryId,
-      "customerProfile": "string",
-      "detailImageUrl": "string",
-      "downloadUrl": obj.downloadUrl,
-      "person": {},
-      "shortDescription": obj.longDescription,
-      "tagList": tags,
-      "thumbnailImageUrl":obj.thumbnailImageUrl,
-      "title": obj.title,
-      "resourceType": 6,
-      "id":this.videoID,
-      "draft": obj.isDraft,
-      "targetUserType":obj.targetUserType,
-      "expiryDate":obj.expiryDate
+    const dataObj={
+      longDescription: obj.longDescription,
+      categoryId: obj.categoryId,
+      customerProfile: 'string',
+      detailImageUrl: 'string',
+      downloadUrl: obj.downloadUrl,
+      person: {},
+      shortDescription: obj.longDescription,
+      tagList: tags,
+      thumbnailImageUrl:obj.thumbnailImageUrl,
+      title: obj.title,
+      resourceType: 6,
+      id:this.videoID,
+      draft: obj.isDraft,
+      targetUserType:obj.targetUserType,
+      expiryDate:obj.expiryDate
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       console.log(res);
       this.show=false;
       this.snackBar.open('Videos Updated Successfully', 'Close', {duration: 5000});
-      //alert("Case Study Updated Successfully");
+      // alert("Case Study Updated Successfully");
       this.router.navigate(['videos']);
     },
     (error) => {
@@ -263,18 +266,20 @@ createTag(){
   if(this.addTagForm.valid){
         let flag=true;
   this.tagData.forEach(m=>{
-   if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+   if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
     flag=false;
+   }
   })
-  let obj=this.addTagForm.value
+  const obj=this.addTagForm.value
   if(flag){
     obj['id']=0;
   this.tagData.unshift(obj);
   this.closeModel.nativeElement.click();
 }
-else
+else {
 this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
-//alert("Tag Already EXist");
+  }
+// alert("Tag Already EXist");
 }
 }
 BackMe(){

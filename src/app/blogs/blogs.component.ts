@@ -14,7 +14,7 @@ export class BlogsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
-  cat:string="cat";
+  cat='cat';
   constructor(private service:AuthServiceService,private router:Router) { }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class BlogsComponent implements OnInit {
   }
   getDataWithCat(){
     this.filterBlogs=this.blogs;
-    if(this.cat=="cat")
+    if(this.cat=='cat')
       {
         this.filterBlogs=this.blogs;
         return false;
@@ -56,8 +56,8 @@ export class BlogsComponent implements OnInit {
       this.filterBlogs=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
-        //return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
+        // return m.title.includes(this.searchBlog);
+        const titleData=m.title.toUpperCase();
         return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
       })
   }

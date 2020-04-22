@@ -43,24 +43,24 @@ export class LandingPageComponent implements OnInit {
 
   }
 
-//--------------------------Resources Graphs------------------------//
+// --------------------------Resources Graphs------------------------//
 
   resourceDownload(){
     this.service.getresourceDownloadDetails()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
 
       this.canvas = document.getElementById('resourceDownload');
       this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
+      const myChart = new Chart(this.ctx, {
         type: 'bar',
         fontSize:1,
         data: {
-            labels: [ "Article ","Casestudy","Whitepaper"],
+            labels: [ 'Article ','Casestudy','Whitepaper'],
             datasets: [{
-              label:"No. of resources",
+              label:'No. of resources',
               maxBarThickness: 30,
                 data: [(userdeviceData.totalArticleDownload ),(userdeviceData.totalCaseStudyDownload ),
                   (userdeviceData.totalWhitepaperDownload)],
@@ -96,21 +96,21 @@ export class LandingPageComponent implements OnInit {
     })
   }
 
-  //-----------------------------Users Graphs---------------------------------//
+  // -----------------------------Users Graphs---------------------------------//
 
   userDevice(){
     this.service.getUserDevices()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
 
       this.canvas = document.getElementById('userDeviceChart');
       this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
+      const myChart = new Chart(this.ctx, {
         type: 'pie',
         data: {
-            labels: ["Android ", "iOS "],
+            labels: ['Android ', 'iOS '],
             datasets: [{
                 data: [(userdeviceData.androidDevice ), (userdeviceData.iosDevice )],
                 backgroundColor: [
@@ -135,23 +135,23 @@ export class LandingPageComponent implements OnInit {
     })
   }
 
-  //Users
+  // Users
 
   users(){
     this.service.getUsers()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
 
       this.canvas = document.getElementById('users');
       this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
+      const myChart = new Chart(this.ctx, {
         type: 'bar',
         data: {
-            labels: ["Public ","Customer","Employee"],
+            labels: ['Public ','Customer','Employee'],
             datasets: [{
-              label:"Number of users",
+              label:'Number of users',
               maxBarThickness: 30,
                 data: [(userdeviceData.totalPublicUser),
                   (userdeviceData.totalCustomerUser ),(userdeviceData.totalEmployeeUser )],
@@ -188,22 +188,22 @@ export class LandingPageComponent implements OnInit {
   }
 
 
-//-------------------------------Events Graphs----------------------------------------//
+// -------------------------------Events Graphs----------------------------------------//
 
-//Event Status
+// Event Status
   eventStatusDetails(){
     this.service.geteventStatusDetails()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
 
       this.canvas = document.getElementById('eventStatus');
       this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
+      const myChart = new Chart(this.ctx, {
         type: 'pie',
         data: {
-            labels: [ "Publish","Active","Draft"],
+            labels: [ 'Publish','Active','Draft'],
             datasets: [{
                 data: [(userdeviceData.totalPublishEvent ),
                   (userdeviceData.totalActiveEvent ),(userdeviceData.totalDraftEvent )],
@@ -232,22 +232,22 @@ export class LandingPageComponent implements OnInit {
     })
   }
 
-  //Event Target Users
+  // Event Target Users
   eventTargetUserTypeDetails(){
     this.service.geteventTargetUserTypeDetails()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
 
       this.canvas = document.getElementById('eventTargetUserType');
       this.ctx = this.canvas.getContext('2d');
-      let myChart = new Chart(this.ctx, {
+      const myChart = new Chart(this.ctx, {
         type: 'bar',
         data: {
-            labels: [ "Public ","Customer","Employee"],
+            labels: [ 'Public ','Customer','Employee'],
             datasets: [{
-              label:"No. of target users",
+              label:'No. of target users',
               maxBarThickness: 30,
                 data: [ (userdeviceData.totalPublicEvent),
                   (userdeviceData.totalCustomerEvent ),(userdeviceData.totalEmployeeEvent )],
@@ -283,13 +283,13 @@ export class LandingPageComponent implements OnInit {
     })
   }
 
-//Event Category
+// Event Category
   eventCategoryTypeDetails(){
     this.service.geteventCategoryTypeDetails()
     .subscribe(res =>{
       console.log(res.body)
 
-      let userdeviceData=res.body;
+      const userdeviceData=res.body;
       new Chart('eventCategoryType',{
         type:'doughnut',
         options:{

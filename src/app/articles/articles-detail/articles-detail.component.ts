@@ -14,7 +14,7 @@ export class ArticlesDetailComponent implements OnInit {
   // restags:string='';
 
   constructor(private authService: AuthServiceService, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
- show:boolean=false;
+ show=false;
   ngOnInit(): void {
     this.show=true;
     this.router1.queryParams.subscribe(params => {
@@ -26,7 +26,7 @@ export class ArticlesDetailComponent implements OnInit {
     this.authService.getResourceById(id).subscribe((res)=>{
       this.articleData = res.body;
       this.show=false;
-      console.log("Get Articles", this.articleData);
+      console.log('Get Articles', this.articleData);
       this.resourceTags=this.articleData.resourceTags;
       console.log(this.articleData.resourceTags);
       // this.resourceTags.forEach((value,index)=>{

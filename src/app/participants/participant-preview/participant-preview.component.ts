@@ -14,11 +14,11 @@ export class ParticipantPreviewComponent {
   dataSource=new BehaviorSubject<any[]>([]);
   dataTable:any;
   tableData:any[]=[];
-  eName="List of all Participants";
+  eName='List of all Participants';
   dtOptions: DataTables.Settings = {};
   @ViewChild('datatable',{static:true}) table;
   tabled;
-  show:boolean=false;
+  show=false;
   constructor(private service: AuthServiceService,
     private elementRef:ElementRef,private router:Router
     ,private queryString:ActivatedRoute,
@@ -32,12 +32,13 @@ export class ParticipantPreviewComponent {
     this.queryString.queryParams.subscribe(params => {
       $.fn.dataTable.ext.errMode = 'none';
      let url;
-      if(params.page==undefined)
-        url=environment.API_ENDPOINT+"api/public/participants";
+      if(params.page==undefined) {
+        url=environment.API_ENDPOINT+'api/public/participants';
+      }
       else{
-        console.log("eventName=",params);
-        this.eName= "Event: "+params.name
-        url=environment.API_ENDPOINT+"api/public/participants/event/"+params.page;
+        console.log('eventName=',params);
+        this.eName= 'Event: '+params.name
+        url=environment.API_ENDPOINT+'api/public/participants/event/'+params.page;
       }
 
       this.getTableData(url);
@@ -48,12 +49,12 @@ export class ParticipantPreviewComponent {
 }
 getTableData(url){
   this.dtOptions = {
-        "order": [],
-    "ajax":{
-      url:url,
-      type:"GET",
-      headers: {"Authorization": 'Bearer ' + localStorage.getItem("token")},
-      dataSrc:"body"
+        order: [],
+    ajax:{
+      url,
+      type:'GET',
+      headers: {Authorization: 'Bearer ' + localStorage.getItem('token')},
+      dataSrc:'body'
     },
     columns:[{
       title:'Event Name',
@@ -78,19 +79,19 @@ getTableData(url){
 
     {
       title:'Status',
-       defaultContent: "<span  ' class='badge showIdButton' >Approved</span>"
+       defaultContent: '<span  \' class=\'badge showIdButton\' >Approved</span>'
     },
 
     {
       title:'Action',
         // defaultContent: "<span   class='btn btn-danger approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
         // +"&nbsp;<span  class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' >Reject</span>"
-        defaultContent: "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>"
-        +"&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>"
+        defaultContent: '<div class=\'mydiv\' style=\'width: 85px\'><span   class=\'btn btn-success approve\' style=\'cursor: pointer;font-size: 10px;\' ><i class=\'fa fa-check\' style=\'font-size: 1rem;\'></i></span>'
+        +'&nbsp;<span   class=\'btn btn-danger reject\' style=\'cursor: pointer;font-size: 10px;\' ><i class=\'fa fa-close\' style=\'font-size: 1rem;\'></i></span></div>'
       }
   ],
   rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    console.log("data");
+    console.log('data');
     console.log(data);
     const self = this;
 
@@ -106,11 +107,11 @@ getTableData(url){
 
     console.log('rowoo==',row);
 
-    $('td:nth-child(1) ', row).attr("width", "250px");
+    $('td:nth-child(1) ', row).attr('width', '250px');
     if(data['approverId']==null){
-      console.log("data");
+      console.log('data');
       $('td .showIdButton', row).html('Pending');
-      $('td:nth-child(7) .approve', row).attr("disabled", true);
+      $('td:nth-child(7) .approve', row).attr('disabled', true);
     }
 
 
@@ -118,7 +119,7 @@ getTableData(url){
     if(data['approverId']==null){
 
         $('td .showIdButton', row).html('Pending');
-        $('td:nth-child(7) .approve', row).attr("disabled", true);
+        $('td:nth-child(7) .approve', row).attr('disabled', true);
 
     // Object.keys(data).forEach((key,index)=>{
     //   if(key=='email'){
@@ -167,7 +168,7 @@ someClickHandler(data,row){
  this.service.updateParticipantStatus(data.id,true).subscribe(res=>{
     $('td .showIdButton', row).html('Approved');
     $('td:nth-child(7) .mydiv', row).html('Approved');
-    //$('td:nth-child(7) .reject', row).css('cursor','default');
+    // $('td:nth-child(7) .reject', row).css('cursor','default');
     $('td:nth-child(7) .approve', row).unbind();
     this.snackBar.open('Approved!!', 'Close', { duration: 5000 });
     this.show=false;
@@ -193,7 +194,7 @@ someClickHandler2(data,row){
     (error) => {
       this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
       this.show=false;
-      //alert("something went wrong");
+      // alert("something went wrong");
     })
 }
 someClickHandler1(data){

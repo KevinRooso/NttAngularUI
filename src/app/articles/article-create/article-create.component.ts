@@ -24,17 +24,17 @@ export class ArticleCreateComponent implements OnInit {
   attachUrl: any = null;
   attachFile: any;
   checkError: any;
-  submitted: boolean = false;
-  imageValid: boolean = false;
-  imageValid2: boolean = false;
+  submitted = false;
+  imageValid = false;
+  imageValid2 = false;
   userList: any[] = [];
   allData: any[] = [];
   tagData: any[] = [];
 
   today=new Date();
-  show:boolean=false;
-  image1button:boolean=false;
-  image2button:boolean=false;
+  show=false;
+  image1button=false;
+  image2button=false;
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(private frmbuilder: FormBuilder, private authService: AuthServiceService,
     private location: Location, public snackBar: MatSnackBar,
@@ -83,10 +83,11 @@ export class ArticleCreateComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getCategoryDetails() {
@@ -98,8 +99,8 @@ export class ArticleCreateComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
@@ -108,8 +109,8 @@ export class ArticleCreateComponent implements OnInit {
   fileProgress2(fileInput: any) {
     this.attachUrl = null;
     this.imageValid2 = false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType = this.fileData.type;
     if (fileType == 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
@@ -120,12 +121,12 @@ export class ArticleCreateComponent implements OnInit {
 
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -133,12 +134,12 @@ export class ArticleCreateComponent implements OnInit {
   }
   preview2() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     // if (mimeType.match(/image\/*/) == null) {
     //   return;
     // }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.attachUrl = reader.result;
@@ -151,9 +152,9 @@ export class ArticleCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log("Image", this.articleImage);
+        console.log('Image', this.articleImage);
         this.show=false;
         this.image1button=true;
         this.imageValid = false;
@@ -172,9 +173,9 @@ export class ArticleCreateComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log("File", this.attachFile);
+        console.log('File', this.attachFile);
         this.show=false;
         this.image2button=true;
         this.imageValid2 = false;
@@ -201,42 +202,42 @@ export class ArticleCreateComponent implements OnInit {
     }
     if (this.createArticleForm.valid) {
 
-      let tags: any[] = [];
+      const tags: any[] = [];
 
       this.createArticleForm.value.tagList.forEach(m => {
-        let tag = {
-          "id": m.id,
-          "keywords": m.keywords,
-          "name": m.name
+        const tag = {
+          id: m.id,
+          keywords: m.keywords,
+          name: m.name
         }
         tags.push(tag);
       });
 
-      let obj = {
-        "categoryId": this.createArticleForm.controls['categoryId'].value,
-        "customerProfile": "string",
-        "detailImageUrl": "string",
-        "downloadUrl": this.attachFile,
-        "draft": this.createArticleForm.controls['draft'].value,
-        "longDescription": this.createArticleForm.controls['longDescription'].value,
-        "person": {},
-        "resourceType": 2,
-        "serviceUsed": "string",
-        "shortDescription": this.createArticleForm.controls['shortDescription'].value,
-        "tagList": tags,
-        "thumbnailImageUrl": this.articleImage,
-        "title": this.createArticleForm.controls['title'].value,
-        "targetUserType": this.createArticleForm.controls['targetUserType'].value,
-        "approverId": 0,
-        "expiryDate": this.createArticleForm.controls['expiryDate'].value
+      const obj = {
+        categoryId: this.createArticleForm.controls['categoryId'].value,
+        customerProfile: 'string',
+        detailImageUrl: 'string',
+        downloadUrl: this.attachFile,
+        draft: this.createArticleForm.controls['draft'].value,
+        longDescription: this.createArticleForm.controls['longDescription'].value,
+        person: {},
+        resourceType: 2,
+        serviceUsed: 'string',
+        shortDescription: this.createArticleForm.controls['shortDescription'].value,
+        tagList: tags,
+        thumbnailImageUrl: this.articleImage,
+        title: this.createArticleForm.controls['title'].value,
+        targetUserType: this.createArticleForm.controls['targetUserType'].value,
+        approverId: 0,
+        expiryDate: this.createArticleForm.controls['expiryDate'].value
       }
-      console.log("post", obj);
+      console.log('post', obj);
 
       this.authService.saveResource(obj).subscribe(
         (response) => {
           this.show=false;
           this.snackBar.open('Article successfully created', 'Close', { duration: 2000 });
-          console.log("response", response);
+          console.log('response', response);
           this.router.navigate(['articles']);
         },
         (error) => {
@@ -255,17 +256,19 @@ export class ArticleCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
+        }
       })
-      let obj = this.addTagForm.value
+      const obj = this.addTagForm.value
       if (flag) {
         obj['id'] = 0;
         this.tagData.unshift(obj);
         this.closeModel.nativeElement.click();
       }
-      else
-        alert("Tag Already Exist");
+      else {
+        alert('Tag Already Exist');
+      }
     }
   }
   BackMe() {

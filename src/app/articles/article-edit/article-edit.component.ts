@@ -28,20 +28,20 @@ export class ArticleEditComponent implements OnInit {
   articelImage: any;
   articelAttach: any;
   checkError: any;
-  submitted: boolean = false;
+  submitted = false;
   userList: any[] = [];
   allData: any[] = [];
   tagData: any[] = [];
-  imageValid: boolean = false;
-  imageValid2: boolean = false;
+  imageValid = false;
+  imageValid2 = false;
   selected4:string[]=[];
   valuesSelectedTag: string[] = [];
-  selected3:string="";
+  selected3='';
   today=new Date();
 
-  show:boolean=false;
-  image1button:boolean=false;
-  image2button:boolean=false;
+  show=false;
+  image1button=false;
+  image2button=false;
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(private frmbuilder: FormBuilder, private location: Location, private router: Router,
@@ -90,17 +90,18 @@ export class ArticleEditComponent implements OnInit {
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
-      console.log("tagdetails==",this.tagData);
+      console.log('tagdetails==',this.tagData);
 
     })
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getCategoryDetails() {
@@ -114,7 +115,7 @@ export class ArticleEditComponent implements OnInit {
 
       this.articleData = res.body;
       this.selected3=res.body.targetUserType.id;
-      console.log("Data", this.selected3);
+      console.log('Data', this.selected3);
 
 
 
@@ -127,13 +128,14 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
       this.EditArticleForm.controls['draft'].setValue(this.articleData.isDraft);
       this.selected4=[];
-      console.log("tags==",this.selected4);
-      console.log("tagssss=",res.body.resourceTags);
+      console.log('tags==',this.selected4);
+      console.log('tagssss=',res.body.resourceTags);
 
-      for(let i=0;i<res.body.resourceTags.length;i++)
+      for(let i=0;i<res.body.resourceTags.length;i++) {
       this.selected4.push(res.body.resourceTags[i].id);
+      }
 
-      console.log("tags==",this.selected4);
+      console.log('tags==',this.selected4);
       this.EditArticleForm.controls['thumbnailImageUrl'].setValidators(null);
       this.EditArticleForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl= this.articleData.thumbnailImageUrl;
@@ -154,7 +156,7 @@ export class ArticleEditComponent implements OnInit {
 
       this.today=this.articleData.expiryDate;
       this.EditArticleForm.controls['expiryDate'].setValue(this.articleData.expiryDate);
-      console.log("date=",this.today);
+      console.log('date=',this.today);
       this.image1button=true;
       this.image2button=true;
       this.getTagsDetails();
@@ -168,11 +170,11 @@ export class ArticleEditComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    console.log("fileData==", this.fileData);
+    this.fileData = fileInput.target.files[0] as File;
+    console.log('fileData==', this.fileData);
 if(this.fileData!=undefined){
   this.image1button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
       this.preview();
@@ -183,10 +185,10 @@ if(this.fileData!=undefined){
     this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
-    this.fileData = <File>fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     if(this.fileData!=undefined){
       this.image2button=false;
-    let fileType = this.fileData.type;
+    const fileType = this.fileData.type;
     if (fileType == 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
@@ -194,19 +196,19 @@ if(this.fileData!=undefined){
   }
   }
   preview() {
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
     }
   }
   preview2() {
-    var mimeType = this.fileData.type;
-    var reader = new FileReader();
+    const mimeType = this.fileData.type;
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.attachUrl = reader.result;
@@ -219,9 +221,9 @@ if(this.fileData!=undefined){
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
       .subscribe((res) => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log("Image", this.articleImage);
+        console.log('Image', this.articleImage);
         this.show=false;
         this.image1button=true;
         this.imageValid = false;
@@ -239,9 +241,9 @@ if(this.fileData!=undefined){
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
       .subscribe((res) => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log("File", this.attachFile);
+        console.log('File', this.attachFile);
         this.image2button=true;
         this.imageValid2 = false;
         this.show=false;
@@ -271,14 +273,14 @@ if(this.fileData!=undefined){
     this.EditArticleForm.controls['tagList'].updateValueAndValidity();
     }
     if(this.EditArticleForm.valid){
-      let tags:any[]=[];
+      const tags:any[]=[];
       this.tagData.forEach(m=>{
         this.EditArticleForm.value.tagList.forEach(n=>{
             if(n==m.id){
-              let tag={
-              "id":m.id,
-              "keywords": m.keywords,
-              "name": m.name
+              const tag={
+              id:m.id,
+              keywords: m.keywords,
+              name: m.name
               }
               tags.push(tag);
             }
@@ -286,10 +288,11 @@ if(this.fileData!=undefined){
       })
       let catId;
       this.allData.forEach(m=>{
-        if(m.displayName==this.EditArticleForm.controls['categoryId'].value)
+        if(m.displayName==this.EditArticleForm.controls['categoryId'].value) {
           catId=m.id;
+        }
       });
-      console.log("cat id",catId);
+      console.log('cat id',catId);
 
       // let userId;
       // this.userList.forEach(m=>{
@@ -297,37 +300,37 @@ if(this.fileData!=undefined){
       //     userId=m.id;
       // });
 
-    let obj = {
-      "categoryId": catId,
-      "customerProfile": "string",
-      "detailImageUrl": "string",
-      "downloadUrl": this.attachFile,
-      "id": this.articleId,
-      "draft": true,
-      "longDescription": this.EditArticleForm.controls['longDescription'].value,
-      "person": {},
-      "resourceType": 2,
-      "serviceUsed": "string",
-      "shortDescription": this.EditArticleForm.controls['shortDescription'].value,
-      "tagList": tags,
-      "thumbnailImageUrl": this.articleImage,
-      "title": this.EditArticleForm.controls['title'].value,
-      "targetUserType": this.EditArticleForm.controls['targetUserType'].value,
-      "expiryDate":this.EditArticleForm.controls['expiryDate'].value
+    const obj = {
+      categoryId: catId,
+      customerProfile: 'string',
+      detailImageUrl: 'string',
+      downloadUrl: this.attachFile,
+      id: this.articleId,
+      draft: true,
+      longDescription: this.EditArticleForm.controls['longDescription'].value,
+      person: {},
+      resourceType: 2,
+      serviceUsed: 'string',
+      shortDescription: this.EditArticleForm.controls['shortDescription'].value,
+      tagList: tags,
+      thumbnailImageUrl: this.articleImage,
+      title: this.EditArticleForm.controls['title'].value,
+      targetUserType: this.EditArticleForm.controls['targetUserType'].value,
+      expiryDate:this.EditArticleForm.controls['expiryDate'].value
     }
-    console.log("post", obj);
+    console.log('post', obj);
 
     this.authService.saveResource(obj).subscribe(
       (response) => {
         // alert("Successfully Updated");
-        console.log("response", response);
+        console.log('response', response);
         this.show=false;
         this.submitted = false;
         this.snackBar.open('Article successfully updated', 'Close', {duration: 2000});
         this.router.navigate(['articles']);
       },
       (error) => {
-        //alert("Error :"+error);
+        // alert("Error :"+error);
         this.show=false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {duration: 5000});
       }
@@ -342,17 +345,19 @@ if(this.fileData!=undefined){
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
+        }
       })
-      let obj = this.addTagForm.value
+      const obj = this.addTagForm.value
       if (flag) {
         obj['id'] = 0;
         this.tagData.unshift(obj);
         this.closeModel.nativeElement.click();
       }
-      else
-        alert("Tag Already Exist");
+      else {
+        alert('Tag Already Exist');
+      }
     }
   }
   BackMe() {

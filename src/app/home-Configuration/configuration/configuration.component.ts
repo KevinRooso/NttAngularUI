@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthServiceService } from "src/app/auth-service.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthServiceService } from 'src/app/auth-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $;
 @Component({
-  selector: "app-configuration",
-  templateUrl: "./configuration.component.html",
-  styleUrls: ["./configuration.component.css"],
+  selector: 'app-configuration',
+  templateUrl: './configuration.component.html',
+  styleUrls: ['./configuration.component.css'],
 })
 export class ConfigurationComponent {
-  public="public";
- customer="customer";
+  public='public';
+ customer='customer';
   // bannerConfigurationForm1: FormGroup;
   // bannerConfigurationForm2: FormGroup;
   // bannerConfigurationForm3: FormGroup;

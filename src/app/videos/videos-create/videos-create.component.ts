@@ -28,16 +28,16 @@ export class VideosCreateComponent implements OnInit {
 
   addTagForm:FormGroup;
   checkError:any;
-  submitted: boolean = false;
-  imageValid:boolean=false;
+  submitted = false;
+  imageValid=false;
   checkErrorPerson:any;
-  submittedPerson: boolean = false;
-  imageValidPerson:boolean=false;
+  submittedPerson = false;
+  imageValidPerson=false;
   previewUrl1: any = null;
-  imageValid1:boolean=false;
+  imageValid1=false;
   userList:any[]=[];
-  show:boolean=false;
-  image1button:boolean=false;
+  show=false;
+  image1button=false;
 
   today=new Date();
 
@@ -79,10 +79,11 @@ export class VideosCreateComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
+      if(this.userList!=null) {
       this.userList=this.userList.filter(m=>{
         return m.id!=9;
       })
+      }
     })
   }
   getCategoryDetails(){
@@ -98,8 +99,8 @@ export class VideosCreateComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl=null;
     this.imageValid=false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType=this.fileData.type;
+    this.fileData = fileInput.target.files[0] as File;
+    const fileType=this.fileData.type;
      if(fileType=='image/jpeg' || fileType=='image/png'){
       this.imageValid=true;
     this.preview();
@@ -107,12 +108,12 @@ export class VideosCreateComponent implements OnInit {
   }
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
@@ -138,7 +139,7 @@ export class VideosCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData)
       .subscribe(res => {
-        console.log("Image", res);
+        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show=false;
         this.image1button=true;
@@ -161,48 +162,48 @@ export class VideosCreateComponent implements OnInit {
     }
     this.submitted = true;
     if (this.createVideoForm.valid) {
-    let obj=this.createVideoForm.value;
+    const obj=this.createVideoForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
 
-    let tags:any[]=[];
+    const tags:any[]=[];
     console.log('TAGList==',tags);
 
     obj.tagList.forEach(m=>{
-      let tag={
-        "id": 0,
-      "keywords": m.keywords,
-      "name": m.name
+      const tag={
+        id: 0,
+      keywords: m.keywords,
+      name: m.name
       }
       tags.push(tag);
     });
 
-    let dataObj={
-      "longDescription": obj.longDescription,
-      "categoryId": obj.categoryId,
-      "customerProfile": "string",
-      "detailImageUrl": "string",
-      "downloadUrl": obj.downloadUrl,
+    const dataObj={
+      longDescription: obj.longDescription,
+      categoryId: obj.categoryId,
+      customerProfile: 'string',
+      detailImageUrl: 'string',
+      downloadUrl: obj.downloadUrl,
 
-      "person": {},
-      "shortDescription": obj.longDescription,
-      "tagList": tags,
-      "thumbnailImageUrl":obj.thumbnailImageUrl,
-      "title": obj.title,
-      "resourceType": 6,
-      "draft": obj.isDraft,
-      "targetUserType":obj.targetUserType,
-      "expiryDate": this.createVideoForm.controls['expiryDate'].value,
+      person: {},
+      shortDescription: obj.longDescription,
+      tagList: tags,
+      thumbnailImageUrl:obj.thumbnailImageUrl,
+      title: obj.title,
+      resourceType: 6,
+      draft: obj.isDraft,
+      targetUserType:obj.targetUserType,
+      expiryDate: this.createVideoForm.controls['expiryDate'].value,
     }
     console.log(dataObj);
     this.service.saveResource(dataObj).subscribe(res=>{
       this.show=false;
       this.submitted = false;
-      console.log("Post Dat",res);
+      console.log('Post Dat',res);
       this.snackBar.open('Video Added Successfully', 'Close', {duration: 5000});
        this.router.navigate(['videos']);
     },
     (error) => {
-      console.log("error==",error);
+      console.log('error==',error);
       this.show=false;
       this.snackBar.open('Oops Something went wrong...', 'Close');
      })
@@ -216,18 +217,20 @@ createTag(){
   if(this.addTagForm.valid){
         let flag=true;
   this.tagData.forEach(m=>{
-    if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
+    if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
     flag=false;
+    }
   })
-  let obj=this.addTagForm.value
+  const obj=this.addTagForm.value
   if(flag){
     obj['id']=0;
   this.tagData.unshift(obj);
   this.closeModel.nativeElement.click();
 }
-else
+else {
 this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
-//alert("Tag Already EXist");
+  }
+// alert("Tag Already EXist");
 }
 }
 BackMe(){

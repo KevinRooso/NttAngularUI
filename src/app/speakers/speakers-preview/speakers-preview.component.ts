@@ -12,13 +12,13 @@ export class SpeakersPreviewComponent implements OnInit {
   cardData:any;
   filterBlogs=new BehaviorSubject<any[]>([]);
   searchFilterData;
-  searchBlog="";
+  searchBlog='';
   tagList;
   categoryList:any[]=[];
-  cat:string="";
+  cat='';
   dates:any[]=[];
-  filterDate="";
-  sort="desc?cdate";
+  filterDate='';
+  sort='desc?cdate';
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -31,8 +31,9 @@ export class SpeakersPreviewComponent implements OnInit {
       this.searchFilterData=res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
       res.body.filter(m=>{
-      if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1)
+      if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1) {
         this.dates.push(m.createdAt.substring(0,10).split('-').reverse().join('/'))
+      }
       })
       console.log(this.cardData);
     })
@@ -44,14 +45,14 @@ export class SpeakersPreviewComponent implements OnInit {
   getDataWithDate(){
     this.filterBlogs=this.searchFilterData.filter(m=>{
 
-     let titleData=m.createdAt;
-     let d=this.filterDate.split('/').reverse().join('-')
-      console.log("d==",d);
-      console.log("data=",titleData);
+     const titleData=m.createdAt;
+     const d=this.filterDate.split('/').reverse().join('-')
+      console.log('d==',d);
+      console.log('data=',titleData);
 
       return titleData.includes(d);
     })
-    console.log("filterblogsss==",this.filterBlogs);
+    console.log('filterblogsss==',this.filterBlogs);
 
   }
   blogSearch(){
@@ -77,25 +78,25 @@ export class SpeakersPreviewComponent implements OnInit {
     this.filterBlogs=this.cardData;
   }
   filterData(){
-    let data=this.sort.split('?');
-    if(this.sort=="Sort By"){
+    const data=this.sort.split('?');
+    if(this.sort=='Sort By'){
       this.filterBlogs=this.cardData;
     }
 
 
 
-    if(data[1]=="cdate"){
+    if(data[1]=='cdate'){
       if(data[0]=='asc'){
-        console.log("adtesort==",this.searchFilterData);
+        console.log('adtesort==',this.searchFilterData);
       this.searchFilterData.sort(this.GFG_sortFunction);
 
-        console.log("dateaftersort==",this.searchFilterData);
+        console.log('dateaftersort==',this.searchFilterData);
 
         this.filterBlogs=this.searchFilterData;
     }
     else{
       this.searchFilterData.sort(this.GFG_sortFunction1);
-      console.log("dateaftersort==",this.searchFilterData);
+      console.log('dateaftersort==',this.searchFilterData);
       this.filterBlogs=this.searchFilterData;
     }
     }
@@ -104,22 +105,23 @@ export class SpeakersPreviewComponent implements OnInit {
 
   }
    GFG_sortFunction(a, b) {
-    var dateA = new Date(a.createdAt).getTime();
-    var dateB = new Date(b.createdAt).getTime();
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
     return dateA > dateB ? 1 : -1;
 };
 GFG_sortFunction1(a, b) {
-  var dateA = new Date(a.createdAt).getTime();
-  var dateB = new Date(b.createdAt).getTime();
+  const dateA = new Date(a.createdAt).getTime();
+  const dateB = new Date(b.createdAt).getTime();
   return dateA < dateB ? 1 : -1;
 };
 
 getSkills(skills){
-    let arrSkills=skills.split(',');
+    const arrSkills=skills.split(',');
     if(arrSkills.length>3){
       return arrSkills[0]+','+arrSkills[1]+','+arrSkills[2];
     }
-    else
+    else {
       return skills;
+    }
 }
 }
