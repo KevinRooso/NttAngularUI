@@ -37,7 +37,7 @@ Blogs
   <div class="container">
 
     <div class="row" style="padding: .5rem 1rem; ">
-      <div class="col-sm-4" style="padding: .5rem 1rem; " *ngFor="let blog of sortBlogsList">
+      <div class="col-sm-4" style="padding: .5rem 1rem; " *ngFor="let blog of filterBlogs">
         <div class="card blog-card" (click)="showBlogDetail(blog.id)">
           <img
             [src]="blog.thumbnailImageUrl!=null?blog.thumbnailImageUrl:'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'"
@@ -54,7 +54,7 @@ Blogs
     </div>
   </div>
   <div class="text-center">
-    <span *ngIf="sortBlogsList?.length == 0" >
+    <span *ngIf="filterBlogs?.length == 0" >
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>

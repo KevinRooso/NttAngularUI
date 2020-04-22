@@ -25,7 +25,7 @@
 </nav>
 <section class="blog px-3">
   <div class="row">
-    <div class="col-sm-4" *ngFor="let test of sortTestimonialsList">
+    <div class="col-sm-4" *ngFor="let test of filterBlogs">
       <div class="card profile-card-2" >
         <div class="card-img-block">
           <img class="img-fluid"
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div class="text-center">
-    <span *ngIf="sortTestimonialsList?.length == 0" >
+    <span *ngIf="filterBlogs?.length == 0" >
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>

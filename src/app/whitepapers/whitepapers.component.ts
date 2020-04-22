@@ -12,13 +12,13 @@ import { Location} from '@angular/common';
 export class WhitepapersComponent implements OnInit {
   whitePaperList:any;
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog="";
   categoryList:any[]=[];
   cat:string="";
-  sortWhitepaperList:any[]=[];
-  sortWhitepaperList1:any[]=[]
+
   constructor( private authService: AuthServiceService, private router:Router, private location: Location,) { }
 
   ngOnInit(): void {
@@ -32,9 +32,7 @@ export class WhitepapersComponent implements OnInit {
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
-      this.sortWhitepaperList=this.whitePaperList;
     })
-    this.sortWhitepaperList1=this.sortWhitepaperList;
   }
   getDetails(id) {
     this.router.navigate(['/white-details'], { queryParams: { page: id } });
@@ -56,7 +54,7 @@ export class WhitepapersComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.sortWhitepaperList=this.sortWhitepaperList.filter(m=>{
+      this.filterBlogs=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
         // alert(m.title.toUpperCase());
@@ -69,6 +67,6 @@ export class WhitepapersComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
    cancel(){
-    this.sortWhitepaperList=this.whitePaperList;
+    this.filterBlogs=this.blogs;
   }
 }

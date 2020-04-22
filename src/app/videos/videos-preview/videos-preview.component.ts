@@ -12,13 +12,12 @@ export class VideosPreviewComponent implements OnInit {
 
   videoList: any;
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog="";
   categoryList:any[]=[];
   cat:string="";
-  // sortVideosList:any[]=[];
-  // sortVideosList1:any[]=[];
   constructor( private authService: AuthServiceService, private router:Router) { }
 
   ngOnInit(): void {

@@ -11,15 +11,13 @@ import { BehaviorSubject } from 'rxjs';
 export class TestimonialsComponent implements OnInit {
   testimonials:any[]=[];
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
   cat:string="";
   searchTests="";
-  sortTestimonialsList:any[]=[];
-  sortTestimonialsList1:any[]=[]
-  testimonialsList:any
   constructor(private service:AuthServiceService,
     private router:Router) { }
 
@@ -30,14 +28,12 @@ export class TestimonialsComponent implements OnInit {
   }
   getTestimonials(){
       this.service.getAllTestimonials().subscribe(res=>{
-        this.testimonialsList=res.body;
         console.log("res===",res);
           this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
-      this.sortTestimonialsList=this.testimonialsList;
       })
-      this.sortTestimonialsList1=this.sortTestimonialsList;
+
   }
   viewTestimonials(id){
     this.router.navigate(['view-testimonials'],{queryParams:{page:id}})
@@ -57,7 +53,7 @@ export class TestimonialsComponent implements OnInit {
   }
   blogSearch(){
     console.log(this.filterBlogs);
-      this.sortTestimonialsList=this.sortTestimonialsList.filter(m=>{
+      this.filterBlogs=this.searchFilterData.filter(m=>{
         console.log( m.title);
         console.log( this.searchBlog);
         //return m.title.includes(this.searchBlog);
@@ -66,7 +62,7 @@ export class TestimonialsComponent implements OnInit {
       })
   }
   cancel(){
-    this.sortTestimonialsList=this.testimonialsList;
+    this.filterBlogs=this.blogs;
   }
   editTest(id){
     this.router.navigate(['create-testimonials'],{queryParams:{page:id}})

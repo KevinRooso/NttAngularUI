@@ -147,7 +147,7 @@ export class EventEditComponent implements OnInit {
       topic:new FormControl('', [Validators.maxLength(41)]),
       startDate: ['', Validators.required],
       endDate:['', Validators.required],
-      speakerList: ['', Validators.required],
+      speakerList: [''],
       isBreak:[''],
       idData:['-1'],
       id:['0'],
@@ -660,8 +660,8 @@ export class EventEditComponent implements OnInit {
     this.addAgenda.controls['endDate'].updateValueAndValidity();
     this.addAgenda.controls['startDate'].setValidators(Validators.required);
     this.addAgenda.controls['startDate'].updateValueAndValidity();
-    this.addAgenda.controls['speakerList'].setValidators(Validators.required);
-    this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    // this.addAgenda.controls['speakerList'].setValidators(Validators.required);
+    // this.addAgenda.controls['speakerList'].updateValueAndValidity();
     if (this.addAgenda.valid) {
       console.log("Check",this.addAgenda.controls['idData'].value);
     let obj= {
@@ -743,8 +743,8 @@ export class EventEditComponent implements OnInit {
       this.addAgenda.controls['endDate'].updateValueAndValidity();
       this.addAgenda.controls['startDate'].setValidators(null);
       this.addAgenda.controls['startDate'].updateValueAndValidity();
-      this.addAgenda.controls['speakerList'].setValidators(null);
-      this.addAgenda.controls['speakerList'].updateValueAndValidity();
+      // this.addAgenda.controls['speakerList'].setValidators(null);
+      // this.addAgenda.controls['speakerList'].updateValueAndValidity();
       // this.addAgenda.reset();
     }
     delete(i,data){
