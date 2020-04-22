@@ -77,8 +77,14 @@ export class CreateParticipantsComponent implements OnInit {
     if(this.flag){
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value,arr).subscribe(res=>{
       console.log("res==",res);
-      this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
+      if(res.body.length !=0)
+     {
+       this.snackBar.open('Participants successfully created check me', 'Close', {duration: 5000});
       this.submitted = false;
+    }
+    else{
+      this.snackBar.open('Duplicate Participant !!', 'Close', {duration: 5000});
+    }
       //this.router.navigate(['participants']);
     })
   }
@@ -90,14 +96,20 @@ export class CreateParticipantsComponent implements OnInit {
 
 
     this.service.saveParticipentnonEvent(this.eventId,arr).subscribe(res=>{
-      this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
-      this.submitted = false;
-      console.log("res==",res);
 
+      console.log("res==",res);
+      if(res.body.length !=0)
+       {
+        this.snackBar.open('Participants successfully added in event', 'Close', {duration: 5000});
+        this.submitted = false;
       if(this.id==undefined)
       this.router.navigate(['participants']);
       else
       this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
+       }
+       else{
+        this.snackBar.open('Duplicate Participant !!', 'Close', {duration: 5000});
+       }
     })
   }
     // }

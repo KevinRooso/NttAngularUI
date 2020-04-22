@@ -67,6 +67,8 @@ export class EventEditComponent implements OnInit {
 
   image1button:boolean=false;
   image2button:boolean=false;
+  result1:string;
+  result2:string;
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
@@ -179,8 +181,17 @@ export class EventEditComponent implements OnInit {
     // this.show = true;
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
-
       this.getEventDetails = res.body.events;
+
+      let url1 =  this.getEventDetails.thumbnailImageUrl;
+      this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+      console.log("Image Name",this.result1);
+
+      let url2 =  this.getEventDetails.detailImageUrl;
+      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      console.log("Image Name",this.result2);
+
+
       console.log("data id",this.getEventDetails);
        for(let i=0;i<this.getEventDetails.tags.length;i++)
         this.selected4.push(this.getEventDetails.tags[i].id);
@@ -292,39 +303,74 @@ export class EventEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    if(this.fileData!=undefined){
-      this.image1button=false;
-        let fileType = this.fileData.type;
-        if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+    console.log("file dta", this.fileData )
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    let fileType = this.fileData.type;
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+      this.imageValid = true;
+      this.result1 = this.fileData.name;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 240 && width <= 480) && (height >= 180 && height <= 240 )) {
           this.imageValid = true;
           this.preview();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid = false;
+          this.previewUrl = null;
         }
-      }
+      }, 2000);
+    };
   }
+
   fileProgress2(fileInput: any) {
-    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
-    if(this.fileData!=undefined){
-      this.image2button=false;
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
-      this.imageValid2 = true;
-      this.preview2();
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 300000) {
+      this.imageValid = true;
+      this.result2 = this.fileData.name;
     }
+
+        var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 720 && width <= 1080) && (height >= 360 && height <= 580)) {
+          this.imageValid2 = true;
+          this.preview2();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid2 = false;
+          this.attachUrl = null;
+        }
+      }, 2000);
+    };
   }
-  }
-  // fileProgress2(fileInput: any) {
-  //   this.attachUrl = null;
-  //   this.imageValid2 = false;
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   let fileType = this.fileData.type;
-  //   if (fileType == 'image/jpeg' || fileType == 'image/png') {
-  //     this.imageValid2 = true;
-  //     this.preview2();
-  //   }
-  // }
+
   preview() {
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
@@ -357,6 +403,7 @@ export class EventEditComponent implements OnInit {
       .subscribe(res => {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
+       // this.result1 = this.articleImage.split('/').pop().split('?')[0].slice(14, this.articleImage.length);
         console.log("Image", this.articleImage);
         this.show=false;
         this.image1button=true;
@@ -523,6 +570,10 @@ export class EventEditComponent implements OnInit {
       this.snackBar.open('Please Upload Banner', 'Close', { duration: 5000 });
       this.show=false;
       return false;
+    }
+    if( this.updateEventForm.value.tagList.length==0){
+      this.updateEventForm.controls['tagList'].setValidators(Validators.required);
+    this.updateEventForm.controls['tagList'].updateValueAndValidity();
     }
    if(this.updateEventForm.valid){
     this.show =true;
@@ -778,7 +829,7 @@ export class EventEditComponent implements OnInit {
     this.closeModel.nativeElement.click();
   }
   else
-  alert("Tag Already EXist");
+  alert("Tag Already Exist");
   }
 }
   getTagsDetails() {

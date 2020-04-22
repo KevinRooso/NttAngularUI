@@ -45,6 +45,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -87,6 +88,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
 import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
 
 
 @NgModule({
@@ -141,7 +143,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     LandingPageComponent,
     SortByPipe,
     LoaderComponent,
-    HomeUiComponent
+    HomeUiComponent,
+    ListCloudServicesComponent
     ],
   imports: [
     BrowserModule,
@@ -175,6 +178,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatBadgeModule,
     CKEditorModule,
     MatTooltipModule
 

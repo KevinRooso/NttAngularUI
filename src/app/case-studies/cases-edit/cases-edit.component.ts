@@ -280,6 +280,10 @@ export class CasesEditComponent implements OnInit {
       this.show=false;
       return false;
     }
+    if( this.createCases.value.tagList.length==0){
+      this.createCases.controls['tagList'].setValidators(Validators.required);
+    this.createCases.controls['tagList'].updateValueAndValidity();
+    }
       if(this.createCases.valid){
      let obj=this.createCases.value;
      let catObj;
@@ -357,7 +361,7 @@ export class CasesEditComponent implements OnInit {
       this.closeModel.nativeElement.click();
     }
     else
-    alert("Tag Already EXist");
+    alert("Tag Already Exist");
     }
   }
     BackMe() {
