@@ -31,58 +31,66 @@
 .edit .btn:hover {
   background: #324da1;
 }
+
 .edit .btn {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  z-index: 1;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5em;
-  color: #fff;
-  background: #2C98DE;
+  background: #2c98de;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0,0,0,.275);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .275);
+  color: #fff;
+  font-size: 1.5em;
+  height: 50px;
+  left: 0%;
   outline: none;
+  position: absolute;
+  top: 0%;
+  width: 50px;
+  z-index: 1;
 }
+
 .cpadl {
   padding-left: 50px;
 }
+
 /* .service ul {
   list-style-image: url(/src/assets/pngwave.png);
 } */
-ol, ul {
-  padding-left: 0px;
+ol,
+ul {
+  padding-left: 0;
 }
+
 .service ul li {
   /* padding-top: 10px; */
-  padding-left: 0px;
+  padding-left: 0;
 }
+
 .mainBlock li {
   margin-bottom: 10px;
   margin-left: 15px;
 }
+
 .service ul {
+  list-style: none;
   margin: 0.75em 0;
   padding: 0 1em;
-  list-style: none;
 }
-.service li:before {
-  content: "";
+
+.service li::before {
   border-color: transparent #008ece;
   border-style: solid;
   border-width: 0.35em 0 0.35em 0.45em;
+  content: "";
   display: block;
   height: 0;
-  width: 0;
   left: -1em;
-  top: 0.9em;
   position: relative;
+  top: 0.9em;
+  width: 0;
 }
 
-.preview-card{
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  background:white;
-  border-radius:3px
-  }
+.preview-card {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}

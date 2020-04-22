@@ -4,8 +4,9 @@
     "stylelint-order"
   ],
   "rules": {
-    "indentation": "space",
+    "indentation": 2,
     "number-leading-zero": null,
+    "selector-type-no-unknown": [true, ignore: ["custom-elements"]],
     "order/properties-alphabetical-order": true
   }
 }

@@ -1,20 +1,21 @@
-.article-card{
-  width: 22%;
+.article-card {
   height: 385px;
+  width: 22%;
 }
-.article-title{
+
+.article-title {
+  font-size: 14px;
+  font-weight: 400;
   margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    word-break: break-all;
+  word-break: break-all;
 }
-.article-img{
-  width: 100%;
-  min-height: 250px;
+
+.article-img {
   height: 250px;
+  min-height: 250px;
+  width: 100%;
 }
 
-
-.text-center{
+.text-center {
   padding: 100px;
 }
