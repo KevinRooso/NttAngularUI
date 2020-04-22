@@ -382,7 +382,7 @@ else{
     this.closeModel.nativeElement.click();
   }
   else
-  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
   //alert("Tag Already EXist");
   }
 }

@@ -201,6 +201,10 @@ if(this.fileData!=undefined){
       this.show=false;
       return false;
     }
+    if( this.createVideoForm.value.tagList.length==0){
+      this.createVideoForm.controls['tagList'].setValidators(Validators.required);
+    this.createVideoForm.controls['tagList'].updateValueAndValidity();
+    }
     if(this.createVideoForm.valid){
     let obj=this.createVideoForm.value;
     obj['thumbnailImageUrl']=this.speakerImage;
@@ -269,7 +273,7 @@ createTag(){
   this.closeModel.nativeElement.click();
 }
 else
-this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
 //alert("Tag Already EXist");
 }
 }

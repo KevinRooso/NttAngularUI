@@ -517,6 +517,10 @@ export class CopyEventComponent implements OnInit {
       return false;
     }
 
+    if( this.updateEventForm.value.tagList.length==0){
+      this.updateEventForm.controls['tagList'].setValidators(Validators.required);
+    this.updateEventForm.controls['tagList'].updateValueAndValidity();
+    }
    if(this.updateEventForm.valid){
      this.show=true;
     let tags:any[]=[];
@@ -766,7 +770,7 @@ export class CopyEventComponent implements OnInit {
     this.closeModel.nativeElement.click();
   }
   else
-  alert("Tag Already EXist");
+  alert("Tag Already Exist");
   }
 }
   getTagsDetails() {

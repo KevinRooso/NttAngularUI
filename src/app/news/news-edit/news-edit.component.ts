@@ -157,6 +157,7 @@ if(this.fileData!=undefined){
       return false;
     }
     this.submitted = true;
+
     if (this.updateNewsForm.valid) {
       let userId;
       this.userList.forEach(m=>{
