@@ -24,3 +24,9 @@
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
+
+.preview-card{
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background:white;
+  border-radius:3px
+  }
