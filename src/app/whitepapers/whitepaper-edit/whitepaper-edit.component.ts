@@ -264,6 +264,10 @@ if(this.fileData!=undefined){
       this.show=false;
       return false;
     }
+    if( this.updateWhitePaperForm.value.tagList.length==0){
+      this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
+    this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
+    }
     if (this.updateWhitePaperForm.valid) {
      let tags:any[]=[];
       let obj1=this.updateWhitePaperForm.value;
@@ -348,7 +352,7 @@ createTag() {
       this.closeModel.nativeElement.click();
     }
     else
-      alert("Tag Already EXist");
+      alert("Tag Already Exist");
   }
 }
 BackMe() {

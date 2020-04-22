@@ -12,7 +12,8 @@ import { Location} from '@angular/common';
 export class WhitepapersComponent implements OnInit {
   whitePaperList:any;
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog="";
   categoryList:any[]=[];

@@ -88,6 +88,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { MatTabsModule }  from '@angular/material/tabs';
 import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
 
 
 @NgModule({
@@ -142,7 +143,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     LandingPageComponent,
     SortByPipe,
     LoaderComponent,
-    HomeUiComponent
+    HomeUiComponent,
+    ListCloudServicesComponent
     ],
   imports: [
     BrowserModule,

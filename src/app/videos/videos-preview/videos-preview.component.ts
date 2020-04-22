@@ -12,7 +12,8 @@ export class VideosPreviewComponent implements OnInit {
 
   videoList: any;
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog="";
   categoryList:any[]=[];

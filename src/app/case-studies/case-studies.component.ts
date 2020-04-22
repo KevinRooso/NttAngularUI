@@ -11,7 +11,8 @@ import { BehaviorSubject } from 'rxjs';
 export class CaseStudiesComponent implements OnInit {
 
   cases;
-  filterCases=new BehaviorSubject<any[]>([]);
+  // filterCases=new BehaviorSubject<any[]>([]);
+  filterCases:any[]=[];
   searchFilterData;
   searchCases;
   categoryList:any[]=[];

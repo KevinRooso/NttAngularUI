@@ -671,7 +671,7 @@ export class CreateEventComponent implements OnInit {
         this.closeModel.nativeElement.click();
       }
       else
-        alert("Tag Already EXist");
+        alert("Tag Already Exist");
     }
   }
   getTagsDetails() {

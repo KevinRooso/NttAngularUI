@@ -340,6 +340,10 @@ crateFrorm(){
       return false;
     }
     let obj=this.createBlogForm.value;
+    if( this.createBlogForm.value.tagList.length==0){
+      this.createBlogForm.controls['tagList'].setValidators(Validators.required);
+    this.createBlogForm.controls['tagList'].updateValueAndValidity();
+    }
     if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
     console.log("tags=",obj.tagList);
@@ -454,7 +458,7 @@ crateFrorm(){
     this.closeModel.nativeElement.click();
   }
   else
-  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
 
   }
 }
