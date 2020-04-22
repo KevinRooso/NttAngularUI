@@ -115,16 +115,16 @@
               <div class="col-sm-9 float-left px-0">
                 <div class="text-left">
                   <p
-                    *ngIf="getEventDetails.address1!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)">
+                    *ngIf="getEventDetails.address1!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
                     <span style="font-weight: 500;">Venue - </span>{{getEventDetails.address1}}</p>
                   <p
-                    *ngIf="getEventDetails.address2!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)">
+                    *ngIf="getEventDetails.address2!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
                     <span style="font-weight: 500;">Address - </span>{{getEventDetails.address2}}</p>
                   <p
-                    *ngIf="getEventDetails.address2!= 0 && getEventDetails.isEvent || (getEventDetails.isEvent && getEventDetails.isWebinar)">
+                    *ngIf="getEventDetails.address2!= null && getEventDetails.isOnPremise || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
                     <span style="font-weight: 500;" style="visibility: hidden;">Address - </span>{{getEventDetails.city}}, {{getEventDetails.country}}, {{getEventDetails.pincode}}</p>
                   <p
-                    *ngIf="getEventDetails.webinarUrl!= 0 && getEventDetails.isWebinar || (getEventDetails.isEvent && getEventDetails.isWebinar)">
+                    *ngIf="getEventDetails.webinarUrl!= '' && getEventDetails.isWebinar || (getEventDetails.isOnPremise && getEventDetails.isWebinar)">
                     <span style="font-weight: 500;">Webinar URL - </span><a [href]="getEventDetails.webinarUrl"
                       target="_blank">{{getEventDetails.webinarUrl}}</a></p>
                   <p><span style="font-weight: 500;">Start Time - </span>{{startTime}}</p>

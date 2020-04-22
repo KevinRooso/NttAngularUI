@@ -11,7 +11,8 @@ import { BehaviorSubject } from 'rxjs';
 export class ArticlesComponent implements OnInit {
   articleList: any;
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  // filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog="";
   categoryList:any[]=[];
@@ -39,6 +40,7 @@ export class ArticlesComponent implements OnInit {
         if(this.dates.indexOf(m.createdAt.substring(0,10).split('-').reverse().join('/'))==-1)
           this.dates.push(m.createdAt.substring(0,10).split('-').reverse().join('/'))
         })
+
     })
   }
   getDetails(id) {

@@ -34,7 +34,8 @@ export class WhitepaperCreateComponent implements OnInit {
   tagData: any[] = [];
   show:boolean=false;
 
-
+  image1button:boolean=false;
+  image2button:boolean=false;
   today=new Date();
 
 
@@ -146,6 +147,8 @@ export class WhitepaperCreateComponent implements OnInit {
 
 
   uploadImage() {
+    this.show=true;
+    this.image1button=false;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData)
@@ -153,10 +156,20 @@ export class WhitepaperCreateComponent implements OnInit {
         console.log("Image", res);
         this.articleImage = res.fileDownloadUri;
         console.log("Image", this.articleImage);
+        this.show=false;
+        this.image1button=true;
+        this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
+
   uploadAttachment() {
+    this.image2button=false;
+    this.show=true;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1)
@@ -164,12 +177,29 @@ export class WhitepaperCreateComponent implements OnInit {
         console.log("Image", res);
         this.attachFile = res.fileDownloadUri;
         console.log("File", this.attachFile);
+        this.show=false;
+        this.image2button=true;
+        this.imageValid2 = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+      },
+      (error)=>{
+        this.show=false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       })
   }
 
   createArticle() {
     this.show=true;
+    if(!this.image1button){
+      this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
+    if(!this.image2button){
+      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
+      this.show=false;
+      return false;
+    }
     if (this.createWhitePaperForm.valid) {
 
       let tags: any[] = [];
@@ -226,7 +256,7 @@ export class WhitepaperCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach(m => {
-        if (m.keywords == this.addTagForm.get(['keywords']).value)
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
           flag = false;
       })
       let obj = this.addTagForm.value
@@ -236,7 +266,7 @@ export class WhitepaperCreateComponent implements OnInit {
         this.closeModel.nativeElement.click();
       }
       else
-        alert("Tag Already EXist");
+        alert("Tag Already Exist");
     }
   }
   BackMe() {

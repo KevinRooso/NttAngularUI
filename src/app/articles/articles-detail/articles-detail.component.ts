@@ -10,6 +10,8 @@ import { Location} from '@angular/common';
 })
 export class ArticlesDetailComponent implements OnInit {
   articleData: any;
+  resourceTags:any[]=[];
+  // restags:string='';
 
   constructor(private authService: AuthServiceService, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
  show:boolean=false;
@@ -25,6 +27,14 @@ export class ArticlesDetailComponent implements OnInit {
       this.articleData = res.body;
       this.show=false;
       console.log("Get Articles", this.articleData);
+      this.resourceTags=this.articleData.resourceTags;
+      console.log(this.articleData.resourceTags);
+      // this.resourceTags.forEach((value,index)=>{
+      //   if(index!=this.resourceTags.length-1)
+      //   this.restags=this.restags+value.name + ','
+      // })
+
+
     })
   }
 

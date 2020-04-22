@@ -26,7 +26,10 @@ export class VideosDetailsComponent implements OnInit {
   getVideosData(id){
     this.authService.getResourceById(id).subscribe((res)=>{
       this.videosData = res.body;
-      this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(this.videosData.resourceLink);
+      let vdoUrl=this.videosData.resourceLink.split('/');
+      let code="https://www.youtube.com/embed/"+vdoUrl[vdoUrl.length-1];
+      console.log("code--",code);
+      this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(code);
       this.videosUrl = this.videosData.resourceLink;
       // console.log("Get videos", this.videosData);
       // console.log("Videos", this.videosUrl)

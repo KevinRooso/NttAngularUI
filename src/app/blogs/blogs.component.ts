@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class BlogsComponent implements OnInit {
   blogs;
-  filterBlogs=new BehaviorSubject<any[]>([]);
+  filterBlogs:any[]=[];
   searchFilterData;
   searchBlog;
   categoryList:any[]=[];
@@ -27,6 +27,7 @@ export class BlogsComponent implements OnInit {
       this.filterBlogs=res.body;
       this.blogs=res.body;
       this.searchFilterData=res.body;
+
     })
   }
   showBlogDetail(id){

@@ -340,6 +340,10 @@ crateFrorm(){
       return false;
     }
     let obj=this.createBlogForm.value;
+    if( this.createBlogForm.value.tagList.length==0){
+      this.createBlogForm.controls['tagList'].setValidators(Validators.required);
+    this.createBlogForm.controls['tagList'].updateValueAndValidity();
+    }
     if(this.createBlogForm.valid){
     obj['thumbnailImageUrl']=this.speakerImage;
     console.log("tags=",obj.tagList);
@@ -379,7 +383,7 @@ crateFrorm(){
       "id":this.blogId,
       "draft": obj.isDraft,
       "person": personObj,
-      "shortDescription": obj.longDescription,
+      "shortDescription": obj.shortDescription,
       "tagList": tags,
       "thumbnailImageUrl":obj.thumbnailImageUrl,
       "title": obj.title,
@@ -444,7 +448,7 @@ crateFrorm(){
     if(this.addTagForm.valid){
           let flag=true;
     this.tagData.forEach(m=>{
-      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
       flag=false;
     })
     let obj=this.addTagForm.value;
@@ -454,7 +458,7 @@ crateFrorm(){
     this.closeModel.nativeElement.click();
   }
   else
-  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
 
   }
 }

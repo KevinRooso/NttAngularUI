@@ -301,7 +301,7 @@ export class CreateBlogComponent implements OnInit {
          "targetUserType":obj.targetUserType,
          "resourceType":1,
          "serviceUsed": "",
-         "shortDescription": obj.longDescription,
+         "shortDescription": obj.shortDescription,
          "tagList": tags,
          "thumbnailImageUrl": obj.thumbnailImageUrl,
          "title": obj.title,
@@ -315,7 +315,12 @@ export class CreateBlogComponent implements OnInit {
       this.snackBar.open('Blog Added Successfully', 'Close', {duration: 5000});
       //alert("Blog Added Successfully");
       this.router.navigate(['blogs']);
-    })
+    },
+    (error) => {
+      console.log("error==",error);
+      this.show=false;
+      this.snackBar.open(error, 'Close');
+     })
   //console.log(this.createBlogForm.value);
 }
 else{
@@ -367,7 +372,7 @@ else{
     if(this.addTagForm.valid){
           let flag=true;
     this.tagData.forEach(m=>{
-      if(m.keywords==this.addTagForm.get(['keywords']).value)
+      if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase())
       flag=false;
     })
     let obj=this.addTagForm.value
@@ -377,7 +382,7 @@ else{
     this.closeModel.nativeElement.click();
   }
   else
-  this.snackBar.open('Tag Already EXist', 'Close', {duration: 5000});
+  this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
   //alert("Tag Already EXist");
   }
 }
