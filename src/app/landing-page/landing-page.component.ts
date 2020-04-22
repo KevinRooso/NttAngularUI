@@ -117,6 +117,9 @@ export class LandingPageComponent implements OnInit {
                     '#32e6c5',
                     '#9a58ed',
                 ],
+                hoverBorderColor: 'white',
+                hoverBorderWidth: 5,
+                cutoutPercentage:15 ,
                 borderWidth: 1
             }]
         },
@@ -210,6 +213,9 @@ export class LandingPageComponent implements OnInit {
                   '#32e6c5',
                   '#f56953'
               ],
+              hoverBorderColor: 'white',
+              hoverBorderWidth: 5,
+              cutoutPercentage:15 ,
                 borderWidth: 1
             },
           ]
@@ -308,6 +314,9 @@ export class LandingPageComponent implements OnInit {
               '#9a58ed',
               '#f56953'
           ],
+          hoverBorderColor: 'white',
+          hoverBorderWidth: 5,
+          cutoutPercentage:15,
             labels:'Dataset 1'
           }],
           labels:['Computing','Recovery','Datacenter','General']
