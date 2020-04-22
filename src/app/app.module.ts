@@ -45,6 +45,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -175,6 +176,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatBadgeModule,
     CKEditorModule,
     MatTooltipModule
 

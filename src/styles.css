@@ -340,3 +340,7 @@ table.dataTable tbody th, table.dataTable tbody td {
   border-color: #939ba3;
   opacity: 0.6;
 }
+.custom-tooltip{
+  font-size: 13px;
+  white-space: pre-line;
+}

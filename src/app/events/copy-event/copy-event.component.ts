@@ -65,6 +65,8 @@ export class CopyEventComponent implements OnInit {
 
   image1button:boolean=false;
   image2button:boolean=false;
+  result1:string;
+  result2:string;
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel',{static:true}) closeModel;
   @ViewChild('closeModel1',{static:true}) closeModel1;
@@ -177,10 +179,21 @@ export class CopyEventComponent implements OnInit {
   }
   getEventData(id) {
     // this.show = true;
+
     this.authService.getEventDetail(id).subscribe(res => {
       console.log("res=====",res);
 
       this.getEventDetails = res.body.events;
+
+      let url1 =  this.getEventDetails.thumbnailImageUrl;
+      this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+      console.log("Image Name",this.result1);
+
+      let url2 =  this.getEventDetails.detailImageUrl;
+      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      console.log("Image Name",this.result2);
+
+      //const result = url.match(/\/([^\/?#]+)[^\/]*$/);
 
         console.log("tags=",this.selected4);
       //   if(this.getEventDetails.speakers!=null)
@@ -228,6 +241,10 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl= this.getEventDetails.thumbnailImageUrl;
       this.articleImage= this.getEventDetails.thumbnailImageUrl
+
+
+      // alert(result);
+
 
       this.updateEventForm.controls['tagList'].setValidators(null);
       this.updateEventForm.controls['tagList'].updateValueAndValidity();
@@ -291,32 +308,74 @@ export class CopyEventComponent implements OnInit {
       // this.show = false;
     })
   }
-    fileProgress(fileInput: any) {
+  fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = <File>fileInput.target.files[0];
-    if(this.fileData!=undefined){
-      this.image1button=false;
-        let fileType = this.fileData.type;
-        if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    let fileType = this.fileData.type;
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+      this.imageValid = true;
+      this.result1 = this.fileData.name;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 240 && width <= 480) && (height >= 180 && height <= 240 )) {
           this.imageValid = true;
           this.preview();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid = false;
+          this.previewUrl = null;
         }
-      }
+      }, 2000);
+    };
   }
+
   fileProgress2(fileInput: any) {
-    this.image2button=false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = <File>fileInput.target.files[0];
-    if(this.fileData!=undefined){
-      this.image2button=false;
+    let img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
-      this.imageValid2 = true;
-      this.preview2();
+    let fileSize = this.fileData.size;
+    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 300000) {
+      this.imageValid = true;
+      this.result2 = this.fileData.name;
     }
-  }
+        var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if ((width >= 720 && width <= 1080) && (height >= 360 && height <= 580)) {
+          this.imageValid2 = true;
+          this.preview2();
+
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid2 = false;
+          this.attachUrl = null;
+        }
+      }, 2000);
+    };
   }
   preview() {
     var mimeType = this.fileData.type;
