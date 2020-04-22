@@ -21,7 +21,7 @@ switch (ENV) {
     CONFIG['LOG_ENABLE'] = true;
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-dev-app.herokuapp.com/';
     break
-  case 'testing':
+  case 'test':
     targetPath = './src/environments/environment.testing.ts';
     CONFIG['LOG_ENABLE'] = true;
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-testing-app.herokuapp.com/';
