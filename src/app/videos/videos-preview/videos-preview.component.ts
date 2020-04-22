@@ -6,19 +6,18 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 @Component({
   selector: 'app-videos-preview',
   templateUrl: './videos-preview.component.html',
-  styleUrls: ['./videos-preview.component.css']
+  styleUrls: ['./videos-preview.component.css'],
 })
 export class VideosPreviewComponent implements OnInit {
-
   videoList: any;
   blogs;
   // filterBlogs=new BehaviorSubject<any[]>([]);
-  filterBlogs:any[]=[];
+  filterBlogs: any[] = [];
   searchFilterData;
-  searchBlog='';
-  categoryList:any[]=[];
-  cat='';
-  constructor( private authService: AuthServiceService, private router:Router) { }
+  searchBlog = '';
+  categoryList: any[] = [];
+  cat = '';
+  constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllVideos();
@@ -26,14 +25,14 @@ export class VideosPreviewComponent implements OnInit {
     this.getAllCategory();
   }
 
-  getAllVideos(){
-    this.authService.getAllVideosList().subscribe((res)=>{
+  getAllVideos() {
+    this.authService.getAllVideosList().subscribe((res) => {
       this.videoList = res.body;
       console.log('res', this.videoList);
-      this.filterBlogs=res.body;
-      this.blogs=res.body;
-      this.searchFilterData=res.body;
-    })
+      this.filterBlogs = res.body;
+      this.blogs = res.body;
+      this.searchFilterData = res.body;
+    });
   }
   getDetails(id) {
     // alert(id);
@@ -42,33 +41,33 @@ export class VideosPreviewComponent implements OnInit {
   // showBlogDetail(id){
   //   this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
   // }
-  getAllCategory(){
-    this.authService.getCategoryList().subscribe(res=>{
+  getAllCategory() {
+    this.authService.getCategoryList().subscribe((res) => {
       console.log(res);
-      this.categoryList=res.body;
+      this.categoryList = res.body;
     });
   }
-  getDataWithCat(){
-    this.filterBlogs=this.blogs;
-    this.filterBlogs=this.blogs.filter(m=>{
+  getDataWithCat() {
+    this.filterBlogs = this.blogs;
+    this.filterBlogs = this.blogs.filter((m) => {
       console.log(m.category.id);
       console.log(this.cat);
-       return m.category.id==this.cat;
-    })
-    this.searchFilterData=this.filterBlogs;
+      return m.category.id == this.cat;
+    });
+    this.searchFilterData = this.filterBlogs;
   }
-  blogSearch(){
+  blogSearch() {
     console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
-        console.log( m.title);
-        console.log( this.searchBlog);
-        // alert(m.title.toUpperCase());
-        // alert(this.searchBlog.toUpperCase());
-        const titleData=m.title.toUpperCase();
-        return titleData.includes(this.searchBlog.toUpperCase());
-      })
+    this.filterBlogs = this.searchFilterData.filter((m) => {
+      console.log(m.title);
+      console.log(this.searchBlog);
+      // alert(m.title.toUpperCase());
+      // alert(this.searchBlog.toUpperCase());
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
   }
-  cancel(){
-    this.filterBlogs= this.blogs;
+  cancel() {
+    this.filterBlogs = this.blogs;
   }
 }

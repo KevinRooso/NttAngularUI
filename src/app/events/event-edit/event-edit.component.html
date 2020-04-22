@@ -1,10 +1,10 @@
 <app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
-      <li><a href="/home">Home</a></li>
-      <li><a href="/events">Events</a></li>
-     <li><a (click)="Back()">Event Preview</a></li>
-     <li><a class="active">Update Event</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/events">Events</a></li>
+    <li><a (click)="Back()">Event Preview</a></li>
+    <li><a class="active">Update Event</a></li>
   </ul>
 </div>
 <div class="container">
@@ -13,11 +13,11 @@
       <div class="text-center">
         <p class="heading-secondary">Edit Event Details</p>
       </div>
-      <form [formGroup]='updateEventForm'>
+      <form [formGroup]="updateEventForm">
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title">
+            <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
             <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
@@ -33,15 +33,15 @@
           <label class="col-sm-3 col-form-label">Description (Agenda) <span class="error">*</span></label>
           <div class="col-sm-9">
             <ckeditor placeholder="Description..." formControlName="detail" class="example-full-width col-sm-9 p-0"></ckeditor>
-            <div *ngIf="checkError('detail', 'required', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('detail', 'required', true)" style="color: red; font-size: 12px;">
               (Description is required)
             </div>
-            <div *ngIf="checkError('detail', 'maxlength', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('detail', 'maxlength', true)" style="color: red; font-size: 12px;">
               Description should be less than 700 characters
             </div>
           </div>
         </div>
-<!-- Tine Mce Editor
+        <!-- Tine Mce Editor
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description</label>
           <textarea formControlName="shortDescription" id="shortDescription" class="example-full-width col-sm-9"
@@ -52,10 +52,10 @@
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
           <div class="col-sm-9">
             <ckeditor placeholder="Details..." formControlName="shortDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
-            <div *ngIf="checkError('shortDescription', 'required', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
               (Short Description should be less than 80 characters)
             </div>
           </div>
@@ -67,7 +67,7 @@
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId">
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
-                {{category.name}}
+                {{ category.name }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
@@ -78,7 +78,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
-              <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
+              <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{ tag.name }}</mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
@@ -87,8 +87,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
-            <button type="button" class="btn button-2 action-good" data-toggle="modal"
-              data-target="#tagModal1">Add Tags</button>
+            <button type="button" class="btn button-2 action-good" data-toggle="modal" data-target="#tagModal1">Add Tags</button>
           </div>
         </div>
 
@@ -98,7 +97,7 @@
             <mat-label>Select Event Type</mat-label>
             <mat-select formControlName="targetUserType">
               <mat-option *ngFor="let user of userList" [value]="user.displayName">
-                {{user.name}}
+                {{ user.name }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
@@ -121,8 +120,12 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Type <span class="error">*</span></label>
           <div class="example-full-width col-sm-9">
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="color"
-              [ngModelOptions]="{standalone: true}">
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="color"
+              [ngModelOptions]="{ standalone: true }"
+            >
               <mat-radio-button class="example-radio-button" value="1">
                 On-Premise
               </mat-radio-button>
@@ -135,54 +138,54 @@
             </mat-radio-group>
           </div>
         </div>
-        <div class="form-row" *ngIf="color=='3' || color=='2'">
+        <div class="form-row" *ngIf="color == '3' || color == '2'">
           <label class="col-sm-3 col-form-label">Webinar URL <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Webinar URL" value="" formControlName="webinarUrl">
+            <input matInput placeholder="Webinar URL" value="" formControlName="webinarUrl" />
             <mat-error *ngIf="checkError('webinarUrl', 'required')">(Webinar URL is required)</mat-error>
             <mat-error *ngIf="checkError('webinarUrl', 'pattern')">(URL is not valid)</mat-error>
           </mat-form-field>
         </div>
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
+        <div class="form-row" *ngIf="color == '3' || color == '1'">
           <label class="col-sm-3 col-form-label">Venue <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Street 1" value="" formControlName="address1">
+            <input matInput placeholder="Street 1" value="" formControlName="address1" />
             <mat-error *ngIf="checkError('address1', 'required')">(Primary address is required)</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
+        <div class="form-row" *ngIf="color == '3' || color == '1'">
           <label class="col-sm-3 col-form-label">Address</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Street 2" value="" formControlName="address2">
+            <input matInput placeholder="Street 2" value="" formControlName="address2" />
           </mat-form-field>
         </div>
 
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
+        <div class="form-row" *ngIf="color == '3' || color == '1'">
           <label class="col-sm-3 col-form-label"></label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput placeholder="City *" value="" formControlName="city">
+            <input matInput placeholder="City *" value="" formControlName="city" />
             <mat-error *ngIf="checkError('city', 'required')">(City is required)</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width col-sm-4">
-            <input matInput placeholder="Country *" value="" formControlName="country">
+            <input matInput placeholder="Country *" value="" formControlName="country" />
             <mat-error *ngIf="checkError('country', 'required')">(Country is required)</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width col-sm-2">
-            <input matInput placeholder="Pincode *" value="" formControlName="pincode" type="number">
+            <input matInput placeholder="Pincode *" value="" formControlName="pincode" type="number" />
             <mat-error *ngIf="checkError('pincode', 'required')">(Pincode is required)</mat-error>
             <mat-error *ngIf="checkError('pincode', 'pattern')">(Only 6 numeric digits should be allowed)</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="form-row" *ngIf="color=='3' || color=='1'">
+        <div class="form-row" *ngIf="color == '3' || color == '1'">
           <label class="col-sm-3 col-form-label">Total No. of Seats</label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput type="number" placeholder="Seats" formControlName="totalSeat">
+            <input matInput type="number" placeholder="Seats" formControlName="totalSeat" />
           </mat-form-field>
           <label class="col-sm-3 col-form-label text-right">Registration Close Before Seats</label>
           <mat-form-field class="example-full-width col-sm-3">
-            <input matInput type="number" placeholder="Closer Seats" formControlName="registrationCloseBeforeSeat">
+            <input matInput type="number" placeholder="Closer Seats" formControlName="registrationCloseBeforeSeat" />
           </mat-form-field>
         </div>
 
@@ -220,10 +223,17 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Starting Date & Time <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input (dateTimeInput)="maxCDate()" [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
-              placeholder="Starting Date & Time" formControlName="startDate" class="form-control">
+            <input
+              (dateTimeInput)="maxCDate()"
+              [owlDateTimeTrigger]="startdt"
+              [owlDateTime]="startdt"
+              [min]="today"
+              placeholder="Starting Date & Time"
+              formControlName="startDate"
+              class="form-control"
+            />
             <owl-date-time #startdt></owl-date-time>
-            <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('startDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event start date & time is required)
             </div>
           </div>
@@ -232,10 +242,17 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Event Closing Time <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input (dateTimeInput)="maxEDate()" [owlDateTimeTrigger]="enddt" [owlDateTime]="enddt" class="form-control"
-              placeholder="Closing Time" formControlName="endDate" [min]="closingDate">
+            <input
+              (dateTimeInput)="maxEDate()"
+              [owlDateTimeTrigger]="enddt"
+              [owlDateTime]="enddt"
+              class="form-control"
+              placeholder="Closing Time"
+              formControlName="endDate"
+              [min]="closingDate"
+            />
             <owl-date-time #enddt [pickerType]="'timer'"></owl-date-time>
-            <div *ngIf="checkError('endDate', 'required', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('endDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event end date & time is required)
             </div>
           </div>
@@ -254,8 +271,16 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
-            <button type="button" class="btn button-2 action-good" data-toggle="modal"
-              data-target="#agendaModal" #agendaUpdate (click)="clearValidation()">Add Agenda</button>
+            <button
+              type="button"
+              class="btn button-2 action-good"
+              data-toggle="modal"
+              data-target="#agendaModal"
+              #agendaUpdate
+              (click)="clearValidation()"
+            >
+              Add Agenda
+            </button>
           </div>
         </div>
         <div class="form-row">
@@ -275,17 +300,19 @@
               </thead>
               <tbody>
                 <tr *ngFor="let data of agendaData; let i = index">
-                  <td>{{data.startDate | date}}</td>
-                  <td>{{data.startDate | date:'shortTime'}}</td>
-                  <td>{{data.endDate | date:'shortTime'}}</td>
-                  <td>{{data.title}}</td>
-                  <td>{{data.topic}}</td>
-                  <td><span *ngFor="let speaker of data.speakerList">{{speaker.fullName}},</span></td>
+                  <td>{{ data.startDate | date }}</td>
+                  <td>{{ data.startDate | date: 'shortTime' }}</td>
+                  <td>{{ data.endDate | date: 'shortTime' }}</td>
+                  <td>{{ data.title }}</td>
+                  <td>{{ data.topic }}</td>
+                  <td>
+                    <span *ngFor="let speaker of data.speakerList">{{ speaker.fullName }},</span>
+                  </td>
                   <td>
                     <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;" (click)="updateAgenda(i)">
                       <i class="fa fa-pencil" style="font-size: 1rem;"></i>
                     </span>
-                    <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i,data)">
+                    <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i, data)">
                       <i class="fa fa-trash" style="font-size: 1rem;"></i>
                     </span>
                   </td>
@@ -298,35 +325,49 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Registration Start Date <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input (dateTimeInput)="maxRegDate()" [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt"
-            [min]="newtoday" [max]="regStartDate" class="form-control" placeholder="Start Date"
-            formControlName="registrationStartDate">
-          <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color:red;font-size: 12px;">
-            (Registration start date is required)
-          </div>
+            <input
+              (dateTimeInput)="maxRegDate()"
+              [owlDateTimeTrigger]="regstartdt"
+              [owlDateTime]="regstartdt"
+              [min]="newtoday"
+              [max]="regStartDate"
+              class="form-control"
+              placeholder="Start Date"
+              formControlName="registrationStartDate"
+            />
+            <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
+            <div *ngIf="checkError('registrationStartDate', 'required', true)" style="color: red; font-size: 12px;">
+              (Registration start date is required)
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Registration Closing Date <span class="error">*</span></label>
           <div class="col-sm-9">
-            <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="regEndDate" [max]="regStartDate"
-            class="form-control" placeholder="Closing Date" formControlName="registrationEndDate">
-          <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
-          <div *ngIf="checkError('registrationEndDate', 'required',true)" style="color:red;font-size: 12px;">
-            (Registration end date is required)
-          </div>
+            <input
+              [owlDateTimeTrigger]="regenddt"
+              [owlDateTime]="regenddt"
+              [min]="regEndDate"
+              [max]="regStartDate"
+              class="form-control"
+              placeholder="Closing Date"
+              formControlName="registrationEndDate"
+            />
+            <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
+            <div *ngIf="checkError('registrationEndDate', 'required', true)" style="color: red; font-size: 12px;">
+              (Registration end date is required)
+            </div>
           </div>
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Policy Terms & Conditions <span class="error">*</span></label>
           <div class="col-sm-9">
             <ckeditor placeholder="Description..." formControlName="policyTnc" class="example-full-width col-sm-9 p-0"></ckeditor>
-            <div *ngIf="checkError('policyTnc', 'required', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('policyTnc', 'required', true)" style="color: red; font-size: 12px;">
               (Terms & Conditions is required)
             </div>
-            <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color: red; font-size: 12px;">
               Terms & Conditions should be less than 1500 characters
             </div>
           </div>
@@ -338,64 +379,70 @@
             <!-- <div *ngIf="checkError('policyFAQ', 'required', true)" style="color:red;font-size: 12px;">
               (Terms & Conditions is required)
             </div> -->
-            <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color: red; font-size: 12px;">
               Policy FAQs should be less than 1500 characters
             </div>
           </div>
         </div>
-          <div class="form-row ">
-            <label class="col-sm-3 col-form-label">Choose Thumbnail Image <span class="error">*</span>
-            <i class="fa fa-info-circle"
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Choose Thumbnail Image <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
               aria-hidden="true"
               matTooltip="1.Thumbnail image Width should be between (480 x 240)px &#13;2.Thumbnail image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
-              style="font-size: 18px;">
-           </i>
-            </label>
-            <div class="col-sm-7">
-              <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
-              (change)="fileProgress($event)" />
-              <div *ngIf="checkError('thumbnailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
-              <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
-              <div *ngIf="fileUploadProgress">
-                Upload progress: {{ fileUploadProgress }}
-              </div>
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
+            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color: red; font-size: 12px;">(Image is required)</div>
+            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
+              (Image should be JPEG, JPG, PNG)
             </div>
           </div>
+          <div class="col-sm-2">
+            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+              Upload File
+            </button>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
+          </div>
+        </div>
         <div class="form-row">
           <div class="col-sm-3"></div>
           <div class="col-sm-9">
             <div class="image-preview mb-3" *ngIf="previewUrl">
               <img [src]="previewUrl" height="200" />
             </div>
-            <p>{{result1}}</p>
+            <p>{{ result1 }}</p>
           </div>
         </div>
         <div class="form-row my-3">
-          <label class="col-sm-3 col-form-label">Choose Banner Image <span class="error">*</span>
-            <i class="fa fa-info-circle"
-               aria-hidden="true"
-               matTooltip="1.Banner image Width should be between (1080 x 480)px &#13;2.Banner image Height should be between (580 x 360)px &#13;3. Maximum image size allowed:1MB"
-               style="font-size: 18px;"
-               matTooltipPosition="right"
-               matTooltipClass="custom-tooltip">
-          </i>
+          <label class="col-sm-3 col-form-label"
+            >Choose Banner Image <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1.Banner image Width should be between (1080 x 480)px &#13;2.Banner image Height should be between (580 x 360)px &#13;3. Maximum image size allowed:1MB"
+              style="font-size: 18px;"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+            >
+            </i>
           </label>
           <div class="col-sm-7">
-            <input type="file" class="form-control-file" formControlName="detailImageUrl"
-            (change)="fileProgress2($event)" />
-            <div *ngIf="checkError('detailImageUrl', 'required',true)" style="color:red;font-size: 12px;">(Image is required)</div>
-            <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
+            <input type="file" class="form-control-file" formControlName="detailImageUrl" (change)="fileProgress2($event)" />
+            <div *ngIf="checkError('detailImageUrl', 'required', true)" style="color: red; font-size: 12px;">(Image is required)</div>
+            <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color: red; font-size: 12px;">(Image should be JPEG, JPG, PNG)</div>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()"[disabled]="!imageValid2">Upload File</button>
-            <div *ngIf="fileUploadProgress">
-              Upload progress: {{ fileUploadProgress }}
-            </div>
+            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid2 }" (click)="uploadAttachment()" [disabled]="!imageValid2">
+              Upload File
+            </button>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
           </div>
         </div>
         <div class="form-row">
@@ -404,7 +451,7 @@
             <div class="image-preview mb-3" *ngIf="attachUrl">
               <img [src]="attachUrl" height="200" />
             </div>
-            <p>{{result2}}</p>
+            <p>{{ result2 }}</p>
           </div>
         </div>
         <div class="form-row">
@@ -415,41 +462,37 @@
         <div class="text-right">
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="(updateEventForm.valid && image1button && image2button)? false:true" (click)="updateEvent()">Update
             Details</button> -->
-          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Update
-            Details</button>
+          <button type="submit" class="btn button-1 action-good" (click)="updateEvent()">Update Details</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-
-
 <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]='addTagForm'>
-
+        <form [formGroup]="addTagForm">
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Name</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Tag Name" formControlName="name">
+              <input matInput placeholder="Tag Name" formControlName="name" />
             </mat-form-field>
           </div>
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Keyword</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput  placeholder="Keyword Name" formControlName="keywords">
+              <input matInput placeholder="Keyword Name" formControlName="keywords" />
             </mat-form-field>
           </div>
           <div class="text-right">
-            <button class="btn button-1 action-good"  (click)="createTag()">Submit</button>
+            <button class="btn button-1 action-good" (click)="createTag()">Submit</button>
           </div>
         </form>
       </div>
@@ -459,19 +502,19 @@
 <div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
         <button type="button" #closeModelAgenda class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       <div class="text-center">
-        <h5 class="modal-title mb-2">Session Agenda</h5>
-       </div>
-        <form [formGroup]='addAgenda'>
+        <div class="text-center">
+          <h5 class="modal-title mb-2">Session Agenda</h5>
+        </div>
+        <form [formGroup]="addAgenda">
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Title" formControlName="title" maxlength="40">
+              <input matInput placeholder="Session Title" formControlName="title" maxlength="40" />
               <mat-error *ngIf="checkErrorAgenda('title', 'required')">(Title is required)</mat-error>
               <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be less than 40 characters</mat-error>
             </mat-form-field>
@@ -479,7 +522,7 @@
 
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Session Topic" formControlName="topic" maxlength="41">
+              <input matInput placeholder="Session Topic" formControlName="topic" maxlength="41" />
               <!-- //<mat-error *ngIf="checkError('topic', 'required')">(Title is required)</mat-error> -->
               <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be less than 41 characters</mat-error>
             </mat-form-field>
@@ -487,25 +530,28 @@
 
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
-              <input matInput placeholder="Selected Date" readonly [value]="closingDate | date">
+              <input matInput placeholder="Selected Date" readonly [value]="closingDate | date" />
             </mat-form-field>
           </div>
 
-         <div class="form-row py-1">
-            <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" placeholder="Start Time"
-             class="col-sm-12 p-2" formControlName="startDate">
+          <div class="form-row py-1">
+            <input
+              [owlDateTimeTrigger]="dt2"
+              [owlDateTime]="dt2"
+              placeholder="Start Time"
+              class="col-sm-12 p-2"
+              formControlName="startDate"
+            />
             <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
-            <div *ngIf="checkErrorAgenda('startDate', 'required',true)" style="color:red;font-size: 12px;">
+            <div *ngIf="checkErrorAgenda('startDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event Agenda start time is required)
             </div>
-
           </div>
 
           <div class="form-row">
-            <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time"
-             class="col-sm-12 p-2" formControlName="endDate">
-            <owl-date-time [pickerType]="'timer'" #dt1 ></owl-date-time>
-            <div *ngIf="checkErrorAgenda('endDate', 'required',true)" style="color:red;font-size: 12px;">
+            <input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="End Time" class="col-sm-12 p-2" formControlName="endDate" />
+            <owl-date-time [pickerType]="'timer'" #dt1></owl-date-time>
+            <div *ngIf="checkErrorAgenda('endDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event Agenda end time is required)
             </div>
           </div>
@@ -526,13 +572,11 @@
             </div>
           </div> -->
 
-
           <div class="form-row py-0">
             <mat-form-field class="example-full-width col-sm-12 p-0">
               <mat-label>Select Session Speakers</mat-label>
               <mat-select formControlName="speakerList" multiple>
-                <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{speakers.fullName}}
-                </mat-option>
+                <mat-option *ngFor="let speakers of allspeakers" [value]="speakers">{{ speakers.fullName }} </mat-option>
               </mat-select>
               <!-- <mat-error *ngIf="checkErrorAgenda('speakerList', 'required')">(Atleast one speaker is required)</mat-error> -->
             </mat-form-field>

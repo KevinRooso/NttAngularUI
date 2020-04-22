@@ -5,8 +5,15 @@
   </ul>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -14,8 +21,15 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-          <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search"
-            (search)="cancel()" style="width: 300px;">
+          <input
+            class="form-control"
+            [(ngModel)]="searchBlog"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            (search)="cancel()"
+            style="width: 300px;"
+          />
           <div class="input-group-btn">
             <button class="btn button-2 action-info" type="submit" (click)="blogSearch()">
               <span class="material-icons">
@@ -25,7 +39,6 @@
           </div>
           <!-- <button class="btn button-2 action-info" (click)="blogSearch()"> Search</button>
         <input class="form-control" [(ngModel)]="searchBlog" type="search" placeholder="Search" aria-label="Search" (search)="cancel()" style="width: 300px;"> -->
-
         </div>
       </li>
       <!-- <li class="nav-item ml-2">
@@ -35,24 +48,23 @@
         </div>
       </li> -->
       <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="sort"  (change)="filterData()" style="width: 150px;">
-          <option value="Sort By" >Sort By</option>
+        <select class="form-control" [(ngModel)]="sort" (change)="filterData()" style="width: 150px;">
+          <option value="Sort By">Sort By</option>
           <optgroup label="Title">
-            <option value="asc?Title" >asc</option>
+            <option value="asc?Title">asc</option>
             <option value="desc?Title">desc</option>
           </optgroup>
-          <optgroup label="Event Date" >
+          <optgroup label="Event Date">
             <option value="asc?date" selected>asc</option>
             <option value="desc?date">desc</option>
           </optgroup>
-          <optgroup label="Created At" >
-            <option value="asc?cdate" >asc</option>
+          <optgroup label="Created At">
+            <option value="asc?cdate">asc</option>
             <option value="desc?cdate">desc</option>
           </optgroup>
         </select>
       </li>
     </ul>
-
   </div>
 </nav>
 
@@ -70,22 +82,22 @@
   <h2 *ngIf="publishedList.length!=0">Published</h2>
   <div class="row  mt-2"> -->
 
-   <!-- <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
+<!-- <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
       <div class="card">
         <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
         <div class="card-body">
           <h5 class="card-title">{{card.title}}</h5>
           <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-          <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-          <!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p> -->
-        <!-- </div>
+<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p> -->
+<!-- </div>
         <div class="event-card-body"> -->
-          <!-- <p class="card-text">{{card.totalSeat}}</p>
+<!-- <p class="card-text">{{card.totalSeat}}</p>
             <p class="card-text">{{card.targetUserType.name}}</p> -->
-        <!-- </div>
+<!-- </div>
         <div class="event-card-body-footer text-center"> -->
-          <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-          <!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
+<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
               Details</button></a>
         </div>
       </div>
@@ -99,22 +111,22 @@
          <div class="card-body">
            <h5 class="card-title">{{card.title}}</h5>
            <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-           <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-           <!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
+<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
          </div>
          <div class="event-card-body"> -->
-           <!-- <p class="card-text">{{card.totalSeat}}</p>
+<!-- <p class="card-text">{{card.totalSeat}}</p>
              <p class="card-text">{{card.targetUserType.name}}</p> -->
-         <!-- </div>
+<!-- </div>
          <div class="event-card-body-footer text-center"> -->
-           <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-           <!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
+<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
                Details</button></a>
          </div>
        </div>
      </div>
   </div> -->
-  <!-- <h2 *ngIf="draftList.length!=0">Draft</h2>
+<!-- <h2 *ngIf="draftList.length!=0">Draft</h2>
   <div class="row  mt-2">
      <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
         <div class="card">
@@ -122,16 +134,16 @@
           <div class="card-body">
             <h5 class="card-title">{{card.title}}</h5>
             <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-            <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-            <!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
+<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
           </div>
           <div class="event-card-body"> -->
-            <!-- <p class="card-text">{{card.totalSeat}}</p>
+<!-- <p class="card-text">{{card.totalSeat}}</p>
               <p class="card-text">{{card.targetUserType.name}}</p> -->
-          <!-- </div>
+<!-- </div>
           <div class="event-card-body-footer text-center"> -->
-            <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-            <!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
+<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
                 Details</button></a>
           </div>
         </div>
@@ -139,158 +151,156 @@
   </div>
 </div> -->
 
-
-<div class="container-fluid"  >
+<div class="container-fluid">
   <div class="accordion" id="accordionExample">
-    <div class="card shadow-none " *ngIf="publishedList?.length>0">
-      <div class="card-header " id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+    <div class="card shadow-none" *ngIf="publishedList?.length > 0">
+      <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
         <!-- <h2 class="mb-0"> -->
-          <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
+        <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
             Published
           </h2>   </a> -->
-         <a  type="button"  aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px;font-weight: 400;">
-            Published
-          </a>
+        <a type="button" aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px; font-weight: 400;">
+          Published
+        </a>
         <!-- </h2> -->
       </div>
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 ></h2>
-    <div class="row  mt-2">
-
-     <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
-        <div class="card">
-          <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-          <div class="card-body">
-            <h5 class="card-title">{{card.title}}</h5>
-            <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p>
-            <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-            <p class="card-text" [innerHTML]="card.desciption| truncate : 130 : false"></p>
-          </div>
-          <div class="event-card-body">
-            <!-- <p class="card-text">{{card.totalSeat}}</p>
+          <h2></h2>
+          <div class="row mt-2">
+            <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
+              <div class="card">
+                <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
+                <div class="card-body">
+                  <h5 class="card-title">{{ card.title }}</h5>
+                  <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
+                  <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+                  <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                </div>
+                <div class="event-card-body">
+                  <!-- <p class="card-text">{{card.totalSeat}}</p>
               <p class="card-text">{{card.targetUserType.name}}</p> -->
+                </div>
+                <div class="event-card-body-footer text-center">
+                  <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+                  <a
+                    ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View Details</button></a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="event-card-body-footer text-center">
-            <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-            <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-                Details</button></a>
-          </div>
-        </div>
-      </div>
-    </div>
         </div>
       </div>
     </div>
 
-    <br>
-    <div class="card shadow-none" *ngIf="activeList?.length>0">
+    <br />
+    <div class="card shadow-none" *ngIf="activeList?.length > 0">
       <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
         <!-- <h2 class="mb-0"> -->
-           <a type="button"  aria-expanded="true" aria-controls="collapseTwo" style="font-size: 20px;font-weight: 400;">
-            Active
-           </a>
+        <a type="button" aria-expanded="true" aria-controls="collapseTwo" style="font-size: 20px; font-weight: 400;">
+          Active
+        </a>
 
         <!-- </h2> -->
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
         <div class="card-body">
-          <h2 ></h2>
-          <div class="row  mt-2">
+          <h2></h2>
+          <div class="row mt-2">
             <div class="col-sm-4 mb-3" *ngFor="let card of activeList">
-               <div class="card">
-                 <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-                 <div class="card-body">
-                   <h5 class="card-title">{{card.title}}</h5>
-                   <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p>
-                   <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                   <p class="card-text" [innerHTML]="card.desciption| truncate : 130 : false"></p>
-                 </div>
-                 <div class="event-card-body">
-                   <!-- <p class="card-text">{{card.totalSeat}}</p>
+              <div class="card">
+                <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
+                <div class="card-body">
+                  <h5 class="card-title">{{ card.title }}</h5>
+                  <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
+                  <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+                  <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                </div>
+                <div class="event-card-body">
+                  <!-- <p class="card-text">{{card.totalSeat}}</p>
                      <p class="card-text">{{card.targetUserType.name}}</p> -->
-                 </div>
-                 <div class="event-card-body-footer text-center">
-                   <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-                   <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-                       Details</button></a>
-                 </div>
-               </div>
-             </div>
+                </div>
+                <div class="event-card-body-footer text-center">
+                  <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+                  <a
+                    ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View Details</button></a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <br>
-    <div class="card shadow-none" *ngIf="draftList?.length>0" >
+    <br />
+    <div class="card shadow-none" *ngIf="draftList?.length > 0">
       <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
         <!-- <h2 class="mb-0" > -->
-         <a  type="button"  aria-expanded="true" aria-controls="collapseThree" style="font-size: 20px;font-weight: 400;">
-           Draft
-         </a>
+        <a type="button" aria-expanded="true" aria-controls="collapseThree" style="font-size: 20px; font-weight: 400;">
+          Draft
+        </a>
         <!-- </h2> -->
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
-
-          <div class="row  mt-2">
-             <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
-                <div class="card">
-                  <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-                  <div class="card-body">
-                    <h5 class="card-title">{{card.title}}</h5>
-                    <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p>
-                    <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                    <p class="card-text" [innerHTML]="card.desciption| truncate : 130 : false"></p>
-                  </div>
-                  <div class="event-card-body">
-                    <!-- <p class="card-text">{{card.totalSeat}}</p>
+          <div class="row mt-2">
+            <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
+              <div class="card">
+                <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
+                <div class="card-body">
+                  <h5 class="card-title">{{ card.title }}</h5>
+                  <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
+                  <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
+                  <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                </div>
+                <div class="event-card-body">
+                  <!-- <p class="card-text">{{card.totalSeat}}</p>
                       <p class="card-text">{{card.targetUserType.name}}</p> -->
-                  </div>
-                  <div class="event-card-body-footer text-center">
-                    <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-                    <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-                        Details</button></a>
-                  </div>
+                </div>
+                <div class="event-card-body-footer text-center">
+                  <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
+                  <a
+                    ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View Details</button></a
+                  >
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
-  <!-- <div class="text-center">
+</div>
+<!-- <div class="text-center">
     <span *ngIf="publishedList?.length ==0 || activeList?.length==0 || draftList?.length==0" >
       <i class="fa fa-database" aria-hidden="true"></i>  No Data Available
     </span>
   </div> -->
 
-
-
 <div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="min-width: 800px;">
-    <div class="modal-content" >
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]='advanceFilterForm'>
+        <form [formGroup]="advanceFilterForm">
           <div class="form-row">
             <mat-form-field class="example-full-width col-sm-12">
               <mat-label>Select Tags</mat-label>
               <mat-select multiple formControlName="tagList">
-              <mat-option *ngFor="let tag of tagData" [value]="tag">{{tag.name}}</mat-option>
+                <mat-option *ngFor="let tag of tagData" [value]="tag">{{ tag.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="example-full-width col-sm-12">
               <mat-label>Select Category</mat-label>
               <mat-select multiple formControlName="categoryTypeId">
                 <mat-option *ngFor="let category of categoryFilterList" [value]="category">
-                  {{category}}
+                  {{ category }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -298,20 +308,34 @@
               <mat-label>Event Type</mat-label>
               <mat-select formControlName="eventTypeData">
                 <mat-option *ngFor="let type of eventType" [value]="type.value">
-                  {{type.viewValue}}
+                  {{ type.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <div class="form-group example-full-width col-sm-12">
-              <input [owlDateTimeTrigger]="regstartdt" [owlDateTime]="regstartdt" [min]="startDate" class="form-control col-sm-12"
-              (dateTimeInput)="emitValue()" placeholder="Start Date" formControlName="registrationStartDate">
+              <input
+                [owlDateTimeTrigger]="regstartdt"
+                [owlDateTime]="regstartdt"
+                [min]="startDate"
+                class="form-control col-sm-12"
+                (dateTimeInput)="emitValue()"
+                placeholder="Start Date"
+                formControlName="registrationStartDate"
+              />
               <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
             </div>
 
-           <div class="form-group example-full-width col-sm-12">
-              <input [owlDateTimeTrigger]="regenddt" [owlDateTime]="regenddt" [min]="endDate" class="form-control col-sm-12"
-              (dateTimeInput)="emitValue1()"  placeholder="Closing Date" formControlName="registrationEndDate">
+            <div class="form-group example-full-width col-sm-12">
+              <input
+                [owlDateTimeTrigger]="regenddt"
+                [owlDateTime]="regenddt"
+                [min]="endDate"
+                class="form-control col-sm-12"
+                (dateTimeInput)="emitValue1()"
+                placeholder="Closing Date"
+                formControlName="registrationEndDate"
+              />
               <owl-date-time #regenddt [pickerType]="'calendar'"></owl-date-time>
             </div>
           </div>
@@ -323,5 +347,3 @@
     </div>
   </div>
 </div>
-
-

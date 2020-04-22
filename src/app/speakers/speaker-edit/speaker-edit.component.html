@@ -1,9 +1,9 @@
 <div>
   <ul class="breadcrumb">
-      <li><a href="/home">Home</a></li>
-      <li><a href="/speakers">Speakers</a></li>
-     <li><a (click)="Back()">Speaker Preview</a></li>
-     <li><a class="active">Update Speaker</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/speakers">Speakers</a></li>
+    <li><a (click)="Back()">Speaker Preview</a></li>
+    <li><a class="active">Update Speaker</a></li>
   </ul>
 </div>
 <div class="container">
@@ -12,11 +12,11 @@
       <div class="text-center">
         <p class="heading-secondary">Update Speaker Details</p>
       </div>
-      <form [formGroup]='updateSpeakerForm'>
+      <form [formGroup]="updateSpeakerForm">
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Full Name<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="FullName" formControlName="fullName">
+            <input matInput placeholder="FullName" formControlName="fullName" />
             <mat-error *ngIf="checkError('fullName', 'required')">(Full Name is required)</mat-error>
           </mat-form-field>
         </div>
@@ -24,7 +24,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Designation<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Designation" formControlName="designation">
+            <input matInput placeholder="Designation" formControlName="designation" />
             <mat-error *ngIf="checkError('designation', 'required')">(Designation is required)</mat-error>
           </mat-form-field>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Organization Name<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Organization Name" formControlName="origanizationName">
+            <input matInput placeholder="Organization Name" formControlName="origanizationName" />
             <mat-error *ngIf="checkError('origanizationName', 'required')">(Organization Name is required)</mat-error>
           </mat-form-field>
         </div>
@@ -48,7 +48,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Organization Email<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Corporate Email Id" formControlName="email">
+            <input matInput placeholder="Corporate Email Id" formControlName="email" />
             <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
             <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
           </mat-form-field>
@@ -56,22 +56,19 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Phone<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Contact Number" formControlName="phone" maxlength="10">
+            <input matInput placeholder="Contact Number" formControlName="phone" maxlength="10" />
             <mat-error *ngIf="checkError('phone', 'required')">(Phone is required)</mat-error>
             <mat-error *ngIf="checkError('phone', 'pattern')">(Phone is required)</mat-error>
           </mat-form-field>
         </div>
 
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Personal Email</label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Email" formControlName="personalEmail">
+            <input matInput placeholder="Email" formControlName="personalEmail" />
             <mat-error *ngIf="checkError('personalEmail', 'email')">(Enter a valid email)</mat-error>
           </mat-form-field>
         </div>
-
-
 
         <!-- <div class="form-row">
           <label class="col-sm-3 col-form-label">Profile</label>
@@ -80,40 +77,40 @@
           </mat-form-field>
         </div> -->
 
-
-
-
-
         <div class="form-row">
           <label class="col-sm-3 col-form-label">keySkills <span class="error">*</span></label>
           <mat-form-field class="example-chip-list col-sm-9">
             <mat-chip-list #chipList aria-label="Fruit selection">
-              <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(fruit)">
-                {{fruit.name}}
+              <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
+                {{ fruit.name }}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-              <input placeholder="Enter Keyskills..." (focusout)="setError()" [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)" formControlName="keySkills">
+              <input
+                placeholder="Enter Keyskills..."
+                (focusout)="setError()"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+                formControlName="keySkills"
+              />
             </mat-chip-list>
           </mat-form-field>
-          <span *ngIf="!flag" style="color:red;font-size: 12px; margin-left: 277px; margin-top: -14px;">(KeySkill is required)</span>
+          <span *ngIf="!flag" style="color: red; font-size: 12px; margin-left: 277px; margin-top: -14px;">(KeySkill is required)</span>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Speaker Image<span class="error">*</span></label>
           <div class="col-sm-7">
-          <input type="file" class="form-control-file " formControlName="profileImageUrl"
-            (change)="fileProgress($event)" />
-                 <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error> -->
-                 <mat-error *ngIf="checkError('profileImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be JPEG, JPG, PNG)</mat-error>
+            <input type="file" class="form-control-file" formControlName="profileImageUrl" (change)="fileProgress($event)" />
+            <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error> -->
+            <mat-error *ngIf="checkError('profileImageUrl', 'pattern')" style="color: red; font-size: 12px;"
+              >(Image should be JPEG, JPG, PNG)</mat-error
+            >
           </div>
-                 <div class="col-sm-2">
+          <div class="col-sm-2">
             <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
-            <div *ngIf="fileUploadProgress">
-              Upload progress: {{ fileUploadProgress }}
-            </div>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
           </div>
         </div>
 
@@ -126,11 +123,12 @@
           </div>
         </div>
         <div class="text-right">
-          <button type="submit" class="btn button-1 action-good" (click)="updateSpeaker()" [disabled]="!updateSpeakerForm.valid">Update Details</button>
+          <button type="submit" class="btn button-1 action-good" (click)="updateSpeaker()" [disabled]="!updateSpeakerForm.valid">
+            Update Details
+          </button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
       </form>
     </div>
   </div>
 </div>
-

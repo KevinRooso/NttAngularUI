@@ -1,7 +1,7 @@
 .event-card-body p {
   font-size: 13px;
   margin: 0;
-  padding: .1rem .8rem;
+  padding: 0.1rem 0.8rem;
 }
 
 .event-card-body-footer {
@@ -10,16 +10,16 @@
 
 .card-body .card-title {
   font-size: 18px;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
 }
 
 .card-body .card-text {
   font-size: 14px;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
 }
 
 .card-body {
-  padding: .8rem .8rem 0.3rem .8rem;
+  padding: 0.8rem 0.8rem 0.3rem 0.8rem;
 }
 
 .card {
@@ -42,7 +42,7 @@
 }
 
 .close:hover {
-  box-shadow: 0 0 10px 0 rgba(153, 153, 153, .7);
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
   opacity: 1 !important;
 }
 

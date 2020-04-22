@@ -8,16 +8,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-news-edit',
   templateUrl: './news-edit.component.html',
-  styleUrls: ['./news-edit.component.css']
+  styleUrls: ['./news-edit.component.css'],
 })
 export class NewsEditComponent implements OnInit {
-
   speakerImage = '';
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private actRoute: ActivatedRoute,
-    private service: AuthServiceService, private location: Location, public snackBar: MatSnackBar) { }
+    private service: AuthServiceService,
+    private location: Location,
+    public snackBar: MatSnackBar
+  ) {}
   updateNewsForm: FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
@@ -32,13 +35,12 @@ export class NewsEditComponent implements OnInit {
   public dateTime1;
   articleImage: any;
   imageValid = false;
-  selected3='';
-  today=new Date();
+  selected3 = '';
+  today = new Date();
   userList: any[] = [];
-  show=false;
-  image1button=false;
+  show = false;
+  image1button = false;
   ngOnInit(): void {
-
     this.updateNewsForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       topic: new FormControl('', [Validators.required, Validators.maxLength(500)]),
@@ -47,9 +49,9 @@ export class NewsEditComponent implements OnInit {
       about: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       location: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       draft: [false],
-      expiryDate: ['', Validators.required]
+      expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -59,10 +61,9 @@ export class NewsEditComponent implements OnInit {
       } else {
         return this.updateNewsForm.controls[controlName].hasError(errorName);
       }
-
-    }
+    };
     this.getUserList();
-    this.actRoute.queryParams.subscribe(params => {
+    this.actRoute.queryParams.subscribe((params) => {
       this.newsId = params.page;
       this.getNewsVideoById(params.page);
     });
@@ -70,15 +71,15 @@ export class NewsEditComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null) {
-      this.userList=this.userList.filter(m=>{
-        return m.id!=9;
-      })
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id != 9;
+        });
       }
-    })
+    });
   }
   getNewsVideoById(id) {
-    this.service.getNewsById(id).subscribe(res => {
+    this.service.getNewsById(id).subscribe((res) => {
       console.log('Data', res);
 
       // this.getDate(res.body.date);
@@ -89,35 +90,35 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.get(['location']).setValue(res.body.location);
       this.updateNewsForm.get(['about']).setValue(res.body.about);
       this.updateNewsForm.get(['draft']).setValue(res.body.draft);
-      if(res.body.targetUserType!=null) {
-      this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
+      if (res.body.targetUserType != null) {
+        this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
       }
       this.updateNewsForm.controls['thumbnailImageUrl'].setValidators(null);
       this.updateNewsForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = res.body.thumbnailImageUrl;
       this.articleImage = res.body.thumbnailImageUrl;
-      this.today=res.body.expiryDate;
+      this.today = res.body.expiryDate;
       this.updateNewsForm.controls['expiryDate'].setValue(res.body.expiryDate);
-      if(res.body.targetUserType!=null) {
-      this.selected3=res.body.targetUserType.id;
+      if (res.body.targetUserType != null) {
+        this.selected3 = res.body.targetUserType.id;
       }
       console.log('Data', this.selected3);
-      this.image1button=true;
-    })
+      this.image1button = true;
+    });
   }
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
     console.log('fileData==', this.fileData);
-if(this.fileData!=undefined){
-  this.image1button=false;
-    const fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
-      this.imageValid = true;
-      this.preview();
+    if (this.fileData != undefined) {
+      this.image1button = false;
+      const fileType = this.fileData.type;
+      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+        this.imageValid = true;
+        this.preview();
+      }
     }
-  }
   }
   preview() {
     const mimeType = this.fileData.type;
@@ -129,43 +130,44 @@ if(this.fileData!=undefined){
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-    }
+    };
   }
   uploadImage() {
-    this.image1button=false;
-    this.show=true;
+    this.image1button = false;
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.service.uploadFile(formData)
-      .subscribe(res => {
+    this.service.uploadFile(formData).subscribe(
+      (res) => {
         console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        this.show=false;
-        this.image1button=true;
+        this.show = false;
+        this.image1button = true;
         this.imageValid = false;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
         console.log(this.articleImage);
       },
-      (error)=>{
-        this.show=false;
+      (error) => {
+        this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
-      })
+      }
+    );
   }
 
   updateNews() {
-    this.show=true;
-    if(!this.image1button){
+    this.show = true;
+    if (!this.image1button) {
       this.snackBar.open('Please Upload news Image', 'Close', { duration: 5000 });
-      this.show=false;
+      this.show = false;
       return false;
     }
     this.submitted = true;
 
     if (this.updateNewsForm.valid) {
       let userId;
-      this.userList.forEach(m=>{
-        if(m.displayName==this.updateNewsForm.controls['targetUserType'].value) {
-          userId=m.id;
+      this.userList.forEach((m) => {
+        if (m.displayName == this.updateNewsForm.controls['targetUserType'].value) {
+          userId = m.id;
         }
       });
 
@@ -177,32 +179,32 @@ if(this.fileData!=undefined){
         location: this.updateNewsForm.controls['location'].value,
         about: this.updateNewsForm.controls['about'].value,
         active: false,
-        tagList:[],
+        tagList: [],
         draft: this.updateNewsForm.controls['draft'].value,
         thumbnailImageUrl: this.articleImage,
         id: this.newsId,
-        targetUserType:userId,
-        expiryDate:this.updateNewsForm.controls['expiryDate'].value
-      }
+        targetUserType: userId,
+        expiryDate: this.updateNewsForm.controls['expiryDate'].value,
+      };
       console.log('post', objData);
-      this.service.saveNews(objData).subscribe((response) => {
-        console.log('response=',response);
-        this.show=false;
-        this.submitted = false;
-        this.snackBar.open('News successfully updated', 'Close', {duration: 2000});
-        this.router.navigate(['news']);
-      },
-      (error) => {
-        console.log('error==',error);
-        this.show=false;
-        this.snackBar.open('Oops Something went wrong...', 'Close');
-       })
-
-      }
-      else{
-        this.show=false;
-        this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
-      }
+      this.service.saveNews(objData).subscribe(
+        (response) => {
+          console.log('response=', response);
+          this.show = false;
+          this.submitted = false;
+          this.snackBar.open('News successfully updated', 'Close', { duration: 2000 });
+          this.router.navigate(['news']);
+        },
+        (error) => {
+          console.log('error==', error);
+          this.show = false;
+          this.snackBar.open('Oops Something went wrong...', 'Close');
+        }
+      );
+    } else {
+      this.show = false;
+      this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
+    }
   }
   BackMe() {
     this.location.back();
@@ -212,7 +214,6 @@ if(this.fileData!=undefined){
   // console.log(dObj[3],'=',MONTH[dObj[1]],'=',dObj[2]);
   // this.dateTime1=new Date(dObj[3],MONTH[dObj[1]],dObj[2]);
   // }
-
 }
 // const MONTH={
 //     'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,

@@ -8,8 +8,8 @@ config.capabilities = {
   browserName: 'chrome',
   chromeOptions: {
     args: ['--headless', '--no-sandbox'],
-    binary: puppeteer.executablePath()
-  }
+    binary: puppeteer.executablePath(),
+  },
 };
 
 exports.config = config;

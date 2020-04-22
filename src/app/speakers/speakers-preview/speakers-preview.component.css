@@ -46,7 +46,7 @@
 .card-details {
   background-color: #2cd5b6;
   border-radius: 3px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   margin: 10px 10px;
   padding: 1rem;
 }
@@ -63,7 +63,7 @@
 }
 
 .close:hover {
-  box-shadow: 0 0 10px 0 rgba(153, 153, 153, .7);
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
   opacity: 1 !important;
 }
 

@@ -7,39 +7,44 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-videos-details',
   templateUrl: './videos-details.component.html',
-  styleUrls: ['./videos-details.component.css']
+  styleUrls: ['./videos-details.component.css'],
 })
 export class VideosDetailsComponent implements OnInit {
   safeSrc: SafeResourceUrl;
   videosData: any;
-  videosUrl:any;
+  videosUrl: any;
 
-  vde= 'https://www.youtube.com/embed/sU4fhCHAt5Q';
+  vde = 'https://www.youtube.com/embed/sU4fhCHAt5Q';
 
-  constructor(private authService: AuthServiceService, private sanitizer: DomSanitizer, private location: Location,  private router1: ActivatedRoute, private router: Router) { }
+  constructor(
+    private authService: AuthServiceService,
+    private sanitizer: DomSanitizer,
+    private location: Location,
+    private router1: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe(params => {
+    this.router1.queryParams.subscribe((params) => {
       this.getVideosData(params.page);
     });
   }
-  getVideosData(id){
-    this.authService.getResourceById(id).subscribe((res)=>{
+  getVideosData(id) {
+    this.authService.getResourceById(id).subscribe((res) => {
       this.videosData = res.body;
-      const vdoUrl=this.videosData.resourceLink.split('/');
-      const code='https://www.youtube.com/embed/'+vdoUrl[vdoUrl.length-1];
-      console.log('code--',code);
-      this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(code);
+      const vdoUrl = this.videosData.resourceLink.split('/');
+      const code = 'https://www.youtube.com/embed/' + vdoUrl[vdoUrl.length - 1];
+      console.log('code--', code);
+      this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(code);
       this.videosUrl = this.videosData.resourceLink;
       // console.log("Get videos", this.videosData);
       // console.log("Videos", this.videosUrl)
-    })
+    });
   }
-  getDetails(id){
+  getDetails(id) {
     this.router.navigate(['/videos-update'], { queryParams: { page: id } });
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-
 }

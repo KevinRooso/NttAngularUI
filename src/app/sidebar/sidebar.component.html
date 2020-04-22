@@ -1,76 +1,86 @@
 <!-- Sidebar -->
 <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-  <ul class="list-group" style="overflow-y:scroll;height: 90vh;">
-    <a href="#submenu3" data-toggle="collapse" aria-expanded="false"
-    class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-start align-items-center">
-      <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
-      <span class="menu-collapsed">Dashboard</span>
-      <span class="submenu-icon ml-auto"></span>
+  <ul class="list-group" style="overflow-y: scroll; height: 90vh;">
+    <a
+      href="#submenu3"
+      data-toggle="collapse"
+      aria-expanded="false"
+      class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
+        <span class="menu-collapsed">Dashboard</span>
+        <span class="submenu-icon ml-auto"></span>
+      </div>
+    </a>
+    <div id="submenu3" class="collapse sidebar-submenu">
+      <a routerLink="/home" class="list-group-item list-group-item-action bg-dark text-white">
+        <span class="menu-collapsed">Home</span>
+      </a>
+      <a routerLink="/home-config" class="list-group-item list-group-item-action bg-dark text-white">
+        <span class="menu-collapsed">Homepage Configuration</span>
+      </a>
     </div>
-  </a>
-  <div id='submenu3' class="collapse sidebar-submenu">
-    <a routerLink='/home' class="list-group-item list-group-item-action bg-dark text-white">
-      <span class="menu-collapsed">Home</span>
-    </a>
-    <a routerLink='/home-config' class="list-group-item list-group-item-action bg-dark text-white">
-      <span class="menu-collapsed">Homepage Configuration</span>
-    </a>
-  </div>
-    <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
-      class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+    <a
+      href="#submenu1"
+      data-toggle="collapse"
+      aria-expanded="false"
+      class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+    >
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-dashboard fa-fw mr-3"></span> -->
         <span class="menu-collapsed">Events</span>
         <span class="submenu-icon ml-auto"></span>
       </div>
     </a>
-    <div id='submenu1' class="collapse sidebar-submenu">
-      <a routerLink='/events' class="list-group-item list-group-item-action bg-dark text-white">
+    <div id="submenu1" class="collapse sidebar-submenu">
+      <a routerLink="/events" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Event</span>
       </a>
-      <a routerLink='/participants' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/participants" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Participants</span>
       </a>
-      <a routerLink='/speakers' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/speakers" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Speakers</span>
       </a>
     </div>
-    <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
-      class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+    <a
+      href="#submenu2"
+      data-toggle="collapse"
+      aria-expanded="false"
+      class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+    >
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
         <span class="menu-collapsed">Resources</span>
         <span class="submenu-icon ml-auto"></span>
       </div>
     </a>
-    <div id='submenu2' class="collapse sidebar-submenu">
-      <a routerLink='/articles' class="list-group-item list-group-item-action bg-dark text-white">
+    <div id="submenu2" class="collapse sidebar-submenu">
+      <a routerLink="/articles" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Articles</span>
       </a>
-      <a routerLink='/blogs' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/blogs" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Blogs</span>
       </a>
-      <a routerLink='/cases' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/cases" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Case Studies</span>
       </a>
-      <a routerLink='/whitepapers' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/whitepapers" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Whitepapers</span>
       </a>
-      <a routerLink='/testimonials' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/testimonials" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Testimonials</span>
       </a>
-      <a routerLink='/news' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/news" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">News</span>
       </a>
-      <a routerLink='/videos' class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/videos" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">Videos</span>
       </a>
-
     </div>
-    <a routerLink='/cloud-service' class="bg-dark list-group-item list-group-item-action">
+    <a routerLink="/cloud-service" class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
-
         <span class="menu-collapsed">Cloud Services</span>
       </div>
     </a>

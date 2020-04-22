@@ -7,15 +7,12 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-cases-create',
   templateUrl: './cases-create.component.html',
-  styleUrls: ['./cases-create.component.css']
+  styleUrls: ['./cases-create.component.css'],
 })
 export class CasesCreateComponent implements OnInit {
-
-
   createCases: FormGroup;
 
   visible = true;
@@ -53,18 +50,14 @@ export class CasesCreateComponent implements OnInit {
 
   today = new Date();
 
-
-
   @ViewChild('closeModel', { static: true }) closeModel;
-  constructor(private formbuilder: FormBuilder,
+  constructor(
+    private formbuilder: FormBuilder,
     private authService: AuthServiceService,
     private location: Location,
     private router: Router,
-    public snackBar: MatSnackBar) {
-
-  }
-
-
+    public snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     // this.createSpeaker();
@@ -77,14 +70,14 @@ export class CasesCreateComponent implements OnInit {
       serviceUsed: ['', Validators.required],
       targetUserType: ['', Validators.required],
       expiryDate: ['', Validators.required],
-      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
-      downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(pdf)$')]),
-      isDraft: [false]
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
+      downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
+      isDraft: [false],
     });
     this.addTagForm = this.formbuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
-    })
+    });
     this.getCategoryDetails();
     this.getTagsDetails();
     this.getUserList();
@@ -96,27 +89,27 @@ export class CasesCreateComponent implements OnInit {
       } else {
         return this.createCases.controls[controlName].hasError(errorName);
       }
-    }
+    };
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
       if (this.userList != null) {
-        this.userList = this.userList.filter(m => {
+        this.userList = this.userList.filter((m) => {
           return m.id != 9;
-        })
+        });
       }
-    })
+    });
   }
   getCategoryDetails() {
     this.authService.getCategoryList().subscribe((res) => {
       this.catagoryData = res.body;
-    })
+    });
   }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
-    })
+    });
   }
   fileProgress(fileInput: any) {
     this.previewUrl = null;
@@ -139,8 +132,6 @@ export class CasesCreateComponent implements OnInit {
     }
   }
 
-
-
   preview() {
     // Show preview
     const mimeType = this.fileData.type;
@@ -152,7 +143,7 @@ export class CasesCreateComponent implements OnInit {
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-    }
+    };
   }
   preview2() {
     // Show preview
@@ -165,27 +156,32 @@ export class CasesCreateComponent implements OnInit {
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.attachUrl = reader.result;
-    }
+    };
   }
   uploadImage() {
     this.show = true;
     this.image1button = false;
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.authService.uploadFile(formData)
-      .subscribe(res => {
+    this.authService.uploadFile(formData).subscribe(
+      (res) => {
         console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
         console.log('Image', this.articleImage);
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
-        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+        this.snackBar.open('Image successfully uploaded', 'Close', {
+          duration: 5000,
+        });
       },
-        (error) => {
-          this.show = false;
-          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
-        })
+      (error) => {
+        this.show = false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', {
+          duration: 5000,
+        });
+      }
+    );
   }
 
   uploadAttachment() {
@@ -193,43 +189,50 @@ export class CasesCreateComponent implements OnInit {
     this.show = true;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
-    this.authService.uploadFile(formData1)
-      .subscribe(res => {
+    this.authService.uploadFile(formData1).subscribe(
+      (res) => {
         console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
         console.log('File', this.attachFile);
         this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
-        this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
+        this.snackBar.open('Attachment successfully uploaded', 'Close', {
+          duration: 5000,
+        });
       },
-        (error) => {
-          this.show = false;
-          this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
-        })
+      (error) => {
+        this.show = false;
+        this.snackBar.open('Oops, Something went wrong', 'Close', {
+          duration: 5000,
+        });
+      }
+    );
   }
 
   createCase() {
-    this.show=true;
-    if(!this.image1button){
+    this.show = true;
+    if (!this.image1button) {
       this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
-      this.show=false;
+      this.show = false;
       return false;
     }
-    if(!this.image2button){
-      this.snackBar.open('Please Upload Attachment', 'Close', { duration: 5000 });
-      this.show=false;
+    if (!this.image2button) {
+      this.snackBar.open('Please Upload Attachment', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
       return false;
     }
     if (this.createCases.valid) {
       const obj = this.createCases.value;
       const tags: any[] = [];
-      obj.tagList.forEach(m => {
+      obj.tagList.forEach((m) => {
         const tag = {
           id: m.id,
           keywords: m.keywords,
-          name: m.name
-        }
+          name: m.name,
+        };
         tags.push(tag);
       });
 
@@ -240,8 +243,7 @@ export class CasesCreateComponent implements OnInit {
         draft: obj.isDraft,
         categoryId: obj.categoryId.id,
         longDescription: obj.longDescription,
-        person: {
-        },
+        person: {},
         resourceType: 3,
         serviceUsed: obj.serviceUsed,
         tagList: tags,
@@ -249,42 +251,46 @@ export class CasesCreateComponent implements OnInit {
         thumbnailImageUrl: this.articleImage,
         downloadUrl: this.attachFile,
         title: obj.title,
-        expiryDate: this.createCases.controls['expiryDate'].value
-      }
+        expiryDate: this.createCases.controls['expiryDate'].value,
+      };
 
       console.log('post', dataObj);
-      this.authService.saveResource(dataObj).subscribe(res => {
-        console.log(res);
-        this.show=false;
-        this.snackBar.open('Case Study Added Successfully', 'Close', { duration: 5000 });
-        // alert("Blog Added Successfully");
-        this.router.navigate(['cases']);
-      },
-      (error) => {
-        this.show=false;
-        this.snackBar.open('Oops, something went wrong..', 'Close');
-      }
-    )
-    }else{
-    this.show=false;
-      this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
+      this.authService.saveResource(dataObj).subscribe(
+        (res) => {
+          console.log(res);
+          this.show = false;
+          this.snackBar.open('Case Study Added Successfully', 'Close', {
+            duration: 5000,
+          });
+          // alert("Blog Added Successfully");
+          this.router.navigate(['cases']);
+        },
+        (error) => {
+          this.show = false;
+          this.snackBar.open('Oops, something went wrong..', 'Close');
+        }
+      );
+    } else {
+      this.show = false;
+      this.snackBar.open('Please fill all mandatory field', 'Close', {
+        duration: 5000,
+      });
+    }
   }
-}
   createTag() {
     if (this.addTagForm.valid) {
       let flag = true;
-      this.tagData.forEach(m => {
+      this.tagData.forEach((m) => {
         if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
-      })
-      const obj = this.addTagForm.value
+      });
+      const obj = this.addTagForm.value;
       if (flag) {
         obj['id'] = 0;
         this.tagData.push(obj);
         this.closeModel.nativeElement.click();
-      }
-      else {
+      } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
       // alert("Tag Already EXist");

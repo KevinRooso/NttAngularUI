@@ -1,12 +1,19 @@
 <div>
   <ul class="breadcrumb">
-     <li><a routerLink="/home">Home</a></li>
-     <li><a class="active">News</a></li>
+    <li><a routerLink="/home">Home</a></li>
+    <li><a class="active">News</a></li>
   </ul>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -14,40 +21,39 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()" >Search</button>
+          <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search" />
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
         </div>
       </li>
       <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="sort"  (change)="filterData()" style="width: 150px;">
-          <option value="Sort By" >Sort By</option>
-          <optgroup label="Updated Date" >
+        <select class="form-control" [(ngModel)]="sort" (change)="filterData()" style="width: 150px;">
+          <option value="Sort By">Sort By</option>
+          <optgroup label="Updated Date">
             <option value="asc?date" selected>asc</option>
             <option value="desc?date">desc</option>
           </optgroup>
-
         </select>
       </li>
     </ul>
   </div>
 </nav>
 <section class="section-tours">
-  <div class="row" style="padding: .5rem 1rem; ">
+  <div class="row" style="padding: 0.5rem 1rem;">
     <mat-card class="p-0 m-3 videos-card" *ngFor="let news of newsList" (click)="getDetails(news.id)">
       <div style="height: 250px;">
-        <img [src]="news.thumbnailImageUrl" alt="" width="100%" height="250px">
+        <img [src]="news.thumbnailImageUrl" alt="" width="100%" height="250px" />
       </div>
       <div class="p-2">
-        <p class="videos-title">{{news.title}}</p>
-        <p class="videos-title">Date : {{news.updatedAt | date}}</p>
-        <p class="videos-title">{{news.shortDescription | truncate : 130 : false}}</p>
+        <p class="videos-title">{{ news.title }}</p>
+        <p class="videos-title">Date : {{ news.updatedAt | date }}</p>
+        <p class="videos-title">{{ news.shortDescription | truncate: 130:false }}</p>
       </div>
     </mat-card>
   </div>
   <div class="text-center">
-    <span *ngIf="newsList?.length == 0" >
+    <span *ngIf="newsList?.length == 0">
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>
-    </div>
+  </div>
 </section>

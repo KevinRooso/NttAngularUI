@@ -4,16 +4,15 @@ import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-speaker-create',
   templateUrl: './speaker-create.component.html',
-  styleUrls: ['./speaker-create.component.css']
+  styleUrls: ['./speaker-create.component.css'],
 })
 export class SpeakerCreateComponent implements OnInit {
-
   createSpeakerForm: FormGroup;
 
   visible = true;
@@ -29,29 +28,31 @@ export class SpeakerCreateComponent implements OnInit {
   uploadedFilePath: string = null;
   speakerImage: any;
 
-  checkError:any;
+  checkError: any;
   submitted = false;
-  imageValid=false;
-  flag=true;
+  imageValid = false;
+  flag = true;
   @ViewChild('chipList') chipList: MatChipList;
-  constructor(private frmbuilder: FormBuilder,
+  constructor(
+    private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
-     private location: Location,
-     public snackBar: MatSnackBar,
-     private router:Router) {
+    private location: Location,
+    public snackBar: MatSnackBar,
+    private router: Router
+  ) {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
 
     this.createSpeakerForm = frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
-      email: ['',[Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       personalEmail: ['', Validators.email],
       designation: ['', Validators.required],
       // profile: ['', Validators.required],
       origanizationName: ['', Validators.required],
-      phone: ['',[Validators.required, Validators.pattern(mobnum)]],
+      phone: ['', [Validators.required, Validators.pattern(mobnum)]],
       keySkills: ['', Validators.required],
-      profileImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]]
+      profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
   }
 
@@ -78,34 +79,31 @@ export class SpeakerCreateComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit(): void {
     // this.createSpeaker();
     // this.createSpeakerForm.get('keySkills').valueChanges.subscribe(
     //   // status => this.chipList.errorState = status === 'INVALID'
     //   alert();
     // );
-    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted){
-        if(this.submitted){
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
           return this.createSpeakerForm.controls[controlName].hasError(errorName);
         }
       } else {
         return this.createSpeakerForm.controls[controlName].hasError(errorName);
       }
-
-    }
+    };
   }
 
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    const fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    const fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid = true;
+      this.preview();
     }
   }
   preview() {
@@ -119,69 +117,66 @@ export class SpeakerCreateComponent implements OnInit {
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-    }
+    };
   }
   uploadImage() {
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.authService.uploadFile(formData)
-      .subscribe(res => {
-        console.log('Image', res);
-        this.speakerImage = res.fileDownloadUri;
-        console.log(this.speakerImage);
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-        // alert('SUCCESS !!');
-      })
+    this.authService.uploadFile(formData).subscribe((res) => {
+      console.log('Image', res);
+      this.speakerImage = res.fileDownloadUri;
+      console.log(this.speakerImage);
+      this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
+      // alert('SUCCESS !!');
+    });
   }
 
   createSpeaker() {
-    if(this.createSpeakerForm.valid){
-    let fruit1 = '';
-    console.log(this.fruits);
-    this.fruits.forEach(m => {
-      fruit1 = fruit1 + ',' + m.name;
-    })
+    if (this.createSpeakerForm.valid) {
+      let fruit1 = '';
+      console.log(this.fruits);
+      this.fruits.forEach((m) => {
+        fruit1 = fruit1 + ',' + m.name;
+      });
 
-    const obj = {
-      fullName: this.createSpeakerForm.controls['fullName'].value,
-      description: this.createSpeakerForm.controls['description'].value,
-      email: this.createSpeakerForm.controls['email'].value,
-      personalEmail: this.createSpeakerForm.controls['personalEmail'].value,
-      designation: this.createSpeakerForm.controls['designation'].value,
-     // "profile": this.createSpeakerForm.controls['profile'].value,
-      origanizationName: this.createSpeakerForm.controls['origanizationName'].value,
-      phone: this.createSpeakerForm.controls['phone'].value,
-      keySkills: fruit1.substring(1, fruit1.length - 0),
-      profileImageUrl: this.speakerImage,
-      id: 0
-    }
-    console.log('post', obj);
-    this.authService.saveSpeaker(obj).subscribe(
-      (response) => {
-        this.snackBar.open('Speaker successfully created', 'Close', {duration: 5000});
-       // alert("Successfully Created");
-        this.submitted = false;
-        console.log('response', response);
-        this.router.navigate(['/speakers']);
-      },
-      (error) => {
-        this.snackBar.open(error, 'Close');
-      }
-    )
-    }
-    else {
-      this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
+      const obj = {
+        fullName: this.createSpeakerForm.controls['fullName'].value,
+        description: this.createSpeakerForm.controls['description'].value,
+        email: this.createSpeakerForm.controls['email'].value,
+        personalEmail: this.createSpeakerForm.controls['personalEmail'].value,
+        designation: this.createSpeakerForm.controls['designation'].value,
+        // "profile": this.createSpeakerForm.controls['profile'].value,
+        origanizationName: this.createSpeakerForm.controls['origanizationName'].value,
+        phone: this.createSpeakerForm.controls['phone'].value,
+        keySkills: fruit1.substring(1, fruit1.length - 0),
+        profileImageUrl: this.speakerImage,
+        id: 0,
+      };
+      console.log('post', obj);
+      this.authService.saveSpeaker(obj).subscribe(
+        (response) => {
+          this.snackBar.open('Speaker successfully created', 'Close', { duration: 5000 });
+          // alert("Successfully Created");
+          this.submitted = false;
+          console.log('response', response);
+          this.router.navigate(['/speakers']);
+        },
+        (error) => {
+          this.snackBar.open(error, 'Close');
+        }
+      );
+    } else {
+      this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
     }
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
   }
-  setError(){
-   if(this.fruits.length==0) {
-     this.flag=false;
-   }
-     else {
-     this.flag=true;
-   }
+  setError() {
+    if (this.fruits.length == 0) {
+      this.flag = false;
+    } else {
+      this.flag = true;
+    }
   }
 }

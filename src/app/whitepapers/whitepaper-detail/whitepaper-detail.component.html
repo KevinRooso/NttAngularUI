@@ -1,8 +1,8 @@
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a (click)="BackMe()">Whitepaper</a></li>
-     <li><a class="active">Whitepaper Preview</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a (click)="BackMe()">Whitepaper</a></li>
+    <li><a class="active">Whitepaper Preview</a></li>
   </ul>
 </div>
 <div class="container">
@@ -12,11 +12,16 @@
         <div class="panel-body p-3">
           <div class="row">
             <div class="col-md-3 col-lg-3">
-              <img alt="User Pic"
+              <img
+                alt="User Pic"
                 [src]="whitePaperData.thumbnailImageUrl"
-                class="img-circle img-responsive" width="100%" alt="No Image preview" height="250px">
+                class="img-circle img-responsive"
+                width="100%"
+                alt="No Image preview"
+                height="250px"
+              />
             </div>
-<!--
+            <!--
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
                 <h1 style="font-size:25px;color:#008ECE;">{{whitePaperData.title}}</h1>
@@ -26,9 +31,9 @@
             </div> -->
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h1 style="font-size:25px;color:#008ECE;">{{whitePaperData.title}}</h1>
-                <p><b>Short Description : </b>{{whitePaperData.shortDescription}}</p>
-                <p><b>Category : </b>{{whitePaperData.category.displayName}}</p>
+                <h1 style="font-size: 25px; color: #008ece;">{{ whitePaperData.title }}</h1>
+                <p><b>Short Description : </b>{{ whitePaperData.shortDescription }}</p>
+                <p><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
               </div>
             </div>
             <div class="col-md-1 edit">
@@ -40,10 +45,12 @@
               <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn btn-success">View Paper</button></a>
               </div>
             </div> -->
-            <div class=" col-md-12 col-lg-12 py-3">
-              <p><b>{{whitePaperData.updatedAt | date}} - </b>{{ whitePaperData.longDescription}}</p>
+            <div class="col-md-12 col-lg-12 py-3">
+              <p>
+                <b>{{ whitePaperData.updatedAt | date }} - </b>{{ whitePaperData.longDescription }}
+              </p>
               <div class="text-center">
-              <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
+                <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
               </div>
             </div>
           </div>
@@ -52,3 +59,4 @@
     </div>
   </div>
   <!-- </div> -->
+</div>

@@ -2,76 +2,76 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-videos-create',
   templateUrl: './videos-create.component.html',
-  styleUrls: ['./videos-create.component.css']
+  styleUrls: ['./videos-create.component.css'],
 })
 export class VideosCreateComponent implements OnInit {
   speakerImage: any;
 
-  constructor(private formBuilder:FormBuilder,
-    private router:Router,
-    private service:AuthServiceService, private location: Location,
-    public snackBar: MatSnackBar) { }
-    createVideoForm:FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private service: AuthServiceService,
+    private location: Location,
+    public snackBar: MatSnackBar
+  ) {}
+  createVideoForm: FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
-  catagoryData:any[]=[];
-  tagData:any[]=[];
+  catagoryData: any[] = [];
+  tagData: any[] = [];
 
-  addTagForm:FormGroup;
-  checkError:any;
+  addTagForm: FormGroup;
+  checkError: any;
   submitted = false;
-  imageValid=false;
-  checkErrorPerson:any;
+  imageValid = false;
+  checkErrorPerson: any;
   submittedPerson = false;
-  imageValidPerson=false;
+  imageValidPerson = false;
   previewUrl1: any = null;
-  imageValid1=false;
-  userList:any[]=[];
-  show=false;
-  image1button=false;
+  imageValid1 = false;
+  userList: any[] = [];
+  show = false;
+  image1button = false;
 
-  today=new Date();
+  today = new Date();
 
-
-  @ViewChild('closeModel',{static:true}) closeModel;
+  @ViewChild('closeModel', { static: true }) closeModel;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['',Validators.required],
-      longDescription: ['',Validators.required],
-      shortDescription:['',Validators.required],
-     // person: ['',Validators.required],
-      categoryId: ['',Validators.required],
-      tagList: ['',Validators.required],
-      targetUserType:['',Validators.required],
-      isDraft:[false],
-      thumbnailImageUrl: ['', [Validators.required,Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]],
-      downloadUrl: ['',Validators.required],
-      expiryDate: ['',Validators.required],
-
-
+      title: ['', Validators.required],
+      longDescription: ['', Validators.required],
+      shortDescription: ['', Validators.required],
+      // person: ['',Validators.required],
+      categoryId: ['', Validators.required],
+      tagList: ['', Validators.required],
+      targetUserType: ['', Validators.required],
+      isDraft: [false],
+      thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
+      downloadUrl: ['', Validators.required],
+      expiryDate: ['', Validators.required],
     });
     this.addTagForm = this.formBuilder.group({
-      name:['',Validators.required],
-      keywords:['',Validators.required],
-    })
-    this.checkError = (controlName: string, errorName: string, checkSubmitted:boolean) => {
-      if(checkSubmitted){
-        if(this.submitted){
+      name: ['', Validators.required],
+      keywords: ['', Validators.required],
+    });
+    this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
+      if (checkSubmitted) {
+        if (this.submitted) {
           return this.createVideoForm.controls[controlName].hasError(errorName);
         }
       } else {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
-    }
+    };
     this.getCategoryDetails();
     this.getTagsDetails();
     this.getUserList();
@@ -79,31 +79,31 @@ export class VideosCreateComponent implements OnInit {
   getUserList() {
     this.service.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null) {
-      this.userList=this.userList.filter(m=>{
-        return m.id!=9;
-      })
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id != 9;
+        });
       }
-    })
+    });
   }
-  getCategoryDetails(){
-    this.service.getCategoryList().subscribe((res)=>{
+  getCategoryDetails() {
+    this.service.getCategoryList().subscribe((res) => {
       this.catagoryData = res.body;
-    })
+    });
   }
-  getTagsDetails(){
-    this.service.getTagsList().subscribe((res)=>{
-       this.tagData=res.body;
-    })
+  getTagsDetails() {
+    this.service.getTagsList().subscribe((res) => {
+      this.tagData = res.body;
+    });
   }
   fileProgress(fileInput: any) {
-    this.previewUrl=null;
-    this.imageValid=false;
+    this.previewUrl = null;
+    this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    const fileType=this.fileData.type;
-     if(fileType=='image/jpeg' || fileType=='image/png'){
-      this.imageValid=true;
-    this.preview();
+    const fileType = this.fileData.type;
+    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      this.imageValid = true;
+      this.preview();
     }
   }
   preview() {
@@ -117,7 +117,7 @@ export class VideosCreateComponent implements OnInit {
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-    }
+    };
   }
 
   // uploadImage() {
@@ -133,108 +133,108 @@ export class VideosCreateComponent implements OnInit {
   //     })
   // }
   uploadImage() {
-    this.image1button=false;
-    this.show=true;
+    this.image1button = false;
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.service.uploadFile(formData)
-      .subscribe(res => {
+    this.service.uploadFile(formData).subscribe(
+      (res) => {
         console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
-        this.show=false;
-        this.image1button=true;
+        this.show = false;
+        this.image1button = true;
         this.imageValid = false;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
         console.log(this.speakerImage);
       },
-      (error)=>{
-        this.show=false;
+      (error) => {
+        this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
-      })
+      }
+    );
   }
 
-  generateBlog(){
-    this.show=true;
-    if(!this.image1button){
+  generateBlog() {
+    this.show = true;
+    if (!this.image1button) {
       this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
-      this.show=false;
+      this.show = false;
       return false;
     }
     this.submitted = true;
     if (this.createVideoForm.valid) {
-    const obj=this.createVideoForm.value;
-    obj['thumbnailImageUrl']=this.speakerImage;
+      const obj = this.createVideoForm.value;
+      obj['thumbnailImageUrl'] = this.speakerImage;
 
-    const tags:any[]=[];
-    console.log('TAGList==',tags);
+      const tags: any[] = [];
+      console.log('TAGList==', tags);
 
-    obj.tagList.forEach(m=>{
-      const tag={
-        id: 0,
-      keywords: m.keywords,
-      name: m.name
+      obj.tagList.forEach((m) => {
+        const tag = {
+          id: 0,
+          keywords: m.keywords,
+          name: m.name,
+        };
+        tags.push(tag);
+      });
+
+      const dataObj = {
+        longDescription: obj.longDescription,
+        categoryId: obj.categoryId,
+        customerProfile: 'string',
+        detailImageUrl: 'string',
+        downloadUrl: obj.downloadUrl,
+
+        person: {},
+        shortDescription: obj.longDescription,
+        tagList: tags,
+        thumbnailImageUrl: obj.thumbnailImageUrl,
+        title: obj.title,
+        resourceType: 6,
+        draft: obj.isDraft,
+        targetUserType: obj.targetUserType,
+        expiryDate: this.createVideoForm.controls['expiryDate'].value,
+      };
+      console.log(dataObj);
+      this.service.saveResource(dataObj).subscribe(
+        (res) => {
+          this.show = false;
+          this.submitted = false;
+          console.log('Post Dat', res);
+          this.snackBar.open('Video Added Successfully', 'Close', { duration: 5000 });
+          this.router.navigate(['videos']);
+        },
+        (error) => {
+          console.log('error==', error);
+          this.show = false;
+          this.snackBar.open('Oops Something went wrong...', 'Close');
+        }
+      );
+    } else {
+      this.show = false;
+      this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
+    }
+  }
+  createTag() {
+    if (this.addTagForm.valid) {
+      let flag = true;
+      this.tagData.forEach((m) => {
+        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+          flag = false;
+        }
+      });
+      const obj = this.addTagForm.value;
+      if (flag) {
+        obj['id'] = 0;
+        this.tagData.unshift(obj);
+        this.closeModel.nativeElement.click();
+      } else {
+        this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
-      tags.push(tag);
-    });
-
-    const dataObj={
-      longDescription: obj.longDescription,
-      categoryId: obj.categoryId,
-      customerProfile: 'string',
-      detailImageUrl: 'string',
-      downloadUrl: obj.downloadUrl,
-
-      person: {},
-      shortDescription: obj.longDescription,
-      tagList: tags,
-      thumbnailImageUrl:obj.thumbnailImageUrl,
-      title: obj.title,
-      resourceType: 6,
-      draft: obj.isDraft,
-      targetUserType:obj.targetUserType,
-      expiryDate: this.createVideoForm.controls['expiryDate'].value,
+      // alert("Tag Already EXist");
     }
-    console.log(dataObj);
-    this.service.saveResource(dataObj).subscribe(res=>{
-      this.show=false;
-      this.submitted = false;
-      console.log('Post Dat',res);
-      this.snackBar.open('Video Added Successfully', 'Close', {duration: 5000});
-       this.router.navigate(['videos']);
-    },
-    (error) => {
-      console.log('error==',error);
-      this.show=false;
-      this.snackBar.open('Oops Something went wrong...', 'Close');
-     })
-}
-else{
-  this.show=false;
-  this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
-}
   }
-createTag(){
-  if(this.addTagForm.valid){
-        let flag=true;
-  this.tagData.forEach(m=>{
-    if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
-    flag=false;
-    }
-  })
-  const obj=this.addTagForm.value
-  if(flag){
-    obj['id']=0;
-  this.tagData.unshift(obj);
-  this.closeModel.nativeElement.click();
-}
-else {
-this.snackBar.open('Tag Already Exist', 'Close', {duration: 5000});
+  BackMe() {
+    this.location.back();
   }
-// alert("Tag Already EXist");
-}
-}
-BackMe(){
-  this.location.back();
-}
-
 }

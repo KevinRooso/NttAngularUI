@@ -92,7 +92,6 @@ deploy_staging:
     - gem install dpl
     # - npm run build:dev
     - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_API_KEY
-
 # production deployment
 # deploy_production:
 #   stage: deploy

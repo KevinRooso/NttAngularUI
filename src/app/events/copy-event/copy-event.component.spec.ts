@@ -8,9 +8,8 @@ describe('CopyEventComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CopyEventComponent ]
-    })
-    .compileComponents();
+      declarations: [CopyEventComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

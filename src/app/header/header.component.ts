@@ -5,25 +5,23 @@ import { AuthServiceService } from '../auth-service.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor( private router: Router,
-    private service:AuthServiceService) { }
-    userName;
+  constructor(private router: Router, private service: AuthServiceService) {}
+  userName;
   ngOnInit(): void {
-    const token=localStorage.getItem('token');
-    if(token!=null) {
-    this.service.getUserDetail().subscribe(res=>{
-      console.log('userName==',res);
+    const token = localStorage.getItem('token');
+    if (token != null) {
+      this.service.getUserDetail().subscribe((res) => {
+        console.log('userName==', res);
 
-      this.userName=res.name;
-    })
+        this.userName = res.name;
+      });
     }
   }
-  logOut(){
+  logOut() {
     localStorage.removeItem('token');
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
   }
-
 }

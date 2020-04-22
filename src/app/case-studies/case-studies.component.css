@@ -1,4 +1,6 @@
-p { font-size: 14px; }
+p {
+  font-size: 14px;
+}
 
 .category-list-card {
   background-color: #fff;

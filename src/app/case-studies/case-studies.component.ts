@@ -6,85 +6,84 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-case-studies',
   templateUrl: './case-studies.component.html',
-  styleUrls: ['./case-studies.component.css']
+  styleUrls: ['./case-studies.component.css'],
 })
 export class CaseStudiesComponent implements OnInit {
-
   cases;
   // filterCases=new BehaviorSubject<any[]>([]);
-  filterCases:any[]=[];
+  filterCases: any[] = [];
   searchFilterData;
   searchCases;
-  categoryList:any[]=[];
-  cat='';
-  tag='';
-  tags:any[]=[];
-  constructor(private service:AuthServiceService,private router:Router) { }
+  categoryList: any[] = [];
+  cat = '';
+  tag = '';
+  tags: any[] = [];
+  constructor(private service: AuthServiceService, private router: Router) {}
 
-  caseStudies:any[]=[];
+  caseStudies: any[] = [];
   caseid;
   ngOnInit(): void {
     this.getCasestudies();
-     this.getAllCategory();
-     this.getTags();
+    this.getAllCategory();
+    this.getTags();
   }
-  getCasestudies(){
-    this.service.getCasestudies().subscribe(res=>{
+  getCasestudies() {
+    this.service.getCasestudies().subscribe((res) => {
       console.log(res);
-      this.caseid=res.body.id;
-        this.caseStudies=res.body;
-        this.filterCases=res.body;
-      this.cases=res.body;
-      this.searchFilterData=res.body;
-    })
-  }
-  getTags(){
-    this.service.getTagsList().subscribe(res=>{
-      console.log('tag=',res);
-      this.tags=res.body;
+      this.caseid = res.body.id;
+      this.caseStudies = res.body;
+      this.filterCases = res.body;
+      this.cases = res.body;
+      this.searchFilterData = res.body;
     });
   }
-  viewCases(id){
-    this.router.navigate(['view-cases'],{queryParams:{page:id}})
-  }
-  getAllCategory(){
-    this.service.getCategoryList().subscribe(res=>{
-      console.log('cat=',res);
-      this.categoryList=res.body;
+  getTags() {
+    this.service.getTagsList().subscribe((res) => {
+      console.log('tag=', res);
+      this.tags = res.body;
     });
   }
-  getDataWithCat(){
-    this.filterCases=this.cases;
-    this.filterCases=this.cases.filter(m=>{
-       return m.category.id==this.cat;
-    })
-    this.searchFilterData=this.filterCases;
+  viewCases(id) {
+    this.router.navigate(['view-cases'], { queryParams: { page: id } });
   }
-  blogSearch(){
+  getAllCategory() {
+    this.service.getCategoryList().subscribe((res) => {
+      console.log('cat=', res);
+      this.categoryList = res.body;
+    });
+  }
+  getDataWithCat() {
+    this.filterCases = this.cases;
+    this.filterCases = this.cases.filter((m) => {
+      return m.category.id == this.cat;
+    });
+    this.searchFilterData = this.filterCases;
+  }
+  blogSearch() {
     console.log(this.filterCases);
-      this.filterCases=this.searchFilterData.filter(m=>{
-        console.log( m.title);
-        console.log( this.searchCases);
-        // return m.title.includes(this.searchBlog);
-        const titleData=m.title.toUpperCase();
-        return titleData.includes(this.searchCases.toUpperCase());
-      })
+    this.filterCases = this.searchFilterData.filter((m) => {
+      console.log(m.title);
+      console.log(this.searchCases);
+      // return m.title.includes(this.searchBlog);
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchCases.toUpperCase());
+    });
   }
-  getDataWithTag(){
-    this.filterCases=this.searchFilterData.filter(m=>{
-      let flag=false;
-      m.resourceTags.forEach(ele => {
-        console.log('ele=',ele.id);
-        console.log('tag=',this.tag);
-      if(ele.id==this.tag) {
-          flag=true;
-      }
+  getDataWithTag() {
+    this.filterCases = this.searchFilterData.filter((m) => {
+      let flag = false;
+      m.resourceTags.forEach((ele) => {
+        console.log('ele=', ele.id);
+        console.log('tag=', this.tag);
+        if (ele.id == this.tag) {
+          flag = true;
+        }
       });
       return flag;
-   })
+    });
   }
 
- cancel(){
-  this.filterCases=this.cases;
-}
+  cancel() {
+    this.filterCases = this.cases;
+  }
 }

@@ -25,7 +25,7 @@ input.ng-invalid.ng-touched {
 }
 
 .close:hover {
-  box-shadow: 0 0 10px 0 rgba(153, 153, 153, .7);
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
   opacity: 1 !important;
 }
 

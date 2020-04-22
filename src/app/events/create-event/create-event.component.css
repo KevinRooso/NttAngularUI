@@ -47,7 +47,7 @@ input.ng-invalid.ng-touched {
 }
 
 .close:hover {
-  box-shadow: 0 0 10px 0 rgba(153, 153, 153, .7);
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
   opacity: 1 !important;
 }
 
@@ -78,7 +78,7 @@ mat-radio-button {
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: rgb(255, 37, 37, .26) !important;
+  background-color: rgb(255, 37, 37, 0.26) !important;
 }
 
 textarea {
@@ -106,7 +106,7 @@ textarea {
 
 .table td,
 .table th {
-  padding: .45rem;
+  padding: 0.45rem;
 }
 
 /* .help{

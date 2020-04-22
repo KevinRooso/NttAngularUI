@@ -2,22 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as $ from 'jquery';
 
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-
   hideElement = false;
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === '/' || event.url === '/login') {
           this.hideElement = true;
-        }  else {
+        } else {
           this.hideElement = false;
         }
       }
@@ -25,34 +22,32 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-   // $('#body-row .collapse').collapse('hide');
-
-// Collapse/Expand icon
-$('#collapse-icon').addClass('fa-angle-double-left');
-
-// Collapse click
-$('[data-toggle=sidebar-colapse]').click(function() {
-    SidebarCollapse();
-});
-
-function SidebarCollapse () {
-    $('.menu-collapsed').toggleClass('d-none');
-    $('.sidebar-submenu').toggleClass('d-none');
-    $('.submenu-icon').toggleClass('d-none');
-    $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-
-    // Treating d-flex/d-none on separators with title
-    let SeparatorTitle = $('.sidebar-separator-title');
-    if ( SeparatorTitle.hasClass('d-flex') ) {
-        SeparatorTitle.removeClass('d-flex');
-    } else {
-        SeparatorTitle.addClass('d-flex');
-    }
+    // $('#body-row .collapse').collapse('hide');
 
     // Collapse/Expand icon
-    $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-}
-  }
+    $('#collapse-icon').addClass('fa-angle-double-left');
 
+    // Collapse click
+    $('[data-toggle=sidebar-colapse]').click(function () {
+      SidebarCollapse();
+    });
+
+    function SidebarCollapse() {
+      $('.menu-collapsed').toggleClass('d-none');
+      $('.sidebar-submenu').toggleClass('d-none');
+      $('.submenu-icon').toggleClass('d-none');
+      $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+
+      // Treating d-flex/d-none on separators with title
+      let SeparatorTitle = $('.sidebar-separator-title');
+      if (SeparatorTitle.hasClass('d-flex')) {
+        SeparatorTitle.removeClass('d-flex');
+      } else {
+        SeparatorTitle.addClass('d-flex');
+      }
+
+      // Collapse/Expand icon
+      $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+    }
+  }
 }

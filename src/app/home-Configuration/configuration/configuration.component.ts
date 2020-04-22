@@ -10,8 +10,8 @@ declare var $;
   styleUrls: ['./configuration.component.css'],
 })
 export class ConfigurationComponent {
-  public='public';
- customer='customer';
+  public = 'public';
+  customer = 'customer';
   // bannerConfigurationForm1: FormGroup;
   // bannerConfigurationForm2: FormGroup;
   // bannerConfigurationForm3: FormGroup;
