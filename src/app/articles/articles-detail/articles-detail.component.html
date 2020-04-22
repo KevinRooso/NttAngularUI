@@ -21,18 +21,28 @@
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
                 <h1 style="font-size:25px;color:#008ECE;">{{articleData.title}}</h1>
-                <p><b>Short Description : </b>{{articleData.shortDescription}}</p>
-                <p><b>Category : </b>{{articleData.category.displayName}}</p>
+                <!-- <p><b>Short Description : </b>{{articleData.shortDescription}}</p> -->
+                <p><b>Category - </b>{{articleData.category.displayName}}</p>
+                <!-- <p><b>Tag : </b><span *ngFor="let tags of resourceTags">{{tags.name}}</span></p> -->
+                <p class="card-text mb-0" style="font-weight: 500;"><b>Tags - </b><span class="tags"
+                  *ngFor="let tag of resourceTags">{{tag.name}}</span></p>
               </div>
             </div>
             <div class="col-md-1 edit">
               <button class="btn" (click)="getDetails(articleData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+              <br><br><br>
+              <a [href]="articleData.resourceLink" target="_blank"><button class="btn button-1 action-good"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></a>
             </div>
             <div class=" col-md-12 col-lg-12 py-3">
-              <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p>
-              <div class="text-center">
+              <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
+              <p><b>Short Description - </b>{{articleData.shortDescription}}</p>
+              <hr>
+              <p><b>Long Description - </b>{{articleData.longDescription}}</p>
+              <hr>
+              <p><b>Expiration Date - </b>{{articleData.expiryDate | date}}</p>
+              <!-- <div class="text-center">
               <a [href]="articleData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
