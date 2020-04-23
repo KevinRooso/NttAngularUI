@@ -100,11 +100,36 @@ export class ArticleCreateComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
       this.imageValid = true;
-      this.preview();
+      // this.preview();
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+          this.imageValid = true;
+          this.preview();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', {
+            duration: 5000,
+          });
+          this.imageValid = false;
+          this.previewUrl = null;
+        }
+      }, 2000);
+    };
   }
   fileProgress2(fileInput: any) {
     this.attachUrl = null;

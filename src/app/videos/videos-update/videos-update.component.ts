@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class VideosUpdateComponent implements OnInit {
   speakerImage: any;
   videoID: any;
+  vidoeData: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +48,7 @@ export class VideosUpdateComponent implements OnInit {
   tarUserType = '';
   show = false;
   image1button = false;
+  result1: string;
   @ViewChild('closeModel', { static: true }) closeModel;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
@@ -94,6 +96,12 @@ export class VideosUpdateComponent implements OnInit {
   getVideosData(id) {
     this.service.getResourceById(id).subscribe((res) => {
       console.log('Videos=', res);
+
+      this.vidoeData = res.body;
+      const url1 = this.vidoeData.thumbnailImageUrl;
+      this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+      console.log('Image Name', this.result1);
+
       this.createVideoForm.controls['targetUserType'].setValidators(null);
       this.createVideoForm.controls['targetUserType'].updateValueAndValidity();
       this.createVideoForm.controls['tagList'].setValidators(null);
@@ -147,19 +155,47 @@ export class VideosUpdateComponent implements OnInit {
       this.tagData = res.body;
     });
   }
+
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
     console.log('fileData==', this.fileData);
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData != undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
       if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
         this.imageValid = true;
-        this.preview();
+        this.result1 = this.fileData.name;
+        // this.preview();
       }
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+          this.imageValid = true;
+          this.preview();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid = false;
+          this.previewUrl = null;
+          this.result1 = null;
+        }
+      }, 2000);
+    };
+
   }
   preview() {
     // Show preview
