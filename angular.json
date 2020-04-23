@@ -58,19 +58,16 @@
               ]
             },
             "dev": {
+              "buildOptimizer":true,
+              "aot":true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
-              "extractLicenses": true,
-              "forkTypeChecker": true,
               "namedChunks": true,
-              "optimization": true,
               "outputHashing": "all",
               "progress": true,
               "showCircularDependencies": true,
-              "statsJson": true,
               "vendorChunk": true,
-              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -79,9 +76,16 @@
               ]
             },
             "testing": {
+              "buildOptimizer":true,
+              "aot":true,
+              "optimization": true,
               "commonChunk": true,
-              "outputHashing": "all",
               "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "outputHashing": "all",
+              "progress": true,
+              "showCircularDependencies": true,
               "vendorChunk": true,
               "fileReplacements": [
                 {
@@ -91,6 +95,9 @@
               ]
             },
             "stage": {
+              "buildOptimizer":true,
+              "aot":true,
+              "optimization": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
@@ -103,7 +110,6 @@
               "showCircularDependencies": true,
               "statsJson": true,
               "vendorChunk": true,
-              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

@@ -13,6 +13,7 @@ export class BlogDetailComponent implements OnInit {
   blogId;
   show = false;
   imageurl = '';
+  resourceTags: any[] = [];
   ngOnInit(): void {
     this.actRoute.queryParams.subscribe((params) => {
       this.blogId = params.page;
@@ -26,6 +27,8 @@ export class BlogDetailComponent implements OnInit {
       this.blog = res.body;
       this.imageurl = this.blog.thumbnailImageUrl;
       this.show = false;
+      this.resourceTags = this.blog.resourceTags;
+      console.log(this.blog.resourceTags);
     });
   }
   editBlogRoute() {
