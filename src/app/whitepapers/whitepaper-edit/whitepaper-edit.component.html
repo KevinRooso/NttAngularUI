@@ -106,13 +106,26 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
-          <div class="col-sm-7">
+          <label class="col-sm-3 col-form-label">Whitepaper Image <span class="error">*</span>
+          <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+          </i>
+          </label>
+          <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
             <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color: red; font-size: 12px;">(Image is required)</div>
             <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
               (Image should be JPEG, JPG, PNG)
             </div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result1 }}</p>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
@@ -132,10 +145,13 @@
 
         <div class="form-row my-3">
           <label class="col-sm-3 col-form-label">Attachment <span class="error">*</span></label>
-          <div class="col-sm-7">
+          <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="downloadUrl" (change)="fileProgress2($event)" />
             <div *ngIf="checkError('downloadUrl', 'required', true)" style="color: red; font-size: 12px;">(Attachment is required)</div>
             <div *ngIf="checkError('downloadUrl', 'pattern')" style="color: red; font-size: 12px;">(Attachment should be pdf only)</div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result2 }}</p>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid2 }" (click)="uploadAttachment()" [disabled]="!imageValid2">

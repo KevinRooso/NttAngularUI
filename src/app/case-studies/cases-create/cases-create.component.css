@@ -66,4 +66,5 @@ input.ng-invalid.ng-touched {
 
 .error {
   color: red;
+  margin-right: 3px;
 }

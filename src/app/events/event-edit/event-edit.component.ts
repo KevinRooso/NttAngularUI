@@ -330,6 +330,7 @@ export class EventEditComponent implements OnInit {
           this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
           this.imageValid = false;
           this.previewUrl = null;
+          this.result1 = null;
         }
       }, 2000);
     };
@@ -365,6 +366,7 @@ export class EventEditComponent implements OnInit {
           this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
           this.imageValid2 = false;
           this.attachUrl = null;
+          this.result2 = null;
         }
       }, 2000);
     };

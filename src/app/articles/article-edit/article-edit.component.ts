@@ -42,6 +42,8 @@ export class ArticleEditComponent implements OnInit {
   show = false;
   image1button = false;
   image2button = false;
+  result1: string;
+  result2: string;
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(
@@ -113,6 +115,15 @@ export class ArticleEditComponent implements OnInit {
   getArticlesDetails(id) {
     this.authService.getResourceById(id).subscribe((res) => {
       this.articleData = res.body;
+
+      const url1 = this.articleData.thumbnailImageUrl;
+      this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+      console.log('Image Name', this.result1);
+
+      const url2 = this.articleData.resourceLink;
+      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      console.log('Image Name', this.result2)
+
       this.selected3 = res.body.targetUserType.id;
       console.log('Data', this.selected3);
 
@@ -166,26 +177,57 @@ export class ArticleEditComponent implements OnInit {
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
     console.log('fileData==', this.fileData);
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData != undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
       if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
         this.imageValid = true;
-        this.preview();
+        this.result1 = this.fileData.name;
+        // this.preview();
       }
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+        console.log(width + '*' + height);
+
+        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+          this.imageValid = true;
+          this.preview();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', { duration: 5000 });
+          this.imageValid = false;
+          this.previewUrl = null;
+          this.result1 = null;
+        }
+      }, 2000);
+    };
+
   }
   fileProgress2(fileInput: any) {
     this.image2button = false;
     this.attachUrl = null;
     this.imageValid2 = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData != undefined) {
       this.image2button = false;
       const fileType = this.fileData.type;
       if (fileType == 'application/pdf') {
         this.imageValid2 = true;
-        this.preview2();
+        this.result2 = this.fileData.name;
       }
     }
   }
