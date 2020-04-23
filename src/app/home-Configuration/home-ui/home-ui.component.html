@@ -1,9 +1,9 @@
+
 <app-loader *ngIf="show"></app-loader>
 <div class="container btn-cnt">
   <div class="text-left" *ngIf="!publicFlag">
-    <button type="submit" (click)="createForm()" class="btn button-1 action-good">
-      Create {{ userType == 'public' ? 'Public' : 'Customer' }} User Configuration
-    </button>
+    <button type="submit" (click)="createForm()" class="btn button-1 action-good">Create
+      {{userType=='public'?'Public':'Customer'}} User Configuration</button>
   </div>
 </div>
 <div class="text-center my-5" *ngIf="publicFlag">
@@ -22,19 +22,11 @@
             <div class="form-row">
               <mat-form-field class="example-full-width">
                 <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner1Block"
-                  #block
-                  (selectionChange)="getSelectedBlockData(block.value, 'banner1')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
+                <mat-select formControlName="datafieldType" [(value)]="banner1Block" #block
+                  (selectionChange)="getSelectedBlockData(block.value,'banner1')">
+                  <ng-container  *ngFor="let block of blocks">
+                  <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+              </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -42,7 +34,7 @@
               <mat-form-field class="example-full-width">
                 <mat-label>Data According to Block Selected</mat-label>
                 <mat-select formControlName="dataFieldId" [(ngModel)]="banner1SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData1" [value]="block.id">{{ block.title }}</mat-option>
+                  <mat-option *ngFor="let block of selectBlockData1" [value]="block.id">{{block.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -51,7 +43,7 @@
                 <mat-label>Sequence Number</mat-label>
                 <mat-select formControlName="sequenceNumber" [(ngModel)]="banner1Sequence">
                   <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
+                    {{sequenceNumber}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -60,23 +52,15 @@
         </div>
         <div class="col-md-4">
           <p>Choose Banner 2</p>
-          <form [formGroup]="bannerConfigurationForm2">
+          <form [formGroup]='bannerConfigurationForm2'>
             <div class="form-row">
               <mat-form-field class="example-full-width">
                 <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner2Block"
-                  #block1
-                  (selectionChange)="getSelectedBlockData(block1.value, 'banner2')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
+                <mat-select formControlName="datafieldType" [(value)]="banner2Block" #block1
+                  (selectionChange)="getSelectedBlockData(block1.value,'banner2')">
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -84,7 +68,7 @@
               <mat-form-field class="example-full-width">
                 <mat-label>Data According to Block Selected</mat-label>
                 <mat-select formControlName="dataFieldId" [(ngModel)]="banner2SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData2" [value]="block.id">{{ block.title }}</mat-option>
+                  <mat-option *ngFor="let block of selectBlockData2" [value]="block.id">{{block.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -93,7 +77,7 @@
                 <mat-label>Sequence Number</mat-label>
                 <mat-select formControlName="sequenceNumber" [(ngModel)]="banner2Sequence">
                   <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
+                    {{sequenceNumber}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -102,23 +86,15 @@
         </div>
         <div class="col-md-4">
           <p>Choose Banner 3</p>
-          <form [formGroup]="bannerConfigurationForm3">
+          <form [formGroup]='bannerConfigurationForm3'>
             <div class="form-row">
               <mat-form-field class="example-full-width">
                 <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner3Block"
-                  #block2
-                  (selectionChange)="getSelectedBlockData(block2.value, 'banner3')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
+                <mat-select formControlName="datafieldType" [(value)]="banner3Block" #block2
+                  (selectionChange)="getSelectedBlockData(block2.value,'banner3')">
+                  <ng-container  *ngFor="let block of blocks">
+                    <mat-option [value]="block.apiName" *ngIf="block.apiName=='testimonials' || block.apiName=='case studies' ? false : true ">{{block.name}}</mat-option>
+                </ng-container>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -126,7 +102,7 @@
               <mat-form-field class="example-full-width">
                 <mat-label>Data According to Block Selected</mat-label>
                 <mat-select formControlName="dataFieldId" [(ngModel)]="banner3SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData3" [value]="block.id">{{ block.title }}</mat-option>
+                  <mat-option *ngFor="let block of selectBlockData3" [value]="block.id">{{block.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -135,7 +111,7 @@
                 <mat-label>Sequence Number</mat-label>
                 <mat-select formControlName="sequenceNumber" [(ngModel)]="banner3Sequence">
                   <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
+                    {{sequenceNumber}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -158,33 +134,27 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #eventButton
-                  (click)="getSelectedBlockData1(blocks[0].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
+                <button class="btn" #eventButton (click)="getSelectedBlockData1(blocks[0].url)" data-toggle="collapse"
+                  data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Event Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
-              <form [formGroup]="eventConfigurationForm">
+              <form [formGroup]='eventConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="eventBlockData">
-                      <mat-option *ngFor="let block of eventData" [value]="block.id">{{ block.title }}{{ eventBlockData }} </mat-option>
+                      <mat-option *ngFor="let block of eventData" [value]="block.id">{{block.title}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button type="submit" (click)="submitEvent()" class="btn button-1 action-good" [disabled]="!eventConfigurationForm.valid">
-                    Submit
+                  <button type="submit" (click)="submitEvent()" class="btn button-1 action-good"
+                    [disabled]="!eventConfigurationForm.valid">Submit
                   </button>
                 </div>
               </form>
@@ -197,39 +167,27 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #articleButton
-                  (click)="this.getSelectedBlockData2(blocks[1].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseArticle"
-                  aria-expanded="true"
-                  aria-controls="collapseArticle"
-                >
+                <button class="btn" #articleButton (click)="this.getSelectedBlockData2(blocks[1].url)"
+                  data-toggle="collapse" data-target="#collapseArticle" aria-expanded="true"
+                  aria-controls="collapseArticle">
                   Article Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseArticle" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseArticle">
-              <form [formGroup]="articleConfigurationForm">
+              <form [formGroup]='articleConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="articleBlockData">
-                      <mat-option *ngFor="let block of articleData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of articleData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button
-                    type="submit"
-                    (click)="submitArticle()"
-                    [disabled]="!articleConfigurationForm.valid"
-                    class="btn button-1 action-good"
-                  >
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitArticle()" [disabled]="!articleConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -241,34 +199,26 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #blogButton
-                  (click)="this.getSelectedBlockData3(blocks[2].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseBlog"
-                  aria-expanded="true"
-                  aria-controls="collapseBlog"
-                >
+                <button class="btn " #blogButton (click)="this.getSelectedBlockData3(blocks[2].url)"
+                  data-toggle="collapse" data-target="#collapseBlog" aria-expanded="true" aria-controls="collapseBlog">
                   Blogs Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseBlog" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseBlog">
-              <form [formGroup]="blogsConfigurationForm">
+              <form [formGroup]='blogsConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="blogBlockData">
-                      <mat-option *ngFor="let block of blogData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of blogData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button type="submit" (click)="submitBlog()" [disabled]="!blogsConfigurationForm.valid" class="btn button-1 action-good">
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitBlog()" [disabled]="!blogsConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -280,39 +230,27 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #videoButton
-                  (click)="this.getSelectedBlockData4(blocks[3].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseVideo"
-                  aria-expanded="true"
-                  aria-controls="collapseVideo"
-                >
+                <button class="btn" #videoButton (click)="this.getSelectedBlockData4(blocks[3].url)"
+                  data-toggle="collapse" data-target="#collapseVideo" aria-expanded="true"
+                  aria-controls="collapseVideo">
                   Videos Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseVideo" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseVideo">
-              <form [formGroup]="videosConfigurationForm">
+              <form [formGroup]='videosConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="videoBlockData">
-                      <mat-option *ngFor="let block of videoData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of videoData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button
-                    type="submit"
-                    (click)="submitVideo()"
-                    [disabled]="!videosConfigurationForm.valid"
-                    class="btn button-1 action-good"
-                  >
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitVideo()" [disabled]="!videosConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -324,39 +262,28 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #whitepaperButton
-                  (click)="this.getSelectedBlockData5(blocks[4].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseWhitePaper"
-                  aria-expanded="true"
-                  aria-controls="collapseWhitePaper"
-                >
+                <button class="btn " #whitepaperButton (click)="this.getSelectedBlockData5(blocks[4].url)"
+                  data-toggle="collapse" data-target="#collapseWhitePaper" aria-expanded="true"
+                  aria-controls="collapseWhitePaper">
                   WhitePapers Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
-            <div id="collapseWhitePaper" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseWhitePaper">
-              <form [formGroup]="whitePaperConfigurationForm">
+            <div id="collapseWhitePaper" class="collapse hide" aria-labelledby="headingOne"
+              data-parent="#collapseWhitePaper">
+              <form [formGroup]='whitePaperConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="whitePaperBlockData">
-                      <mat-option *ngFor="let block of whitePaperData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of whitePaperData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button
-                    type="submit"
-                    (click)="submitWhitpapers()"
-                    [disabled]="!whitePaperConfigurationForm.valid"
-                    class="btn button-1 action-good"
-                  >
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitWhitpapers()" [disabled]="!whitePaperConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -368,39 +295,28 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #caseButton
-                  (click)="this.getSelectedBlockData6(blocks[5].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseCaseStudey"
-                  aria-expanded="true"
-                  aria-controls="collapseCaseStudey"
-                >
+                <button class="btn" #caseButton (click)="this.getSelectedBlockData6(blocks[5].url)"
+                  data-toggle="collapse" data-target="#collapseCaseStudey" aria-expanded="true"
+                  aria-controls="collapseCaseStudey">
                   Case Study Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
-            <div id="collapseCaseStudey" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseCaseStudey">
-              <form [formGroup]="caseStudyConfigurationForm">
+            <div id="collapseCaseStudey" class="collapse hide" aria-labelledby="headingOne"
+              data-parent="#collapseCaseStudey">
+              <form [formGroup]='caseStudyConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="caseStudyBlockData">
-                      <mat-option *ngFor="let block of caseStudyData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of caseStudyData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button
-                    type="submit"
-                    (click)="submitCases()"
-                    [disabled]="!caseStudyConfigurationForm.valid"
-                    class="btn button-1 action-good"
-                  >
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitCases()" [disabled]="!caseStudyConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -412,34 +328,26 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #newsButton
-                  (click)="this.getSelectedBlockData7(blocks[6].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseNews"
-                  aria-expanded="true"
-                  aria-controls="collapseNews"
-                >
+                <button class="btn" #newsButton (click)="this.getSelectedBlockData7(blocks[6].url)"
+                  data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
                   News Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseNews" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseNews">
-              <form [formGroup]="newsConfigurationForm">
+              <form [formGroup]='newsConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="newsBlockData">
-                      <mat-option *ngFor="let block of newsData" [value]="block.id">{{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of newsData" [value]="block.id">{{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button type="submit" (click)="submitNews()" [disabled]="!newsConfigurationForm.valid" class="btn button-1 action-good">
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitNews()" [disabled]="!newsConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
@@ -451,52 +359,47 @@
           <div id="accordion" class="col-md-12">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button
-                  class="btn"
-                  #testButton
-                  (click)="this.getSelectedBlockData8(blocks[7].url)"
-                  data-toggle="collapse"
-                  data-target="#collapseTest"
-                  aria-expanded="true"
-                  aria-controls="collapseTest"
-                >
+                <button class="btn" #testButton (click)="this.getSelectedBlockData8(blocks[7].url)"
+                  data-toggle="collapse" data-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
                   Testimonials Configuration
                   <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
             <div id="collapseTest" class="collapse hide" aria-labelledby="headingOne" data-parent="#collapseTest">
-              <form [formGroup]="testConfigurationForm">
+              <form [formGroup]='testConfigurationForm'>
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
                     <mat-label>Select Banner Entity</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="testBlockData">
-                      <mat-option *ngFor="let block of testData" [value]="block.id"> {{ block.title }}</mat-option>
+                      <mat-option *ngFor="let block of testData" [value]="block.id">
+                        {{block.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="text-right">
-                  <button type="submit" (click)="submitTest()" [disabled]="!testConfigurationForm.valid" class="btn button-1 action-good">
-                    Submit
-                  </button>
+                  <button type="submit" (click)="submitTest()" [disabled]="!testConfigurationForm.valid"
+                    class="btn button-1 action-good">Submit</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
   <div class="col-sm-4" *ngIf="publicFlag">
     <div class="card">
       <div class="card-header d-flex" id="headingOne">
-        Preview
-        <span class="btn btn-success approve" style="cursor: pointer; font-size: 10px; margin-left: auto;" (click)="getHomepageData()">
-          <i class="fa fa-refresh" style="font-size: 1rem;"></i>
-        </span>
+       Preview
+       <span class="btn btn-success approve" style="cursor: pointer;font-size: 10px;margin-left: auto;" (click)="getHomepageData()">
+        <i class="fa fa-refresh" style="font-size: 1rem;"></i>
+      </span>
       </div>
-      <div class="main-container p-2" style="background: #efefef; overflow-y: auto; overflow-x: hidden; height: 480px;">
+      <div class="main-container p-2" style="background: #efefef;    overflow-y: auto;  overflow-x: hidden;  height: 480px;">
+
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -504,23 +407,14 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active" *ngIf="homeBannerData.length > 0">
-              <img
-                class="d-block w-100 img-size"
-                [src]="homeBannerData[0].thumbnailImageUrl ? homeBannerData[0].thumbnailImageUrl : defaultImage"
-              />
+            <div class="carousel-item active" >
+              <img class="d-block w-100 img-size" [src]="bannerImage1 !='' ? bannerImage1 : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length > 1">
-              <img
-                class="d-block w-100 img-size"
-                [src]="homeBannerData[1].thumbnailImageUrl ? homeBannerData[1].thumbnailImageUrl : defaultImage"
-              />
+            <div class="carousel-item" >
+              <img class="d-block w-100 img-size" [src]="bannerImage2 !='' ? bannerImage2 : defaultImage">
             </div>
-            <div class="carousel-item" *ngIf="homeBannerData.length > 2">
-              <img
-                class="d-block w-100 img-size"
-                [src]="homeBannerData[2].thumbnailImageUrl ? homeBannerData[2].thumbnailImageUrl : defaultImage"
-              />
+            <div class="carousel-item" >
+              <img class="d-block w-100 img-size" [src]="bannerImage3 !='' ? bannerImage3 : defaultImage">
             </div>
           </div>
           <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
@@ -534,6 +428,7 @@
           </a>
         </div>
 
+
         <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">{{list.title}}</div>
@@ -546,103 +441,101 @@
           </div>
         </div> -->
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'news'">
+          <div class="preview-card my-3" *ngIf="list.type =='news'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Recent News</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'event'">
+          <div class="preview-card my-3" *ngIf="list.type =='event'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'articles'">
+          <div class="preview-card my-3" *ngIf="list.type =='articles'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Articles</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'testimonials'" style="height: 100%;">
+          <div class="preview-card my-3" *ngIf="list.type =='testimonials'" style="height: 100%;">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body px-2 py-2">
-              <p>"{{ list.title }}"</p>
-              <hr class="m-0" />
+              <p>"{{list.title}}"</p>
+              <hr class="m-0">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <div class="d-inline-flex" style="align-items: baseline;">
-                    <div class="mr-2">
-                      <img [src]="list.imageUrl ? list.imageUrl : defaultProfile" alt="User Image" class="speaker-image" />
-                    </div>
-
-                    <a>{{ list.personName }}</a>
-                  </div>
+                   <div class="d-inline-flex" style="align-items: baseline;">
+                      <div class="mr-2">
+                        <img  [src]="list.imageUrl ? list.imageUrl :  defaultProfile" alt="User Image" class="speaker-image"></div>
+                      <a>{{list.personName}}</a>
+                   </div>
                 </li>
-              </ul>
+             </ul>
               <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'case studies'" style="height: 100%;">
+          <div class="preview-card my-3" *ngIf="list.type =='case studies'" style="height: 100%;">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body px-2 py-2">
-              <p class="m-0">{{ list.title }}</p>
+              <p class="m-0">{{list.title}}</p>
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'videos'">
+          <div class="preview-card my-3" *ngIf="list.type =='videos'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Videos</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'blogs'">
+          <div class="preview-card my-3" *ngIf="list.type =='blogs'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Blogs</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt=""  class="img-size">
             </div>
           </div>
         </div>
         <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'white papers'">
+          <div class="preview-card my-3" *ngIf="list.type =='white papers'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Whitepapers</div>
               <div class="col-sm-6 preview-header-text text-right">view all</div>
             </div>
             <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt=""  class="img-size">
             </div>
           </div>
         </div>
@@ -720,6 +613,8 @@
           </div>
         </div> -->
       </div>
+
     </div>
   </div>
+
 </div>
