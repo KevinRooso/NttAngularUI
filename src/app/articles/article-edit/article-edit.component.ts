@@ -321,6 +321,7 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
     }
+    this.submitted =true;
     if (this.EditArticleForm.valid) {
       const tags: any[] = [];
       this.tagData.forEach((m) => {

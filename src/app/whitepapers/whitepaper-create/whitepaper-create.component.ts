@@ -227,6 +227,7 @@ export class WhitepaperCreateComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted = true;
     if (this.createWhitePaperForm.valid) {
       const tags: any[] = [];
 

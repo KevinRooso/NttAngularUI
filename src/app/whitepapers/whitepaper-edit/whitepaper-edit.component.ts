@@ -325,6 +325,7 @@ export class WhitepaperEditComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted = true;
     if (this.updateWhitePaperForm.value.tagList.length == 0) {
       this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();

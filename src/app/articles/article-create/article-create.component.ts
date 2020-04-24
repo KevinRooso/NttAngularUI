@@ -52,7 +52,7 @@ export class ArticleCreateComponent implements OnInit {
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
       categoryId: ['', Validators.required],
-      expiryDate: ['', Validators.required],
+      expiryDate: ['', Validators.required]
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -222,6 +222,7 @@ export class ArticleCreateComponent implements OnInit {
 
   createArticle() {
     this.show = true;
+
     if (!this.image1button) {
       this.snackBar.open('Please Upload Article Image', 'Close', {
         duration: 5000,
@@ -236,7 +237,9 @@ export class ArticleCreateComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted =true;
     if (this.createArticleForm.valid) {
+
       const tags: any[] = [];
 
       this.createArticleForm.value.tagList.forEach((m) => {

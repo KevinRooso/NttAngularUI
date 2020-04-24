@@ -249,6 +249,7 @@ export class CasesCreateComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted =true;
     if (this.createCases.valid) {
       const obj = this.createCases.value;
       const tags: any[] = [];

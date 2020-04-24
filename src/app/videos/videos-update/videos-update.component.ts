@@ -243,6 +243,7 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.controls['tagList'].setValidators(Validators.required);
       this.createVideoForm.controls['tagList'].updateValueAndValidity();
     }
+    this.submitted = true;
     if (this.createVideoForm.valid) {
       const obj = this.createVideoForm.value;
       obj['thumbnailImageUrl'] = this.speakerImage;

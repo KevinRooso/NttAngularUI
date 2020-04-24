@@ -328,6 +328,7 @@ export class CasesEditComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted =true;
     if (this.createCases.value.tagList.length == 0) {
       this.createCases.controls['tagList'].setValidators(Validators.required);
       this.createCases.controls['tagList'].updateValueAndValidity();

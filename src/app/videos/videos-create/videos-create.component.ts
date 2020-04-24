@@ -191,6 +191,7 @@ export class VideosCreateComponent implements OnInit {
 
   generateBlog() {
     this.show = true;
+    this.submitted = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload Image', 'Close', { duration: 5000 });
       this.show = false;
