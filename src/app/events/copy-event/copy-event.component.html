@@ -379,7 +379,7 @@
             >
             </i>
           </label>
-          <div class="col-sm-7">
+          <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
             <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color: red; font-size: 12px;">
               (Image is required)
@@ -387,6 +387,9 @@
             <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
               (Image should be JPEG, JPG, PNG)
             </div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result1 }}</p>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
@@ -401,7 +404,7 @@
             <div class="image-preview mb-3" *ngIf="previewUrl">
               <img [src]="previewUrl" height="200" />
             </div>
-            <p>{{ result1 }}</p>
+            <!-- <p>{{ result1 }}</p> -->
           </div>
         </div>
 
@@ -418,7 +421,7 @@
             >
             </i>
           </label>
-          <div class="col-sm-7">
+          <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="detailImageUrl" (change)="fileProgress2($event)" />
             <div *ngIf="checkError('detailImageUrl', 'required', true)" style="color: red; font-size: 12px;">
               (Image is required)
@@ -426,6 +429,9 @@
             <div *ngIf="checkError('detailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
               (Image should be JPEG, JPG, PNG)
             </div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result2 }}</p>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid2 }" (click)="uploadAttachment()" [disabled]="!imageValid2">
@@ -440,7 +446,7 @@
             <div class="image-preview mb-3" *ngIf="attachUrl">
               <img [src]="attachUrl" height="200" />
             </div>
-            <p>{{ result2 }}</p>
+            <!-- <p>{{ result2 }}</p> -->
           </div>
         </div>
         <div class="form-row">

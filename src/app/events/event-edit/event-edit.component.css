@@ -90,8 +90,21 @@ textarea {
 
 .error {
   color: red;
+  margin-right: 3px;
 }
 
 .cursor {
   cursor: not-allowed;
 }
+input[type=file]{
+  color:transparent;
+}
+.filetypewidth{
+  max-width: 12%;
+}
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .filetypewidth{
+    max-width: 16%;
+  }
+ }
+
