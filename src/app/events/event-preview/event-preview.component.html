@@ -68,89 +68,6 @@
   </div>
 </nav>
 
-<!-- <div class="row">
-<mat-tab-group >
-  <mat-tab label="publish" *ngIf="getEventData.publish==true && getEventData.active==true && getEventData.draft==false">
-    publish
-  </mat-tab>
-  <mat-tab label="active">Active</mat-tab>
-  <mat-tab label="draft">Draft</mat-tab>
-</mat-tab-group>
-</div> -->
-
-<!-- <div class="container-fluid">
-  <h2 *ngIf="publishedList.length!=0">Published</h2>
-  <div class="row  mt-2"> -->
-
-<!-- <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
-      <div class="card">
-        <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-        <div class="card-body">
-          <h5 class="card-title">{{card.title}}</h5>
-          <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p> -->
-<!-- </div>
-        <div class="event-card-body"> -->
-<!-- <p class="card-text">{{card.totalSeat}}</p>
-            <p class="card-text">{{card.targetUserType.name}}</p> -->
-<!-- </div>
-        <div class="event-card-body-footer text-center"> -->
-<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-              Details</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2 *ngIf="activeList.length!=0">Active</h2>
-  <div class="row  mt-2">
-    <div class="col-sm-4 mb-3" *ngFor="let card of activeList">
-       <div class="card">
-         <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-         <div class="card-body">
-           <h5 class="card-title">{{card.title}}</h5>
-           <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
-         </div>
-         <div class="event-card-body"> -->
-<!-- <p class="card-text">{{card.totalSeat}}</p>
-             <p class="card-text">{{card.targetUserType.name}}</p> -->
-<!-- </div>
-         <div class="event-card-body-footer text-center"> -->
-<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-               Details</button></a>
-         </div>
-       </div>
-     </div>
-  </div> -->
-<!-- <h2 *ngIf="draftList.length!=0">Draft</h2>
-  <div class="row  mt-2">
-     <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
-        <div class="card">
-          <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%">
-          <div class="card-body">
-            <h5 class="card-title">{{card.title}}</h5>
-            <p class="card-text" *ngIf="card.eventDate!=null">Event Date: {{commonService.getDateTime(card.eventDate)}}</p> -->
-<!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-<!-- <p class="card-text">{{card.desciption| truncate : 130 : false}}</p>
-          </div>
-          <div class="event-card-body"> -->
-<!-- <p class="card-text">{{card.totalSeat}}</p>
-              <p class="card-text">{{card.targetUserType.name}}</p> -->
-<!-- </div>
-          <div class="event-card-body-footer text-center"> -->
-<!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
-<!-- <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">View
-                Details</button></a>
-          </div>
-        </div>
-      </div>
-  </div>
-</div> -->
-
 <div class="container-fluid">
   <div class="accordion" id="accordionExample">
     <div class="card shadow-none" *ngIf="publishedList?.length > 0">
@@ -283,7 +200,7 @@
       <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
         <div class="card-body">
           <div class="row mt-2">
-            <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
+            <div class="col-sm-4 mb-3" *ngFor="let card of expiredList">
               <div class="card">
                 <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
                 <div class="card-body">
