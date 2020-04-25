@@ -112,7 +112,7 @@ export class EventPreviewComponent implements OnInit {
       });
       this.draftList1 = this.draftList;
       this.expiredList = this.getEventData.filter((m) => {
-        return !m.publish && !m.active && !m.draft && m.expired ;
+        return  m.expired ;
       });
       this.expiredList1 = this.expiredList;
     });

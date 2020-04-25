@@ -116,7 +116,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       // fullName: [''],
       // name: [''],
-      isDraft: [false],
+      isDraft: [true],
       categoryTypeId: ['', Validators.required],
     });
 
