@@ -47,10 +47,13 @@ export class CreateEventComponent implements OnInit {
   userList: any[] = [];
   errorMsg1:any;
   errorMsg2:any;
+  valuei:any;
 
   @ViewChild('closeModel', { static: true }) closeModel;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
+  @ViewChild('confirmBox', { static: true }) confirmBox;
+  @ViewChild('closeModal2', { static: true }) closeModal2;
 
   isOnPremise = false;
   isWebinar = false;
@@ -678,7 +681,14 @@ export class CreateEventComponent implements OnInit {
     // this.addAgenda.reset();
   }
   delete(i) {
-    this.agendaData.splice(i, 1);
+    this.valuei = i;
+    this.confirmBox.nativeElement.click();
+    //this.agendaData.splice(i, 1);
+  }
+  deleteConfirm(){
+    this.agendaData.splice(this.valuei, 1);
+    this.closeModal2.nativeElement.click();
+
   }
   // resetForm(){
   //   this.addAgenda.reset();

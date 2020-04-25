@@ -242,6 +242,8 @@ export class CasesEditComponent implements OnInit {
         this.imageValid2 = true;
         // this.preview2();
         this.result2 = this.fileData.name;
+      }else{
+        this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
   }

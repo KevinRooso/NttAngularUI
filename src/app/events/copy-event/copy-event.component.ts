@@ -70,12 +70,18 @@ export class CopyEventComponent implements OnInit {
 
   errorMsg1:any;
   errorMsg2:any;
+
+  valuei:any;
+  valueData:any;
+
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel', { static: true }) closeModel;
   @ViewChild('closeModel1', { static: true }) closeModel1;
   @ViewChild('msgbutton', { static: true }) msgbutton;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
+  @ViewChild('confirmBox', { static: true }) confirmBox;
+  @ViewChild('closeModal2', { static: true }) closeModal2;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
     private formBuilder: FormBuilder,
@@ -852,8 +858,21 @@ export class CopyEventComponent implements OnInit {
       alert('please fill mandatory');
     }
   }
-  delete(i) {
-    this.agendaData.splice(i, 1);
+  delete(i, data) {
+    this.valuei = i;
+    this.valueData = data;
+    this.confirmBox.nativeElement.click();
+
+  }
+
+  deleteConfirm(){
+    console.log("valuedata", this.valueData);
+    this.authService.removeEventSchedule(this.valueData.id).subscribe((res) => {
+      console.log('deleted', res);
+      this.agendaData.splice(this.valuei, 1);
+      this.closeModal2.nativeElement.click();
+      this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
+    });
   }
   clearValidation() {
     this.addAgenda.controls['title'].setValidators(null);
