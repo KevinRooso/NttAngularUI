@@ -1,3 +1,28 @@
 .cloud-card {
-  max-width: 400px;
+  background-color: blue;
+  width: 300px;
+  height:300px;
+  top: 86px;
+ text-align:center;
+}
+.mat-card-image  {
+
+    position: absolute;
+    top: 86px;
+    left: 86px;
+    right: 15px;
+    bottom: 15px;
+    max-width: 150px;
+    min-width: 150px;
+
+}
+.btn{
+  border-radius: 20px !important;
+}
+.btn-class{
+  position: absolute;
+  left: 255px;
+  border-radius: 50%;
+  background-color:blue;
+  color: white;
 }

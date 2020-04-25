@@ -46,6 +46,7 @@ import { ConfigurationComponent } from './home-Configuration/configuration/confi
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
+import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -271,6 +272,11 @@ const routes: Routes = [
   {
     path: 'cloud-service',
     component: ListCloudServicesComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'cloud-service-form',
+    component: CreateFormComponent,
     canActivate: [AuthguardServiceService],
   },
 ];

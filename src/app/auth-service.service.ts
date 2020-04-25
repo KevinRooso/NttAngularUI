@@ -204,4 +204,14 @@ export class AuthServiceService {
   removeEventSchedule(id):Observable<any>{
     return this.http.delete<any>(this.url+'api/admin/event/schedule/' +id, {headers:this.headers})
   }
+
+  //Product&services api.......
+
+  createProductAndService(obj):Observable<any>{
+    return this.http.post<any>(this.url+'api/admin/productAndServices',obj, {headers:this.headers})
+  }
+
+  getProductAndService(id):Observable<any>{
+    return this.http.get<any>(this.url+'api/public/productAndServices?id='+id, {headers:this.headers})
+  }
 }

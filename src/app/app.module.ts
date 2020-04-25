@@ -87,6 +87,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
+import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +143,7 @@ import { ListCloudServicesComponent } from './cloud-services/list-cloud-services
     LoaderComponent,
     HomeUiComponent,
     ListCloudServicesComponent,
+    CreateFormComponent,
   ],
   imports: [
     BrowserModule,
