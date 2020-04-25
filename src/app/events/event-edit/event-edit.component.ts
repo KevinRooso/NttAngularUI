@@ -70,10 +70,16 @@ export class EventEditComponent implements OnInit {
   result2: string;
   errorMsg1:any;
   errorMsg2:any;
+
+  valuei:any;
+  valueData:any;
+
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel', { static: true }) closeModel;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
+  @ViewChild('confirmBox', { static: true }) confirmBox;
+  @ViewChild('closeModal2', { static: true }) closeModal2;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
     private formBuilder: FormBuilder,
@@ -844,13 +850,22 @@ export class EventEditComponent implements OnInit {
     this.errorMsg2 = null;
   }
   delete(i, data) {
-    // console.log("data",data);
-    this.authService.removeEventSchedule(data.id).subscribe((res) => {
+    this.valuei = i;
+    this.valueData = data;
+    this.confirmBox.nativeElement.click();
+
+  }
+
+  deleteConfirm(){
+    console.log("valuedata", this.valueData);
+    this.authService.removeEventSchedule(this.valueData.id).subscribe((res) => {
       console.log('deleted', res);
-      this.agendaData.splice(i, 1);
+      this.agendaData.splice(this.valuei, 1);
+      this.closeModal2.nativeElement.click();
       this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
     });
   }
+
   updateAgenda(i) {
     // this.allspeakers = [];
     //   for(let i=0;i<data.speakerList.length;i++){
