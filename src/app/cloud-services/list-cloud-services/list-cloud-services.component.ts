@@ -20,7 +20,6 @@ export class ListCloudServicesComponent implements OnInit {
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
        console.log("data=",params);
-       console.log("data=",JSON.parse(params.page));
       if((Object.keys(params).length === 0 && params.constructor === Object) || JSON.parse(params.page)==null){
         this.getAllData();
 
