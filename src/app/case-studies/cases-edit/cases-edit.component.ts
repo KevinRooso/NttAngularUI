@@ -242,6 +242,8 @@ export class CasesEditComponent implements OnInit {
         this.imageValid2 = true;
         // this.preview2();
         this.result2 = this.fileData.name;
+      }else{
+        this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
   }
@@ -328,6 +330,7 @@ export class CasesEditComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted =true;
     if (this.createCases.value.tagList.length == 0) {
       this.createCases.controls['tagList'].setValidators(Validators.required);
       this.createCases.controls['tagList'].updateValueAndValidity();

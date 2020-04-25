@@ -228,6 +228,8 @@ export class ArticleEditComponent implements OnInit {
       if (fileType == 'application/pdf') {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
+      }else{
+        this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
   }
@@ -321,6 +323,7 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
     }
+    this.submitted =true;
     if (this.EditArticleForm.valid) {
       const tags: any[] = [];
       this.tagData.forEach((m) => {

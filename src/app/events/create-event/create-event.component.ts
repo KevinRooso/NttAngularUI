@@ -45,10 +45,15 @@ export class CreateEventComponent implements OnInit {
 
   color = '3';
   userList: any[] = [];
+  errorMsg1:any;
+  errorMsg2:any;
+  valuei:any;
 
   @ViewChild('closeModel', { static: true }) closeModel;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
+  @ViewChild('confirmBox', { static: true }) confirmBox;
+  @ViewChild('closeModal2', { static: true }) closeModal2;
 
   isOnPremise = false;
   isWebinar = false;
@@ -114,7 +119,7 @@ export class CreateEventComponent implements OnInit {
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       // fullName: [''],
       // name: [''],
-      isDraft: [false],
+      isDraft: [true],
       categoryTypeId: ['', Validators.required],
     });
 
@@ -390,43 +395,56 @@ export class CreateEventComponent implements OnInit {
     if (typeof minAgendaStartTime == 'string') {
       minAgendaStartTime = new Date(minAgendaStartTime);
     }
+    if(minAgendaStartTime instanceof Date){
+      minAgendaStartTime.setSeconds(0);
+      minAgendaStartTime.setMilliseconds(0);
+    }
     if (typeof maxAgendaEndTime == 'string') {
       maxAgendaEndTime = new Date(maxAgendaEndTime);
+    }
+    if(maxAgendaEndTime instanceof Date){
+      maxAgendaEndTime.setSeconds(0);
+      maxAgendaEndTime.setMilliseconds(0);
     }
     let eventStartDate = this.createEventForm.controls['startDate'].value;
     if (typeof eventStartDate == 'string') {
       eventStartDate = new Date(eventStartDate);
     }
+    if(eventStartDate instanceof Date){
+      eventStartDate.setSeconds(0);
+      eventStartDate.setMilliseconds(0);
+      // update event start daate as well to remove seconds and milis before save
+      this.createEventForm.controls['startDate'].setValue(eventStartDate);
+    }
     let eventEndDate = this.createEventForm.controls['endDate'].value;
     if (typeof eventEndDate == 'string') {
       eventEndDate = new Date(eventEndDate);
     }
+    if(eventEndDate instanceof Date){
+      eventEndDate.setSeconds(0);
+      eventEndDate.setMilliseconds(0);
+      // update event start daate as well to remove seconds and milis before save
+      this.createEventForm.controls['endDate'].setValue(eventEndDate);
+    }
 
-    eventStartDate.setSeconds(0);
-    eventStartDate.setMilliseconds(0);
 
-    // update event start daate as well to remove seconds and milis before save
-    this.createEventForm.controls['startDate'].setValue(eventStartDate);
 
-    eventEndDate.setSeconds(0);
-    eventEndDate.setMilliseconds(0);
 
-    // update event start daate as well to remove seconds and milis before save
-    this.createEventForm.controls['endDate'].setValue(eventEndDate);
 
-    minAgendaStartTime.setSeconds(0);
-    minAgendaStartTime.setMilliseconds(0);
 
-    maxAgendaEndTime.setSeconds(0);
-    maxAgendaEndTime.setMilliseconds(0);
 
-    if (minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+
+
+
+
+
+    if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       const errorMsg = 'Please select one of the agenda time equals to event start time';
-      this.snackBar.open(errorMsg, 'Close');
+     // this.snackBar.open(errorMsg, 'Close');
       return false;
-    } else if (maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+    } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
       const errorMsg = 'Please select one of the agenda time equals to event end time';
-      this.snackBar.open(errorMsg, 'Close');
+      //this.snackBar.open(errorMsg, 'Close');
       return false;
     }
 
@@ -576,6 +594,7 @@ export class CreateEventComponent implements OnInit {
       };
 
       let eventStartDate = this.createEventForm.get(['startDate']).value;
+      let eventEndDate = this.createEventForm.get(['endDate']).value;
       let agendaStartDate = obj.startDate;
       let agendaEndDate = obj.endDate;
 
@@ -589,6 +608,10 @@ export class CreateEventComponent implements OnInit {
 
       if (eventStartDate && typeof eventStartDate == 'string') {
         eventStartDate = new Date(eventStartDate);
+      }
+
+      if (eventEndDate && typeof eventEndDate == 'string') {
+        eventEndDate = new Date(eventEndDate);
       }
 
       agendaStartDate.setDate(eventStartDate.getDate());
@@ -605,6 +628,17 @@ export class CreateEventComponent implements OnInit {
 
       obj.startDate = agendaStartDate;
       obj.endDate = agendaEndDate;
+
+      if(obj.startDate.getTime() < eventStartDate.getTime()){
+        this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
+        this.snackBar.open(this.errorMsg1, 'Close');
+        return false;
+      }
+      if(obj.endDate.getTime() > eventEndDate.getTime()){
+        this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
+        this.snackBar.open(this.errorMsg2, 'Close');
+        return false;
+      }
 
       console.log('myobj', obj);
 
@@ -647,7 +681,14 @@ export class CreateEventComponent implements OnInit {
     // this.addAgenda.reset();
   }
   delete(i) {
-    this.agendaData.splice(i, 1);
+    this.valuei = i;
+    this.confirmBox.nativeElement.click();
+    //this.agendaData.splice(i, 1);
+  }
+  deleteConfirm(){
+    this.agendaData.splice(this.valuei, 1);
+    this.closeModal2.nativeElement.click();
+
   }
   // resetForm(){
   //   this.addAgenda.reset();
@@ -703,6 +744,11 @@ export class CreateEventComponent implements OnInit {
     this.regStartDate = eventStartDate;
     if (eventStartDate && typeof eventStartDate == 'string') {
       eventStartDate = new Date(eventStartDate);
+    }
+    if (eventStartDate) {
+      eventStartDate.setSeconds(0);
+      eventStartDate.setMilliseconds(0);
+      this.createEventForm.controls['startDate'].setValue(eventStartDate);
     }
 
     let eventEndDate = this.createEventForm.controls['endDate'].value;

@@ -289,14 +289,27 @@
                   <td>
                     <span *ngFor="let speaker of data.speakerList">{{ speaker.fullName }},</span>
                   </td>
+
                   <td>
+                    <button class="btn btn-warning reject mr-2" (click)="updateAgenda(i)">
+                      <span style="cursor: default; font-size: 10px;">
+                        <i class="fa fa-pencil" style="font-size: 1rem;color:white;"></i>
+                      </span>
+                    </button>
+                    <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" #confirmBox>
+                      <span  style="cursor: default; font-size: 10px;" (click)="delete(i, data)">
+                        <i class="fa fa-trash" style="font-size: 1rem;"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <!-- <td>
                     <span class="btn btn-warning reject mr-2" style="cursor: default; font-size: 10px;" (click)="updateAgenda(i)">
                       <i class="fa fa-pencil" style="font-size: 1rem;"></i>
                     </span>
                     <span class="btn btn-danger" style="cursor: default; font-size: 10px;" (click)="delete(i)">
                       <i class="fa fa-trash" style="font-size: 1rem;"></i>
                     </span>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -571,6 +584,7 @@
             <div *ngIf="checkErrorAgenda('startDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event Agenda start time is required)
             </div>
+            <!-- <p style="color: red; font-size: 12px;">{{errorMsg1}}</p> -->
           </div>
 
           <div class="form-row">
@@ -579,6 +593,7 @@
             <div *ngIf="checkErrorAgenda('endDate', 'required', true)" style="color: red; font-size: 12px;">
               (Event Agenda end time is required)
             </div>
+            <!-- <p style="color: red; font-size: 12px;">{{errorMsg2}}</p> -->
           </div>
 
           <!-- <div class="form-row">
@@ -631,4 +646,26 @@
       </div>
     </div>
   </div>
+</div>
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+			<div class="text-center" style="width:100%">
+        <h4 class="modal-title">Are you sure?</h4>
+      </div>
+      <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+			</div>
+			<div class="modal-body">
+				<p>Do you really want to delete these agenda record?</p>
+			</div>
+			<div class="modal-footer" style="justify-content: center; border: none;">
+				<button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
+				<button type="button" class="btn btn-danger" (click)="deleteConfirm()">Delete</button>
+			</div>
+		</div>
+	</div>
 </div>

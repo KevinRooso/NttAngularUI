@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateTestimonialsComponent implements OnInit {
   speakerImage = '';
+  buttonText: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,8 +77,10 @@ export class CreateTestimonialsComponent implements OnInit {
       if (this.resourceId != undefined) {
         this.getResourceData();
         this.title = 'Edit Testimonial';
+        this.buttonText = 'Update Details';
       } else {
         this.title = 'Create Testimonial';
+        this.buttonText = 'Submit Details';
         this.getUserList();
       }
     });
@@ -278,6 +281,7 @@ export class CreateTestimonialsComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted = true;
     if (this.createVideoForm.valid) {
       this.show = true;
       const obj = this.createVideoForm.value;

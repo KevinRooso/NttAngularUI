@@ -30,9 +30,11 @@ export class EventPreviewComponent implements OnInit {
   publishedList: any[] = [];
   activeList: any[] = [];
   draftList: any[] = [];
+  expiredList:any[]=[];
   publishedList1: any[] = [];
   activeList1: any[] = [];
   draftList1: any[] = [];
+  expiredList1:any[]=[];
 
   sort = 'desc?cdate';
   startDate = new Date();
@@ -97,17 +99,22 @@ export class EventPreviewComponent implements OnInit {
       });
 
       this.publishedList = this.getEventData.filter((m) => {
-        return m.publish;
+        return m.publish && m.active && !m.draft && !m.expired ;
       });
       this.publishedList1 = this.publishedList;
       this.activeList = this.getEventData.filter((m) => {
-        return !m.publish && m.active;
+        return !m.publish && m.active && !m.draft && !m.expired;
       });
       this.activeList1 = this.activeList;
       this.draftList = this.getEventData.filter((m) => {
-        return !m.publish && !m.active && (m.draft || !m.draft);
+        // return !m.publish && !m.active && (m.draft || !m.draft);
+        return !m.publish && !m.active && m.draft && !m.expired;
       });
       this.draftList1 = this.draftList;
+      this.expiredList = this.getEventData.filter((m) => {
+        return  m.expired ;
+      });
+      this.expiredList1 = this.expiredList;
     });
   }
   getTagsDetails() {
@@ -173,11 +180,17 @@ export class EventPreviewComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
+    this.expiredList = this.expiredList.filter((m) => {
+      // return m.title.includes(this.searchBlog);
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
   }
   cancel() {
     this.publishedList = this.publishedList1;
     this.activeList = this.activeList1;
     this.draftList = this.draftList1;
+    this.expiredList=this.expiredList1;
   }
   emitValue() {
     const date1 = this.advanceFilterForm.get(['registrationStartDate']).value;
@@ -206,12 +219,14 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
         this.activeList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
         this.draftList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
+        this.expiredList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
         // this.filterBlogs=this.searchFilterData;
       } else {
         // this.searchFilterData.sort((a,b) => b.title.trim().localeCompare(a.title.trim()));
         this.publishedList.sort((a, b) => b.title.trim().localeCompare(a.title.trim()));
         this.activeList.sort((a, b) => b.title.trim().localeCompare(a.title.trim()));
         this.draftList.sort((a, b) => b.title.trim().localeCompare(a.title.trim()));
+        this.expiredList.sort((a, b) => b.title.trim().localeCompare(a.title.trim()));
         // this.filterBlogs=this.searchFilterData;
       }
     }
@@ -224,6 +239,7 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort(this.GFG_sortFunction);
         this.activeList.sort(this.GFG_sortFunction);
         this.draftList.sort(this.GFG_sortFunction);
+        this.expiredList.sort(this.GFG_sortFunction);
 
         // console.log("dateaftersort==",this.searchFilterData);
 
@@ -235,6 +251,7 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort(this.GFG_sortFunction1);
         this.activeList.sort(this.GFG_sortFunction1);
         this.draftList.sort(this.GFG_sortFunction1);
+        this.expiredList.sort(this.GFG_sortFunction1);
       }
     }
     if (data[1] == 'cdate') {

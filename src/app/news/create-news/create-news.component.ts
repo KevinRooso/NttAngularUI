@@ -150,6 +150,7 @@ export class CreateNewsComponent implements OnInit {
   }
   generateNews() {
     this.show = true;
+    this.submitted = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload news Image', 'Close', { duration: 5000 });
       this.show = false;

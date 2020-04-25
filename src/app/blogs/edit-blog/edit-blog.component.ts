@@ -389,6 +389,7 @@ export class EditBlogComponent implements OnInit {
       this.createBlogForm.controls['tagList'].setValidators(Validators.required);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
+    this.submitted =true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;
       console.log('tags=', obj.tagList);

@@ -173,6 +173,8 @@ export class WhitepaperEditComponent implements OnInit {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
         // this.preview2();
+      }else{
+        this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
     //     const reader = new FileReader();
@@ -325,6 +327,7 @@ export class WhitepaperEditComponent implements OnInit {
       this.show = false;
       return false;
     }
+    this.submitted = true;
     if (this.updateWhitePaperForm.value.tagList.length == 0) {
       this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
