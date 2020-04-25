@@ -180,10 +180,6 @@ export class AuthServiceService {
   savePublish(id,flag):Observable<any>{
     return this.http.put<any>(this.url+'api/admin/event/publish/'+id+'/'+flag,null, {headers:this.headers});
   }
-  saveActive(id,flag):Observable<any>{
-    return this.http.put<any>(this.url+'api/admin/event/active/'+id+'/'+flag,null, {headers:this.headers});
-  }
-
   //Dashboad-charts
 
   getUserDevices():Observable<any>{

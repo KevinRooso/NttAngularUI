@@ -19,7 +19,9 @@ export class EventDetailsComponent implements OnInit {
     private router1: ActivatedRoute,
     private location: Location,
     private commonService: CommonServiceService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+
+
   ) {}
   getEventDetails: any = [];
   // htmlString = '<h1>Dheeraj Kishore<h1>';
@@ -31,6 +33,7 @@ export class EventDetailsComponent implements OnInit {
   show = false;
   speakers: any[] = [];
   speakerList: any[] = [];
+  getEventStatusdata:any;
   @ViewChild('menumat') trigger: MatMenuTrigger;
   fabButtons = [
     {
@@ -45,7 +48,7 @@ export class EventDetailsComponent implements OnInit {
   buttons = [];
   fabTogglerState = 'inactive';
   isPublish = false;
-  isActive = false;
+  // isActive = false;
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
@@ -53,6 +56,7 @@ export class EventDetailsComponent implements OnInit {
       this.eventId = params.page;
       this.getEventData(params.page);
       this.getEventParticipant(params.page);
+      // this.getEventStatus();
     });
   }
   openMenu() {
@@ -76,7 +80,7 @@ export class EventDetailsComponent implements OnInit {
         this.endTime = this.commonService.getDateTime(objs.max);
       }
       this.isPublish = this.getEventDetails.isPublish;
-      this.isActive = this.getEventDetails.isActive;
+      // this.isActive = this.getEventDetails.isActive;
       console.log('eventschedule==', this.getEventDetails);
       if (this.getEventDetails.eventSchedule != null) {
         this.getEventDetails.eventSchedule.forEach((m) => {
@@ -202,20 +206,11 @@ export class EventDetailsComponent implements OnInit {
           this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
         }
       }
+
     );
   }
-  activeChange() {
-    this.authService.saveActive(this.eventId, this.isActive).subscribe(
-      (res) => {
-        this.snackBar.open('SUCCESS!!', 'Close', { duration: 5000 });
-      },
-      (error) => {
-        console.log(error);
-        this.isActive = !this.isActive;
-        if (error.status == '403') {
-          this.snackBar.open('You do not have the permission to Active or DeActive it', 'Close', { duration: 5000 });
-        }
-      }
-    );
-  }
+
+
+
+
 }

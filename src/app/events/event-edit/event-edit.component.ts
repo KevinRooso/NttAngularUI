@@ -159,7 +159,6 @@ export class EventEditComponent implements OnInit {
       isBreak: [''],
       idData: ['-1'],
       id: ['0'],
-      isActive: [false],
     });
     console.log('validation chcek=', this.updateEventForm.controls['thumbnailImageUrl'].valid);
   }

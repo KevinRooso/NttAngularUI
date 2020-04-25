@@ -100,10 +100,19 @@
           <div class="card-body">
             <div class="form-row">
               <label class="col-sm-2 col-form-label">Publish:</label>
-              <mat-slide-toggle class="example-full-width col-sm-3" (change)="publishChanges()" [(ngModel)]="isPublish"> </mat-slide-toggle>
+              <mat-slide-toggle class="example-full-width col-sm-3"  (change)="publishChanges()" [(ngModel)]="isPublish">
 
-              <label class="col-sm-2 col-form-label">Active:</label>
-              <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"> </mat-slide-toggle>
+              </mat-slide-toggle>
+
+              <!-- <label class="col-sm-2 col-form-label">Status</label> -->
+              <p class="card-text mb-0" style="font-weight: 500;">
+                <span style="font-weight: 500;">Status - </span><span class="tags" >{{ getEventDetails.eventStatus }}</span>
+              </p>
+              <!-- <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"> </mat-slide-toggle> -->
+              <!-- <p class="card-text mb-0" style="font-weight: 500;">
+                Event Status
+                <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
+              </p> -->
             </div>
           </div>
         </div>
