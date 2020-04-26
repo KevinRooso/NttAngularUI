@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, InjectionToken } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
 import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
@@ -88,6 +88,9 @@ import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component'
 import { CKEditorModule } from 'ckeditor4-angular';
 import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
 import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
+import { HttpErrorInterceptor } from '../services/http-error.interceptor';
+import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
+import { RollbarService, RollbarFactory } from '../config/rollbar.config'
 
 @NgModule({
   declarations: [
@@ -181,7 +184,20 @@ import { CreateFormComponent } from './cloud-services/create-form/create-form.co
     CKEditorModule,
     MatTooltipModule,
   ],
-  providers: [HttpClientModule],
-  bootstrap: [AppComponent],
+  providers: [
+    HttpClientModule,
+    {
+      provide: RollbarService,
+      useFactory: RollbarFactory
+    },{
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },{
+      provide: ErrorHandler,
+      useClass: RollbarErrorHandlerService
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
