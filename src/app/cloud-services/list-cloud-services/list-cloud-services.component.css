@@ -1,28 +1,29 @@
 .cloud-card {
   background-color: blue;
-  width: 300px;
-  height:300px;
+  height: 300px;
+  text-align: center;
   top: 86px;
- text-align:center;
+  width: 300px;
 }
-.mat-card-image  {
 
-    position: absolute;
-    top: 86px;
-    left: 86px;
-    right: 15px;
-    bottom: 15px;
-    max-width: 150px;
-    min-width: 150px;
-
+.mat-card-image {
+  bottom: 15px;
+  left: 86px;
+  max-width: 150px;
+  min-width: 150px;
+  position: absolute;
+  right: 15px;
+  top: 86px;
 }
-.btn{
+
+.btn {
   border-radius: 20px !important;
 }
-.btn-class{
-  position: absolute;
-  left: 255px;
+
+.btn-class {
+  background-color: blue;
   border-radius: 50%;
-  background-color:blue;
   color: white;
+  left: 255px;
+  position: absolute;
 }

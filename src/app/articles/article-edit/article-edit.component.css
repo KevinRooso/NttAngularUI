@@ -91,14 +91,17 @@ textarea {
 .error {
   color: red;
 }
-input[type=file]{
-  color:transparent;
+
+input[type=file] {
+  color: transparent;
 }
-.filetypewidth{
+
+.filetypewidth {
   max-width: 12%;
 }
+
 @media (min-width: 768px) and (max-width: 1199.98px) {
-  .filetypewidth{
+  .filetypewidth {
     max-width: 16%;
   }
- }
+}
