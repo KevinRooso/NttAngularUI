@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
       $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
 
       // Treating d-flex/d-none on separators with title
-      let SeparatorTitle = $('.sidebar-separator-title');
+      const SeparatorTitle = $('.sidebar-separator-title');
       if (SeparatorTitle.hasClass('d-flex')) {
         SeparatorTitle.removeClass('d-flex');
       } else {

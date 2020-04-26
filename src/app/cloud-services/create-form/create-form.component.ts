@@ -39,7 +39,7 @@ export class CreateFormComponent implements OnInit {
     parent:any=null;
     parentId=0;
     bradArray:any[]=[]
-    changeFlag:boolean=false;
+    changeFlag=false;
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
       displayName: ['', Validators.required],
@@ -60,13 +60,14 @@ export class CreateFormComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-      console.log("data=",params);
-      console.log("data=",JSON.parse(params.page1));
+      console.log('data=',params);
+      console.log('data=',JSON.parse(params.page1));
 
       if(params!=null){
         this.parent=JSON.parse(params.page);
-        if(this.parent !=null)
+        if(this.parent !=null) {
         this.parentId=this.parent.id;
+        }
         this.bradArray=JSON.parse(params.page1);
         this.editData=JSON.parse(params.page2);
         if(this.editData!=null){
@@ -235,37 +236,37 @@ export class CreateFormComponent implements OnInit {
     this.changeFlag=!this.changeFlag;
   }
   submit(){
-    let formObject = this.productServicesForm.value;
+    const formObject = this.productServicesForm.value;
     formObject.thumbnailImage= this.articleImage;
     formObject.largeImage=this.attachFile;
     if(this.editData!=null){
       formObject.id=this.editData.id;
     }
     formObject.parentId=this.parentId;
-    console.log("postobj=",formObject);
+    console.log('postobj=',formObject);
     this.authService.createProductAndService(formObject).subscribe(res=>{
-      console.log("res=",res);
+      console.log('res=',res);
       this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
       });
-      console.log("obj=",this.parent);
-      let obj={
-        'page':JSON.stringify(this.parent),
-            'page1':JSON.stringify(this.bradArray)
+      console.log('obj=',this.parent);
+      const obj={
+        page:JSON.stringify(this.parent),
+            page1:JSON.stringify(this.bradArray)
       }
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: obj
   };
   this.router.navigate(['cloud-service'], navigationExtras);
     })
   }
   sendPage(data){
-    console.log("obj=",data);
-      let obj={
-        'page':JSON.stringify(data),
-            'page1':JSON.stringify(this.bradArray)
+    console.log('obj=',data);
+      const obj={
+        page:JSON.stringify(data),
+            page1:JSON.stringify(this.bradArray)
       }
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: obj
   };
   this.router.navigate(['cloud-service'], navigationExtras);

@@ -589,11 +589,11 @@ export class EventEditComponent implements OnInit {
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       const errorMsg = 'Please select one of the agenda time equals to event start time';
-      //this.snackBar.open(errorMsg, 'Close');
+      // this.snackBar.open(errorMsg, 'Close');
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
       const errorMsg = 'Please select one of the agenda time equals to event end time';
-      //this.snackBar.open(errorMsg, 'Close');
+      // this.snackBar.open(errorMsg, 'Close');
       return false;
     }
 
@@ -857,7 +857,7 @@ export class EventEditComponent implements OnInit {
   }
 
   deleteConfirm(){
-    console.log("valuedata", this.valueData);
+    console.log('valuedata', this.valueData);
     this.authService.removeEventSchedule(this.valueData.id).subscribe((res) => {
       console.log('deleted', res);
       this.agendaData.splice(this.valuei, 1);

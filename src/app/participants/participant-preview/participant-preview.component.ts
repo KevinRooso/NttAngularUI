@@ -79,7 +79,7 @@ export class ParticipantPreviewComponent {
 
         {
           title: 'Status',
-          defaultContent: "<span  ' class='badge showIdButton' >Approved</span>",
+          defaultContent: '<span  \' class=\'badge showIdButton\' >Approved</span>',
         },
 
         {
@@ -87,8 +87,8 @@ export class ParticipantPreviewComponent {
           // defaultContent: "<span   class='btn btn-danger approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
           // +"&nbsp;<span  class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' >Reject</span>"
           defaultContent:
-            "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>" +
-            "&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>",
+            '<div class=\'mydiv\' style=\'width: 85px\'><span   class=\'btn btn-success approve\' style=\'cursor: pointer;font-size: 10px;\' ><i class=\'fa fa-check\' style=\'font-size: 1rem;\'></i></span>' +
+            '&nbsp;<span   class=\'btn btn-danger reject\' style=\'cursor: pointer;font-size: 10px;\' ><i class=\'fa fa-close\' style=\'font-size: 1rem;\'></i></span></div>',
         },
       ],
       rowCallback: (row: Node, data: any[] | Object, index: number) => {

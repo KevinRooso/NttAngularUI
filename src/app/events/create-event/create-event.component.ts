@@ -444,7 +444,7 @@ export class CreateEventComponent implements OnInit {
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
       const errorMsg = 'Please select one of the agenda time equals to event end time';
-      //this.snackBar.open(errorMsg, 'Close');
+      // this.snackBar.open(errorMsg, 'Close');
       return false;
     }
 
@@ -683,7 +683,7 @@ export class CreateEventComponent implements OnInit {
   delete(i) {
     this.valuei = i;
     this.confirmBox.nativeElement.click();
-    //this.agendaData.splice(i, 1);
+    // this.agendaData.splice(i, 1);
   }
   deleteConfirm(){
     this.agendaData.splice(this.valuei, 1);
