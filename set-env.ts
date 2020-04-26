@@ -15,6 +15,9 @@ let CONFIG: object = {
   LOG_LEVEL: 'debug',
   PROD: false,
   API_ENDPOINT: '',
+  NODE_ENV: '',
+  ROLLBAR_ACCESS_TOKEN: '',
+  ROLLBAR_ENABLE: false
 };
 
 // Configure Angular `environment.ts` file path
@@ -23,24 +26,32 @@ let ENV = process.env.NODE_ENV || 'development';
 switch (ENV) {
   case 'development':
     targetPath = './src/environments/environment.dev.ts';
-    CONFIG['LOG_ENABLE'] = true;
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-dev-app.herokuapp.com/';
+    CONFIG['LOG_ENABLE'] = true;
+    CONFIG['LOG_LEVEL'] = 'debug';
+    CONFIG['ROLLBAR_ENABLE'] = false;
     break;
   case 'test':
     targetPath = './src/environments/environment.testing.ts';
-    CONFIG['LOG_ENABLE'] = true;
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-testing-app.herokuapp.com/';
+    CONFIG['LOG_ENABLE'] = true;
+    CONFIG['LOG_LEVEL'] = 'debug';
+    CONFIG['ROLLBAR_ENABLE'] = false;
     break;
   case 'staging':
     targetPath = './src/environments/environment.stage.ts';
-    CONFIG['LOG_ENABLE'] = true;
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-stage-app.herokuapp.com/';
+    CONFIG['LOG_ENABLE'] = true;
+    CONFIG['LOG_LEVEL'] = 'debug';
+    CONFIG['ROLLBAR_ENABLE'] = true;
     break;
   case 'production':
     targetPath = './src/environments/environment.prod.ts';
-    CONFIG['LOG_ENABLE'] = false;
     CONFIG['PROD'] = true;
     CONFIG['API_ENDPOINT'] = '';
+    CONFIG['LOG_ENABLE'] = true;
+    CONFIG['LOG_LEVEL'] = 'error';
+    CONFIG['ROLLBAR_ENABLE'] = true;
     break;
   default:
     targetPath = './src/environments/environment.ts';
