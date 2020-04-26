@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "prre-commit": "pretty-quick --staged && ng lint"
+      "pre-commit": "pretty-quick --staged && ng lint"
     }
   },
   "private": true,
