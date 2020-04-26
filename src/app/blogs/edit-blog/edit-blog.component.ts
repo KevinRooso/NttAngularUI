@@ -136,8 +136,6 @@ export class EditBlogComponent implements OnInit {
   getBlogData(id) {
     this.show = true;
 
-
-
     const promise = this.service.getBlogById(id).toPromise();
     console.log('promisee===', promise);
     promise.then(
@@ -389,7 +387,7 @@ export class EditBlogComponent implements OnInit {
       this.createBlogForm.controls['tagList'].setValidators(Validators.required);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
-    this.submitted =true;
+    this.submitted = true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;
       console.log('tags=', obj.tagList);

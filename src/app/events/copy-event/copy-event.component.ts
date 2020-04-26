@@ -68,11 +68,11 @@ export class CopyEventComponent implements OnInit {
   result1: string;
   result2: string;
 
-  errorMsg1:any;
-  errorMsg2:any;
+  errorMsg1: any;
+  errorMsg2: any;
 
-  valuei:any;
-  valueData:any;
+  valuei: any;
+  valueData: any;
 
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel', { static: true }) closeModel;
@@ -564,7 +564,7 @@ export class CopyEventComponent implements OnInit {
       minAgendaStartTime = new Date(minAgendaStartTime);
     }
 
-    if(minAgendaStartTime instanceof Date){
+    if (minAgendaStartTime instanceof Date) {
       minAgendaStartTime.setSeconds(0);
       minAgendaStartTime.setMilliseconds(0);
     }
@@ -573,7 +573,7 @@ export class CopyEventComponent implements OnInit {
       maxAgendaEndTime = new Date(maxAgendaEndTime);
     }
 
-    if(maxAgendaEndTime instanceof Date){
+    if (maxAgendaEndTime instanceof Date) {
       maxAgendaEndTime.setSeconds(0);
       maxAgendaEndTime.setMilliseconds(0);
     }
@@ -583,7 +583,7 @@ export class CopyEventComponent implements OnInit {
       eventStartDate = new Date(eventStartDate);
     }
 
-    if(eventStartDate instanceof Date){
+    if (eventStartDate instanceof Date) {
       eventStartDate.setSeconds(0);
       eventStartDate.setMilliseconds(0);
       // update event start daate as well to remove seconds and milis before save
@@ -595,7 +595,7 @@ export class CopyEventComponent implements OnInit {
       eventEndDate = new Date(eventEndDate);
     }
 
-    if(eventEndDate instanceof Date){
+    if (eventEndDate instanceof Date) {
       eventEndDate.setSeconds(0);
       eventEndDate.setMilliseconds(0);
       // update event start daate as well to remove seconds and milis before save
@@ -629,7 +629,6 @@ export class CopyEventComponent implements OnInit {
       // this.snackBar.open(errorMsg, 'Close');
       return false;
     }
-
 
     if (this.updateEventForm.value.tagList.length == 0) {
       this.updateEventForm.controls['tagList'].setValidators(Validators.required);
@@ -823,12 +822,12 @@ export class CopyEventComponent implements OnInit {
       obj.startDate = agendaStartDate;
       obj.endDate = agendaEndDate;
 
-      if(obj.startDate.getTime() < eventStartDate.getTime()){
+      if (obj.startDate.getTime() < eventStartDate.getTime()) {
         this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
         this.snackBar.open(this.errorMsg1, 'Close');
         return false;
       }
-      if(obj.endDate.getTime() > eventEndDate.getTime()){
+      if (obj.endDate.getTime() > eventEndDate.getTime()) {
         this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
         this.snackBar.open(this.errorMsg2, 'Close');
         return false;
@@ -862,10 +861,9 @@ export class CopyEventComponent implements OnInit {
     this.valuei = i;
     this.valueData = data;
     this.confirmBox.nativeElement.click();
-
   }
 
-  deleteConfirm(){
+  deleteConfirm() {
     console.log('valuedata', this.valueData);
     this.authService.removeEventSchedule(this.valueData.id).subscribe((res) => {
       console.log('deleted', res);

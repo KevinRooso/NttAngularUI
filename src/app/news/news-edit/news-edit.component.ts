@@ -152,7 +152,6 @@ export class NewsEditComponent implements OnInit {
         }
       }, 2000);
     };
-
   }
   preview() {
     const mimeType = this.fileData.type;

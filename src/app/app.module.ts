@@ -47,7 +47,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 
-
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -90,7 +89,7 @@ import { ListCloudServicesComponent } from './cloud-services/list-cloud-services
 import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
 import { HttpErrorInterceptor } from '../services/http-error.interceptor';
 import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
-import { RollbarService, RollbarFactory } from '../config/rollbar.config'
+import { RollbarService, RollbarFactory } from '../config/rollbar.config';
 
 @NgModule({
   declarations: [
@@ -188,16 +187,18 @@ import { RollbarService, RollbarFactory } from '../config/rollbar.config'
     HttpClientModule,
     {
       provide: RollbarService,
-      useFactory: RollbarFactory
-    },{
+      useFactory: RollbarFactory,
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
-      multi: true
-    },{
+      multi: true,
+    },
+    {
       provide: ErrorHandler,
-      useClass: RollbarErrorHandlerService
-    }
+      useClass: RollbarErrorHandlerService,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

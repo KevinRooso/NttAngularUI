@@ -134,16 +134,17 @@
           </div>
         </div> -->
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Image <span class="error">*</span>
+          <label class="col-sm-3 col-form-label"
+            >Image <span class="error">*</span>
             <i
-            class="fa fa-info-circle"
-            aria-hidden="true"
-            matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
-            matTooltipPosition="right"
-            matTooltipClass="custom-tooltip"
-            style="font-size: 18px;"
-          >
-          </i>
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
           </label>
           <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />

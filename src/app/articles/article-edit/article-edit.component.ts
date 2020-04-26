@@ -122,7 +122,7 @@ export class ArticleEditComponent implements OnInit {
 
       const url2 = this.articleData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
-      console.log('Image Name', this.result2)
+      console.log('Image Name', this.result2);
 
       this.selected3 = res.body.targetUserType.id;
       console.log('Data', this.selected3);
@@ -211,7 +211,6 @@ export class ArticleEditComponent implements OnInit {
         }
       }, 2000);
     };
-
   }
   fileProgress2(fileInput: any) {
     this.image2button = false;
@@ -228,7 +227,7 @@ export class ArticleEditComponent implements OnInit {
       if (fileType == 'application/pdf') {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
-      }else{
+      } else {
         this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
@@ -323,7 +322,7 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
     }
-    this.submitted =true;
+    this.submitted = true;
     if (this.EditArticleForm.valid) {
       const tags: any[] = [];
       this.tagData.forEach((m) => {

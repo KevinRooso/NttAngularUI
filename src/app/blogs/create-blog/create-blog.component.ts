@@ -289,7 +289,7 @@ export class CreateBlogComponent implements OnInit {
   }
   generateBlog() {
     this.show = true;
-    this.submitted =true;
+    this.submitted = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload Blog Image', 'Close', {
         duration: 5000,
@@ -298,7 +298,7 @@ export class CreateBlogComponent implements OnInit {
       return false;
     }
     const obj = this.createBlogForm.value;
-    this.submitted =true;
+    this.submitted = true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;
 

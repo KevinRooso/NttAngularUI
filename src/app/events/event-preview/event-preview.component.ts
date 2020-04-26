@@ -30,11 +30,11 @@ export class EventPreviewComponent implements OnInit {
   publishedList: any[] = [];
   activeList: any[] = [];
   draftList: any[] = [];
-  expiredList:any[]=[];
+  expiredList: any[] = [];
   publishedList1: any[] = [];
   activeList1: any[] = [];
   draftList1: any[] = [];
-  expiredList1:any[]=[];
+  expiredList1: any[] = [];
 
   sort = 'desc?cdate';
   startDate = new Date();
@@ -99,7 +99,7 @@ export class EventPreviewComponent implements OnInit {
       });
 
       this.publishedList = this.getEventData.filter((m) => {
-        return m.publish && m.active && !m.draft && !m.expired ;
+        return m.publish && m.active && !m.draft && !m.expired;
       });
       this.publishedList1 = this.publishedList;
       this.activeList = this.getEventData.filter((m) => {
@@ -112,7 +112,7 @@ export class EventPreviewComponent implements OnInit {
       });
       this.draftList1 = this.draftList;
       this.expiredList = this.getEventData.filter((m) => {
-        return  m.expired ;
+        return m.expired;
       });
       this.expiredList1 = this.expiredList;
     });
@@ -190,7 +190,7 @@ export class EventPreviewComponent implements OnInit {
     this.publishedList = this.publishedList1;
     this.activeList = this.activeList1;
     this.draftList = this.draftList1;
-    this.expiredList=this.expiredList1;
+    this.expiredList = this.expiredList1;
   }
   emitValue() {
     const date1 = this.advanceFilterForm.get(['registrationStartDate']).value;

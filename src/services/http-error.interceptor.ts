@@ -1,18 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
 import { retry, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-
   rollbarService: RollbarErrorHandlerService;
 
   constructor(private injector: Injector) {
@@ -35,6 +28,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         this.rollbarService.handleError(new Error(error.message));
         return throwError(errorMessage);
       })
-    )
+    );
   }
 }

@@ -7,18 +7,19 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 @Component({
   selector: 'app-create-form',
   templateUrl: './create-form.component.html',
-  styleUrls: ['./create-form.component.css']
+  styleUrls: ['./create-form.component.css'],
 })
 export class CreateFormComponent implements OnInit {
-
-  constructor(  private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthServiceService,
     public snackBar: MatSnackBar,
-    private router1:ActivatedRoute) { }
+    private router1: ActivatedRoute
+  ) {}
 
   show = false;
-   productServicesForm: FormGroup;
+  productServicesForm: FormGroup;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -35,20 +36,20 @@ export class CreateFormComponent implements OnInit {
 
   image1button = false;
   image2button = false;
-  editData:any=null;
-    parent:any=null;
-    parentId=0;
-    bradArray:any[]=[]
-    changeFlag=false;
+  editData: any = null;
+  parent: any = null;
+  parentId = 0;
+  bradArray: any[] = [];
+  changeFlag = false;
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       isCategory: [false],
-      shortDescription:[''],
-      shortInformation:[''],
-      longDescription:[''],
+      shortDescription: [''],
+      shortInformation: [''],
+      longDescription: [''],
       thumbnailImage: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      largeImage: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]]
+      largeImage: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -60,31 +61,29 @@ export class CreateFormComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-      console.log('data=',params);
-      console.log('data=',JSON.parse(params.page1));
+      console.log('data=', params);
+      console.log('data=', JSON.parse(params.page1));
 
-      if(params!=null){
-        this.parent=JSON.parse(params.page);
-        if(this.parent !=null) {
-        this.parentId=this.parent.id;
+      if (params != null) {
+        this.parent = JSON.parse(params.page);
+        if (this.parent != null) {
+          this.parentId = this.parent.id;
         }
-        this.bradArray=JSON.parse(params.page1);
-        this.editData=JSON.parse(params.page2);
-        if(this.editData!=null){
+        this.bradArray = JSON.parse(params.page1);
+        this.editData = JSON.parse(params.page2);
+        if (this.editData != null) {
           this.productServicesForm.controls['displayName'].setValue(this.editData.displayName);
           this.productServicesForm.controls['isCategory'].setValue(this.editData.isCategory);
           this.productServicesForm.controls['shortDescription'].setValue(this.editData.shortDescription);
           this.productServicesForm.controls['shortInformation'].setValue(this.editData.shortInformation);
           this.productServicesForm.controls['longDescription'].setValue(this.editData.longDescription);
-          this.changeFlag=this.editData.isLastService;
+          this.changeFlag = this.editData.isLastService;
           this.previewUrl = this.editData.thumbnailImage;
           this.attachUrl = this.editData.largeImage;
           this.articleImage = this.editData.thumbnailImage;
           this.attachFile = this.editData.largeImage;
-
         }
       }
-
     });
   }
 
@@ -232,43 +231,43 @@ export class CreateFormComponent implements OnInit {
       }
     );
   }
-  lastServiceChange(){
-    this.changeFlag=!this.changeFlag;
+  lastServiceChange() {
+    this.changeFlag = !this.changeFlag;
   }
-  submit(){
+  submit() {
     const formObject = this.productServicesForm.value;
-    formObject.thumbnailImage= this.articleImage;
-    formObject.largeImage=this.attachFile;
-    if(this.editData!=null){
-      formObject.id=this.editData.id;
+    formObject.thumbnailImage = this.articleImage;
+    formObject.largeImage = this.attachFile;
+    if (this.editData != null) {
+      formObject.id = this.editData.id;
     }
-    formObject.parentId=this.parentId;
-    console.log('postobj=',formObject);
-    this.authService.createProductAndService(formObject).subscribe(res=>{
-      console.log('res=',res);
+    formObject.parentId = this.parentId;
+    console.log('postobj=', formObject);
+    this.authService.createProductAndService(formObject).subscribe((res) => {
+      console.log('res=', res);
       this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
       });
-      console.log('obj=',this.parent);
-      const obj={
-        page:JSON.stringify(this.parent),
-            page1:JSON.stringify(this.bradArray)
-      }
-    const navigationExtras: NavigationExtras = {
-      queryParams: obj
-  };
-  this.router.navigate(['cloud-service'], navigationExtras);
-    })
+      console.log('obj=', this.parent);
+      const obj = {
+        page: JSON.stringify(this.parent),
+        page1: JSON.stringify(this.bradArray),
+      };
+      const navigationExtras: NavigationExtras = {
+        queryParams: obj,
+      };
+      this.router.navigate(['cloud-service'], navigationExtras);
+    });
   }
-  sendPage(data){
-    console.log('obj=',data);
-      const obj={
-        page:JSON.stringify(data),
-            page1:JSON.stringify(this.bradArray)
-      }
+  sendPage(data) {
+    console.log('obj=', data);
+    const obj = {
+      page: JSON.stringify(data),
+      page1: JSON.stringify(this.bradArray),
+    };
     const navigationExtras: NavigationExtras = {
-      queryParams: obj
-  };
-  this.router.navigate(['cloud-service'], navigationExtras);
+      queryParams: obj,
+    };
+    this.router.navigate(['cloud-service'], navigationExtras);
   }
 }

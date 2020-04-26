@@ -246,12 +246,12 @@
                   <td>
                     <button class="btn btn-warning reject mr-2" (click)="updateAgenda(i)">
                       <span style="cursor: default; font-size: 10px;">
-                        <i class="fa fa-pencil" style="font-size: 1rem;color:white;"></i>
+                        <i class="fa fa-pencil" style="font-size: 1rem; color: white;"></i>
                       </span>
                     </button>
                     <!-- (click)="delete(i)" -->
                     <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" #confirmBox>
-                      <span  style="cursor: default; font-size: 10px;" (click)="delete(i)">
+                      <span style="cursor: default; font-size: 10px;" (click)="delete(i)">
                         <i class="fa fa-trash" style="font-size: 1rem;"></i>
                       </span>
                     </button>
@@ -560,23 +560,23 @@
 </div>
 <!-- Modal HTML -->
 <div id="myModal" class="modal fade">
-	<div class="modal-dialog modal-confirm">
-		<div class="modal-content">
-			<div class="modal-header">
-			<div class="text-center" style="width:100%">
-        <h4 class="modal-title">Are you sure?</h4>
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-			</div>
-			<div class="modal-body">
-				<p>Do you really want to delete these agenda record?</p>
-			</div>
-			<div class="modal-footer" style="justify-content: center; border: none;">
-				<button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
-				<button type="button" class="btn btn-danger" (click)="deleteConfirm()">Delete</button>
-			</div>
-		</div>
-	</div>
+      <div class="modal-body">
+        <p>Do you really want to delete these agenda record?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteConfirm()">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>

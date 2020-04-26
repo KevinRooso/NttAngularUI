@@ -173,7 +173,7 @@ export class WhitepaperEditComponent implements OnInit {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
         // this.preview2();
-      }else{
+      } else {
         this.snackBar.open('Please upload PDF attachment only', 'Close', { duration: 5000 });
       }
     }
@@ -273,8 +273,6 @@ export class WhitepaperEditComponent implements OnInit {
       const url2 = this.wPaperData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
       console.log('Image Name', this.result2);
-
-
 
       // this.selected3=res.body.person.id;
       for (let i = 0; i < res.body.resourceTags.length; i++) {

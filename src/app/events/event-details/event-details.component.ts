@@ -19,9 +19,7 @@ export class EventDetailsComponent implements OnInit {
     private router1: ActivatedRoute,
     private location: Location,
     private commonService: CommonServiceService,
-    public snackBar: MatSnackBar,
-
-
+    public snackBar: MatSnackBar
   ) {}
   getEventDetails: any = [];
   // htmlString = '<h1>Dheeraj Kishore<h1>';
@@ -33,7 +31,7 @@ export class EventDetailsComponent implements OnInit {
   show = false;
   speakers: any[] = [];
   speakerList: any[] = [];
-  getEventStatusdata:any;
+  getEventStatusdata: any;
   @ViewChild('menumat') trigger: MatMenuTrigger;
   fabButtons = [
     {
@@ -206,11 +204,6 @@ export class EventDetailsComponent implements OnInit {
           this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
         }
       }
-
     );
   }
-
-
-
-
 }

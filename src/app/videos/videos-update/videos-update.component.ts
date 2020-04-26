@@ -195,7 +195,6 @@ export class VideosUpdateComponent implements OnInit {
         }
       }, 2000);
     };
-
   }
   preview() {
     // Show preview

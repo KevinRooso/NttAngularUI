@@ -68,7 +68,7 @@ input.ng-invalid.ng-touched {
   color: red;
 }
 
-input[type=file] {
+input[type='file'] {
   color: transparent;
 }
 

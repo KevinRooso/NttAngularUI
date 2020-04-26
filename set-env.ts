@@ -4,7 +4,7 @@ import { writeFile } from 'fs';
 if (process && process.env && !process.env.NODE_ENV) {
   try {
     require('dotenv').config({ path: '.env.local' });
-  } catch(ex){
+  } catch (ex) {
     console.log('.env.local file not found');
     console.log(ex);
   }
@@ -17,7 +17,7 @@ let CONFIG: object = {
   API_ENDPOINT: '',
   NODE_ENV: '',
   ROLLBAR_ACCESS_TOKEN: '',
-  ROLLBAR_ENABLE: false
+  ROLLBAR_ENABLE: false,
 };
 
 // Configure Angular `environment.ts` file path

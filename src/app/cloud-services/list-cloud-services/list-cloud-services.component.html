@@ -1,75 +1,68 @@
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a (click)="getAllData()">Product and Services</a></li>
-     <ng-container *ngFor="let data of bradArray">
-      <li><a (click)="getDetailData(data)">{{data.displayName}}</a></li>
-     </ng-container>
+    <li><a href="/home">Home</a></li>
+    <li><a (click)="getAllData()">Product and Services</a></li>
+    <ng-container *ngFor="let data of bradArray">
+      <li>
+        <a (click)="getDetailData(data)">{{ data.displayName }}</a>
+      </li>
+    </ng-container>
   </ul>
 </div>
 
 <ng-container *ngIf="!detailPage">
-<section class="section-tours" >
-
-  <div class="row" style="padding: .5rem 1rem; ">
-    <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" (click)="getDetailData(data)">
-
-      <div class="px-2" style="align-content: centre; margin-top: 66px;">
-        <h3>{{data.displayName}}</h3>
-      </div>
-      <div class="px-2" style="align-content: centre;">
-        <p [innerHTML]="data.shortInformation"></p>
-      </div>
-      <mat-card-actions>
-        <button mat-button (click)="editForm(data)"><u>Edit</u></button>
-      </mat-card-actions>
-    </mat-card>
-    <mat-card class="p-0 m-3 cloud-card" (click)="openSubmitModel()" >
-      <img mat-card-image src="../../../assets/plus.png">
-    </mat-card>
-  </div>
-
-
-</section>
-</ng-container >
+  <section class="section-tours">
+    <div class="row" style="padding: 0.5rem 1rem;">
+      <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" (click)="getDetailData(data)">
+        <div class="px-2" style="align-content: centre; margin-top: 66px;">
+          <h3>{{ data.displayName }}</h3>
+        </div>
+        <div class="px-2" style="align-content: centre;">
+          <p [innerHTML]="data.shortInformation"></p>
+        </div>
+        <mat-card-actions>
+          <button mat-button (click)="editForm(data)"><u>Edit</u></button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card class="p-0 m-3 cloud-card" (click)="openSubmitModel()">
+        <img mat-card-image src="../../../assets/plus.png" />
+      </mat-card>
+    </div>
+  </section>
+</ng-container>
 <ng-container *ngIf="detailPage">
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-9">
-      <div class="panel panel-info bg-white shadow">
-        <div class="panel-body p-3">
-          <div class="row">
-
-            <div class="col-md-3 col-lg-3">
-              <img
-                alt="User Pic"
-                [src]="detailData.thumbnailImage"
-                class="img-circle img-responsive"
-                width="100%"
-                alt="No Image preview"
-              />
-            </div>
-
-            <div class="col-md-9 col-lg-9">
-              <div class="panel-heading">
-                <h3 class="panel-title">{{detailData.name}}</h3>
-                <p class="speaker-details" [innerHTML]="detailData.shortDescription"></p>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <div class="panel panel-info bg-white shadow">
+          <div class="panel-body p-3">
+            <div class="row">
+              <div class="col-md-3 col-lg-3">
+                <img
+                  alt="User Pic"
+                  [src]="detailData.thumbnailImage"
+                  class="img-circle img-responsive"
+                  width="100%"
+                  alt="No Image preview"
+                />
               </div>
-            </div>
-            <div class="col-md-12 col-lg-12 py-3">
-              <p><b>Detail : </b><span [innerHTML]="detailData.longDescription"></span></p>
-              <p>  <img
-                alt="User Pic"
-                [src]="detailData.largeImage"
-                class="img-circle img-responsive"
-                width="100%"
-                alt="No Image preview"
-              /></p>
+
+              <div class="col-md-9 col-lg-9">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{ detailData.name }}</h3>
+                  <p class="speaker-details" [innerHTML]="detailData.shortDescription"></p>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-12 py-3">
+                <p><b>Detail : </b><span [innerHTML]="detailData.longDescription"></span></p>
+                <p>
+                  <img alt="User Pic" [src]="detailData.largeImage" class="img-circle img-responsive" width="100%" alt="No Image preview" />
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </ng-container>

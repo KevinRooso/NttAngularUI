@@ -7,11 +7,11 @@ const rollbarConfig: object = {
   captureUncaught: true,
   captureUnhandledRejections: true,
   enabled: environment.ROLLBAR_ENABLE,
-  environment: environment.NODE_ENV
+  environment: environment.NODE_ENV,
 };
 
 export function RollbarFactory() {
-  return new Rollbar(rollbarConfig)
-};
+  return new Rollbar(rollbarConfig);
+}
 
 export const RollbarService = new InjectionToken<Rollbar>('rollbar');
