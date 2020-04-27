@@ -61,17 +61,16 @@ export class CreateFormComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-      console.log('data=', params);
-      console.log('data=', JSON.parse(params.page1));
+
 
       if (params != null) {
         this.parent = JSON.parse(params.page);
-        if (this.parent != null) {
+        if (this.parent !== null) {
           this.parentId = this.parent.id;
         }
         this.bradArray = JSON.parse(params.page1);
         this.editData = JSON.parse(params.page2);
-        if (this.editData != null) {
+        if (this.editData !== null) {
           this.productServicesForm.controls['displayName'].setValue(this.editData.displayName);
           this.productServicesForm.controls['isCategory'].setValue(this.editData.isCategory);
           this.productServicesForm.controls['shortDescription'].setValue(this.editData.shortDescription);
@@ -95,7 +94,7 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -106,7 +105,6 @@ export class CreateFormComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -130,7 +128,7 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -141,7 +139,6 @@ export class CreateFormComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
           this.imageValid2 = true;
@@ -187,17 +184,15 @@ export class CreateFormComponent implements OnInit {
     this.image1button = false;
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
-        this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
-        this.show = false;
+     this.articleImage = res.fileDownloadUri;
+       this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -213,17 +208,15 @@ export class CreateFormComponent implements OnInit {
     this.image2button = false;
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
-        this.show = false;
+       this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -242,13 +235,10 @@ export class CreateFormComponent implements OnInit {
       formObject.id = this.editData.id;
     }
     formObject.parentId = this.parentId;
-    console.log('postobj=', formObject);
-    this.authService.createProductAndService(formObject).subscribe((res) => {
-      console.log('res=', res);
-      this.snackBar.open('Success !!', 'Close', {
+   this.authService.createProductAndService(formObject).subscribe((_res) => {
+     this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
       });
-      console.log('obj=', this.parent);
       const obj = {
         page: JSON.stringify(this.parent),
         page1: JSON.stringify(this.bradArray),
@@ -260,7 +250,6 @@ export class CreateFormComponent implements OnInit {
     });
   }
   sendPage(data) {
-    console.log('obj=', data);
     const obj = {
       page: JSON.stringify(data),
       page1: JSON.stringify(this.bradArray),
