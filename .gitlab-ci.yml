@@ -15,6 +15,11 @@ stages:
 
 build_and_test:
   stage: test
+  # deploy only when `ntt-ui` branch is changed
+  only:
+    - ntt-ui
+    - develop
+    - staging
   cache:
     paths:
       - node_modules/
