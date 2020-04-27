@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
@@ -32,7 +32,6 @@ export class CreateNewsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private service: AuthServiceService,
     private location: Location,
     private authService: AuthServiceService,
     public snackBar: MatSnackBar
@@ -76,8 +75,7 @@ export class CreateNewsComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
       // this.preview();
     }
@@ -89,7 +87,6 @@ export class CreateNewsComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -124,15 +121,14 @@ export class CreateNewsComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        console.log(this.articleImage);
+
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -141,9 +137,9 @@ export class CreateNewsComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if (this.userList != null) {
+      if (this.userList !== null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -173,18 +169,15 @@ export class CreateNewsComponent implements OnInit {
         id: 0,
         expiryDate: this.createNewsForm.controls['expiryDate'].value,
       };
-      console.log('post', objData);
       this.authService.saveNews(objData).subscribe(
-        (response) => {
-          console.log('response=', response);
+        (_response) => {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('News successfully created', 'Close', { duration: 2000 });
           this.router.navigate(['news']);
         },
-        (error) => {
-          console.log('error==', error);
-          this.show = false;
+        (_error) => {
+         this.show = false;
           this.snackBar.open('Oops Something went wrong...', 'Close');
         }
       );
