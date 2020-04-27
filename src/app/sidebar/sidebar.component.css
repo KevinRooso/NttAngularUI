@@ -59,14 +59,6 @@
   text-align: right;
 }
 
-#sidebar-container .list-group .list-group-item .submenu-icon::after {
-  content: ' \f0da';
-  display: inline;
-  font-family: FontAwesome;
-  padding-left: 10px;
-  text-align: right;
-}
-
 .list-group-item {
   background: transparent;
 }

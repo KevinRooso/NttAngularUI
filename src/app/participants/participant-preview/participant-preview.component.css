@@ -37,6 +37,11 @@ table.dataTable {
   display: inline;
 }
 
+.pagination > li > a {
+  background: #fafafa;
+  color: #666;
+}
+
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
   border-bottom-left-radius: 4px;
@@ -54,11 +59,6 @@ table.dataTable {
   border-color: #ddd;
   color: #777;
   cursor: not-allowed;
-}
-
-.pagination > li > a {
-  background: #fafafa;
-  color: #666;
 }
 
 .pagination > li > a,
@@ -90,18 +90,8 @@ td .btn {
   padding: 0 8px;
 }
 
-/*
-table.dataTable thead th{
-  background: #f1f5f9 !important;
-  color: #56688A!important;
-  font-size: 12px!important;
-
-} */
 .panel {
   border: 0;
-
-  /* float: left;
-  width: 100%; */
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;

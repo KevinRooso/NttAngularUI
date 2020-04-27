@@ -77,16 +77,11 @@ input.ng-invalid.ng-touched {
   margin: 0;
   max-width: 47%;
   padding: 1rem;
-  border: 0;
 }
 
 .col-md-4 {
   border: 0 solid #d4d2d2;
   border-radius: 5px;
-
-  /* margin: 6px; */
-
-  /* max-width: 32%; */
   padding: 1rem;
 }
 
@@ -112,6 +107,7 @@ input.ng-invalid.ng-touched {
   margin-bottom: 10px;
   margin-top: 12px;
 }
+
 .brd {
   text-align: center;
 }
