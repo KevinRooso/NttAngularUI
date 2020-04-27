@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "lint:styles": "stylelint \"src/app/**/**/*.css\" && stylelint \"src/app/**/*.css\" && stylelint \"src/app/*.css\"",
     "lint": "ng lint --type-check --format=stylish && npm run lint:styles",
-    "lint-ci": "ng lint --type-check --force --format=stylish && npm run lint:styles",
+    "lint-ci": "ng lint --type-check --format=stylish && npm run lint:styles",
     "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox",
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "config": "ts-node --skip-project set-env.ts",
@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "npm run lint && pretty-quick --staged"
     }
   },
   "private": true,

@@ -1,5 +1,8 @@
 {
   "extends": ["tslint:recommended", "tslint-angular", "rxjs-tslint-rules", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": ["src/environments/*.ts"]
+  },
   "rules": {
     "array-type": false,
     "arrow-parens": false,
@@ -42,6 +45,7 @@
     "no-output-native": true,
     "no-output-on-prefix": true,
     "no-output-rename": true,
+    "prefer-for-of": false,
     "no-outputs-metadata-property": true,
     "template-banana-in-box": true,
     "template-no-negated-async": true,
