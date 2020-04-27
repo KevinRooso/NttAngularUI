@@ -101,7 +101,7 @@ export class SpeakerCreateComponent implements OnInit {
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png') {
       this.imageValid = true;
       this.preview();
     }
@@ -123,9 +123,9 @@ export class SpeakerCreateComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
-      console.log('Image', res);
+      // console.log('Image', res);
       this.speakerImage = res.fileDownloadUri;
-      console.log(this.speakerImage);
+      // console.log(this.speakerImage);
       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       // alert('SUCCESS !!');
     });
@@ -134,7 +134,7 @@ export class SpeakerCreateComponent implements OnInit {
   createSpeaker() {
     if (this.createSpeakerForm.valid) {
       let fruit1 = '';
-      console.log(this.fruits);
+      // console.log(this.fruits);
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
       });
@@ -152,13 +152,13 @@ export class SpeakerCreateComponent implements OnInit {
         profileImageUrl: this.speakerImage,
         id: 0,
       };
-      console.log('post', obj);
+      // console.log('post', obj);
       this.authService.saveSpeaker(obj).subscribe(
         (response) => {
           this.snackBar.open('Speaker successfully created', 'Close', { duration: 5000 });
           // alert("Successfully Created");
           this.submitted = false;
-          console.log('response', response);
+          // console.log('response', response);
           this.router.navigate(['/speakers']);
         },
         (error) => {
@@ -173,7 +173,7 @@ export class SpeakerCreateComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   setError() {
-    if (this.fruits.length == 0) {
+    if (this.fruits.length === 0) {
       this.flag = false;
     } else {
       this.flag = true;
