@@ -1,5 +1,4 @@
-import { Component} from '@angular/core';
-declare var $;
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
@@ -8,5 +7,4 @@ declare var $;
 export class ConfigurationComponent {
   public = 'public';
   customer = 'customer';
-
 }

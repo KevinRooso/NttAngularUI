@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-declare var $;
+
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
@@ -68,7 +68,7 @@ export class HomeUiComponent implements OnInit {
 
   eventId = '';
   // tslint:disable-next-line:no-input-rename
-  @Input('userType') userType : string;
+  @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
   @ViewChild('articleButton', { static: false }) articleButton;
   @ViewChild('blogButton', { static: false }) blogButton;
@@ -106,11 +106,7 @@ export class HomeUiComponent implements OnInit {
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
   filterArrForBannerBlock: any[] = [];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private service: AuthServiceService,
-    public snackBar: MatSnackBar
-  ) {}
+  constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
     this.getHomepageData();
     this.createForms();
@@ -403,7 +399,7 @@ export class HomeUiComponent implements OnInit {
         this.callService(value, banner);
       }
     }
-    if (value1 ==='video') {
+    if (value1 === 'video') {
       if (this.eventData.length !== 0) {
         this.setBannerData(banner, this.videoData);
       } else {
@@ -480,7 +476,7 @@ export class HomeUiComponent implements OnInit {
           this.show = false;
         },
         (_error) => {
-         this.show = false;
+          this.show = false;
         }
       );
     }
@@ -620,7 +616,7 @@ export class HomeUiComponent implements OnInit {
   }
   submitArticle() {
     this.show = true;
-   const obj: any[] = [];
+    const obj: any[] = [];
 
     obj.push(this.articleConfigurationForm.value);
     this.service.saveRescourceBlock('article', obj).subscribe(
@@ -675,7 +671,6 @@ export class HomeUiComponent implements OnInit {
     obj.push(this.whitePaperConfigurationForm.value);
     this.service.saveRescourceBlock('whitepaper', obj).subscribe(
       (_res) => {
-
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
         this.show = false;
@@ -708,7 +703,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.newsConfigurationForm.value);
-   this.service.saveEventBlock('news', obj).subscribe(
+    this.service.saveEventBlock('news', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -725,9 +720,8 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.testConfigurationForm.value);
-   this.service.saveEventBlock('testimonial', obj).subscribe(
+    this.service.saveEventBlock('testimonial', obj).subscribe(
       (_res) => {
-
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         this.show = false;
       },

@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-declare var $;
 @Component({
   selector: 'app-copy-event',
   templateUrl: './copy-event.component.html',
