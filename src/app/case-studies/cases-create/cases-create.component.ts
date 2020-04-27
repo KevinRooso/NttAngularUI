@@ -198,7 +198,7 @@ export class CasesCreateComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -223,7 +223,7 @@ export class CasesCreateComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -278,7 +278,7 @@ export class CasesCreateComponent implements OnInit {
       };
 
       this.authService.saveResource(dataObj).subscribe(
-        (res) => {
+        (_res) => {
           this.show = false;
           this.snackBar.open('Case Study Added Successfully', 'Close', {
             duration: 5000,
@@ -286,7 +286,7 @@ export class CasesCreateComponent implements OnInit {
           // alert("Blog Added Successfully");
           this.router.navigate(['cases']);
         },
-        (error) => {
+        (_error) => {
           this.show = false;
           this.snackBar.open('Oops, something went wrong..', 'Close');
         }

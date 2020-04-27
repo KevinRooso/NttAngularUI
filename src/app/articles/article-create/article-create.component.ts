@@ -183,7 +183,7 @@ export class ArticleCreateComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -208,7 +208,7 @@ export class ArticleCreateComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -267,7 +267,7 @@ export class ArticleCreateComponent implements OnInit {
       };
 
       this.authService.saveResource(obj).subscribe(
-        (response) => {
+        (_response) => {
           this.show = false;
           this.snackBar.open('Article successfully created', 'Close', {
             duration: 2000,
@@ -275,7 +275,7 @@ export class ArticleCreateComponent implements OnInit {
 
           this.router.navigate(['articles']);
         },
-        (error) => {
+        (_error) => {
           this.show = false;
           this.snackBar.open('Oops, something went wrong..', 'Close');
         }
