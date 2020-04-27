@@ -36,6 +36,22 @@ table.dataTable {
 .pagination > li {
   display: inline;
 }
+.pagination > li > a {
+  background: #fafafa;
+  color: #666;
+}
+.pagination > li > a,
+.pagination > li > span {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #337ab7;
+  float: left;
+  line-height: 1.42857143;
+  margin-left: -1px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+}
 
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
@@ -56,24 +72,6 @@ table.dataTable {
   cursor: not-allowed;
 }
 
-.pagination > li > a {
-  background: #fafafa;
-  color: #666;
-}
-
-.pagination > li > a,
-.pagination > li > span {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  color: #337ab7;
-  float: left;
-  line-height: 1.42857143;
-  margin-left: -1px;
-  padding: 6px 12px;
-  position: relative;
-  text-decoration: none;
-}
-
 table tr th {
   font-size: 14px;
   padding: 12px;
@@ -90,18 +88,8 @@ td .btn {
   padding: 0 8px;
 }
 
-/*
-table.dataTable thead th{
-  background: #f1f5f9 !important;
-  color: #56688A!important;
-  font-size: 12px!important;
-
-} */
 .panel {
   border: 0;
-
-  /* float: left;
-  width: 100%; */
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;

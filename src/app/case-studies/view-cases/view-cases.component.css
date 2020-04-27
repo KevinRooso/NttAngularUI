@@ -11,9 +11,11 @@
   width: 50px;
   z-index: 1;
 }
+
 .edit .btn:hover {
   background: #324da1;
 }
+
 .cpadl {
   padding-left: 50px;
 }
@@ -22,10 +24,12 @@ ol,
 ul {
   padding-left: 0;
 }
+
 .mainBlock li {
   margin-bottom: 10px;
   margin-left: 15px;
 }
+
 .service ul li {
   padding-left: 0;
 }
@@ -35,6 +39,7 @@ ul {
   margin: 0.75em 0;
   padding: 0 1em;
 }
+
 .service li::before {
   border-color: transparent #008ece;
   border-style: solid;
@@ -47,6 +52,7 @@ ul {
   top: 0.9em;
   width: 0;
 }
+
 .preview-card {
   background: white;
   border-radius: 3px;

@@ -140,8 +140,8 @@ a:hover {
 }
 
 .list-group-item {
-  padding: 0.5rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0.5rem 0;
 }
 
 .list-group-item:last-child {
@@ -206,14 +206,11 @@ a:hover {
 .mat-btn {
   border-radius: 20px !important;
 }
-
-:host ::ng-deep mat-menu-content {
+.mat-menu-content {
   background-color: #007bff;
   min-width: 35px;
 }
-
 .fab-container {
-  /* flex-direction:row-reverse; */
   align-items: center;
   bottom: 15px;
   color: #007bff;
@@ -222,17 +219,6 @@ a:hover {
   position: absolute;
   right: 15px;
   z-index: 100;
-
-  /* div {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    margin-bottom: 5px;
-
-    button {
-      margin-bottom: 17px;
-    }
-  }  */
 }
 
 .fab-container > div {

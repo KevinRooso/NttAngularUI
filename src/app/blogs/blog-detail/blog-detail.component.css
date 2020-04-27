@@ -4,6 +4,7 @@
   padding: 0.6rem;
   vertical-align: top;
 }
+
 .table-user-information > tbody > tr:first-child {
   border-top: 0;
 }
