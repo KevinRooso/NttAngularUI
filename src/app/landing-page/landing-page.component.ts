@@ -46,6 +46,7 @@ export class LandingPageComponent implements OnInit {
       this.canvas = document.getElementById('resourceDownload');
       this.ctx = this.canvas.getContext('2d');
       // const myChart = new Chart(this.ctx, {
+      // tslint:disable-next-line:no-unused-expression
       new Chart(this.ctx, {
         type: 'bar',
         fontSize: 1,
@@ -94,6 +95,7 @@ export class LandingPageComponent implements OnInit {
 
       this.canvas = document.getElementById('userDeviceChart');
       this.ctx = this.canvas.getContext('2d');
+      // tslint:disable-next-line:no-unused-expression
       new Chart(this.ctx, {
         type: 'pie',
         data: {
@@ -129,6 +131,7 @@ export class LandingPageComponent implements OnInit {
 
       this.canvas = document.getElementById('users');
       this.ctx = this.canvas.getContext('2d');
+      // tslint:disable-next-line:no-unused-expression
       new Chart(this.ctx, {
         type: 'bar',
         data: {
@@ -177,6 +180,7 @@ export class LandingPageComponent implements OnInit {
 
       this.canvas = document.getElementById('eventStatus');
       this.ctx = this.canvas.getContext('2d');
+      // tslint:disable-next-line:no-unused-expression
       new Chart(this.ctx, {
         type: 'pie',
         data: {
@@ -211,6 +215,7 @@ export class LandingPageComponent implements OnInit {
 
       this.canvas = document.getElementById('eventTargetUserType');
       this.ctx = this.canvas.getContext('2d');
+      // tslint:disable-next-line:no-unused-expression
       new Chart(this.ctx, {
         type: 'bar',
         data: {
@@ -254,6 +259,7 @@ export class LandingPageComponent implements OnInit {
   eventCategoryTypeDetails() {
     this.service.geteventCategoryTypeDetails().subscribe((res) => {
       const userdeviceData = res.body;
+      // tslint:disable-next-line:no-unused-expression
       new Chart('eventCategoryType', {
         type: 'doughnut',
         options: {
