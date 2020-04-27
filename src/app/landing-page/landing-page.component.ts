@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AuthServiceService } from '../auth-service.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -27,7 +25,7 @@ export class LandingPageComponent implements OnInit {
   // data:any[]=[];
   userdeviceData: any[];
 
-  constructor(private service: AuthServiceService, private queryString: ActivatedRoute) {}
+  constructor(private service: AuthServiceService) {}
 
   ngOnInit() {
     this.userDevice();
@@ -43,13 +41,12 @@ export class LandingPageComponent implements OnInit {
 
   resourceDownload() {
     this.service.getresourceDownloadDetails().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('resourceDownload');
       this.ctx = this.canvas.getContext('2d');
-      const myChart = new Chart(this.ctx, {
+      // const myChart = new Chart(this.ctx, {
+      new Chart(this.ctx, {
         type: 'bar',
         fontSize: 1,
         data: {
@@ -93,13 +90,11 @@ export class LandingPageComponent implements OnInit {
 
   userDevice() {
     this.service.getUserDevices().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('userDeviceChart');
       this.ctx = this.canvas.getContext('2d');
-      const myChart = new Chart(this.ctx, {
+      new Chart(this.ctx, {
         type: 'pie',
         data: {
           labels: ['Android ', 'iOS '],
@@ -130,13 +125,11 @@ export class LandingPageComponent implements OnInit {
 
   users() {
     this.service.getUsers().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('users');
       this.ctx = this.canvas.getContext('2d');
-      const myChart = new Chart(this.ctx, {
+      new Chart(this.ctx, {
         type: 'bar',
         data: {
           labels: ['Public ', 'Customer', 'Employee'],
@@ -180,13 +173,11 @@ export class LandingPageComponent implements OnInit {
   // Event Status
   eventStatusDetails() {
     this.service.geteventStatusDetails().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('eventStatus');
       this.ctx = this.canvas.getContext('2d');
-      const myChart = new Chart(this.ctx, {
+      new Chart(this.ctx, {
         type: 'pie',
         data: {
           labels: ['Publish', 'Active', 'Draft'],
@@ -216,13 +207,11 @@ export class LandingPageComponent implements OnInit {
   // Event Target Users
   eventTargetUserTypeDetails() {
     this.service.geteventTargetUserTypeDetails().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('eventTargetUserType');
       this.ctx = this.canvas.getContext('2d');
-      const myChart = new Chart(this.ctx, {
+      new Chart(this.ctx, {
         type: 'bar',
         data: {
           labels: ['Public ', 'Customer', 'Employee'],
@@ -264,8 +253,6 @@ export class LandingPageComponent implements OnInit {
   // Event Category
   eventCategoryTypeDetails() {
     this.service.geteventCategoryTypeDetails().subscribe((res) => {
-      console.log(res.body);
-
       const userdeviceData = res.body;
       new Chart('eventCategoryType', {
         type: 'doughnut',

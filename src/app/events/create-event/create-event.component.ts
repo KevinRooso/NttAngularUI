@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -263,8 +263,8 @@ export class CreateEventComponent implements OnInit {
     this.image1button = false;
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-       this.articleImage = res.fileDownloadUri;
-       this.show = false;
+        this.articleImage = res.fileDownloadUri;
+        this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
@@ -288,7 +288,7 @@ export class CreateEventComponent implements OnInit {
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
         this.attachFile = res.fileDownloadUri;
-       this.show = false;
+        this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
@@ -421,10 +421,8 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
-
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
-
       return false;
     }
 
@@ -519,8 +517,6 @@ export class CreateEventComponent implements OnInit {
         isDraft: this.createEventForm.controls['isDraft'].value,
         // "isDraft": (this.createEventForm.controls['isDraft'].value || false)
       };
-
-
 
       this.authService.saveEventDetails(objData).subscribe(
         (_response) => {
@@ -622,7 +618,6 @@ export class CreateEventComponent implements OnInit {
       } else {
         obj['idData'] = -1;
       }
-
 
       this.addAgenda.reset();
       if (obj.idData === -1) {
@@ -778,7 +773,6 @@ export class CreateEventComponent implements OnInit {
   }
   getLocation() {
     alert('inside location');
-    this.authService.getLocation().subscribe((_res) => {
-    });
+    this.authService.getLocation().subscribe((_res) => {});
   }
 }

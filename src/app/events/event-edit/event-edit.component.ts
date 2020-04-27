@@ -275,7 +275,6 @@ export class EventEditComponent implements OnInit {
         this.endingDate = this.getEventDetails.eventSchedule[0].endDate;
         this.closingDate = this.getEventDetails.eventSchedule[0].startDate;
         this.getEventDetails.eventSchedule.forEach((m, n) => {
-
           const obj = {
             title: m.title,
             topic: m.topic,
@@ -573,10 +572,8 @@ export class EventEditComponent implements OnInit {
     // maxAgendaEndTime.setMilliseconds(0);
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
-
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
-
       return false;
     }
 
@@ -830,7 +827,7 @@ export class EventEditComponent implements OnInit {
   }
 
   deleteConfirm() {
-   this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+    this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
       this.agendaData.splice(this.valuei, 1);
       this.closeModal2.nativeElement.click();
       this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
@@ -956,7 +953,6 @@ export class EventEditComponent implements OnInit {
   }
   getLocation() {
     alert('inside location');
-    this.authService.getLocation().subscribe((_res) => {
-   });
+    this.authService.getLocation().subscribe((_res) => {});
   }
 }

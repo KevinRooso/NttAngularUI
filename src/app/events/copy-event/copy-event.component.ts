@@ -88,7 +88,7 @@ export class CopyEventComponent implements OnInit {
     private router: Router,
     private authService: AuthServiceService,
     private router1: ActivatedRoute,
-    private location: Location,
+    private location: Location
   ) {
     this.updateEventForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
@@ -140,7 +140,6 @@ export class CopyEventComponent implements OnInit {
       }
     };
 
-
     this.addTagForm = formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
@@ -180,7 +179,6 @@ export class CopyEventComponent implements OnInit {
     // this.show = true;
 
     this.authService.getEventDetail(id).subscribe((res) => {
-
       this.getEventDetails = res.body.events;
 
       const url1 = this.getEventDetails.thumbnailImageUrl;
@@ -264,7 +262,6 @@ export class CopyEventComponent implements OnInit {
         this.endingDate = this.getEventDetails.eventSchedule[0].endDate;
         this.closingDate = this.getEventDetails.eventSchedule[0].startDate;
         this.getEventDetails.eventSchedule.forEach((m, n) => {
-
           const obj = {
             title: m.title,
             topic: m.topic,
@@ -392,7 +389,7 @@ export class CopyEventComponent implements OnInit {
     this.image1button = false;
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-       this.articleImage = res.fileDownloadUri;
+        this.articleImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -588,10 +585,8 @@ export class CopyEventComponent implements OnInit {
     // maxAgendaEndTime.setMilliseconds(0);
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
-
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
-
       return false;
     }
 
@@ -615,8 +610,6 @@ export class CopyEventComponent implements OnInit {
           }
         });
       });
-
-
 
       const schedule: any[] = [];
       const scheduling = {
@@ -676,7 +669,6 @@ export class CopyEventComponent implements OnInit {
         isEvent: true,
         webinarUrl: this.updateEventForm.controls['webinarUrl'].value,
       };
-
 
       this.authService.saveEventDetails(obj).subscribe(
         (response) => {
@@ -786,7 +778,7 @@ export class CopyEventComponent implements OnInit {
         return false;
       }
 
-     if (this.addAgenda.value['idData'] !== -1) {
+      if (this.addAgenda.value['idData'] !== -1) {
         obj['idData'] = this.addAgenda.value['idData'];
       } else {
         obj['idData'] = -1;
@@ -842,7 +834,7 @@ export class CopyEventComponent implements OnInit {
     //   }
     // this.allspeakers = this.speakerList1;
     this.agendaData[i].idData = i;
-   this.addAgenda.setValue(this.agendaData[i]);
+    this.addAgenda.setValue(this.agendaData[i]);
     this.agendaUpdate.nativeElement.click();
   }
   createTag() {
@@ -878,7 +870,7 @@ export class CopyEventComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   maxCDate() {
-     let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    let eventStartDate = this.updateEventForm.get(['startDate']).value;
     this.closingDate = eventStartDate;
     this.regStartDate = eventStartDate;
 
@@ -939,14 +931,13 @@ export class CopyEventComponent implements OnInit {
     }
   }
   maxEDate() {
-   this.endingDate = this.updateEventForm.get(['endDate']).value;
+    this.endingDate = this.updateEventForm.get(['endDate']).value;
   }
   maxRegDate() {
     this.regEndDate = this.updateEventForm.get(['registrationStartDate']).value;
   }
   getLocation() {
     alert('inside location');
-    this.authService.getLocation().subscribe((_res) => {
-     });
+    this.authService.getLocation().subscribe((_res) => {});
   }
 }

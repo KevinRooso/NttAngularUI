@@ -74,7 +74,7 @@ export class EventPreviewComponent implements OnInit {
   getEventslist() {
     this.authService.getAllEventList().subscribe((data) => {
       this.getEventData = data.body;
-     this.getEventData.filter((m) => {
+      this.getEventData.filter((m) => {
         if (this.categoryFilterList.indexOf(m.categoryName) === -1) {
           this.categoryFilterList.push(m.categoryName);
         }
@@ -128,7 +128,6 @@ export class EventPreviewComponent implements OnInit {
   }
   getAllTags() {
     this.authService.getTagsList().subscribe((res) => {
-
       this.tagList = res.body;
     });
   }
@@ -198,7 +197,7 @@ export class EventPreviewComponent implements OnInit {
       this.filterBlogs = this.blogs;
     }
     if (data[1] === 'Title') {
-      if (data[0] ==='asc') {
+      if (data[0] === 'asc') {
         // this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
         this.publishedList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
         this.activeList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
