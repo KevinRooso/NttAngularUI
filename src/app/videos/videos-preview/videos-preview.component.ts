@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+
 import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class VideosPreviewComponent implements OnInit {
   getAllVideos() {
     this.authService.getAllVideosList().subscribe((res) => {
       this.videoList = res.body;
-      console.log('res', this.videoList);
+
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
@@ -43,24 +43,18 @@ export class VideosPreviewComponent implements OnInit {
   // }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
-      console.log(res);
       this.categoryList = res.body;
     });
   }
   getDataWithCat() {
     this.filterBlogs = this.blogs;
     this.filterBlogs = this.blogs.filter((m) => {
-      console.log(m.category.id);
-      console.log(this.cat);
-      return m.category.id == this.cat;
+      return m.category.id === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    console.log(this.filterBlogs);
     this.filterBlogs = this.searchFilterData.filter((m) => {
-      console.log(m.title);
-      console.log(this.searchBlog);
       // alert(m.title.toUpperCase());
       // alert(this.searchBlog.toUpperCase());
       const titleData = m.title.toUpperCase();
