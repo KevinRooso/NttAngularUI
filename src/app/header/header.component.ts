@@ -14,8 +14,6 @@ export class HeaderComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token != null) {
       this.service.getUserDetail().subscribe((res) => {
-        console.log('userName==', res);
-
         this.userName = res.name;
       });
     }

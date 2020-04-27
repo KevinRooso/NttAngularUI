@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-event',
@@ -76,7 +75,6 @@ export class CreateEventComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private sanitizer: DomSanitizer,
     private authService: AuthServiceService,
     private location: Location,
     public snackBar: MatSnackBar
@@ -162,7 +160,7 @@ export class CreateEventComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -175,7 +173,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -186,7 +184,6 @@ export class CreateEventComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -210,7 +207,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -221,7 +218,6 @@ export class CreateEventComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
           this.imageValid2 = true;
@@ -267,9 +263,7 @@ export class CreateEventComponent implements OnInit {
     this.image1button = false;
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -277,7 +271,7 @@ export class CreateEventComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -293,9 +287,7 @@ export class CreateEventComponent implements OnInit {
     this.image2button = false;
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
         this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
@@ -303,7 +295,7 @@ export class CreateEventComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -336,7 +328,7 @@ export class CreateEventComponent implements OnInit {
     const WEBINAR = '2';
     const BOTH = '3';
 
-    if (this.color == ON_PREMISE) {
+    if (this.color === ON_PREMISE) {
       this.isOnPremise = true;
       this.isWebinar = false;
       this.createEventForm.controls['webinarUrl'].setValue(null);
@@ -344,7 +336,7 @@ export class CreateEventComponent implements OnInit {
       this.createEventForm.controls['webinarUrl'].updateValueAndValidity();
       this.setWebinarFieldValidation(null);
       this.setAddressFieldValidation(Validators.required);
-    } else if (this.color == WEBINAR) {
+    } else if (this.color === WEBINAR) {
       this.isWebinar = true;
       this.isOnPremise = false;
       this.createEventForm.controls['address1'].setValue(null);
@@ -354,7 +346,7 @@ export class CreateEventComponent implements OnInit {
       this.createEventForm.controls['pincode'].setValue(null);
       this.setWebinarFieldValidation(Validators.required);
       this.setAddressFieldValidation(null);
-    } else if (this.color == BOTH) {
+    } else if (this.color === BOTH) {
       this.isWebinar = true;
       this.isOnPremise = true;
       this.setWebinarFieldValidation(Validators.required);
@@ -366,16 +358,17 @@ export class CreateEventComponent implements OnInit {
     // event end time should be equal to agenda max end time
     let minAgendaStartTime = null;
     let maxAgendaEndTime = null;
+    // tslint:disable-next-line:forin
     for (const index in this.agendaData) {
       const agenda = this.agendaData[index];
       let aStartDate = agenda.startDate;
       let aEndDate = agenda.endDate;
 
-      if (aStartDate && typeof aStartDate == 'string') {
+      if (aStartDate && typeof aStartDate === 'string') {
         aStartDate = new Date(aStartDate);
       }
 
-      if (aEndDate && typeof aEndDate == 'string') {
+      if (aEndDate && typeof aEndDate === 'string') {
         aEndDate = new Date(aEndDate);
       }
 
@@ -392,14 +385,14 @@ export class CreateEventComponent implements OnInit {
       }
     }
 
-    if (typeof minAgendaStartTime == 'string') {
+    if (typeof minAgendaStartTime === 'string') {
       minAgendaStartTime = new Date(minAgendaStartTime);
     }
     if (minAgendaStartTime instanceof Date) {
       minAgendaStartTime.setSeconds(0);
       minAgendaStartTime.setMilliseconds(0);
     }
-    if (typeof maxAgendaEndTime == 'string') {
+    if (typeof maxAgendaEndTime === 'string') {
       maxAgendaEndTime = new Date(maxAgendaEndTime);
     }
     if (maxAgendaEndTime instanceof Date) {
@@ -407,7 +400,7 @@ export class CreateEventComponent implements OnInit {
       maxAgendaEndTime.setMilliseconds(0);
     }
     let eventStartDate = this.createEventForm.controls['startDate'].value;
-    if (typeof eventStartDate == 'string') {
+    if (typeof eventStartDate === 'string') {
       eventStartDate = new Date(eventStartDate);
     }
     if (eventStartDate instanceof Date) {
@@ -417,7 +410,7 @@ export class CreateEventComponent implements OnInit {
       this.createEventForm.controls['startDate'].setValue(eventStartDate);
     }
     let eventEndDate = this.createEventForm.controls['endDate'].value;
-    if (typeof eventEndDate == 'string') {
+    if (typeof eventEndDate === 'string') {
       eventEndDate = new Date(eventEndDate);
     }
     if (eventEndDate instanceof Date) {
@@ -428,12 +421,8 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
-      const errorMsg = 'Please select one of the agenda time equals to event start time';
-      // this.snackBar.open(errorMsg, 'Close');
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
-      const errorMsg = 'Please select one of the agenda time equals to event end time';
-      // this.snackBar.open(errorMsg, 'Close');
       return false;
     }
 
@@ -529,21 +518,16 @@ export class CreateEventComponent implements OnInit {
         // "isDraft": (this.createEventForm.controls['isDraft'].value || false)
       };
 
-      console.log('Post Data', objData);
-      // this.show =false;
-
       this.authService.saveEventDetails(objData).subscribe(
-        (response) => {
+        (_response) => {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Event successfully created', 'Close', {
             duration: 2000,
           });
-          console.log('Api success res', response);
           this.router.navigate(['events']);
         },
-        (error) => {
-          console.log('error', error);
+        (_error) => {
           this.show = false;
           this.snackBar.open('Oops, something went wrong..', 'Close');
         }
@@ -587,19 +571,19 @@ export class CreateEventComponent implements OnInit {
       let agendaStartDate = obj.startDate;
       let agendaEndDate = obj.endDate;
 
-      if (agendaStartDate && typeof agendaStartDate == 'string') {
+      if (agendaStartDate && typeof agendaStartDate === 'string') {
         agendaStartDate = new Date(agendaStartDate);
       }
 
-      if (agendaEndDate && typeof agendaEndDate == 'string') {
+      if (agendaEndDate && typeof agendaEndDate === 'string') {
         agendaEndDate = new Date(agendaEndDate);
       }
 
-      if (eventStartDate && typeof eventStartDate == 'string') {
+      if (eventStartDate && typeof eventStartDate === 'string') {
         eventStartDate = new Date(eventStartDate);
       }
 
-      if (eventEndDate && typeof eventEndDate == 'string') {
+      if (eventEndDate && typeof eventEndDate === 'string') {
         eventEndDate = new Date(eventEndDate);
       }
 
@@ -629,18 +613,14 @@ export class CreateEventComponent implements OnInit {
         return false;
       }
 
-      console.log('myobj', obj);
-
-      console.log('id=', this.addAgenda.controls['idData'].value);
-      if (this.addAgenda.value['idData'] != -1) {
+      if (this.addAgenda.value['idData'] !== -1) {
         obj['idData'] = this.addAgenda.value['idData'];
       } else {
         obj['idData'] = -1;
       }
-      console.log('id=', obj.idData);
 
       this.addAgenda.reset();
-      if (obj.idData == -1) {
+      if (obj.idData === -1) {
         this.agendaData.push(obj);
       } else {
         this.agendaData[obj.idData] = obj;
@@ -684,7 +664,6 @@ export class CreateEventComponent implements OnInit {
   updateAgenda(i) {
     // alert(i);
     this.agendaData[i].idData = i;
-    console.log('log', this.agendaData[i]);
     this.addAgenda.setValue(this.agendaData[i]);
     this.agendaUpdate.nativeElement.click();
   }
@@ -692,7 +671,7 @@ export class CreateEventComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });
@@ -726,11 +705,10 @@ export class CreateEventComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   maxCDate() {
-    console.log('Closing Date', this.createEventForm.get(['startDate']).value);
     let eventStartDate = this.createEventForm.get(['startDate']).value;
     this.closingDate = eventStartDate;
     this.regStartDate = eventStartDate;
-    if (eventStartDate && typeof eventStartDate == 'string') {
+    if (eventStartDate && typeof eventStartDate === 'string') {
       eventStartDate = new Date(eventStartDate);
     }
     if (eventStartDate) {
@@ -741,7 +719,7 @@ export class CreateEventComponent implements OnInit {
 
     let eventEndDate = this.createEventForm.controls['endDate'].value;
 
-    if (eventEndDate && typeof eventEndDate == 'string') {
+    if (eventEndDate && typeof eventEndDate === 'string') {
       eventEndDate = new Date(eventEndDate);
       // eventEndDate = eventEndDate ? new Date(eventEndDate) : new Date();
     }
@@ -757,16 +735,17 @@ export class CreateEventComponent implements OnInit {
     }
 
     // update all agenda start date if start dates changes
+    // tslint:disable-next-line:forin
     for (const index in this.agendaData) {
       const agenda = this.agendaData[index];
       let agenStartDateObj = null;
       let agendaEndDate = null;
 
-      if (agenda.startDate && typeof agenda.startDate == 'string') {
+      if (agenda.startDate && typeof agenda.startDate === 'string') {
         agenStartDateObj = new Date(agenda.startDate);
       }
 
-      if (agenda.endDate && typeof agenda.endDate == 'string') {
+      if (agenda.endDate && typeof agenda.endDate === 'string') {
         agendaEndDate = new Date(agenda.endDate);
       }
 
@@ -787,7 +766,6 @@ export class CreateEventComponent implements OnInit {
     }
   }
   maxEDate() {
-    console.log('ending Date', this.createEventForm.get(['endDate']).value);
     this.endingDate = this.createEventForm.get(['endDate']).value;
   }
   maxRegDate() {
@@ -795,8 +773,6 @@ export class CreateEventComponent implements OnInit {
   }
   getLocation() {
     alert('inside location');
-    this.authService.getLocation().subscribe((res) => {
-      console.log(res);
-    });
+    this.authService.getLocation().subscribe((_res) => {});
   }
 }

@@ -40,12 +40,7 @@ export class EventPreviewComponent implements OnInit {
   startDate = new Date();
   endDate = new Date();
   categoryLis: any[] = ['Sort By', 'Title', 'Date', 'Category'];
-  // cards = [
-  //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
-  //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
-  //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" },
-  //   { title: "Event Title", agenda: "Some quick example text to build on the card title and make up the bulk of the card's content.", date: "Date", category: "Category", img: "https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-road-to-ultra-india-2020-2-18-t-18-2-38.jpg" }
-  // ];
+
   category: string[] = [];
   tags: string[] = [];
   getEventData: any;
@@ -79,9 +74,8 @@ export class EventPreviewComponent implements OnInit {
   getEventslist() {
     this.authService.getAllEventList().subscribe((data) => {
       this.getEventData = data.body;
-      console.log('Json Data', this.getEventData);
       this.getEventData.filter((m) => {
-        if (this.categoryFilterList.indexOf(m.categoryName) == -1) {
+        if (this.categoryFilterList.indexOf(m.categoryName) === -1) {
           this.categoryFilterList.push(m.categoryName);
         }
       });
@@ -92,7 +86,7 @@ export class EventPreviewComponent implements OnInit {
       this.searchFilterData.sort(this.GFG_sortFunctionc1);
       data.body.filter((m) => {
         if (m.eventDate != null) {
-          if (this.dates.indexOf(m.eventDate.substring(0, 10).split('-').reverse().join('/')) == -1) {
+          if (this.dates.indexOf(m.eventDate.substring(0, 10).split('-').reverse().join('/')) === -1) {
             this.dates.push(m.eventDate.substring(0, 10).split('-').reverse().join('/'));
           }
         }
@@ -119,7 +113,6 @@ export class EventPreviewComponent implements OnInit {
   }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
-      console.log('Tag', res.body);
       this.tagData = res.body;
     });
   }
@@ -135,20 +128,17 @@ export class EventPreviewComponent implements OnInit {
   }
   getAllTags() {
     this.authService.getTagsList().subscribe((res) => {
-      console.log('tag=', res);
-
       this.tagList = res.body;
     });
   }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
-      console.log(res);
       this.categoryList = res.body;
     });
   }
   getDataWithCat() {
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.categoryName == this.cat;
+      return m.categoryName === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
@@ -156,15 +146,11 @@ export class EventPreviewComponent implements OnInit {
     this.filterBlogs = this.searchFilterData.filter((m) => {
       const titleData = m.eventDate;
       const d = this.filterDate.split('/').reverse().join('-');
-      console.log('d==', d);
-      console.log('data=', titleData);
 
       return titleData.includes(d);
     });
-    console.log('filterblogsss==', this.filterBlogs);
   }
   blogSearch() {
-    console.log(this.filterBlogs);
     this.publishedList = this.publishedList.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
@@ -196,12 +182,9 @@ export class EventPreviewComponent implements OnInit {
     const date1 = this.advanceFilterForm.get(['registrationStartDate']).value;
     const date2 = (this.startDate = this.advanceFilterForm.get(['registrationEndDate']).value);
     this.endDate = this.advanceFilterForm.get(['registrationStartDate']).value;
-    console.log('startdate==', this.startDate);
-    console.log('enddate==', this.endDate);
-    console.log('compare==', date1 > date2);
+
     if (date1 > date2) {
       this.advanceFilterForm.get(['registrationEndDate']).setValue(' ');
-      console.log('inside if');
     }
     // alert(this.endDate==new Date())
   }
@@ -210,11 +193,11 @@ export class EventPreviewComponent implements OnInit {
   }
   filterData() {
     const data = this.sort.split('?');
-    if (this.sort == 'Sort By') {
+    if (this.sort === 'Sort By') {
       this.filterBlogs = this.blogs;
     }
-    if (data[1] == 'Title') {
-      if (data[0] == 'asc') {
+    if (data[1] === 'Title') {
+      if (data[0] === 'asc') {
         // this.searchFilterData.sort((a,b) => a.title.trim().localeCompare(b.title.trim()));
         this.publishedList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
         this.activeList.sort((a, b) => a.title.trim().localeCompare(b.title.trim()));
@@ -231,8 +214,8 @@ export class EventPreviewComponent implements OnInit {
       }
     }
 
-    if (data[1] == 'date') {
-      if (data[0] == 'asc') {
+    if (data[1] === 'date') {
+      if (data[0] === 'asc') {
         //   console.log("adtesort==",this.searchFilterData);
         // this.searchFilterData.sort(this.GFG_sortFunction);
 
@@ -254,8 +237,8 @@ export class EventPreviewComponent implements OnInit {
         this.expiredList.sort(this.GFG_sortFunction1);
       }
     }
-    if (data[1] == 'cdate') {
-      if (data[0] == 'asc') {
+    if (data[1] === 'cdate') {
+      if (data[0] === 'asc') {
         //   console.log("adtesort==",this.searchFilterData);
         // this.searchFilterData.sort(this.GFG_sortFunctionc);
         //   console.log("dateaftersort==",this.searchFilterData);
