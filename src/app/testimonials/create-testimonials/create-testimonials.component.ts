@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -74,7 +74,7 @@ export class CreateTestimonialsComponent implements OnInit {
     };
     this.router1.queryParams.subscribe((params) => {
       this.resourceId = params.page;
-      if (this.resourceId != undefined) {
+      if (this.resourceId !== undefined) {
         this.getResourceData();
         this.title = 'Edit Testimonial';
         this.buttonText = 'Update Details';
@@ -106,7 +106,6 @@ export class CreateTestimonialsComponent implements OnInit {
       if (res.body.targetUserType != null) {
         this.tarUserType = res.body.targetUserType.id;
       }
-      console.log(' this.tarUserType==', this.tarUserType);
 
       this.speakerImage = res.body.detailImageUrl;
       this.logo = res.body.thumbnailImageUrl;
@@ -128,7 +127,7 @@ export class CreateTestimonialsComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -137,11 +136,11 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
-    if (this.fileData != undefined) {
+
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
         this.imageValid = true;
         this.preview();
       }
@@ -168,14 +167,12 @@ export class CreateTestimonialsComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         // alert("Image Uploaded Successfully");
         this.logo = res.fileDownloadUri;
         this.imageValid = false;
         this.image1button = true;
         this.show = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        console.log(this.speakerImage);
       },
       (error) => {
         this.show = false;
@@ -189,10 +186,10 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl1 = null;
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
-    if (this.fileData != undefined) {
+    if (this.fileData !== undefined) {
       this.image2button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'image/jpeg' || fileType == 'image/png') {
+      if (fileType === 'image/jpeg' || fileType === 'image/png') {
         this.imageValid1 = true;
         this.preview1();
       }
@@ -266,7 +263,7 @@ export class CreateTestimonialsComponent implements OnInit {
   generateBlog() {
     let id;
 
-    if (this.resourceId != undefined) {
+    if (this.resourceId !== undefined) {
       id = this.resourceId;
     } else {
       id = 0;
@@ -301,11 +298,9 @@ export class CreateTestimonialsComponent implements OnInit {
         expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
 
-      console.log(dataObj);
       this.service.saveResource(dataObj).subscribe((res) => {
-        console.log(res);
         // alert("Testimonials Added Successfully");
-        if (this.resourceId != undefined) {
+        if (this.resourceId !== undefined) {
           this.snackBar.open('Testimonials Updated Successfully', 'Close', { duration: 5000 });
         } else {
           this.snackBar.open('Testimonials Added Successfully', 'Close', { duration: 5000 });
