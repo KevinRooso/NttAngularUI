@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../auth-service.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-case-studies',
@@ -29,7 +28,6 @@ export class CaseStudiesComponent implements OnInit {
   }
   getCasestudies() {
     this.service.getCasestudies().subscribe((res) => {
-      console.log(res);
       this.caseid = res.body.id;
       this.caseStudies = res.body;
       this.filterCases = res.body;
@@ -39,7 +37,6 @@ export class CaseStudiesComponent implements OnInit {
   }
   getTags() {
     this.service.getTagsList().subscribe((res) => {
-      console.log('tag=', res);
       this.tags = res.body;
     });
   }
@@ -48,22 +45,18 @@ export class CaseStudiesComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      console.log('cat=', res);
       this.categoryList = res.body;
     });
   }
   getDataWithCat() {
     this.filterCases = this.cases;
     this.filterCases = this.cases.filter((m) => {
-      return m.category.id == this.cat;
+      return m.category.id === this.cat;
     });
     this.searchFilterData = this.filterCases;
   }
   blogSearch() {
-    console.log(this.filterCases);
     this.filterCases = this.searchFilterData.filter((m) => {
-      console.log(m.title);
-      console.log(this.searchCases);
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchCases.toUpperCase());
@@ -73,9 +66,7 @@ export class CaseStudiesComponent implements OnInit {
     this.filterCases = this.searchFilterData.filter((m) => {
       let flag = false;
       m.resourceTags.forEach((ele) => {
-        console.log('ele=', ele.id);
-        console.log('tag=', this.tag);
-        if (ele.id == this.tag) {
+        if (ele.id === this.tag) {
           flag = true;
         }
       });
