@@ -1,8 +1,8 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {  ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,13 +37,12 @@ export class SpeakerEditComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private location: Location,
-    private router: Router,
     private authService: AuthServiceService,
     private router1: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
-    this.updateSpeakerForm = formbuilder.group({
+    this.updateSpeakerForm = this.formbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -144,6 +143,8 @@ export class SpeakerEditComponent implements OnInit {
       this.updateSpeakerForm.controls['keySkills'].setValidators(null);
       this.updateSpeakerForm.controls['keySkills'].updateValueAndValidity();
       const obj = this.getSpeaker.keySkills.split(',');
+
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < obj.length; i++) {
         this.fruits.push({ name: obj[i] });
       }
@@ -176,7 +177,7 @@ export class SpeakerEditComponent implements OnInit {
       };
 
       this.authService.saveSpeaker(obj).subscribe(
-        (response) => {
+        (_response) => {
           this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
         },
         (error) => {

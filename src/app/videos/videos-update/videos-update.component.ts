@@ -216,7 +216,7 @@ export class VideosUpdateComponent implements OnInit {
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -272,13 +272,13 @@ export class VideosUpdateComponent implements OnInit {
       };
 
       this.service.saveResource(dataObj).subscribe(
-        (res) => {
+        (_res) => {
           this.show = false;
           this.snackBar.open('Videos Updated Successfully', 'Close', { duration: 5000 });
           // alert("Case Study Updated Successfully");
           this.router.navigate(['videos']);
         },
-        (error) => {
+        (_error) => {
           this.show = false;
           this.snackBar.open('Oops, something went wrong..', 'Close');
         }

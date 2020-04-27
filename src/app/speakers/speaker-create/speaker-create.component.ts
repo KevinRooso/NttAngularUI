@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -42,7 +42,7 @@ export class SpeakerCreateComponent implements OnInit {
   ) {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
 
-    this.createSpeakerForm = frmbuilder.group({
+    this.createSpeakerForm = this.frmbuilder.group({
       fullName: ['', Validators.required],
       description: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -154,7 +154,7 @@ export class SpeakerCreateComponent implements OnInit {
       };
       // console.log('post', obj);
       this.authService.saveSpeaker(obj).subscribe(
-        (response) => {
+        (_response) => {
           this.snackBar.open('Speaker successfully created', 'Close', { duration: 5000 });
           // alert("Successfully Created");
           this.submitted = false;

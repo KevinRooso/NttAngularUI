@@ -349,6 +349,7 @@ export class HomeUiComponent implements OnInit {
 
     if (data.length > 0) {
       flag = false;
+      this.show = false;
       this.snackBar.open('Duplicate Sequence', 'Close', { duration: 5000 });
       // alert("Duplicate Sequence")
     } else {
