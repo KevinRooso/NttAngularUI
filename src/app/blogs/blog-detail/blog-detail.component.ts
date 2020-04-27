@@ -23,12 +23,10 @@ export class BlogDetailComponent implements OnInit {
   getBlogData(id) {
     this.show = true;
     this.service.getResourceById(id).subscribe((res) => {
-      console.log(res);
       this.blog = res.body;
       this.imageurl = this.blog.thumbnailImageUrl;
       this.show = false;
       this.resourceTags = this.blog.resourceTags;
-      console.log(this.blog.resourceTags);
     });
   }
   editBlogRoute() {

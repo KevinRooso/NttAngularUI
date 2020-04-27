@@ -5,7 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-declare var $;
+
 @Component({
   selector: 'app-create-blog',
   templateUrl: './create-blog.component.html',
@@ -113,7 +113,7 @@ export class CreateBlogComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -131,8 +131,6 @@ export class CreateBlogComponent implements OnInit {
   }
   getPersons() {
     this.service.getPersons().subscribe((res) => {
-      console.log('persons==', res);
-
       this.persons = res.body;
     });
   }
@@ -143,8 +141,8 @@ export class CreateBlogComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
       // this.preview();
     }
@@ -193,7 +191,6 @@ export class CreateBlogComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
@@ -201,7 +198,6 @@ export class CreateBlogComponent implements OnInit {
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
-        console.log(this.speakerImage);
       },
       (error) => {
         this.show = false;
@@ -217,7 +213,7 @@ export class CreateBlogComponent implements OnInit {
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png') {
       this.imageValid1 = true;
       this.preview1();
     }
@@ -242,7 +238,6 @@ export class CreateBlogComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.image2button = true;
         this.show1 = false;
         this.imageValid1 = false;
@@ -250,7 +245,6 @@ export class CreateBlogComponent implements OnInit {
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
-        console.log(this.personImage);
       },
       (error) => {
         this.show = false;
@@ -341,10 +335,9 @@ export class CreateBlogComponent implements OnInit {
         title: obj.title,
         expiryDate: this.createBlogForm.controls['expiryDate'].value,
       };
-      console.log(dataObj);
+
       this.service.saveResource(dataObj).subscribe(
         (res) => {
-          console.log(res);
           this.show = false;
           this.snackBar.open('Blog Added Successfully', 'Close', {
             duration: 5000,
@@ -353,7 +346,6 @@ export class CreateBlogComponent implements OnInit {
           this.router.navigate(['blogs']);
         },
         (error) => {
-          console.log('error==', error);
           this.show = false;
           this.snackBar.open(error, 'Close');
         }
@@ -377,14 +369,13 @@ export class CreateBlogComponent implements OnInit {
       return false;
     }
     if (this.personForm.valid) {
-      console.log(this.personForm.value);
       let fruit1 = '';
-      console.log(this.fruits);
+
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
       });
       this.persons.forEach((m) => {
-        if (m.email == this.personForm.get(['email']).value) {
+        if (m.email === this.personForm.get(['email']).value) {
           flag = true;
         }
       });
@@ -412,7 +403,7 @@ export class CreateBlogComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });
