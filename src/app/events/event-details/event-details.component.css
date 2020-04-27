@@ -32,11 +32,6 @@
   width: 50px;
 }
 
-.list-group-item {
-  border: none;
-  padding: 0.5rem 0;
-}
-
 .medium .card-title {
   font-size: 25px;
   margin-bottom: 0.75rem;
@@ -145,6 +140,7 @@ a:hover {
 }
 
 .list-group-item {
+  padding: 0.5rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 

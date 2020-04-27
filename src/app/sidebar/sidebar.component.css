@@ -54,7 +54,7 @@
 #sidebar-container .list-group .list-group-item[aria-expanded='false'] .submenu-icon::after {
   content: ' \f0d7';
   display: inline;
-  font-family: FontAwesome;
+  font-family: 'FontAwesome';
   padding-left: 10px;
   text-align: right;
 }
@@ -62,7 +62,7 @@
 #sidebar-container .list-group .list-group-item[aria-expanded='true'] .submenu-icon::after {
   content: ' \f0da';
   display: inline;
-  font-family: FontAwesome;
+  font-family: 'FontAwesome';
   padding-left: 10px;
   text-align: right;
 }

@@ -77,6 +77,7 @@ input.ng-invalid.ng-touched {
   margin: 0;
   max-width: 47%;
   padding: 1rem;
+  border: 0;
 }
 
 .col-md-4 {
@@ -103,12 +104,8 @@ p {
   font-weight: bold;
 }
 
-.col-md-6 {
-  border: 0;
-}
-
-::ng-deep.mat-tab-label,
-::ng-deep.mat-tab-label-active {
+.mat-tab-label,
+.mat-tab-label-active {
   margin: 3px !important;
   min-width: 570px !important;
   padding: 3px !important;
