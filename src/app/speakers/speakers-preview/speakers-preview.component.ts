@@ -31,11 +31,11 @@ export class SpeakersPreviewComponent implements OnInit {
       this.searchFilterData = res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
       res.body.filter((m) => {
-        if (this.dates.indexOf(m.createdAt.substring(0, 10).split('-').reverse().join('/')) == -1) {
+        if (this.dates.indexOf(m.createdAt.substring(0, 10).split('-').reverse().join('/')) === -1) {
           this.dates.push(m.createdAt.substring(0, 10).split('-').reverse().join('/'));
         }
       });
-      console.log(this.cardData);
+      // console.log(this.cardData);
     });
   }
   getDetails(id) {
@@ -46,12 +46,12 @@ export class SpeakersPreviewComponent implements OnInit {
     this.filterBlogs = this.searchFilterData.filter((m) => {
       const titleData = m.createdAt;
       const d = this.filterDate.split('/').reverse().join('-');
-      console.log('d==', d);
-      console.log('data=', titleData);
+      //console.log('d==', d);
+      // console.log('data=', titleData);
 
       return titleData.includes(d);
     });
-    console.log('filterblogsss==', this.filterBlogs);
+    // console.log('filterblogsss==', this.filterBlogs);
   }
   blogSearch() {
     // console.log(this.filterBlogs);
@@ -79,21 +79,21 @@ export class SpeakersPreviewComponent implements OnInit {
   }
   filterData() {
     const data = this.sort.split('?');
-    if (this.sort == 'Sort By') {
+    if (this.sort === 'Sort By') {
       this.filterBlogs = this.cardData;
     }
 
-    if (data[1] == 'cdate') {
-      if (data[0] == 'asc') {
-        console.log('adtesort==', this.searchFilterData);
+    if (data[1] === 'cdate') {
+      if (data[0] === 'asc') {
+        //console.log('adtesort==', this.searchFilterData);
         this.searchFilterData.sort(this.GFG_sortFunction);
 
-        console.log('dateaftersort==', this.searchFilterData);
+        // console.log('dateaftersort==', this.searchFilterData);
 
         this.filterBlogs = this.searchFilterData;
       } else {
         this.searchFilterData.sort(this.GFG_sortFunction1);
-        console.log('dateaftersort==', this.searchFilterData);
+        // console.log('dateaftersort==', this.searchFilterData);
         this.filterBlogs = this.searchFilterData;
       }
     }

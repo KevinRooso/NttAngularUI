@@ -91,7 +91,7 @@ export class SpeakerEditComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-      console.log(params.page);
+      //console.log(params.page);
       this.spkrID = params.page;
       this.getSpeakersDetails(params.page);
     });
@@ -103,7 +103,7 @@ export class SpeakerEditComponent implements OnInit {
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png') {
       this.imageValid = true;
       this.preview();
     }
@@ -125,10 +125,10 @@ export class SpeakerEditComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
-      console.log('Image', res);
+      // console.log('Image', res);
       this.speakerImage = res.fileDownloadUri;
       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-      console.log(this.speakerImage);
+      //console.log(this.speakerImage);
       // alert('SUCCESS !!');
     });
   }
@@ -136,7 +136,7 @@ export class SpeakerEditComponent implements OnInit {
   getSpeakersDetails(id) {
     this.authService.getSpeakerDetail(id).subscribe((res) => {
       this.getSpeaker = res.body;
-      console.log('resdata', this.getSpeaker);
+      // console.log('resdata', this.getSpeaker);
       this.updateSpeakerForm.controls['fullName'].setValue(this.getSpeaker.fullName);
       this.updateSpeakerForm.controls['description'].setValue(this.getSpeaker.description);
       this.updateSpeakerForm.controls['email'].setValue(this.getSpeaker.email);
@@ -152,7 +152,7 @@ export class SpeakerEditComponent implements OnInit {
       for (let i = 0; i < obj.length; i++) {
         this.fruits.push({ name: obj[i] });
       }
-      console.log('Check ME', this.fruits);
+      //console.log('Check ME', this.fruits);
       this.previewUrl = this.getSpeaker.profileImageUrl;
       this.speakerImage = res.body.profileImageUrl;
     });
@@ -161,7 +161,7 @@ export class SpeakerEditComponent implements OnInit {
   updateSpeaker() {
     if (this.updateSpeakerForm.valid) {
       let fruit1 = '';
-      console.log(this.fruits);
+      //console.log(this.fruits);
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
       });
@@ -179,12 +179,12 @@ export class SpeakerEditComponent implements OnInit {
         profileImageUrl: this.speakerImage,
         id: this.spkrID,
       };
-      console.log('post', obj);
+      // console.log('post', obj);
       this.authService.saveSpeaker(obj).subscribe(
         (response) => {
           this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
           // alert("Successfully Updated");
-          console.log('response', response);
+          // console.log('response', response);
         },
         (error) => {
           this.snackBar.open(error, 'Close');
@@ -199,7 +199,7 @@ export class SpeakerEditComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   setError() {
-    if (this.fruits.length == 0) {
+    if (this.fruits.length === 0) {
       this.flag = false;
     } else {
       this.flag = true;
