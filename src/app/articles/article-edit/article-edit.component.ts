@@ -256,7 +256,7 @@ export class ArticleEditComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -280,7 +280,7 @@ export class ArticleEditComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -357,7 +357,7 @@ export class ArticleEditComponent implements OnInit {
       };
 
       this.authService.saveResource(obj).subscribe(
-        (response) => {
+        (_response) => {
           // alert("Successfully Updated");
 
           this.show = false;
@@ -367,7 +367,7 @@ export class ArticleEditComponent implements OnInit {
           });
           this.router.navigate(['articles']);
         },
-        (error) => {
+        (_error) => {
           // alert("Error :"+error);
           this.show = false;
           this.snackBar.open('Oops, Something went wrong', 'Close', {
