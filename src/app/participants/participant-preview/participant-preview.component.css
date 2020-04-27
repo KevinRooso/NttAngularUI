@@ -42,11 +42,17 @@ table.dataTable {
   color: #666;
 }
 
-.pagination > li:first-child > a,
-.pagination > li:first-child > span {
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
-  margin-left: 0;
+.pagination > li > a,
+.pagination > li > span {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #337ab7;
+  float: left;
+  line-height: 1.42857143;
+  margin-left: -1px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
 }
 
 .pagination > .disabled > a,
@@ -61,17 +67,11 @@ table.dataTable {
   cursor: not-allowed;
 }
 
-.pagination > li > a,
-.pagination > li > span {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  color: #337ab7;
-  float: left;
-  line-height: 1.42857143;
-  margin-left: -1px;
-  padding: 6px 12px;
-  position: relative;
-  text-decoration: none;
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  margin-left: 0;
 }
 
 table tr th {
