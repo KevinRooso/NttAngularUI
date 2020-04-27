@@ -67,7 +67,7 @@ export class HomeUiComponent implements OnInit {
 
   eventId = '';
   // tslint:disable-next-line:no-input-rename
-  @Input('userType') userType : string;
+  @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
   @ViewChild('articleButton', { static: false }) articleButton;
   @ViewChild('blogButton', { static: false }) blogButton;
@@ -105,11 +105,7 @@ export class HomeUiComponent implements OnInit {
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
   filterArrForBannerBlock: any[] = [];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private service: AuthServiceService,
-    public snackBar: MatSnackBar
-  ) {}
+  constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
     this.getHomepageData();
     this.createForms();
@@ -209,7 +205,6 @@ export class HomeUiComponent implements OnInit {
   getAllData() {
     this.show = true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
-
       this.bannerData = res.body.banners;
       this.resourceData = res.body.list;
       if (this.bannerData.length === 0 && this.resourceData.length === 0) {
@@ -236,7 +231,8 @@ export class HomeUiComponent implements OnInit {
             this.articleBlockData = m.id;
             this.articleButton.nativeElement.click();
           }
-          if (m.type === 'blogs') {this.bannerConfigurationForm1.get(['datafieldType'])
+          if (m.type === 'blogs') {
+            this.bannerConfigurationForm1.get(['datafieldType']);
             this.blogBlockData = m.id;
             this.blogButton.nativeElement.click();
           }
@@ -262,16 +258,16 @@ export class HomeUiComponent implements OnInit {
           }
         });
 
-        if(this.bannerData.length >= 1){
+        if (this.bannerData.length >= 1) {
           this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
-          }
-          if(this.bannerData.length >= 2){
+        }
+        if (this.bannerData.length >= 2) {
           this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
-          }
+        }
 
-          if(this.bannerData.length >= 3){
+        if (this.bannerData.length >= 3) {
           this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
-          }
+        }
       }
       this.show = false;
     });
@@ -337,15 +333,15 @@ export class HomeUiComponent implements OnInit {
     const obj3 = this.bannerConfigurationForm3.value;
     // tslint:disable-next-line:no-unused-expression
     this.blocks.find((x) => x.apiName === this.bannerConfigurationForm1.get(['datafieldType']).value).name;
-    if(this.bannerConfigurationForm1.get(['datafieldType']).value !== ''){
-    obj1.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm1.get(['datafieldType']).value).name;
+    if (this.bannerConfigurationForm1.get(['datafieldType']).value !== '') {
+      obj1.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm1.get(['datafieldType']).value).name;
     }
-    if(this.bannerConfigurationForm2.get(['datafieldType']).value !== ''){
-        obj2.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm2.get(['datafieldType']).value).name;
-        }
-        if(this.bannerConfigurationForm3.get(['datafieldType']).value !== ''){
-         obj3.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm3.get(['datafieldType']).value).name;
-        }
+    if (this.bannerConfigurationForm2.get(['datafieldType']).value !== '') {
+      obj2.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm2.get(['datafieldType']).value).name;
+    }
+    if (this.bannerConfigurationForm3.get(['datafieldType']).value !== '') {
+      obj3.datafieldType = this.blocks.find((x) => x.apiName === this.bannerConfigurationForm3.get(['datafieldType']).value).name;
+    }
     const seq = [];
     if (obj1.sequenceNumber !== '' && obj1.sequenceNumber !== undefined) {
       seq.push(obj1.sequenceNumber);
@@ -375,14 +371,16 @@ export class HomeUiComponent implements OnInit {
       }
     }
     if (flag) {
-      this.service.saveBanner(obj).subscribe(() => {
-        this.show = false;
-        this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
-        // alert("Saved Successfully")
-      },
-      (_error)=>{
-        this.show=false;
-      });
+      this.service.saveBanner(obj).subscribe(
+        () => {
+          this.show = false;
+          this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
+          // alert("Saved Successfully")
+        },
+        (_error) => {
+          this.show = false;
+        }
+      );
     }
   }
   getSelectedBlockData(value, banner) {
@@ -417,7 +415,7 @@ export class HomeUiComponent implements OnInit {
         this.callService(value, banner);
       }
     }
-    if (value1 ==='video') {
+    if (value1 === 'video') {
       if (this.eventData.length !== 0) {
         this.setBannerData(banner, this.videoData);
       } else {
@@ -494,7 +492,7 @@ export class HomeUiComponent implements OnInit {
           this.show = false;
         },
         (_error) => {
-         this.show = false;
+          this.show = false;
         }
       );
     }
@@ -634,7 +632,7 @@ export class HomeUiComponent implements OnInit {
   }
   submitArticle() {
     this.show = true;
-   const obj: any[] = [];
+    const obj: any[] = [];
 
     obj.push(this.articleConfigurationForm.value);
     this.service.saveRescourceBlock('article', obj).subscribe(
@@ -689,7 +687,6 @@ export class HomeUiComponent implements OnInit {
     obj.push(this.whitePaperConfigurationForm.value);
     this.service.saveRescourceBlock('whitepaper', obj).subscribe(
       (_res) => {
-
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
         this.show = false;
@@ -722,7 +719,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.newsConfigurationForm.value);
-   this.service.saveEventBlock('news', obj).subscribe(
+    this.service.saveEventBlock('news', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -739,9 +736,8 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.testConfigurationForm.value);
-   this.service.saveEventBlock('testimonial', obj).subscribe(
+    this.service.saveEventBlock('testimonial', obj).subscribe(
       (_res) => {
-
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         this.show = false;
       },
@@ -760,12 +756,12 @@ export class HomeUiComponent implements OnInit {
       this.homeBannerData = res.body.banners;
       this.homeListData = res.body.list;
       this.bannerData = this.homeBannerData;
-      if(!this.bannerData){
-      this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
+      if (!this.bannerData) {
+        this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
 
-      this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
+        this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
 
-      this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
+        this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
       }
       this.show = false;
     });

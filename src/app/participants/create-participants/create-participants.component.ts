@@ -89,7 +89,7 @@ export class CreateParticipantsComponent implements OnInit {
       arr.push(obj);
 
       this.service.saveParticipentnonEvent(this.eventId, arr).subscribe((res) => {
-       if (res.body.length !== 0) {
+        if (res.body.length !== 0) {
           this.snackBar.open('Participants successfully added in event', 'Close', { duration: 5000 });
           this.submitted = false;
           if (this.id === undefined) {
@@ -102,6 +102,5 @@ export class CreateParticipantsComponent implements OnInit {
         }
       });
     }
-
   }
 }

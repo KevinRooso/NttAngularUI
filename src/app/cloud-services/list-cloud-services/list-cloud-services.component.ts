@@ -41,7 +41,7 @@ export class ListCloudServicesComponent implements OnInit {
     });
   }
   openSubmitModel() {
-   const obj = {
+    const obj = {
       page: JSON.stringify(this.parent),
       page1: JSON.stringify(this.bradArray),
       page2: JSON.stringify(null),
@@ -76,7 +76,7 @@ export class ListCloudServicesComponent implements OnInit {
     }
   }
   editForm(data) {
-   const obj = {
+    const obj = {
       page: JSON.stringify(this.parent),
       page1: JSON.stringify(this.bradArray),
       page2: JSON.stringify(data),

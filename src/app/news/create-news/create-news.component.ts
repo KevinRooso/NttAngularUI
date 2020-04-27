@@ -126,7 +126,6 @@ export class CreateNewsComponent implements OnInit {
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-
       },
       (_error) => {
         this.show = false;
@@ -177,7 +176,7 @@ export class CreateNewsComponent implements OnInit {
           this.router.navigate(['news']);
         },
         (_error) => {
-         this.show = false;
+          this.show = false;
           this.snackBar.open('Oops Something went wrong...', 'Close');
         }
       );

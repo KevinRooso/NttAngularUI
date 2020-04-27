@@ -49,13 +49,13 @@ export class NewsComponent implements OnInit {
   getDataWithCat() {
     this.filterBlogs = this.blogs;
     this.filterBlogs = this.blogs.filter((m) => {
-     return m.year === this.cat;
+      return m.year === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
     this.newsList = this.searchFilterData.filter((m) => {
-    const titleData = m.title.toUpperCase();
+      const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
   }

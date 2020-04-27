@@ -61,8 +61,6 @@ export class CreateFormComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-
-
       if (params != null) {
         this.parent = JSON.parse(params.page);
         if (this.parent !== null) {
@@ -184,8 +182,8 @@ export class CreateFormComponent implements OnInit {
     this.image1button = false;
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-     this.articleImage = res.fileDownloadUri;
-       this.show = false;
+        this.articleImage = res.fileDownloadUri;
+        this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
@@ -209,7 +207,7 @@ export class CreateFormComponent implements OnInit {
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
         this.attachFile = res.fileDownloadUri;
-       this.show = false;
+        this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
@@ -235,8 +233,8 @@ export class CreateFormComponent implements OnInit {
       formObject.id = this.editData.id;
     }
     formObject.parentId = this.parentId;
-   this.authService.createProductAndService(formObject).subscribe((_res) => {
-     this.snackBar.open('Success !!', 'Close', {
+    this.authService.createProductAndService(formObject).subscribe((_res) => {
+      this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
       });
       const obj = {

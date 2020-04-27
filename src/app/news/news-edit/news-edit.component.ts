@@ -82,7 +82,6 @@ export class NewsEditComponent implements OnInit {
   }
   getNewsVideoById(id) {
     this.service.getNewsById(id).subscribe((res) => {
-
       this.newsData = res.body;
       const url1 = this.newsData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
@@ -107,7 +106,7 @@ export class NewsEditComponent implements OnInit {
       if (res.body.targetUserType != null) {
         this.selected3 = res.body.targetUserType.id;
       }
-     this.image1button = true;
+      this.image1button = true;
     });
   }
   fileProgress(fileInput: any) {
@@ -165,7 +164,7 @@ export class NewsEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-       this.articleImage = res.fileDownloadUri;
+        this.articleImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -218,7 +217,7 @@ export class NewsEditComponent implements OnInit {
           this.router.navigate(['news']);
         },
         (_error) => {
-         this.show = false;
+          this.show = false;
           this.snackBar.open('Oops Something went wrong...', 'Close');
         }
       );

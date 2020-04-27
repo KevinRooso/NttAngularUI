@@ -19,7 +19,7 @@ export class NewsViewComponent implements OnInit {
   }
   getBlogData(id) {
     this.service.getNewsById(id).subscribe((res) => {
-     this.news = res.body;
+      this.news = res.body;
     });
   }
   editcaseRoute() {

@@ -87,19 +87,18 @@ export class ParticipantPreviewComponent {
 
           // tslint:disable-next-line:max-line-length
           defaultContent:
-                    // tslint:disable-next-line:quotemark
-           "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve'"+
-           // tslint:disable-next-line:quotemark
-           "style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size:"+
-           // tslint:disable-next-line:quotemark
-            "1rem;'></i></span>&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;"+
+            // tslint:disable-next-line:quotemark
+            "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve'" +
+            // tslint:disable-next-line:quotemark
+            "style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size:" +
+            // tslint:disable-next-line:quotemark
+            "1rem;'></i></span>&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;" +
             // tslint:disable-next-line:quotemark
             "font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>",
         },
       ],
       // tslint:disable-next-line:ban-types
       rowCallback: (row: Node, data: any[] | Object, _index: number) => {
-
         const self = this;
 
         $('td:nth-child(3)', row).css('cursor', 'pointer');
@@ -111,10 +110,9 @@ export class ParticipantPreviewComponent {
           $('td:nth-child(1)', row).html(this.eName);
         }
 
-
         $('td:nth-child(1) ', row).attr('width', '250px');
         if (data['approverId'] == null) {
-         $('td .showIdButton', row).html('Pending');
+          $('td .showIdButton', row).html('Pending');
           $('td:nth-child(7) .approve', row).attr('disabled', true);
         }
 
