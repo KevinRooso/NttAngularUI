@@ -17,12 +17,10 @@ export class ListCloudServicesComponent implements OnInit {
   bradArray: any[] = [];
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
-      console.log('data=', params);
       if ((Object.keys(params).length === 0 && params.constructor === Object) || JSON.parse(params.page) == null) {
         this.getAllData();
       } else {
         this.bradArray = JSON.parse(params.page1);
-        console.log('jsonnn', JSON.parse(params.page1));
 
         if (JSON.parse(params.page) != null) {
           this.getDetailData(JSON.parse(params.page));
@@ -33,10 +31,9 @@ export class ListCloudServicesComponent implements OnInit {
   getAllData() {
     this.bradArray = [];
     this.service.getProductAndService(0).subscribe((res) => {
-      console.log('res=', res);
       this.detailPage = false;
       this.serviceData = res.body;
-      if (this.serviceData.length == 1 && this.serviceData[0].isLastService) {
+      if (this.serviceData.length === 1 && this.serviceData[0].isLastService) {
         this.detailPage = true;
         this.parent = this.serviceData[0];
         this.detailData = this.serviceData[0];
@@ -44,8 +41,7 @@ export class ListCloudServicesComponent implements OnInit {
     });
   }
   openSubmitModel() {
-    console.log('obj=', this.parent);
-    const obj = {
+   const obj = {
       page: JSON.stringify(this.parent),
       page1: JSON.stringify(this.bradArray),
       page2: JSON.stringify(null),
@@ -61,8 +57,9 @@ export class ListCloudServicesComponent implements OnInit {
     this.bradArray.push(obj);
     const newArr = this.bradArray;
     this.bradArray = [];
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < newArr.length; i++) {
-      if (obj.id == newArr[i].id) {
+      if (obj.id === newArr[i].id) {
         this.bradArray.push(newArr[i]);
         break;
       } else {
@@ -75,13 +72,11 @@ export class ListCloudServicesComponent implements OnInit {
     } else {
       this.service.getProductAndService(obj.id).subscribe((res) => {
         this.serviceData = res.body;
-        console.log('res=', this.serviceData);
       });
     }
   }
   editForm(data) {
-    console.log('obj=', this.parent);
-    const obj = {
+   const obj = {
       page: JSON.stringify(this.parent),
       page1: JSON.stringify(this.bradArray),
       page2: JSON.stringify(data),
