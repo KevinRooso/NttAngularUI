@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -55,7 +55,7 @@ export class WhitepaperEditComponent implements OnInit {
     private router1: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {
-    this.updateWhitePaperForm = frmbuilder.group({
+    this.updateWhitePaperForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
@@ -76,7 +76,7 @@ export class WhitepaperEditComponent implements OnInit {
         return this.updateWhitePaperForm.controls[controlName].hasError(errorName);
       }
     };
-    this.addTagForm = frmbuilder.group({
+    this.addTagForm = this.frmbuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     });
@@ -84,12 +84,10 @@ export class WhitepaperEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
-      console.log(params.page);
       this.wPaperId = params.page;
       this.getWhitePaperDetails(params.page);
     });
     // this.router1.queryParams.subscribe(params => {
-    //   console.log(params.page);
     //   this.articleId = params.page;
     //   this.getArticlesDetails(params.page);
     //   this.getUserList();
@@ -105,9 +103,9 @@ export class WhitepaperEditComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if (this.userList != null) {
+      if (this.userList !== null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -122,15 +120,13 @@ export class WhitepaperEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
       }
@@ -143,7 +139,6 @@ export class WhitepaperEditComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -164,12 +159,10 @@ export class WhitepaperEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    if (this.fileData !== undefined) {
       this.image2button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'application/pdf') {
+      if (fileType === 'application/pdf') {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
         // this.preview2();
@@ -185,7 +178,6 @@ export class WhitepaperEditComponent implements OnInit {
     //     const height = img.naturalHeight;
 
     //     window.URL.revokeObjectURL(img.src);
-    //     console.log(width + '*' + height);
 
     //     if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
     //       this.imageValid2 = true;
@@ -201,7 +193,7 @@ export class WhitepaperEditComponent implements OnInit {
   }
   preview() {
     const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
+    if (mimeType.match(/image\/*/) === null) {
       return;
     }
     const reader = new FileReader();
@@ -211,7 +203,6 @@ export class WhitepaperEditComponent implements OnInit {
     };
   }
   preview2() {
-    const mimeType = this.fileData.type;
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -225,15 +216,13 @@ export class WhitepaperEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      () => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -246,15 +235,13 @@ export class WhitepaperEditComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
         this.image2button = true;
         this.imageValid2 = false;
         this.show = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      () => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -264,21 +251,17 @@ export class WhitepaperEditComponent implements OnInit {
   getWhitePaperDetails(id) {
     this.authService.getResourceById(id).subscribe((res) => {
       this.wPaperData = res.body;
-      console.log('resdata', this.wPaperData);
 
       const url1 = this.wPaperData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
-      console.log('Image Name', this.result1);
 
       const url2 = this.wPaperData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
-      console.log('Image Name', this.result2);
 
       // this.selected3=res.body.person.id;
       for (let i = 0; i < res.body.resourceTags.length; i++) {
         this.selected4.push(res.body.resourceTags[i].id);
       }
-      console.log('tags=', this.selected4);
 
       this.updateWhitePaperForm.controls['title'].setValue(this.wPaperData.title);
       this.updateWhitePaperForm.controls['longDescription'].setValue(this.wPaperData.longDescription);
@@ -326,7 +309,7 @@ export class WhitepaperEditComponent implements OnInit {
       return false;
     }
     this.submitted = true;
-    if (this.updateWhitePaperForm.value.tagList.length == 0) {
+    if (this.updateWhitePaperForm.value.tagList.length === 0) {
       this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
     }
@@ -335,7 +318,7 @@ export class WhitepaperEditComponent implements OnInit {
       const obj1 = this.updateWhitePaperForm.value;
       this.tagData.forEach((m) => {
         obj1.tagList.forEach((n) => {
-          if (n == m.id) {
+          if (n === m.id) {
             const tag = {
               id: m.id,
               keywords: m.keywords,
@@ -347,15 +330,14 @@ export class WhitepaperEditComponent implements OnInit {
       });
       let catId;
       this.allData.forEach((m) => {
-        if (m.displayName == this.updateWhitePaperForm.controls['categoryId'].value) {
+        if (m.displayName === this.updateWhitePaperForm.controls['categoryId'].value) {
           catId = m.id;
         }
       });
-      console.log('cat id', catId);
 
       // let userId;
       // this.userList.forEach(m=>{
-      //   if(m.displayName==this.EditArticleForm.controls['targetUserType'].value)
+      //   if(m.displayName===this.EditArticleForm.controls['targetUserType'].value)
       //     userId=m.id;
       // });
 
@@ -378,19 +360,14 @@ export class WhitepaperEditComponent implements OnInit {
         expiryDate: this.updateWhitePaperForm.controls['expiryDate'].value,
       };
 
-      console.log('post', obj);
-
       this.authService.saveResource(obj).subscribe(
-        (response) => {
-          // alert("Successfully Updated");
-          console.log('response', response);
+        () => {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Whitepaper successfully updated', 'Close', { duration: 5000 });
           this.router.navigate(['whitepapers']);
         },
-        (error) => {
-          // alert("Error :"+error);
+        () => {
           this.show = false;
           this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
         }
@@ -404,7 +381,7 @@ export class WhitepaperEditComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });

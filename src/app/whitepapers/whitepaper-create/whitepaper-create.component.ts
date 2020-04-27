@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -45,7 +45,7 @@ export class WhitepaperCreateComponent implements OnInit {
     public snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.createWhitePaperForm = frmbuilder.group({
+    this.createWhitePaperForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
@@ -67,7 +67,7 @@ export class WhitepaperCreateComponent implements OnInit {
         return this.createWhitePaperForm.controls[controlName].hasError(errorName);
       }
     };
-    this.addTagForm = frmbuilder.group({
+    this.addTagForm = this.frmbuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     });
@@ -88,7 +88,7 @@ export class WhitepaperCreateComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -106,8 +106,7 @@ export class WhitepaperCreateComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
       // this.preview();
     }
@@ -119,7 +118,6 @@ export class WhitepaperCreateComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -139,7 +137,7 @@ export class WhitepaperCreateComponent implements OnInit {
     this.imageValid2 = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'application/pdf') {
+    if (fileType === 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
     }
@@ -147,7 +145,7 @@ export class WhitepaperCreateComponent implements OnInit {
   preview() {
     // Show preview
     const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
+    if (mimeType.match(/image\/*/) === null) {
       return;
     }
 
@@ -159,11 +157,6 @@ export class WhitepaperCreateComponent implements OnInit {
   }
   preview2() {
     // Show preview
-    const mimeType = this.fileData.type;
-    // if (mimeType.match(/image\/*/) == null) {
-    //   return;
-    // }
-
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -178,15 +171,13 @@ export class WhitepaperCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      () => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -200,15 +191,13 @@ export class WhitepaperCreateComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
         this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
         this.snackBar.open('Attachment successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      () => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -258,16 +247,14 @@ export class WhitepaperCreateComponent implements OnInit {
         approverId: 0,
         expiryDate: this.createWhitePaperForm.controls['expiryDate'].value,
       };
-      console.log('post', obj);
 
       this.authService.saveResource(obj).subscribe(
-        (response) => {
+        () => {
           this.show = false;
           this.snackBar.open('Whitepaper successfully created', 'Close', { duration: 2000 });
-          console.log('response', response);
           this.router.navigate(['whitepapers']);
         },
-        (error) => {
+        () => {
           this.show = false;
           this.snackBar.open('Oops, something went wrong..', 'Close');
         }
@@ -281,7 +268,7 @@ export class WhitepaperCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });
