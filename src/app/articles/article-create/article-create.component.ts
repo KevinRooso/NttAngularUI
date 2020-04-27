@@ -36,13 +36,13 @@ export class ArticleCreateComponent implements OnInit {
   image2button = false;
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(
-    frmbuilder: FormBuilder,
+    private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
     private location: Location,
     public snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.createArticleForm = frmbuilder.group({
+    this.createArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),

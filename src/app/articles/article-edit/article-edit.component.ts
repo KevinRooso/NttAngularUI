@@ -47,14 +47,14 @@ export class ArticleEditComponent implements OnInit {
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(
-    frmbuilder: FormBuilder,
+    private frmbuilder: FormBuilder,
     private location: Location,
     private router: Router,
     private authService: AuthServiceService,
     private router1: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {
-    this.EditArticleForm = frmbuilder.group({
+    this.EditArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
