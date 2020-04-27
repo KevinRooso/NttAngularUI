@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../auth-service.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-testimonials',
@@ -26,7 +25,6 @@ export class TestimonialsComponent implements OnInit {
   }
   getTestimonials() {
     this.service.getAllTestimonials().subscribe((res) => {
-      console.log('res===', res);
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
@@ -37,22 +35,18 @@ export class TestimonialsComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      console.log(res);
       this.categoryList = res.body;
     });
   }
   getDataWithCat() {
     this.filterBlogs = this.blogs;
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.category.id == this.cat;
+      return m.category.id === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    console.log(this.filterBlogs);
     this.filterBlogs = this.searchFilterData.filter((m) => {
-      console.log(m.title);
-      console.log(this.searchBlog);
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchTests.toUpperCase());
