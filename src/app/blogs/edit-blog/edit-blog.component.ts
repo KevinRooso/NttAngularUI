@@ -6,7 +6,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-declare var $;
+
 @Component({
   selector: 'app-edit-blog',
   templateUrl: './edit-blog.component.html',
@@ -128,7 +128,7 @@ export class EditBlogComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -137,15 +137,12 @@ export class EditBlogComponent implements OnInit {
     this.show = true;
 
     const promise = this.service.getBlogById(id).toPromise();
-    console.log('promisee===', promise);
+
     promise.then(
       (res) => {
-        console.log('Promise resolved with: ', res);
-
         this.blogData = res.body;
         const url1 = this.blogData.thumbnailImageUrl;
         this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
-        console.log('Image Name', this.result1);
 
         this.createBlogForm.controls['targetUserType'].setValidators(null);
         this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
@@ -163,13 +160,11 @@ export class EditBlogComponent implements OnInit {
           this.tarUserType = res.body.targetUserType.id;
         }
         this.selected2 = res.body.category.id;
-        console.log('cat==', this.selected2);
 
         this.selected3 = res.body.person.id;
         for (let i = 0; i < res.body.resourceTags.length; i++) {
           this.selected4.push(res.body.resourceTags[i].id);
         }
-        console.log('selectedtags=', this.selected4);
 
         this.speakerImage = res.body.thumbnailImageUrl;
         this.createBlogForm.get(['title']).setValue(res.body.title);
@@ -191,26 +186,21 @@ export class EditBlogComponent implements OnInit {
       },
       (error) => {
         this.show = false;
-        console.log('Promise rejected with ', error);
       }
     );
   }
   getCategoryDetails() {
     this.service.getCategoryList().subscribe((res) => {
       this.catagoryData = res.body;
-      console.log('catsss=', this.catagoryData);
     });
   }
   getTagsDetails() {
     this.service.getTagsList().subscribe((res) => {
-      console.log('tagdetail', res.body);
-
       this.tagData = res.body;
     });
   }
   getPersons() {
     this.service.getPersons().subscribe((res) => {
-      console.log('persons==', res.body);
       this.persons = res.body;
     });
   }
@@ -219,15 +209,14 @@ export class EditBlogComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
+
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
         this.imageValid = true;
         this.result1 = this.fileData.name;
         // this.preview();
@@ -276,7 +265,6 @@ export class EditBlogComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
@@ -284,7 +272,6 @@ export class EditBlogComponent implements OnInit {
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
-        console.log(this.speakerImage);
       },
       (error) => {
         this.show = false;
@@ -300,7 +287,7 @@ export class EditBlogComponent implements OnInit {
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    if (fileType === 'image/jpeg' || fileType === 'image/png') {
       this.imageValid1 = true;
       this.preview1();
     }
@@ -326,7 +313,6 @@ export class EditBlogComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.image2button = true;
         this.show1 = false;
         this.imageValid1 = false;
@@ -334,7 +320,6 @@ export class EditBlogComponent implements OnInit {
         this.snackBar.open('Image successfully uploaded', 'Close', {
           duration: 5000,
         });
-        console.log(this.personImage);
       },
       (error) => {
         this.show = false;
@@ -383,24 +368,24 @@ export class EditBlogComponent implements OnInit {
       return false;
     }
     const obj = this.createBlogForm.value;
-    if (this.createBlogForm.value.tagList.length == 0) {
+    if (this.createBlogForm.value.tagList.length === 0) {
       this.createBlogForm.controls['tagList'].setValidators(Validators.required);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
     this.submitted = true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;
-      console.log('tags=', obj.tagList);
+
       let personObj;
 
       this.persons.forEach((m) => {
-        if (this.createBlogForm.get(['person']).value == m.id) {
+        if (this.createBlogForm.get(['person']).value === m.id) {
           personObj = m;
         }
       });
       let catObj;
       this.catagoryData.forEach((m) => {
-        if (this.createBlogForm.get(['categoryId']).value == m.id) {
+        if (this.createBlogForm.get(['categoryId']).value === m.id) {
           catObj = m;
         }
       });
@@ -409,7 +394,7 @@ export class EditBlogComponent implements OnInit {
 
       this.tagData.forEach((m) => {
         obj.tagList.forEach((n) => {
-          if (n == m.id) {
+          if (n === m.id) {
             const tag = {
               id: m.id,
               keywords: m.keywords,
@@ -436,10 +421,9 @@ export class EditBlogComponent implements OnInit {
         targetUserType: obj.targetUserType,
         expiryDate: obj.expiryDate,
       };
-      console.log(dataObj);
+
       this.service.saveResource(dataObj).subscribe(
         (res) => {
-          console.log(res);
           this.show = false;
           this.snackBar.open('Blog Updated Successfully', 'Close', {
             duration: 5000,
@@ -471,14 +455,13 @@ export class EditBlogComponent implements OnInit {
       return false;
     }
     if (this.personForm.valid) {
-      console.log(this.personForm.value);
       let fruit1 = '';
-      console.log(this.fruits);
+
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
       });
       this.persons.forEach((m) => {
-        if (m.email == this.personForm.get(['email']).value) {
+        if (m.email === this.personForm.get(['email']).value) {
           flag = true;
         }
       });
@@ -503,7 +486,7 @@ export class EditBlogComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -47,7 +47,7 @@ export class ArticleEditComponent implements OnInit {
   @ViewChild('closeModel', { static: true }) closeModel;
   // catId: any;
   constructor(
-    private frmbuilder: FormBuilder,
+    frmbuilder: FormBuilder,
     private location: Location,
     private router: Router,
     private authService: AuthServiceService,
@@ -84,7 +84,6 @@ export class ArticleEditComponent implements OnInit {
   ngOnInit(): void {
     this.show = true;
     this.router1.queryParams.subscribe((params) => {
-      console.log(params.page);
       this.articleId = params.page;
 
       this.getArticlesDetails(params.page);
@@ -93,7 +92,6 @@ export class ArticleEditComponent implements OnInit {
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
-      console.log('tagdetails==', this.tagData);
     });
   }
   getUserList() {
@@ -101,7 +99,7 @@ export class ArticleEditComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -118,16 +116,11 @@ export class ArticleEditComponent implements OnInit {
 
       const url1 = this.articleData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
-      console.log('Image Name', this.result1);
 
       const url2 = this.articleData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
-      console.log('Image Name', this.result2);
 
       this.selected3 = res.body.targetUserType.id;
-      console.log('Data', this.selected3);
-
-      console.log('resdata', this.articleData);
 
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
@@ -136,14 +129,11 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
       this.EditArticleForm.controls['draft'].setValue(this.articleData.isDraft);
       this.selected4 = [];
-      console.log('tags==', this.selected4);
-      console.log('tagssss=', res.body.resourceTags);
 
       for (let i = 0; i < res.body.resourceTags.length; i++) {
         this.selected4.push(res.body.resourceTags[i].id);
       }
 
-      console.log('tags==', this.selected4);
       this.EditArticleForm.controls['thumbnailImageUrl'].setValidators(null);
       this.EditArticleForm.controls['thumbnailImageUrl'].updateValueAndValidity();
       this.previewUrl = this.articleData.thumbnailImageUrl;
@@ -161,7 +151,7 @@ export class ArticleEditComponent implements OnInit {
 
       this.today = this.articleData.expiryDate;
       this.EditArticleForm.controls['expiryDate'].setValue(this.articleData.expiryDate);
-      console.log('date=', this.today);
+
       this.image1button = true;
       this.image2button = true;
       this.getTagsDetails();
@@ -176,15 +166,15 @@ export class ArticleEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
+
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    // const fileType = this.fileData.type;
+    // const fileSize = this.fileData.size;
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
         this.imageValid = true;
         this.result1 = this.fileData.name;
         // this.preview();
@@ -219,12 +209,12 @@ export class ArticleEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    // const fileType = this.fileData.type;
+    // const fileSize = this.fileData.size;
+    if (this.fileData !== undefined) {
       this.image2button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'application/pdf') {
+      if (fileType === 'application/pdf') {
         this.imageValid2 = true;
         this.result2 = this.fileData.name;
       } else {
@@ -244,7 +234,7 @@ export class ArticleEditComponent implements OnInit {
     };
   }
   preview2() {
-    const mimeType = this.fileData.type;
+    // const mimeType = this.fileData.type;
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -258,9 +248,8 @@ export class ArticleEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
+
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -283,9 +272,8 @@ export class ArticleEditComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
+
         this.image2button = true;
         this.imageValid2 = false;
         this.show = false;
@@ -318,7 +306,7 @@ export class ArticleEditComponent implements OnInit {
       this.show = false;
       return false;
     }
-    if (this.EditArticleForm.value.tagList.length == 0) {
+    if (this.EditArticleForm.value.tagList.length === 0) {
       this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
       this.EditArticleForm.controls['tagList'].updateValueAndValidity();
     }
@@ -327,7 +315,7 @@ export class ArticleEditComponent implements OnInit {
       const tags: any[] = [];
       this.tagData.forEach((m) => {
         this.EditArticleForm.value.tagList.forEach((n) => {
-          if (n == m.id) {
+          if (n === m.id) {
             const tag = {
               id: m.id,
               keywords: m.keywords,
@@ -339,11 +327,10 @@ export class ArticleEditComponent implements OnInit {
       });
       let catId;
       this.allData.forEach((m) => {
-        if (m.displayName == this.EditArticleForm.controls['categoryId'].value) {
+        if (m.displayName === this.EditArticleForm.controls['categoryId'].value) {
           catId = m.id;
         }
       });
-      console.log('cat id', catId);
 
       // let userId;
       // this.userList.forEach(m=>{
@@ -369,12 +356,11 @@ export class ArticleEditComponent implements OnInit {
         targetUserType: this.EditArticleForm.controls['targetUserType'].value,
         expiryDate: this.EditArticleForm.controls['expiryDate'].value,
       };
-      console.log('post', obj);
 
       this.authService.saveResource(obj).subscribe(
         (response) => {
           // alert("Successfully Updated");
-          console.log('response', response);
+
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Article successfully updated', 'Close', {
@@ -401,7 +387,7 @@ export class ArticleEditComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });

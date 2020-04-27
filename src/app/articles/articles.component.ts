@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../auth-service.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-articles',
@@ -31,13 +30,13 @@ export class ArticlesComponent implements OnInit {
   getAllArticleList() {
     this.authService.getAllArticle().subscribe((res) => {
       this.articleList = res.body;
-      console.log('res', this.articleList);
+
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
       res.body.filter((m) => {
-        if (this.dates.indexOf(m.createdAt.substring(0, 10).split('-').reverse().join('/')) == -1) {
+        if (this.dates.indexOf(m.createdAt.substring(0, 10).split('-').reverse().join('/')) === -1) {
           this.dates.push(m.createdAt.substring(0, 10).split('-').reverse().join('/'));
         }
       });
@@ -52,13 +51,12 @@ export class ArticlesComponent implements OnInit {
   // }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
-      console.log(res);
       this.categoryList = res.body;
     });
   }
   getDataWithCat() {
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.categoryName == this.cat;
+      return m.categoryName === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
@@ -69,10 +67,8 @@ export class ArticlesComponent implements OnInit {
 
       return titleData.includes(d);
     });
-    console.log('filterblogsss==', this.filterBlogs);
   }
   blogSearch() {
-    console.log(this.filterBlogs);
     this.filterBlogs = this.searchFilterData.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
@@ -85,12 +81,12 @@ export class ArticlesComponent implements OnInit {
 
   filterData() {
     const data = this.sort.split('?');
-    if (this.sort == 'Sort By') {
+    if (this.sort === 'Sort By') {
       this.filterBlogs = this.blogs;
     }
 
-    if (data[1] == 'date') {
-      if (data[0] == 'asc') {
+    if (data[1] === 'date') {
+      if (data[0] === 'asc') {
         //   console.log("adtesort==",this.searchFilterData);
         this.searchFilterData.sort(this.GFG_sortFunction);
         // console.log("dateaftersort==",this.searchFilterData);

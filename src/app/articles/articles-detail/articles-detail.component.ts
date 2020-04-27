@@ -30,9 +30,9 @@ export class ArticlesDetailComponent implements OnInit {
     this.authService.getResourceById(id).subscribe((res) => {
       this.articleData = res.body;
       this.show = false;
-      console.log('Get Articles', this.articleData);
+
       this.resourceTags = this.articleData.resourceTags;
-      console.log(this.articleData.resourceTags);
+
       // this.resourceTags.forEach((value,index)=>{
       //   if(index!=this.resourceTags.length-1)
       //   this.restags=this.restags+value.name + ','
