@@ -33,12 +33,12 @@ a:hover {
 }
 
 .dropdown-menu > li > a {
-  padding: 10px 40px 10px 16px !important;
   clear: both;
   color: #333;
   display: block;
   font-weight: 400;
   line-height: 1.42857143;
+  padding: 10px 40px 10px 16px !important;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -78,7 +78,6 @@ a:hover {
 }
 
 .user-header > p {
-  color: #fff;
   color: rgba(255, 255, 255, 0.8);
   font-size: 17px;
   margin-top: 10px;

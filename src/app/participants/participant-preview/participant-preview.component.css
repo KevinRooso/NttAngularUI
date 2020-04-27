@@ -36,21 +36,10 @@ table.dataTable {
 .pagination > li {
   display: inline;
 }
+
 .pagination > li > a {
   background: #fafafa;
   color: #666;
-}
-.pagination > li > a,
-.pagination > li > span {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  color: #337ab7;
-  float: left;
-  line-height: 1.42857143;
-  margin-left: -1px;
-  padding: 6px 12px;
-  position: relative;
-  text-decoration: none;
 }
 
 .pagination > li:first-child > a,
@@ -70,6 +59,19 @@ table.dataTable {
   border-color: #ddd;
   color: #777;
   cursor: not-allowed;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #337ab7;
+  float: left;
+  line-height: 1.42857143;
+  margin-left: -1px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
 }
 
 table tr th {

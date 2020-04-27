@@ -206,10 +206,12 @@ a:hover {
 .mat-btn {
   border-radius: 20px !important;
 }
+
 .mat-menu-content {
   background-color: #007bff;
   min-width: 35px;
 }
+
 .fab-container {
   align-items: center;
   bottom: 15px;
