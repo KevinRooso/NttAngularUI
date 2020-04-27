@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -64,7 +64,6 @@ export class CasesEditComponent implements OnInit {
     private router: Router,
     public snackBar: MatSnackBar
   ) {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.createCases = frmbuilder.group({
       title: ['', Validators.required],
       longDescription: ['', Validators.required],
@@ -105,25 +104,20 @@ export class CasesEditComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
   }
   getCasesData(id) {
     this.authService.getBlogById(id).subscribe((res) => {
-      console.log('4');
-
       this.getCaseData = res.body;
-      console.log('resdata', this.getCaseData);
 
       const url1 = this.getCaseData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
-      console.log('Image Name', this.result1);
 
       const url2 = this.getCaseData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
-      console.log('Image Name', this.result2);
 
       this.selected2 = res.body.category.id;
       if (res.body.person != null) {
@@ -162,7 +156,7 @@ export class CasesEditComponent implements OnInit {
         this.selected4.push(res.body.resourceTags[i].id);
       }
       this.tarUserType = res.body.targetUserType.id;
-      console.log('tarus===', this.tarUserType);
+
       this.today = res.body.expiryDate;
       this.createCases.controls['expiryDate'].setValue(res.body.expiryDate);
       this.image1button = true;
@@ -174,16 +168,11 @@ export class CasesEditComponent implements OnInit {
   }
   getCategoryDetails() {
     this.authService.getCategoryList().subscribe((res) => {
-      console.log('1');
-      console.log('cat=', res.body);
-
       this.catagoryData = res.body;
     });
   }
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
-      console.log('2');
-      console.log('tagss==', res.body);
       this.tagData = res.body;
     });
   }
@@ -191,15 +180,15 @@ export class CasesEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
+
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
+
     const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if ((fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') && fileSize < 1000000) {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
       }
@@ -233,12 +222,11 @@ export class CasesEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+
+    if (this.fileData !== undefined) {
       this.image2button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'application/pdf') {
+      if (fileType === 'application/pdf') {
         this.imageValid2 = true;
         // this.preview2();
         this.result2 = this.fileData.name;
@@ -259,7 +247,6 @@ export class CasesEditComponent implements OnInit {
     };
   }
   preview2() {
-    const mimeType = this.fileData.type;
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -273,9 +260,8 @@ export class CasesEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
+
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -298,9 +284,8 @@ export class CasesEditComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
+
         this.image2button = true;
         this.imageValid2 = false;
         this.show = false;
@@ -331,7 +316,7 @@ export class CasesEditComponent implements OnInit {
       return false;
     }
     this.submitted = true;
-    if (this.createCases.value.tagList.length == 0) {
+    if (this.createCases.value.tagList.length === 0) {
       this.createCases.controls['tagList'].setValidators(Validators.required);
       this.createCases.controls['tagList'].updateValueAndValidity();
     }
@@ -339,7 +324,7 @@ export class CasesEditComponent implements OnInit {
       const obj = this.createCases.value;
       let catObj;
       this.catagoryData.forEach((m) => {
-        if (this.createCases.get(['categoryId']).value == m.id) {
+        if (this.createCases.get(['categoryId']).value === m.id) {
           catObj = m;
         }
       });
@@ -348,7 +333,7 @@ export class CasesEditComponent implements OnInit {
 
       this.tagData.forEach((m) => {
         obj.tagList.forEach((n) => {
-          if (n == m.id) {
+          if (n === m.id) {
             const tag = {
               id: m.id,
               keywords: m.keywords,
@@ -376,10 +361,9 @@ export class CasesEditComponent implements OnInit {
         thumbnailImageUrl: this.articleImage,
         downloadUrl: this.attachFile,
       };
-      console.log('post', dataObj);
+
       this.authService.saveResource(dataObj).subscribe(
         (res) => {
-          console.log(res);
           this.show = false;
           this.snackBar.open('Case Study Updated Successfully', 'Close', {
             duration: 5000,
@@ -403,7 +387,7 @@ export class CasesEditComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });

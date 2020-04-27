@@ -3,14 +3,17 @@
   margin: 0;
   padding: 0;
 }
+
 html {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   font-size: 62.5%;
 }
+
 body {
   font-size: 1.4rem;
   height: 100%;
 }
+
 .wrapper {
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,20 +24,25 @@ body {
   margin: -16px;
   min-height: 90vh;
 }
+
 .counterDown {
   margin: auto;
 }
+
 .counterDown h1 {
   font-size: 4rem;
 }
+
 hr {
   background-color: rgba(255, 255, 255, 0.8);
 }
+
 #demo {
   display: flex;
   flex-direction: row;
   font-size: 1.6rem;
 }
+
 #jours {
   font-family: 'Roboto Mono', sans-serif;
   font-size: 4rem;
@@ -42,6 +50,7 @@ hr {
   margin-right: 1rem;
   width: 8rem;
 }
+
 #heures {
   font-family: 'Roboto Mono', sans-serif;
   font-size: 4rem;
@@ -49,6 +58,7 @@ hr {
   margin-right: 1rem;
   width: 8rem;
 }
+
 #minutes {
   font-family: 'Roboto Mono', sans-serif;
   font-size: 4rem;
@@ -56,6 +66,7 @@ hr {
   margin-right: 1rem;
   width: 8rem;
 }
+
 #secondes {
   font-family: 'Roboto Mono', sans-serif;
   font-size: 4rem;
@@ -63,44 +74,52 @@ hr {
   margin: auto;
   width: 8rem;
 }
+
 #infos {
   color: rgba(126, 85, 39, 1);
   display: flex;
   flex-direction: row;
   font-size: 1.6rem;
 }
+
 .infos-jours {
   font-family: 'Roboto Mono', sans-serif;
   margin-right: 1rem;
   margin-top: -3rem;
   width: 8rem;
 }
+
 .infos-heures {
   font-family: 'Roboto Mono', sans-serif;
   margin-right: 1rem;
   margin-top: -3rem;
   width: 8rem;
 }
+
 .infos-minutes {
   font-family: 'Roboto Mono', sans-serif;
   margin-right: 1rem;
   margin-top: -3rem;
   width: 8rem;
 }
+
 .infos-secondes {
   font-family: 'Roboto Mono', sans-serif;
   margin: auto;
   margin-top: -3rem;
   width: 8rem;
 }
+
 .chart {
   overflow: hidden;
   position: relative;
   width: 100%;
 }
+
 .chart canvas {
   width: 100% !important;
 }
+
 .card-container {
   background-color: white;
   border: 2px solid rgb(239, 239, 239);
@@ -108,6 +127,7 @@ hr {
   padding: 5px;
   width: 100%;
 }
+
 .card-div {
   height: 240px;
   width: 100%;
