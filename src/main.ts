@@ -10,6 +10,7 @@ if (environment.PROD) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
+  // tslint:disable-next-line:only-arrow-functions
   .catch(function (err) {
     throw new Error(err);
   });
