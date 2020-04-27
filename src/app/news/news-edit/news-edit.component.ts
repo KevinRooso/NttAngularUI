@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -75,19 +75,17 @@ export class NewsEditComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
   }
   getNewsVideoById(id) {
     this.service.getNewsById(id).subscribe((res) => {
-      console.log('Data', res);
 
       this.newsData = res.body;
       const url1 = this.newsData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
-      console.log('Image Name', this.result1);
 
       // this.getDate(res.body.date);
       this.updateNewsForm.get(['title']).setValue(res.body.title);
@@ -109,23 +107,19 @@ export class NewsEditComponent implements OnInit {
       if (res.body.targetUserType != null) {
         this.selected3 = res.body.targetUserType.id;
       }
-      console.log('Data', this.selected3);
-      this.image1button = true;
+     this.image1button = true;
     });
   }
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-    console.log('fileData==', this.fileData);
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData != undefined) {
+    if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
         this.imageValid = true;
         this.result1 = this.fileData.name;
         // this.preview();
@@ -139,7 +133,6 @@ export class NewsEditComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -172,15 +165,13 @@ export class NewsEditComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
-        this.articleImage = res.fileDownloadUri;
+       this.articleImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        console.log(this.articleImage);
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -199,7 +190,7 @@ export class NewsEditComponent implements OnInit {
     if (this.updateNewsForm.valid) {
       let userId;
       this.userList.forEach((m) => {
-        if (m.displayName == this.updateNewsForm.controls['targetUserType'].value) {
+        if (m.displayName === this.updateNewsForm.controls['targetUserType'].value) {
           userId = m.id;
         }
       });
@@ -219,18 +210,15 @@ export class NewsEditComponent implements OnInit {
         targetUserType: userId,
         expiryDate: this.updateNewsForm.controls['expiryDate'].value,
       };
-      console.log('post', objData);
       this.service.saveNews(objData).subscribe(
-        (response) => {
-          console.log('response=', response);
+        (_response) => {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('News successfully updated', 'Close', { duration: 2000 });
           this.router.navigate(['news']);
         },
-        (error) => {
-          console.log('error==', error);
-          this.show = false;
+        (_error) => {
+         this.show = false;
           this.snackBar.open('Oops Something went wrong...', 'Close');
         }
       );
@@ -242,13 +230,4 @@ export class NewsEditComponent implements OnInit {
   BackMe() {
     this.location.back();
   }
-  // getDate(date){
-  // let dObj=date.split(' ');
-  // console.log(dObj[3],'=',MONTH[dObj[1]],'=',dObj[2]);
-  // this.dateTime1=new Date(dObj[3],MONTH[dObj[1]],dObj[2]);
-  // }
 }
-// const MONTH={
-//     'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,
-//     'Sep':8,'Oct':9,'Nov':10,'Dec':11
-// }
