@@ -27,7 +27,6 @@ export class SpeakerDetailsComponent implements OnInit {
   getSpeakerData(id) {
     this.authService.getSpeakerDetail(id).subscribe((res) => {
       this.speakerData = res.body;
-      //console.log(this.speakerData);
     });
   }
   editSpeaker(id) {

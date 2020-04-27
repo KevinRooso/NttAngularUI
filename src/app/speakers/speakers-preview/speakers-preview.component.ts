@@ -35,7 +35,6 @@ export class SpeakersPreviewComponent implements OnInit {
           this.dates.push(m.createdAt.substring(0, 10).split('-').reverse().join('/'));
         }
       });
-      // console.log(this.cardData);
     });
   }
   getDetails(id) {
@@ -46,29 +45,10 @@ export class SpeakersPreviewComponent implements OnInit {
     this.filterBlogs = this.searchFilterData.filter((m) => {
       const titleData = m.createdAt;
       const d = this.filterDate.split('/').reverse().join('-');
-      //console.log('d==', d);
-      // console.log('data=', titleData);
-
       return titleData.includes(d);
     });
-    // console.log('filterblogsss==', this.filterBlogs);
   }
   blogSearch() {
-    // console.log(this.filterBlogs);
-    //   this.filterBlogs=this.searchFilterData.filter(m=>{
-    //     let flag=false;
-    //    let titleData="";
-    //    let origanizationName="";
-    //    if(m['fullName'] !=null){
-    //       titleData=m['fullName'].toUpperCase();
-    //     flag=titleData.includes(this.searchBlog.toUpperCase()) ;
-    //    }
-    //   if(m['origanizationName'] !=null){
-    //      origanizationName=m['origanizationName'].toUpperCase();
-    //    flag= origanizationName.includes(this.searchBlog.toUpperCase());
-    //   }
-    //   return flag;
-    //   })
     const keyword = this.searchBlog.toLowerCase();
     this.filterBlogs = this.searchFilterData.filter(
       (x) => x.fullName.toLowerCase().includes(keyword) || x.origanizationName.toLowerCase().includes(keyword)
@@ -85,15 +65,10 @@ export class SpeakersPreviewComponent implements OnInit {
 
     if (data[1] === 'cdate') {
       if (data[0] === 'asc') {
-        //console.log('adtesort==', this.searchFilterData);
         this.searchFilterData.sort(this.GFG_sortFunction);
-
-        // console.log('dateaftersort==', this.searchFilterData);
-
         this.filterBlogs = this.searchFilterData;
       } else {
         this.searchFilterData.sort(this.GFG_sortFunction1);
-        // console.log('dateaftersort==', this.searchFilterData);
         this.filterBlogs = this.searchFilterData;
       }
     }

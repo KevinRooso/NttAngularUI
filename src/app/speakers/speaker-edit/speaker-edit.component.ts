@@ -91,7 +91,6 @@ export class SpeakerEditComponent implements OnInit {
       }
     };
     this.router1.queryParams.subscribe((params) => {
-      //console.log(params.page);
       this.spkrID = params.page;
       this.getSpeakersDetails(params.page);
     });
@@ -125,18 +124,14 @@ export class SpeakerEditComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
-      // console.log('Image', res);
       this.speakerImage = res.fileDownloadUri;
       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-      //console.log(this.speakerImage);
-      // alert('SUCCESS !!');
     });
   }
 
   getSpeakersDetails(id) {
     this.authService.getSpeakerDetail(id).subscribe((res) => {
       this.getSpeaker = res.body;
-      // console.log('resdata', this.getSpeaker);
       this.updateSpeakerForm.controls['fullName'].setValue(this.getSpeaker.fullName);
       this.updateSpeakerForm.controls['description'].setValue(this.getSpeaker.description);
       this.updateSpeakerForm.controls['email'].setValue(this.getSpeaker.email);
@@ -152,7 +147,7 @@ export class SpeakerEditComponent implements OnInit {
       for (let i = 0; i < obj.length; i++) {
         this.fruits.push({ name: obj[i] });
       }
-      //console.log('Check ME', this.fruits);
+
       this.previewUrl = this.getSpeaker.profileImageUrl;
       this.speakerImage = res.body.profileImageUrl;
     });
@@ -161,7 +156,7 @@ export class SpeakerEditComponent implements OnInit {
   updateSpeaker() {
     if (this.updateSpeakerForm.valid) {
       let fruit1 = '';
-      //console.log(this.fruits);
+
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
       });
@@ -179,12 +174,10 @@ export class SpeakerEditComponent implements OnInit {
         profileImageUrl: this.speakerImage,
         id: this.spkrID,
       };
-      // console.log('post', obj);
+
       this.authService.saveSpeaker(obj).subscribe(
         (response) => {
           this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
-          // alert("Successfully Updated");
-          // console.log('response', response);
         },
         (error) => {
           this.snackBar.open(error, 'Close');
