@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { speedDialFabAnimations } from 'src/app/fab-animation';
 import { CommonServiceService } from 'src/app/common-service.service';
@@ -17,7 +16,6 @@ export class EventDetailsComponent implements OnInit {
     private authService: AuthServiceService,
     private router: Router,
     private router1: ActivatedRoute,
-    private location: Location,
     private commonService: CommonServiceService,
     public snackBar: MatSnackBar
   ) {}
@@ -50,7 +48,6 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
-      console.log(params.page);
       this.eventId = params.page;
       this.getEventData(params.page);
       this.getEventParticipant(params.page);
@@ -65,21 +62,16 @@ export class EventDetailsComponent implements OnInit {
     this.show = true;
     this.authService.getEventDetail(id).subscribe((res) => {
       this.getEventDetails = res.body.events;
-      console.log('ID Data', this.getEventDetails);
       this.eventName = this.getEventDetails.title;
       if (this.getEventDetails.eventSchedule != null) {
         this.getEventDetails.eventSchedule.forEach((m) => {
           arr.push(m);
         });
-        console.log('arr=', arr);
-
         const objs = this.getMinMaxDate(arr);
         this.startTime = this.commonService.getDateTime(objs.min);
         this.endTime = this.commonService.getDateTime(objs.max);
       }
       this.isPublish = this.getEventDetails.isPublish;
-      // this.isActive = this.getEventDetails.isActive;
-      console.log('eventschedule==', this.getEventDetails);
       if (this.getEventDetails.eventSchedule != null) {
         this.getEventDetails.eventSchedule.forEach((m) => {
           m.speakers.forEach((n) => {
@@ -93,7 +85,6 @@ export class EventDetailsComponent implements OnInit {
         .map((e, i, final) => final.indexOf(e) === i && i)
         .filter((e) => this.speakerList[e])
         .map((e) => this.speakerList[e]);
-      console.log('speakers=====', this.speakers);
     });
 
     this.show = false;
@@ -102,6 +93,7 @@ export class EventDetailsComponent implements OnInit {
   getMinMaxDate(arr) {
     let minAgendaStartTime = null;
     let maxAgendEndTime = null;
+    // tslint:disable-next-line:forin
     for (const index in arr) {
       const agenda = arr[index];
       if (index === '0') {
@@ -127,7 +119,6 @@ export class EventDetailsComponent implements OnInit {
     this.show = true;
     this.authService.getParticipant(id).subscribe((res) => {
       this.getParticipantDetails = res.body;
-      console.log('Participants Data', this.getParticipantDetails);
     });
     this.show = false;
   }
@@ -158,7 +149,7 @@ export class EventDetailsComponent implements OnInit {
   jumpDetail(id) {
     this.router.navigate(['participant-details'], { queryParams: { id } });
   }
-  copyDetails(id) {
+  copyDetails() {
     this.router.navigate(['/copy-event'], {
       queryParams: { page: this.eventId },
     });
@@ -182,25 +173,24 @@ export class EventDetailsComponent implements OnInit {
   onToggleFab() {
     this.buttons.length ? this.hideItems() : this.showItems();
   }
-  duplicateEdit(icon, id) {
-    if (icon == 'file_copy') {
+  duplicateEdit(icon, _id) {
+    if (icon === 'file_copy') {
       this.router.navigate(['/copy-event'], {
         queryParams: { page: this.eventId },
       });
     }
-    if (icon == 'edit') {
+    if (icon === 'edit') {
       this.router.navigate(['/edit'], { queryParams: { page: this.eventId } });
     }
   }
   publishChanges() {
     this.authService.savePublish(this.eventId, this.isPublish).subscribe(
-      (res) => {
+      (_res) => {
         this.snackBar.open('SUCCESS!!', 'Close', { duration: 5000 });
       },
       (error) => {
         this.isPublish = !this.isPublish;
-        console.log(error);
-        if (error.status == '403') {
+        if (error.status === '403') {
           this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
         }
       }
