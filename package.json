@@ -15,7 +15,7 @@
     "e2e-ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "config": "ts-node --skip-project set-env.ts",
     "start:local": "npm run config && ng serve",
-    "build:local": "npm run config && ng build",
+    "build:dev": "npm run config && ng build --aot=true",
     "heroku-postbuild": "npm run config && ng build -c=$NG_ENV"
   },
   "husky": {
