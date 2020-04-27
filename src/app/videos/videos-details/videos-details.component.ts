@@ -34,7 +34,7 @@ export class VideosDetailsComponent implements OnInit {
       this.videosData = res.body;
       const vdoUrl = this.videosData.resourceLink.split('/');
       const code = 'https://www.youtube.com/embed/' + vdoUrl[vdoUrl.length - 1];
-      console.log('code--', code);
+
       this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(code);
       this.videosUrl = this.videosData.resourceLink;
       // console.log("Get videos", this.videosData);

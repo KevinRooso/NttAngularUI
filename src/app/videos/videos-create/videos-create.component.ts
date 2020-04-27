@@ -81,7 +81,7 @@ export class VideosCreateComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -113,8 +113,8 @@ export class VideosCreateComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
       // this.preview();
     }
@@ -126,7 +126,7 @@ export class VideosCreateComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
+        // console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
@@ -174,13 +174,11 @@ export class VideosCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.service.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.speakerImage = res.fileDownloadUri;
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
-        console.log(this.speakerImage);
       },
       (error) => {
         this.show = false;
@@ -203,7 +201,6 @@ export class VideosCreateComponent implements OnInit {
       obj['thumbnailImageUrl'] = this.speakerImage;
 
       const tags: any[] = [];
-      console.log('TAGList==', tags);
 
       obj.tagList.forEach((m) => {
         const tag = {
@@ -231,17 +228,16 @@ export class VideosCreateComponent implements OnInit {
         targetUserType: obj.targetUserType,
         expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
-      console.log(dataObj);
+
       this.service.saveResource(dataObj).subscribe(
         (res) => {
           this.show = false;
           this.submitted = false;
-          console.log('Post Dat', res);
+
           this.snackBar.open('Video Added Successfully', 'Close', { duration: 5000 });
           this.router.navigate(['videos']);
         },
         (error) => {
-          console.log('error==', error);
           this.show = false;
           this.snackBar.open('Oops Something went wrong...', 'Close');
         }
@@ -255,7 +251,7 @@ export class VideosCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });

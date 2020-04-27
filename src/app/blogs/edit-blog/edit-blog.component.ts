@@ -230,7 +230,6 @@ export class EditBlogComponent implements OnInit {
         const height = img.naturalHeight;
 
         window.URL.revokeObjectURL(img.src);
-        console.log(width + '*' + height);
 
         if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
           this.imageValid = true;
