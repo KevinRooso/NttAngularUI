@@ -6,7 +6,7 @@ import { AuthServiceService } from './auth-service.service';
   providedIn: 'root',
 })
 export class AuthguardServiceService implements CanActivate {
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
     if (this.service.isUserLoggedIn()) {
       return true;
     } else {
