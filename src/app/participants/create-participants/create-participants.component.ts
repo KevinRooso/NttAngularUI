@@ -29,9 +29,8 @@ export class CreateParticipantsComponent implements OnInit {
   ngOnInit(): void {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.router1.queryParams.subscribe((params) => {
-      console.log(params.page);
       this.id = params.page;
-      if (params.page != undefined) {
+      if (params.page !== undefined) {
         this.flag = false;
         this.participant = this.participant + ' for : ' + params.name;
         this.eventId = params.page;
@@ -61,7 +60,6 @@ export class CreateParticipantsComponent implements OnInit {
   }
   getEvents() {
     this.service.getAllEventList().subscribe((res) => {
-      console.log(res);
       this.events = res.body;
     });
   }
@@ -73,14 +71,11 @@ export class CreateParticipantsComponent implements OnInit {
       phoneNumber: this.addParForm.controls['phoneNo'].value,
       registrationType: '',
     };
-    console.log(obj);
     const arr: any[] = [];
     arr.push(obj);
-    console.log(this.addParForm.controls['event'].value);
     if (this.flag) {
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value, arr).subscribe((res) => {
-        console.log('res==', res);
-        if (res.body.length != 0) {
+        if (res.body.length !== 0) {
           this.snackBar.open('Participants successfully created check me', 'Close', { duration: 5000 });
           this.submitted = false;
         } else {
@@ -89,17 +84,15 @@ export class CreateParticipantsComponent implements OnInit {
         // this.router.navigate(['participants']);
       });
     } else {
+      // tslint:disable-next-line:no-shadowed-variable
       const arr: any[] = [];
       arr.push(obj);
-      console.log('addpart', arr);
-      console.log('idddd', this.eventId);
 
       this.service.saveParticipentnonEvent(this.eventId, arr).subscribe((res) => {
-        console.log('res==', res);
-        if (res.body.length != 0) {
+       if (res.body.length !== 0) {
           this.snackBar.open('Participants successfully added in event', 'Close', { duration: 5000 });
           this.submitted = false;
-          if (this.id == undefined) {
+          if (this.id === undefined) {
             this.router.navigate(['participants']);
           } else {
             this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
@@ -109,10 +102,6 @@ export class CreateParticipantsComponent implements OnInit {
         }
       });
     }
-    // }
-    // else{
-    //  // alert("Please fill all mandatory field");
-    //  this.snackBar.open('Please fill all mandatory input field', 'Close', {duration: 5000});
-    // }
+
   }
 }

@@ -24,7 +24,6 @@ export class ViewParticipantsComponent implements OnInit {
   }
   getEventName() {
     this.service.getEventDetail(this.participant.eventId).subscribe((res) => {
-      console.log('events==', res);
       this.event = res;
     });
   }

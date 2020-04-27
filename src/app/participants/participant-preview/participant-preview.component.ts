@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,11 +21,11 @@ export class ParticipantPreviewComponent {
   show = false;
   constructor(
     private service: AuthServiceService,
-    private elementRef: ElementRef,
     private router: Router,
     private queryString: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {}
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
     // this.service.getAllParticipants().subscribe(res=>{
     //   this.tableData=res.body;
@@ -35,10 +35,9 @@ export class ParticipantPreviewComponent {
     this.queryString.queryParams.subscribe((params) => {
       $.fn.dataTable.ext.errMode = 'none';
       let url;
-      if (params.page == undefined) {
+      if (params.page === undefined) {
         url = environment.API_ENDPOINT + 'api/public/participants';
       } else {
-        console.log('eventName=', params);
         this.eName = 'Event: ' + params.name;
         url = environment.API_ENDPOINT + 'api/public/participants/event/' + params.page;
       }
@@ -79,21 +78,28 @@ export class ParticipantPreviewComponent {
 
         {
           title: 'Status',
+          // tslint:disable-next-line:quotemark
           defaultContent: "<span  ' class='badge showIdButton' >Approved</span>",
         },
 
         {
           title: 'Action',
-          // defaultContent: "<span   class='btn btn-danger approve' style='cursor: pointer;font-size: 10px;' >Approve</span>"
-          // +"&nbsp;<span  class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' >Reject</span>"
+
+          // tslint:disable-next-line:max-line-length
           defaultContent:
-            "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size: 1rem;'></i></span>" +
-            "&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>",
+                    // tslint:disable-next-line:quotemark
+           "<div class='mydiv' style='width: 85px'><span   class='btn btn-success approve'"+
+           // tslint:disable-next-line:quotemark
+           "style='cursor: pointer;font-size: 10px;' ><i class='fa fa-check' style='font-size:"+
+           // tslint:disable-next-line:quotemark
+            "1rem;'></i></span>&nbsp;<span   class='btn btn-danger reject' style='cursor: pointer;"+
+            // tslint:disable-next-line:quotemark
+            "font-size: 10px;' ><i class='fa fa-close' style='font-size: 1rem;'></i></span></div>",
         },
       ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        console.log('data');
-        console.log(data);
+      // tslint:disable-next-line:ban-types
+      rowCallback: (row: Node, data: any[] | Object, _index: number) => {
+
         const self = this;
 
         $('td:nth-child(3)', row).css('cursor', 'pointer');
@@ -105,12 +111,10 @@ export class ParticipantPreviewComponent {
           $('td:nth-child(1)', row).html(this.eName);
         }
 
-        console.log('rowoo==', row);
 
         $('td:nth-child(1) ', row).attr('width', '250px');
         if (data['approverId'] == null) {
-          console.log('data');
-          $('td .showIdButton', row).html('Pending');
+         $('td .showIdButton', row).html('Pending');
           $('td:nth-child(7) .approve', row).attr('disabled', true);
         }
 
@@ -151,10 +155,9 @@ export class ParticipantPreviewComponent {
     this.dataTable.DataTable(this.dtOptions);
   }
   someClickHandler(data, row) {
-    console.log(data.id);
     this.show = true;
     this.service.updateParticipantStatus(data.id, true).subscribe(
-      (res) => {
+      (_res) => {
         $('td .showIdButton', row).html('Approved');
         $('td:nth-child(7) .mydiv', row).html('Approved');
         // $('td:nth-child(7) .reject', row).css('cursor','default');
@@ -162,7 +165,7 @@ export class ParticipantPreviewComponent {
         this.snackBar.open('Approved!!', 'Close', { duration: 5000 });
         this.show = false;
       },
-      (error) => {
+      (_error) => {
         this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
         this.show = false;
       }
@@ -170,9 +173,8 @@ export class ParticipantPreviewComponent {
   }
   someClickHandler2(data, row) {
     this.show = true;
-    console.log(data.id);
     this.service.updateParticipantStatus(data.id, false).subscribe(
-      (res) => {
+      (_res) => {
         $('td .showIdButton', row).html('Rejected');
         $('td:nth-child(7) .mydiv', row).html('Rejected');
         // $('td:nth-child(7) .approve', row).css('cursor','default');
@@ -182,7 +184,7 @@ export class ParticipantPreviewComponent {
         this.snackBar.open('Rejected!!', 'Close', { duration: 5000 });
         this.show = false;
       },
-      (error) => {
+      (_error) => {
         this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
         this.show = false;
         // alert("something went wrong");

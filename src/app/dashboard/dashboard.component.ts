@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
     $('#collapse-icon').addClass('fa-angle-double-left');
 
     // Collapse click
+    // tslint:disable-next-line:only-arrow-functions
     $('[data-toggle=sidebar-colapse]').click(function () {
       SidebarCollapse();
     });
