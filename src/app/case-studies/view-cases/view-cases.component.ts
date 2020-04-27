@@ -19,8 +19,6 @@ export class ViewCasesComponent implements OnInit {
   }
   getBlogData(id) {
     this.service.getResourceById(id).subscribe((res) => {
-      console.log('Response Data', res);
-
       this.cases = res.body;
     });
   }

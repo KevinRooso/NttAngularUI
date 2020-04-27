@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { FormGroup, FormBuilder, FormControl, Validators, FormControlName } from '@angular/forms';
+
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
@@ -61,7 +61,7 @@ export class CasesCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // this.createSpeaker();
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
+
     this.createCases = this.formbuilder.group({
       title: ['', Validators.required],
       longDescription: ['', Validators.required],
@@ -96,7 +96,7 @@ export class CasesCreateComponent implements OnInit {
       this.userList = res.body;
       if (this.userList != null) {
         this.userList = this.userList.filter((m) => {
-          return m.id != 9;
+          return m.id !== 9;
         });
       }
     });
@@ -118,8 +118,8 @@ export class CasesCreateComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (fileType == 'image/jpeg' || fileType == 'image/png' || fileType == 'image/jpg') {
+
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
       // this.preview();
     }
@@ -151,7 +151,7 @@ export class CasesCreateComponent implements OnInit {
     this.imageValid2 = false;
     this.fileData = fileInput.target.files[0] as File;
     const fileType = this.fileData.type;
-    if (fileType == 'application/pdf') {
+    if (fileType === 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
     }
@@ -172,7 +172,7 @@ export class CasesCreateComponent implements OnInit {
   }
   preview2() {
     // Show preview
-    const mimeType = this.fileData.type;
+
     // if (mimeType.match(/image\/*/) == null) {
     //   return;
     // }
@@ -190,9 +190,8 @@ export class CasesCreateComponent implements OnInit {
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe(
       (res) => {
-        console.log('Image', res);
         this.articleImage = res.fileDownloadUri;
-        console.log('Image', this.articleImage);
+
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -216,9 +215,8 @@ export class CasesCreateComponent implements OnInit {
     formData1.append('file', this.fileData);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
-        console.log('Image', res);
         this.attachFile = res.fileDownloadUri;
-        console.log('File', this.attachFile);
+
         this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
@@ -280,10 +278,8 @@ export class CasesCreateComponent implements OnInit {
         expiryDate: this.createCases.controls['expiryDate'].value,
       };
 
-      console.log('post', dataObj);
       this.authService.saveResource(dataObj).subscribe(
         (res) => {
-          console.log(res);
           this.show = false;
           this.snackBar.open('Case Study Added Successfully', 'Close', {
             duration: 5000,
@@ -307,7 +303,7 @@ export class CasesCreateComponent implements OnInit {
     if (this.addTagForm.valid) {
       let flag = true;
       this.tagData.forEach((m) => {
-        if (m.name.toUpperCase() == this.addTagForm.get(['name']).value.toUpperCase()) {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
           flag = false;
         }
       });
