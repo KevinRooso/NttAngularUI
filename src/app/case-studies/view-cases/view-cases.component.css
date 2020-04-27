@@ -1,36 +1,3 @@
-/* .table-user-information > tbody > tr {
-  border-top: 1px solid rgb(221, 221, 221);
-} */
-
-/* .table-user-information > tbody > tr:first-child {
-  border-top: 0;
-}
-
-
-.table-user-information > tbody > tr > td {
-  border-top: 0;
-}
-
-.shadow{
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-}
-.table-user-information > tbody > tr > td:first-child{
-  width: 24.4%;
-  font-weight: 500;
-  display: none;
-}
-
-
-
-.table td, .table th {
-  padding: 0.6rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-} */
-.edit .btn:hover {
-  background: #324da1;
-}
-
 .edit .btn {
   background: #2c98de;
   border: none;
@@ -42,32 +9,25 @@
   outline: none;
   position: absolute;
   width: 50px;
-
-  /* top: 2%;
-  left: 90%; */
   z-index: 1;
 }
-
+.edit .btn:hover {
+  background: #324da1;
+}
 .cpadl {
   padding-left: 50px;
 }
 
-/* .service ul {
-  list-style-image: url(/src/assets/pngwave.png);
-} */
 ol,
 ul {
   padding-left: 0;
 }
-
-.service ul li {
-  /* padding-top: 10px; */
-  padding-left: 0;
-}
-
 .mainBlock li {
   margin-bottom: 10px;
   margin-left: 15px;
+}
+.service ul li {
+  padding-left: 0;
 }
 
 .service ul {
@@ -75,7 +35,6 @@ ul {
   margin: 0.75em 0;
   padding: 0 1em;
 }
-
 .service li::before {
   border-color: transparent #008ece;
   border-style: solid;
@@ -88,7 +47,6 @@ ul {
   top: 0.9em;
   width: 0;
 }
-
 .preview-card {
   background: white;
   border-radius: 3px;

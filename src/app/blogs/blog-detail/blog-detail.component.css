@@ -1,7 +1,9 @@
-/* .table-user-information > tbody > tr {
-  border-top: 1px solid rgb(221, 221, 221);
-} */
-
+.table td,
+.table th {
+  border-top: 1px solid #dee2e6;
+  padding: 0.6rem;
+  vertical-align: top;
+}
 .table-user-information > tbody > tr:first-child {
   border-top: 0;
 }
@@ -31,21 +33,11 @@
   outline: none;
   position: absolute;
   width: 50px;
-
-  /* top: 2%;
-  left: 90%; */
   z-index: 1;
 }
 
 .edit .btn:hover {
   background: #324da1;
-}
-
-.table td,
-.table th {
-  border-top: 1px solid #dee2e6;
-  padding: 0.6rem;
-  vertical-align: top;
 }
 
 .preview-card {
