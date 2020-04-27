@@ -184,7 +184,7 @@ export class EditBlogComponent implements OnInit {
         this.getUserList();
         this.show = false;
       },
-      (error) => {
+      (_error) => {
         this.show = false;
       }
     );
@@ -272,7 +272,7 @@ export class EditBlogComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -320,7 +320,7 @@ export class EditBlogComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -422,14 +422,14 @@ export class EditBlogComponent implements OnInit {
       };
 
       this.service.saveResource(dataObj).subscribe(
-        (res) => {
+        (_res) => {
           this.show = false;
           this.snackBar.open('Blog Updated Successfully', 'Close', {
             duration: 5000,
           });
           this.router.navigate(['blogs']);
         },
-        (error) => {
+        (_error) => {
           this.show = false;
           this.snackBar.open('Oops, Something Went Wrong!!', 'Close', {
             duration: 5000,

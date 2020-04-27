@@ -174,7 +174,7 @@ export class CreateTestimonialsComponent implements OnInit {
         this.show = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -235,7 +235,7 @@ export class CreateTestimonialsComponent implements OnInit {
         this.show = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
       }
@@ -298,7 +298,7 @@ export class CreateTestimonialsComponent implements OnInit {
         expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
 
-      this.service.saveResource(dataObj).subscribe((res) => {
+      this.service.saveResource(dataObj).subscribe((_res) => {
         // alert("Testimonials Added Successfully");
         if (this.resourceId !== undefined) {
           this.snackBar.open('Testimonials Updated Successfully', 'Close', { duration: 5000 });

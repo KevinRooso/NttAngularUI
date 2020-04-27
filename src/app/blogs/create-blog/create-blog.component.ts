@@ -198,7 +198,7 @@ export class CreateBlogComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -245,7 +245,7 @@ export class CreateBlogComponent implements OnInit {
           duration: 5000,
         });
       },
-      (error) => {
+      (_error) => {
         this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
@@ -336,7 +336,7 @@ export class CreateBlogComponent implements OnInit {
       };
 
       this.service.saveResource(dataObj).subscribe(
-        (res) => {
+        (_res) => {
           this.show = false;
           this.snackBar.open('Blog Added Successfully', 'Close', {
             duration: 5000,
