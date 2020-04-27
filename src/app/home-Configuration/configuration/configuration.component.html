@@ -1,15 +1,13 @@
-<mat-tab-group class="example-stretched-tabs ">
+<mat-tab-group class="example-stretched-tabs">
   <mat-tab label="Public User Configuration" style="width: 600px;" active>
     <ng-template matTabContent>
-    <app-home-ui [userType]="public"></app-home-ui>
-  </ng-template>
+      <app-home-ui [userType]="public"></app-home-ui>
+    </ng-template>
   </mat-tab>
   <mat-tab label="Customer User Configuration">
     <ng-template matTabContent>
       <!-- <app-customer-ui [userType]="customer"></app-customer-ui> -->
-    <app-home-ui [userType]="customer"></app-home-ui>
-  </ng-template>
+      <app-home-ui [userType]="customer"></app-home-ui>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
-
-

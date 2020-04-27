@@ -8,9 +8,8 @@ describe('WhitepaperCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhitepaperCreateComponent ]
-    })
-    .compileComponents();
+      declarations: [WhitepaperCreateComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

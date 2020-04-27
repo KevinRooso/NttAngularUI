@@ -1,4 +1,6 @@
 export const environment = {
-  production: false,
-  log: true
+  PROD: false,
+  LOG: true,
+  LOG_LEVEL: 'debug',
+  ROLLBAR_ENABLE: false,
 };

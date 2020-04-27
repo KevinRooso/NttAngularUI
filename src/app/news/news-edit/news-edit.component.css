@@ -1,76 +1,107 @@
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border-color: red !important;
 }
-.form-row{
+
+.form-row {
   padding: 1rem 1rem;
 }
+
 .form-group.hidden {
-  width: 0;
-  margin: 0;
   border: none;
+  margin: 0;
   padding: 0;
+  width: 0;
 }
+
 .custom-day {
-  text-align: center;
-  padding: 0.185rem 0.25rem;
   display: inline-block;
   height: 2rem;
+  padding: 0.185rem 0.25rem;
+  text-align: center;
   width: 2rem;
 }
+
 .custom-day.focused {
   background-color: #e6e6e6;
 }
-.custom-day.range, .custom-day:hover {
+
+.custom-day.range,
+.custom-day:hover {
   background-color: rgb(2, 117, 216);
   color: white;
 }
+
 .custom-day.faded {
   background-color: rgba(2, 117, 216, 0.5);
 }
-.modal-remove{
-  opacity: 1;
+
+.modal-remove {
   background: #fff;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  border-radius: 50%;
-  z-index: 999;
   border: 2px solid #e3e3e3;
+  border-radius: 50%;
+  font-size: 30px;
+  height: 50px;
+  opacity: 1;
+  width: 50px;
+  z-index: 999;
 }
-.close:hover{
+
+.close:hover {
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
   opacity: 1 !important;
-  box-shadow: 0px 0px 10px 0px rgba(153,153,153,.7);
 }
-.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover{
-  color: #555 !important;
+
+.bootstrap-select > .dropdown-toggle.bs-placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
   background: #fff !important;
-  border-radius: 0px !important;
+  border-radius: 0 !important;
+  color: #555 !important;
 }
-.min-width{
+
+.min-width {
   min-width: 28.6%;
 }
 
-mat-radio-button{
+mat-radio-button {
   margin: 0 10px 0 10px;
 }
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
-  border-color:rgb(66, 134, 244) !important;
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(66, 134, 244) !important;
 }
 
-.mat-radio-button.mat-accent .mat-radio-inner-circle{
-  color:rgb(66, 134, 244) !important;
-  background-color:rgb(66, 134, 244) !important;
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(66, 134, 244) !important;
+  color: rgb(66, 134, 244) !important;
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color:rgb(255, 37, 37,.26) !important;
+  background-color: rgb(255, 37, 37, 0.26) !important;
 }
+
 textarea {
-  width: 100%;
+  border-width: 0;
   margin: 0;
   padding: 0;
-  border-width: 0;
-  }
-.error{
+  width: 100%;
+}
+
+.error {
   color: red;
+}
+
+input[type='file'] {
+  color: transparent;
+}
+
+.filetypewidth {
+  max-width: 12%;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .filetypewidth {
+    max-width: 16%;
+  }
 }

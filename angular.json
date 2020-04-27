@@ -19,19 +19,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
-            ]
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/datatables.net/js/jquery.dataTables.js"]
           },
           "configurations": {
             "production": {
@@ -64,19 +58,16 @@
               ]
             },
             "dev": {
+              "buildOptimizer": true,
+              "aot": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
-              "extractLicenses": true,
-              "forkTypeChecker": true,
               "namedChunks": true,
-              "optimization": true,
               "outputHashing": "all",
               "progress": true,
               "showCircularDependencies": true,
-              "statsJson": true,
               "vendorChunk": true,
-              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -85,9 +76,16 @@
               ]
             },
             "testing": {
+              "buildOptimizer": true,
+              "aot": true,
+              "optimization": true,
               "commonChunk": true,
-              "outputHashing": "all",
               "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "outputHashing": "all",
+              "progress": true,
+              "showCircularDependencies": true,
               "vendorChunk": true,
               "fileReplacements": [
                 {
@@ -97,6 +95,9 @@
               ]
             },
             "stage": {
+              "buildOptimizer": true,
+              "aot": true,
+              "optimization": true,
               "commonChunk": true,
               "sourceMap": true,
               "extractCss": true,
@@ -109,7 +110,6 @@
               "showCircularDependencies": true,
               "statsJson": true,
               "vendorChunk": true,
-              "subresourceIntegrity": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -152,28 +152,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.css"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {

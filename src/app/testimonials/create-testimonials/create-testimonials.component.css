@@ -1,36 +1,43 @@
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border-color: red !important;
 }
-.form-row{
+
+.form-row {
   padding: 1rem 1rem;
 }
+
 .form-group.hidden {
-  width: 0;
-  margin: 0;
   border: none;
+  margin: 0;
   padding: 0;
+  width: 0;
 }
 
-.modal-remove{
-  opacity: 1;
+.modal-remove {
   background: #fff;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  border-radius: 50%;
-  z-index: 999;
   border: 2px solid #e3e3e3;
-}
-.close:hover{
-  opacity: 1 !important;
-  box-shadow: 0px 0px 10px 0px rgba(153,153,153,.7);
-}
-.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover{
-  color: #555 !important;
-  background: #fff !important;
-  border-radius: 0px !important;
+  border-radius: 50%;
+  font-size: 30px;
+  height: 50px;
+  opacity: 1;
+  width: 50px;
+  z-index: 999;
 }
 
-.error{
+.close:hover {
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
+  opacity: 1 !important;
+}
+
+.bootstrap-select > .dropdown-toggle.bs-placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+  background: #fff !important;
+  border-radius: 0 !important;
+  color: #555 !important;
+}
+
+.error {
   color: red;
 }

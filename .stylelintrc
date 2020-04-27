@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "indentation": 2,
+    "number-leading-zero": "always",
+    "selector-type-no-unknown": [true, ignore: ["custom-elements"]],
+    "order/properties-alphabetical-order": true
+  }
+}

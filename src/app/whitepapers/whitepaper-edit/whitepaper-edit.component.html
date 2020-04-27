@@ -1,10 +1,10 @@
 <app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a href="/whitepapers">Whitepaper</a></li>
-     <li><a (click)="BackMe()">Whitepaper Preview</a></li>
-     <li><a class="active">Update Whitepaper</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/whitepapers">Whitepaper</a></li>
+    <li><a (click)="BackMe()">Whitepaper Preview</a></li>
+    <li><a class="active">Update Whitepaper</a></li>
   </ul>
 </div>
 <div class="container">
@@ -13,11 +13,11 @@
       <div class="text-center">
         <p class="heading-secondary">Update Whitepaper</p>
       </div>
-      <form [formGroup]='updateWhitePaperForm'>
+      <form [formGroup]="updateWhitePaperForm">
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title">
+            <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
             <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 200 characters</mat-error>
           </mat-form-field>
@@ -28,8 +28,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="longDescription" rows="6"></textarea>
             <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
-            <mat-error *ngIf="checkError('longDescription', 'maxlength')">Description should be less than 8000
-              characters</mat-error>
+            <mat-error *ngIf="checkError('longDescription', 'maxlength')">Description should be less than 8000 characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -38,11 +37,9 @@
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Short Description" formControlName="shortDescription" rows="5"></textarea>
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000
-              characters</mat-error>
+            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000 characters</mat-error>
           </mat-form-field>
         </div>
-
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
@@ -50,7 +47,7 @@
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
-                {{category.name}}
+                {{ category.name }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryId', 'required')">(Category is required)</mat-error>
@@ -60,8 +57,8 @@
           <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
-            <mat-select multiple formControlName="tagList"  [(ngModel)]="selected4">
-              <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{tag.name}}</mat-option>
+            <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
+              <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{ tag.name }}</mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
@@ -69,8 +66,9 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label"></label>
           <div class="col-sm-9 text-right">
-            <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal"
-              data-target="#tagModal1">Add Tags</button>
+            <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal" data-target="#tagModal1">
+              Add Tags
+            </button>
           </div>
         </div>
 
@@ -80,7 +78,7 @@
             <mat-label>Select Target User</mat-label>
             <mat-select formControlName="targetUserType" [(value)]="selected3">
               <mat-option *ngFor="let user of userList" [value]="user.id">
-                {{user.displayName}}
+                {{ user.displayName }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('targetUserType', 'required')">(Target user type is required)</mat-error>
@@ -89,34 +87,52 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Expiration Date<span class="error">*</span></label>
-         <div class="col-sm-9">
-          <input [owlDateTimeTrigger]="startdt" [owlDateTime]="startdt" [min]="today"
-           placeholder="Expiration Date & Time" formControlName="expiryDate" class="form-control">
+          <div class="col-sm-9">
+            <input
+              [owlDateTimeTrigger]="startdt"
+              [owlDateTime]="startdt"
+              [min]="today"
+              placeholder="Expiration Date & Time"
+              formControlName="expiryDate"
+              class="form-control"
+            />
 
-          <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
-        <owl-date-time #startdt></owl-date-time>
-        <div *ngIf="checkError('startDate', 'required', true)" style="color:red;font-size: 12px;">
-          (Expiration date & time is required)
+            <!-- <mat-error *ngIf="checkError('startDate', 'required')">(Event start date & time is required)</mat-error> -->
+            <owl-date-time #startdt></owl-date-time>
+            <div *ngIf="checkError('expiryDate', 'required', true)" style="color: red; font-size: 12px;">
+              (Expiration date & time is required)
+            </div>
+          </div>
         </div>
-         </div>
 
-        </div>
-
-        <div class="form-row ">
-          <label class="col-sm-3 col-form-label">Article Image <span class="error">*</span></label>
-          <div class="col-sm-7">
-            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl"
-              (change)="fileProgress($event)" />
-            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color:red;font-size: 12px;">(Image is
-              required)</div>
-            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color:red;font-size: 12px;">(Image should be
-              JPEG, JPG, PNG)</div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Whitepaper Image <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-2 filetypewidth">
+            <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
+            <div *ngIf="checkError('thumbnailImageUrl', 'required', true)" style="color: red; font-size: 12px;">(Image is required)</div>
+            <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
+              (Image should be JPEG, JPG, PNG)
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result1 }}</p>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid}" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
-            <div *ngIf="fileUploadProgress">
-              Upload progress: {{ fileUploadProgress }}
-            </div>
+            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+              Upload File
+            </button>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
           </div>
         </div>
         <div class="form-row">
@@ -130,19 +146,19 @@
 
         <div class="form-row my-3">
           <label class="col-sm-3 col-form-label">Attachment <span class="error">*</span></label>
-          <div class="col-sm-7">
-            <input type="file" class="form-control-file" formControlName="downloadUrl"
-              (change)="fileProgress2($event)" />
-            <div *ngIf="checkError('downloadUrl', 'required',true)" style="color:red;font-size: 12px;">(Attachment is
-              required)</div>
-            <div *ngIf="checkError('downloadUrl', 'pattern')" style="color:red;font-size: 12px;">(Attachment should be
-              pdf only)</div>
+          <div class="col-sm-2 filetypewidth">
+            <input type="file" class="form-control-file" formControlName="downloadUrl" (change)="fileProgress2($event)" />
+            <div *ngIf="checkError('downloadUrl', 'required', true)" style="color: red; font-size: 12px;">(Attachment is required)</div>
+            <div *ngIf="checkError('downloadUrl', 'pattern')" style="color: red; font-size: 12px;">(Attachment should be pdf only)</div>
+          </div>
+          <div class="col-sm-5">
+            <p>{{ result2 }}</p>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{'cursor' : !imageValid2}" (click)="uploadAttachment()" [disabled]="!imageValid2">Upload File</button>
-            <div *ngIf="fileUploadProgress">
-              Upload progress: {{ fileUploadProgress }}
-            </div>
+            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid2 }" (click)="uploadAttachment()" [disabled]="!imageValid2">
+              Upload File
+            </button>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
           </div>
         </div>
 
@@ -160,24 +176,23 @@
 <div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;padding: 0;">
-        <button type="button" #closeModel class="close p-0 modal-remove " data-dismiss="modal" aria-label="Close">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]='addTagForm'>
-
+        <form [formGroup]="addTagForm">
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Name</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Tag Name" formControlName="name">
+              <input matInput placeholder="Tag Name" formControlName="name" />
             </mat-form-field>
           </div>
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Tag Keyword</label>
             <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Keyword Name" formControlName="keywords">
+              <input matInput placeholder="Keyword Name" formControlName="keywords" />
             </mat-form-field>
           </div>
 
