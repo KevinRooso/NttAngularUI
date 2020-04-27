@@ -54,18 +54,7 @@
 #sidebar-container .list-group .list-group-item .submenu-icon::after {
   content: ' \f0d7';
   display: inline;
-  font-family: FontAwesome;
-  padding-left: 10px;
-  text-align: right;
-}
-
-#sidebar-container[_ngcontent-nrp-c252]
-  .list-group[_ngcontent-nrp-c252]
-  .list-group-item[aria-expanded='true'][_ngcontent-nrp-c252]
-  .submenu-icon[_ngcontent-nrp-c252]::before {
-  content: ' \f0da';
-  display: inline;
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   padding-left: 10px;
   text-align: right;
 }
