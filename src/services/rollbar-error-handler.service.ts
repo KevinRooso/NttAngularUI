@@ -12,6 +12,7 @@ export class RollbarErrorHandlerService implements ErrorHandler {
   handleError(err: Error): void {
     if (!environment.ROLLBAR_ENABLE) {
       // might need to log the error but not on rollbar
+      throw err;
     } else {
       // might need to add user info in the payload
       this.rollbar.error(err);
