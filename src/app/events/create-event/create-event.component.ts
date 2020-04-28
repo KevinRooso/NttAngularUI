@@ -153,7 +153,6 @@ export class CreateEventComponent implements OnInit {
       isBreak: [''],
       idData: ['-1'],
       id: ['0'],
-      isActive: [false],
     });
   }
   getUserList() {
@@ -422,8 +421,12 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+      this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+      this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
+      this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     }
 
@@ -564,7 +567,7 @@ export class CreateEventComponent implements OnInit {
         startDate: this.addAgenda.controls['startDate'].value,
         speakerList: this.addAgenda.controls['speakerList'].value,
         id: 0,
-        idData: -1,
+        idData: '-1',
       };
 
       let eventStartDate = this.createEventForm.get(['startDate']).value;
@@ -614,14 +617,14 @@ export class CreateEventComponent implements OnInit {
         return false;
       }
 
-      if (this.addAgenda.value['idData'] !== -1) {
+      if (this.addAgenda.value['idData'] !== '-1') {
         obj['idData'] = this.addAgenda.value['idData'];
       } else {
-        obj['idData'] = -1;
+        obj['idData'] = '-1';
       }
 
       this.addAgenda.reset();
-      if (obj.idData === -1) {
+      if (obj.idData === '-1') {
         this.agendaData.push(obj);
       } else {
         this.agendaData[obj.idData] = obj;

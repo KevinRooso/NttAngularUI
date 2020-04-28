@@ -554,27 +554,31 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['endDate'].setValue(eventEndDate);
     }
 
-    // eventStartDate.setSeconds(0);
-    // eventStartDate.setMilliseconds(0);
+    eventStartDate.setSeconds(0);
+    eventStartDate.setMilliseconds(0);
 
-    // // update event start daate as well to remove seconds and milis before save
-    // this.updateEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
 
-    // eventEndDate.setSeconds(0);
-    // eventEndDate.setMilliseconds(0);
+    eventEndDate.setSeconds(0);
+    eventEndDate.setMilliseconds(0);
 
-    // // update event start daate as well to remove seconds and milis before save
-    // this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
+    // update event start daate as well to remove seconds and milis before save
+    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
 
-    // minAgendaStartTime.setSeconds(0);
-    // minAgendaStartTime.setMilliseconds(0);
+    minAgendaStartTime.setSeconds(0);
+    minAgendaStartTime.setMilliseconds(0);
 
-    // maxAgendaEndTime.setSeconds(0);
-    // maxAgendaEndTime.setMilliseconds(0);
+    maxAgendaEndTime.setSeconds(0);
+    maxAgendaEndTime.setMilliseconds(0);
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
+      this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
+      this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
+      this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
+      this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     }
 
@@ -734,7 +738,7 @@ export class EventEditComponent implements OnInit {
         speakerList: this.addAgenda.controls['speakerList'].value,
         isActive: false,
         id: 0,
-        idData: -1,
+        idData: '-1',
       };
 
       let eventStartDate = this.updateEventForm.get(['startDate']).value;
@@ -784,14 +788,14 @@ export class EventEditComponent implements OnInit {
         return false;
       }
 
-      if (this.addAgenda.value['idData'] !== -1) {
+      if (this.addAgenda.value['idData'] !== '-1') {
         obj['idData'] = this.addAgenda.value['idData'];
       } else {
-        obj['idData'] = -1;
+        obj['idData'] = '-1';
       }
 
       this.addAgenda.reset();
-      if (obj.idData === -1) {
+      if (obj.idData === '-1') {
         this.agendaData.push(obj);
       } else {
         this.agendaData[obj.idData] = obj;
