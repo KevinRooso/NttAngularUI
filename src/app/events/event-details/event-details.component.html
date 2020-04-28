@@ -100,7 +100,43 @@
           <div class="card-body">
             <div class="form-row">
               <label class="col-sm-2 col-form-label">Publish:</label>
-              <mat-slide-toggle class="example-full-width col-sm-3" (change)="publishChanges()" [(ngModel)]="isPublish"> </mat-slide-toggle>
+              <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
+              </mat-slide-toggle>
+              <!-- <button #toggleButton href="#myModal" data-toggle="modal" hidden></button> -->
+              <!-- (click)="delete(i)" -->
+              <!-- <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" #confirmBox>
+                <span style="cursor: default; font-size: 10px;" (click)="delete(i)">
+                  <i class="fa fa-trash" style="font-size: 1rem;"></i>
+                </span>
+              </button> --><!-- Modal HTML -->
+              <div id="myModal" class="modal fade" data-backdrop="static">
+                <div class="modal-dialog modal-confirm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="text-center" style="width: 100%;">
+                        <h4 class="modal-title">Are you sure?</h4>
+                      </div>
+                      <button
+                        type="button"
+                        class="close p-0 modal-remove"
+                        (click)="reverseChanges()"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p *ngIf="isPublish">Do you want to publish this Event?</p>
+                      <p *ngIf="!isPublish">Do you want to Unpublish this Event?</p>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center; border: none;">
+                      <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <!-- <label class="col-sm-2 col-form-label">Status</label> -->
               <p class="card-text mb-0" style="font-weight: 500;">
