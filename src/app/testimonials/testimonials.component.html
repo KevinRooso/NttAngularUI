@@ -1,23 +1,35 @@
 <div>
   <ul class="breadcrumb">
-     <li><a routerLink="/home">Home</a></li>
-     <li><a class="active">Testimonials</a></li>
+    <li><a routerLink="/home">Home</a></li>
+    <li><a class="active">Testimonials</a></li>
   </ul>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a routerLink="/create-testimonials"><button type="button" class="btn button-1 action-good">Create Testimonials</button></a>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" [(ngModel)]="searchTests" type="search" (search)="cancel()" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()"
-          >Search</button>
+          <input
+            class="form-control"
+            [(ngModel)]="searchTests"
+            type="search"
+            (search)="cancel()"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
         </div>
       </li>
     </ul>
@@ -26,29 +38,25 @@
 <section class="blog px-3">
   <div class="row">
     <div class="col-sm-4" *ngFor="let test of filterBlogs">
-      <div class="card profile-card-2" >
+      <div class="card profile-card-2">
         <div class="card-img-block">
-          <img class="img-fluid"
-            [src]="test.thumbnailImageUrl"
-            alt="Card image cap" />
+          <img class="img-fluid" [src]="test.thumbnailImageUrl" alt="Card image cap" />
         </div>
         <div class="card-body pt-5">
-          <img [src]="test.detailImageUrl"
-            alt="profile-image" class="profile" />
-          <p class="card-title">{{test.title}}:{{test.shortDescription | truncate : 80 : false}}</p>
-           <p class="card-text">{{test.longDescription  }}</p>
+          <img [src]="test.detailImageUrl" alt="profile-image" class="profile" />
+          <p class="card-title">{{ test.title }}:{{ test.shortDescription | truncate: 80:false }}</p>
+          <p class="card-text">{{ test.longDescription }}</p>
         </div>
         <div class="event-card-body-footer text-center py-3">
-          <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="editTest(test.id)">Update
-              Details</button></a>
+          <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="editTest(test.id)">Edit Details</button></a>
         </div>
       </div>
     </div>
   </div>
   <div class="text-center">
-    <span *ngIf="filterBlogs?.length == 0" >
+    <span *ngIf="filterBlogs?.length == 0">
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>
-    </div>
+  </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
@@ -8,14 +8,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-create-news',
   templateUrl: './create-news.component.html',
-  styleUrls: ['./create-news.component.css']
+  styleUrls: ['./create-news.component.css'],
 })
 export class CreateNewsComponent implements OnInit {
   createNewsForm: FormGroup;
-  speakerImage: string = "";
+  speakerImage = '';
   articleImage: any;
   checkError: any;
-  submitted: boolean = false;
+  submitted = false;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -23,19 +23,20 @@ export class CreateNewsComponent implements OnInit {
   catagoryData: any[] = [];
   tagData: any[] = [];
   userList: any[] = [];
-  imageValid: boolean = false;
-  show:boolean=false;
-  image1button:boolean=false;
+  imageValid = false;
+  show = false;
+  image1button = false;
 
+  today = new Date();
 
-  today=new Date();
-
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private service: AuthServiceService, private location: Location, private authService: AuthServiceService, public snackBar: MatSnackBar) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private location: Location,
+    private authService: AuthServiceService,
+    public snackBar: MatSnackBar
+  ) {}
   // createNewsForm: FormGroup;
-
-
-
 
   ngOnInit(): void {
     this.createNewsForm = this.formBuilder.group({
@@ -43,12 +44,12 @@ export class CreateNewsComponent implements OnInit {
       topic: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(2000 )]),
+      about: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       location: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?)\.(jpg|png|jpeg)$')]),
+      thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       draft: [false],
-       expiryDate: ['', Validators.required]
+      expiryDate: ['', Validators.required],
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -59,12 +60,9 @@ export class CreateNewsComponent implements OnInit {
       } else {
         return this.createNewsForm.controls[controlName].hasError(errorName);
       }
-
-    }
+    };
     this.getUserList();
-
   }
-
 
   // fileProgress(fileInput: any) {
   //   this.fileData = <File>fileInput.target.files[0];
@@ -73,102 +71,121 @@ export class CreateNewsComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
-    this.fileData = <File>fileInput.target.files[0];
-    let fileType = this.fileData.type;
-    if (fileType == 'image/jpeg' || fileType == 'image/png') {
+    this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
       this.imageValid = true;
-      this.preview();
+      // this.preview();
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+
+        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+          this.imageValid = true;
+          this.preview();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', {
+            duration: 5000,
+          });
+          this.imageValid = false;
+          this.previewUrl = null;
+        }
+      }, 2000);
+    };
   }
   preview() {
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-    }
+    };
   }
 
   uploadImage() {
-    this.image1button=false;
-    this.show=true;
+    this.image1button = false;
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
-    this.authService.uploadFile(formData)
-      .subscribe(res => {
-        console.log("Image", res);
+    this.authService.uploadFile(formData).subscribe(
+      (res) => {
         this.articleImage = res.fileDownloadUri;
-        this.show=false;
-        this.image1button=true;
+        this.show = false;
+        this.image1button = true;
         this.imageValid = false;
-        this.snackBar.open('Image successfully uploaded', 'Close', {duration: 5000});
-        console.log(this.articleImage);
+        this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
-      (error)=>{
-        this.show=false;
+      (_error) => {
+        this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
-      })
+      }
+    );
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      if(this.userList!=null)
-      this.userList=this.userList.filter(m=>{
-        return m.id!=9;
-      })
-    })
+      if (this.userList !== null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 9;
+        });
+      }
+    });
   }
-  generateNews(){
-    this.show=true;
-    if(!this.image1button){
+  generateNews() {
+    this.show = true;
+    this.submitted = true;
+    if (!this.image1button) {
       this.snackBar.open('Please Upload news Image', 'Close', { duration: 5000 });
-      this.show=false;
+      this.show = false;
       return false;
     }
     this.submitted = true;
     if (this.createNewsForm.valid) {
-      let objData = {
-        "title": this.createNewsForm.controls['title'].value,
-        "topic": this.createNewsForm.controls['topic'].value,
-        "shortDescription": this.createNewsForm.controls['shortDescription'].value,
-        "longDescription": this.createNewsForm.controls['longDescription'].value,
-        "location": this.createNewsForm.controls['location'].value,
-        "about": this.createNewsForm.controls['about'].value,
-        "active": false,
-        "tagList":[],
-        "targetUserType":this.createNewsForm.controls['targetUserType'].value,
-        "draft": this.createNewsForm.controls['draft'].value,
-        "thumbnailImageUrl": this.articleImage,
-        "id": 0,
-        "expiryDate": this.createNewsForm.controls['expiryDate'].value,
+      const objData = {
+        title: this.createNewsForm.controls['title'].value,
+        topic: this.createNewsForm.controls['topic'].value,
+        shortDescription: this.createNewsForm.controls['shortDescription'].value,
+        longDescription: this.createNewsForm.controls['longDescription'].value,
+        location: this.createNewsForm.controls['location'].value,
+        about: this.createNewsForm.controls['about'].value,
+        active: false,
+        tagList: [],
+        targetUserType: this.createNewsForm.controls['targetUserType'].value,
+        draft: this.createNewsForm.controls['draft'].value,
+        thumbnailImageUrl: this.articleImage,
+        id: 0,
+        expiryDate: this.createNewsForm.controls['expiryDate'].value,
+      };
+      this.authService.saveNews(objData).subscribe(
+        (_response) => {
+          this.show = false;
+          this.submitted = false;
+          this.snackBar.open('News successfully created', 'Close', { duration: 2000 });
+          this.router.navigate(['news']);
+        },
+        (_error) => {
+          this.show = false;
+          this.snackBar.open('Oops Something went wrong...', 'Close');
+        }
+      );
+    } else {
+      this.show = false;
+      this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
     }
-    console.log("post", objData);
-    this.authService.saveNews(objData).subscribe((response) => {
-      console.log("response=",response);
-      this.show=false;
-      this.submitted = false;
-      this.snackBar.open('News successfully created', 'Close', {duration: 2000});
-      this.router.navigate(['news']);
-    },
-    (error) => {
-      console.log("error==",error);
-      this.show=false;
-      this.snackBar.open('Oops Something went wrong...', 'Close');
-     })
-
-    }
-    else{
-      this.show=false;
-      this.snackBar.open('Please fill all mandatory field', 'Close', {duration: 5000});
-    }
-
   }
   BackMe() {
     this.location.back();
   }
-
 }

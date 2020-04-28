@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,42 +18,38 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { WhitepapersComponent } from './whitepapers/whitepapers.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
 import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
-import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DataTablesModule } from 'angular-datatables';
 
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatBadgeModule} from '@angular/material/badge';
-
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { ArticlesDetailComponent } from './articles/articles-detail/articles-detail.component';
 import { ArticleEditComponent } from './articles/article-edit/article-edit.component';
 import { ArticleCreateComponent } from './articles/article-create/article-create.component';
@@ -61,7 +57,7 @@ import { WhitepaperDetailComponent } from './whitepapers/whitepaper-detail/white
 import { WhitepaperCreateComponent } from './whitepapers/whitepaper-create/whitepaper-create.component';
 import { WhitepaperEditComponent } from './whitepapers/whitepaper-edit/whitepaper-edit.component';
 
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { BlogDetailComponent } from './blogs/blog-detail/blog-detail.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
 import { VideosPreviewComponent } from './videos/videos-preview/videos-preview.component';
@@ -85,11 +81,14 @@ import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SortByPipe } from './sorting.pipe';
 import { LoaderComponent } from './loader/loader.component';
-import { MatTabsModule }  from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { HomeUiComponent } from './home-Configuration/home-ui/home-ui.component';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
-
+import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
+import { HttpErrorInterceptor } from '../services/http-error.interceptor';
+import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
+import { RollbarService, RollbarFactory } from '../config/rollbar.config';
 
 @NgModule({
   declarations: [
@@ -144,8 +143,9 @@ import { ListCloudServicesComponent } from './cloud-services/list-cloud-services
     SortByPipe,
     LoaderComponent,
     HomeUiComponent,
-    ListCloudServicesComponent
-    ],
+    ListCloudServicesComponent,
+    CreateFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -180,10 +180,24 @@ import { ListCloudServicesComponent } from './cloud-services/list-cloud-services
     MatTabsModule,
     MatBadgeModule,
     CKEditorModule,
-    MatTooltipModule
-
+    MatTooltipModule,
   ],
-  providers: [HttpClientModule],
-  bootstrap: [AppComponent]
+  providers: [
+    HttpClientModule,
+    {
+      provide: RollbarService,
+      useFactory: RollbarFactory,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: RollbarErrorHandlerService,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,20 +1,45 @@
-.article-card{
-  width: 22%;
-  height: 385px;
+.article-card {
+  height: 390px;
+  width: 21%;
 }
-.article-title{
+
+.article-title {
+  font-size: 14px;
+  font-weight: 400;
   margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    word-break: break-all;
+  word-break: break-all;
 }
-.article-img{
-  width: 100%;
-  min-height: 250px;
+
+.article-img {
   height: 250px;
+  min-height: 250px;
+  width: 100%;
 }
 
-
-.text-center{
+.text-center {
   padding: 100px;
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .article-card {
+    height: 485px;
+    width: 25%;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .article-card {
+    height: 400px;
+    width: 28%;
+  }
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .article-card {
+    height: 385px;
+    width: 22%;
+  }
 }

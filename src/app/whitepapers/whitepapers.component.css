@@ -1,13 +1,14 @@
-.whitepaper-card{
-  width: 22%;
+.whitepaper-card {
   height: 355px;
-}
-.whitepaper-title{
-  margin: 0;
-    font-size: 14px;
-    font-weight: 400;
+  width: 22%;
 }
 
-.text-center{
+.whitepaper-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.text-center {
   padding: 100px;
 }

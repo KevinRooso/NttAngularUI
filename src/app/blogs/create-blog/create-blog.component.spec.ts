@@ -8,11 +8,9 @@ describe('CreateBlogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateBlogComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateBlogComponent],
+    }).compileComponents();
   }));
-
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateBlogComponent);
@@ -23,5 +21,4 @@ describe('CreateBlogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });

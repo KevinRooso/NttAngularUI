@@ -1,6 +1,7 @@
-  .form-row{
-    margin-bottom: 21px;
-  }
-.error{
+.form-row {
+  margin-bottom: 21px;
+}
+
+.error {
   color: red;
 }

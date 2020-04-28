@@ -1,70 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../auth-service.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-testimonials',
   templateUrl: './testimonials.component.html',
-  styleUrls: ['./testimonials.component.css']
+  styleUrls: ['./testimonials.component.css'],
 })
 export class TestimonialsComponent implements OnInit {
-  testimonials:any[]=[];
+  testimonials: any[] = [];
   blogs;
   // filterBlogs=new BehaviorSubject<any[]>([]);
-  filterBlogs:any[]=[];
+  filterBlogs: any[] = [];
   searchFilterData;
   searchBlog;
-  categoryList:any[]=[];
-  cat:string="";
-  searchTests="";
-  constructor(private service:AuthServiceService,
-    private router:Router) { }
+  categoryList: any[] = [];
+  cat = '';
+  searchTests = '';
+  constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
-
     this.getTestimonials();
     this.getAllCategory();
   }
-  getTestimonials(){
-      this.service.getAllTestimonials().subscribe(res=>{
-        console.log("res===",res);
-          this.filterBlogs=res.body;
-      this.blogs=res.body;
-      this.searchFilterData=res.body;
-      })
-
-  }
-  viewTestimonials(id){
-    this.router.navigate(['view-testimonials'],{queryParams:{page:id}})
-  }
-  getAllCategory(){
-    this.service.getCategoryList().subscribe(res=>{
-      console.log(res);
-      this.categoryList=res.body;
+  getTestimonials() {
+    this.service.getAllTestimonials().subscribe((res) => {
+      this.filterBlogs = res.body;
+      this.blogs = res.body;
+      this.searchFilterData = res.body;
     });
   }
-  getDataWithCat(){
-    this.filterBlogs=this.blogs;
-    this.filterBlogs=this.blogs.filter(m=>{
-       return m.category.id==this.cat;
-    })
-    this.searchFilterData=this.filterBlogs;
+  viewTestimonials(id) {
+    this.router.navigate(['view-testimonials'], { queryParams: { page: id } });
   }
-  blogSearch(){
-    console.log(this.filterBlogs);
-      this.filterBlogs=this.searchFilterData.filter(m=>{
-        console.log( m.title);
-        console.log( this.searchBlog);
-        //return m.title.includes(this.searchBlog);
-        let titleData=m.title.toUpperCase();
-        return titleData.includes(this.searchTests.toUpperCase());
-      })
+  getAllCategory() {
+    this.service.getCategoryList().subscribe((res) => {
+      this.categoryList = res.body;
+    });
   }
-  cancel(){
-    this.filterBlogs=this.blogs;
+  getDataWithCat() {
+    this.filterBlogs = this.blogs;
+    this.filterBlogs = this.blogs.filter((m) => {
+      return m.category.id === this.cat;
+    });
+    this.searchFilterData = this.filterBlogs;
   }
-  editTest(id){
-    this.router.navigate(['create-testimonials'],{queryParams:{page:id}})
+  blogSearch() {
+    this.filterBlogs = this.searchFilterData.filter((m) => {
+      // return m.title.includes(this.searchBlog);
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchTests.toUpperCase());
+    });
+  }
+  cancel() {
+    this.filterBlogs = this.blogs;
+  }
+  editTest(id) {
+    this.router.navigate(['create-testimonials'], { queryParams: { page: id } });
   }
 }

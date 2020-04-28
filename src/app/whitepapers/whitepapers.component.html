@@ -1,12 +1,19 @@
 <div>
   <ul class="breadcrumb">
-     <li><a href="/home">Home</a></li>
-     <li><a routerlink="/articles" class="active">Whitepaper</a></li>
+    <li><a href="/home">Home</a></li>
+    <li><a routerlink="/articles" class="active">Whitepaper</a></li>
   </ul>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -21,9 +28,8 @@
 
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search">
-          <button class="btn button-2 action-info" (click)="blogSearch()"
-          >Search</button>
+          <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search" />
+          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
         </div>
       </li>
     </ul>
@@ -35,23 +41,23 @@
       Articles
     </p>
   </div> -->
-  <div class="row" style="padding: .5rem 1rem; ">
+  <div class="row" style="padding: 0.5rem 1rem;">
     <mat-card class="p-0 m-3 whitepaper-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
       <div>
-        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px">
+        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px" />
       </div>
       <div class="p-2">
-        <p class="whitepaper-title">{{card.title | truncate : 100 : false}}</p>
+        <p class="whitepaper-title">{{ card.title | truncate: 100:false }}</p>
       </div>
       <div class="px-2">
-        <p class="whitepaper-title"><b>Date : </b>{{card.createdAt | date}}</p>
+        <p class="whitepaper-title"><b>Date : </b>{{ card.createdAt | date }}</p>
       </div>
     </mat-card>
   </div>
   <div class="text-center">
-    <span *ngIf="filterBlogs?.length == 0" >
+    <span *ngIf="filterBlogs?.length == 0">
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>
-    </div>
+  </div>
 </section>
