@@ -17,21 +17,21 @@
                 alt="User Pic"
                 [src]="articleData.thumbnailImageUrl"
                 class="img-circle img-responsive"
-                width="100%"
+                width="280px"
                 alt="No Image preview"
-                height="250px"
+                height="360px"
               />
             </div>
 
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">
+                <h1 style="font-size: 25px; padding-left: 50px; color: #008ece;">
                   {{ articleData.title }}
                 </h1>
                 <!-- <p><b>Short Description : </b>{{articleData.shortDescription}}</p> -->
-                <p><b>Category - </b>{{ articleData.category.displayName }}</p>
+                <p style="padding-left: 50px;"><b>Category - </b>{{ articleData.category.displayName }}</p>
                 <!-- <p><b>Tag : </b><span *ngFor="let tags of resourceTags">{{tags.name}}</span></p> -->
-                <p class="card-text mb-0" style="font-weight: 500;">
+                <p class="card-text mb-0" style="font-weight: 500; padding-left: 50px;">
                   <b>Tags - </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>

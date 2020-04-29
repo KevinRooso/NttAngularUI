@@ -1,14 +1,14 @@
 .videos-card {
-  height: 100%;
+  height: 480px;
   margin-bottom: 5px;
   min-height: 350px;
-  width: 30%;
+  width: 280px;
 }
 
 .videos-title {
   font-size: 14px;
   font-weight: 400;
-  margin: 0;
+  margin: 5px;
 }
 
 .text-center {

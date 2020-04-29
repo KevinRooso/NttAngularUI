@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 })
 export class WhitepaperDetailComponent implements OnInit {
   whitePaperData: any;
+  resourceTags: any[] = [];
   constructor(
     private authService: AuthServiceService,
     private location: Location,
@@ -24,6 +25,7 @@ export class WhitepaperDetailComponent implements OnInit {
   getArticleData(id) {
     this.authService.getResourceById(id).subscribe((res) => {
       this.whitePaperData = res.body;
+      this.resourceTags = this.whitePaperData.resourceTags;
     });
   }
   // editSpeaker(id){

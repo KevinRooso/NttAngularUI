@@ -1,6 +1,6 @@
 .article-card {
-  height: 390px;
-  width: 21%;
+  height: 450px;
+  width: 280px;
 }
 
 .article-title {
@@ -39,7 +39,7 @@
 /* // Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .article-card {
-    height: 385px;
-    width: 22%;
+    height: 450px;
+    width: 280px;
   }
 }
