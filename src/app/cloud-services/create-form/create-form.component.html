@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -14,7 +15,7 @@
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center" style="margin-bottom: 51px;">
-        <p class="heading-secondary">Create Product & Services</p>
+        <p class="heading-secondary">{{pageTitle}}</p>
       </div>
 
       <form [formGroup]="productServicesForm">
@@ -22,7 +23,7 @@
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="displayName" value="" />
-            <!-- <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error> -->
+             <mat-error *ngIf="checkError('displayName', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -30,17 +31,37 @@
           <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Description" formControlName="shortInformation" value="" />
-            <!-- <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error> -->
+             <mat-error *ngIf="checkError('shortInformation', 'required')">(Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Category</label>
+          <label class="col-sm-3 col-form-label">Category
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="Once the Product And Service added in Category it Can not be removed"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+          </i>
+          </label>
           <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isCategory">Category</mat-slide-toggle>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Last Service</label>
+          <label class="col-sm-3 col-form-label">Last Service
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="if the Option is toggled to true it will be your last Detail page"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+        </i>
+          </label>
           <mat-slide-toggle class="example-full-width col-sm-9" [ngModelOptions]="{ standalone: true }" [(ngModel)]="changeFlag"
             >Last Service</mat-slide-toggle
           >
