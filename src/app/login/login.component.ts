@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['home']);
       },
       (error: HttpErrorResponse) => {
-        console.log("errorr==",error);
         if (error.status === 401) {
           this.snackBar.open('Please enter valid credentials', 'Close', { duration: 3500, verticalPosition: 'top' });
         } else {
@@ -58,5 +57,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 }
