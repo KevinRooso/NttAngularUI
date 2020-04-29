@@ -75,8 +75,9 @@ export class CreateParticipantsComponent implements OnInit {
     arr.push(obj);
     if (this.flag) {
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value, arr).subscribe((res) => {
-        if (res.body.length !== 0) {
-          this.snackBar.open('Participants successfully created check me', 'Close', { duration: 5000 });
+
+        if (res.httpStatus.toString() !== 'BAD_REQUEST') {
+          this.snackBar.open('Participants successfully created', 'Close', { duration: 5000 });
           this.submitted = false;
         } else {
           this.snackBar.open('Duplicate Participant !!', 'Close', { duration: 5000 });
@@ -89,7 +90,7 @@ export class CreateParticipantsComponent implements OnInit {
       arr.push(obj);
 
       this.service.saveParticipentnonEvent(this.eventId, arr).subscribe((res) => {
-        if (res.body.length !== 0) {
+        if (res.httpStatus.toString() !== 'BAD_REQUEST') {
           this.snackBar.open('Participants successfully added in event', 'Close', { duration: 5000 });
           this.submitted = false;
           if (this.id === undefined) {
