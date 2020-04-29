@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['home']);
       },
       (error: HttpErrorResponse) => {
+        console.log("errorr==",error);
         if (error.status === 401) {
           this.snackBar.open('Please enter valid credentials', 'Close', { duration: 3500, verticalPosition: 'top' });
         } else {
@@ -58,21 +59,4 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // onSubmit(){
-  //   this.submitted = true;
-  //   if (this.loginform.invalid) {
-  //     return;
-  //     }
-  //     this.loading = true;
-  //     this.authService.getAuthourized(this.loginform.value)
-  //     .pipe(first())
-  //     .subscribe(
-  //         data => {
-  //             this.router.navigate(['home ']);
-  //         },
-  //         error => {
-  //             this.alertService.error(error);
-  //             this.loading = false;
-  //         });
-  //       }
 }

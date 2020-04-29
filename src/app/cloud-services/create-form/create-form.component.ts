@@ -45,11 +45,14 @@ export class CreateFormComponent implements OnInit {
     this.productServicesForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       isCategory: [false],
-      shortDescription: [''],
+      detail: [''],
       shortInformation: [''],
-      longDescription: [''],
-      thumbnailImage: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      largeImage: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
+      implementation: [''],
+      productBenifits: [''],
+      entityDifferentiator: [''],
+      testimonial: [''],
+      thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
+
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -70,15 +73,16 @@ export class CreateFormComponent implements OnInit {
         this.editData = JSON.parse(params.page2);
         if (this.editData !== null) {
           this.productServicesForm.controls['displayName'].setValue(this.editData.displayName);
+          this.productServicesForm.controls['detail'].setValue(this.editData.detail);
           this.productServicesForm.controls['isCategory'].setValue(this.editData.isCategory);
-          this.productServicesForm.controls['shortDescription'].setValue(this.editData.shortDescription);
+          this.productServicesForm.controls['implementation'].setValue(this.editData.implementation);
           this.productServicesForm.controls['shortInformation'].setValue(this.editData.shortInformation);
-          this.productServicesForm.controls['longDescription'].setValue(this.editData.longDescription);
+          this.productServicesForm.controls['productBenifits'].setValue(this.editData.productBenifits);
+          this.productServicesForm.controls['entityDifferentiator'].setValue(this.editData.productBenifits);
+          this.productServicesForm.controls['testimonial'].setValue(this.editData.testimonial);
           this.changeFlag = this.editData.isLastService;
-          this.previewUrl = this.editData.thumbnailImage;
-          this.attachUrl = this.editData.largeImage;
-          this.articleImage = this.editData.thumbnailImage;
-          this.attachFile = this.editData.largeImage;
+          this.previewUrl = this.editData.thumbnailImageUrl;
+          this.articleImage = this.editData.thumbnailImageUrl;
         }
       }
     });
@@ -227,12 +231,12 @@ export class CreateFormComponent implements OnInit {
   }
   submit() {
     const formObject = this.productServicesForm.value;
-    formObject.thumbnailImage = this.articleImage;
-    formObject.largeImage = this.attachFile;
+    formObject.thumbnailImageUrl = this.articleImage;
     if (this.editData != null) {
       formObject.id = this.editData.id;
     }
     formObject.parentId = this.parentId;
+    formObject.isLastService=this.changeFlag;
     this.authService.createProductAndService(formObject).subscribe((_res) => {
       this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
