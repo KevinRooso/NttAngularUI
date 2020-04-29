@@ -55,3 +55,18 @@
   color: #17a2b8;
   width: 90px;
 }
+
+.accordion .card-header::before {
+  /* content: "\f068"; */
+  content: '\f139';
+  float: right;
+  font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
+}
+
+.accordion .card-header.collapsed::before {
+  /* symbol for "collapsed" panels */
+
+  /* content: "\f067"; */
+
+  content: '\f13a';
+}

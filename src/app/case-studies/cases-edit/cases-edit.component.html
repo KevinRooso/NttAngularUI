@@ -23,10 +23,10 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">About Customer <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Customer Profile <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="About Customer" formControlName="longDescription" maxlength="8000" rows="4"></textarea>
-            <mat-error *ngIf="checkError('longDescription', 'required')">(About Customer is required)</mat-error>
+            <mat-error *ngIf="checkError('longDescription', 'required')">(Customer Profile is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
