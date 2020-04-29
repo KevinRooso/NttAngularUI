@@ -41,12 +41,13 @@ export class CreateFormComponent implements OnInit {
   parentId = 0;
   bradArray: any[] = [];
   changeFlag = false;
+  pageTitle: string='';
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       isCategory: [false],
       detail: [''],
-      shortInformation: [''],
+      shortInformation: ['', Validators.required],
       implementation: [''],
       productBenifits: [''],
       entityDifferentiator: [''],
@@ -63,10 +64,14 @@ export class CreateFormComponent implements OnInit {
         return this.productServicesForm.controls[controlName].hasError(errorName);
       }
     };
+    this.show=true;
     this.router1.queryParams.subscribe((params) => {
+
       if (params != null) {
+        this.pageTitle='Create Product And Services';
         this.parent = JSON.parse(params.page);
         if (this.parent !== null) {
+          this.pageTitle='Create Product And Services For '+this.parent.displayName;
           this.parentId = this.parent.id;
         }
         this.bradArray = JSON.parse(params.page1);
@@ -85,6 +90,7 @@ export class CreateFormComponent implements OnInit {
           this.articleImage = this.editData.thumbnailImageUrl;
         }
       }
+      this.show=false;
     });
   }
 
@@ -230,6 +236,7 @@ export class CreateFormComponent implements OnInit {
     this.changeFlag = !this.changeFlag;
   }
   submit() {
+    if(this.productServicesForm.valid){
     const formObject = this.productServicesForm.value;
     formObject.thumbnailImageUrl = this.articleImage;
     if (this.editData != null) {
@@ -237,6 +244,8 @@ export class CreateFormComponent implements OnInit {
     }
     formObject.parentId = this.parentId;
     formObject.isLastService=this.changeFlag;
+    this.show=true;
+    console.log("logss==",formObject);
     this.authService.createProductAndService(formObject).subscribe((_res) => {
       this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
@@ -248,8 +257,18 @@ export class CreateFormComponent implements OnInit {
       const navigationExtras: NavigationExtras = {
         queryParams: obj,
       };
+      this.show=false;
       this.router.navigate(['cloud-service'], navigationExtras);
+    },
+    (_error)=>{
+      this.show=false;
     });
+  }
+  else{
+    this.snackBar.open('Please fill all mandatory fields', 'Close', {
+      duration: 5000,
+    });
+  }
   }
   sendPage(data) {
     const obj = {
