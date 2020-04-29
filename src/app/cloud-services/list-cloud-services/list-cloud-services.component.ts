@@ -42,8 +42,9 @@ export class ListCloudServicesComponent implements OnInit {
         this.detailPage = true;
         this.parent = this.serviceData[0];
         this.detailData = this.serviceData[0];
-        this.show=false;
+
       }
+      this.show=false;
     },
     (_error)=>{
       this.show=false;
@@ -57,6 +58,7 @@ export class ListCloudServicesComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
+      skipLocationChange: true
     };
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }
@@ -92,6 +94,7 @@ export class ListCloudServicesComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
+      skipLocationChange: true
     };
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }

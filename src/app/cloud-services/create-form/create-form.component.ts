@@ -245,7 +245,6 @@ export class CreateFormComponent implements OnInit {
     formObject.parentId = this.parentId;
     formObject.isLastService=this.changeFlag;
     this.show=true;
-    console.log("logss==",formObject);
     this.authService.createProductAndService(formObject).subscribe((_res) => {
       this.snackBar.open('Success !!', 'Close', {
         duration: 5000,
@@ -256,6 +255,7 @@ export class CreateFormComponent implements OnInit {
       };
       const navigationExtras: NavigationExtras = {
         queryParams: obj,
+      skipLocationChange: true
       };
       this.show=false;
       this.router.navigate(['cloud-service'], navigationExtras);
@@ -277,6 +277,7 @@ export class CreateFormComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
+      skipLocationChange: true
     };
     this.router.navigate(['cloud-service'], navigationExtras);
   }
