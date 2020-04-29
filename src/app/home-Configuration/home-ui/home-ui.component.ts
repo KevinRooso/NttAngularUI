@@ -429,7 +429,7 @@ export class HomeUiComponent implements OnInit {
         this.callService(value, banner);
       }
     }
-    if (value1 === 'caseStudies') {
+    if (value1 === 'casestudies') {
       if (this.eventData.length !== 0) {
         this.setBannerData(banner, this.caseStudyData);
       } else {
@@ -702,7 +702,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.caseStudyConfigurationForm.value);
-    this.service.saveRescourceBlock('caseStudy', obj).subscribe(
+    this.service.saveRescourceBlock('casestudy', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");

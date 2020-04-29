@@ -14,7 +14,7 @@ export class CaseStudiesComponent implements OnInit {
   searchFilterData;
   searchCases;
   categoryList: any[] = [];
-  cat = '';
+  cat: string;
   tag = '';
   tags: any[] = [];
   constructor(private service: AuthServiceService, private router: Router) {}
@@ -51,7 +51,7 @@ export class CaseStudiesComponent implements OnInit {
   getDataWithCat() {
     this.filterCases = this.cases;
     this.filterCases = this.cases.filter((m) => {
-      return m.category.id === this.cat;
+      return m.category.id.toString() === this.cat;
     });
     this.searchFilterData = this.filterCases;
   }

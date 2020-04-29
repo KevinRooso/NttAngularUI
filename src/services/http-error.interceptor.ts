@@ -25,8 +25,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           // server-side error
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        this.rollbarService.handleError(new Error(error.message));
-        return throwError(errorMessage);
+        // tslint:disable-next-line:no-console
+        console.log(errorMessage);
+        this.rollbarService.handleError(error);
+        return throwError(error);
       })
     );
   }

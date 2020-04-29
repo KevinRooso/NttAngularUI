@@ -141,8 +141,8 @@ export class CreateBlogComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-
-    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
       // this.preview();
     }
@@ -414,7 +414,6 @@ export class CreateBlogComponent implements OnInit {
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
-      // alert("Tag Already EXist");
     }
   }
 }

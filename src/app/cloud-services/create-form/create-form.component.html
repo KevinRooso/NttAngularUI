@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a href="/home">Home</a></li>
@@ -14,7 +15,7 @@
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center" style="margin-bottom: 51px;">
-        <p class="heading-secondary">Create Product & Services</p>
+        <p class="heading-secondary">{{pageTitle}}</p>
       </div>
 
       <form [formGroup]="productServicesForm">
@@ -22,52 +23,91 @@
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="displayName" value="" />
-            <!-- <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error> -->
+             <mat-error *ngIf="checkError('displayName', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Short Information <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Short Information" formControlName="shortInformation" value="" />
-            <!-- <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error> -->
+            <input matInput placeholder="Description" formControlName="shortInformation" value="" />
+             <mat-error *ngIf="checkError('shortInformation', 'required')">(Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Category</label>
+          <label class="col-sm-3 col-form-label">Category
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="Once the Product And Service added in Category it Can not be removed"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+          </i>
+          </label>
           <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isCategory">Category</mat-slide-toggle>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Last Service</label>
+          <label class="col-sm-3 col-form-label">Last Service
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="if the Option is toggled to true it will be your last Detail page"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+        </i>
+          </label>
           <mat-slide-toggle class="example-full-width col-sm-9" [ngModelOptions]="{ standalone: true }" [(ngModel)]="changeFlag"
             >Last Service</mat-slide-toggle
           >
         </div>
 
         <ng-container *ngIf="changeFlag">
+
+
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Short Description<span class="error">*</span></label>
+            <label class="col-sm-3 col-form-label">Detail</label>
             <div class="col-sm-9">
-              <ckeditor
-                placeholder="Short Description"
-                formControlName="shortDescription"
-                class="example-full-width col-sm-9 p-0"
-              ></ckeditor>
+              <ckeditor placeholder="Detail" formControlName="detail" class="example-full-width col-sm-9 p-0"></ckeditor>
             </div>
           </div>
 
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Detail<span class="error">*</span></label>
+            <label class="col-sm-3 col-form-label">Implementation</label>
             <div class="col-sm-9">
-              <ckeditor placeholder="Detail" formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+              <ckeditor placeholder="Implementation" formControlName="implementation" class="example-full-width col-sm-9 p-0"></ckeditor>
             </div>
+          </div>
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Product Benefits</label>
+            <div class="col-sm-9">
+              <ckeditor placeholder="Product Benefits" formControlName="productBenifits" class="example-full-width col-sm-9 p-0"></ckeditor>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">NTT Differentiator</label>
+            <div class="col-sm-9">
+              <ckeditor placeholder="NTT Differentiator" formControlName="entityDifferentiator" class="example-full-width col-sm-9 p-0"></ckeditor>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Testimonial URL </label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Testimonial URL" formControlName="testimonial" value="" />
+            </mat-form-field>
           </div>
 
           <div class="form-row">
             <label class="col-sm-3 col-form-label"
-              >Choose Thumbnail Image <span class="error">* </span>
+              >Choose Thumbnail Image
               <i
                 class="fa fa-info-circle"
                 aria-hidden="true"
@@ -79,11 +119,9 @@
               </i>
             </label>
             <div class="col-sm-7">
-              <input type="file" class="form-control-file" formControlName="thumbnailImage" (change)="fileProgress($event)" />
-              <div *ngIf="checkError('thumbnailImage', 'required', true)" style="color: red; font-size: 12px;">
-                (Image is required)
-              </div>
-              <div *ngIf="checkError('thumbnailImage', 'pattern')" style="color: red; font-size: 12px;">
+              <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
+
+              <div *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;">
                 (Image should be JPEG, JPG, PNG)
               </div>
             </div>
@@ -103,44 +141,7 @@
             </div>
           </div>
 
-          <div class="form-row my-3">
-            <label class="col-sm-3 col-form-label"
-              >Choose Banner Image <span class="error">* </span>
-              <i
-                class="fa fa-info-circle"
-                aria-hidden="true"
-                matTooltip="1.Banner image Width should be between (1080 x 480)px &#13;2.Banner image Height should be between (580 x 360)px &#13;3. Maximum image size allowed:1MB"
-                style="font-size: 18px;"
-                matTooltipPosition="right"
-                matTooltipClass="custom-tooltip"
-              >
-              </i>
-            </label>
-            <div class="col-sm-7">
-              <input type="file" class="form-control-file" formControlName="largeImage" (change)="fileProgress2($event)" />
-              <div *ngIf="checkError('largeImage', 'required', true)" style="color: red; font-size: 12px;">
-                (Image is required)
-              </div>
-              <div *ngIf="checkError('largeImage', 'pattern')" style="color: red; font-size: 12px;">
-                (Image should be JPEG, JPG, PNG)
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-primary" (click)="uploadAttachment()" [ngClass]="{ cursor: !imageValid2 }" [disabled]="!imageValid2">
-                Upload File
-              </button>
-              <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
-            </div>
 
-            <div class="form-row">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="image-preview mb-3" *ngIf="attachUrl">
-                  <img [src]="attachUrl" height="200" />
-                </div>
-              </div>
-            </div>
-          </div>
         </ng-container>
         <div class="text-right">
           <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit Details</button>

@@ -57,22 +57,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-  // onSubmit(){
-  //   this.submitted = true;
-  //   if (this.loginform.invalid) {
-  //     return;
-  //     }
-  //     this.loading = true;
-  //     this.authService.getAuthourized(this.loginform.value)
-  //     .pipe(first())
-  //     .subscribe(
-  //         data => {
-  //             this.router.navigate(['home ']);
-  //         },
-  //         error => {
-  //             this.alertService.error(error);
-  //             this.loading = false;
-  //         });
-  //       }
 }

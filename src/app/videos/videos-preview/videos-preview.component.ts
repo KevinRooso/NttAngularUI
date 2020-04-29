@@ -16,7 +16,7 @@ export class VideosPreviewComponent implements OnInit {
   searchFilterData;
   searchBlog = '';
   categoryList: any[] = [];
-  cat = '';
+  cat: string;
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class VideosPreviewComponent implements OnInit {
   getDataWithCat() {
     this.filterBlogs = this.blogs;
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.category.id === this.cat;
+      return m.category.id.toString() === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }

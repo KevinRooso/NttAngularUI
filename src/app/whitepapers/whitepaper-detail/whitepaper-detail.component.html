@@ -43,7 +43,7 @@
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a [href]="whitePaperData.resourceLink" target="_blank">
+              <a *ngIf="whitePaperData.resourceLink != null" [href]="whitePaperData.resourceLink" target="_blank">
                 <button class="btn button-1 action-good">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>

@@ -117,7 +117,9 @@ export class CasesEditComponent implements OnInit {
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
 
       const url2 = this.getCaseData.resourceLink;
-      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      if (this.getCaseData.resourceLink != null) {
+        this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      }
 
       this.selected2 = res.body.category.id;
       if (res.body.person != null) {
@@ -180,15 +182,13 @@ export class CasesEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-
-    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
       }

@@ -124,12 +124,26 @@ export class CreateEventComponent implements OnInit {
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
-          return this.createEventForm.controls[controlName].hasError(errorName);
+          const val = this.createEventForm.controls[controlName].value;
+          if (Object.prototype.toString.call(val) === '[object Date]') {
+            // valid date object
+            if (isNaN(val.getTime())) {
+              // date is not valid
+              return true;
+            } else {
+              // date is valid
+              return false;
+            }
+          } else {
+            // not a date type value
+            return this.createEventForm.controls[controlName].hasError(errorName);
+          }
         }
       } else {
         return this.createEventForm.controls[controlName].hasError(errorName);
       }
     };
+
     this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
@@ -173,7 +187,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1048576) {
       this.imageValid = true;
     }
     const reader = new FileReader();
