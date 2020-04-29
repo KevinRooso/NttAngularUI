@@ -13,7 +13,7 @@ export class BlogsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList: any[] = [];
-  cat = 'cat';
+  cat: string;
   constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class BlogsComponent implements OnInit {
       return false;
     }
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.category.id === this.cat;
+      return m.category.id.toString() === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }
