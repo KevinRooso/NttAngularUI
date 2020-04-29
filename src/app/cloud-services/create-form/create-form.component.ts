@@ -41,7 +41,7 @@ export class CreateFormComponent implements OnInit {
   parentId = 0;
   bradArray: any[] = [];
   changeFlag = false;
-  pageTitle: string='';
+  pageTitle: string;
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
       displayName: ['', Validators.required],
@@ -53,7 +53,6 @@ export class CreateFormComponent implements OnInit {
       entityDifferentiator: [''],
       testimonial: [''],
       thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -64,14 +63,13 @@ export class CreateFormComponent implements OnInit {
         return this.productServicesForm.controls[controlName].hasError(errorName);
       }
     };
-    this.show=true;
+    this.show = true;
     this.router1.queryParams.subscribe((params) => {
-
       if (params != null) {
-        this.pageTitle='Create Product And Services';
+        this.pageTitle = 'Create Product And Services';
         this.parent = JSON.parse(params.page);
         if (this.parent !== null) {
-          this.pageTitle='Create Product And Services For '+this.parent.displayName;
+          this.pageTitle = 'Create Product And Services For ' + this.parent.displayName;
           this.parentId = this.parent.id;
         }
         this.bradArray = JSON.parse(params.page1);
@@ -90,7 +88,7 @@ export class CreateFormComponent implements OnInit {
           this.articleImage = this.editData.thumbnailImageUrl;
         }
       }
-      this.show=false;
+      this.show = false;
     });
   }
 
@@ -236,39 +234,39 @@ export class CreateFormComponent implements OnInit {
     this.changeFlag = !this.changeFlag;
   }
   submit() {
-    if(this.productServicesForm.valid){
-    const formObject = this.productServicesForm.value;
-    formObject.thumbnailImageUrl = this.articleImage;
-    if (this.editData != null) {
-      formObject.id = this.editData.id;
-    }
-    formObject.parentId = this.parentId;
-    formObject.isLastService=this.changeFlag;
-    this.show=true;
-    console.log("logss==",formObject);
-    this.authService.createProductAndService(formObject).subscribe((_res) => {
-      this.snackBar.open('Success !!', 'Close', {
+    if (this.productServicesForm.valid) {
+      const formObject = this.productServicesForm.value;
+      formObject.thumbnailImageUrl = this.articleImage;
+      if (this.editData != null) {
+        formObject.id = this.editData.id;
+      }
+      formObject.parentId = this.parentId;
+      formObject.isLastService = this.changeFlag;
+      this.show = true;
+      this.authService.createProductAndService(formObject).subscribe(
+        (_res) => {
+          this.snackBar.open('Success !!', 'Close', {
+            duration: 5000,
+          });
+          const obj = {
+            page: JSON.stringify(this.parent),
+            page1: JSON.stringify(this.bradArray),
+          };
+          const navigationExtras: NavigationExtras = {
+            queryParams: obj,
+          };
+          this.show = false;
+          this.router.navigate(['cloud-service'], navigationExtras);
+        },
+        (_error) => {
+          this.show = false;
+        }
+      );
+    } else {
+      this.snackBar.open('Please fill all mandatory fields', 'Close', {
         duration: 5000,
       });
-      const obj = {
-        page: JSON.stringify(this.parent),
-        page1: JSON.stringify(this.bradArray),
-      };
-      const navigationExtras: NavigationExtras = {
-        queryParams: obj,
-      };
-      this.show=false;
-      this.router.navigate(['cloud-service'], navigationExtras);
-    },
-    (_error)=>{
-      this.show=false;
-    });
-  }
-  else{
-    this.snackBar.open('Please fill all mandatory fields', 'Close', {
-      duration: 5000,
-    });
-  }
+    }
   }
   sendPage(data) {
     const obj = {
