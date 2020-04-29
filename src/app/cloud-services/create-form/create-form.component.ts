@@ -254,6 +254,7 @@ export class CreateFormComponent implements OnInit {
           };
           const navigationExtras: NavigationExtras = {
             queryParams: obj,
+            skipLocationChange: true,
           };
           this.show = false;
           this.router.navigate(['cloud-service'], navigationExtras);
@@ -275,6 +276,7 @@ export class CreateFormComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
+      skipLocationChange: true,
     };
     this.router.navigate(['cloud-service'], navigationExtras);
   }
