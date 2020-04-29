@@ -40,7 +40,7 @@
               <div class="col-md-3 col-lg-3">
                 <img
                   alt="User Pic"
-                  [src]="detailData.thumbnailImage"
+                  [src]="detailData.thumbnailImageUrl"
                   class="img-circle img-responsive"
                   width="100%"
                   alt="No Image preview"
@@ -50,14 +50,15 @@
               <div class="col-md-9 col-lg-9">
                 <div class="panel-heading">
                   <h3 class="panel-title">{{ detailData.name }}</h3>
-                  <p class="speaker-details" [innerHTML]="detailData.shortDescription"></p>
+                  <p class="speaker-details" [innerHTML]="detailData.shortInformation"></p>
                 </div>
               </div>
               <div class="col-md-12 col-lg-12 py-3">
-                <p><b>Detail : </b><span [innerHTML]="detailData.longDescription"></span></p>
-                <p>
+                <p *ngIf="detailData.detail"><b>Detail : </b><span [innerHTML]="detailData.detail"></span></p>
+                <p *ngIf="detailData.implementation"><b>Implementation : </b><span [innerHTML]="detailData.implementation"></span></p>
+                <!-- <p>
                   <img alt="User Pic" [src]="detailData.largeImage" class="img-circle img-responsive" width="100%" alt="No Image preview" />
-                </p>
+                </p> -->
               </div>
             </div>
           </div>
