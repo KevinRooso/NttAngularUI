@@ -45,7 +45,7 @@
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a [href]="cases.resourceLink" target="_blank">
+              <a *ngIf="cases.resourceLink != null" [href]="cases.resourceLink" target="_blank">
                 <button class="btn button-1 action-good">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button
               ></a>

@@ -117,7 +117,9 @@ export class CasesEditComponent implements OnInit {
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
 
       const url2 = this.getCaseData.resourceLink;
-      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      if (this.getCaseData.resourceLink != null) {
+        this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      }
 
       this.selected2 = res.body.category.id;
       if (res.body.person != null) {

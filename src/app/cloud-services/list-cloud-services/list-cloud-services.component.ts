@@ -15,11 +15,10 @@ export class ListCloudServicesComponent implements OnInit {
   detailData: any = {};
   parent: any = null;
   bradArray: any[] = [];
-  show: boolean=false;
+  show = false;
   ngOnInit(): void {
-    this.show=true;
+    this.show = true;
     this.router1.queryParams.subscribe((params) => {
-
       if ((Object.keys(params).length === 0 && params.constructor === Object) || JSON.parse(params.page) == null) {
         this.getAllData();
       } else {
@@ -29,26 +28,27 @@ export class ListCloudServicesComponent implements OnInit {
           this.getDetailData(JSON.parse(params.page));
         }
       }
-      this.show=false;
+      this.show = false;
     });
   }
   getAllData() {
     this.bradArray = [];
-    this.show=true;
-    this.service.getProductAndService(0).subscribe((res) => {
-      this.detailPage = false;
-      this.serviceData = res.body;
-      if (this.serviceData.length === 1 && this.serviceData[0].isLastService) {
-        this.detailPage = true;
-        this.parent = this.serviceData[0];
-        this.detailData = this.serviceData[0];
-
+    this.show = true;
+    this.service.getProductAndService(0).subscribe(
+      (res) => {
+        this.detailPage = false;
+        this.serviceData = res.body;
+        if (this.serviceData.length === 1 && this.serviceData[0].isLastService) {
+          this.detailPage = true;
+          this.parent = this.serviceData[0];
+          this.detailData = this.serviceData[0];
+        }
+        this.show = false;
+      },
+      (_error) => {
+        this.show = false;
       }
-      this.show=false;
-    },
-    (_error)=>{
-      this.show=false;
-    });
+    );
   }
   openSubmitModel() {
     const obj = {
@@ -58,7 +58,7 @@ export class ListCloudServicesComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
-      skipLocationChange: true
+      skipLocationChange: true,
     };
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }
@@ -94,7 +94,7 @@ export class ListCloudServicesComponent implements OnInit {
     };
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
-      skipLocationChange: true
+      skipLocationChange: true,
     };
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }
