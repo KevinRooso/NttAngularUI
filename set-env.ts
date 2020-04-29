@@ -56,6 +56,7 @@ switch (ENV) {
   default:
     targetPath = './src/environments/environment.ts';
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-dev-app.herokuapp.com/';
+    CONFIG['NODE_ENV'] = 'local';
 }
 
 // `environment.ts` file structure

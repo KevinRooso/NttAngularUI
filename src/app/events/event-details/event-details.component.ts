@@ -31,6 +31,9 @@ export class EventDetailsComponent implements OnInit {
   speakerList: any[] = [];
   getEventStatusdata: any;
   @ViewChild('menumat') trigger: MatMenuTrigger;
+
+  // @ViewChild('toggleButton') toggleButton: ElementRef;
+
   fabButtons = [
     {
       icon: 'file_copy',
@@ -183,17 +186,50 @@ export class EventDetailsComponent implements OnInit {
       this.router.navigate(['/edit'], { queryParams: { page: this.eventId } });
     }
   }
-  publishChanges() {
+  changeStatus() {
     this.authService.savePublish(this.eventId, this.isPublish).subscribe(
       (_res) => {
         this.snackBar.open('SUCCESS!!', 'Close', { duration: 5000 });
       },
-      (error) => {
+      (_error) => {
         this.isPublish = !this.isPublish;
-        if (error.status === '403') {
-          this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
-        }
+        this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
       }
     );
   }
+  reverseChanges() {
+    this.isPublish = !this.isPublish;
+  }
+
+  // publishStatusNo(){
+  //   this.isPublish =false;
+  //   this.authService.savePublish(this.eventId, this.isPublish).subscribe(
+  //     (_res) => {
+  //       this.snackBar.open('SUCCESS!!', 'Close', { duration: 5000 });
+  //     },
+  //     (error) => {
+  //       console.log("erroorr=",error);
+  //       this.isPublish = !this.isPublish;
+
+  //         this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
+
+  //     }
+  //   );
+  // }
+  // publishStatusYes(){
+  //       this.isPublish =true;
+
+  //       this.authService.savePublish(this.eventId, this.isPublish).subscribe(
+  //         (_res) => {
+  //           this.snackBar.open('SUCCESS!!', 'Close', { duration: 5000 });
+  //         },
+  //         (error) => {
+  //           this.isPublish = !this.isPublish;
+  //           if (error.status === '403') {
+  //             this.snackBar.open('You do not have the permission to Publish or UnPublish it', 'Close', { duration: 5000 });
+  //           }
+  //         }
+  //       );
+
+  // }
 }
