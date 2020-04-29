@@ -124,12 +124,25 @@ export class CreateEventComponent implements OnInit {
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
+          // const val = this.createEventForm.controls[controlName];
+          // if ((controlName === 'startDate' && val) || (controlName === 'endDate' && val)) {
+          // we need to check for valid date other wise return false
+          // const val = new Date('');
+          // if(!isNaN(val.getTime())){
+          //   return false;
+          // }else{
+          //   return this.createEventForm.controls[controlName].hasError(errorName);
+          // }
+          // } else {
+          //   return this.createEventForm.controls[controlName].hasError(errorName);
+          // }
           return this.createEventForm.controls[controlName].hasError(errorName);
         }
       } else {
         return this.createEventForm.controls[controlName].hasError(errorName);
       }
     };
+
     this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
