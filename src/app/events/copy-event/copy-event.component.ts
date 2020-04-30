@@ -320,7 +320,7 @@ export class CopyEventComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
 
@@ -355,7 +355,7 @@ export class CopyEventComponent implements OnInit {
           this.imageValid2 = false;
           this.attachUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {

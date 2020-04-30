@@ -328,7 +328,7 @@ export class EventEditComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
 
@@ -363,7 +363,7 @@ export class EventEditComponent implements OnInit {
           this.attachUrl = null;
           this.result2 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
 
