@@ -246,6 +246,7 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort(this.GFG_sortFunctionc);
         this.activeList.sort(this.GFG_sortFunctionc);
         this.draftList.sort(this.GFG_sortFunctionc);
+        this.expiredList.sort(this.GFG_sortFunctionc)
       } else {
         // this.searchFilterData.sort(this.GFG_sortFunctionc1);
         // console.log("dateaftersort==",this.searchFilterData);
@@ -253,6 +254,7 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort(this.GFG_sortFunctionc1);
         this.activeList.sort(this.GFG_sortFunctionc1);
         this.draftList.sort(this.GFG_sortFunctionc1);
+        this.expiredList.sort(this.GFG_sortFunctionc1);
       }
     }
 

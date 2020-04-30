@@ -13,7 +13,7 @@ export class BlogsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList: any[] = [];
-  cat: string;
+  cat: string="cat";
   constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
