@@ -143,7 +143,7 @@ export class NewsEditComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {

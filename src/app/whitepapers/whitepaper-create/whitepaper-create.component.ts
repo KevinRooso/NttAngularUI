@@ -130,7 +130,7 @@ export class WhitepaperCreateComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   fileProgress2(fileInput: any) {

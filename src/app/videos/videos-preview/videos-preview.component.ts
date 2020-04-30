@@ -16,22 +16,20 @@ export class VideosPreviewComponent implements OnInit {
   searchFilterData;
   searchBlog = '';
   categoryList: any[] = [];
-  cat: string;
+  cat: string='cat';
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllVideos();
-
-    this.getAllCategory();
   }
 
   getAllVideos() {
     this.authService.getAllVideosList().subscribe((res) => {
       this.videoList = res.body;
-
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
+      this.getAllCategory();
     });
   }
   getDetails(id) {
@@ -43,11 +41,25 @@ export class VideosPreviewComponent implements OnInit {
   // }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
-      this.categoryList = res.body;
+      let catList: any[]=[];
+      catList = res.body;
+      catList.forEach(m=>{
+        for(let i=0;i<this.filterBlogs.length;i++){
+          if(m.id === this.filterBlogs[i].category.id)
+            {
+             this.categoryList.push(m);
+              break;
+            }
+        }
+      })
     });
   }
   getDataWithCat() {
     this.filterBlogs = this.blogs;
+    if(this.cat === 'cat'){
+      this.filterBlogs = this.blogs;
+      return false;
+    }
     this.filterBlogs = this.blogs.filter((m) => {
       return m.category.id.toString() === this.cat;
     });

@@ -165,7 +165,7 @@ export class CreateBlogComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 20);
     };
   }
 

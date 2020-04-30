@@ -199,7 +199,7 @@ export class ArticleEditComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   fileProgress2(fileInput: any) {

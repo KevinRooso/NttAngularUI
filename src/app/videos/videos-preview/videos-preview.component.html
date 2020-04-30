@@ -21,7 +21,7 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
-          <option value="" hidden>Please Select Category</option>
+          <option value="cat">Please Select Category</option>
           <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
         </select>
       </li>

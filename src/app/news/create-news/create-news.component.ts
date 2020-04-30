@@ -99,7 +99,7 @@ export class CreateNewsComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {
