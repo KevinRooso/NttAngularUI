@@ -333,7 +333,7 @@ export class CopyEventComponent implements OnInit {
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
     if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
-      this.imageValid = true;
+      this.imageValid2 = true;
       this.result2 = this.fileData.name;
     }
     const reader = new FileReader();
