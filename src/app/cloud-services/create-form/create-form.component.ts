@@ -49,9 +49,9 @@ export class CreateFormComponent implements OnInit {
       detail: [''],
       shortInformation: ['', Validators.required],
       implementation: [''],
-      productBenifits: [''],
-      entityDifferentiator: [''],
-      testimonial: [''],
+      productBenefits: [''],
+      differentiator: [''],
+      testimonialUrl: [''],
       thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -80,9 +80,9 @@ export class CreateFormComponent implements OnInit {
           this.productServicesForm.controls['isCategory'].setValue(this.editData.isCategory);
           this.productServicesForm.controls['implementation'].setValue(this.editData.implementation);
           this.productServicesForm.controls['shortInformation'].setValue(this.editData.shortInformation);
-          this.productServicesForm.controls['productBenifits'].setValue(this.editData.productBenifits);
-          this.productServicesForm.controls['entityDifferentiator'].setValue(this.editData.productBenifits);
-          this.productServicesForm.controls['testimonial'].setValue(this.editData.testimonial);
+          this.productServicesForm.controls['productBenefits'].setValue(this.editData.productBenefits);
+          this.productServicesForm.controls['differentiator'].setValue(this.editData.differentiator);
+          this.productServicesForm.controls['testimonialUrl'].setValue(this.editData.testimonialUrl);
           this.changeFlag = this.editData.isLastService;
           this.previewUrl = this.editData.thumbnailImageUrl;
           this.articleImage = this.editData.thumbnailImageUrl;
