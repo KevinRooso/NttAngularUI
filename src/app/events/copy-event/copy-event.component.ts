@@ -310,7 +310,7 @@ export class CopyEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -345,7 +345,7 @@ export class CopyEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
+        if (width === 1080 && height === 580) {
           this.imageValid2 = true;
           this.preview2();
         } else {
@@ -449,6 +449,13 @@ export class CopyEventComponent implements OnInit {
   }
   submitChanges() {
     // this.show=true;
+    if(this.agendaData.length === 0){
+      this.snackBar.open('Please fill Agenda', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
+    }
     if (!this.image1button) {
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', {
         duration: 5000,
