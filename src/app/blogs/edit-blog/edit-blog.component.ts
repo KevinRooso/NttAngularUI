@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -66,12 +66,12 @@ export class EditBlogComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.createBlogForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [false],
       expiryDate: ['', Validators.required],
@@ -105,13 +105,12 @@ export class EditBlogComponent implements OnInit {
   crateFrorm() {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.personForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      description: ['', Validators.required],
-      designation: ['', Validators.required],
+      fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
+      designation: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: ['', [Validators.required, Validators.email]],
       keySkills: [''],
-      origanizationName: ['', Validators.required],
-
+      origanizationName: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       phone: ['', Validators.pattern(mobnum)],
 
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
@@ -369,7 +368,7 @@ export class EditBlogComponent implements OnInit {
     }
     const obj = this.createBlogForm.value;
     if (this.createBlogForm.value.tagList.length === 0) {
-      this.createBlogForm.controls['tagList'].setValidators(Validators.required);
+      this.createBlogForm.controls['tagList'].setValidators(null);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
     this.submitted = true;

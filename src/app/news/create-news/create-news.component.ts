@@ -40,12 +40,12 @@ export class CreateNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createNewsForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      topic: new FormControl('', [Validators.required, Validators.maxLength(500)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      location: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      topic: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      about: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       draft: [false],

@@ -63,8 +63,8 @@ export class CasesCreateComponent implements OnInit {
     // this.createSpeaker();
 
     this.createCases = this.formbuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
       serviceUsed: ['', Validators.required],

@@ -18,30 +18,36 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 200 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Description" formControlName="longDescription" rows="4"></textarea>
-            <mat-error *ngIf="checkError('longDescription', 'required')">(Description is required)</mat-error>
-            <mat-error *ngIf="checkError('longDescription', 'maxlength')">Description should be less than 8000 characters</mat-error>
-          </mat-form-field>
+          <ckeditor placeholder="Details..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+          <div *ngIf="checkError('Description', 'required', true)" style="color: red; font-size: 12px;">
+            (Long Description is required)
+          </div>
+          <div *ngIf="checkError('Description', 'maxlength', true)" style="color: red; font-size: 12px;">
+            (Long Description should be less than 700 characters)
+          </div>
         </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Short Description" formControlName="shortDescription" rows="2"></textarea>
-            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">Short Description should be less than 3000 characters</mat-error>
-          </mat-form-field>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Details..." formControlName="shortDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
+              (Short Description is required)
+            </div>
+            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+              (Short Description should be less than 80 characters)
+            </div>
+          </div>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Category</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
@@ -53,7 +59,7 @@
           </mat-form-field>
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Tags</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
@@ -127,12 +133,7 @@
             </div>
           </div>
           <div class="col-sm-2">
-            <button
-              class="btn btn-primary"
-              [ngClass]="{ cursor: !imageValid }"
-              (click)="uploadImage()"
-              [disabled]="!imageValid"
-            >
+            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
