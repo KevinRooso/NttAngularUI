@@ -184,10 +184,15 @@ export class LandingPageComponent implements OnInit {
       new Chart(this.ctx, {
         type: 'pie',
         data: {
-          labels: ['Publish', 'Active', 'Draft'],
+          labels: ['Publish', 'Active', 'Draft', 'Expired'],
           datasets: [
             {
-              data: [userdeviceData.totalPublishEvent, userdeviceData.totalActiveEvent, userdeviceData.totalDraftEvent],
+              data: [
+                userdeviceData.totalPublishEvent,
+                userdeviceData.totalActiveEvent,
+                userdeviceData.totalDraftEvent,
+                userdeviceData.totalExpiredEvent,
+              ],
               backgroundColor: ['#9a58ed', '#27cdf2', '#32e6c5', '#f56953'],
               hoverBorderColor: 'white',
               hoverBorderWidth: 5,
