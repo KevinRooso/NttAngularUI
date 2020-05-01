@@ -67,7 +67,7 @@ export class CasesCreateComponent implements OnInit {
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: ['', Validators.required],
+      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       targetUserType: ['', Validators.required],
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),

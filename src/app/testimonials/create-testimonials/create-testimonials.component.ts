@@ -55,8 +55,8 @@ export class CreateTestimonialsComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       targetUserType: ['', Validators.required],
       isDraft: [false],
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],

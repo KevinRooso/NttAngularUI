@@ -41,7 +41,9 @@ export class ArticleCreateComponent implements OnInit {
     private location: Location,
     public snackBar: MatSnackBar,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.createArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
@@ -64,13 +66,10 @@ export class ArticleCreateComponent implements OnInit {
         return this.createArticleForm.controls[controlName].hasError(errorName);
       }
     };
-    this.addTagForm = frmbuilder.group({
+    this.addTagForm = this.frmbuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     });
-  }
-
-  ngOnInit(): void {
     this.getUserList();
     this.getCategoryDetails();
     this.getTagsDetails();
@@ -219,7 +218,7 @@ export class ArticleCreateComponent implements OnInit {
 
   createArticle() {
     this.show = true;
-
+    this.submitted = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload Article Image', 'Close', {
         duration: 5000,
