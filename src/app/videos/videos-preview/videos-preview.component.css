@@ -1,15 +1,65 @@
+.card-block {
+  padding: 5px;
+}
+
+.card-title {
+  -webkit-box-orient: vertical;
+  color: #0b428a;
+  display: -webkit-box;
+  font-size: 14px;
+
+  /* min-height: 45px; */
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  max-height: 32px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .videos-card {
-  height: 450px;
-  min-height: 350px;
+  height: 335px;
   width: 280px;
 }
 
 .videos-title {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
   font-size: 14px;
   font-weight: 400;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-height: 16px; /* fallback */
   margin: 0;
+  margin-bottom: -10px;
+  margin-top: -5px;
+  max-height: 50px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text-center {
   padding: 100px;
+}
+
+.blog .card .card-block {
+  background: #fff;
+
+  /* min-height: 160px; */
+
+  /* padding: 1.1rem; */
+
+  height: 140px;
+  padding: 10px;
+}
+
+.card-description {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  margin-bottom: -7px;
+  margin-top: -5px;
+  max-height: 50px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

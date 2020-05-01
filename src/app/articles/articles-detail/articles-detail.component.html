@@ -12,7 +12,7 @@
       <div class="panel panel-info preview-card">
         <div class="panel-body p-3">
           <div class="row">
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-4 col-lg-4">
               <img
                 alt="User Pic"
                 [src]="articleData.thumbnailImageUrl"
@@ -23,15 +23,15 @@
               />
             </div>
 
-            <div class="col-md-9 col-lg-8">
+            <div class="col-md-7 col-lg-7">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; padding-left: 50px; color: #008ece;">
+                <h1 style="font-size: 25px; color: #008ece;">
                   {{ articleData.title }}
                 </h1>
                 <!-- <p><b>Short Description : </b>{{articleData.shortDescription}}</p> -->
-                <p style="padding-left: 50px;"><b>Category - </b>{{ articleData.category.displayName }}</p>
+                <p><b>Category - </b>{{ articleData.category.displayName }}</p>
                 <!-- <p><b>Tag : </b><span *ngFor="let tags of resourceTags">{{tags.name}}</span></p> -->
-                <p class="card-text mb-0" style="font-weight: 500; padding-left: 50px;">
+                <p class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags - </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
@@ -49,11 +49,11 @@
             <div class="col-md-12 col-lg-12 py-3">
               <hr />
               <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
-              <p><b>Short Description - </b>{{ articleData.shortDescription }}</p>
+              <p style="white-space: pre-wrap;"><b>Short Description - </b>{{ articleData.shortDescription }}</p>
               <hr />
-              <p><b>Long Description - </b>{{ articleData.longDescription }}</p>
+              <p style="white-space: pre-wrap;"><b>Long Description - </b>{{ articleData.longDescription }}</p>
               <hr />
-              <p><b>Expiration Date - </b>{{ articleData.expiryDate | date }}</p>
+              <p><b>Publish Date - </b>{{ articleData.createdAt | date }}</p>
               <!-- <div class="text-center">
               <a [href]="articleData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
               </div> -->

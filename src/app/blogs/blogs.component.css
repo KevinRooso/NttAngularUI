@@ -18,8 +18,13 @@
 
 .blog .card .card-block {
   background: #fff;
-  min-height: 160px;
-  padding: 1.1rem;
+
+  /* min-height: 160px; */
+
+  /* padding: 1.1rem; */
+
+  height: 145px;
+  padding: 10px;
 }
 
 .blog .card .card-block .category {
@@ -37,9 +42,28 @@
 }
 
 .blog .card .card-block .card-title {
+  -webkit-box-orient: vertical;
   color: #0b428a;
-  font-size: 16px;
-  min-height: 45px;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  max-height: 32px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blog .card .card-block .card-description {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  margin-bottom: -7px;
+  margin-top: -5px;
+  max-height: 50px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .heading-secondary {

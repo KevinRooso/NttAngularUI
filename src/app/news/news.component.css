@@ -1,3 +1,8 @@
+/* .card-block .card-title {
+  color: #0b428a;
+  font-size: 16px;
+  min-height: 45px;
+} */
 .videos-card {
   height: 480px;
   margin-bottom: 5px;
@@ -8,9 +13,38 @@
 .videos-title {
   font-size: 14px;
   font-weight: 400;
-  margin: 5px;
+  margin: 0;
 }
 
 .text-center {
   padding: 100px;
+}
+
+.card-block {
+  padding: 5px;
+}
+
+.card-title {
+  -webkit-box-orient: vertical;
+  color: #0b428a;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  max-height: 32px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-description {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-height: 16px; /* fallback */
+  margin-bottom: -7px;
+  margin-top: -5px;
+  max-height: 50px; /* fallback */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -13,19 +13,18 @@ export class BlogsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList: any[] = [];
-  cat: string="cat";
+  cat: string;
   constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
     this.getBlogs();
-
+    this.getAllCategory();
   }
   getBlogs() {
     this.service.getAllBlogs().subscribe((res) => {
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
-      this.getAllCategory();
     });
   }
   showBlogDetail(id) {
@@ -33,17 +32,7 @@ export class BlogsComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      let catList:any[]=[];
-      catList = res.body;
-     catList.forEach(m=>{
-        for(let i=0;i<this.filterBlogs.length;i++){
-          if(m.id === this.filterBlogs[i].category.id)
-            {
-             this.categoryList.push(m);
-              break;
-            }
-        }
-      })
+      this.categoryList = res.body;
     });
   }
   getDataWithCat() {
