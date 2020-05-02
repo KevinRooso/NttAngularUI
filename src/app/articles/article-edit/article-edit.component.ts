@@ -55,15 +55,15 @@ export class ArticleEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.EditArticleForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -306,10 +306,10 @@ export class ArticleEditComponent implements OnInit {
       this.show = false;
       return false;
     }
-    if (this.EditArticleForm.value.tagList.length === 0) {
-      this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
-      this.EditArticleForm.controls['tagList'].updateValueAndValidity();
-    }
+    // if (this.EditArticleForm.value.tagList.length === 0) {
+    //   this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
+    //   this.EditArticleForm.controls['tagList'].updateValueAndValidity();
+    // }
     this.submitted = true;
     if (this.EditArticleForm.valid) {
       const tags: any[] = [];

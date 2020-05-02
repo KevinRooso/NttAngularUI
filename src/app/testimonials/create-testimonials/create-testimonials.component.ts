@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -54,14 +54,13 @@ export class CreateTestimonialsComponent implements OnInit {
   image2button = false;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      shortDescription: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       targetUserType: ['', Validators.required],
       isDraft: [false],
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -113,8 +112,6 @@ export class CreateTestimonialsComponent implements OnInit {
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
       this.createVideoForm.get(['isDraft']).setValue(res.body.isDraft);
-      this.today = res.body.expiryDate;
-      this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
       this.previewUrl1 = res.body.detailImageUrl;
       this.image1button = true;
       this.image2button = true;
@@ -295,7 +292,6 @@ export class CreateTestimonialsComponent implements OnInit {
         targetUserType: obj.targetUserType,
         categoryId: 15,
         id,
-        expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
 
       this.service.saveResource(dataObj).subscribe((_res) => {
