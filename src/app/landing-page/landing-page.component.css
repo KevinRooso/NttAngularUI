@@ -132,3 +132,24 @@ hr {
   height: 240px;
   width: 100%;
 }
+
+.p-home-title {
+  font-size: 22px;
+  font-weight: 500;
+  padding: 12px;
+}
+
+.card-container-border {
+  border: 0;
+  border-right: 4px solid rgb(239, 239, 239);
+}
+
+.card-container-no-border {
+  border: 0;
+}
+
+.home-title {
+  color: #0b428a;
+  font-size: 28px;
+  line-height: 34px;
+}
