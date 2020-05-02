@@ -386,7 +386,7 @@ export class HomeUiComponent implements OnInit {
 
 
       this.service.saveBanner(this.newBannerData).subscribe(
-        (res) => {
+        (_res) => {
           this.show = false;
 
           this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
