@@ -306,7 +306,7 @@ export class EventEditComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
       this.imageValid = true;
       this.result1 = this.fileData.name;
     }
@@ -340,7 +340,7 @@ export class EventEditComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000) {
       this.imageValid2 = true;
       this.result2 = this.fileData.name;
     }

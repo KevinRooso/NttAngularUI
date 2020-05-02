@@ -187,7 +187,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1048576) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -221,7 +221,8 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000
+    ) {
       this.imageValid2 = true;
     }
     const reader = new FileReader();

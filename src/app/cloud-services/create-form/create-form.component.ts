@@ -100,7 +100,7 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -112,7 +112,7 @@ export class CreateFormComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {

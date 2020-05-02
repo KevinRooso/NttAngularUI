@@ -133,14 +133,36 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
-      const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
         this.imageValid = true;
-        this.preview();
       }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = () => {
+        setTimeout(() => {
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+
+          window.URL.revokeObjectURL(img.src);
+
+          if (width === 480 && height === 240) {
+            this.imageValid = true;
+            this.preview();
+          } else {
+            this.snackBar.open('Please upload valid image type/size', 'Close', {
+              duration: 5000,
+            });
+            this.imageValid = false;
+            this.previewUrl = null;
+          }
+        }, 50);
+      };
     }
   }
   preview() {
@@ -183,13 +205,37 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl1 = null;
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image2button = false;
-      const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png') {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
         this.imageValid1 = true;
-        this.preview1();
+
       }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = () => {
+        setTimeout(() => {
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+
+          window.URL.revokeObjectURL(img.src);
+
+          if (width === 100 && height === 100) {
+            this.imageValid1 = true;
+            this.preview1();
+          } else {
+            this.snackBar.open('Please upload valid image type/size', 'Close', {
+              duration: 5000,
+            });
+            this.imageValid1 = false;
+            this.previewUrl1 = null;
+          }
+        }, 50);
+      };
     }
   }
   // fileProgress1(fileInput: any) {

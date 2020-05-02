@@ -94,7 +94,18 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label"> Logo <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label"> Logo <span class="error">*</span>
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="Resolution: 240px X 120px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+          </i>
+          </label>
+
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="thumbnailImageUrl" (change)="fileProgress($event)" />
             <mat-error *ngIf="checkError('thumbnailImageUrl', 'pattern')" style="color: red; font-size: 12px;"
@@ -126,7 +137,18 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label"> Publisher Image <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label"> Publisher Image <span class="error">*</span>
+            <i
+            class="fa fa-info-circle"
+            aria-hidden="true"
+            matTooltip="Resolution: 100px X 100px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
+            matTooltipPosition="right"
+            matTooltipClass="custom-tooltip"
+            style="font-size: 18px;"
+          >
+          </i>
+
+          </label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="detailImageUrl" (change)="fileProgress1($event)" />
             <mat-error *ngIf="checkError('detailImageUrl', 'pattern')" style="color: red; font-size: 12px;"
