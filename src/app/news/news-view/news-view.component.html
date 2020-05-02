@@ -26,7 +26,7 @@
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">{{ news.topic }}</h1>
                 <h6 style="color: #6f7a8a;">{{ news.title }}</h6>
-                <p>{{ news.shortDescription }}</p>
+                <p [innerHTML]="news.shortDescription"></p>
               </div>
             </div>
             <div class="col-md-1 edit">
@@ -36,14 +36,15 @@
               <hr />
               <p>
                 <span class="d-inline-flex"
-                  ><h6>{{ news.location }}, &nbsp;</h6>
-                  <h6>{{ news.createdAt | date }} - &nbsp;</h6></span
-                >{{ news.longDescription }}
+                  ><h6 [innerHTML]="news.location"></h6>
+                  <h6 [innerHTML]="news.createdAt | date"></h6></span
+                ><span [innerHTML]="news.longDescription"></span>
               </p>
             </div>
             <div class="col-md-12 col-lg-12 py-2">
               <hr />
-              <p><span class="h6">About NTT - </span>{{ news.about }}</p>
+              <b>About NTT </b>
+              <p [innerHTML]="news.about"></p>
             </div>
           </div>
         </div>

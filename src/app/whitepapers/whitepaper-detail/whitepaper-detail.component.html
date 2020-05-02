@@ -57,11 +57,13 @@
             </div> -->
             <div class="col-md-12 col-lg-12 py-3">
               <hr />
-              <p><b>Short Description : </b>{{ whitePaperData.shortDescription }}</p>
+              <b>Short Description </b>
+              <p [innerHTML]="whitePaperData.shortDescription"></p>
               <hr />
-              <p><b>Long Description : </b>{{ whitePaperData.longDescription }}</p>
+              <b>Long Description </b>
+              <p [innerHTML]="whitePaperData.longDescription"></p>
               <hr />
-              <p><b>Expiration Date : </b>{{ whitePaperData.expiryDate | date }}</p>
+              <p><b>Expiration Date - </b>{{ whitePaperData.expiryDate | date }}</p>
               <!-- <div class="text-center">
                 <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
               </div> -->

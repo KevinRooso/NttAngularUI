@@ -64,9 +64,7 @@ Blogs
           <div class="card-block">
             <h3 class="card-title">{{ blog.title }}</h3>
             <mat-divider></mat-divider>
-            <p style="font-size: 14px;">
-              {{ blog.shortDescription | truncate: 180:false }}
-            </p>
+            <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p>
           </div>
         </div>
       </div>
