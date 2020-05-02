@@ -261,8 +261,7 @@ export class HomeUiComponent implements OnInit {
     this.show = true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
       this.bannerData = res.body.banners;
-
-      if(this.bannerData.length !== 0){
+     if(this.bannerData.length !== 0){
         this.bannerData.sort(this.sortArray);
         this.formArr=[];
       }
@@ -273,18 +272,7 @@ export class HomeUiComponent implements OnInit {
       if (this.bannerData.length === 0 && this.resourceData.length === 0) {
         this.publicFlag = false;
       } else {
-        if (this.bannerData.length === 1) {
-          this.getGlobalDataForBanner1();
-        }
-        if (this.bannerData.length === 2) {
-          this.getGlobalDataForBanner1();
-          this.getGlobalDataForBanner2();
-        }
-        if (this.bannerData.length === 3) {
-          this.getGlobalDataForBanner1();
-          this.getGlobalDataForBanner2();
-          this.getGlobalDataForBanner3();
-        }
+
         this.resourceData.forEach((m) => {
           if (m.type === 'event') {
             this.eventBlockData = m.id;
@@ -389,9 +377,6 @@ export class HomeUiComponent implements OnInit {
   submitBanner() {
     this.show = true;
     if(this.globalFlag && this.formArr.length === this.newBannerData.length){
-
-
-
       this.service.saveBanner(this.newBannerData).subscribe(
         (_res) => {
           this.show = false;
