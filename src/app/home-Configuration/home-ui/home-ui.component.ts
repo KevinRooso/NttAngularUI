@@ -68,7 +68,7 @@ export class HomeUiComponent implements OnInit {
   bannerImage3 = '';
 
   eventId = '';
-  globalFlag:boolean=true;
+  globalFlag=true;
   formArr:number[]=[1];
   bannerEmittedData:any={};
   // tslint:disable-next-line:no-input-rename
@@ -81,7 +81,7 @@ export class HomeUiComponent implements OnInit {
   @ViewChild('caseButton', { static: false }) caseButton;
   @ViewChild('newsButton', { static: false }) newsButton;
   @ViewChild('testButton', { static: false }) testButton;
-  bannerLimit:number=0;
+  bannerLimit=0;
   users: any[] = [
     { id: 1, type: 'Customer' },
     { id: 2, type: 'Employee' },
@@ -160,6 +160,12 @@ export class HomeUiComponent implements OnInit {
     //   this.formArr.push(index+1);
     // })
   }
+
+  sortArray(a, b) {
+    return a.sequenceNumber > b.sequenceNumber ? 1 : -1;
+  }
+
+
   createForms() {
     this.show = true;
     if (this.userType === 'public') {
@@ -257,6 +263,7 @@ export class HomeUiComponent implements OnInit {
       this.bannerData = res.body.banners;
 
       if(this.bannerData.length !== 0){
+        this.bannerData.sort(this.sortArray);
         this.formArr=[];
       }
       this.bannerData.forEach((_value,index)=>{

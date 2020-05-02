@@ -19,13 +19,18 @@ export class BannerUiComponent implements OnInit {
   selectBlockData:any[]=[];
   bannerSequence;
   eventData:any[]=[];
-  show:boolean=false;
-  pFlag:boolean=false;
-  cFlag:boolean=false;
+  show=false;
+  pFlag=false;
+  cFlag=false;
+  // tslint:disable-next-line: no-input-rename
   @Input('userType') userType: string;
+  // tslint:disable-next-line: no-input-rename
   @Input('blocks') blocks;
-  @Input('position') sequence;
+  // tslint:disable-next-line: no-input-rename
+  @Input('position') sequence: number;
+  // tslint:disable-next-line: no-input-rename
   @Input('bannerData') bannerData;
+  // tslint:disable-next-line: no-input-rename
   @Input('formArr') formArr;
 
   @Output() bannerToEmit = new EventEmitter<any>();
@@ -50,6 +55,7 @@ export class BannerUiComponent implements OnInit {
       }
 
   }
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
     if (this.userType === 'public') {
       this.pFlag = true;
@@ -77,7 +83,7 @@ export class BannerUiComponent implements OnInit {
     });
   }
   emitBanner(){
-    let obj=this.bannerConfigurationForm.value;
+    const obj=this.bannerConfigurationForm.value;
     obj.sequenceNumber=this.sequence;
     if(this.bannerConfigurationForm.valid){
       this.bannerToEmit.emit(obj)

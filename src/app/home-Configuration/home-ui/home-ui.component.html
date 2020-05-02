@@ -384,21 +384,21 @@
       <div class="main-container p-2" style="background: #efefef; overflow-y: auto; overflow-x: hidden; height: 480px;">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <ng-container *ngFor="let arr of formArr">
+            <li data-target="#carouselExampleIndicators" data-slide-to="arr"></li>
+          </ng-container>
           </ol>
           <div class="carousel-inner">
+            <ng-container *ngIf="bannerData.length>0">
             <div class="carousel-item active">
-              <img class="d-block w-100 img-size" [src]="bannerImage1 != '' ? bannerImage1 : defaultImage" />
+              <img class="d-block w-100 img-size" [src]="bannerData[0].thumbnailImageUrl != '' ? bannerData[0].thumbnailImageUrl : defaultImage" />
             </div>
-            <div class="carousel-item">
-              <img class="d-block w-100 img-size" [src]="bannerImage2 != '' ? bannerImage2 : defaultImage" />
+            <ng-container *ngFor="let arr of formArr">
+            <div class="carousel-item" *ngIf="arr !== 1">
+              <img class="d-block w-100 img-size"  [src]="bannerData[arr-1].thumbnailImageUrl != '' ? bannerData[arr-1].thumbnailImageUrl : defaultImage" />
             </div>
-            <div class="carousel-item">
-              <img class="d-block w-100 img-size" [src]="bannerImage3 != '' ? bannerImage3 : defaultImage" />
-            </div>
-          </div>
+          </ng-container>
+        </ng-container>
           <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
