@@ -38,7 +38,8 @@
                 <!-- <p>{{videosData.shortDescription}}</p> -->
                 <p><b>Category - </b>{{ videosData.category.displayName }}</p>
                 <h6><b>Posted On - </b>{{ videosData.createdAt | date }}</h6>
-                <p><b>Long Description - </b>{{ videosData.longDescription }}</p>
+                <b>Long Description - </b>
+                <p [innerHTML]="videosData.longDescription"></p>
               </div>
             </div>
 

@@ -139,12 +139,23 @@
             placeholder="Date" formControlName="date">
           <owl-date-time #regstartdt [pickerType]="'calendar'"></owl-date-time>
         </div> -->
-
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Location</label>
+          <label class="col-sm-3 col-form-label"
+            >Location <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Location is required &#13;2. Location should be less than 500 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Location" formControlName="location" value="" />
             <mat-error *ngIf="checkError('location', 'required')">(Location is required)</mat-error>
+            <mat-error *ngIf="checkError('location', 'maxlength')">(Location should be less than 100 characters)</mat-error>
           </mat-form-field>
         </div>
 

@@ -37,7 +37,7 @@
             <div class="col-sm-8 customULL service cpadl">
               <span><b>Services Used:</b> </span><br />
               <ul>
-                <li>{{ cases.serviceUsed }}</li>
+                <li [innerHTML]="cases.serviceUsed"></li>
               </ul>
             </div>
             <div class="col-sm-1 edit">
@@ -54,7 +54,7 @@
             <div class="col-md-12 col-lg-12">
               <hr />
               <h1 style="font-size: 25px; color: #008ece;">Customer Profile</h1>
-              <p>{{ cases.longDescription }}</p>
+              <p [innerHTML]="cases.longDescription"></p>
             </div>
 
             <!-- <div class="col-md-12 col-lg-12 text-center">

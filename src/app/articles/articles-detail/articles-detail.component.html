@@ -49,9 +49,11 @@
             <div class="col-md-12 col-lg-12 py-3">
               <hr />
               <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
-              <p><b>Short Description - </b>{{ articleData.shortDescription }}</p>
+              <b>Long Description </b>
+              <p [innerHTML]="articleData.shortDescription"></p>
               <hr />
-              <p><b>Long Description - </b>{{ articleData.longDescription }}</p>
+              <b>Short Description </b>
+              <p [innerHTML]="articleData.longDescription"></p>
               <hr />
               <p><b>Expiration Date - </b>{{ articleData.expiryDate | date }}</p>
               <!-- <div class="text-center">
