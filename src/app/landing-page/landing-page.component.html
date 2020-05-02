@@ -1,71 +1,86 @@
 <div class="container-fluid">
   <!-- Content -->
-  <h1 align="center">Dashboard</h1>
+  <header class="col-md-12 mt-2 mb-5">
+    <p align="center" class="home-title">DASHBOARD</p>
+  </header>
   <div class="main-content">
     <section class="p-2">
-      <h3 class="my-3">Resource</h3>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4 p-2">
-            <div class="card-container" *ngIf="canvas">
-              <div class="card-div">
-                <canvas id="resourceDownload" height="240px" width="300px">{{ canvas }}</canvas>
+      <!-- <h3 class="my-3">Resource</h3> -->
+      <div class="card shadow-none">
+        <div class="card-header" style="height: 60px;">
+          <p class="p-home-title">Resources</p>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 p-2">
+              <div class="card-container card-container-border" *ngIf="canvas">
+                <div class="card-div">
+                  <canvas id="resourceDownload" height="240px" width="300px">{{ canvas }}</canvas>
+                </div>
               </div>
             </div>
+            <div class="col-sm-8 p2"></div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="p-2">
-      <h3 class="my-3">Users</h3>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4 p-2">
-            <!-- <h5 class="bg-light text-dark" >Download</h5> -->
-            <div class="card-container">
-              <div class="card-div">
-                <canvas id="userDeviceChart" height="240px" width="300px"></canvas>
+      <div class="card shadow-none">
+        <div class="card-header" style="height: 60px;">
+          <p class="p-home-title">Users</p>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 p-2">
+              <!-- <h5 class="bg-light text-dark" >Download</h5> -->
+              <div class="card-container card-container-border">
+                <div class="card-div">
+                  <canvas id="userDeviceChart" height="240px" width="300px"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 p-2">
+              <div class="card-container card-container-border" *ngIf="canvas">
+                <div class="card-div">
+                  <canvas id="users" height="240px" width="300px">{{ canvas }}</canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 p-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="p-2">
+      <div class="card shadow-none">
+        <div class="card-header" style="height: 60px;">
+          <p class="p-home-title">Events</p>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 p-2">
+              <div class="card-container card-container-border" *ngIf="canvas">
+                <div class="card-div">
+                  <canvas id="eventStatus" height="240px" width="300px">{{ canvas }}</canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 p-2">
+              <div class="card-container card-container-border" *ngIf="canvas">
+                <div class="card-div">
+                  <canvas id="eventTargetUserType" height="240px" width="300px">{{ canvas }}</canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 p-2">
+              <div class="card-container card-container-no-border" *ngIf="canvas">
+                <div class="card-div">
+                  <canvas id="eventCategoryType" height="240px" width="360px">{{ canvas }}</canvas>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-4 p-2">
-            <div class="card-container" *ngIf="canvas">
-              <div class="card-div">
-                <canvas id="users" height="240px" width="300px">{{ canvas }}</canvas>
-              </div>
-            </div>
-          </div>
-
-          <section class="p-2">
-            <h3 class="my-3">Events</h3>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-4 p-2">
-                  <div class="card-container" *ngIf="canvas">
-                    <div class="card-div">
-                      <canvas id="eventStatus" height="240px" width="300px">{{ canvas }}</canvas>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 p-2">
-                  <div class="card-container" *ngIf="canvas">
-                    <div class="card-div">
-                      <canvas id="eventTargetUserType" height="240px" width="300px">{{ canvas }}</canvas>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4 p-2">
-                  <div class="card-container" *ngIf="canvas">
-                    <div class="card-div">
-                      <canvas id="eventCategoryType" height="240px" width="300px">{{ canvas }}</canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
       </div>
     </section>

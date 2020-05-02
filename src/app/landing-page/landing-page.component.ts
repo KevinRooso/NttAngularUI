@@ -118,6 +118,9 @@ export class LandingPageComponent implements OnInit {
           },
           responsive: false,
           display: true,
+          legend: {
+            position: 'right',
+          },
         },
       });
     });
@@ -184,7 +187,7 @@ export class LandingPageComponent implements OnInit {
       new Chart(this.ctx, {
         type: 'pie',
         data: {
-          labels: ['Publish', 'Active', 'Draft', 'Expired'],
+          labels: ['Published', 'Unpublished', 'Drafted', 'Expired'],
           datasets: [
             {
               data: [
@@ -208,6 +211,9 @@ export class LandingPageComponent implements OnInit {
           },
           responsive: false,
           display: true,
+          legend: {
+            position: 'right',
+          },
         },
       });
     });

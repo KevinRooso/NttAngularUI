@@ -20,7 +20,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Client Name is required &#13;2. Client Name should be less than 40 characters"
+              matTooltip="1. Client Name is required &#13;2. Client Name should be upto 40 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -30,7 +30,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Client Name" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Client Name is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">(Client Name should be less than 40 characters)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Client Name should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
 
@@ -40,7 +40,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Customer Profile is required &#13;2. Customer Profile should be less than 700 characters"
+              matTooltip="1. Customer Profile is required &#13;2. Customer Profile should be upto 700 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -96,7 +96,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Service Used is required &#13;2. Service Used should be less than 500 characters"
+              matTooltip="1. Service Used is required &#13;2. Service Used should be upto 500 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -109,7 +109,7 @@
               (Service Used is required)
             </div>
             <div *ngIf="checkError('serviceUsed', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Service Used should be less than 500 characters)
+              (Service Used should be upto 500 characters)
             </div>
           </div>
         </div>
