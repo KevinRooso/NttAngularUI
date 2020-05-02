@@ -15,133 +15,18 @@
       <div class="brd card-header">
         Banner Configuration
       </div>
-      <div class="row mx-1">
-        <div class="col-md-4">
-          <p>Choose Banner 1</p>
-          <form [formGroup]="bannerConfigurationForm1">
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner1Block"
-                  #block
-                  (selectionChange)="getSelectedBlockData(block.value, 'banner1')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Data According to Block Selected</mat-label>
-                <mat-select formControlName="dataFieldId" [(ngModel)]="banner1SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData1" [value]="block.id">{{ block.title }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Sequence Number</mat-label>
-                <mat-select formControlName="sequenceNumber" [(ngModel)]="banner1Sequence">
-                  <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </form>
+      <div class="row mx-2">
+        <div class="col-md-4" *ngFor="let arr of formArr">
+            <app-banner-ui [blocks]="blocks" [formArr]="formArr" [position]="arr" [userType]="userType" [bannerData]="bannerData[arr-1]" (bannerToEmit)="getBanner($event)"
+          (removeBanner)=removeBanner($event)></app-banner-ui>
+
         </div>
-        <div class="col-md-4">
-          <p>Choose Banner 2</p>
-          <form [formGroup]="bannerConfigurationForm2">
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner2Block"
-                  #block1
-                  (selectionChange)="getSelectedBlockData(block1.value, 'banner2')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Data According to Block Selected</mat-label>
-                <mat-select formControlName="dataFieldId" [(ngModel)]="banner2SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData2" [value]="block.id">{{ block.title }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Sequence Number</mat-label>
-                <mat-select formControlName="sequenceNumber" [(ngModel)]="banner2Sequence">
-                  <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </form>
-        </div>
-        <div class="col-md-4">
-          <p>Choose Banner 3</p>
-          <form [formGroup]="bannerConfigurationForm3">
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Select Block</mat-label>
-                <mat-select
-                  formControlName="datafieldType"
-                  [(value)]="banner3Block"
-                  #block2
-                  (selectionChange)="getSelectedBlockData(block2.value, 'banner3')"
-                >
-                  <ng-container *ngFor="let block of blocks">
-                    <mat-option
-                      [value]="block.apiName"
-                      *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-                      >{{ block.name }}</mat-option
-                    >
-                  </ng-container>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Data According to Block Selected</mat-label>
-                <mat-select formControlName="dataFieldId" [(ngModel)]="banner3SelectedValue">
-                  <mat-option *ngFor="let block of selectBlockData3" [value]="block.id">{{ block.title }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <mat-form-field class="example-full-width">
-                <mat-label>Sequence Number</mat-label>
-                <mat-select formControlName="sequenceNumber" [(ngModel)]="banner3Sequence">
-                  <mat-option *ngFor="let sequenceNumber of sequenceNumbersBanner" [value]="sequenceNumber">
-                    {{ sequenceNumber }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </form>
-        </div>
+        <div class="col-md-4" *ngIf="formArr.length <= bannerLimit-1">
+        <mat-card class="p-0 m-3 cloud-card" (click)="addNewForm()">
+          <button mat-raised-button style="top: 76px;">Add More</button>
+        </mat-card>
+      </div>
+
       </div>
       <div class="text-center p-3">
         <button type="submit" (click)="submitBanner()" class="btn button-1 action-good">Submit</button>
