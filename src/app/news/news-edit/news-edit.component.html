@@ -21,7 +21,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Title is required &#13;2. Title should be less than 50 characters"
+              matTooltip="1. Title is required &#13;2. Title should be upto 50 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -31,7 +31,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be less than 50 characters)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be upto 50 characters)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -40,7 +40,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Topic is required &#13;2. Topic should be less than 100 characters"
+              matTooltip="1. Topic is required &#13;2. Topic should be upto 100 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -53,7 +53,7 @@
               (Topic is required)
             </div>
             <div *ngIf="checkError('topic', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Topic should be less than 100 characters)
+              (Topic should be upto 100 characters)
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Long Description is required &#13;2. Long Description should be less than 700 characters"
+              matTooltip="1. Long Description is required &#13;2. Long Description should be upto 700 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -77,7 +77,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Description should be less than 700 characters)
+              (Description should be upto 700 characters)
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Short Description is required &#13;2. Short Description should be less than 100 characters"
+              matTooltip="1. Short Description is required &#13;2. Short Description should be upto 100 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -100,7 +100,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Short Description should be less than 100 characters)
+              (Short Description should be upto 100 characters)
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. About is required &#13;2. About should be less than 200 characters"
+              matTooltip="1. About is required &#13;2. About should be upto 200 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -123,7 +123,7 @@
               (About is required)
             </div>
             <div *ngIf="checkError('about', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (About should be less than 200 characters)
+              (About should be upto 200 characters)
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Location is required &#13;2. Location should be less than 500 characters"
+              matTooltip="1. Location is required &#13;2. Location should be upto 500 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -155,7 +155,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Location" formControlName="location" value="" />
             <mat-error *ngIf="checkError('location', 'required')">(Location is required)</mat-error>
-            <mat-error *ngIf="checkError('location', 'maxlength')">(Location should be less than 100 characters)</mat-error>
+            <mat-error *ngIf="checkError('location', 'maxlength')">(Location should be upto 100 characters)</mat-error>
           </mat-form-field>
         </div>
 

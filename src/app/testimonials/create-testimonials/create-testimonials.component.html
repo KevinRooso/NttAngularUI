@@ -22,7 +22,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Publisher Name is required &#13;2. Publisher Name should be less than 40 characters"
+              matTooltip="1. Publisher Name is required &#13;2. Publisher Name should be upto 40 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -32,7 +32,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Publisher Name" formControlName="title" value="" />
             <mat-error *ngIf="checkError('title', 'required')">(Publisher Name is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">(Publisher Name should be less than 40 characters)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Publisher Name should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -41,7 +41,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Publisher Designation is required &#13;2. Publisher Designation should be less than 40 characters"
+              matTooltip="1. Publisher Designation is required &#13;2. Publisher Designation should be upto 40 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -51,9 +51,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Publisher Designation" formControlName="shortDescription" value="" />
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Publisher Designation is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')"
-              >(Publisher Designation should be less than 40 characters)</mat-error
-            >
+            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">(Publisher Designation should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -62,7 +60,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Long Description is required &#13;2. Long Description should be less than 300 characters"
+              matTooltip="1. Long Description is required &#13;2. Long Description should be upto 300 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -75,7 +73,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Description should be less than 300 characters)
+              (Description should be upto 300 characters)
             </div>
           </div>
         </div>
