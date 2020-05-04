@@ -12,7 +12,7 @@ export class RollbarErrorHandlerService implements ErrorHandler {
   handleError(err: Error): void {
     // might need to log the error but not on rollbar
     if (environment.NODE_ENV === 'local') {
-      // throw err;
+      throw err;
     } else {
       // tslint:disable-next-line:no-console
       console.log(err);

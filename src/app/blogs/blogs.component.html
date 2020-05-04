@@ -67,7 +67,8 @@ Blogs
               {{ blog.shortDescription | slice: 0:80 }}
             </p>
             <p class="card-date">
-              <strong>Date : </strong>{{ blog.updatedAt | date }} | <strong>Author : </strong>{{ blog.person.fullName }}
+              <strong>Date : </strong>{{ blog.updatedAt | date }}
+              <!-- | <strong>Author : </strong>{{ blog.person.fullName }} -->
             </p>
           </div>
         </div>
