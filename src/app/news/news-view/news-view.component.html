@@ -17,8 +17,9 @@
 
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">{{ news.topic }}</h1>
+                <h1 style="font-size: 25px; color: #008ece;" [innerHTML]="news.topic"></h1>
                 <h6 style="color: #6f7a8a;">{{ news.title }}</h6>
+                <b>Short Description </b>
                 <p [innerHTML]="news.shortDescription"></p>
               </div>
             </div>

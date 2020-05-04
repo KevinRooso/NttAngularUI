@@ -62,7 +62,8 @@
 
             <div class="col-md-12 col-lg-12 pt-3">
               <hr class="mt-0" />
-              <p><b>Service Used : </b>{{ cases.serviceUsed }}</p>
+              <b>Service Used : </b>
+              <p [innerHTML]="cases.serviceUsed"></p>
               <hr />
               <b style="font-size: 20px;">Customer Profile</b>
               <p [innerHTML]="cases.longDescription"></p>
