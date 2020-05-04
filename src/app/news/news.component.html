@@ -54,9 +54,7 @@
 
           <div class="card-block">
             <h3 class="card-title">{{ news.title | slice: 0:40 }}</h3>
-            <p class="card-description mb-0">
-              {{ news.shortDescription | slice: 0:80 }}
-            </p>
+            <p class="card-description mb-0" [innerHTML]="news.shortDescription | slice: 0:80"></p>
             <p class="card-date"><strong>Date : </strong>{{ news.updatedAt | date }}</p>
           </div>
         </div>

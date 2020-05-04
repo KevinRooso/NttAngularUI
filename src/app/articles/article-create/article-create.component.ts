@@ -34,7 +34,6 @@ export class ArticleCreateComponent implements OnInit {
   show = false;
   image1button = false;
   image2button = false;
-
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(
     private frmbuilder: FormBuilder,
