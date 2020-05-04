@@ -82,7 +82,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category</label>
+          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
@@ -94,7 +94,7 @@
           </mat-form-field>
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags</label>
+          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
@@ -156,7 +156,6 @@
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
             >
-
             </i>
           </label>
           <div class="col-sm-7">

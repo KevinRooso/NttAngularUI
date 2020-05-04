@@ -62,9 +62,9 @@ export class WhitepaperEditComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: [''],
+      tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      categoryId: [''],
+      categoryId: ['', Validators.required],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
