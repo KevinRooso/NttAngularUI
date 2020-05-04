@@ -44,6 +44,7 @@ export class ArticlesDetailComponent implements OnInit {
     // alert(id);
     this.router.navigate(['/article-edit'], { queryParams: { page: id } });
   }
+
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
   }

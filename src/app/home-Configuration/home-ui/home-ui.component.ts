@@ -62,7 +62,7 @@ export class HomeUiComponent implements OnInit {
   publicFlag = true;
   pFlag = true;
   cFlag = false;
-
+  errorFlag = false;
   bannerImage1 = '';
   bannerImage2 = '';
   bannerImage3 = '';
@@ -118,6 +118,7 @@ export class HomeUiComponent implements OnInit {
     this.getAllData();
   }
   getBanner(data:any){
+    this.errorFlag=false;
     this.globalFlag=true;
     this.bannerEmittedData=data;
     let duplicate=false;
@@ -138,27 +139,25 @@ export class HomeUiComponent implements OnInit {
     else
     {
       this.globalFlag=false;
-      this.snackBar.open('Duplicate Data not allowed', 'Close', { duration: 5000 });
+      this.errorFlag=true;
     }
 
   }
   addNewForm(){
+    this.errorFlag=false;
     if(this.globalFlag && this.formArr.length === this.newBannerData.length){
       this.formArr.push(this.formArr[this.formArr.length-1]+1);
     }
     else
     {
-      this.snackBar.open('Empty or Duplicate Data not allowed', 'Close', { duration: 5000 });
+      this.errorFlag=true;
     }
   }
   removeBanner(seq:number){
+    this.errorFlag = false;
     this.newBannerData=this.newBannerData.filter( el => el.sequenceNumber !== seq );
     this.formArr.splice(this.formArr.indexOf(seq),1);
-    // let newFormArr=this.formArr;
-    // this.formArr=[];
-    // newFormArr.forEach((_value,index)=>{
-    //   this.formArr.push(index+1);
-    // })
+
   }
 
   sortArray(a, b) {
@@ -391,7 +390,7 @@ export class HomeUiComponent implements OnInit {
       }
       else{
         this.show = false;
-        this.snackBar.open('Empty or Duplicate Data not allowed', 'Close', { duration: 5000 });
+        this.errorFlag = true;
       }
   }
 

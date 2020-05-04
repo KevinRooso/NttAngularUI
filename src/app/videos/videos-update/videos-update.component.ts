@@ -261,7 +261,7 @@ export class VideosUpdateComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
         person: {},
-        shortDescription: obj.longDescription,
+        shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
         title: obj.title,

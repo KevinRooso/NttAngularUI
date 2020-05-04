@@ -21,15 +21,17 @@ export class VideosPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVideos();
+
+    this.getAllCategory();
   }
 
   getAllVideos() {
     this.authService.getAllVideosList().subscribe((res) => {
       this.videoList = res.body;
+
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
-      this.getAllCategory();
     });
   }
   getDetails(id) {
@@ -41,6 +43,7 @@ export class VideosPreviewComponent implements OnInit {
   // }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
+      this.categoryList = res.body;
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {

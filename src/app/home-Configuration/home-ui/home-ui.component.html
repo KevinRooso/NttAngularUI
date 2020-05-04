@@ -29,6 +29,11 @@
 
       </div>
       <div class="text-center p-3">
+        <span style="color: red; font-size: 12px;"
+         *ngIf="errorFlag"
+        >Empty or Duplicate Data not allowed</span>
+      </div>
+      <div class="text-center p-3" style="margin-top: -34px;">
         <button type="submit" (click)="submitBanner()" class="btn button-1 action-good">Submit</button>
       </div>
     </div>
@@ -394,7 +399,7 @@
               <img class="d-block w-100 img-size" [src]="bannerData[0].thumbnailImageUrl != '' ? bannerData[0].thumbnailImageUrl : defaultImage" />
             </div>
             <ng-container *ngFor="let arr of formArr">
-            <div class="carousel-item" *ngIf="arr !== 1">
+            <div class="carousel-item" *ngIf="bannerData[arr-1]">
               <img class="d-block w-100 img-size"  [src]="bannerData[arr-1].thumbnailImageUrl != '' ? bannerData[arr-1].thumbnailImageUrl : defaultImage" />
             </div>
           </ng-container>
