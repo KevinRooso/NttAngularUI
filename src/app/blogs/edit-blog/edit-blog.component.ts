@@ -155,12 +155,16 @@ export class EditBlogComponent implements OnInit {
         this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
         this.createBlogForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?).(jpg|png|jpeg)$')]);
         this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-        if (res.body.targetUserType != null) {
+        if (res.body.targetUserType && Object.keys(res.body.targetUserType).length) {
           this.tarUserType = res.body.targetUserType.id;
         }
-        this.selected2 = res.body.category.id;
+        if (res.body.category && Object.keys(res.body.category).length) {
+          this.selected2 = res.body.category.id;
+        }
 
-        this.selected3 = res.body.person.id;
+        if (res.body.person && Object.keys(res.body.person).length) {
+          this.selected3 = res.body.person.id;
+        }
         for (let i = 0; i < res.body.resourceTags.length; i++) {
           this.selected4.push(res.body.resourceTags[i].id);
         }
@@ -170,9 +174,16 @@ export class EditBlogComponent implements OnInit {
         this.createBlogForm.get(['longDescription']).setValue(res.body.longDescription);
         this.createBlogForm.get(['shortDescription']).setValue(res.body.shortDescription);
         this.createBlogForm.get(['isDraft']).setValue(res.body.isDraft);
-        this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
-        this.createBlogForm.get(['person']).setValue(res.body.person.id);
-        this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
+        if (res.body.category?.id) {
+          this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
+        }
+        if (res.body.person?.id) {
+          this.createBlogForm.get(['person']).setValue(res.body.person.id);
+        }
+        if (res.body.targetUserType?.id) {
+          this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
+        }
+
         this.previewUrl = res.body.thumbnailImageUrl;
         this.today = res.body.expiryDate;
         this.createBlogForm.controls['expiryDate'].setValue(res.body.expiryDate);
