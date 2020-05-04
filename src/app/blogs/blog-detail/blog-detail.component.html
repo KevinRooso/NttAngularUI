@@ -12,11 +12,11 @@
       <div class="panel panel-info preview-card">
         <div class="panel-body p-3">
           <div class="row">
-            <div class="col-md-3 col-lg-3">
-              <img alt="User Pic" [src]="imageurl" class="img-circle img-responsive" width="100%" alt="No Image preview" height="250px" />
+            <div class="col-md-4 col-lg-4 text-center">
+              <img alt="User Pic" [src]="imageurl" class="img-circle img-responsive" width="100%" alt="No Image preview" />
             </div>
 
-            <div class="col-md-9 col-lg-8">
+            <div class="col-md-7 col-lg-7 p-0">
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">
                   {{ blog?.title }}
@@ -25,7 +25,7 @@
                 <p><b>Author Designation : </b>{{ blog?.person?.designation }}</p>
                 <p><b>Category : </b>{{ blog?.category.displayName }}</p>
                 <p class="card-text mb-0" style="font-weight: 500;">
-                  <b>Tags - </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
+                  <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags"> {{ tag.name }}</span>
                 </p>
 
                 <!-- <p>{{blog.shortDescription}}</p>
@@ -37,14 +37,26 @@
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="col-md-12 col-lg-12 py-3 text-left">
-              <hr />
+            <div class="col-md-12 col-lg-12 pt-3">
+              <hr class="mt-0" />
               <!-- <p>{{blog.longDescription}}</p> -->
               <b>Short Description </b>
               <p [innerHTML]="blog?.shortDescription"></p>
               <hr />
               <b>Long Description </b>
               <p [innerHTML]="blog?.longDescription"></p>
+              <hr />
+              <div class="row">
+                <div class="col">
+                  <p class="m-0"><b>Published Date : </b>{{ blog.createdAt | date }}</p>
+                </div>
+                <div class="col">
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ blog.expiryDate | date }}</p>
+                </div>
+              </div>
+
+              <!-- <b>Long Description </b>
+              <p [innerHTML]="blog?.longDescription"></p> -->
               <!-- <div class="text-center">
               <a [href]="blog.resourceLink" target="_blank"><button class="btn btn-success">View Blog</button></a>
               </div> -->

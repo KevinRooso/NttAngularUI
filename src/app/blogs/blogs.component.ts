@@ -18,13 +18,13 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBlogs();
+    this.getAllCategory();
   }
   getBlogs() {
     this.service.getAllBlogs().subscribe((res) => {
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
-      this.getAllCategory();
     });
   }
   showBlogDetail(id) {

@@ -21,7 +21,7 @@
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active mx-2">
         <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
-          <option value="cat">Please Select Category</option>
+          <option value="" hidden>Please Select Category</option>
           <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
         </select>
       </li>
@@ -35,20 +35,44 @@
   </div>
 </nav>
 <section class="section-tours">
-  <div class="row" style="padding: 0.5rem 1rem;">
-    <mat-card class="p-0 m-3 videos-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
-      <div style="min-height: 250px;">
-        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="250px" />
+  <div class="container">
+    <div class="row" style="padding: 0.5rem 1rem;">
+      <div class="col-sm-4" style="padding: 0.5rem 1rem; margin-left: -17px; padding-top: 30px;" *ngFor="let card of filterBlogs">
+        <div class="card blog-card" (click)="getDetails(card.id)">
+          <img
+            [src]="
+              card.thumbnailImageUrl != null
+                ? card.thumbnailImageUrl
+                : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+            "
+            class="w-100"
+            style="height: 200px;"
+          />
+
+          <div class="card-block">
+            <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+            <p class="card-description mb-0">
+              {{ card.shortDescription | slice: 0:80 }}
+            </p>
+            <p class="card-date"><strong>Date : </strong>{{ card.updatedAt | date }}</p>
+          </div>
+        </div>
       </div>
-      <div class="p-2">
-        <p class="videos-title">{{ card.title }}</p>
-        <br />
-        <p class="videos-title">Tags: {{ card.resourceTags[0].name }}</p>
-        <br />
-        <p class="videos-title">Posted On: {{ card.createdAt | date }}</p>
+    </div>
+  </div>
+  <!-- <div class="row" style="padding: 0.5rem 1rem;">
+    <mat-card class="p-0 m-3 videos-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
+      <div>
+        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="200px" />
+      </div>
+      <div class="card-block">
+        <h3 class="card-title">{{ card.title }}</h3>
+        <p class="videos-title">{{ card.shortDescription }}</p>
+        <hr />
+        <p class="videos-title " style="font-size: 14px;"><strong>Posted On: </strong>{{ card.createdAt | date }}</p>
       </div>
     </mat-card>
-  </div>
+  </div> -->
   <div class="text-center">
     <span *ngIf="filterBlogs?.length == 0">
       <i class="fa fa-database" aria-hidden="true"></i>
