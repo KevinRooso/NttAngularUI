@@ -15,19 +15,47 @@
       </div>
       <form [formGroup]="createCases">
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Client Name <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label"
+            >Client Name <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Client Name is required &#13;2. Client Name should be upto 40 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Client Name" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Client Name is required)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Client Name should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Customer Profile <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="About Customer" formControlName="longDescription" maxlength="8000" rows="4"></textarea>
-            <mat-error *ngIf="checkError('longDescription', 'required')">(Customer Profile is required)</mat-error>
-          </mat-form-field>
+          <label class="col-sm-3 col-form-label"
+            >Customer Profile<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Customer Profile is required &#13;2. Customer Profile should be upto 700 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
+              (Customer Profile is required)
+            </div>
+            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+              (Customer Profile be less than 700 characters)
+            </div>
+          </div>
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Service <span class="error">*</span></label>
@@ -63,11 +91,27 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Service Used <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Service Used" formControlName="serviceUsed" rows="4"></textarea>
-            <mat-error *ngIf="checkError('serviceUsed', 'required')">(Service Used is required)</mat-error>
-          </mat-form-field>
+          <label class="col-sm-3 col-form-label"
+            >Service Used <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Service Used is required &#13;2. Service Used should be upto 500 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="serviceUsed" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('serviceUsed', 'required', true)" style="color: red; font-size: 12px;">
+              (Service Used is required)
+            </div>
+            <div *ngIf="checkError('serviceUsed', 'maxlength', true)" style="color: red; font-size: 12px;">
+              (Service Used should be upto 500 characters)
+            </div>
+          </div>
         </div>
 
         <!-- <div class="form-row">
@@ -139,7 +183,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+              matTooltip="Resolution: 480px X 240px &#13;Type: png/ jpg/ jpeg &#13;Size: 300 kB"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -181,7 +225,18 @@
         </div>
 
         <div class="form-row my-3">
-          <label class="col-sm-3 col-form-label">Attachment <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label"
+            >Attachment <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="Type: pdf only &#13;Size: Upto 12 MB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
           <div class="col-sm-2 filetypewidth">
             <input type="file" class="form-control-file" formControlName="downloadUrl" (change)="fileProgress2($event)" />
             <div *ngIf="checkError('downloadUrl', 'required', true)" style="color: red; font-size: 12px;">

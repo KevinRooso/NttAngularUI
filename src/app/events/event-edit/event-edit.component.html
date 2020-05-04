@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be less than 40 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be upto 40 characters</mat-error>
           </mat-form-field>
         </div>
 
@@ -37,7 +37,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color: red; font-size: 12px;">
-              Description should be less than 700 characters
+              Description should be upto 700 characters
             </div>
           </div>
         </div>
@@ -56,7 +56,7 @@
               (Short Description is required)
             </div>
             <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Short Description should be less than 80 characters)
+              (Short Description should be upto 80 characters)
             </div>
           </div>
         </div>
@@ -382,7 +382,7 @@
               (Terms & Conditions is required)
             </div>
             <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color: red; font-size: 12px;">
-              Terms & Conditions should be less than 1500 characters
+              Terms & Conditions should be upto 1500 characters
             </div>
           </div>
         </div>
@@ -394,7 +394,7 @@
               (Terms & Conditions is required)
             </div> -->
             <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color: red; font-size: 12px;">
-              Policy FAQs should be less than 1500 characters
+              Policy FAQs should be upto 1500 characters
             </div>
           </div>
         </div>
@@ -404,7 +404,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1.Thumbnail image Width should be between (480 x 240)px &#13;2.Thumbnail image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+              matTooltip="Resolution: 480px X 240px &#13;Type: png/ jpg/ jpeg &#13;Size: 300 kB"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -442,7 +442,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1.Banner image Width should be between (1080 x 480)px &#13;2.Banner image Height should be between (580 x 360)px &#13;3. Maximum image size allowed:1MB"
+              matTooltip="Resolution: 1080px * 580px &#13;Type: png/ jpg/ jpeg &#13;Size: 1MB"
               style="font-size: 18px;"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
@@ -534,7 +534,7 @@
             <mat-form-field class="example-full-width col-sm-12 p-0">
               <input matInput placeholder="Session Title" formControlName="title" maxlength="40" />
               <mat-error *ngIf="checkErrorAgenda('title', 'required')">(Title is required)</mat-error>
-              <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be less than 40 characters</mat-error>
+              <mat-error *ngIf="checkErrorAgenda('title', 'maxlength')">Title should be upto 40 characters</mat-error>
             </mat-form-field>
           </div>
 
@@ -542,7 +542,7 @@
             <mat-form-field class="example-full-width col-sm-12 p-0">
               <input matInput placeholder="Session Topic" formControlName="topic" maxlength="41" />
               <!-- //<mat-error *ngIf="checkError('topic', 'required')">(Title is required)</mat-error> -->
-              <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be less than 41 characters</mat-error>
+              <mat-error *ngIf="checkErrorAgenda('topic', 'maxlength')">Topic should be upto 41 characters</mat-error>
             </mat-form-field>
           </div>
 

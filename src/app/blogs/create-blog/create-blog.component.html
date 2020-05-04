@@ -15,27 +15,71 @@
 
       <form [formGroup]="createBlogForm">
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label"
+            >Title <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Title is required &#13;2. Title should be upto 40 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Title" formControlName="title" value="" maxlength="200" />
+            <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Long Description <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Long Description..." formControlName="longDescription" maxlength="4000" rows="4"></textarea>
-            <mat-error *ngIf="checkError('longDescription', 'required')">(Long Description is required)</mat-error>
-          </mat-form-field>
+          <label class="col-sm-3 col-form-label"
+            >Long Description <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Long Description is required &#13;2. Long Description should be upto 700 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
+              (Description is required)
+            </div>
+            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+              (Description should be upto 700 characters)
+            </div>
+          </div>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Short Description <span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <textarea matInput placeholder="Short Description..." formControlName="shortDescription" maxlength="2000" rows="2"></textarea>
-            <mat-error *ngIf="checkError('shortDescription', 'required')">(Short Description is required)</mat-error>
-          </mat-form-field>
+          <label class="col-sm-3 col-form-label"
+            >Short Description <span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="1. Short Description is required &#13;2. Short Description should be upto 80 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-9">
+            <ckeditor placeholder="Description..." formControlName="shortDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
+              (Short Description is required)
+            </div>
+            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+              (Short Description should be upto 80 characters)
+            </div>
+          </div>
         </div>
 
         <div class="form-row">
@@ -67,7 +111,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Category</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
@@ -80,7 +124,7 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Tags</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList">
@@ -138,7 +182,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1.Image Width should be between (480 x 240)px &#13;2.Image Height should be between (240 x 180)px &#13;3.Maximum image size allowed:300KB"
+              matTooltip="Resolution: 480px X 240px &#13;Type: png/ jpg/ jpeg &#13;Size: 300 kB"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -198,31 +242,67 @@
             </div>
             <form [formGroup]="personForm">
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Full Name <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label"
+                  >Full Name <span class="error">*</span>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    matTooltip="1. Full Name is required &#13;2. Full Name should be upto 40 characters"
+                    matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"
+                    style="font-size: 18px;"
+                  >
+                  </i>
+                </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Full Name" formControlName="fullName" />
                   <mat-error *ngIf="checkErrorPerson('fullName', 'required')">(Full Name is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('fullName', 'maxlength')">(Full Name should be upto 40 characters)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Designation <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label"
+                  >Designation <span class="error">*</span>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    matTooltip="1. Designation is required &#13;2. Designation should be upto 40 characters"
+                    matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"
+                    style="font-size: 18px;"
+                  >
+                  </i>
+                </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Designation" formControlName="designation" />
                   <mat-error *ngIf="checkErrorPerson('designation', 'required')">(Designation is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('designation', 'maxlength')">(Designation should be upto 40 characters)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label"
+                  >Description <span class="error">*</span>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    matTooltip="1. Description is required &#13;2. Description should be upto 400 characters"
+                    matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"
+                    style="font-size: 18px;"
+                  >
+                  </i>
+                </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <textarea matInput placeholder="Description" formControlName="description" rows="4"></textarea>
                   <mat-error *ngIf="checkErrorPerson('description', 'required')">(Description is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('description', 'maxlength')">(Description should be upto 400 characters)</mat-error>
                 </mat-form-field>
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Email <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label">Email <span class="error">*</span> </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Corporate Email Id" formControlName="email" />
                   <mat-error *ngIf="checkErrorPerson('email', 'required')">(Email is required)</mat-error>
@@ -231,10 +311,24 @@
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Organization Name <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label"
+                  >Organization Name <span class="error">*</span>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    matTooltip="1. Organization Name is required &#13;2. Organization Name should be upto 80 characters"
+                    matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"
+                    style="font-size: 18px;"
+                  >
+                  </i>
+                </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <input matInput placeholder="Company Name" formControlName="origanizationName" />
                   <mat-error *ngIf="checkErrorPerson('origanizationName', 'required')">(Organization Name is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('origanizationName', 'maxlength')"
+                    >(Organization Name should be upto 80 characters)</mat-error
+                  >
                 </mat-form-field>
               </div>
 

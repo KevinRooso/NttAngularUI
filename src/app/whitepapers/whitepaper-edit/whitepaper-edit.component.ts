@@ -56,15 +56,15 @@ export class WhitepaperEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.updateWhitePaperForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -140,7 +140,7 @@ export class WhitepaperEditComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -310,7 +310,7 @@ export class WhitepaperEditComponent implements OnInit {
     }
     this.submitted = true;
     if (this.updateWhitePaperForm.value.tagList.length === 0) {
-      this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
+      this.updateWhitePaperForm.controls['tagList'].setValidators(null);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
     }
     if (this.updateWhitePaperForm.valid) {

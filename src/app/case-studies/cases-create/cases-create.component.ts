@@ -63,11 +63,11 @@ export class CasesCreateComponent implements OnInit {
     // this.createSpeaker();
 
     this.createCases = this.formbuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: ['', Validators.required],
+      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       targetUserType: ['', Validators.required],
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
@@ -132,7 +132,7 @@ export class CasesCreateComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {

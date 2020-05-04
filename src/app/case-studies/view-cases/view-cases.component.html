@@ -31,16 +31,11 @@
               </div> -->
             </div>
 
-            <div class="col-md-7 col-lg-7 p-0">
-              <div class="panel-heading">
-                <!-- <h1 style="font-size: 25px; color: #008ece;">
-                  {{ cases.title }}
-                </h1>
-                <br/> -->
-                <p><b>Client Name : </b>{{ cases.title }}</p>
-                <p><b>Industry : </b>{{ cases.resourceTags[0].name }}</p>
-                <p><b>Service : </b>{{ cases.resourceTags[0].name }}</p>
-              </div>
+            <div class="col-sm-8 customULL service cpadl">
+              <span><b>Services Used:</b> </span><br />
+              <ul>
+                <li [innerHTML]="cases.serviceUsed"></li>
+              </ul>
             </div>
 
             <!-- <div class="col-sm-8 customULL service cpadl">
@@ -64,8 +59,8 @@
               <hr class="mt-0" />
               <p><b>Service Used : </b>{{ cases.serviceUsed }}</p>
               <hr />
-              <b style="font-size: 20px;">Customer Profile</b>
-              <p>{{ cases.longDescription }}</p>
+              <h1 style="font-size: 25px; color: #008ece;">Customer Profile</h1>
+              <p [innerHTML]="cases.longDescription"></p>
               <hr />
               <div class="row">
                 <div class="col">
@@ -75,6 +70,8 @@
                   <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ cases.expiryDate | date }}</p>
                 </div>
               </div>
+              <!-- <h1 style="font-size: 25px; color: #008ece;">Customer Profile</h1>
+              <p [innerHTML]="cases.longDescription"></p> -->
             </div>
 
             <!-- <div class="col-md-12 col-lg-12 text-center">

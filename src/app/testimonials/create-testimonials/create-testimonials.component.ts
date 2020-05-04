@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -54,14 +54,13 @@ export class CreateTestimonialsComponent implements OnInit {
   image2button = false;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      shortDescription: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       targetUserType: ['', Validators.required],
       isDraft: [false],
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -113,8 +112,6 @@ export class CreateTestimonialsComponent implements OnInit {
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
       this.createVideoForm.get(['isDraft']).setValue(res.body.isDraft);
-      this.today = res.body.expiryDate;
-      this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
       this.previewUrl1 = res.body.detailImageUrl;
       this.image1button = true;
       this.image2button = true;
@@ -136,14 +133,36 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
-      const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
         this.imageValid = true;
-        this.preview();
       }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = () => {
+        setTimeout(() => {
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+
+          window.URL.revokeObjectURL(img.src);
+
+          if (width === 480 && height === 240) {
+            this.imageValid = true;
+            this.preview();
+          } else {
+            this.snackBar.open('Please upload valid image type/size', 'Close', {
+              duration: 5000,
+            });
+            this.imageValid = false;
+            this.previewUrl = null;
+          }
+        }, 50);
+      };
     }
   }
   preview() {
@@ -186,13 +205,37 @@ export class CreateTestimonialsComponent implements OnInit {
     this.previewUrl1 = null;
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
+    const fileType = this.fileData.type;
+    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image2button = false;
-      const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png') {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
         this.imageValid1 = true;
-        this.preview1();
+
       }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = () => {
+        setTimeout(() => {
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+
+          window.URL.revokeObjectURL(img.src);
+
+          if (width === 100 && height === 100) {
+            this.imageValid1 = true;
+            this.preview1();
+          } else {
+            this.snackBar.open('Please upload valid image type/size', 'Close', {
+              duration: 5000,
+            });
+            this.imageValid1 = false;
+            this.previewUrl1 = null;
+          }
+        }, 50);
+      };
     }
   }
   // fileProgress1(fileInput: any) {
@@ -295,7 +338,6 @@ export class CreateTestimonialsComponent implements OnInit {
         targetUserType: obj.targetUserType,
         categoryId: 15,
         id,
-        expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
 
       this.service.saveResource(dataObj).subscribe((_res) => {

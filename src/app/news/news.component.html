@@ -95,6 +95,10 @@
         <p class="videos-title">{{ news.shortDescription | truncate: 130:false }}</p>
         <hr />
         <p class="videos-title"><b>Date : </b>{{ news.updatedAt | date }}</p>
+      <div class="p-2">
+        <p class="videos-title">{{ news.title }}</p>
+        <p class="videos-title" [innerHTML]="news.shortDescription | truncate: 130:false"></p>
+        <p class="videos-title">Date : {{ news.updatedAt | date }}</p>
       </div>
     </mat-card>
   </div> -->

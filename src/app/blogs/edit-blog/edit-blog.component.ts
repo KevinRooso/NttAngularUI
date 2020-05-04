@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -66,12 +66,12 @@ export class EditBlogComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.createBlogForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [false],
       expiryDate: ['', Validators.required],
@@ -105,13 +105,12 @@ export class EditBlogComponent implements OnInit {
   crateFrorm() {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.personForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      description: ['', Validators.required],
-      designation: ['', Validators.required],
+      fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
+      designation: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: ['', [Validators.required, Validators.email]],
       keySkills: [''],
-      origanizationName: ['', Validators.required],
-
+      origanizationName: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       phone: ['', Validators.pattern(mobnum)],
 
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
@@ -156,12 +155,16 @@ export class EditBlogComponent implements OnInit {
         this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
         this.createBlogForm.controls['thumbnailImageUrl'].setValidators([Validators.pattern('(.*?).(jpg|png|jpeg)$')]);
         this.createBlogForm.controls['thumbnailImageUrl'].updateValueAndValidity();
-        if (res.body.targetUserType != null) {
+        if (res.body.targetUserType && Object.keys(res.body.targetUserType).length) {
           this.tarUserType = res.body.targetUserType.id;
         }
-        this.selected2 = res.body.category.id;
+        if (res.body.category && Object.keys(res.body.category).length) {
+          this.selected2 = res.body.category.id;
+        }
 
-        this.selected3 = res.body.person.id;
+        if (res.body.person && Object.keys(res.body.person).length) {
+          this.selected3 = res.body.person.id;
+        }
         for (let i = 0; i < res.body.resourceTags.length; i++) {
           this.selected4.push(res.body.resourceTags[i].id);
         }
@@ -171,9 +174,16 @@ export class EditBlogComponent implements OnInit {
         this.createBlogForm.get(['longDescription']).setValue(res.body.longDescription);
         this.createBlogForm.get(['shortDescription']).setValue(res.body.shortDescription);
         this.createBlogForm.get(['isDraft']).setValue(res.body.isDraft);
-        this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
-        this.createBlogForm.get(['person']).setValue(res.body.person.id);
-        this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
+        if (res.body.category?.id) {
+          this.createBlogForm.get(['categoryId']).setValue(res.body.category.id);
+        }
+        if (res.body.person?.id) {
+          this.createBlogForm.get(['person']).setValue(res.body.person.id);
+        }
+        if (res.body.targetUserType?.id) {
+          this.createBlogForm.get(['targetUserType']).setValue(res.body.targetUserType.id);
+        }
+
         this.previewUrl = res.body.thumbnailImageUrl;
         this.today = res.body.expiryDate;
         this.createBlogForm.controls['expiryDate'].setValue(res.body.expiryDate);
@@ -232,7 +242,7 @@ export class EditBlogComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -369,7 +379,7 @@ export class EditBlogComponent implements OnInit {
     }
     const obj = this.createBlogForm.value;
     if (this.createBlogForm.value.tagList.length === 0) {
-      this.createBlogForm.controls['tagList'].setValidators(Validators.required);
+      this.createBlogForm.controls['tagList'].setValidators(null);
       this.createBlogForm.controls['tagList'].updateValueAndValidity();
     }
     this.submitted = true;

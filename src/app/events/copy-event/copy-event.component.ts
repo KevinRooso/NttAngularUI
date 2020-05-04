@@ -297,7 +297,7 @@ export class CopyEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
       this.imageValid = true;
       this.result1 = this.fileData.name;
     }
@@ -310,7 +310,7 @@ export class CopyEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -332,7 +332,7 @@ export class CopyEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000) {
       this.imageValid2 = true;
       this.result2 = this.fileData.name;
     }
@@ -345,7 +345,7 @@ export class CopyEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
+        if (width === 1080 && height === 580) {
           this.imageValid2 = true;
           this.preview2();
         } else {
@@ -449,6 +449,13 @@ export class CopyEventComponent implements OnInit {
   }
   submitChanges() {
     // this.show=true;
+    if(this.agendaData.length === 0){
+      this.snackBar.open('Please fill Agenda', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
+    }
     if (!this.image1button) {
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', {
         duration: 5000,

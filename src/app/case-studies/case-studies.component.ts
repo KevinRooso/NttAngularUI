@@ -14,8 +14,7 @@ export class CaseStudiesComponent implements OnInit {
   searchFilterData;
   searchCases;
   categoryList: any[] = [];
-  // cat: string='cat';
-  cat: 'cat';
+  cat = 'cat';
   tag = 'tag';
   tags: any[] = [];
   constructor(private service: AuthServiceService, private router: Router) {}

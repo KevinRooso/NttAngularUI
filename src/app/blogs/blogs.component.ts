@@ -13,7 +13,7 @@ export class BlogsComponent implements OnInit {
   searchFilterData;
   searchBlog;
   categoryList: any[] = [];
-  cat: string;
+  cat = 'cat';
   constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -32,7 +32,16 @@ export class BlogsComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      this.categoryList = res.body;
+      let catList: any[] = [];
+      catList = res.body;
+      catList.forEach((m) => {
+        for (let i = 0; i < this.filterBlogs.length; i++) {
+          if (m.id === this.filterBlogs[i].category.id) {
+            this.categoryList.push(m);
+            break;
+          }
+        }
+      });
     });
   }
   getDataWithCat() {

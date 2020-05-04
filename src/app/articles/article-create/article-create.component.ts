@@ -41,17 +41,19 @@ export class ArticleCreateComponent implements OnInit {
     private location: Location,
     public snackBar: MatSnackBar,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.createArticleForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
 
@@ -64,13 +66,10 @@ export class ArticleCreateComponent implements OnInit {
         return this.createArticleForm.controls[controlName].hasError(errorName);
       }
     };
-    this.addTagForm = frmbuilder.group({
+    this.addTagForm = this.frmbuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
     });
-  }
-
-  ngOnInit(): void {
     this.getUserList();
     this.getCategoryDetails();
     this.getTagsDetails();
@@ -117,7 +116,7 @@ export class ArticleCreateComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -219,7 +218,7 @@ export class ArticleCreateComponent implements OnInit {
 
   createArticle() {
     this.show = true;
-
+    this.submitted = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload Article Image', 'Close', {
         duration: 5000,
@@ -234,7 +233,7 @@ export class ArticleCreateComponent implements OnInit {
       this.show = false;
       return false;
     }
-    this.submitted = true;
+
     if (this.createArticleForm.valid) {
       const tags: any[] = [];
 

@@ -89,6 +89,7 @@ import { CreateFormComponent } from './cloud-services/create-form/create-form.co
 import { HttpErrorInterceptor } from '../services/http-error.interceptor';
 import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
 import { RollbarService, RollbarFactory } from '../config/rollbar.config';
+import { BannerUiComponent } from './home-Configuration/banner-ui/banner-ui.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { RollbarService, RollbarFactory } from '../config/rollbar.config';
     HomeUiComponent,
     ListCloudServicesComponent,
     CreateFormComponent,
+    BannerUiComponent,
   ],
   imports: [
     BrowserModule,
