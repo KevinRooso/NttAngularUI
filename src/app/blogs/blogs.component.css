@@ -16,15 +16,31 @@
   transition: background 0.25s;
 }
 
-.blog .card .card-block {
+.card-block {
   background: #fff;
+  height: 120px;
+}
 
-  /* min-height: 160px; */
-
-  /* padding: 1.1rem; */
-
-  height: 145px;
+.card-title {
+  color: #0b428a;
+  font-size: 14px;
+  margin-bottom: 0;
   padding: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  min-height: 50px;
+  padding-left: 10px;
+
+  /* padding: 0px 10px 8px 10px; */
+}
+
+.card-date {
+  border-top: 1px solid #edebeb;
+  font-size: 13px;
+  padding: 5px;
+  padding: 7px 10px;
 }
 
 .blog .card .card-block .category {
@@ -39,31 +55,6 @@
   padding: 4px 8px 2px;
   text-transform: uppercase;
   width: fit-content;
-}
-
-.blog .card .card-block .card-title {
-  -webkit-box-orient: vertical;
-  color: #0b428a;
-  display: -webkit-box;
-  font-size: 14px;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  line-height: 16px; /* fallback */
-  max-height: 32px; /* fallback */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.blog .card .card-block .card-description {
-  -webkit-box-orient: vertical;
-  display: -webkit-box;
-  font-size: 14px;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  line-height: 16px; /* fallback */
-  margin-bottom: -7px;
-  margin-top: -5px;
-  max-height: 50px; /* fallback */
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .heading-secondary {

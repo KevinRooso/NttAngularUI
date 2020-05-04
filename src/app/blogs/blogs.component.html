@@ -62,16 +62,13 @@ Blogs
           />
 
           <div class="card-block">
-            <h3 class="card-title">{{ blog.title }}</h3>
-            <p class="card-description">
-              {{ blog.shortDescription | truncate: 180:false }}
+            <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
+            <p class="card-description mb-0">
+              {{ blog.shortDescription | slice: 0:80 }}
             </p>
-            <hr />
-            <div style="font-size: 13px;">
-              <p class="article-title" style="margin-top: -10px;">
-                <strong>Date : </strong>{{ blog.updatedAt | date }} | <strong>Author : </strong>{{ blog.person.fullName }}
-              </p>
-            </div>
+            <p class="card-date">
+              <strong>Date : </strong>{{ blog.updatedAt | date }} | <strong>Author : </strong>{{ blog.person.fullName }}
+            </p>
           </div>
         </div>
       </div>

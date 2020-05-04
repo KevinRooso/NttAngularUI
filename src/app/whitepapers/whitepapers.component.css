@@ -12,10 +12,37 @@
   font-size: 14px;
   font-weight: 400;
   margin: 0;
-  padding: 16px;
+  padding: 8px;
   word-break: break-all;
 }
 
 .text-center {
   padding: 100px;
+}
+
+.article-card {
+  height: 445px;
+  width: 280px;
+}
+
+.article-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  min-height: 50px;
+  padding: 8px;
+  word-break: break-all;
+
+  /* padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  word-break: break-all; */
+}
+
+.article-img {
+  height: 360px;
+
+  /* min-height: 250px; */
+
+  width: 280px;
 }

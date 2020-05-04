@@ -1,5 +1,5 @@
 .article-card {
-  height: 450px;
+  height: 426px;
   width: 280px;
 }
 
@@ -7,7 +7,8 @@
   font-size: 14px;
   font-weight: 400;
   margin: 0;
-  padding: 16px;
+  padding: 8px;
+  word-break: break-all;
 
   /* padding-left: 10px;
   padding-right: 10px;
@@ -28,25 +29,28 @@
 }
 
 /* // Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
+
+/* @media (min-width: 768px) {
   .article-card {
     height: 485px;
     width: 25%;
   }
-}
+} */
 
 /* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+
+/* @media (min-width: 992px) {
   .article-card {
     height: 400px;
     width: 28%;
   }
-}
+} */
 
 /* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
+
+/* @media (min-width: 1200px) {
   .article-card {
     height: 450px;
     width: 280px;
   }
-}
+} */

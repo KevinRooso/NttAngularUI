@@ -53,16 +53,35 @@
           />
 
           <div class="card-block">
-            <h3 class="card-title">{{ news.title }}</h3>
+            <h3 class="card-title">{{ news.title | slice: 0:40 }}</h3>
+            <p class="card-description mb-0">
+              {{ news.shortDescription | slice: 0:80 }}
+            </p>
+            <p class="card-date"><strong>Date : </strong>{{ news.updatedAt | date }}</p>
+          </div>
+        </div>
+        <!-- <div class="card blog-card" (click)="getDetails(news.id)">
+          <img
+            [src]="
+              news.thumbnailImageUrl != null
+                ? news.thumbnailImageUrl
+                : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+            "
+            class="w-100"
+            style="height: 200px;"
+          />
+
+          <div class="card-block">
+            <h3 class="card-title">{{ news.title | truncate: 40:false}}</h3>
             <p class="card-description">
-              {{ news.shortDescription | truncate: 180:false }}
+              {{ news.shortDescription | truncate: 80:false }}
             </p>
             <hr />
             <div style="font-size: 13px; margin-bottom: -10px;">
               <p class="article-title" style="margin-top: -10px;"><strong>Date : </strong>{{ news.updatedAt | date }}</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
