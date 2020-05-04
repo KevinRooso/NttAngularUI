@@ -347,7 +347,7 @@ export class WhitepaperEditComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,
         id: this.wPaperId,
-        draft: true,
+        draft: this.updateWhitePaperForm.controls['draft'].value,
         longDescription: this.updateWhitePaperForm.controls['longDescription'].value,
         person: {},
         resourceType: 5,

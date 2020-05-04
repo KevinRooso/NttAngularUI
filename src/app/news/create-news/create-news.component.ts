@@ -48,7 +48,7 @@ export class CreateNewsComponent implements OnInit {
       location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
-      draft: [false],
+      draft: [true],
       expiryDate: ['', Validators.required],
     });
 

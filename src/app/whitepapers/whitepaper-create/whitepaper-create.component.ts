@@ -51,7 +51,7 @@ export class WhitepaperCreateComponent implements OnInit {
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      draft: [false],
+      draft: [true],
       tagList: [''],
       targetUserType: ['', Validators.required],
       categoryId: [''],

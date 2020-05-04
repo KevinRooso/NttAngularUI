@@ -344,7 +344,7 @@ export class ArticleEditComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,
         id: this.articleId,
-        draft: true,
+        draft: this.EditArticleForm.controls['draft'].value,
         longDescription: this.EditArticleForm.controls['longDescription'].value,
         person: {},
         resourceType: 2,

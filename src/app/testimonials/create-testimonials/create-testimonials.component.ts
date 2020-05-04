@@ -58,7 +58,7 @@ export class CreateTestimonialsComponent implements OnInit {
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      isDraft: [true],
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
@@ -139,7 +139,7 @@ export class CreateTestimonialsComponent implements OnInit {
     const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
-      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
         this.imageValid = true;
       }
       const reader = new FileReader();
@@ -211,9 +211,8 @@ export class CreateTestimonialsComponent implements OnInit {
     const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image2button = false;
-      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')&& fileSize <= 300000) {
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
         this.imageValid1 = true;
-
       }
       const reader = new FileReader();
       reader.readAsDataURL(this.fileData);

@@ -54,7 +54,7 @@ export class VideosCreateComponent implements OnInit {
       categoryId: [''],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      isDraft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       downloadUrl: ['', Validators.required],
       expiryDate: ['', Validators.required],

@@ -64,7 +64,7 @@ export class CreateBlogComponent implements OnInit {
       categoryId: [''],
       tagList: [''],
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      isDraft: [true],
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });

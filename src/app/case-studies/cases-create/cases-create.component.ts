@@ -72,7 +72,7 @@ export class CasesCreateComponent implements OnInit {
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      isDraft: [false],
+      isDraft: [true],
     });
     this.addTagForm = this.formbuilder.group({
       name: ['', Validators.required],

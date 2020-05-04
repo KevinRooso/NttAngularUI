@@ -38,8 +38,12 @@
                 </h1>
                 <br/> -->
                 <p><b>Client Name : </b>{{ cases.title }}</p>
-                <p><b>Industry : </b>{{ cases.resourceTags[0].name }}</p>
-                <p><b>Service : </b>{{ cases.resourceTags[0].name }}</p>
+                <!-- <p><b>Service : </b>{{ cases.resourceTags[0].name }}</p> -->
+                <p><b>Service : </b>{{ cases.category.displayName }}</p>
+                <!-- <p><b>Industry : </b>{{ cases.resourceTags[0].name }}</p> -->
+                <p class="card-text mb-0" style="font-weight: 500;">
+                  <b>Industry : </b><span class="tags" *ngFor="let tag of cases.resourceTags"> {{ tag.name }} </span>
+                </p>
               </div>
             </div>
 

@@ -34,6 +34,7 @@ export class ArticleCreateComponent implements OnInit {
   show = false;
   image1button = false;
   image2button = false;
+
   @ViewChild('closeModel', { static: true }) closeModel;
   constructor(
     private frmbuilder: FormBuilder,
@@ -50,7 +51,7 @@ export class ArticleCreateComponent implements OnInit {
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      draft: [false],
+      draft: [true],
       tagList: [''],
       targetUserType: ['', Validators.required],
       categoryId: [''],
