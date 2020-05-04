@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AuthServiceService } from '../auth-service.service';
 
@@ -7,7 +7,7 @@ import { AuthServiceService } from '../auth-service.service';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css'],
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, AfterViewInit {
   // title = 'chartjsangular';
 
   canvas: any;
@@ -22,12 +22,41 @@ export class LandingPageComponent implements OnInit {
   canvas3: any;
   ctx3: any;
 
+  color1old: any;
+  color2old: any;
+  color3old: any;
+  color4old: any;
+
+  color1new: any;
+  color2new: any;
+  color3new: any;
+  color4new: any;
+
   // data:any[]=[];
   userdeviceData: any[];
 
-  constructor(private service: AuthServiceService) {}
+  constructor(private service: AuthServiceService) {
+    this.color1old = '#32e6c5';
+    this.color2old = '#9a58ed';
+    this.color3old = '#27cdf2';
+    this.color4old = '#f56953';
+
+    this.color1new = '#1ad5b3';
+    this.color2new = '#b788f2';
+    this.color3new = '#0cc4ed';
+    this.color4new = '#f56953';
+  }
 
   ngOnInit() {
+    // this.userDevice();
+    // this.resourceDownload();
+    // this.eventStatusDetails();
+    // this.eventTargetUserTypeDetails();
+    // this.users();
+    // this.eventCategoryTypeDetails();
+  }
+
+  ngAfterViewInit() {
     this.userDevice();
     this.resourceDownload();
     this.eventStatusDetails();
@@ -57,7 +86,7 @@ export class LandingPageComponent implements OnInit {
               label: 'No. of resources',
               maxBarThickness: 30,
               data: [userdeviceData.totalArticleDownload, userdeviceData.totalCaseStudyDownload, userdeviceData.totalWhitepaperDownload],
-              backgroundColor: ['#32e6c5', '#27cdf2', '#9a58ed', '#f56953'],
+              backgroundColor: [this.color1new, this.color2new, this.color3new, this.color4new],
               borderWidth: 1,
             },
           ],
@@ -103,7 +132,7 @@ export class LandingPageComponent implements OnInit {
           datasets: [
             {
               data: [userdeviceData.androidDevice, userdeviceData.iosDevice],
-              backgroundColor: ['#32e6c5', '#9a58ed'],
+              backgroundColor: [this.color1new, this.color2new],
               hoverBorderColor: 'white',
               hoverBorderWidth: 5,
               cutoutPercentage: 15,
@@ -144,7 +173,7 @@ export class LandingPageComponent implements OnInit {
               label: 'Number of users',
               maxBarThickness: 30,
               data: [userdeviceData.totalPublicUser, userdeviceData.totalCustomerUser, userdeviceData.totalEmployeeUser],
-              backgroundColor: ['#32e6c5', '#27cdf2', '#9a58ed', '#f56953'],
+              backgroundColor: [this.color1new, this.color2new, this.color3new, this.color4new],
               borderWidth: 1,
             },
           ],
@@ -196,7 +225,7 @@ export class LandingPageComponent implements OnInit {
                 userdeviceData.totalDraftEvent,
                 userdeviceData.totalExpiredEvent,
               ],
-              backgroundColor: ['#9a58ed', '#27cdf2', '#32e6c5', '#f56953'],
+              backgroundColor: [this.color1new, this.color2new, this.color3new, this.color4new],
               hoverBorderColor: 'white',
               hoverBorderWidth: 5,
               cutoutPercentage: 15,
@@ -236,7 +265,7 @@ export class LandingPageComponent implements OnInit {
               label: 'No. of target users',
               maxBarThickness: 30,
               data: [userdeviceData.totalPublicEvent, userdeviceData.totalCustomerEvent, userdeviceData.totalEmployeeEvent],
-              backgroundColor: ['#32e6c5', '#27cdf2', '#9a58ed', '#f56953'],
+              backgroundColor: [this.color1new, this.color2new, this.color3new, this.color4new],
               borderWidth: 1,
             },
           ],
@@ -296,7 +325,7 @@ export class LandingPageComponent implements OnInit {
                 userdeviceData.Datacenter,
                 userdeviceData.General,
               ],
-              backgroundColor: ['#32e6c5', '#27cdf2', '#9a58ed', '#f56953'],
+              backgroundColor: [this.color1new, this.color2new, this.color3new, this.color4new],
               hoverBorderColor: 'white',
               hoverBorderWidth: 5,
               cutoutPercentage: 15,
