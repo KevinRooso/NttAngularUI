@@ -69,7 +69,7 @@ Case Studies
         </div>
         <div class="category-name">
           <h3 style="height: 40px;">{{ cases.title | slice: 0:40 }}</h3>
-          <p [innerHTML]="cases.longDescription | truncate: 100:false"></p>
+          <p [innerHTML]="cases.longDescription | slice: 0:80"></p>
           <!-- <h3>{{ cases.title }}</h3>
           <p [innerHTML]="cases.longDescription | truncate: 100:false"></p> -->
         </div>
