@@ -37,7 +37,7 @@ export class CreateParticipantsComponent implements OnInit {
       }
     });
     this.addParForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.email]],
       phoneNo: ['', [Validators.required, Validators.pattern(mobnum)]],
       event: ['', Validators.required],
@@ -75,7 +75,6 @@ export class CreateParticipantsComponent implements OnInit {
     arr.push(obj);
     if (this.flag) {
       this.service.saveParticipentnonEvent(this.addParForm.controls['event'].value, arr).subscribe((res) => {
-
         if (res.httpStatus.toString() !== 'BAD_REQUEST') {
           this.snackBar.open('Participants successfully created', 'Close', { duration: 5000 });
           this.submitted = false;

@@ -32,6 +32,7 @@ export class SpeakerCreateComponent implements OnInit {
   submitted = false;
   imageValid = false;
   flag = true;
+  keySkillCount = true;
   @ViewChild('chipList') chipList: MatChipList;
   constructor(
     private frmbuilder: FormBuilder,
@@ -43,15 +44,15 @@ export class SpeakerCreateComponent implements OnInit {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
 
     this.createSpeakerForm = this.frmbuilder.group({
-      fullName: ['', Validators.required],
-      description: ['', Validators.required],
+      fullName: ['', [Validators.required, Validators.maxLength(40)]],
+      description: ['', [Validators.required, Validators.maxLength(200)]],
       email: ['', [Validators.required, Validators.email]],
       personalEmail: ['', Validators.email],
-      designation: ['', Validators.required],
+      designation: ['', [Validators.required, Validators.maxLength(50)]],
       // profile: ['', Validators.required],
-      origanizationName: ['', Validators.required],
+      origanizationName: ['', [Validators.required, Validators.maxLength(50)]],
       phone: ['', [Validators.required, Validators.pattern(mobnum)]],
-      keySkills: ['', Validators.required],
+      keySkills: ['', [Validators.required, Validators.maxLength(100)]],
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
   }
@@ -100,11 +101,36 @@ export class SpeakerCreateComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    if (fileType === 'image/jpeg' || fileType === 'image/png') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileSize <= 300000) {
       this.imageValid = true;
       this.preview();
     }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+
+        if (width === 480 && height === 240) {
+          this.imageValid = true;
+          this.preview();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', {
+            duration: 5000,
+          });
+          this.imageValid = false;
+          this.previewUrl = null;
+        }
+      }, 50);
+    };
   }
   preview() {
     // Show preview
@@ -177,6 +203,14 @@ export class SpeakerCreateComponent implements OnInit {
       this.flag = false;
     } else {
       this.flag = true;
+    }
+    let fruitStr = this.fruits.toString();
+    fruitStr = fruitStr.replace(/,/g, '');
+
+    if (fruitStr.length > 100) {
+      this.keySkillCount = false;
+    } else {
+      this.keySkillCount = true;
     }
   }
 }

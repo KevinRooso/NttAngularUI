@@ -72,7 +72,7 @@ export class CasesCreateComponent implements OnInit {
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      isDraft: [true],
+      draft: [true],
     });
     this.addTagForm = this.formbuilder.group({
       name: ['', Validators.required],
@@ -263,7 +263,7 @@ export class CasesCreateComponent implements OnInit {
         customerProfile: 'string',
         detailImageUrl: 'string',
         approverId: 0,
-        draft: obj.isDraft,
+        draft: obj.draft,
         categoryId: obj.categoryId.id,
         longDescription: obj.longDescription,
         person: {},

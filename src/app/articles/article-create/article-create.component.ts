@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-article-create',
@@ -47,13 +48,13 @@ export class ArticleCreateComponent implements OnInit {
     this.createArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [true],
-      tagList: [''],
+      tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      categoryId: [''],
+      categoryId: ['', Validators.required],
       expiryDate: ['', Validators.required],
     });
 
@@ -74,6 +75,7 @@ export class ArticleCreateComponent implements OnInit {
     this.getCategoryDetails();
     this.getTagsDetails();
   }
+
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;

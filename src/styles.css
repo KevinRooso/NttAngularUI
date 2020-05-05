@@ -352,6 +352,9 @@ table.dataTable tbody td {
 .cursor {
   cursor: not-allowed;
 }
+.cke_path {
+  display: none;
+}
 .btn:disabled {
   color: #fff;
   background-color: #939ba3;

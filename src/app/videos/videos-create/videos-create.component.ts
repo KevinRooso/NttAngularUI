@@ -54,7 +54,7 @@ export class VideosCreateComponent implements OnInit {
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      isDraft: [true],
+      draft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       downloadUrl: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -224,7 +224,7 @@ export class VideosCreateComponent implements OnInit {
         thumbnailImageUrl: obj.thumbnailImageUrl,
         title: obj.title,
         resourceType: 6,
-        draft: obj.isDraft,
+        draft: obj.draft,
         targetUserType: obj.targetUserType,
         expiryDate: this.createVideoForm.controls['expiryDate'].value,
       };
