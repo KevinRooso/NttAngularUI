@@ -73,7 +73,7 @@ export class CasesEditComponent implements OnInit {
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      isDraft: [false],
+      draft: [false],
       expiryDate: ['', Validators.required],
     });
     this.addTagForm = this.frmbuilder.group({
@@ -148,6 +148,7 @@ export class CasesEditComponent implements OnInit {
       this.createCases.get(['longDescription']).setValue(res.body.longDescription);
       this.createCases.get(['serviceUsed']).setValue(res.body.serviceUsed);
       this.createCases.get(['categoryId']).setValue(res.body.category.id);
+      this.createCases.get(['draft']).setValue(res.body.isDraft);
 
       this.createCases.controls['downloadUrl'].setValidators(null);
       this.createCases.controls['downloadUrl'].updateValueAndValidity();
@@ -343,7 +344,7 @@ export class CasesEditComponent implements OnInit {
         });
       });
       const dataObj = {
-        draft: obj.isDraft,
+        draft: obj.draft,
         id: this.caseId,
         categoryId: catObj.id,
         longDescription: obj.longDescription,
