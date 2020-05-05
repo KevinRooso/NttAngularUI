@@ -12,38 +12,44 @@
         <div class="panel-body p-3">
           <div class="row">
             <div class="col-md-3 col-lg-3">
-              <img
-                alt="User Pic"
-                [src]="news.thumbnailImageUrl"
-                class="img-circle img-responsive"
-                width="100%"
-                alt="No Image preview"
-                height="250px"
-              />
+              <img alt="User Pic" [src]="news.thumbnailImageUrl" class="img-circle img-responsive" width="100%" alt="No Image preview" />
             </div>
 
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">{{ news.topic }}</h1>
-                <h6 style="color: #008ece;">{{ news.title }}</h6>
-                <p>{{ news.shortDescription }}</p>
+                <h1 style="font-size: 25px; color: #008ece;" [innerHTML]="news.topic"></h1>
+                <h6 style="color: #6f7a8a;">{{ news.title }}</h6>
+                <b>Short Description </b>
+                <p [innerHTML]="news.shortDescription"></p>
               </div>
             </div>
             <div class="col-md-1 edit">
               <button class="btn" (click)="editcaseRoute()"><span class="fa fa-pencil" aria-hidden="true"></span></button>
             </div>
-            <div class="col-md-12 col-lg-12 py-3">
-              <hr />
+            <div class="col-md-12 col-lg-12">
+              <hr class="m-0" />
               <p>
                 <span class="d-inline-flex"
-                  ><h6>{{ news.location }}, &nbsp;</h6>
-                  <h6>{{ news.createdAt | date }} - &nbsp;</h6></span
-                >{{ news.longDescription }}
+                  ><h6 [innerHTML]="news.location"></h6>
+                  <h6 [innerHTML]="news.createdAt | date"></h6></span
+                ><span [innerHTML]="news.longDescription"></span>
               </p>
             </div>
-            <div class="col-md-12 col-lg-12 py-2">
+            <div class="col-md-12 col-lg-12">
               <hr />
-              <p><span class="h6">About NTT - </span>{{ news.about }}</p>
+              <b>About NTT </b>
+              <p [innerHTML]="news.about"></p>
+              <hr />
+              <div class="row">
+                <div class="col">
+                  <p class="m-0"><b>Published Date : </b>{{ news.createdAt | date }}</p>
+                </div>
+                <div class="col">
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ news.expiryDate | date }}</p>
+                </div>
+              </div>
+              <!-- <b>About NTT </b>
+              <p [innerHTML]="news.about"></p> -->
             </div>
           </div>
         </div>

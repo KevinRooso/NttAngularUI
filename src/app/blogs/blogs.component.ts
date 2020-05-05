@@ -32,7 +32,16 @@ export class BlogsComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      this.categoryList = res.body;
+      let catList: any[] = [];
+      catList = res.body;
+      catList.forEach((m) => {
+        for (let i = 0; i < this.filterBlogs.length; i++) {
+          if (m.id === this.filterBlogs[i].category.id) {
+            this.categoryList.push(m);
+            break;
+          }
+        }
+      });
     });
   }
   getDataWithCat() {
@@ -42,7 +51,7 @@ export class BlogsComponent implements OnInit {
       return false;
     }
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.category.id === this.cat;
+      return m.category.id.toString() === this.cat;
     });
     this.searchFilterData = this.filterBlogs;
   }

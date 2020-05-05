@@ -65,11 +65,11 @@ export class CasesEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.createCases = frmbuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: ['', Validators.required],
+      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
@@ -117,7 +117,9 @@ export class CasesEditComponent implements OnInit {
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
 
       const url2 = this.getCaseData.resourceLink;
-      this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      if (this.getCaseData.resourceLink != null) {
+        this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
+      }
 
       this.selected2 = res.body.category.id;
       if (res.body.person != null) {
@@ -180,15 +182,13 @@ export class CasesEditComponent implements OnInit {
     this.previewUrl = null;
     this.imageValid = false;
     this.fileData = fileInput.target.files[0] as File;
-
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-
-    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
       }
@@ -202,7 +202,7 @@ export class CasesEditComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -211,7 +211,7 @@ export class CasesEditComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   fileProgress2(fileInput: any) {

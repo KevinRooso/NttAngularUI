@@ -55,13 +55,13 @@ export class ArticleEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.EditArticleForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: [''],
+      tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
       categoryId: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -174,7 +174,8 @@ export class ArticleEditComponent implements OnInit {
     if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
         // this.preview();
@@ -189,7 +190,7 @@ export class ArticleEditComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -198,7 +199,7 @@ export class ArticleEditComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   fileProgress2(fileInput: any) {
@@ -305,10 +306,10 @@ export class ArticleEditComponent implements OnInit {
       this.show = false;
       return false;
     }
-    if (this.EditArticleForm.value.tagList.length === 0) {
-      this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
-      this.EditArticleForm.controls['tagList'].updateValueAndValidity();
-    }
+    // if (this.EditArticleForm.value.tagList.length === 0) {
+    //   this.EditArticleForm.controls['tagList'].setValidators(Validators.required);
+    //   this.EditArticleForm.controls['tagList'].updateValueAndValidity();
+    // }
     this.submitted = true;
     if (this.EditArticleForm.valid) {
       const tags: any[] = [];
@@ -343,7 +344,7 @@ export class ArticleEditComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,
         id: this.articleId,
-        draft: true,
+        draft: this.EditArticleForm.controls['draft'].value,
         longDescription: this.EditArticleForm.controls['longDescription'].value,
         person: {},
         resourceType: 2,

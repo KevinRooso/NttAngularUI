@@ -107,7 +107,9 @@ button:focus {
   border: 1px solid #ccc;
 }
 .action-good {
-  background: #0fc8f2;
+  background: #264087;
+  background: linear-gradient(#2487c2, #264087);
+  border: 1px solid #264087;
 }
 .action-info {
   background: #0fc8f2;
@@ -339,6 +341,9 @@ table.dataTable tbody td {
   display: none !important;
 }
 .cke_button__paste {
+  display: none !important;
+}
+.cke_button__table {
   display: none !important;
 }
 .cke_button__pastefromword {

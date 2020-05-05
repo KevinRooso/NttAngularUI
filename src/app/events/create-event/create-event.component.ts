@@ -124,12 +124,26 @@ export class CreateEventComponent implements OnInit {
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
-          return this.createEventForm.controls[controlName].hasError(errorName);
+          const val = this.createEventForm.controls[controlName].value;
+          if (Object.prototype.toString.call(val) === '[object Date]') {
+            // valid date object
+            if (isNaN(val.getTime())) {
+              // date is not valid
+              return true;
+            } else {
+              // date is valid
+              return false;
+            }
+          } else {
+            // not a date type value
+            return this.createEventForm.controls[controlName].hasError(errorName);
+          }
         }
       } else {
         return this.createEventForm.controls[controlName].hasError(errorName);
       }
     };
+
     this.checkErrorAgenda = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
@@ -173,7 +187,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -185,7 +199,7 @@ export class CreateEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -195,7 +209,7 @@ export class CreateEventComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
 
@@ -207,8 +221,9 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
-      this.imageValid = true;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000
+    ) {
+      this.imageValid2 = true;
     }
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
@@ -219,7 +234,7 @@ export class CreateEventComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 720 && width <= 1080 && height >= 360 && height <= 580) {
+        if (width === 1080 && height === 580) {
           this.imageValid2 = true;
           this.preview2();
         } else {
@@ -229,7 +244,7 @@ export class CreateEventComponent implements OnInit {
           this.imageValid2 = false;
           this.attachUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {
@@ -327,7 +342,13 @@ export class CreateEventComponent implements OnInit {
     const ON_PREMISE = '1';
     const WEBINAR = '2';
     const BOTH = '3';
-
+    if(this.agendaData.length === 0){
+      this.snackBar.open('Please fill Agenda', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
+    }
     if (this.color === ON_PREMISE) {
       this.isOnPremise = true;
       this.isWebinar = false;
@@ -431,6 +452,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     // this.show=true;
+
     if (!this.image1button) {
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', {
         duration: 5000,

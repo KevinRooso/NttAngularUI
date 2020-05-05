@@ -46,12 +46,12 @@ export class WhitepaperCreateComponent implements OnInit {
     private router: Router
   ) {
     this.createWhitePaperForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
-      draft: [false],
+      draft: [true],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
       categoryId: ['', Validators.required],
@@ -106,7 +106,8 @@ export class WhitepaperCreateComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
       // this.preview();
     }
@@ -119,7 +120,7 @@ export class WhitepaperCreateComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -129,7 +130,7 @@ export class WhitepaperCreateComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   fileProgress2(fileInput: any) {

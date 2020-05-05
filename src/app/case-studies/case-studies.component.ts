@@ -14,8 +14,8 @@ export class CaseStudiesComponent implements OnInit {
   searchFilterData;
   searchCases;
   categoryList: any[] = [];
-  cat = '';
-  tag = '';
+  cat = 'cat';
+  tag = 'tag';
   tags: any[] = [];
   constructor(private service: AuthServiceService, private router: Router) {}
 
@@ -23,8 +23,6 @@ export class CaseStudiesComponent implements OnInit {
   caseid;
   ngOnInit(): void {
     this.getCasestudies();
-    this.getAllCategory();
-    this.getTags();
   }
   getCasestudies() {
     this.service.getCasestudies().subscribe((res) => {
@@ -33,11 +31,24 @@ export class CaseStudiesComponent implements OnInit {
       this.filterCases = res.body;
       this.cases = res.body;
       this.searchFilterData = res.body;
+      this.getAllCategory();
+      this.getTags();
     });
   }
   getTags() {
     this.service.getTagsList().subscribe((res) => {
-      this.tags = res.body;
+      let tagList: any[] = [];
+      tagList = res.body;
+      tagList.forEach((m) => {
+        for (let i = 0; i < this.caseStudies.length; i++) {
+          for (let j = 0; i < this.caseStudies[i].resourceTags.length; j++) {
+            if (m.id === this.caseStudies[i].resourceTags[j].id) {
+              this.tags.push(m);
+              break;
+            }
+          }
+        }
+      });
     });
   }
   viewCases(id) {
@@ -45,13 +56,26 @@ export class CaseStudiesComponent implements OnInit {
   }
   getAllCategory() {
     this.service.getCategoryList().subscribe((res) => {
-      this.categoryList = res.body;
+      let catList: any[] = [];
+      catList = res.body;
+      catList.forEach((m) => {
+        for (let i = 0; i < this.caseStudies.length; i++) {
+          if (m.id === this.caseStudies[i].category.id) {
+            this.categoryList.push(m);
+            break;
+          }
+        }
+      });
     });
   }
   getDataWithCat() {
     this.filterCases = this.cases;
+    if (this.cat === 'cat') {
+      this.filterCases = this.cases;
+      return false;
+    }
     this.filterCases = this.cases.filter((m) => {
-      return m.category.id === this.cat;
+      return m.category.id.toString() === this.cat;
     });
     this.searchFilterData = this.filterCases;
   }
@@ -63,10 +87,14 @@ export class CaseStudiesComponent implements OnInit {
     });
   }
   getDataWithTag() {
+    if (this.tag === 'tag') {
+      this.filterCases = this.cases;
+      return false;
+    }
     this.filterCases = this.searchFilterData.filter((m) => {
       let flag = false;
       m.resourceTags.forEach((ele) => {
-        if (ele.id === this.tag) {
+        if (ele.id.toString() === this.tag) {
           flag = true;
         }
       });

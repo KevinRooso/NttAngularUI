@@ -156,8 +156,8 @@ export class AuthServiceService {
   getLocation(): Observable<any> {
     return this.http.get<any>('https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1');
   }
-  getBannerBlockDetail(obj): Observable<any> {
-    return this.http.get<any>(this.url + obj + '?isPublish=true', { headers: this.headers });
+  getBannerBlockDetail(obj,isPublic,isCustomer): Observable<any> {
+    return this.http.get<any>(this.url + obj + '?isPublish=true&isPublic='+isPublic+'&isCustomer='+isCustomer, { headers: this.headers });
   }
   saveBanner(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/public/homepage/banner', obj, { headers: this.headers });

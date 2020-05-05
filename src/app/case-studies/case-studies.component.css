@@ -9,6 +9,7 @@ p {
   cursor: pointer;
   display: block;
   display: flex;
+  height: 162px;
   margin: 5px 15px;
 
   /* padding: 8px 0; */

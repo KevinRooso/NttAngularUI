@@ -56,13 +56,13 @@ export class WhitepaperEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.updateWhitePaperForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: [''],
+      tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
       categoryId: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -122,11 +122,11 @@ export class WhitepaperEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileSize = this.fileData.size;
     if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 1000000) {
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
       }
@@ -140,7 +140,7 @@ export class WhitepaperEditComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -310,7 +310,7 @@ export class WhitepaperEditComponent implements OnInit {
     }
     this.submitted = true;
     if (this.updateWhitePaperForm.value.tagList.length === 0) {
-      this.updateWhitePaperForm.controls['tagList'].setValidators(Validators.required);
+      this.updateWhitePaperForm.controls['tagList'].setValidators(null);
       this.updateWhitePaperForm.controls['tagList'].updateValueAndValidity();
     }
     if (this.updateWhitePaperForm.valid) {
@@ -347,7 +347,7 @@ export class WhitepaperEditComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,
         id: this.wPaperId,
-        draft: true,
+        draft: this.updateWhitePaperForm.controls['draft'].value,
         longDescription: this.updateWhitePaperForm.controls['longDescription'].value,
         person: {},
         resourceType: 5,

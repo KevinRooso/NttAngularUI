@@ -40,15 +40,15 @@ export class CreateNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createNewsForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      topic: new FormControl('', [Validators.required, Validators.maxLength(500)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(8000)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(3000)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
-      location: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      topic: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      about: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
-      draft: [false],
+      draft: [true],
       expiryDate: ['', Validators.required],
     });
 
@@ -75,7 +75,8 @@ export class CreateNewsComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
       // this.preview();
     }
@@ -88,7 +89,7 @@ export class CreateNewsComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -98,7 +99,7 @@ export class CreateNewsComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -57,25 +57,25 @@ export class CreateBlogComponent implements OnInit {
   personImage = '';
   ngOnInit(): void {
     this.createBlogForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       person: ['', Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      isDraft: [true],
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.personForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      description: ['', Validators.required],
-      designation: ['', Validators.required],
+      fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
+      designation: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: ['', [Validators.required, Validators.email]],
       keySkills: [''],
-      origanizationName: ['', Validators.required],
+      origanizationName: new FormControl('', [Validators.required, Validators.maxLength(80)]),
 
       phone: ['', Validators.pattern(mobnum)],
 
@@ -141,8 +141,8 @@ export class CreateBlogComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-
-    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
       // this.preview();
     }
@@ -155,7 +155,7 @@ export class CreateBlogComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -165,7 +165,7 @@ export class CreateBlogComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 20);
     };
   }
 
@@ -414,7 +414,6 @@ export class CreateBlogComponent implements OnInit {
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
-      // alert("Tag Already EXist");
     }
   }
 }

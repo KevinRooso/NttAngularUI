@@ -12,27 +12,30 @@
       <div class="panel panel-info preview-card">
         <div class="panel-body p-3">
           <div class="row">
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-4 col-lg-4 text-center">
               <img
                 alt="User Pic"
                 [src]="articleData.thumbnailImageUrl"
                 class="img-circle img-responsive"
                 width="100%"
                 alt="No Image preview"
-                height="250px"
               />
             </div>
-
+            <!--
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">
-                  {{ articleData.title }}
-                </h1>
-                <!-- <p><b>Short Description : </b>{{articleData.shortDescription}}</p> -->
-                <p><b>Category - </b>{{ articleData.category.displayName }}</p>
-                <!-- <p><b>Tag : </b><span *ngFor="let tags of resourceTags">{{tags.name}}</span></p> -->
+                <h1 style="font-size:25px;color:#008ECE;">{{whitePaperData.title}}</h1>
+                <p>{{whitePaperData.shortDescription}}</p>
+                <p>{{whitePaperData.category.displayName}}</p>
+              </div>
+            </div> -->
+            <div class="col-md-7 col-lg-7 p-0">
+              <div class="panel-heading">
+                <h1 style="font-size: 25px; color: #008ece;">{{ articleData.title }}</h1>
+                <br />
+                <p><b>Category : </b>{{ articleData.category.displayName }}</p>
                 <p class="card-text mb-0" style="font-weight: 500;">
-                  <b>Tags - </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
+                  <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
             </div>
@@ -41,21 +44,31 @@
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a [href]="articleData.resourceLink" target="_blank"
-                ><button class="btn button-1 action-good">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button
-              ></a>
+              <a *ngIf="articleData.resourceLink != null" [href]="articleData.resourceLink" target="_blank">
+                <button class="btn button-1 action-good">
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                </button>
+              </a>
             </div>
-            <div class="col-md-12 col-lg-12 py-3">
-              <hr />
+            <div class="col-md-12 col-lg-12 pt-3">
+              <hr class="mt-0" />
               <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
-              <p><b>Short Description - </b>{{ articleData.shortDescription }}</p>
+              <b>Short Description </b>
+              <p [innerHTML]="articleData.shortDescription"></p>
               <hr />
-              <p><b>Long Description - </b>{{ articleData.longDescription }}</p>
+              <b>Long Description </b>
+              <p [innerHTML]="articleData.longDescription"></p>
               <hr />
-              <p><b>Expiration Date - </b>{{ articleData.expiryDate | date }}</p>
+              <div class="row">
+                <div class="col">
+                  <p class="m-0"><b>Published Date : </b>{{ articleData.updatedAt | date }}</p>
+                </div>
+                <div class="col">
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ articleData.expiryDate | date }}</p>
+                </div>
+              </div>
               <!-- <div class="text-center">
-              <a [href]="articleData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
+                <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
               </div> -->
             </div>
           </div>
@@ -63,5 +76,4 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </div>

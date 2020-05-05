@@ -11,7 +11,7 @@
       <div class="panel panel-info preview-card">
         <div class="panel-body p-3">
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-md-4 col-lg-4 text-center">
               <div>
                 <img
                   alt="User Pic"
@@ -23,38 +23,65 @@
                   class="img-circle img-responsive"
                   width="100%"
                   alt="No Image preview"
-                  height="200px"
                 />
               </div>
-              <div class="py-3">
-                <h6>Client : {{ cases.title }}</h6>
-                <h6>
-                  Industry :<span> {{ cases.resourceTags[0].name }}</span>
-                </h6>
+              <!-- <div class="py-3">
+                <p class="m-0"><b>Industry : </b>{{ cases.resourceTags[0].name }}</p>
+                <p class="m-0"><b>Service : </b>{{ cases.resourceTags[0].name }}</p>
+              </div> -->
+            </div>
+
+            <div class="col-md-7 col-lg-7 p-0">
+              <div class="panel-heading">
+                <!-- <h1 style="font-size: 25px; color: #008ece;">
+                  {{ cases.title }}
+                </h1>
+                <br/> -->
+                <p><b>Client Name : </b>{{ cases.title }}</p>
+                <!-- <p><b>Service : </b>{{ cases.resourceTags[0].name }}</p> -->
+                <p><b>Service : </b>{{ cases.category.displayName }}</p>
+                <!-- <p><b>Industry : </b>{{ cases.resourceTags[0].name }}</p> -->
+                <p class="card-text mb-0" style="font-weight: 500;">
+                  <b>Industry : </b><span class="tags" *ngFor="let tag of cases.resourceTags"> {{ tag.name }} </span>
+                </p>
               </div>
             </div>
 
-            <div class="col-sm-8 customULL service cpadl">
-              <span>Services Used: </span><br />
-              <ul>
-                <li>{{ cases.serviceUsed }}</li>
-              </ul>
-            </div>
+            <!-- <div class="col-sm-8 customULL service cpadl">
+              <p class="m-0"><b>Client Name : </b>{{ cases.title }}</p>
+              <p class="m-0"><b>Industry : </b>{{ cases.resourceTags[0].name }}</p>
+                <p class="m-0"><b>Service : </b>{{ cases.resourceTags[0].name }}</p>
+            </div> -->
+
             <div class="col-sm-1 edit">
               <button class="btn" (click)="editcaseRoute()">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a [href]="cases.resourceLink" target="_blank">
+              <a *ngIf="cases.resourceLink != null" [href]="cases.resourceLink" target="_blank">
                 <button class="btn button-1 action-good">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button
               ></a>
             </div>
 
-            <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12 pt-3">
+              <hr class="mt-0" />
+              <b>Service Used : </b>
+              <p [innerHTML]="cases.serviceUsed"></p>
               <hr />
-              <h1 style="font-size: 25px; color: #008ece;">Customer Profile</h1>
-              <p>{{ cases.longDescription }}</p>
+              <b style="font-size: 20px;">Customer Profile</b>
+              <p [innerHTML]="cases.longDescription"></p>
+              <hr />
+              <div class="row">
+                <div class="col">
+                  <p class="m-0"><b>Published Date : </b>{{ cases.createdAt | date }}</p>
+                </div>
+                <div class="col">
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ cases.expiryDate | date }}</p>
+                </div>
+              </div>
+              <!-- <h1 style="font-size: 25px; color: #008ece;">Customer Profile</h1>
+              <p [innerHTML]="cases.longDescription"></p> -->
             </div>
 
             <!-- <div class="col-md-12 col-lg-12 text-center">

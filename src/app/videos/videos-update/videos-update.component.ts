@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -52,9 +52,9 @@ export class VideosUpdateComponent implements OnInit {
   @ViewChild('closeModel', { static: true }) closeModel;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       // person: ['',Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
@@ -163,7 +163,8 @@ export class VideosUpdateComponent implements OnInit {
     if (this.fileData !== undefined) {
       this.image1button = false;
       const fileType = this.fileData.type;
-      if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
         this.imageValid = true;
         this.result1 = this.fileData.name;
         // this.preview();
@@ -178,7 +179,7 @@ export class VideosUpdateComponent implements OnInit {
 
         window.URL.revokeObjectURL(img.src);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -187,7 +188,7 @@ export class VideosUpdateComponent implements OnInit {
           this.previewUrl = null;
           this.result1 = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {
@@ -231,7 +232,7 @@ export class VideosUpdateComponent implements OnInit {
       return false;
     }
     if (this.createVideoForm.value.tagList.length === 0) {
-      this.createVideoForm.controls['tagList'].setValidators(Validators.required);
+      this.createVideoForm.controls['tagList'].setValidators(null);
       this.createVideoForm.controls['tagList'].updateValueAndValidity();
     }
     this.submitted = true;
@@ -260,7 +261,7 @@ export class VideosUpdateComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
         person: {},
-        shortDescription: obj.longDescription,
+        shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
         title: obj.title,

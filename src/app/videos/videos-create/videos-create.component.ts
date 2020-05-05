@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -47,14 +47,14 @@ export class VideosCreateComponent implements OnInit {
   @ViewChild('closeModel', { static: true }) closeModel;
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      longDescription: ['', Validators.required],
-      shortDescription: ['', Validators.required],
+      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
       // person: ['',Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      isDraft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       downloadUrl: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -113,8 +113,8 @@ export class VideosCreateComponent implements OnInit {
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-
-    if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
       // this.preview();
     }
@@ -128,7 +128,7 @@ export class VideosCreateComponent implements OnInit {
         window.URL.revokeObjectURL(img.src);
         // console.log(width + '*' + height);
 
-        if (width >= 240 && width <= 480 && height >= 180 && height <= 240) {
+        if (width === 480 && height === 240) {
           this.imageValid = true;
           this.preview();
         } else {
@@ -138,7 +138,7 @@ export class VideosCreateComponent implements OnInit {
           this.imageValid = false;
           this.previewUrl = null;
         }
-      }, 2000);
+      }, 50);
     };
   }
   preview() {
@@ -219,7 +219,7 @@ export class VideosCreateComponent implements OnInit {
         downloadUrl: obj.downloadUrl,
 
         person: {},
-        shortDescription: obj.longDescription,
+        shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
         title: obj.title,
