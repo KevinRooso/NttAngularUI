@@ -195,7 +195,9 @@ export class CopyEventComponent implements OnInit {
       if (this.getEventDetails.isOnPremise === true && this.getEventDetails.isWebinar === true) {
         this.color = '3';
       }
-
+      for (let i = 0; i < this.getEventDetails.tags.length; i++) {
+        this.selected4.push(this.getEventDetails.tags[i].id);
+      }
       this.updateEventForm.controls['title'].setValue(this.getEventDetails.title);
       this.updateEventForm.controls['detail'].setValue(this.getEventDetails.detail);
       this.updateEventForm.controls['shortDescription'].setValue(this.getEventDetails.shortDescription);
