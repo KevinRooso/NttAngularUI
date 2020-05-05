@@ -68,21 +68,24 @@
   </div>
 </nav>
 
-<div class="container-fluid">
-  <div class="accordion" id="accordionExample">
-    <div class="card shadow-none" *ngIf="publishedList?.length > 0">
-      <div class="card-header collapsed" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
-        <!-- <h2 class="mb-0"> -->
-        <!-- <a><h2 class="btn  button-1 action-good collapsed  " type="button"  aria-expanded="true" aria-controls="collapseOne">
-            Published
-          </h2>   </a> -->
-        <a type="button" aria-expanded="true" aria-controls="collapseOne" style="font-size: 20px; font-weight: 400;">
-          Published
+<div class="container">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card" *ngIf="publishedList?.length > 0">
+      <h5 class="card-header" role="tab" id="headingOne">
+        <a
+          data-toggle="collapse"
+          data-parent="#accordion"
+          data-target="#collapseOne"
+          aria-expanded="true"
+          aria-controls="collapseOne"
+          class="d-block"
+          style="font-size: 20px; color: #373838; font-weight: 400;"
+        >
+          <i class="fa fa-chevron-down pull-right"></i>Published
         </a>
-        <!-- </h2> -->
-      </div>
+      </h5>
 
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
         <div class="card-body">
           <h2></h2>
           <div class="row mt-2">
@@ -97,7 +100,7 @@
                 </div>
                 <div class="event-card-body">
                   <!-- <p class="card-text">{{card.totalSeat}}</p>
-              <p class="card-text">{{card.targetUserType.name}}</p> -->
+                <p class="card-text">{{card.targetUserType.name}}</p> -->
                 </div>
                 <div class="event-card-body-footer text-center">
                   <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
@@ -111,18 +114,21 @@
         </div>
       </div>
     </div>
-
-    <br />
-    <div class="card shadow-none" *ngIf="activeList?.length > 0">
-      <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
-        <!-- <h2 class="mb-0"> -->
-        <a type="button" aria-expanded="true" aria-controls="collapseTwo" style="font-size: 20px; font-weight: 400;">
-          Unpublished
+    <div class="card" *ngIf="activeList?.length > 0">
+      <h5 class="card-header" role="tab" id="headingTwo">
+        <a
+          class="collapsed d-block"
+          data-toggle="collapse"
+          data-parent="#accordion"
+          data-target="#collapseTwo"
+          aria-expanded="false"
+          aria-controls="collapseTwo"
+          style="font-size: 20px; color: #373838; font-weight: 400;"
+        >
+          <i class="fa fa-chevron-down pull-right"></i> Unpublished
         </a>
-
-        <!-- </h2> -->
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      </h5>
+      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-body">
           <h2></h2>
           <div class="row mt-2">
@@ -137,7 +143,7 @@
                 </div>
                 <div class="event-card-body">
                   <!-- <p class="card-text">{{card.totalSeat}}</p>
-                     <p class="card-text">{{card.targetUserType.name}}</p> -->
+                       <p class="card-text">{{card.targetUserType.name}}</p> -->
                 </div>
                 <div class="event-card-body-footer text-center">
                   <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
@@ -151,16 +157,21 @@
         </div>
       </div>
     </div>
-    <br />
-    <div class="card shadow-none" *ngIf="draftList?.length > 0">
-      <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
-        <!-- <h2 class="mb-0" > -->
-        <a type="button" aria-expanded="true" aria-controls="collapseThree" style="font-size: 20px; font-weight: 400;">
-          Drafted
+    <div class="card" *ngIf="draftList?.length > 0">
+      <h5 class="card-header" role="tab" id="headingThree">
+        <a
+          class="collapsed d-block"
+          data-toggle="collapse"
+          data-parent="#accordion"
+          data-target="#collapseThree"
+          aria-expanded="false"
+          aria-controls="collapseThree"
+          style="font-size: 20px; color: #373838; font-weight: 400;"
+        >
+          <i class="fa fa-chevron-down pull-right"></i> Drafted
         </a>
-        <!-- </h2> -->
-      </div>
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      </h5>
+      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
         <div class="card-body">
           <div class="row mt-2">
             <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
@@ -174,7 +185,7 @@
                 </div>
                 <div class="event-card-body">
                   <!-- <p class="card-text">{{card.totalSeat}}</p>
-                      <p class="card-text">{{card.targetUserType.name}}</p> -->
+                        <p class="card-text">{{card.targetUserType.name}}</p> -->
                 </div>
                 <div class="event-card-body-footer text-center">
                   <!-- <a [routerLink]="['/details']"><button type="button" class="btn py-1 px-3 button-1 action-info">View Details</button></a> -->
@@ -188,16 +199,21 @@
         </div>
       </div>
     </div>
-    <br />
-    <div class="card shadow-none" *ngIf="expiredList?.length > 0">
-      <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour">
-        <!-- <h2 class="mb-0" > -->
-        <a type="button" aria-expanded="true" aria-controls="collapseFour" style="font-size: 20px; font-weight: 400;">
-          Expired
+    <div class="card" *ngIf="expiredList?.length > 0">
+      <h5 class="card-header" role="tab" id="headingFour">
+        <a
+          class="collapsed d-block"
+          data-toggle="collapse"
+          data-parent="#accordion"
+          data-target="#collapseFour"
+          aria-expanded="false"
+          aria-controls="collapseFour"
+          style="font-size: 20px; color: #373838; font-weight: 400;"
+        >
+          <i class="fa fa-chevron-down pull-right"></i> Expired
         </a>
-        <!-- </h2> -->
-      </div>
-      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+      </h5>
+      <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
         <div class="card-body">
           <div class="row mt-2">
             <div class="col-sm-4 mb-3" *ngFor="let card of expiredList">

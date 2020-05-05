@@ -56,17 +56,10 @@
   width: 90px;
 }
 
-.accordion .card-header::before {
-  /* content: "\f068"; */
-  content: '\f139';
-  float: right;
-  font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
 }
 
-.accordion .card-header.collapsed::before {
-  /* symbol for "collapsed" panels */
-
-  /* content: "\f067"; */
-
-  content: '\f13a';
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
 }
