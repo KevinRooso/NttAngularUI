@@ -59,7 +59,7 @@ export class VideosUpdateComponent implements OnInit {
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
       targetUserType: ['', Validators.required],
-      isDraft: [false],
+      draft: [false],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       downloadUrl: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -130,6 +130,7 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
       this.createVideoForm.get(['categoryId']).setValue(res.body.category.id);
       this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink);
+      this.createVideoForm.get(['draft']).setValue(res.body.isDraft);
       // this.createVideoForm.get(['person']).setValue(res.body.person.id);
       this.previewUrl = res.body.thumbnailImageUrl;
       this.image1button = true;
@@ -267,7 +268,7 @@ export class VideosUpdateComponent implements OnInit {
         title: obj.title,
         resourceType: 6,
         id: this.videoID,
-        draft: obj.isDraft,
+        draft: obj.draft,
         targetUserType: obj.targetUserType,
         expiryDate: obj.expiryDate,
       };

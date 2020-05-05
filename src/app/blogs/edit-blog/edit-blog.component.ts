@@ -296,11 +296,34 @@ export class EditBlogComponent implements OnInit {
     this.previewUrl1 = null;
     this.imageValid1 = false;
     this.fileData = fileInput.target.files[0] as File;
+    const img = new Image();
+    img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
-    if (fileType === 'image/jpeg' || fileType === 'image/png') {
+    const fileSize = this.fileData.size;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid1 = true;
-      this.preview1();
     }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = () => {
+      setTimeout(() => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+
+        window.URL.revokeObjectURL(img.src);
+
+        if (width === 480 && height === 240) {
+          this.imageValid1 = true;
+          this.preview1();
+        } else {
+          this.snackBar.open('Please upload valid image type/size', 'Close', {
+            duration: 5000,
+          });
+          this.imageValid1 = false;
+          this.previewUrl1 = null;
+        }
+      }, 20);
+    };
   }
 
   preview1() {

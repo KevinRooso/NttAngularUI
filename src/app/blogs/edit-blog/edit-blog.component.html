@@ -379,10 +379,20 @@
               </div>
 
               <div class="form-row">
-                <label class="col-sm-3 col-form-label">Author Image <span class="error">*</span></label>
+                <label class="col-sm-3 col-form-label"
+                  >Author Image <span class="error">*</span>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    matTooltip="Resolution: 480px X 240px &#13;Type: png/ jpg/ jpeg &#13;Size: 300 kB"
+                    matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"
+                    style="font-size: 18px;"
+                  >
+                  </i>
+                </label>
                 <div class="col-sm-7">
                   <input type="file" class="form-control-file" formControlName="profileImageUrl" (change)="fileProgress1($event)" />
-                  <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')">(Author Image is required)</mat-error> -->
                   <mat-error *ngIf="checkErrorPerson('profileImageUrl', 'pattern')" style="color: red; font-size: 12px;"
                     >(Image should be JPEG, JPG, PNG)</mat-error
                   >
@@ -397,12 +407,8 @@
                   >
                     Upload File
                   </button>
-                  <!-- <div *ngIf="fileUploadProgress1">
-                    Upload progress: {{ fileUploadProgress1 }}
-                  </div> -->
                 </div>
               </div>
-
               <div class="form-row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">

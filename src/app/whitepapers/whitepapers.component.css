@@ -21,15 +21,16 @@
 }
 
 .article-card {
-  height: 445px;
-  width: 280px;
+  height: 426px;
+  width: 292px;
 }
 
 .article-title {
   font-size: 14px;
   font-weight: 400;
   margin: 0;
-  min-height: 50px;
+
+  /* min-height: 50px; */
   padding: 8px;
   word-break: break-all;
 
@@ -44,5 +45,5 @@
 
   /* min-height: 250px; */
 
-  width: 280px;
+  width: 292px;
 }
