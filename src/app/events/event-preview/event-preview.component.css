@@ -57,8 +57,9 @@
 }
 
 .card-header .fa {
-  transition: .3s transform ease-in-out;
+  transition: 0.3s transform ease-in-out;
 }
+
 .card-header .collapsed .fa {
   transform: rotate(180deg);
 }
