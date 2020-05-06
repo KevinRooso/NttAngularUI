@@ -54,13 +54,13 @@ export class NewsComponent implements OnInit {
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    this.newsList = this.searchFilterData.filter((m) => {
+    this.filterBlogs = this.searchFilterData.filter((m) => {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
   }
   cancel() {
-    this.newsList = this.blogs;
+    this.filterBlogs = this.blogs;
   }
   filterData() {
     const data = this.sort.split('?');
