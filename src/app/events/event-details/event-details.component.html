@@ -16,19 +16,6 @@
         height="320px;"
         *ngIf="getEventDetails.detailImageUrl"
       />
-
-      <!-- <button mat-icon-button class="btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <span class="fa fa-pencil" aria-hidden="true"></span>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button  mat-menu-item class="btn" (click)="getDetails(getEventDetails.id)">
-          <span class="fa fa-copy"  >duplicate</span>
-        </button>
-        <button mat-menu-item class="btn" (click)="copyDetails(getEventDetails.id)" >
-          <span class="fa fa-edit" >edit</span>
-        </button>
-
-      </mat-menu> -->
     </div>
     <div class="fab-container">
       <button mat-fab direction="down" class="fab-toggler" (click)="onToggleFab()">
@@ -51,29 +38,12 @@
       </div>
     </div>
   </div>
-  <!-- <div >
-    <div class="col-sm-12 px-0">
-      <div class="card">
-        <div class="card-body">
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Publish</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" (change)="publishChanges()" [(ngModel)]="isPublish"></mat-slide-toggle>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Active</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" (change)="activeChange()" [(ngModel)]="isActive"></mat-slide-toggle>
-        </div>
-      </div>
-        </div>
-      </div>
-  </div> -->
   <div class="row py-3" style="width: 100%;">
     <div class="col-sm-12 d-inline-flex">
       <div class="col-sm-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Participants</h5>
-
             <ul class="list-group">
               <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice: 0:6; let ind = index">
                 <a>
@@ -98,56 +68,30 @@
       <div class="col-sm-6 px-0">
         <div class="card">
           <div class="card-body">
-            <div class="form-row">
+            <div class="row">
+              <div class="col d-flex" *ngIf="getEventDetails.isPublish">
+                <label style="font-size: 15px; font-weight: 500;">Publish:</label>
+                <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
+                </mat-slide-toggle>
+              </div>
+              <div class="col">
+                <p class="card-text mb-0" style="font-weight: 500;">
+                  <span style="font-weight: 500;">Status - </span><span class="tags">{{ getEventDetails.eventStatus }}</span>
+                  <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'expired'"
+                    >(You cannot publish a draft event)</span
+                  >
+                  <span *ngIf="getEventDetails.eventStatus == 'expired'">(You cannot publish an expired event)</span>
+                </p>
+              </div>
+            </div>
+            <!-- <div class="form-row">
               <label class="col-sm-2 col-form-label">Publish:</label>
               <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
               </mat-slide-toggle>
-              <!-- <button #toggleButton href="#myModal" data-toggle="modal" hidden></button> -->
-              <!-- (click)="delete(i)" -->
-              <!-- <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" #confirmBox>
-                <span style="cursor: default; font-size: 10px;" (click)="delete(i)">
-                  <i class="fa fa-trash" style="font-size: 1rem;"></i>
-                </span>
-              </button> --><!-- Modal HTML -->
-              <div id="myModal" class="modal fade" data-backdrop="static">
-                <div class="modal-dialog modal-confirm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <div class="text-center" style="width: 100%;">
-                        <h4 class="modal-title">Are you sure?</h4>
-                      </div>
-                      <button
-                        type="button"
-                        class="close p-0 modal-remove"
-                        (click)="reverseChanges()"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p *ngIf="isPublish">Do you want to publish this Event?</p>
-                      <p *ngIf="!isPublish">Do you want to Unpublish this Event?</p>
-                    </div>
-                    <div class="modal-footer" style="justify-content: center; border: none;">
-                      <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <label class="col-sm-2 col-form-label">Status</label> -->
               <p class="card-text mb-0" style="font-weight: 500;">
                 <span style="font-weight: 500;">Status - </span><span class="tags">{{ getEventDetails.eventStatus }}</span>
               </p>
-              <!-- <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"> </mat-slide-toggle> -->
-              <!-- <p class="card-text mb-0" style="font-weight: 500;">
-                Event Status
-                <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
-              </p> -->
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="card" style="margin-top: 16px;">
@@ -254,6 +198,28 @@
             </div> -->
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" (click)="reverseChanges()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isPublish">Do you want to publish this Event?</p>
+        <p *ngIf="!isPublish">Do you want to Unpublish this Event?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
       </div>
     </div>
   </div>
