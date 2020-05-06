@@ -71,12 +71,11 @@
             <div class="row">
               <div class="col d-flex" *ngIf="getEventDetails.isPublish">
                 <label style="font-size: 15px; font-weight: 500;">Publish : </label>
-                <mat-slide-toggle class="col-sm-2 col-form-label" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
-                </mat-slide-toggle>
+                <mat-slide-toggle class="ml-1" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal"> </mat-slide-toggle>
               </div>
               <div class="col">
                 <p class="card-text mb-0" style="font-weight: 500;">
-                  <span style="font-weight: 500;">Status - </span>
+                  <span style="font-weight: 500;">Status : </span>
                   <span class="tags">{{ getEventDetails.eventStatus }}</span>
 
                   <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'expired'">
