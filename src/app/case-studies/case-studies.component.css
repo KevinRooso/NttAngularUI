@@ -24,18 +24,14 @@ p {
   width: 200px;
 }
 
-.category-name {
+/* .category-name {
   display: inline-block;
   font-size: 18px;
   margin-left: 10px;
   padding: 10px 0;
-
-  /* margin-top: 10px; */
   vertical-align: top;
-
-  /* margin-top: 42px; */
   width: 50%;
-}
+} */
 
 .category-name h3 {
   font-size: 18px;
@@ -62,4 +58,18 @@ p {
 
 .text-center {
   padding: 100px;
+}
+
+.case-description {
+  font-size: 15px;
+  height: 75px;
+  overflow: hidden;
+  padding: 10px 10px 5px 0;
+}
+
+.case-title {
+  font-size: 18px;
+  height: 54px;
+  overflow: hidden;
+  padding: 10px 10px 5px 0;
 }

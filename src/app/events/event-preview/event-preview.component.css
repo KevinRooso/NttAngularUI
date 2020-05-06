@@ -24,6 +24,7 @@
 
 .card {
   height: 100%;
+  margin-right: 10px;
 }
 
 .search-icon:hover {
@@ -54,6 +55,10 @@
   border-color: #17a2b8;
   color: #17a2b8;
   width: 90px;
+}
+
+.fa {
+  font-size: 10px;
 }
 
 .card-header .fa {
