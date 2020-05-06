@@ -43,7 +43,6 @@ export class VideosPreviewComponent implements OnInit {
   // }
   getAllCategory() {
     this.authService.getCategoryList().subscribe((res) => {
-      this.categoryList = res.body;
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {
