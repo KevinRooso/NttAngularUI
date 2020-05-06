@@ -69,7 +69,7 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col d-flex" *ngIf="getEventDetails.isPublish">
+              <div class="col d-flex" *ngIf="getEventDetails.isPublish || getEventDetails.eventStatus == 'unpublished'">
                 <label style="font-size: 15px; font-weight: 500;">Publish:</label>
                 <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
                 </mat-slide-toggle>
