@@ -15,18 +15,18 @@
   <section class="section-tours">
     <div class="row" style="padding: 0.5rem 1rem;">
       <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" (click)="getDetailData(data)">
-        <div class="px-2" style="align-content: centre; margin-top: 66px;">
-          <h3>{{ data.displayName }}</h3>
+        <div class="px-2" style="align-content: centre; height: 75px;">
+          <h3 class="wht-color">{{ data.displayName }}</h3>
         </div>
-        <div class="px-2" style="align-content: centre;">
-          <p [innerHTML]="data.shortInformation"></p>
+        <div class="px-2" style="align-content: centre; height: 75px;">
+          <p [innerHTML]="data.shortInformation" class="wht-color"></p>
         </div>
-        <mat-card-actions>
-          <button mat-button (click)="editForm(data)"><u>Edit</u></button>
-        </mat-card-actions>
+        <div class="text-center">
+          <button mat-button (click)="editForm(data)" class="wht-color"><u>Edit</u></button>
+        </div>
       </mat-card>
-      <mat-card class="p-0 m-3 cloud-card" (click)="openSubmitModel()">
-        <img mat-card-image src="../../../assets/plus.png" />
+      <mat-card class="p-0 m-3 cloud-card" style="height: 234px;" (click)="openSubmitModel()">
+        <img mat-card-image class="mt-2" src="../../../assets/AddButt-butt-715x715.png" />
       </mat-card>
     </div>
   </section>
