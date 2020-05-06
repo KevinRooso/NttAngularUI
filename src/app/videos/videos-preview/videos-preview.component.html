@@ -1,11 +1,11 @@
 <div class="container">
   <div>
     <ul class="breadcrumb">
-      <li><a href="/home">Home</a></li>
+      <li><a routerLink="/home">Home</a></li>
       <li><a class="active">Videos</a></li>
     </ul>
   </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
     <button
       class="navbar-toggler"
       type="button"
@@ -18,7 +18,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/videos-create"><button type="button" class="btn button-1 action-good">Create Video</button></a>
+      <a routerLink="/blog-create"
+        ><button type="button" class="btn button-1 action-good">
+          Create Video
+        </button></a
+      >
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item active mx-2">
           <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
@@ -26,6 +30,7 @@
             <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
           </select>
         </li>
+
         <li class="nav-item ml-2">
           <div class="form-inline my-2 my-lg-0">
             <input
@@ -36,33 +41,44 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
+            <button class="btn button-2 action-info" (click)="blogSearch()">
+              Search
+            </button>
           </div>
         </li>
       </ul>
     </div>
   </nav>
 </div>
-<section class="section-tours">
+<section class="blog">
+  <!-- <div class=" text-center">
+    <p class="heading-secondary py-4">
+Blogs
+    </p>
+    </div> -->
   <div class="container">
-    <div class="card-container">
-      <div class="row" style="padding: 0.5rem 1rem;">
-        <div class="col-sm-4" style="padding: 0.5rem 1rem; margin-left: -17px; padding-top: 30px;" *ngFor="let card of filterBlogs">
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let card of filterBlogs">
+        <div class="card-container">
           <div class="card blog-card" (click)="getDetails(card.id)">
-            <img
-              [src]="
-                card.thumbnailImageUrl != null
-                  ? card.thumbnailImageUrl
-                  : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
-              "
-              class="w-100"
-              style="height: 200px;"
-            />
-
+            <div>
+              <img
+                [src]="
+                  card.thumbnailImageUrl != null
+                    ? card.thumbnailImageUrl
+                    : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                "
+                class="w-100"
+                style="height: 200px;"
+              />
+            </div>
             <div class="card-block">
               <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
               <div class="card-description mb-0" [innerHTML]="card.shortDescription | slice: 0:80"></div>
-              <div class="card-date"><strong>Date : </strong>{{ card.updatedAt | date }}</div>
+              <div class="card-date"><b>Date : </b>{{ card.updatedAt | date }}</div>
+              <!-- <h3 class="card-title">{{ blog.title }}</h3>
+              <mat-divider></mat-divider>
+              <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
             </div>
           </div>
         </div>

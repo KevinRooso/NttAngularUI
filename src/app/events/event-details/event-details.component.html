@@ -99,8 +99,8 @@
         <div class="card">
           <div class="card-body">
             <div class="form-row">
-              <label class="col-sm-2 col-form-label">Publish:</label>
-              <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
+              <label class="col-sm-2 col-form-label">Publish : </label>
+              <mat-slide-toggle class="col-sm-2 col-form-label" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
               </mat-slide-toggle>
               <!-- <button #toggleButton href="#myModal" data-toggle="modal" hidden></button> -->
               <!-- (click)="delete(i)" -->
@@ -138,10 +138,12 @@
                 </div>
               </div>
 
-              <!-- <label class="col-sm-2 col-form-label">Status</label> -->
-              <p class="card-text mb-0" style="font-weight: 500;">
-                <span style="font-weight: 500;">Status - </span><span class="tags">{{ getEventDetails.eventStatus }}</span>
-              </p>
+              <label class="col-sm-2 col-form-label">Status : </label>
+              <div class="tags mt-2">{{ getEventDetails.eventStatus }}</div>
+
+              <!-- <p class="card-text mb-0" style="font-weight: 500;">
+                <span style="font-weight: 500;">Status : </span><span class="tags">{{ getEventDetails.eventStatus }}</span>
+              </p> -->
               <!-- <mat-slide-toggle class="example-full-width col-sm-3" (change)="activeChange()" [(ngModel)]="isActive"> </mat-slide-toggle> -->
               <!-- <p class="card-text mb-0" style="font-weight: 500;">
                 Event Status
@@ -158,11 +160,11 @@
               <span class="event-label">Description</span>
             </p>
             <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId != null">
-              <span style="font-weight: 500;">Category - </span>
+              <span style="font-weight: 500;">Category : </span>
               {{ getEventDetails.categoryTypeId.displayName }}
             </p>
             <p class="card-text mb-0" style="font-weight: 500;">
-              Tags -
+              Tags :
               <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
             </p>
           </div>
@@ -176,7 +178,7 @@
                       (getEventDetails.isOnPremise && getEventDetails.isWebinar)
                     "
                   >
-                    <span style="font-weight: 500;">Venue - </span>{{ getEventDetails.address1 }}
+                    <span style="font-weight: 500;">Venue : </span>{{ getEventDetails.address1 }}
                   </p>
                   <p
                     *ngIf="
@@ -184,7 +186,7 @@
                       (getEventDetails.isOnPremise && getEventDetails.isWebinar)
                     "
                   >
-                    <span style="font-weight: 500;">Address - </span>{{ getEventDetails.address2 }}
+                    <span style="font-weight: 500;">Address : </span>{{ getEventDetails.address2 }}
                   </p>
                   <p
                     *ngIf="
@@ -192,7 +194,7 @@
                       (getEventDetails.isOnPremise && getEventDetails.isWebinar)
                     "
                   >
-                    <span style="font-weight: 500;" style="visibility: hidden;">Address - </span>{{ getEventDetails.city }},
+                    <span style="font-weight: 500;" style="visibility: hidden;">Address : </span>{{ getEventDetails.city }},
                     {{ getEventDetails.country }},
                     {{ getEventDetails.pincode }}
                   </p>
@@ -202,17 +204,17 @@
                       (getEventDetails.isOnPremise && getEventDetails.isWebinar)
                     "
                   >
-                    <span style="font-weight: 500;">Webinar URL - </span
+                    <span style="font-weight: 500;">Webinar URL : </span
                     ><a [href]="getEventDetails.webinarUrl" target="_blank">{{ getEventDetails.webinarUrl }}</a>
                   </p>
-                  <p><span style="font-weight: 500;">Start Time - </span>{{ startTime }}</p>
-                  <p><span style="font-weight: 500;">End Time - </span>{{ endTime }}</p>
+                  <p><span style="font-weight: 500;">Start Time : </span>{{ startTime }}</p>
+                  <p><span style="font-weight: 500;">End Time : </span>{{ endTime }}</p>
                 </div>
               </div>
               <div class="col-sm-3 float-right px-0">
                 <div class="text-right">
                   <!-- <p>8 HRS</p> -->
-                  <p *ngIf="getEventDetails.totalSeat != 0">Total Seats - {{ getEventDetails.totalSeat }}</p>
+                  <p *ngIf="getEventDetails.totalSeat != 0">Total Seats : {{ getEventDetails.totalSeat }}</p>
                   <!-- <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p> -->
                   <!-- *ngIf="getEventDetails.noOfSubUsersAllow!= 0" -->
                 </div>

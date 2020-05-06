@@ -24,6 +24,7 @@
 
 .card {
   height: 100%;
+  margin-right: 10px;
 }
 
 .search-icon:hover {
