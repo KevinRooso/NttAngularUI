@@ -24,7 +24,7 @@
 }
 
 .edit .btn {
-  background: #2c98de;
+  background: #03c;
   border: none;
   border-radius: 50%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.275);
@@ -48,7 +48,7 @@
 }
 
 .tags {
-  background: #00a6df;
+  background: #03c;
   border-bottom-left-radius: 10px;
   -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 10px;

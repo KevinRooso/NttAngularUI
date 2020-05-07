@@ -38,7 +38,7 @@ export class HomeUiComponent implements OnInit {
   defaultProfile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRq3gK2kpKsUiI3lL-U7uPUl_ET7zfXpPtSE9SghDF0_w4C2_9o&usqp=CAU';
 
   bannerData: any[] = [];
-  newBannerData:any[]=[];
+  newBannerData: any[] = [];
   resourceData: any[] = [];
   banner1Block = '';
   banner1SelectedValue = '';
@@ -68,9 +68,9 @@ export class HomeUiComponent implements OnInit {
   bannerImage3 = '';
 
   eventId = '';
-  globalFlag=true;
-  formArr:number[]=[1];
-  bannerEmittedData:any={};
+  globalFlag = true;
+  formArr: number[] = [1];
+  bannerEmittedData: any = {};
   // tslint:disable-next-line:no-input-rename
   @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
@@ -81,7 +81,7 @@ export class HomeUiComponent implements OnInit {
   @ViewChild('caseButton', { static: false }) caseButton;
   @ViewChild('newsButton', { static: false }) newsButton;
   @ViewChild('testButton', { static: false }) testButton;
-  bannerLimit=0;
+  bannerLimit = 0;
   users: any[] = [
     { id: 1, type: 'Customer' },
     { id: 2, type: 'Employee' },
@@ -112,48 +112,42 @@ export class HomeUiComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
-    this.bannerLimit=environment.BANNER_LIMIT;
+    this.bannerLimit = environment.BANNER_LIMIT;
     this.getHomepageData();
     this.createForms();
     this.getAllData();
   }
-  getBanner(data:any){
-    this.errorFlag=false;
-    this.globalFlag=true;
-    this.bannerEmittedData=data;
-    let duplicate=false;
-    this.newBannerData=this.newBannerData.filter( el => el.sequenceNumber !== this.bannerEmittedData.sequenceNumber );
-    this.newBannerData.forEach(m=>{
-     if(m.dataFieldId === this.bannerEmittedData.dataFieldId &&
-        m.datafieldType === this.bannerEmittedData.datafieldType){
-          duplicate=true;
-        }
-    })
+  getBanner(data: any) {
+    this.errorFlag = false;
+    this.globalFlag = true;
+    this.bannerEmittedData = data;
+    let duplicate = false;
+    this.newBannerData = this.newBannerData.filter((el) => el.sequenceNumber !== this.bannerEmittedData.sequenceNumber);
+    this.newBannerData.forEach((m) => {
+      if (m.dataFieldId === this.bannerEmittedData.dataFieldId && m.datafieldType === this.bannerEmittedData.datafieldType) {
+        duplicate = true;
+      }
+    });
 
-   if(!duplicate){
-     this.bannerEmittedData.public=this.pFlag;
-     this.bannerEmittedData.customer=this.cFlag;
+    if (!duplicate) {
+      this.bannerEmittedData.public = this.pFlag;
+      this.bannerEmittedData.customer = this.cFlag;
       this.bannerEmittedData.datafieldType = this.blocks.find((x) => x.apiName === this.bannerEmittedData.datafieldType).name;
       this.newBannerData.push(this.bannerEmittedData);
-    }
-    else
-    {
-      this.globalFlag=false;
-      this.errorFlag=true;
-    }
-
-  }
-  addNewForm(){
-    this.errorFlag=false;
-    if(this.globalFlag && this.formArr.length === this.newBannerData.length){
-      this.formArr.push(this.formArr[this.formArr.length-1]+1);
-    }
-    else
-    {
-      this.errorFlag=true;
+    } else {
+      this.globalFlag = false;
+      this.errorFlag = true;
     }
   }
-  removeBanner(seq:number){
+  addNewForm() {
+    this.errorFlag = false;
+    if (this.globalFlag && this.formArr.length === this.newBannerData.length) {
+      this.formArr.push(this.formArr[this.formArr.length - 1] + 1);
+    } else {
+      this.errorFlag = true;
+    }
+  }
+  removeBanner(seq: number) {
     this.errorFlag = false;
     let flag=false;
   //   for(let i=0;i<this.bannerData.length;i++){
@@ -181,7 +175,7 @@ export class HomeUiComponent implements OnInit {
       this.show=true;
       this.service.saveBanner(this.newBannerData).subscribe(
         (_res) => {
-         // this.bannerData=res.body;
+          // this.bannerData=res.body;
 
           this.show = false;
         },
@@ -189,8 +183,8 @@ export class HomeUiComponent implements OnInit {
           this.show = false;
         }
       );
-      this.formArr.splice(this.formArr.indexOf(seq),1);
-      this.bannerData=this.bannerData.filter( el => el.sequenceNumber !== seq );
+      this.formArr.splice(this.formArr.indexOf(seq), 1);
+      this.bannerData = this.bannerData.filter((el) => el.sequenceNumber !== seq);
     }
     else{
       this.formArr.splice(this.formArr.indexOf(seq),1);
@@ -202,7 +196,6 @@ export class HomeUiComponent implements OnInit {
   sortArray(a, b) {
     return a.sequenceNumber > b.sequenceNumber ? 1 : -1;
   }
-
 
   createForms() {
     this.show = true;
@@ -299,18 +292,17 @@ export class HomeUiComponent implements OnInit {
     this.show = true;
     this.service.getAllHomeData(this.userType).subscribe((res) => {
       this.bannerData = res.body.banners;
-     if(this.bannerData.length !== 0){
+      if (this.bannerData.length !== 0) {
         this.bannerData.sort(this.sortArray);
-        this.formArr=[];
+        this.formArr = [];
       }
-      this.bannerData.forEach((_value,index)=>{
-        this.formArr.push(index+1);
-      })
+      this.bannerData.forEach((_value, index) => {
+        this.formArr.push(index + 1);
+      });
       this.resourceData = res.body.list;
       if (this.bannerData.length === 0 && this.resourceData.length === 0) {
         this.publicFlag = false;
       } else {
-
         this.resourceData.forEach((m) => {
           if (m.type === 'event') {
             this.eventBlockData = m.id;
@@ -371,7 +363,7 @@ export class HomeUiComponent implements OnInit {
     this.bannerConfigurationForm1.get(['sequenceNumber']).setValue(this.bannerData[0].sequenceNumber);
     this.banner1Sequence = this.bannerData[0].sequenceNumber;
     const durl = this.blocks.find((x) => x.apiName === this.banner1Block).url.split('?')[1];
-    this.service.getBannerBlockDetail(durl,this.pFlag,this.cFlag).subscribe((res) => {
+    this.service.getBannerBlockDetail(durl, this.pFlag, this.cFlag).subscribe((res) => {
       this.selectBlockData1 = res.body;
 
       this.show = false;
@@ -389,7 +381,7 @@ export class HomeUiComponent implements OnInit {
     this.bannerConfigurationForm2.get(['sequenceNumber']).setValue(this.bannerData[1].sequenceNumber);
     this.banner2Sequence = this.bannerData[1].sequenceNumber;
     const durl = this.blocks.find((x) => x.apiName === this.banner2Block).url.split('?')[1];
-    this.service.getBannerBlockDetail(durl,this.pFlag,this.cFlag).subscribe((res) => {
+    this.service.getBannerBlockDetail(durl, this.pFlag, this.cFlag).subscribe((res) => {
       this.selectBlockData2 = res.body;
       this.show = false;
     });
@@ -405,7 +397,7 @@ export class HomeUiComponent implements OnInit {
     this.banner3Sequence = this.bannerData[2].sequenceNumber;
     const durl = this.blocks.find((x) => x.apiName === this.banner3Block).url.split('?')[1];
 
-    this.service.getBannerBlockDetail(durl,this.pFlag,this.cFlag).subscribe((res) => {
+    this.service.getBannerBlockDetail(durl, this.pFlag, this.cFlag).subscribe((res) => {
       this.selectBlockData3 = res.body;
       this.show = false;
     });
@@ -414,7 +406,7 @@ export class HomeUiComponent implements OnInit {
   submit() {}
   submitBanner() {
     this.show = true;
-    if(this.globalFlag && this.formArr.length === this.newBannerData.length){
+    if (this.globalFlag && this.formArr.length === this.newBannerData.length) {
       this.service.saveBanner(this.newBannerData).subscribe(
         (_res) => {
           this.show = false;
@@ -426,11 +418,10 @@ export class HomeUiComponent implements OnInit {
           this.show = false;
         }
       );
-      }
-      else{
-        this.show = false;
-        this.errorFlag = true;
-      }
+    } else {
+      this.show = false;
+      this.errorFlag = true;
+    }
   }
 
   setBannerData(banner, data) {
@@ -446,7 +437,7 @@ export class HomeUiComponent implements OnInit {
   }
   callService(value, banner) {
     this.show = true;
-    this.service.getBannerBlockDetail(value,this.pFlag,this.cFlag).subscribe(
+    this.service.getBannerBlockDetail(value, this.pFlag, this.cFlag).subscribe(
       (res) => {
         if (banner === 'banner1') {
           this.selectBlockData1 = res.body;
@@ -468,7 +459,7 @@ export class HomeUiComponent implements OnInit {
     url = url.split('?')[1];
     if (this.eventData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.eventData = res.body;
           this.show = false;
@@ -485,7 +476,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.articleData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.articleData = res.body;
           this.show = false;
@@ -501,7 +492,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.blogData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.blogData = res.body;
           this.show = false;
@@ -517,7 +508,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.videoData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.videoData = res.body;
           this.show = false;
@@ -533,7 +524,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.whitePaperData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.whitePaperData = res.body;
           this.show = false;
@@ -549,7 +540,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.caseStudyData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.caseStudyData = res.body;
           this.show = false;
@@ -565,7 +556,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.newsData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.newsData = res.body;
           this.show = false;
@@ -581,7 +572,7 @@ export class HomeUiComponent implements OnInit {
 
     if (this.testData.length === 0) {
       this.show = true;
-      this.service.getBannerBlockDetail(url,this.pFlag,this.cFlag).subscribe(
+      this.service.getBannerBlockDetail(url, this.pFlag, this.cFlag).subscribe(
         (res) => {
           this.testData = res.body;
           this.show = false;

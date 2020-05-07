@@ -1,78 +1,92 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a class="active">Videos</a></li>
-  </ul>
-</div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a routerLink="/videos-create"><button type="button" class="btn button-1 action-good">Create Video</button></a>
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
-          <option value="cat" >Please Select Category</option>
-          <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
-        </select>
-      </li>
-      <li class="nav-item ml-2">
-        <div class="form-inline my-2 my-lg-0">
-          <input class="form-control" [(ngModel)]="searchBlog" type="search" (search)="cancel()" placeholder="Search" aria-label="Search" />
-          <button class="btn button-2 action-info" (click)="blogSearch()">Search</button>
-        </div>
-      </li>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a class="active">Videos</a></li>
     </ul>
   </div>
-</nav>
-<section class="section-tours">
-  <div class="container">
-    <div class="row" style="padding: 0.5rem 1rem;">
-      <div class="col-sm-4" style="padding: 0.5rem 1rem; margin-left: -17px; padding-top: 30px;" *ngFor="let card of filterBlogs">
-        <div class="card blog-card" (click)="getDetails(card.id)">
-          <img
-            [src]="
-              card.thumbnailImageUrl != null
-                ? card.thumbnailImageUrl
-                : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
-            "
-            class="w-100"
-            style="height: 200px;"
-          />
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a routerLink="/videos-create"
+        ><button type="button" class="btn button-1 action-good">
+          Create Video
+        </button></a
+      >
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item active mx-2">
+          <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
+            <option value="cat">Please Select Category</option>
+            <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
+          </select>
+        </li>
 
-          <div class="card-block">
-            <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
-            <p class="card-description mb-0" [innerHTML]="card.shortDescription | slice: 0:80"></p>
-            <p class="card-date"><strong>Date : </strong>{{ card.updatedAt | date }}</p>
+        <li class="nav-item ml-2">
+          <div class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control"
+              [(ngModel)]="searchBlog"
+              type="search"
+              (search)="cancel()"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn button-2 action-info" (click)="blogSearch()">
+              Search
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<section class="blog">
+  <!-- <div class=" text-center">
+    <p class="heading-secondary py-4">
+Blogs
+    </p>
+    </div> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let card of filterBlogs">
+        <div class="card-container">
+          <div class="card blog-card" (click)="getDetails(card.id)">
+            <div>
+              <img
+                [src]="
+                  card.thumbnailImageUrl != null
+                    ? card.thumbnailImageUrl
+                    : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                "
+                class="w-100"
+                style="height: 200px;"
+              />
+            </div>
+            <div class="card-block">
+              <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+              <div class="card-description mb-0" [innerHTML]="card.shortDescription | slice: 0:80"></div>
+              <div class="card-date"><b>Date : </b>{{ card.updatedAt | date }}</div>
+              <!-- <h3 class="card-title">{{ blog.title }}</h3>
+              <mat-divider></mat-divider>
+              <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="row" style="padding: 0.5rem 1rem;">
-    <mat-card class="p-0 m-3 videos-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
-      <div>
-        <img [src]="card.thumbnailImageUrl" alt="" width="100%" height="200px" />
-      </div>
-      <div class="card-block">
-        <h3 class="card-title">{{ card.title }}</h3>
-        <p class="videos-title">{{ card.shortDescription }}</p>
-        <hr />
-        <p class="videos-title " style="font-size: 14px;"><strong>Posted On: </strong>{{ card.createdAt | date }}</p>
-      </div>
-    </mat-card>
-  </div> -->
-  <div class="text-center">
-    <span *ngIf="filterBlogs?.length == 0">
+  <div class="text-center" *ngIf="filterBlogs?.length == 0">
+    <span>
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>
