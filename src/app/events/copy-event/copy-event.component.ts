@@ -451,7 +451,7 @@ export class CopyEventComponent implements OnInit {
   }
   submitChanges() {
     // this.show=true;
-    if(this.agendaData.length === 0){
+    if (this.agendaData.length === 0) {
       this.snackBar.open('Please fill Agenda', 'Close', {
         duration: 5000,
       });
@@ -693,9 +693,11 @@ export class CopyEventComponent implements OnInit {
             queryParams: { page: response.body.id },
           });
         },
-        (error) => {
-          this.snackBar.open(error, 'Close');
+        (_error) => {
           this.show = false;
+          this.snackBar.open('Oops, Something went wrong', 'Close', {
+            duration: 5000,
+          });
         }
       );
     } else {
