@@ -70,10 +70,10 @@
           <div class="col-sm-9">
             <ckeditor placeholder="Description..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
-              (Description is required)
+              (Long Description is required)
             </div>
             <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Description should be upto 300 characters)
+              (Long Description should be upto 300 characters)
             </div>
           </div>
         </div>
@@ -92,16 +92,17 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label"> Logo <span class="error">*</span>
+          <label class="col-sm-3 col-form-label">
+            Logo <span class="error">*</span>
             <i
-            class="fa fa-info-circle"
-            aria-hidden="true"
-            matTooltip="Resolution: 240px X 120px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
-            matTooltipPosition="right"
-            matTooltipClass="custom-tooltip"
-            style="font-size: 18px;"
-          >
-          </i>
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="Resolution: 240px X 120px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
           </label>
 
           <div class="col-sm-7">
@@ -135,17 +136,17 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label"> Publisher Image <span class="error">*</span>
+          <label class="col-sm-3 col-form-label">
+            Publisher Image <span class="error">*</span>
             <i
-            class="fa fa-info-circle"
-            aria-hidden="true"
-            matTooltip="Resolution: 100px X 100px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
-            matTooltipPosition="right"
-            matTooltipClass="custom-tooltip"
-            style="font-size: 18px;"
-          >
-          </i>
-
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="Resolution: 100px X 100px &#13;Type: png/ jpg/ jpeg &#13;Size: Upto 300 kB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
           </label>
           <div class="col-sm-7">
             <input type="file" class="form-control-file" formControlName="detailImageUrl" (change)="fileProgress1($event)" />

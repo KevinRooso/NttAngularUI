@@ -36,20 +36,14 @@ export class CaseStudiesComponent implements OnInit {
     });
   }
   getTags() {
-    this.service.getTagsList().subscribe((res) => {
-      let tagList: any[] = [];
-      tagList = res.body;
-      tagList.forEach((m) => {
-        for (let i = 0; i < this.caseStudies.length; i++) {
-          for (let j = 0; i < this.caseStudies[i].resourceTags.length; j++) {
-            if (m.id === this.caseStudies[i].resourceTags[j].id) {
-              this.tags.push(m);
-              break;
-            }
-          }
+      let respoTagList: any[] = [];
+      this.caseStudies.forEach(m=>{
+        if(m !== null){
+        respoTagList= respoTagList.concat(m.resourceTags);
         }
-      });
-    });
+      })
+      respoTagList=respoTagList.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
+      this.tags=respoTagList;
   }
   viewCases(id) {
     this.router.navigate(['view-cases'], { queryParams: { page: id } });
@@ -81,7 +75,6 @@ export class CaseStudiesComponent implements OnInit {
   }
   blogSearch() {
     this.filterCases = this.searchFilterData.filter((m) => {
-      // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchCases.toUpperCase());
     });
