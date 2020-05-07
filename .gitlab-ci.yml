@@ -15,11 +15,6 @@ stages:
 
 build_and_test:
   stage: test
-  # deploy only when `ntt-ui` branch is changed
-  only:
-    - ntt-ui
-    - develop
-    - staging
   cache:
     paths:
       - node_modules/
@@ -40,8 +35,7 @@ deploy_dev:
     name: dev
     url: https://ntt-web-dev-app.herokuapp.com/
   # deploy only when `ntt-ui` branch is changed
-  only:
-    - ntt-ui
+  when: manual
   dependencies:
     - build_and_test
   cache:
@@ -62,6 +56,7 @@ deploy_testing:
     name: testing
     url: https://ntt-web-testing-app.herokuapp.com/
   # deploy only when `develop` branch is changed
+  when: manual
   only:
     - develop
   dependencies:

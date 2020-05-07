@@ -221,8 +221,7 @@ export class CreateEventComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000
-    ) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000) {
       this.imageValid2 = true;
     }
     const reader = new FileReader();
@@ -342,13 +341,6 @@ export class CreateEventComponent implements OnInit {
     const ON_PREMISE = '1';
     const WEBINAR = '2';
     const BOTH = '3';
-    if(this.agendaData.length === 0){
-      this.snackBar.open('Please fill Agenda', 'Close', {
-        duration: 5000,
-      });
-      this.show = false;
-      return false;
-    }
     if (this.color === ON_PREMISE) {
       this.isOnPremise = true;
       this.isWebinar = false;
@@ -467,7 +459,13 @@ export class CreateEventComponent implements OnInit {
       this.show = false;
       return false;
     }
-
+    if (this.agendaData.length === 0) {
+      this.snackBar.open('Please fill Event Agenda', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
+    }
     if (this.createEventForm.valid) {
       this.show = true;
       // let name: any[] = [];
@@ -744,7 +742,6 @@ export class CreateEventComponent implements OnInit {
     }
 
     let eventEndDate = this.createEventForm.controls['endDate'].value;
-
     if (eventEndDate && typeof eventEndDate === 'string') {
       eventEndDate = new Date(eventEndDate);
       // eventEndDate = eventEndDate ? new Date(eventEndDate) : new Date();
