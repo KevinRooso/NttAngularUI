@@ -52,7 +52,7 @@
             <div *ngIf="checkError('topic', 'required', true)" style="color: red; font-size: 12px;">
               (Topic is required)
             </div>
-            <div *ngIf="checkError('topic', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('topic', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Topic should be upto 100 characters)
             </div>
           </div>
@@ -76,7 +76,7 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Description should be upto 700 characters)
             </div>
           </div>
@@ -99,7 +99,7 @@
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Short Description should be upto 100 characters)
             </div>
           </div>
@@ -122,7 +122,7 @@
             <div *ngIf="checkError('about', 'required', true)" style="color: red; font-size: 12px;">
               (About is required)
             </div>
-            <div *ngIf="checkError('about', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('about', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (About should be upto 200 characters)
             </div>
           </div>

@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-news-edit',
@@ -45,10 +46,10 @@ export class NewsEditComponent implements OnInit {
   ngOnInit(): void {
     this.updateNewsForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      topic: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      topic: new FormControl('', [Validators.required, textValidation(100)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(100)]),
+      about: new FormControl('', [Validators.required, textValidation(200)]),
       location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),

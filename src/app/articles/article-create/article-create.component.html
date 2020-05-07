@@ -51,7 +51,7 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Description should be upto 700 characters)
             </div>
           </div>
@@ -71,7 +71,12 @@
             </i>
           </label>
           <div class="col-sm-9">
-            <ckeditor placeholder="Description..." formControlName="shortDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
+            <ckeditor
+              placeholder="Description..."
+              formControlName="shortDescription"
+              height="150px"
+              class="example-full-width col-sm-9 p-0"
+            ></ckeditor>
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>

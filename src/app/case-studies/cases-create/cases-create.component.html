@@ -51,7 +51,7 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Customer Profile is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Customer Profile be less than 700 characters)
             </div>
           </div>
@@ -106,7 +106,7 @@
             <div *ngIf="checkError('serviceUsed', 'required', true)" style="color: red; font-size: 12px;">
               (Service Used is required)
             </div>
-            <div *ngIf="checkError('serviceUsed', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('serviceUsed', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Service Used should be upto 500 characters)
             </div>
           </div>

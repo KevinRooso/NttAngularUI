@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-cases-edit',
@@ -66,10 +67,10 @@ export class CasesEditComponent implements OnInit {
   ) {
     this.createCases = frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+      serviceUsed: new FormControl('', [Validators.required, textValidation(500)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
