@@ -33,6 +33,7 @@ export class ListCloudServicesComponent implements OnInit {
   }
   getAllData() {
     this.bradArray = [];
+    this.parent=null;
     this.show = true;
     this.service.getProductAndService(0).subscribe(
       (res) => {
@@ -63,6 +64,7 @@ export class ListCloudServicesComponent implements OnInit {
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }
   getDetailData(obj) {
+
     this.parent = obj;
     this.detailPage = false;
     this.bradArray.push(obj);
