@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-news-edit',
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NewsEditComponent implements OnInit {
   speakerImage = '';
   newsData: any;
+  submitBtnCaption = 'Publish';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,10 +47,10 @@ export class NewsEditComponent implements OnInit {
   ngOnInit(): void {
     this.updateNewsForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      topic: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      topic: new FormControl('', [Validators.required, textValidation(100)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(100)]),
+      about: new FormControl('', [Validators.required, textValidation(200)]),
       location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
@@ -85,6 +87,8 @@ export class NewsEditComponent implements OnInit {
       this.newsData = res.body;
       const url1 = this.newsData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+
+      this.setDraftCaption(res.body.draft);
 
       // this.getDate(res.body.date);
       this.updateNewsForm.get(['title']).setValue(res.body.title);
@@ -229,5 +233,19 @@ export class NewsEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

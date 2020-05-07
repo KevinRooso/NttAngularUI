@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-article-edit',
@@ -45,6 +46,7 @@ export class ArticleEditComponent implements OnInit {
   result1: string;
   result2: string;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Publish';
   // catId: any;
   constructor(
     private frmbuilder: FormBuilder,
@@ -56,8 +58,8 @@ export class ArticleEditComponent implements OnInit {
   ) {
     this.EditArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
@@ -121,6 +123,7 @@ export class ArticleEditComponent implements OnInit {
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
 
       this.selected3 = res.body.targetUserType.id;
+      this.setDraftCaption(res.body.isDraft);
 
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
@@ -403,5 +406,20 @@ export class ArticleEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-videos-update',
@@ -14,6 +15,7 @@ export class VideosUpdateComponent implements OnInit {
   speakerImage: any;
   videoID: any;
   vidoeData: any;
+  submitBtnCaption: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,8 +55,8 @@ export class VideosUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       // person: ['',Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
@@ -124,6 +126,7 @@ export class VideosUpdateComponent implements OnInit {
       res.body.resourceTags.forEach((m) => {
         this.selected4.push(m.id);
       });
+      this.setDraftCaption(res.body.isDraft);
       this.speakerImage = res.body.thumbnailImageUrl;
       this.createVideoForm.get(['title']).setValue(res.body.title);
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
@@ -311,5 +314,19 @@ export class VideosUpdateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

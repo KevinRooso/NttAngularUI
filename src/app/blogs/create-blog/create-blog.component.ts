@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-create-blog',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-blog.component.css'],
 })
 export class CreateBlogComponent implements OnInit {
+  submitBtnCaption = 'Submit';
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -58,8 +60,8 @@ export class CreateBlogComponent implements OnInit {
   ngOnInit(): void {
     this.createBlogForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
@@ -440,6 +442,14 @@ export class CreateBlogComponent implements OnInit {
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
+    }
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
     }
   }
 }

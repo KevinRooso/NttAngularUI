@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-cases-create',
@@ -51,6 +52,7 @@ export class CasesCreateComponent implements OnInit {
   today = new Date();
 
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Submit';
   constructor(
     private formbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -64,10 +66,10 @@ export class CasesCreateComponent implements OnInit {
 
     this.createCases = this.formbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+      serviceUsed: new FormControl('', [Validators.required, textValidation(500)]),
       targetUserType: ['', Validators.required],
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
@@ -319,5 +321,12 @@ export class CasesCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

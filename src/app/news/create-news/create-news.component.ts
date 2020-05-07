@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-create-news',
@@ -28,6 +29,7 @@ export class CreateNewsComponent implements OnInit {
   image1button = false;
 
   today = new Date();
+  submitBtnCaption = 'Submit';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,10 +43,10 @@ export class CreateNewsComponent implements OnInit {
   ngOnInit(): void {
     this.createNewsForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      topic: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      about: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      topic: new FormControl('', [Validators.required, textValidation(100)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(100)]),
+      about: new FormControl('', [Validators.required, textValidation(200)]),
       location: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
@@ -188,5 +190,12 @@ export class CreateNewsComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

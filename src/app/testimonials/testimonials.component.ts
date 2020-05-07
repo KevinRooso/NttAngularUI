@@ -28,7 +28,7 @@ export class TestimonialsComponent implements OnInit {
       this.blogs = res.body;
       this.searchFilterData = res.body;
 
-    this.getAllCategory();
+      this.getAllCategory();
     });
   }
   viewTestimonials(id) {

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-cases-edit',
@@ -56,6 +57,7 @@ export class CasesEditComponent implements OnInit {
   today = new Date();
   @ViewChild('closeModel', { static: true }) closeModel;
   getCaseData: any;
+  submitBtnCaption = 'Publish';
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -66,10 +68,10 @@ export class CasesEditComponent implements OnInit {
   ) {
     this.createCases = frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
-      serviceUsed: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+      serviceUsed: new FormControl('', [Validators.required, textValidation(500)]),
       targetUserType: ['', Validators.required],
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
@@ -120,6 +122,8 @@ export class CasesEditComponent implements OnInit {
       if (this.getCaseData.resourceLink != null) {
         this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
       }
+
+      this.setDraftCaption(res.body.isDraft);
 
       this.selected2 = res.body.category.id;
       if (res.body.person != null) {
@@ -403,5 +407,19 @@ export class CasesEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }
