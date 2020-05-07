@@ -187,8 +187,10 @@ export class SpeakerCreateComponent implements OnInit {
           // console.log('response', response);
           this.router.navigate(['/speakers']);
         },
-        (error) => {
-          this.snackBar.open(error, 'Close');
+        (_error) => {
+          this.snackBar.open('Oops, Something went wrong', 'Close', {
+            duration: 5000,
+          });
         }
       );
     } else {
