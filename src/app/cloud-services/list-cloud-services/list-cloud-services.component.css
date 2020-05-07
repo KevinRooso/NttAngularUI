@@ -1,9 +1,12 @@
 .cloud-card {
   background-color: #377afe;
-  height: 100%;
+
+  /* height: 100%; */
+  height: 210px;
   padding: 1.5rem !important;
   text-align: center;
-  top: 86px;
+
+  /* top: 86px; */
   width: 227px;
 }
 
@@ -31,4 +34,16 @@
 
 .event-card-body-footer {
   padding: 10px 20px;
+}
+
+.card-display {
+  font-size: 18px;
+  height: 58px;
+  overflow: hidden;
+}
+
+.card-description {
+  font-size: 14px;
+  height: 60px;
+  overflow: hidden;
 }
