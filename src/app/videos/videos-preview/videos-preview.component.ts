@@ -21,8 +21,6 @@ export class VideosPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVideos();
-
-    this.getAllCategory();
   }
 
   getAllVideos() {
@@ -32,6 +30,7 @@ export class VideosPreviewComponent implements OnInit {
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
+      this.getAllCategory();
     });
   }
   getDetails(id) {

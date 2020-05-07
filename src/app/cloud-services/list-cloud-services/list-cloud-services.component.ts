@@ -33,6 +33,7 @@ export class ListCloudServicesComponent implements OnInit {
   }
   getAllData() {
     this.bradArray = [];
+    this.parent = null;
     this.show = true;
     this.service.getProductAndService(0).subscribe(
       (res) => {

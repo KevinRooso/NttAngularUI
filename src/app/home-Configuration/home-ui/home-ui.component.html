@@ -17,21 +17,24 @@
       </div>
       <div class="row mx-2">
         <div class="col-md-4" *ngFor="let arr of formArr">
-            <app-banner-ui [blocks]="blocks" [formArr]="formArr" [position]="arr" [userType]="userType" [bannerData]="bannerData[arr-1]" (bannerToEmit)="getBanner($event)"
-          (removeBanner)=removeBanner($event)></app-banner-ui>
-
+          <app-banner-ui
+            [blocks]="blocks"
+            [formArr]="formArr"
+            [position]="arr"
+            [userType]="userType"
+            [bannerData]="bannerData[arr - 1]"
+            (bannerToEmit)="getBanner($event)"
+            (removeBanner)="removeBanner($event)"
+          ></app-banner-ui>
         </div>
-        <div class="col-md-4" *ngIf="formArr.length <= bannerLimit-1">
-        <mat-card class="p-0 m-3 cloud-card" (click)="addNewForm()">
-          <button mat-raised-button style="top: 76px;">Add More</button>
-        </mat-card>
-      </div>
-
+        <div class="col-md-4" *ngIf="formArr.length <= bannerLimit - 1">
+          <mat-card class="p-0 m-3 cloud-card" (click)="addNewForm()">
+            <button mat-raised-button style="top: 76px;">Add More</button>
+          </mat-card>
+        </div>
       </div>
       <div class="text-center p-3">
-        <span style="color: red; font-size: 12px;"
-         *ngIf="errorFlag"
-        >Empty or Duplicate Data not allowed</span>
+        <span style="color: red; font-size: 12px;" *ngIf="errorFlag">Empty or Duplicate Data not allowed</span>
       </div>
       <div class="text-center p-3" style="margin-top: -34px;">
         <button type="submit" (click)="submitBanner()" class="btn button-1 action-good">Submit</button>
@@ -390,32 +393,35 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <ng-container *ngFor="let arr of formArr">
-            <li data-target="#carouselExampleIndicators" data-slide-to="arr"></li>
-          </ng-container>
+              <li data-target="#carouselExampleIndicators" data-slide-to="arr"></li>
+            </ng-container>
           </ol>
           <div class="carousel-inner">
-            <ng-container *ngIf="bannerData.length>0">
-            <div class="carousel-item active">
+            <ng-container *ngIf="bannerData.length > 0">
+              <!-- <div class="carousel-item active">
               <img class="d-block w-100 img-size" [src]="bannerData[0].thumbnailImageUrl != '' ? bannerData[0].thumbnailImageUrl : defaultImage" />
-            </div>
-            <ng-container *ngFor="let arr of formArr">
-            <div class="carousel-item" *ngIf="bannerData[arr-1]">
-              <img class="d-block w-100 img-size"  [src]="bannerData[arr-1].thumbnailImageUrl != '' ? bannerData[arr-1].thumbnailImageUrl : defaultImage" />
-            </div>
-          </ng-container>
-        </ng-container>
-          <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
+            </div> -->
+              <ng-container *ngFor="let arr of formArr">
+                <div class="carousel-item" [ngClass]="{ active: arr == 1 }" *ngIf="bannerData[arr - 1]">
+                  <img
+                    class="d-block w-100 img-size"
+                    [src]="bannerData[arr - 1].thumbnailImageUrl != '' ? bannerData[arr - 1].thumbnailImageUrl : defaultImage"
+                  />
+                </div>
+              </ng-container>
+            </ng-container>
+            <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
 
-        <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
+          <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">{{list.title}}</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -426,108 +432,108 @@
               alt="" width="100%" height="100%">
           </div>
         </div> -->
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'news'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Recent News</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
-            </div>
-          </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'event'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'news'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Recent News</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'articles'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Articles</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'event'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Upcoming Events</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'testimonials'" style="height: 100%;">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'articles'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Articles</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
             </div>
-            <div class="preview-card-body px-2 py-2">
-              <p>"{{ list.title }}"</p>
-              <hr class="m-0" />
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <div class="d-inline-flex" style="align-items: baseline;">
-                    <div class="mr-2">
-                      <img [src]="list.imageUrl ? list.imageUrl : defaultProfile" alt="User Image" class="speaker-image" />
-                    </div>
+          </div>
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'testimonials'" style="height: 100%;">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body px-2 py-2">
+                <p>"{{ list.title }}"</p>
+                <hr class="m-0" />
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <div class="d-inline-flex" style="align-items: baseline;">
+                      <div class="mr-2">
+                        <img [src]="list.imageUrl ? list.imageUrl : defaultProfile" alt="User Image" class="speaker-image" />
+                      </div>
 
-                    <a>{{ list.personName }}</a>
-                  </div>
-                </li>
-              </ul>
-              <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
+                      <a>{{ list.personName }}</a>
+                    </div>
+                  </li>
+                </ul>
+                <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'case studies'" style="height: 100%;">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body px-2 py-2">
-              <p class="m-0">{{ list.title }}</p>
-            </div>
-          </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'videos'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Videos</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'case studies'" style="height: 100%;">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body px-2 py-2">
+                <p class="m-0">{{ list.title }}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'blogs'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Blogs</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
-            </div>
-          </div>
-        </div>
-        <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type == 'white papers'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Whitepapers</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'videos'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Videos</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
             </div>
           </div>
-        </div>
-        <!-- <div *ngFor="let list of homeListData">
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'blogs'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Blogs</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let list of homeListData">
+            <div class="preview-card my-3" *ngIf="list.type == 'white papers'">
+              <div class="row preview-header">
+                <div class="col-sm-6 preview-header-text text-left">Whitepapers</div>
+                <div class="col-sm-6 preview-header-text text-right">view all</div>
+              </div>
+              <div class="preview-card-body p-0">
+                <img [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" alt="" class="img-size" />
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngFor="let list of homeListData">
           <div class="preview-card my-3" *ngIf="list.type =='articles'">
             <div class="row preview-header">
               <div class="col-sm-6 preview-header-text text-left">Articles</div>
@@ -539,7 +545,7 @@
           </div>
         </div> -->
 
-        <!--
+          <!--
         <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Whitepaper</div>
@@ -552,7 +558,7 @@
           </div>
         </div> -->
 
-        <!-- <div class="preview-card my-2" style="height: 130px;">
+          <!-- <div class="preview-card my-2" style="height: 130px;">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -563,7 +569,7 @@
           </div>
         </div> -->
 
-        <!-- <div class="preview-card my-2">
+          <!-- <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -576,7 +582,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
         </div> -->
-        <!-- <div class="preview-card my-2" style="height: 260px;">
+          <!-- <div class="preview-card my-2" style="height: 260px;">
           <div class="row preview-header">
             <div class="col-sm-12 preview-header-text text-left">Top 5 managed security trends</div>
           </div>
@@ -589,7 +595,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
         </div> -->
-        <!-- <div class="preview-card my-2">
+          <!-- <div class="preview-card my-2">
           <div class="row preview-header">
             <div class="col-sm-6 preview-header-text text-left">Articles</div>
             <div class="col-sm-6 preview-header-text text-right">view all</div>
@@ -600,6 +606,7 @@
               alt="" width="100%" height="100%">
           </div>
         </div> -->
+        </div>
       </div>
     </div>
   </div>

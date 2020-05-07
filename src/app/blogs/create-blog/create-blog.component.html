@@ -50,7 +50,7 @@
           <div class="col-sm-9">
             <ckeditor placeholder="Description..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
-              (Description is required)
+              (Long Description is required)
             </div>
             <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Description should be upto 700 characters)
@@ -296,7 +296,7 @@
                 </label>
                 <mat-form-field class="example-full-width col-sm-9">
                   <textarea matInput placeholder="Description" formControlName="description" rows="4"></textarea>
-                  <mat-error *ngIf="checkErrorPerson('description', 'required')">(Description is required)</mat-error>
+                  <mat-error *ngIf="checkErrorPerson('description', 'required')">(Long Description is required)</mat-error>
                   <mat-error *ngIf="checkErrorPerson('description', 'maxlength')">(Description should be upto 400 characters)</mat-error>
                 </mat-form-field>
               </div>

@@ -21,13 +21,14 @@ export class TestimonialsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTestimonials();
-    this.getAllCategory();
   }
   getTestimonials() {
     this.service.getAllTestimonials().subscribe((res) => {
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
+
+      this.getAllCategory();
     });
   }
   viewTestimonials(id) {

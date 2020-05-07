@@ -205,8 +205,10 @@ export class SpeakerEditComponent implements OnInit {
         (_response) => {
           this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
         },
-        (error) => {
-          this.snackBar.open(error, 'Close');
+        (_error) => {
+          this.snackBar.open('Oops, Something went wrong', 'Close', {
+            duration: 5000,
+          });
         }
       );
     } else {

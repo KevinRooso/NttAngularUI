@@ -30,6 +30,7 @@ export class EventDetailsComponent implements OnInit {
   speakers: any[] = [];
   speakerList: any[] = [];
   getEventStatusdata: any;
+  showPublish = true;
   @ViewChild('menumat') trigger: MatMenuTrigger;
 
   // @ViewChild('toggleButton') toggleButton: ElementRef;
@@ -48,7 +49,6 @@ export class EventDetailsComponent implements OnInit {
   fabTogglerState = 'inactive';
   isPublish = false;
   // isActive = false;
-
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
       this.eventId = params.page;
@@ -66,6 +66,13 @@ export class EventDetailsComponent implements OnInit {
     this.authService.getEventDetail(id).subscribe((res) => {
       this.getEventDetails = res.body.events;
       this.eventName = this.getEventDetails.title;
+
+      if (this.getEventDetails.eventStatus === 'drafted') {
+        this.showPublish = false;
+      }
+      if (this.getEventDetails.eventStatus === 'expired') {
+        this.showPublish = false;
+      }
       if (this.getEventDetails.eventSchedule != null) {
         this.getEventDetails.eventSchedule.forEach((m) => {
           arr.push(m);

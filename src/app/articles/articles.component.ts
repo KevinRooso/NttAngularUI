@@ -23,8 +23,6 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllArticleList();
-
-    this.getAllCategory();
   }
 
   getAllArticleList() {
@@ -34,6 +32,7 @@ export class ArticlesComponent implements OnInit {
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.searchFilterData = res.body;
+      this.getAllCategory();
       this.searchFilterData.sort(this.GFG_sortFunction1);
       res.body.filter((m) => {
         if (this.dates.indexOf(m.createdAt.substring(0, 10).split('-').reverse().join('/')) === -1) {

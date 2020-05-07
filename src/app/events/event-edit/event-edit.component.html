@@ -19,7 +19,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">Title should be upto 40 characters</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
 
@@ -37,7 +37,7 @@
               (Description is required)
             </div>
             <div *ngIf="checkError('detail', 'maxlength', true)" style="color: red; font-size: 12px;">
-              Description should be upto 700 characters
+              (Description should be upto 700 characters)
             </div>
           </div>
         </div>
@@ -253,7 +253,7 @@
             />
             <owl-date-time #enddt [pickerType]="'timer'"></owl-date-time>
             <div *ngIf="checkError('endDate', 'required', true)" style="color: red; font-size: 12px;">
-              (Event end date & time is required)
+              (Event end date is required)
             </div>
           </div>
         </div>

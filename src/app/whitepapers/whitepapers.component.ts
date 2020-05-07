@@ -21,13 +21,13 @@ export class WhitepapersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllArticleList();
-    this.getAllCategory();
   }
   getAllArticleList() {
     this.authService.getAllWhitepaper().subscribe((res) => {
       this.whitePaperList = res.body;
       this.filterBlogs = res.body;
       this.blogs = res.body;
+      this.getAllCategory();
       this.searchFilterData = res.body;
     });
   }
