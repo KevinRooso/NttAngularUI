@@ -22,7 +22,6 @@ export class NewsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllnews();
 
-    this.getAllCategory();
   }
 
   getAllnews() {
@@ -31,6 +30,7 @@ export class NewsComponent implements OnInit {
       this.filterBlogs = res.body;
       this.filterBlogs = res.body;
       this.blogs = res.body;
+      this.getAllCategory();
       this.searchFilterData = res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
     });

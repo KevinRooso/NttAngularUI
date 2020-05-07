@@ -156,14 +156,26 @@ export class HomeUiComponent implements OnInit {
   removeBanner(seq:number){
     this.errorFlag = false;
     let flag=false;
-    for(let i=0;i<this.bannerData.length;i++){
-      for(let j=0; j<this.newBannerData.length;j++){
-        if(this.bannerData[i].sequenceNumber === this.newBannerData[j].sequenceNumber){
-          flag=true;
-          break;
-        }
+  //   for(let i=0;i<this.bannerData.length;i++){
+  //     for(let j=0; j<this.newBannerData.length;j++){
+  //       if(this.bannerData[i].sequenceNumber === this.newBannerData[j].sequenceNumber){
+  //         console.log("insdiefi");
+  //         flag=true;
+  //       }
+  //       else{
+  //         flag=false;
+  //       }
+  //     }
+  // }
+  const data =this.bannerData.find(m=>m.sequenceNumber === seq);
+      if(data !== undefined){
+        flag=true;
       }
-  }
+  // if(this.newBannerData.length !== this.bannerData.length){
+  //   console.log("insdiefi");
+  //   flag=true;
+  // }
+
     this.newBannerData=this.newBannerData.filter( el => el.sequenceNumber !== seq );
     if(flag){
       this.show=true;
@@ -179,6 +191,9 @@ export class HomeUiComponent implements OnInit {
       );
       this.formArr.splice(this.formArr.indexOf(seq),1);
       this.bannerData=this.bannerData.filter( el => el.sequenceNumber !== seq );
+    }
+    else{
+      this.formArr.splice(this.formArr.indexOf(seq),1);
     }
 
 
