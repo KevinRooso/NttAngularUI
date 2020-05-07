@@ -47,6 +47,7 @@ export class WhitepaperEditComponent implements OnInit {
   result1: string;
   result2: string;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Publish';
 
   constructor(
     private frmbuilder: FormBuilder,
@@ -259,6 +260,8 @@ export class WhitepaperEditComponent implements OnInit {
       const url2 = this.wPaperData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
 
+      this.setDraftCaption(res.body.isDraft);
+
       // this.selected3=res.body.person.id;
       for (let i = 0; i < res.body.resourceTags.length; i++) {
         this.selected4.push(res.body.resourceTags[i].id);
@@ -398,5 +401,19 @@ export class WhitepaperEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

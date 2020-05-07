@@ -14,6 +14,7 @@ import { textValidation } from 'src/app/validators/general-validators';
 export class CreateTestimonialsComponent implements OnInit {
   speakerImage = '';
   buttonText: string;
+  submitBtnCaption: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,6 +84,7 @@ export class CreateTestimonialsComponent implements OnInit {
         this.buttonText = 'Submit Details';
         this.getUserList();
       }
+      this.submitBtnCaption = this.buttonText;
     });
   }
   getResourceData() {
@@ -109,6 +111,7 @@ export class CreateTestimonialsComponent implements OnInit {
 
       this.speakerImage = res.body.detailImageUrl;
       this.logo = res.body.thumbnailImageUrl;
+      this.setDraftCaption(res.body.isDraft);
       this.createVideoForm.get(['title']).setValue(res.body.title);
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
@@ -357,5 +360,19 @@ export class CreateTestimonialsComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = this.buttonText;
+    } else {
+      this.submitBtnCaption = 'Publish Details';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = this.buttonText;
+    } else {
+      this.submitBtnCaption = 'Publish Details';
+    }
   }
 }

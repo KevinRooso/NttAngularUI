@@ -52,6 +52,7 @@ export class CasesCreateComponent implements OnInit {
   today = new Date();
 
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Submit';
   constructor(
     private formbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -320,5 +321,12 @@ export class CasesCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

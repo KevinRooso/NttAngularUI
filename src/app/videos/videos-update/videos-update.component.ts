@@ -15,6 +15,7 @@ export class VideosUpdateComponent implements OnInit {
   speakerImage: any;
   videoID: any;
   vidoeData: any;
+  submitBtnCaption: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,6 +126,7 @@ export class VideosUpdateComponent implements OnInit {
       res.body.resourceTags.forEach((m) => {
         this.selected4.push(m.id);
       });
+      this.setDraftCaption(res.body.isDraft);
       this.speakerImage = res.body.thumbnailImageUrl;
       this.createVideoForm.get(['title']).setValue(res.body.title);
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
@@ -312,5 +314,19 @@ export class VideosUpdateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

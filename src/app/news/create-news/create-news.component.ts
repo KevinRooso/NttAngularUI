@@ -29,6 +29,7 @@ export class CreateNewsComponent implements OnInit {
   image1button = false;
 
   today = new Date();
+  submitBtnCaption = 'Submit';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -189,5 +190,12 @@ export class CreateNewsComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

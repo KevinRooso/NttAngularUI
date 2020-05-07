@@ -36,6 +36,7 @@ export class ArticleCreateComponent implements OnInit {
   image1button = false;
   image2button = false;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Submit';
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -308,5 +309,13 @@ export class ArticleCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft() {
+    if (this.createArticleForm.controls['draft'].value === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

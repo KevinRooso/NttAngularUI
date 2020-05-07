@@ -13,6 +13,7 @@ import { textValidation } from 'src/app/validators/general-validators';
   styleUrls: ['./create-blog.component.css'],
 })
 export class CreateBlogComponent implements OnInit {
+  submitBtnCaption = 'Submit';
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -439,6 +440,14 @@ export class CreateBlogComponent implements OnInit {
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
+    }
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
     }
   }
 }

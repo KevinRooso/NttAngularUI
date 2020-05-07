@@ -13,6 +13,7 @@ import { textValidation } from 'src/app/validators/general-validators';
 })
 export class VideosCreateComponent implements OnInit {
   speakerImage: any;
+  submitBtnCaption = 'Submit';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -269,5 +270,12 @@ export class VideosCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

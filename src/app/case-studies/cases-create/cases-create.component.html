@@ -256,12 +256,10 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="draft">Draft</mat-slide-toggle>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="OnDraft($event)" formControlName="draft">Draft</mat-slide-toggle>
         </div>
         <div class="text-right">
-          <button class="btn button-1 action-good" (click)="createCase()">
-            Submit Details
-          </button>
+          <button class="btn button-1 action-good" (click)="createCase()">{{ submitBtnCaption }} Details</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
       </form>

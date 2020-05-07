@@ -35,6 +35,7 @@ export class EditBlogComponent implements OnInit {
   tarUserType = '';
   selected4: string[] = [];
   blogId;
+  submitBtnCaption: string;
 
   checkError: any;
   submitted = false;
@@ -143,6 +144,7 @@ export class EditBlogComponent implements OnInit {
         this.blogData = res.body;
         const url1 = this.blogData.thumbnailImageUrl;
         this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+        this.setDraftCaption(res.body.isDraft);
 
         this.createBlogForm.controls['targetUserType'].setValidators(null);
         this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
@@ -536,5 +538,21 @@ export class EditBlogComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }
