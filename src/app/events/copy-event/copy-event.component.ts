@@ -119,11 +119,23 @@ export class CopyEventComponent implements OnInit {
       isDraft: [],
       categoryTypeId: ['', Validators.required],
     });
-    // this.submitted = true;
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
         if (this.submitted) {
-          return this.updateEventForm.controls[controlName].hasError(errorName);
+          const val = this.updateEventForm.controls[controlName].value;
+          if (Object.prototype.toString.call(val) === '[object Date]') {
+            // valid date object
+            if (isNaN(val.getTime())) {
+              // date is not valid
+              return true;
+            } else {
+              // date is valid
+              return false;
+            }
+          } else {
+            // not a date type value
+            return this.updateEventForm.controls[controlName].hasError(errorName);
+          }
         }
       } else {
         return this.updateEventForm.controls[controlName].hasError(errorName);
@@ -451,25 +463,7 @@ export class CopyEventComponent implements OnInit {
   }
   submitChanges() {
     // this.show=true;
-    if (this.agendaData.length === 0) {
-      this.snackBar.open('Please fill Agenda', 'Close', {
-        duration: 5000,
-      });
-      this.show = false;
-      return false;
-    }
-    if (!this.image1button) {
-      this.snackBar.open('Please Upload Thumbnail Image', 'Close', {
-        duration: 5000,
-      });
-      this.show = false;
-      return false;
-    }
-    if (!this.image2button) {
-      this.snackBar.open('Please Upload Banner', 'Close', { duration: 5000 });
-      this.show = false;
-      return false;
-    }
+
     const ON_PREMISE = '1';
     const WEBINAR = '2';
     const BOTH = '3';
@@ -551,6 +545,10 @@ export class CopyEventComponent implements OnInit {
     }
 
     let eventStartDate = this.updateEventForm.controls['startDate'].value;
+    if (!eventStartDate) {
+      this.snackBar.open('Event start date & time cannot be empty', 'Close', { duration: 2000 });
+      return null;
+    }
     if (typeof eventStartDate === 'string') {
       eventStartDate = new Date(eventStartDate);
     }
@@ -563,6 +561,10 @@ export class CopyEventComponent implements OnInit {
     }
 
     let eventEndDate = this.updateEventForm.controls['endDate'].value;
+    if (!eventEndDate) {
+      this.snackBar.open('Event end time cannot be empty', 'Close', { duration: 2000 });
+      return null;
+    }
     if (typeof eventEndDate === 'string') {
       eventEndDate = new Date(eventEndDate);
     }
@@ -574,24 +576,6 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['endDate'].setValue(eventEndDate);
     }
 
-    eventStartDate.setSeconds(0);
-    eventStartDate.setMilliseconds(0);
-
-    // update event start daate as well to remove seconds and milis before save
-    this.updateEventForm.controls['startDate'].setValue(eventStartDate.toISOString());
-
-    eventEndDate.setSeconds(0);
-    eventEndDate.setMilliseconds(0);
-
-    // update event start daate as well to remove seconds and milis before save
-    this.updateEventForm.controls['endDate'].setValue(eventEndDate.toISOString());
-
-    minAgendaStartTime.setSeconds(0);
-    minAgendaStartTime.setMilliseconds(0);
-
-    maxAgendaEndTime.setSeconds(0);
-    maxAgendaEndTime.setMilliseconds(0);
-
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
       this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
       this.snackBar.open(this.errorMsg1, 'Close');
@@ -601,10 +585,28 @@ export class CopyEventComponent implements OnInit {
       this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     }
-
+    if (!this.image1button) {
+      this.snackBar.open('Please Upload Thumbnail Image', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
+    }
+    if (!this.image2button) {
+      this.snackBar.open('Please Upload Banner', 'Close', { duration: 5000 });
+      this.show = false;
+      return false;
+    }
     if (this.updateEventForm.value.tagList.length === 0) {
       this.updateEventForm.controls['tagList'].setValidators(Validators.required);
       this.updateEventForm.controls['tagList'].updateValueAndValidity();
+    }
+    if (this.agendaData.length === 0) {
+      this.snackBar.open('Please fill Agenda', 'Close', {
+        duration: 5000,
+      });
+      this.show = false;
+      return false;
     }
     if (this.updateEventForm.valid) {
       this.show = true;
@@ -765,7 +767,6 @@ export class CopyEventComponent implements OnInit {
       if (eventEndDate && typeof eventEndDate === 'string') {
         eventEndDate = new Date(eventEndDate);
       }
-
       agendaStartDate.setDate(eventStartDate.getDate());
       agendaStartDate.setMonth(eventStartDate.getMonth());
       agendaStartDate.setFullYear(eventStartDate.getFullYear());
@@ -885,6 +886,10 @@ export class CopyEventComponent implements OnInit {
   }
   maxCDate() {
     let eventStartDate = this.updateEventForm.get(['startDate']).value;
+    if (!eventStartDate) {
+      this.snackBar.open('Event start date & time cannot be empty', 'Close', { duration: 2000 });
+      return null;
+    }
     this.closingDate = eventStartDate;
     this.regStartDate = eventStartDate;
 
@@ -945,7 +950,13 @@ export class CopyEventComponent implements OnInit {
     }
   }
   maxEDate() {
-    this.endingDate = this.updateEventForm.get(['endDate']).value;
+    const eventEndDate = this.updateEventForm.get(['endDate']).value;
+    if (!eventEndDate) {
+      this.snackBar.open('Event end time cannot be empty', 'Close', { duration: 2000 });
+      return null;
+    } else {
+      this.endingDate = eventEndDate;
+    }
   }
   maxRegDate() {
     this.regEndDate = this.updateEventForm.get(['registrationStartDate']).value;
