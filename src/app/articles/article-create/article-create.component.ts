@@ -53,9 +53,9 @@ export class ArticleCreateComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [true],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
 
@@ -240,17 +240,25 @@ export class ArticleCreateComponent implements OnInit {
     if (this.createArticleForm.valid) {
       const tags: any[] = [];
 
-      this.createArticleForm.value.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createArticleForm.value.tagList.length > 0) {
+        this.createArticleForm.value.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createArticleForm.controls['categoryId'].value;
+      if (this.createArticleForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
 
       const obj = {
-        categoryId: this.createArticleForm.controls['categoryId'].value,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,

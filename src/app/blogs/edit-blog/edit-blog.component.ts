@@ -72,8 +72,8 @@ export class EditBlogComponent implements OnInit {
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [false],
       expiryDate: ['', Validators.required],
@@ -420,11 +420,15 @@ export class EditBlogComponent implements OnInit {
         }
       });
       let catObj;
-      this.catagoryData.forEach((m) => {
-        if (this.createBlogForm.get(['categoryId']).value === m.id) {
-          catObj = m;
-        }
-      });
+      if (this.createBlogForm.controls['categoryId'].value === '0') {
+        catObj = null;
+      } else {
+        this.catagoryData.forEach((m) => {
+          if (this.createBlogForm.get(['categoryId']).value === m.id) {
+            catObj = m.id;
+          }
+        });
+      }
 
       const tags: any[] = [];
 
@@ -440,9 +444,10 @@ export class EditBlogComponent implements OnInit {
           }
         });
       });
+
       const dataObj = {
         longDescription: obj.longDescription,
-        categoryId: catObj.id,
+        categoryId: catObj,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: '',

@@ -21,14 +21,8 @@ export class NewsViewComponent implements OnInit {
   getBlogData(id) {
     this.service.getNewsById(id).subscribe((res) => {
       this.news = res.body;
-      if (res.body.categoryTypeId == null) {
-        this.news.categoryTypeId = {};
-        this.news.categoryTypeId.displayName = '';
-      }
+
       this.resourceTags = res.body.newsTags;
-      if (res.body.newsTags === []) {
-        this.resourceTags = [''];
-      }
     });
   }
   editcaseRoute() {

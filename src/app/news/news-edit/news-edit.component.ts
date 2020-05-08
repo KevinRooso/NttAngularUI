@@ -245,13 +245,16 @@ export class NewsEditComponent implements OnInit {
           }
         });
       });
-
       let catId;
-      this.allData.forEach((m) => {
-        if (m.displayName === this.updateNewsForm.controls['categoryTypeId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.updateNewsForm.controls['categoryTypeId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.updateNewsForm.controls['categoryTypeId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       const objData = {
         categoryTypeId: catId,

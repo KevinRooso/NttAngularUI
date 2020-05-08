@@ -63,8 +63,8 @@ export class CreateBlogComponent implements OnInit {
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [true],
       expiryDate: ['', Validators.required],
@@ -322,20 +322,28 @@ export class CreateBlogComponent implements OnInit {
       obj['thumbnailImageUrl'] = this.speakerImage;
 
       const tags: any[] = [];
-      obj.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createBlogForm.value.tagList.length > 0) {
+        obj.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createBlogForm.controls['categoryId'].value;
+      if (this.createBlogForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
 
       const dataObj = {
         customerProfile: '',
         detailImageUrl: '',
         downloadUrl: '',
-        categoryId: obj.categoryId.id,
+        categoryId: catId,
         draft: obj.isDraft,
         longDescription: obj.longDescription,
         person: {

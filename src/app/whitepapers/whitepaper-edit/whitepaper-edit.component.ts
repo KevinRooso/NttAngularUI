@@ -64,9 +64,9 @@ export class WhitepaperEditComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -270,8 +270,12 @@ export class WhitepaperEditComponent implements OnInit {
       this.updateWhitePaperForm.controls['title'].setValue(this.wPaperData.title);
       this.updateWhitePaperForm.controls['longDescription'].setValue(this.wPaperData.longDescription);
       this.updateWhitePaperForm.controls['shortDescription'].setValue(this.wPaperData.shortDescription);
-      this.updateWhitePaperForm.controls['categoryId'].setValue(this.wPaperData.category.displayName);
-      this.updateWhitePaperForm.controls['tagList'].setValue(this.wPaperData.resourceTags.name);
+      if (this.wPaperData.category !== null) {
+        this.updateWhitePaperForm.controls['categoryId'].setValue(this.wPaperData.category.displayName);
+      }
+      if (this.wPaperData.resourceTags.length > 0) {
+        this.updateWhitePaperForm.controls['tagList'].setValue(this.wPaperData.resourceTags.name);
+      }
       this.updateWhitePaperForm.controls['draft'].setValue(this.wPaperData.isDraft);
       this.selected4 = [];
       for (let i = 0; i < res.body.resourceTags.length; i++) {
@@ -333,11 +337,15 @@ export class WhitepaperEditComponent implements OnInit {
         });
       });
       let catId;
-      this.allData.forEach((m) => {
-        if (m.displayName === this.updateWhitePaperForm.controls['categoryId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.updateWhitePaperForm.controls['categoryId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.updateWhitePaperForm.controls['categoryId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       // let userId;
       // this.userList.forEach(m=>{

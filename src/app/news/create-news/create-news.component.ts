@@ -178,17 +178,24 @@ export class CreateNewsComponent implements OnInit {
     this.submitted = true;
     if (this.createNewsForm.valid) {
       const tags: any[] = [];
-      this.createNewsForm.value.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createNewsForm.value.tagList.length > 0) {
+        this.createNewsForm.value.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+      let catId;
+      catId = this.createNewsForm.controls['categoryTypeId'].value;
+      if (this.createNewsForm.controls['categoryTypeId'].value === '0') {
+        catId = null;
+      }
 
       const objData = {
-        categoryTypeId: this.createNewsForm.controls['categoryTypeId'].value,
+        categoryTypeId: catId,
         title: this.createNewsForm.controls['title'].value,
         topic: this.createNewsForm.controls['topic'].value,
         shortDescription: this.createNewsForm.controls['shortDescription'].value,

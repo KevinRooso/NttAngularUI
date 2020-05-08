@@ -117,11 +117,11 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId" [(value)]="selected3">
+              <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of catagoryData" [value]="category.id">
                 {{ category.name }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Category is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -132,7 +132,6 @@
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
               <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{ tag.name }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
         </div>
 
