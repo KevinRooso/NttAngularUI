@@ -1,5 +1,5 @@
 .cloud-card {
-  background-color: #377afe;
+  background-color: #03c;
 
   /* height: 100%; */
   height: 210px;
@@ -38,12 +38,12 @@
 
 .card-display {
   font-size: 18px;
-  height: 58px;
+  height: 57px;
   overflow: hidden;
 }
 
 .card-description {
-  font-size: 14px;
+  font-size: 13px;
   height: 60px;
   overflow: hidden;
 }

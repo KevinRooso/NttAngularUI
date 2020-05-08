@@ -218,7 +218,7 @@
             <p>{{ result1 }}</p>
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
