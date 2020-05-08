@@ -13,10 +13,6 @@
   position: relative;
 }
 
-.btn {
-  border-radius: 20px !important;
-}
-
 .btn-class {
   background-color: blue;
   border-radius: 50%;
@@ -31,4 +27,9 @@
 
 .event-card-body-footer {
   padding: 10px 20px;
+}
+
+.example-button-row button {
+  display: table-cell;
+  margin-right: 8px;
 }

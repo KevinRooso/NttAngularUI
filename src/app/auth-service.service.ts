@@ -210,4 +210,8 @@ export class AuthServiceService {
   getProductAndService(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/productAndServices?id=' + id, { headers: this.headers });
   }
+
+  deleteService(id): Observable<any> {
+    return this.http.delete<any>(this.url + 'api/admin/productAndServices?id=' + id, { headers: this.headers });
+  }
 }

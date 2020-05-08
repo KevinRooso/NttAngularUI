@@ -100,4 +100,9 @@ export class ListCloudServicesComponent implements OnInit {
     };
     this.router.navigate(['cloud-service-form'], navigationExtras);
   }
+  deleteData(data){
+      this.service.deleteService(data.id).subscribe(_res=>{
+        this.serviceData=this.serviceData.filter(m=>m.id !== data.id);
+      })
+  }
 }

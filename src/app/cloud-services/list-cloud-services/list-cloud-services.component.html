@@ -14,16 +14,22 @@
 <ng-container *ngIf="!detailPage">
   <section class="section-tours">
     <div class="row" style="padding: 0.5rem 1rem;">
-      <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" (click)="getDetailData(data)">
+      <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" >
+       <div (click)="getDetailData(data)">
         <div class="px-2" style="align-content: centre; height: 75px;">
           <h3 class="wht-color">{{ data.displayName }}</h3>
         </div>
         <div class="px-2" style="align-content: centre; height: 75px;">
           <p [innerHTML]="data.shortInformation" class="wht-color"></p>
         </div>
-        <div class="text-center">
-          <button mat-button (click)="editForm(data)" class="wht-color"><u>Edit</u></button>
+      </div>
+      <div class="example-button-row">
+          <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data)" >Edit</button>
+          <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="deleteData(data)" *ngIf="data.chlidList.length == 0">Delete</button>
         </div>
+        <!-- <div class="text-center">
+          <button mat-button  class="wht-color"><u>Delete</u></button>
+        </div> -->
       </mat-card>
       <mat-card class="p-0 m-3 cloud-card" style="height: 234px;" (click)="openSubmitModel()">
         <img mat-card-image class="mt-2" src="../../../assets/AddButt-butt-715x715.png" />
