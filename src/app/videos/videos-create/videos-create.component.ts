@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-videos-create',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class VideosCreateComponent implements OnInit {
   speakerImage: any;
+  submitBtnCaption = 'Submit';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,8 +50,8 @@ export class VideosCreateComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       // person: ['',Validators.required],
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],
@@ -268,5 +270,12 @@ export class VideosCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

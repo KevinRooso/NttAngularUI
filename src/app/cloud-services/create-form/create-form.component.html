@@ -15,7 +15,7 @@
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center" style="margin-bottom: 51px;">
-        <p class="heading-secondary">{{pageTitle}}</p>
+        <p class="heading-secondary">{{ pageTitle }}</p>
       </div>
 
       <form [formGroup]="productServicesForm">
@@ -23,7 +23,7 @@
           <label class="col-sm-3 col-form-label">Title <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="displayName" value="" />
-             <mat-error *ngIf="checkError('displayName', 'required')">(Title is required)</mat-error>
+            <mat-error *ngIf="checkError('displayName', 'required')">(Title is required)</mat-error>
           </mat-form-field>
         </div>
 
@@ -31,36 +31,38 @@
           <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Description" formControlName="shortInformation" value="" />
-             <mat-error *ngIf="checkError('shortInformation', 'required')">(Name is required)</mat-error>
+            <mat-error *ngIf="checkError('shortInformation', 'required')">(Name is required)</mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Category
+          <label class="col-sm-3 col-form-label"
+            >Category
             <i
-            class="fa fa-info-circle"
-            aria-hidden="true"
-            matTooltip="Once the Product And Service added in Category it Can not be removed"
-            matTooltipPosition="right"
-            matTooltipClass="custom-tooltip"
-            style="font-size: 18px;"
-          >
-          </i>
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="Once the Product And Service added in Category it Can not be removed"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
           </label>
           <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isCategory">Category</mat-slide-toggle>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Last Service
+          <label class="col-sm-3 col-form-label"
+            >Last Service
             <i
-            class="fa fa-info-circle"
-            aria-hidden="true"
-            matTooltip="if the Option is toggled to true it will be your last Detail page"
-            matTooltipPosition="right"
-            matTooltipClass="custom-tooltip"
-            style="font-size: 18px;"
-          >
-        </i>
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="if the Option is toggled to true it will be your last Detail page"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
           </label>
           <mat-slide-toggle class="example-full-width col-sm-9" [ngModelOptions]="{ standalone: true }" [(ngModel)]="changeFlag"
             >Last Service</mat-slide-toggle
@@ -68,8 +70,6 @@
         </div>
 
         <ng-container *ngIf="changeFlag">
-
-
           <div class="form-row">
             <label class="col-sm-3 col-form-label">Detail</label>
             <div class="col-sm-9">
@@ -94,7 +94,11 @@
           <div class="form-row">
             <label class="col-sm-3 col-form-label">NTT Differentiator</label>
             <div class="col-sm-9">
-              <ckeditor placeholder="NTT Differentiator" formControlName="differentiator" class="example-full-width col-sm-9 p-0"></ckeditor>
+              <ckeditor
+                placeholder="NTT Differentiator"
+                formControlName="differentiator"
+                class="example-full-width col-sm-9 p-0"
+              ></ckeditor>
             </div>
           </div>
 
@@ -126,22 +130,18 @@
               </div>
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+              <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
                 Upload File
               </button>
             </div>
 
-            <div class="form-row">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-9">
-                <div class="image-preview mb-3" *ngIf="previewUrl">
-                  <img [src]="previewUrl" height="200" />
-                </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+              <div class="image-preview mb-3" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="200" />
               </div>
             </div>
           </div>
-
-
         </ng-container>
         <div class="text-right">
           <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit Details</button>

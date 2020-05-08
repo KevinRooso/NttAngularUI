@@ -36,6 +36,7 @@ export class ArticleCreateComponent implements OnInit {
   image1button = false;
   image2button = false;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Submit';
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -47,8 +48,8 @@ export class ArticleCreateComponent implements OnInit {
   ngOnInit(): void {
     this.createArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, textValidation]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [true],
@@ -308,5 +309,13 @@ export class ArticleCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft() {
+    if (this.createArticleForm.controls['draft'].value === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

@@ -51,7 +51,7 @@
             <div *ngIf="checkError('topic', 'required', true)" style="color: red; font-size: 12px;">
               (Topic is required)
             </div>
-            <div *ngIf="checkError('topic', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('topic', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Topic should be upto 100 characters)
             </div>
           </div>
@@ -75,8 +75,8 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Long Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Long Description should be upto 700 characters)
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
+              (Description should be upto 700 characters)
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Short Description should be upto 100 characters)
             </div>
           </div>
@@ -121,9 +121,37 @@
             <div *ngIf="checkError('about', 'required', true)" style="color: red; font-size: 12px;">
               (About is required)
             </div>
-            <div *ngIf="checkError('about', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('about', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (About should be upto 200 characters)
             </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Category</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="categoryTypeId">
+              <mat-option *ngFor="let category of allData" [value]="category.id">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Tags </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Tags</mat-label>
+            <mat-select multiple formControlName="tagList">
+              <mat-option *ngFor="let tag of tagData" [value]="tag">{{ tag.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button type="button" class="btn btn-success button-2 action-good" data-toggle="modal" data-target="#tagModal1">
+              Add Tags
+            </button>
           </div>
         </div>
         <!-- <div class="form-row">
@@ -212,7 +240,7 @@
             >
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
@@ -229,13 +257,46 @@
         </div>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="draft">Draft</mat-slide-toggle>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="OnDraft($event)" formControlName="draft">Draft</mat-slide-toggle>
         </div>
 
         <div class="text-right">
-          <button type="submit" (click)="generateNews()" class="btn button-1 action-good">Submit Details</button>
+          <button type="submit" (click)="generateNews()" class="btn button-1 action-good">{{ submitBtnCaption }} Details</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addTagForm">
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Name</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Tag Name" formControlName="name" />
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Tag Keyword</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Keyword Name" formControlName="keywords" />
+            </mat-form-field>
+          </div>
+
+          <div class="text-right">
+            <button class="btn button-1 action-good" (click)="createTag()">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

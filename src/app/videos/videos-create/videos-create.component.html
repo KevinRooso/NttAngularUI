@@ -52,8 +52,8 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Long Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Long Description should be upto 700 characters)
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
+              (Description should be upto 700 characters)
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Short Description should be upto 80 characters)
             </div>
           </div>
@@ -175,7 +175,7 @@
             >
           </div>
           <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
@@ -193,11 +193,11 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="draft">Draft</mat-slide-toggle>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="OnDraft($event)" formControlName="draft">Draft</mat-slide-toggle>
         </div>
 
         <div class="text-right">
-          <button type="submit" (click)="generateBlog()" class="btn button-1 action-good">Submit Details</button>
+          <button type="submit" (click)="generateBlog()" class="btn button-1 action-good">{{ submitBtnCaption }} Details</button>
         </div>
       </form>
     </div>

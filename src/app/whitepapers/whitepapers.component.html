@@ -57,14 +57,16 @@
       <p class="whitepaper-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
     </mat-card>
   </div> -->
-  <div class="row ml-1">
-    <mat-card class="p-0 m-4 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
-      <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
-      <p class="article-title pb-0">
-        <b>{{ card.title | slice: 0:40 }}</b>
-      </p>
-      <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
-    </mat-card>
+  <div class="container">
+    <div class="row ml-1">
+      <mat-card class="p-0 m-3 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
+        <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
+        <p class="article-title pb-0">
+          <b>{{ card.title | slice: 0:40 }}</b>
+        </p>
+        <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
+      </mat-card>
+    </div>
   </div>
   <div class="text-center">
     <span *ngIf="filterBlogs?.length == 0">

@@ -36,14 +36,14 @@ export class CaseStudiesComponent implements OnInit {
     });
   }
   getTags() {
-      let respoTagList: any[] = [];
-      this.caseStudies.forEach(m=>{
-        if(m !== null){
-        respoTagList= respoTagList.concat(m.resourceTags);
-        }
-      })
-      respoTagList=respoTagList.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
-      this.tags=respoTagList;
+    let respoTagList: any[] = [];
+    this.caseStudies.forEach((m) => {
+      if (m !== null) {
+        respoTagList = respoTagList.concat(m.resourceTags);
+      }
+    });
+    respoTagList = respoTagList.filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
+    this.tags = respoTagList;
   }
   viewCases(id) {
     this.router.navigate(['view-cases'], { queryParams: { page: id } });

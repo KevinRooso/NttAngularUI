@@ -21,8 +21,6 @@ export class VideosPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVideos();
-
-
   }
 
   getAllVideos() {
