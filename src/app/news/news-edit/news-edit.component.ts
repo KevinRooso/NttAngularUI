@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +15,8 @@ export class NewsEditComponent implements OnInit {
   speakerImage = '';
   newsData: any;
   submitBtnCaption = 'Publish';
+  allData: any;
+  selected4: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,6 +27,8 @@ export class NewsEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {}
   updateNewsForm: FormGroup;
+  addTagForm: FormGroup;
+  @ViewChild('closeModel', { static: true }) closeModel;
   // personForm:FormGroup;
   fileData: File = null;
   previewUrl: any = null;
@@ -56,6 +60,8 @@ export class NewsEditComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       draft: [false],
       expiryDate: ['', Validators.required],
+      categoryTypeId: [''],
+      tagList: [''],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -66,7 +72,11 @@ export class NewsEditComponent implements OnInit {
         return this.updateNewsForm.controls[controlName].hasError(errorName);
       }
     };
-    this.getUserList();
+    this.addTagForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      keywords: ['', Validators.required],
+    });
+
     this.actRoute.queryParams.subscribe((params) => {
       this.newsId = params.page;
       this.getNewsVideoById(params.page);
@@ -82,9 +92,24 @@ export class NewsEditComponent implements OnInit {
       }
     });
   }
+  getTagsDetails() {
+    this.service.getTagsList().subscribe((res) => {
+      this.tagData = res.body;
+    });
+  }
+  getCategoryDetails() {
+    this.service.getCategoryList().subscribe((res) => {
+      this.allData = res.body;
+    });
+  }
   getNewsVideoById(id) {
     this.service.getNewsById(id).subscribe((res) => {
       this.newsData = res.body;
+
+      for (let i = 0; i < res.body.newsTags.length; i++) {
+        this.selected4.push(res.body.newsTags[i].id);
+      }
+
       const url1 = this.newsData.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
 
@@ -98,6 +123,9 @@ export class NewsEditComponent implements OnInit {
       this.updateNewsForm.get(['location']).setValue(res.body.location);
       this.updateNewsForm.get(['about']).setValue(res.body.about);
       this.updateNewsForm.get(['draft']).setValue(res.body.draft);
+      if (res.body.categoryTypeId) {
+        this.updateNewsForm.get(['categoryTypeId']).setValue(res.body.categoryTypeId.displayName);
+      }
       if (res.body.targetUserType != null) {
         this.updateNewsForm.get(['targetUserType']).setValue(res.body.targetUserType.displayName);
       }
@@ -111,6 +139,11 @@ export class NewsEditComponent implements OnInit {
         this.selected3 = res.body.targetUserType.id;
       }
       this.image1button = true;
+
+      this.setDraftCaption(res.body.draft);
+      this.getCategoryDetails();
+      this.getTagsDetails();
+      this.getUserList();
     });
   }
   fileProgress(fileInput: any) {
@@ -199,7 +232,29 @@ export class NewsEditComponent implements OnInit {
         }
       });
 
+      const tags: any[] = [];
+      this.tagData.forEach((m) => {
+        this.updateNewsForm.value.tagList.forEach((n) => {
+          if (n === m.id) {
+            const tag = {
+              id: m.id,
+              keywords: m.keywords,
+              name: m.name,
+            };
+            tags.push(tag);
+          }
+        });
+      });
+
+      let catId;
+      this.allData.forEach((m) => {
+        if (m.displayName === this.updateNewsForm.controls['categoryTypeId'].value) {
+          catId = m.id;
+        }
+      });
+
       const objData = {
+        categoryTypeId: catId,
         title: this.updateNewsForm.controls['title'].value,
         topic: this.updateNewsForm.controls['topic'].value,
         shortDescription: this.updateNewsForm.controls['shortDescription'].value,
@@ -207,7 +262,7 @@ export class NewsEditComponent implements OnInit {
         location: this.updateNewsForm.controls['location'].value,
         about: this.updateNewsForm.controls['about'].value,
         active: false,
-        tagList: [],
+        tagList: tags,
         draft: this.updateNewsForm.controls['draft'].value,
         thumbnailImageUrl: this.articleImage,
         id: this.newsId,
@@ -229,6 +284,24 @@ export class NewsEditComponent implements OnInit {
     } else {
       this.show = false;
       this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
+    }
+  }
+  createTag() {
+    if (this.addTagForm.valid) {
+      let flag = true;
+      this.tagData.forEach((m) => {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
+          flag = false;
+        }
+      });
+      const obj = this.addTagForm.value;
+      if (flag) {
+        obj['id'] = 0;
+        this.tagData.unshift(obj);
+        this.closeModel.nativeElement.click();
+      } else {
+        alert('Tag Already Exist');
+      }
     }
   }
   BackMe() {
