@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { textValidation } from 'src/app/validators/general-validators';
 })
 export class CreateNewsComponent implements OnInit {
   createNewsForm: FormGroup;
+  addTagForm: FormGroup;
   speakerImage = '';
   articleImage: any;
   checkError: any;
@@ -30,6 +31,8 @@ export class CreateNewsComponent implements OnInit {
 
   today = new Date();
   submitBtnCaption = 'Submit';
+  allData: any;
+  @ViewChild('closeModel', { static: true }) closeModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +55,8 @@ export class CreateNewsComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       draft: [true],
       expiryDate: ['', Validators.required],
+      categoryTypeId: [''],
+      tagList: [''],
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -63,7 +68,13 @@ export class CreateNewsComponent implements OnInit {
         return this.createNewsForm.controls[controlName].hasError(errorName);
       }
     };
+    this.addTagForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      keywords: ['', Validators.required],
+    });
     this.getUserList();
+    this.getCategoryDetails();
+    this.getTagsDetails();
   }
 
   // fileProgress(fileInput: any) {
@@ -146,6 +157,16 @@ export class CreateNewsComponent implements OnInit {
       }
     });
   }
+  getTagsDetails() {
+    this.authService.getTagsList().subscribe((res) => {
+      this.tagData = res.body;
+    });
+  }
+  getCategoryDetails() {
+    this.authService.getCategoryList().subscribe((res) => {
+      this.allData = res.body;
+    });
+  }
   generateNews() {
     this.show = true;
     this.submitted = true;
@@ -156,7 +177,18 @@ export class CreateNewsComponent implements OnInit {
     }
     this.submitted = true;
     if (this.createNewsForm.valid) {
+      const tags: any[] = [];
+      this.createNewsForm.value.tagList.forEach((m) => {
+        const tag = {
+          id: m.id,
+          keywords: m.keywords,
+          name: m.name,
+        };
+        tags.push(tag);
+      });
+
       const objData = {
+        categoryTypeId: this.createNewsForm.controls['categoryTypeId'].value,
         title: this.createNewsForm.controls['title'].value,
         topic: this.createNewsForm.controls['topic'].value,
         shortDescription: this.createNewsForm.controls['shortDescription'].value,
@@ -164,7 +196,7 @@ export class CreateNewsComponent implements OnInit {
         location: this.createNewsForm.controls['location'].value,
         about: this.createNewsForm.controls['about'].value,
         active: false,
-        tagList: [],
+        tagList: tags,
         targetUserType: this.createNewsForm.controls['targetUserType'].value,
         draft: this.createNewsForm.controls['draft'].value,
         thumbnailImageUrl: this.articleImage,
@@ -186,6 +218,24 @@ export class CreateNewsComponent implements OnInit {
     } else {
       this.show = false;
       this.snackBar.open('Please fill all mandatory field', 'Close', { duration: 5000 });
+    }
+  }
+  createTag() {
+    if (this.addTagForm.valid) {
+      let flag = true;
+      this.tagData.forEach((m) => {
+        if (m.name.toUpperCase() === this.addTagForm.get(['name']).value.toUpperCase()) {
+          flag = false;
+        }
+      });
+      const obj = this.addTagForm.value;
+      if (flag) {
+        obj['id'] = 0;
+        this.tagData.unshift(obj);
+        this.closeModel.nativeElement.click();
+      } else {
+        alert('Tag Already Exist');
+      }
     }
   }
   BackMe() {

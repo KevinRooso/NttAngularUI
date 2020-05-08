@@ -8,6 +8,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./news-view.component.css'],
 })
 export class NewsViewComponent implements OnInit {
+  resourceTags: any;
   constructor(private actRoute: ActivatedRoute, private service: AuthServiceService, private route: Router) {}
   news;
   newsId;
@@ -20,6 +21,14 @@ export class NewsViewComponent implements OnInit {
   getBlogData(id) {
     this.service.getNewsById(id).subscribe((res) => {
       this.news = res.body;
+      if (res.body.categoryTypeId == null) {
+        this.news.categoryTypeId = {};
+        this.news.categoryTypeId.displayName = '';
+      }
+      this.resourceTags = res.body.newsTags;
+      if (res.body.newsTags === []) {
+        this.resourceTags = [''];
+      }
     });
   }
   editcaseRoute() {
