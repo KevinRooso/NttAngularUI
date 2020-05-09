@@ -404,10 +404,10 @@ export class EditBlogComponent implements OnInit {
       return false;
     }
     const obj = this.createBlogForm.value;
-    if (this.createBlogForm.value.tagList.length === 0) {
-      this.createBlogForm.controls['tagList'].setValidators(null);
-      this.createBlogForm.controls['tagList'].updateValueAndValidity();
-    }
+    // if (this.createBlogForm.value.tagList.length === 0) {
+    //   this.createBlogForm.controls['tagList'].setValidators(null);
+    //   this.createBlogForm.controls['tagList'].updateValueAndValidity();
+    // }
     this.submitted = true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;

@@ -109,7 +109,7 @@
               <span style="font-weight: 500;">Category : </span>
               {{ getEventDetails.categoryTypeId.displayName }}
             </p>
-            <p class="card-text mb-0" style="font-weight: 500;">
+            <p class="card-text mb-0" style="font-weight: 500;" *ngIf="getEventDetails.tags.length > 0">
               Tags :
               <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
             </p>
