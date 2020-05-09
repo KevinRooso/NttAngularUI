@@ -96,7 +96,7 @@ export class CopyEventComponent implements OnInit {
       address1: ['', Validators.required],
       address2: [''],
       city: ['', Validators.required],
-      tagList: ['', Validators.required],
+      tagList: [''],
       premise: [''],
       webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       targetUserType: ['', Validators.required],
@@ -117,7 +117,7 @@ export class CopyEventComponent implements OnInit {
       fullName: [''],
       name: [''],
       isDraft: [],
-      categoryTypeId: ['', Validators.required],
+      categoryTypeId: [''],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -257,7 +257,9 @@ export class CopyEventComponent implements OnInit {
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
-      this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+      if (this.updateEventForm.controls['categoryTypeId'] !== null) {
+        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+      }
       this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
@@ -597,10 +599,10 @@ export class CopyEventComponent implements OnInit {
       this.show = false;
       return false;
     }
-    if (this.updateEventForm.value.tagList.length === 0) {
-      this.updateEventForm.controls['tagList'].setValidators(Validators.required);
-      this.updateEventForm.controls['tagList'].updateValueAndValidity();
-    }
+    // if (this.updateEventForm.value.tagList.length === 0) {
+    //   this.updateEventForm.controls['tagList'].setValidators(Validators.required);
+    //   this.updateEventForm.controls['tagList'].updateValueAndValidity();
+    // }
     if (this.agendaData.length === 0) {
       this.snackBar.open('Please fill Agenda', 'Close', {
         duration: 5000,
@@ -633,11 +635,15 @@ export class CopyEventComponent implements OnInit {
       schedule.push(scheduling);
       let catId;
 
-      this.allData.forEach((m) => {
-        if (m.displayName === this.updateEventForm.controls['categoryTypeId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.updateEventForm.controls['categoryTypeId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.updateEventForm.controls['categoryTypeId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       let userId;
       this.userList.forEach((m) => {

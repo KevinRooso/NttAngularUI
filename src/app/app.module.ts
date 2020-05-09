@@ -90,6 +90,11 @@ import { HttpErrorInterceptor } from '../services/http-error.interceptor';
 import { RollbarErrorHandlerService } from '../services/rollbar-error-handler.service';
 import { RollbarService, RollbarFactory } from '../config/rollbar.config';
 import { BannerUiComponent } from './home-Configuration/banner-ui/banner-ui.component';
+import { JoineeDataComponent } from './lead-generation/joinee-data/joinee-data.component';
+import { InviteesDataComponent } from './lead-generation/invitees-data/invitees-data.component';
+import { EventDataComponent } from './lead-generation/event-data/event-data.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -147,6 +152,9 @@ import { BannerUiComponent } from './home-Configuration/banner-ui/banner-ui.comp
     ListCloudServicesComponent,
     CreateFormComponent,
     BannerUiComponent,
+    JoineeDataComponent,
+    InviteesDataComponent,
+    EventDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -183,6 +191,8 @@ import { BannerUiComponent } from './home-Configuration/banner-ui/banner-ui.comp
     MatBadgeModule,
     CKEditorModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     HttpClientModule,

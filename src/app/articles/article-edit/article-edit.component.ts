@@ -63,9 +63,9 @@ export class ArticleEditComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -128,8 +128,12 @@ export class ArticleEditComponent implements OnInit {
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
       this.EditArticleForm.controls['shortDescription'].setValue(this.articleData.shortDescription);
-      this.EditArticleForm.controls['categoryId'].setValue(this.articleData.category.displayName);
-      this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
+      if (this.articleData.category !== null) {
+        this.EditArticleForm.controls['categoryId'].setValue(this.articleData.category.displayName);
+      }
+      if (this.articleData.resourceTags.length > 0) {
+        this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
+      }
       this.EditArticleForm.controls['draft'].setValue(this.articleData.isDraft);
       this.selected4 = [];
 
@@ -329,11 +333,15 @@ export class ArticleEditComponent implements OnInit {
         });
       });
       let catId;
-      this.allData.forEach((m) => {
-        if (m.displayName === this.EditArticleForm.controls['categoryId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.EditArticleForm.controls['categoryId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.EditArticleForm.controls['categoryId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       // let userId;
       // this.userList.forEach(m=>{

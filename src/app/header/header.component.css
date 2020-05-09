@@ -87,3 +87,12 @@ a:hover {
 .user-footer {
   background-color: #f9f9f9;
 }
+
+ul {
+  margin-bottom: 1px;
+  margin-top: 1px;
+}
+
+ul.nav li.dropdown:hover ul.dropdown-menu {
+  display: block;
+}

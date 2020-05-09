@@ -132,6 +132,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId">
+              <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
                 {{ category.name }}
               </mat-option>

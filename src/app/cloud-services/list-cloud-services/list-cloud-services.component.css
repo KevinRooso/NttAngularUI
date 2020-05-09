@@ -78,6 +78,11 @@
   padding: 10px 20px;
 }
 
+.example-button-row button {
+  display: table-cell;
+  margin-right: 8px;
+}
+
 .card-display {
   font-size: 18px;
   height: 57px;

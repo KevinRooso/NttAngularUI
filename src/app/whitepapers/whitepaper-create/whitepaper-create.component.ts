@@ -54,9 +54,9 @@ export class WhitepaperCreateComponent implements OnInit {
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [true],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
 
@@ -223,17 +223,24 @@ export class WhitepaperCreateComponent implements OnInit {
     if (this.createWhitePaperForm.valid) {
       const tags: any[] = [];
 
-      this.createWhitePaperForm.value.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createWhitePaperForm.value.tagList.length > 0) {
+        this.createWhitePaperForm.value.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
 
+      let catId;
+      catId = this.createWhitePaperForm.controls['categoryId'].value;
+      if (this.createWhitePaperForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
       const obj = {
-        categoryId: this.createWhitePaperForm.controls['categoryId'].value,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,

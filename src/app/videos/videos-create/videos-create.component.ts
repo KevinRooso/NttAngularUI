@@ -53,8 +53,8 @@ export class VideosCreateComponent implements OnInit {
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       // person: ['',Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       draft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
@@ -204,18 +204,26 @@ export class VideosCreateComponent implements OnInit {
 
       const tags: any[] = [];
 
-      obj.tagList.forEach((m) => {
-        const tag = {
-          id: 0,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createVideoForm.value.tagList.length > 0) {
+        obj.tagList.forEach((m) => {
+          const tag = {
+            id: 0,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createVideoForm.controls['categoryId'].value;
+      if (this.createVideoForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
 
       const dataObj = {
         longDescription: obj.longDescription,
-        categoryId: obj.categoryId,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
