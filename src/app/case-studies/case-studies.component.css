@@ -75,6 +75,18 @@ p {
 }
 
 .card-height {
-  max-width: 480px;
   max-height: 162px;
+  max-width: 480px;
+}
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
 }

@@ -17,6 +17,10 @@ export class VideosPreviewComponent implements OnInit {
   searchBlog = '';
   categoryList: any[] = [];
   cat = 'cat';
+  publishList: any[] = [];
+  draftList: any[] = [];
+  publishList1: any[] = [];
+  draftList1: any[] = [];
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -31,6 +35,15 @@ export class VideosPreviewComponent implements OnInit {
       this.blogs = res.body;
       this.searchFilterData = res.body;
       this.getAllCategory();
+
+      this.publishList = this.videoList.filter((a) => {
+        return a.isPublish;
+      });
+      this.publishList1 = this.publishList;
+      this.draftList = this.videoList.filter((a) => {
+        return !a.isPublish && a.isDraft;
+      });
+      this.draftList1 = this.draftList;
     });
   }
   getDetails(id) {
@@ -66,7 +79,13 @@ export class VideosPreviewComponent implements OnInit {
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    this.filterBlogs = this.searchFilterData.filter((m) => {
+    this.publishList = this.publishList.filter((m) => {
+      // alert(m.title.toUpperCase());
+      // alert(this.searchBlog.toUpperCase());
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       // alert(m.title.toUpperCase());
       // alert(this.searchBlog.toUpperCase());
       const titleData = m.title.toUpperCase();
@@ -74,6 +93,7 @@ export class VideosPreviewComponent implements OnInit {
     });
   }
   cancel() {
-    this.filterBlogs = this.blogs;
+    this.publishList = this.publishList1;
+    this.draftList = this.draftList1;
   }
 }

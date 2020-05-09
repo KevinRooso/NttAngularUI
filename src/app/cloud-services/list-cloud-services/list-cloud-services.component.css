@@ -1,3 +1,45 @@
+.edit .btn {
+  background: #03c;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.275);
+  color: #fff;
+  font-size: 1.5em;
+  height: 50px;
+  outline: none;
+  position: absolute;
+  width: 50px;
+
+  /* top: 2%;
+  left: 90%; */
+  z-index: 1;
+}
+
+.edit .btn:hover {
+  background: #324da1;
+}
+
+/* .table-user-information > tbody > tr {
+  border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+  border-top: 0;
+}
+
+.table-user-information > tbody > tr > td {
+  border-top: 0;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.table-user-information > tbody > tr > td:first-child {
+  font-weight: 500;
+  width: 24.4%;
+} */
+
 .cloud-card {
   background-color: #03c;
 
@@ -16,9 +58,9 @@
   position: relative;
 }
 
-.btn {
+/* .btn {
   border-radius: 20px !important;
-}
+} */
 
 .btn-class {
   background-color: blue;
@@ -46,4 +88,30 @@
   font-size: 13px;
   height: 60px;
   overflow: hidden;
+}
+
+/* .btn {
+  background: #03c;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.275);
+  color: #fff;
+  font-size: 1.5em;
+  height: 50px;
+  left: 90%;
+  outline: none;
+  position: absolute;
+  top: 2%;
+  width: 50px;
+  z-index: 1;
+}
+
+.btn:hover {
+  background: #324da1;
+} */
+
+.preview-card {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }

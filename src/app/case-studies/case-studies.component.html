@@ -1,11 +1,11 @@
 <div class="container">
   <div>
-    <ul class="breadcrumb">
+    <ul class="breadcrumb pl-0">
       <li><a routerLink="/home">Home</a></li>
       <li><a class="active">Case Studies</a></li>
     </ul>
   </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
     <button
       class="navbar-toggler"
       type="button"
@@ -19,7 +19,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a routerLink="/create-cases"
-        ><button type="button" class="btn button-1 action-good" style="font-size: 13px;">
+        ><button type="button" class="btn button-1 action-good">
           Create Case Study
         </button></a
       >
@@ -56,7 +56,7 @@
     </div>
   </nav>
 </div>
-<section class="blog pr-3">
+<section class="blog pt-3">
   <!-- <div class="text-center">
     <p class="heading-secondary py-4">
 Case Studies
@@ -64,16 +64,11 @@ Case Studies
     </div> -->
   <!-- <div class="container-fluid"> -->
   <div class="container">
-    <div class="row ml-2">
+    <!-- <div class="row ml-2">
       <div class="col-sm-6" *ngFor="let cases of filterCases">
         <div class="card mb-3 card-height" (click)="viewCases(cases.id)">
           <div class="row no-gutters">
             <div class="col-md-5">
-              <!-- <svg class="bd-placeholder-img" width="100%" height="160px"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="Placeholder: Image"
-            role="img">
-          </svg> -->
               <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
             </div>
             <div class="col-md-6">
@@ -89,29 +84,91 @@ Case Studies
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- <div class="row">
-    <div class="col-md-6 pr-0" *ngFor="let cases of filterCases">
-      <div class="category-list-card" (click)="viewCases(cases.id)">
-        <div class="d-inline">
-          <img [src]="cases.thumbnailImageUrl" class="category-image" />
-        </div>
-        <div class="category-name">
-          <div class="case-title">
-            <h3>{{ cases.title | slice: 0:40 }}</h3>
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card" *ngIf="publishedList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingOne">
+          <a
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            class="d-block"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i>Published
+          </a>
+        </h5>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body pt-1 m-2">
+            <h2></h2>
+            <div class="row">
+              <div class="col-sm-6" *ngFor="let cases of publishedList">
+                <div class="card mb-4 card-height" (click)="viewCases(cases.id)">
+                  <div class="row no-gutters">
+                    <div class="col-md-5">
+                      <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <div class="category-name">
+                          <div class="case-title">
+                            <h3>{{ cases.title | slice: 0:40 }}</h3>
+                          </div>
+                          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
+        </div>
+      </div>
+      <div class="card" *ngIf="draftList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingThree">
+          <a
+            class="collapsed d-block"
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i> Drafted
+          </a>
+        </h5>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body pt-1 m-2">
+            <div class="row">
+              <div class="col-sm-6" *ngFor="let cases of draftList">
+                <div class="card mb-3 card-height" (click)="viewCases(cases.id)">
+                  <div class="row no-gutters">
+                    <div class="col-md-5">
+                      <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <div class="category-name">
+                          <div class="case-title">
+                            <h3>{{ cases.title | slice: 0:40 }}</h3>
+                          </div>
+                          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div> -->
-  </div>
-  <!-- </div> -->
-  <div class="text-center">
-    <span *ngIf="filterCases?.length == 0">
-      <i class="fa fa-database" aria-hidden="true"></i>
-      No Data Available
-    </span>
   </div>
 </section>

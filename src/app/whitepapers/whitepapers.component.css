@@ -47,3 +47,15 @@
 
   width: 292px;
 }
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
+}
