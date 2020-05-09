@@ -64,25 +64,24 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Category </label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId">
+              <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
                 {{ category.name }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Tags </label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
               <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{ tag.name }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
         </div>
 
