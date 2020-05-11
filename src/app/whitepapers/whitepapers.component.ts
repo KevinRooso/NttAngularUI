@@ -16,6 +16,10 @@ export class WhitepapersComponent implements OnInit {
   searchBlog = '';
   categoryList: any[] = [];
   cat = '';
+  publishedList: any[] = [];
+  draftList: any[] = [];
+  publishedList1: any[] = [];
+  draftList1: any[] = [];
 
   constructor(private authService: AuthServiceService, private router: Router, private location: Location) {}
 
@@ -25,10 +29,19 @@ export class WhitepapersComponent implements OnInit {
   getAllArticleList() {
     this.authService.getAllWhitepaper().subscribe((res) => {
       this.whitePaperList = res.body;
+
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.getAllCategory();
       this.searchFilterData = res.body;
+      this.publishedList = this.whitePaperList.filter((m) => {
+        return m.isPublish;
+      });
+      this.publishedList1 = this.publishedList;
+      this.draftList = this.whitePaperList.filter((m) => {
+        return !m.isPublish && m.isDraft;
+      });
+      this.draftList1 = this.draftList;
     });
   }
   getDetails(id) {
@@ -47,7 +60,11 @@ export class WhitepapersComponent implements OnInit {
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    this.filterBlogs = this.searchFilterData.filter((m) => {
+    this.publishedList = this.publishedList.filter((m) => {
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
@@ -56,6 +73,7 @@ export class WhitepapersComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
   cancel() {
-    this.filterBlogs = this.blogs;
+    this.publishedList = this.publishedList1;
+    this.draftList = this.draftList1;
   }
 }

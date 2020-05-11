@@ -87,6 +87,7 @@
 }
 
 .blog-card {
+  border-radius: 0;
   height: 100%;
   width: 100%;
 }
@@ -99,4 +100,16 @@
 
 .text-center {
   padding: 100px;
+}
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
 }

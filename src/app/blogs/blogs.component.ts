@@ -14,6 +14,10 @@ export class BlogsComponent implements OnInit {
   searchBlog;
   categoryList: any[] = [];
   cat = 'cat';
+  publishedList: any[] = [];
+  draftList: any[] = [];
+  publishedList1: any[] = [];
+  draftList1: any[] = [];
   constructor(private service: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -22,9 +26,18 @@ export class BlogsComponent implements OnInit {
   getBlogs() {
     this.service.getAllBlogs().subscribe((res) => {
       this.filterBlogs = res.body;
+
       this.blogs = res.body;
       this.searchFilterData = res.body;
       this.getAllCategory();
+      this.publishedList = this.filterBlogs.filter((m) => {
+        return m.isPublish;
+      });
+      this.publishedList1 = this.publishedList;
+      this.draftList = this.filterBlogs.filter((m) => {
+        return !m.isPublish && m.isDraft;
+      });
+      this.draftList1 = this.draftList;
     });
   }
   showBlogDetail(id) {
@@ -56,13 +69,19 @@ export class BlogsComponent implements OnInit {
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    this.filterBlogs = this.searchFilterData.filter((m) => {
+    this.publishedList = this.publishedList.filter((m) => {
+      // return m.title.includes(this.searchBlog);
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
     });
   }
   cancel() {
-    this.filterBlogs = this.blogs;
+    this.publishedList = this.publishedList1;
+    this.draftList = this.draftList1;
   }
 }

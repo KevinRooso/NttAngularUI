@@ -17,6 +17,10 @@ export class NewsComponent implements OnInit {
   dates: any[] = [];
   cat = '';
   sort = 'desc?date';
+  publishList: any[] = [];
+  draftList: any[] = [];
+  publishList1: any[] = [];
+  draftList1: any[] = [];
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -26,12 +30,22 @@ export class NewsComponent implements OnInit {
   getAllnews() {
     this.authService.getAllNews().subscribe((res) => {
       this.newsList = res.body;
+
       this.filterBlogs = res.body;
       this.filterBlogs = res.body;
       this.blogs = res.body;
       this.getAllCategory();
       this.searchFilterData = res.body;
       this.searchFilterData.sort(this.GFG_sortFunction1);
+
+      this.publishList = this.newsList.filter((m) => {
+        return m.isPublish;
+      });
+      this.publishList1 = this.publishList;
+      this.draftList = this.newsList.filter((m) => {
+        return !m.isPublish && m.isDraft;
+      });
+      this.draftList1 = this.draftList;
     });
   }
   getDetails(id) {
@@ -53,13 +67,18 @@ export class NewsComponent implements OnInit {
     this.searchFilterData = this.filterBlogs;
   }
   blogSearch() {
-    this.filterBlogs = this.searchFilterData.filter((m) => {
+    this.publishList = this.publishList.filter((m) => {
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
   }
   cancel() {
-    this.filterBlogs = this.blogs;
+    this.publishList = this.publishList1;
+    this.draftList = this.draftList1;
   }
   filterData() {
     const data = this.sort.split('?');

@@ -19,6 +19,10 @@ export class ArticlesComponent implements OnInit {
   filterDate = '';
   dates: any[] = [];
   sort = 'desc?date';
+  publishedList: any[] = [];
+  draftList: any[] = [];
+  publishedList1: any[] = [];
+  draftList1: any[] = [];
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit(): void {
@@ -39,6 +43,15 @@ export class ArticlesComponent implements OnInit {
           this.dates.push(m.createdAt.substring(0, 10).split('-').reverse().join('/'));
         }
       });
+      this.publishedList = this.articleList.filter((m) => {
+        return m.isPublish;
+      });
+      this.publishedList1 = this.publishedList;
+
+      this.draftList = this.articleList.filter((m) => {
+        return !m.isPublish && m.isDraft;
+      });
+      this.draftList1 = this.draftList;
     });
   }
   getDetails(id) {
@@ -68,14 +81,20 @@ export class ArticlesComponent implements OnInit {
     });
   }
   blogSearch() {
-    this.filterBlogs = this.searchFilterData.filter((m) => {
+    this.publishedList = this.publishedList.filter((m) => {
+      // return m.title.includes(this.searchBlog);
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchBlog.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
   }
   cancel() {
-    this.filterBlogs = this.blogs;
+    this.publishedList = this.publishedList1;
+    this.draftList = this.draftList1;
   }
 
   filterData() {
@@ -87,14 +106,18 @@ export class ArticlesComponent implements OnInit {
     if (data[1] === 'date') {
       if (data[0] === 'asc') {
         //   console.log("adtesort==",this.searchFilterData);
-        this.searchFilterData.sort(this.GFG_sortFunction);
+        // this.searchFilterData.sort(this.GFG_sortFunction);
+        this.publishedList.sort(this.GFG_sortFunction);
+        this.draftList.sort(this.GFG_sortFunction);
         // console.log("dateaftersort==",this.searchFilterData);
 
         this.filterBlogs = this.searchFilterData;
       } else {
-        this.searchFilterData.sort(this.GFG_sortFunction1);
+        // this.searchFilterData.sort(this.GFG_sortFunction1);
         // console.log("dateaftersort==",this.searchFilterData);
-        this.filterBlogs = this.searchFilterData;
+        // this.filterBlogs = this.searchFilterData;
+        this.publishedList.sort(this.GFG_sortFunction);
+        this.draftList.sort(this.GFG_sortFunction);
       }
     }
   }

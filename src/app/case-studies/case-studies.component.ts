@@ -17,6 +17,10 @@ export class CaseStudiesComponent implements OnInit {
   cat = 'cat';
   tag = 'tag';
   tags: any[] = [];
+  publishedList: any[] = [];
+  draftList: any[] = [];
+  publishedList1: any[] = [];
+  draftList1: any[] = [];
   constructor(private service: AuthServiceService, private router: Router) {}
 
   caseStudies: any[] = [];
@@ -29,10 +33,20 @@ export class CaseStudiesComponent implements OnInit {
       this.caseid = res.body.id;
       this.caseStudies = res.body;
       this.filterCases = res.body;
+
       this.cases = res.body;
       this.searchFilterData = res.body;
       this.getAllCategory();
       this.getTags();
+
+      this.publishedList = this.filterCases.filter((m) => {
+        return m.isPublish;
+      });
+      this.publishedList1 = this.publishedList;
+      this.draftList = this.filterCases.filter((m) => {
+        return !m.isPublish && m.isDraft;
+      });
+      this.draftList = this.draftList1;
     });
   }
   getTags() {
@@ -74,7 +88,11 @@ export class CaseStudiesComponent implements OnInit {
     this.searchFilterData = this.filterCases;
   }
   blogSearch() {
-    this.filterCases = this.searchFilterData.filter((m) => {
+    this.publishedList = this.publishedList.filter((m) => {
+      const titleData = m.title.toUpperCase();
+      return titleData.includes(this.searchCases.toUpperCase());
+    });
+    this.draftList = this.draftList.filter((m) => {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchCases.toUpperCase());
     });
@@ -96,6 +114,7 @@ export class CaseStudiesComponent implements OnInit {
   }
 
   cancel() {
-    this.filterCases = this.cases;
+    this.publishedList = this.publishedList1;
+    this.draftList = this.draftList1;
   }
 }
