@@ -87,15 +87,15 @@
         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
           <div class="card-body">
             <h2></h2>
-            <div class="row mt-2">
-              <div class="col-sm-4 mb-3" *ngFor="let card of publishedList">
+            <div class="row pt-1 m-3">
+              <div class="col-sm-4 mb-4" *ngFor="let card of publishedList">
                 <div class="card">
                   <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
                   <div class="card-body">
-                    <h5 class="card-title">{{ card.title }}</h5>
+                    <h5 class="card-title">{{ card.title | slice: 0:40 }}</h5>
                     <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
                     <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                    <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                    <p class="card-text" [innerHTML]="card.desciption | slice: 0:80"></p>
                   </div>
                   <div class="event-card-body">
                     <!-- <p class="card-text">{{card.totalSeat}}</p>
@@ -132,15 +132,15 @@
         <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="card-body">
             <h2></h2>
-            <div class="row mt-2">
-              <div class="col-sm-4 mb-3" *ngFor="let card of activeList">
+            <div class="row pt-1 m-3">
+              <div class="col-sm-4 mb-4" *ngFor="let card of activeList">
                 <div class="card">
                   <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
                   <div class="card-body">
-                    <h5 class="card-title">{{ card.title }}</h5>
+                    <h5 class="card-title">{{ card.title | slice: 0:40 }}</h5>
                     <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
                     <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                    <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                    <p class="card-text" [innerHTML]="card.desciption | slice: 0:80"></p>
                   </div>
                   <div class="event-card-body">
                     <!-- <p class="card-text">{{card.totalSeat}}</p>
@@ -176,15 +176,15 @@
         </h5>
         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="card-body">
-            <div class="row mt-2">
-              <div class="col-sm-4 mb-3" *ngFor="let card of draftList">
+            <div class="row pt-1 m-3">
+              <div class="col-sm-4 mb-4" *ngFor="let card of draftList">
                 <div class="card">
                   <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
                   <div class="card-body">
-                    <h5 class="card-title">{{ card.title }}</h5>
+                    <h5 class="card-title">{{ card.title | slice: 0:40 }}</h5>
                     <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
                     <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                    <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                    <p class="card-text" [innerHTML]="card.desciption | slice: 0:80"></p>
                   </div>
                   <div class="event-card-body">
                     <!-- <p class="card-text">{{card.totalSeat}}</p>
@@ -220,15 +220,15 @@
         </h5>
         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
           <div class="card-body">
-            <div class="row mt-2">
-              <div class="col-sm-4 mb-3" *ngFor="let card of expiredList">
+            <div class="row pt-1 m-3">
+              <div class="col-sm-4 mb-4" *ngFor="let card of expiredList">
                 <div class="card">
                   <img [src]="card.thumbnailImageUrl" class="card-img-top" alt="Image not available" height="190px" width="100%" />
                   <div class="card-body">
-                    <h5 class="card-title">{{ card.title }}</h5>
+                    <h5 class="card-title">{{ card.title | slice: 0:40 }}</h5>
                     <p class="card-text" *ngIf="card.eventDate != null">Event Date: {{ commonService.getDateTime(card.eventDate) }}</p>
                     <!-- <p class="card-text" *ngIf="card.createdAt!=null">created Date: {{commonService.getDateTime(card.createdAt)}}</p> -->
-                    <p class="card-text" [innerHTML]="card.desciption | truncate: 130:false"></p>
+                    <p class="card-text" [innerHTML]="card.desciption | slice: 0:80"></p>
                   </div>
                   <div class="event-card-body">
                     <!-- <p class="card-text">{{card.totalSeat}}</p>

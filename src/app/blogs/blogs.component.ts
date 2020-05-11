@@ -49,9 +49,11 @@ export class BlogsComponent implements OnInit {
       catList = res.body;
       catList.forEach((m) => {
         for (let i = 0; i < this.filterBlogs.length; i++) {
-          if (m.id === this.filterBlogs[i].category.id) {
-            this.categoryList.push(m);
-            break;
+          if (this.filterBlogs[i].category !== null) {
+            if (m.id === this.filterBlogs[i].category.id) {
+              this.categoryList.push(m);
+              break;
+            }
           }
         }
       });
@@ -64,7 +66,9 @@ export class BlogsComponent implements OnInit {
       return false;
     }
     this.filterBlogs = this.blogs.filter((m) => {
-      return m.category.id.toString() === this.cat;
+      if (m.category !== null) {
+        return m.category.id.toString() === this.cat;
+      }
     });
     this.searchFilterData = this.filterBlogs;
   }

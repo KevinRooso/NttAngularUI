@@ -10,12 +10,16 @@
 
 .card-body .card-title {
   font-size: 18px;
+  height: 45px;
   margin-bottom: 0.2rem;
+  overflow: hidden;
 }
 
 .card-body .card-text {
   font-size: 14px;
+  height: 45px;
   margin-bottom: 0.2rem;
+  overflow: hidden;
 }
 
 .card-body {

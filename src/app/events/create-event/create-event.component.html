@@ -358,7 +358,7 @@
               (Image should be JPEG, JPG, PNG)
             </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-2 text-right">
             <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
@@ -395,7 +395,7 @@
               (Image should be JPEG, JPG, PNG)
             </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-2 text-right">
             <button
               class="btn button-1 action-good"
               (click)="uploadAttachment()"
@@ -419,7 +419,7 @@
           <label class="col-sm-3 col-form-label">Save as draft</label>
           <mat-slide-toggle class="example-full-width col-sm-9" formControlName="isDraft">Draft</mat-slide-toggle>
         </div>
-        <div class="text-right">
+        <div class="col-sm-12 text-right">
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="(createEventForm.valid && image1button && image2button)? false:true" (click)="generateEvent()">Submit Details</button> -->
           <button type="submit" class="btn button-1 action-good" (click)="generateEvent()">
             Submit Details

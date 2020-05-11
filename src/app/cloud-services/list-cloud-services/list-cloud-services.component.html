@@ -116,6 +116,8 @@
                     <h1 style="font-size: 25px; color: #008ece;">{{ detailData.displayName | slice: 0:40 }}</h1>
                     <br />
                     <p>{{ detailData.shortInformation | slice: 0:80 }}</p>
+                    <b>Testimonial URL : </b>
+                    <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
                     <!-- <p class="card-text mb-0" style="font-weight: 500;">
                       <b>Tags : </b><span class="tags" *ngFor="let tag of detailData">{{ tag.name }}</span>
                     </p> -->
@@ -146,9 +148,9 @@
                   <hr />
                   <b>NTT Differentiator </b>
                   <p [innerHTML]="detailData.differentiator"></p>
-                  <hr />
+                  <!-- <hr />
                   <b>TestimonialUrl URL </b>
-                  <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
+                  <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a> -->
                   <!-- <hr />
                   <div class="row">
                     <div class="col">

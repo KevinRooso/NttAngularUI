@@ -30,10 +30,9 @@ export class CaseStudiesComponent implements OnInit {
   }
   getCasestudies() {
     this.service.getCasestudies().subscribe((res) => {
+      this.filterCases = res.body;
       this.caseid = res.body.id;
       this.caseStudies = res.body;
-      this.filterCases = res.body;
-
       this.cases = res.body;
       this.searchFilterData = res.body;
       this.getAllCategory();
@@ -46,7 +45,7 @@ export class CaseStudiesComponent implements OnInit {
       this.draftList = this.filterCases.filter((m) => {
         return !m.isPublish && m.isDraft;
       });
-      this.draftList = this.draftList1;
+      this.draftList1 = this.draftList;
     });
   }
   getTags() {

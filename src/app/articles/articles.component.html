@@ -84,18 +84,31 @@
             <i class="fa fa-chevron-up pull-right mt-2"></i>Published
           </a>
         </h5>
-
         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-          <div class="card-body pt-2 ml-2">
+          <div class="card-body pt-0 m-2">
             <h2></h2>
             <div class="row">
-              <mat-card class="p-0 m-3 article-card" *ngFor="let card of publishedList" (click)="getDetails(card.id)">
-                <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
-                <p class="article-title pb-0">
-                  <b>{{ card.title | slice: 0:40 }}</b>
-                </p>
-                <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
-              </mat-card>
+              <div class="col-sm-4" *ngFor="let card of publishedList">
+                <div class="card-container">
+                  <div class="card blog-card" (click)="getDetails(card.id)">
+                    <div>
+                      <img
+                        [src]="
+                          card.thumbnailImageUrl != null
+                            ? card.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+                      <div class="card-date"><strong>Expired Date : </strong>{{ card.expiryDate | date }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -115,15 +128,30 @@
           </a>
         </h5>
         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-body pt-2 ml-1">
+          <div class="card-body pt-0 m-2">
+            <h2></h2>
             <div class="row">
-              <mat-card class="p-0 m-3 article-card" *ngFor="let card of draftList" (click)="getDetails(card.id)">
-                <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
-                <p class="article-title pb-0">
-                  <b>{{ card.title | slice: 0:40 }}</b>
-                </p>
-                <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
-              </mat-card>
+              <div class="col-sm-4" *ngFor="let card of draftList">
+                <div class="card-container">
+                  <div class="card blog-card" (click)="getDetails(card.id)">
+                    <div>
+                      <img
+                        [src]="
+                          card.thumbnailImageUrl != null
+                            ? card.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+                      <div class="card-date"><strong>Expired Date : </strong>{{ card.expiryDate | date }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
