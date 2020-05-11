@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./invitees-data.component.css'],
 })
 export class InviteesDataComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'fullName', 'email', 'phone', , 'category'];
+  displayedColumns: string[] = ['id', 'title', 'fullName', 'email', 'phone', 'category'];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
