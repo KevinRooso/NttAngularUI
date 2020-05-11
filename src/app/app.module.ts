@@ -95,6 +95,8 @@ import { InviteesDataComponent } from './lead-generation/invitees-data/invitees-
 import { EventDataComponent } from './lead-generation/event-data/event-data.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ResourceDataComponent } from './lead-generation/resource-data/resource-data.component';
+import { UserDataComponent } from './lead-generation/user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -155,6 +157,8 @@ import { MatSortModule } from '@angular/material/sort';
     JoineeDataComponent,
     InviteesDataComponent,
     EventDataComponent,
+    ResourceDataComponent,
+    UserDataComponent,
   ],
   imports: [
     BrowserModule,

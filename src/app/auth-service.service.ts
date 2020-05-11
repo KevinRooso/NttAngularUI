@@ -223,4 +223,10 @@ export class AuthServiceService {
   getJoineeData(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/metric/event/joiningList', { headers: this.headers });
   }
+  getResourceData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/resource/attachmentShareList', { headers: this.headers });
+  }
+  getUserListData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/user/userList', { headers: this.headers });
+  }
 }

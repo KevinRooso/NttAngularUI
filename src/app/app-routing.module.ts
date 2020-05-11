@@ -49,6 +49,8 @@ import { CreateFormComponent } from './cloud-services/create-form/create-form.co
 import { EventDataComponent } from './lead-generation/event-data/event-data.component';
 import { JoineeDataComponent } from './lead-generation/joinee-data/joinee-data.component';
 import { InviteesDataComponent } from './lead-generation/invitees-data/invitees-data.component';
+import { ResourceDataComponent } from './lead-generation/resource-data/resource-data.component';
+import { UserDataComponent } from './lead-generation/user-data/user-data.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -294,6 +296,16 @@ const routes: Routes = [
   {
     path: 'invitee-data',
     component: InviteesDataComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'resource-data',
+    component: ResourceDataComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'user-data',
+    component: UserDataComponent,
     canActivate: [AuthguardServiceService],
   },
 ];
