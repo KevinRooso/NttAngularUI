@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./joinee-data.component.css'],
 })
 export class JoineeDataComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'phoneNumber', 'eventId', 'userId'];
+  displayedColumns: string[] = ['position', 'name', 'email', 'phoneNumber', 'createdAt', 'registrationUuid'];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
