@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./resource-data.component.css'],
 })
 export class ResourceDataComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'fullName', 'email', 'phone', 'resourcePath', 'type', 'category'];
+  displayedColumns: string[] = ['position', 'fullName', 'email', 'title', 'type', 'createdAt'];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

@@ -1,28 +1,29 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a class="active">Participants</a></li>
-  </ul>
-</div>
-<div class="text-center">
-  <p class="heading-secondary">{{ eName }}</p>
-</div>
 <div class="container">
-  <div class="row justify-content-start pb-4">
-    <a> <button type="button" routerLink="/participant-add" class="btn button-1 action-good">Add Participant</button></a>
+  <div>
+    <ul class="breadcrumb pl-0 ml-0">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a class="active">Participants</a></li>
+    </ul>
   </div>
+  <div class="text-center">
+    <p class="heading-secondary">{{ eName }}</p>
+  </div>
+  <div class="container">
+    <div class="row justify-content-start pb-4">
+      <a> <button type="button" routerLink="/participant-add" class="btn button-1 action-good">Add Participant</button></a>
+    </div>
 
-  <div class="row bg-white py-3 panel">
-    <div class="col-md-12">
-      <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap">
-        <table id="datatables" #datatable class="row-border hover"></table>
+    <div class="row bg-white py-3 panel">
+      <div class="col-md-12">
+        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap">
+          <table id="datatables" #datatable class="row-border hover"></table>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- </div> -->
-  <!-- <table datatable class="row-border hover">
+    <!-- </div> -->
+    <!-- <table datatable class="row-border hover">
   <thead>
     <tr>
       <th>Event Name</th>
@@ -44,5 +45,6 @@
     </tr>
   </tbody>
 </table> -->
-  <!-- <table id="datatables" #datatable  class="row-border hover"></table> -->
+    <!-- <table id="datatables" #datatable  class="row-border hover"></table> -->
+  </div>
 </div>

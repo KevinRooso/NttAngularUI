@@ -103,7 +103,7 @@ Case Studies
         </h5>
 
         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-          <div class="card-body pt-1 m-2">
+          <div class="card-body pt-3 pb-0 m-2">
             <h2></h2>
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of publishedList">
@@ -144,10 +144,10 @@ Case Studies
           </a>
         </h5>
         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-body pt-1 m-2">
+          <div class="card-body pt-3 pb-0 m-2">
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of draftList">
-                <div class="card mb-3 card-height" (click)="viewCases(cases.id)">
+                <div class="card mb-4 card-height" (click)="viewCases(cases.id)">
                   <div class="row no-gutters">
                     <div class="col-md-5">
                       <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
