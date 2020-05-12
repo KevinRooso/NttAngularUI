@@ -13,47 +13,6 @@
   </div>
 </div>
 
-<!-- <ng-container *ngIf="!detailPage">
-  <section class="section-tours">
-    <div class="row" style="padding: 0.5rem 1rem;">
-      <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" >
-       <div (click)="getDetailData(data)">
-        <div class="px-2" style="align-content: centre; height: 75px;">
-          <h3 class="wht-color">{{ data.displayName }}</h3>
-        </div>
-        <div class="px-2" style="align-content: centre; height: 75px;">
-          <p [innerHTML]="data.shortInformation" class="wht-color"></p>
-        </div>
-      </div>
-      <div class="example-button-row">
-          <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data)" >Edit</button>
-          <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="deleteData(data)" *ngIf="data.chlidList.length == 0">Delete</button>
-        </div>
-
-      </mat-card>
-      <mat-card class="p-0 m-3 cloud-card" style="height: 234px;" (click)="openSubmitModel()">
-        <img mat-card-image class="mt-2" src="../../../assets/AddButt-butt-715x715.png" />
-      </mat-card>
-    </div>
-  </section>
-</ng-container>
-<ng-container *ngIf="detailPage">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-9">
-        <div class="panel panel-info bg-white shadow">
-          <div class="panel-body p-3">
-            <div class="row">
-              <div class="col-md-3 col-lg-3">
-                <img
-                  alt="User Pic"
-                  [src]="detailData.thumbnailImageUrl"
-                  class="img-circle img-responsive"
-                  width="100%"
-                  alt="No Image preview"
-                />
-              </div> -->
-
 <div class="container">
   <ng-container *ngIf="!detailPage">
     <section class="section-tours">
@@ -103,14 +62,6 @@
                     alt="No Image preview"
                   />
                 </div>
-                <!--
-                <div class="col-md-9 col-lg-8">
-                  <div class="panel-heading">
-                    <h1 style="font-size:25px;color:#008ECE;">{{whitePaperData.title}}</h1>
-                    <p>{{whitePaperData.shortDescription}}</p>
-                    <p>{{whitePaperData.category.displayName}}</p>
-                  </div>
-                </div> -->
                 <div class="col-md-7 col-lg-7 p-0">
                   <div class="panel-heading">
                     <h1 style="font-size: 25px; color: #008ece;">{{ detailData.displayName | slice: 0:40 }}</h1>
@@ -118,9 +69,6 @@
                     <p>{{ detailData.shortInformation | slice: 0:80 }}</p>
                     <b>Testimonial URL : </b>
                     <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
-                    <!-- <p class="card-text mb-0" style="font-weight: 500;">
-                      <b>Tags : </b><span class="tags" *ngFor="let tag of detailData">{{ tag.name }}</span>
-                    </p> -->
                   </div>
                 </div>
                 <div class="col-md-1 edit">
@@ -128,15 +76,9 @@
                     <span class="fa fa-pencil" (click)="editForm(detailData)" aria-hidden="true"></span>
                   </button>
                   <br /><br /><br />
-                  <!-- <a *ngIf="detailData.resourceLink != null" [href]="detailData.resourceLink" target="_blank">
-                    <button class="btn button-1 action-good">
-                      <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                    </button>
-                  </a> -->
                 </div>
                 <div class="col-md-12 col-lg-12 pt-3">
                   <hr class="mt-0" />
-                  <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
                   <b>Detail </b>
                   <p [innerHTML]="detailData.detail"></p>
                   <hr />
@@ -148,94 +90,12 @@
                   <hr />
                   <b>NTT Differentiator </b>
                   <p [innerHTML]="detailData.differentiator"></p>
-                  <!-- <hr />
-                  <b>TestimonialUrl URL </b>
-                  <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a> -->
-                  <!-- <hr />
-                  <div class="row">
-                    <div class="col">
-                      <p class="m-0"><b>Published Date : </b>{{ articleData.updatedAt | date }}</p>
-                    </div>
-                    <div class="col">
-                      <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ articleData.expiryDate | date }}</p>
-                    </div>
-                  </div> -->
-                  <!-- <div class="text-center">
-                    <a [href]="whitePaperData.resourceLink" target="_blank"><button class="btn button-1 action-good">View PDF</button></a>
-                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="row justify-content-center">
-        <div class="col-md-9">
-          <div class="panel panel-info bg-white shadow">
-            <div class="panel-body p-3">
-              <div class="row">
-                <button class="btn" >
-                  <span class="fa fa-pencil" aria-hidden="true"></span></button>
-                <div class="col-md-3 col-lg-3">
-                  <img
-                    alt="User Pic"
-                    [src]="detailData.thumbnailImageUrl"
-                    class="img-circle img-responsive"
-                    width="100%"
-                    alt="No Image preview"
-                  />
-                </div>
-
-                <div class="col-md-9 col-lg-9">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">{{ detailData.displayName | slice: 0:40 }}</h3>
-                    <p class="speaker-details" [innerHTML]="detailData.shortInformation |slice: 0:80"></p>
-                  </div>
-                </div>
-                <div class="col-md-12 col-lg-12 py-3">
-
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr *ngIf="detailData.detail">
-                        <td>Detail</td>
-                        <td><span [innerHTML]="detailData.detail"></span></td>
-                      </tr>
-                      <tr *ngIf="detailData.implementation">
-                        <td>Implementation</td>
-                        <td><span [innerHTML]="detailData.implementation"></span></td>
-                      </tr>
-                      <tr *ngIf="detailData.productBenefits">
-                        <td>Product Benefits</td>
-                        <td><span [innerHTML]="detailData.productBenefits"></span></td>
-                      </tr>
-                      <tr *ngIf="detailData.differentiator">
-                        <td>NTT Differentiator</td>
-                        <td><span [innerHTML]="detailData.differentiator"></span></td>
-                      </tr>
-                      <tr *ngIf="detailData.testimonialUrl">
-                        <td>Testimonial URL </td>
-                        <td><a [href]="detailData.webinarUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
-                      </tr>
-                    </tbody>
-                  </table> -->
-
-      <!-- <p *ngIf="detailData.shortInformation"><b>Short Description : </b><span [innerHTML]="detailData.shortInformation"></span></p>
-                  <p *ngIf="detailData.detailData"><b>Detail : </b><span [innerHTML]="detailData.detail"></span></p>
-                  <p *ngIf="detailData.implementation"><b>Implementation : </b><span [innerHTML]="detailData.implementation"></span></p>
-                  <p *ngIf="detailData.productBenefits"><b>Product Benefits : </b><span [innerHTML]="detailData.productBenefits"></span></p>
-                  <p *ngIf="detailData.differentiator"><b>NTT Differentiator : </b><span [innerHTML]="detailData.differentiator"></span></p>
-                  <p *ngIf="detailData.testimonialUrl"><b>Testimonial URL : </b><span [innerHTML]="detailData.testimonialUrl"></span></p> -->
-      <!-- <p>
-                  <img alt="User Pic" [src]="detailData.largeImage" class="img-circle img-responsive" width="100%" alt="No Image preview" />
-                </p> -->
-
-      <!-- </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </ng-container>
 </div>

@@ -357,7 +357,7 @@ export class ArticleEditComponent implements OnInit {
         id: this.articleId,
         draft: this.EditArticleForm.controls['draft'].value,
         longDescription: this.EditArticleForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 2,
         serviceUsed: 'string',
         shortDescription: this.EditArticleForm.controls['shortDescription'].value,

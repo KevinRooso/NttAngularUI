@@ -246,7 +246,7 @@ export class WhitepaperCreateComponent implements OnInit {
         downloadUrl: this.attachFile,
         draft: this.createWhitePaperForm.controls['draft'].value,
         longDescription: this.createWhitePaperForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 5,
         serviceUsed: 'string',
         shortDescription: this.createWhitePaperForm.controls['shortDescription'].value,

@@ -303,8 +303,7 @@ export class CreateBlogComponent implements OnInit {
     }
   }
   addPerson() {
-    this.previewUrl1 = null;
-    this.personForm.reset();
+    this.router.navigate(['author-create']);
   }
   generateBlog() {
     this.show = true;
@@ -346,19 +345,20 @@ export class CreateBlogComponent implements OnInit {
         categoryId: catId,
         draft: obj.isDraft,
         longDescription: obj.longDescription,
-        person: {
-          description: obj.person.description,
-          designation: obj.person.designation,
-          email: obj.person.email,
-          id: 0,
-          fullName: obj.person.fullName,
-          keySkills: obj.person.keySkills,
-          origanizationName: obj.person.origanizationName,
-          personalEmail: obj.person.personalEmail,
-          phone: obj.person.phone,
-          profile: obj.person.profile,
-          profileImageUrl: obj.person.profileImageUrl,
-        },
+        personId: obj.person,
+        // person: {
+        //   description: obj.person.description,
+        //   designation: obj.person.designation,
+        //   email: obj.person.email,
+        //   id: 0,
+        //   fullName: obj.person.fullName,
+        //   keySkills: obj.person.keySkills,
+        //   origanizationName: obj.person.origanizationName,
+        //   personalEmail: obj.person.personalEmail,
+        //   phone: obj.person.phone,
+        //   profile: obj.person.profile,
+        //   profileImageUrl: obj.person.profileImageUrl,
+        // },
         targetUserType: obj.targetUserType,
         resourceType: 1,
         serviceUsed: '',

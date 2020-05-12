@@ -361,7 +361,7 @@ export class WhitepaperEditComponent implements OnInit {
         id: this.wPaperId,
         draft: this.updateWhitePaperForm.controls['draft'].value,
         longDescription: this.updateWhitePaperForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 5,
         serviceUsed: 'string',
         shortDescription: this.updateWhitePaperForm.controls['shortDescription'].value,

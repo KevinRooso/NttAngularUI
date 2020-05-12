@@ -51,6 +51,9 @@ import { JoineeDataComponent } from './lead-generation/joinee-data/joinee-data.c
 import { InviteesDataComponent } from './lead-generation/invitees-data/invitees-data.component';
 import { ResourceDataComponent } from './lead-generation/resource-data/resource-data.component';
 import { UserDataComponent } from './lead-generation/user-data/user-data.component';
+import { CreateAuthorComponent } from './authors/create-author/create-author.component';
+import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
+import { AuthorsComponent } from './authors/authors.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -78,6 +81,11 @@ const routes: Routes = [
   {
     path: 'articles',
     component: ArticlesComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'authors',
+    component: AuthorsComponent,
     canActivate: [AuthguardServiceService],
   },
   {
@@ -148,6 +156,16 @@ const routes: Routes = [
   {
     path: 'article-create',
     component: ArticleCreateComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'author-create',
+    component: CreateAuthorComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'author-detail',
+    component: AuthorDetailComponent,
     canActivate: [AuthguardServiceService],
   },
   {

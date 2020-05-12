@@ -1,10 +1,12 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a href="/speakers">Speakers</a></li>
-    <li><a (click)="Back()">Speaker Preview</a></li>
-    <li><a class="active">Update Speaker</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/speakers">Speakers</a></li>
+      <li><a (click)="Back()">Speaker Preview</a></li>
+      <li><a class="active">Update Speaker</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -179,7 +181,7 @@
               >(Image should be JPEG, JPG, PNG)</mat-error
             >
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-2 text-right">
             <button class="btn button-1 action-good" (click)="uploadImage()" [disabled]="!imageValid">Upload File</button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
           </div>

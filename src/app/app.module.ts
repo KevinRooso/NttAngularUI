@@ -97,6 +97,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ResourceDataComponent } from './lead-generation/resource-data/resource-data.component';
 import { UserDataComponent } from './lead-generation/user-data/user-data.component';
+import { CreateAuthorComponent } from './authors/create-author/create-author.component';
+import { AuthorsComponent } from './authors/authors.component';
+import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 
 @NgModule({
   declarations: [
@@ -159,6 +162,9 @@ import { UserDataComponent } from './lead-generation/user-data/user-data.compone
     EventDataComponent,
     ResourceDataComponent,
     UserDataComponent,
+    CreateAuthorComponent,
+    AuthorsComponent,
+    AuthorDetailComponent,
   ],
   imports: [
     BrowserModule,

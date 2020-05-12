@@ -389,10 +389,7 @@ export class EditBlogComponent implements OnInit {
     }
   }
   addPerson() {
-    this.previewUrl1 = null;
-    // this.personForm.reset();
-    this.crateFrorm();
-    this.personButton.nativeElement.click();
+    this.router.navigate(['author-create']);
   }
   generateBlog() {
     this.show = true;
@@ -416,7 +413,7 @@ export class EditBlogComponent implements OnInit {
 
       this.persons.forEach((m) => {
         if (this.createBlogForm.get(['person']).value === m.id) {
-          personObj = m;
+          personObj = m.id;
         }
       });
       let catObj;
@@ -453,7 +450,7 @@ export class EditBlogComponent implements OnInit {
         downloadUrl: '',
         id: this.blogId,
         draft: obj.isDraft,
-        person: personObj,
+        personId: personObj,
         shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,

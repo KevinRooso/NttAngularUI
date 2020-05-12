@@ -111,7 +111,7 @@ export class ArticlesComponent implements OnInit {
         this.draftList.sort(this.GFG_sortFunction);
         // console.log("dateaftersort==",this.searchFilterData);
 
-        this.filterBlogs = this.searchFilterData;
+        // this.filterBlogs = this.searchFilterData;
       } else {
         // this.searchFilterData.sort(this.GFG_sortFunction1);
         // console.log("dateaftersort==",this.searchFilterData);

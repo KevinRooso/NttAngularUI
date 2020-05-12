@@ -1,19 +1,20 @@
-<div class="container">
-  <div>
-    <ul class="breadcrumb">
-      <li><a href="/home">Home</a></li>
-      <li><a (click)="BackMe()">Speakers</a></li>
-      <li><a class="active">Create Speaker</a></li>
-    </ul>
-  </div>
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a routerLink="/blogs">Blogs</a></li>
+    <li><a routerLink="/authors">Authors</a></li>
+    <li>
+      <a class="active"> {{ title }} </a>
+    </li>
+  </ul>
 </div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-12 py-4">
       <div class="text-center">
-        <p class="heading-secondary">Create Speaker</p>
+        <p class="heading-secondary">{{ title }}</p>
       </div>
-      <form [formGroup]="createSpeakerForm">
+      <form [formGroup]="personForm">
         <div class="form-row">
           <label class="col-sm-3 col-form-label"
             >Full Name<span class="error">*</span>
@@ -95,15 +96,6 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Organization Email<span class="error">*</span></label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Corporate Email Id" formControlName="email" />
-            <mat-error *ngIf="checkError('email', 'required')">(Organization Email is required)</mat-error>
-            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="form-row">
           <label class="col-sm-3 col-form-label"
             >Phone<span class="error">*</span>
             <i
@@ -124,19 +116,20 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Personal Email</label>
+          <label class="col-sm-3 col-form-label"> Email <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Email" formControlName="personalEmail" />
-            <mat-error *ngIf="checkError('personalEmail', 'email')">(Enter a valid email)</mat-error>
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
           </mat-form-field>
         </div>
 
         <!-- <div class="form-row">
-          <label class="col-sm-3 col-form-label">Profile</label>
-          <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Profile" formControlName="profile">
-          </mat-form-field>
-        </div> -->
+            <label class="col-sm-3 col-form-label">Profile</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Profile" formControlName="profile">
+            </mat-form-field>
+          </div> -->
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">KeySkills<span class="error">*</span></label>
@@ -168,7 +161,7 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label"
-            >Speaker Image<span class="error">*</span>
+            >Author Image<span class="error">*</span>
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
@@ -186,7 +179,7 @@
               >(Image should be JPEG, JPG, PNG)</mat-error
             >
           </div>
-          <div class="col-sm-2 text-right">
+          <div class="col-sm-2">
             <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
@@ -203,8 +196,8 @@
           </div>
         </div>
 
-        <div class="col-sm-12 text-right">
-          <button class="btn button-1 action-good" (click)="createSpeaker()" [disabled]="!createSpeakerForm.valid">Submit Details</button>
+        <div class="text-right">
+          <button class="btn button-1 action-good" (click)="createAuthor()" [disabled]="!personForm.valid">{{ buttonText }}</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
       </form>
