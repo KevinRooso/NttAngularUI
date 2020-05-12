@@ -58,25 +58,43 @@ import { AuthorsComponent } from './authors/authors.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'events',
+  //   component: EventPreviewComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   {
     path: 'events',
-    component: EventPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'details',
-    component: EventDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create',
-    component: CreateEventComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit',
-    component: EventEditComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: EventPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create',
+        component: CreateEventComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'details/:page',
+        component: EventDetailsComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'edit/:page',
+        component: EventEditComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'copy-event/:page',
+        component: CopyEventComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ]
   },
   {
     path: 'articles',
@@ -183,11 +201,7 @@ const routes: Routes = [
     component: WhitepaperCreateComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'copy-event',
-    component: CopyEventComponent,
-    canActivate: [AuthguardServiceService],
-  },
+
 
   {
     path: 'article-create',
