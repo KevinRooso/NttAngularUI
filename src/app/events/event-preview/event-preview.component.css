@@ -105,4 +105,5 @@
   height: 45px;
   overflow: hidden;
   padding: 0 10px 5px 10px;
+  word-break: break-all;
 }
