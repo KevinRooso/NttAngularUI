@@ -264,7 +264,7 @@ export class ArticleCreateComponent implements OnInit {
         downloadUrl: this.attachFile,
         draft: this.createArticleForm.controls['draft'].value,
         longDescription: this.createArticleForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 2,
         serviceUsed: 'string',
         shortDescription: this.createArticleForm.controls['shortDescription'].value,

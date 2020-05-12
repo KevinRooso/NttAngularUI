@@ -352,7 +352,7 @@ export class CasesEditComponent implements OnInit {
         id: this.caseId,
         categoryId: catObj.id,
         longDescription: obj.longDescription,
-        person: {},
+        personId: null,
         resourceType: 3,
         serviceUsed: obj.serviceUsed,
         tagList: tags,
