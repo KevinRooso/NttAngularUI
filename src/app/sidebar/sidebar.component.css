@@ -72,3 +72,8 @@
 .list-group-item {
   background: transparent;
 }
+
+.list-group-item.active {
+  background-color: #1d2124 !important;
+  border: 1px solid #1d1d1d !important;
+}

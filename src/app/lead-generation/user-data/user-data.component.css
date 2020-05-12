@@ -4,11 +4,6 @@ table {
 
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
-}
-
-td,
-th {
   width: 25%;
 }
 
@@ -26,4 +21,32 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-row td {
   border-bottom-width: 0;
+}
+
+.example-element-detail {
+  display: flex;
+  overflow: hidden;
+}
+
+.example-element-diagram {
+  border: 2px solid black;
+  font-weight: lighter;
+  height: 104px;
+  margin: 8px 0;
+  min-width: 80px;
+  padding: 8px;
+}
+
+.example-element-symbol {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
 }

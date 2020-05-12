@@ -285,18 +285,20 @@ const routes: Routes = [
   },
   {
     path: 'event-data',
-    component: EventDataComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'joinee-data',
-    component: JoineeDataComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'invitee-data',
-    component: InviteesDataComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: EventDataComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'joinee-data',
+        component: JoineeDataComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      { path: 'invitee-data', component: InviteesDataComponent, pathMatch: 'full', canActivate: [AuthguardServiceService] },
+    ],
   },
   {
     path: 'resource-data',
@@ -308,6 +310,31 @@ const routes: Routes = [
     component: UserDataComponent,
     canActivate: [AuthguardServiceService],
   },
+  // {
+  //   path: 'event-data',
+  //   component: EventDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'joinee-data',
+  //   component: JoineeDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'invitee-data',
+  //   component: InviteesDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'resource-data',
+  //   component: ResourceDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'user-data',
+  //   component: UserDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
 ];
 
 @NgModule({
