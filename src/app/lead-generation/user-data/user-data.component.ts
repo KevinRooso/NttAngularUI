@@ -18,9 +18,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ],
 })
 export class UserDataComponent implements OnInit {
-  columnsToDisplay: string[] = ['fullName', 'email', 'phoneNumber', 'active', 'deviceType'];
+  columnsToDisplay: string[] = ['S.NO.', 'Name', 'Email', 'Contact', 'User Type', 'User ID', 'Device Type', 'Status'];
   dataSource: any;
   expandedElement: any;
+  userTableData: any = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -29,7 +30,25 @@ export class UserDataComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getUserListData().subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res.body);
+      res.body.forEach((element, index) => {
+        const arrtype = element.sourceOfCreation;
+        let deviceType = '';
+        arrtype.forEach((elem) => {
+          deviceType = deviceType + elem.deviceType;
+        });
+        const obj = {
+          'S.NO.': index + 1,
+          Name: element.fullName,
+          Email: element.email,
+          Contact: element.phoneNumber,
+          'User Type': element.userType.displayName,
+          'User ID': element.userType.id,
+          'Device Type': deviceType,
+          Status: element.active,
+        };
+        this.userTableData.push(obj);
+      });
+      this.dataSource = new MatTableDataSource(this.userTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
