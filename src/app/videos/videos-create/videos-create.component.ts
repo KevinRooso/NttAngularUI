@@ -228,7 +228,7 @@ export class VideosCreateComponent implements OnInit {
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
 
-        person: {},
+        personId: null,
         shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,

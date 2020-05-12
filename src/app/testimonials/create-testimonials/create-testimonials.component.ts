@@ -332,7 +332,7 @@ export class CreateTestimonialsComponent implements OnInit {
         thumbnailImageUrl: this.logo,
         draft: obj.isDraft,
         longDescription: obj.longDescription,
-        person: {},
+        personId: null,
         resourceType: 4,
         shortDescription: obj.shortDescription,
         tagList: [],

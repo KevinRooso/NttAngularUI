@@ -1,0 +1,206 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a routerLink="/blogs">Blogs</a></li>
+    <li><a routerLink="/authors">Authors</a></li>
+    <li>
+      <a class="active"> {{ title }} </a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">{{ title }}</p>
+      </div>
+      <form [formGroup]="personForm">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Full Name<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip=" Full Name is required &#13; Full Name should be upto 40 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="FullName" formControlName="fullName" maxlength="80" />
+            <mat-error *ngIf="checkError('fullName', 'required')">(Full Name is required)</mat-error>
+            <mat-error *ngIf="checkError('fullName', 'maxlength')">(Full Name should be upto 40 characters)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Designation<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip=" Designation is required &#13; Designation should be upto 50 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Designation" formControlName="designation" />
+            <mat-error *ngIf="checkError('designation', 'required')">(Designation is required)</mat-error>
+            <mat-error *ngIf="checkError('designation', 'maxlength')">(Designation should be upto 50 characters)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Description<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip=" Description is required &#13; Description should be upto 200 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description" formControlName="description" rows="4" maxlength="250"></textarea>
+            <mat-error *ngIf="checkError('description', 'required')">(Description is required)</mat-error>
+            <mat-error *ngIf="checkError('description', 'maxlength')">(Description should be upto 200 characters)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Organization Name<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip=" Organization name is required &#13; Organization name should be upto 50 characters"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Organization Name" formControlName="origanizationName" maxlength="80" />
+            <mat-error *ngIf="checkError('origanizationName', 'required')">(Organization Name is required)</mat-error>
+            <mat-error *ngIf="checkError('origanizationName', 'maxlength')">(Organization Name should be upto 50 characters)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Phone<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip=" Phone Number is required &#13; Phone number should be numeric"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Contact Number" formControlName="phone" />
+            <mat-error *ngIf="checkError('phone', 'required')">(Phone is required)</mat-error>
+            <mat-error *ngIf="checkError('phone', 'pattern')">(Enter a valid Phone No.)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"> Email <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="form-row">
+            <label class="col-sm-3 col-form-label">Profile</label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Profile" formControlName="profile">
+            </mat-form-field>
+          </div> -->
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">KeySkills<span class="error">*</span></label>
+          <mat-form-field class="example-chip-list col-sm-9">
+            <mat-chip-list #chipList aria-label="Fruit selection">
+              <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
+                {{ fruit.name }}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+
+              <input
+                placeholder="Enter Keyskills..."
+                (focusout)="setError()"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+                formControlName="keySkills"
+              />
+            </mat-chip-list>
+
+            <!-- <mat-error *ngIf="checkError('phone', 'required')">(Phone is required)</mat-error> -->
+          </mat-form-field>
+          <span *ngIf="!flag" style="color: red; font-size: 12px; margin-left: 277px; margin-top: -14px;">(KeySkill is required)</span>
+          <span *ngIf="!keySkillCount" style="color: red; font-size: 12px; margin-left: 277px; margin-top: -14px;"
+            >(KeySkill should be upto 100 characters)</span
+          >
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"
+            >Author Image<span class="error">*</span>
+            <i
+              class="fa fa-info-circle"
+              aria-hidden="true"
+              matTooltip="Resolution: 480px X 240px &#13;Type: png/ jpg/ jpeg &#13;Size: 300 kB"
+              matTooltipPosition="right"
+              matTooltipClass="custom-tooltip"
+              style="font-size: 18px;"
+            >
+            </i>
+          </label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control-file" formControlName="profileImageUrl" (change)="fileProgress($event)" />
+            <!-- <mat-error *ngIf="checkError('profileImageUrl', 'required')" style="color:red;font-size: 12px;">(Image is required)</mat-error> -->
+            <mat-error *ngIf="checkError('profileImageUrl', 'pattern')" style="color: red; font-size: 12px;"
+              >(Image should be JPEG, JPG, PNG)</mat-error
+            >
+          </div>
+          <div class="col-sm-2">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+              Upload File
+            </button>
+            <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="200" />
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button class="btn button-1 action-good" (click)="createAuthor()" [disabled]="!personForm.valid">{{ buttonText }}</button>
+          <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

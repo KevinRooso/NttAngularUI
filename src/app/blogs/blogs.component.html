@@ -18,11 +18,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/blog-create"
-        ><button type="button" class="btn button-1 action-good">
-          Create Blog
-        </button></a
-      >
+      <span class="mr-2">
+        <a routerLink="/blog-create"
+          ><button type="button" class="btn button-1 action-good">
+            Create Blog
+          </button></a
+        >
+      </span>
+      <span class="ml-2">
+        <a routerLink="/authors"
+          ><button type="button" class="btn button-1 action-good">
+            Authors
+          </button></a
+        >
+      </span>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item active mx-2">
           <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">

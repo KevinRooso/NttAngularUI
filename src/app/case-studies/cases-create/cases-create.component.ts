@@ -268,7 +268,7 @@ export class CasesCreateComponent implements OnInit {
         draft: obj.draft,
         categoryId: obj.categoryId.id,
         longDescription: obj.longDescription,
-        person: {},
+        personId: null,
         resourceType: 3,
         serviceUsed: obj.serviceUsed,
         tagList: tags,
