@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" (click)="editBlogRoute()">
+              <button class="btn" [routerLink]="['../../blog-edit',blogId]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
             </div>

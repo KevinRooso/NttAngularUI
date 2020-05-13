@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -84,8 +84,8 @@ export class CopyEventComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
-    private router: Router,
     private authService: AuthServiceService,
+    private router:Router,
     private router1: ActivatedRoute,
     private location: Location
   ) {
@@ -691,15 +691,16 @@ export class CopyEventComponent implements OnInit {
       };
 
       this.authService.saveEventDetails(obj).subscribe(
-        (response) => {
+        (_response) => {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Event successfully created', 'Close', {
             duration: 2000,
           });
-          this.router.navigate(['/details'], {
-            queryParams: { page: response.body.id },
-          });
+          this.router.navigate(['/events']);
+          // this.router.navigate(['/events'], {
+          //   queryParams: { page: response.body.id },
+          // });
         },
         (_error) => {
           this.show = false;

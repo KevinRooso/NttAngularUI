@@ -245,7 +245,7 @@ export class VideosCreateComponent implements OnInit {
           this.submitted = false;
 
           this.snackBar.open('Video Added Successfully', 'Close', { duration: 5000 });
-          this.router.navigate(['videos']);
+          this.router.navigate(['/resources/videos']);
         },
         (_error) => {
           this.show = false;

@@ -283,7 +283,7 @@ export class ArticleCreateComponent implements OnInit {
             duration: 2000,
           });
 
-          this.router.navigate(['articles']);
+          this.router.navigate(['/resources/articles']);
         },
         (_error) => {
           this.show = false;

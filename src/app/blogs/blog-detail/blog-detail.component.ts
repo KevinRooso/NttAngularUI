@@ -15,7 +15,7 @@ export class BlogDetailComponent implements OnInit {
   imageurl = '';
   resourceTags: any[] = [];
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.blogId = params.page;
       this.getBlogData(params.page);
     });

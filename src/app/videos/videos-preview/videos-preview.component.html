@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/videos-create"
+      <a routerLink="videos-create"
         ><button type="button" class="btn button-1 action-good">
           Create Video
         </button></a
@@ -104,7 +104,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let card of publishList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="getDetails(card.id)">
+                  <div class="card blog-card" [routerLink]="['videos-detail',card.id]" >
                     <div>
                       <img
                         [src]="
@@ -147,7 +147,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let card of draftList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="getDetails(card.id)">
+                  <div class="card blog-card" [routerLink]="['videos-detail',card.id]">
                     <div>
                       <img
                         [src]="

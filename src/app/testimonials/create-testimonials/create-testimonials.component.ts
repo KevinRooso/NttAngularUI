@@ -73,9 +73,9 @@ export class CreateTestimonialsComponent implements OnInit {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
     };
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.resourceId = params.page;
-      if (this.resourceId !== undefined) {
+      if (this.resourceId !== 'xyz') {
         this.getResourceData();
         this.title = 'Edit Testimonial';
         this.buttonText = 'Update Details';
@@ -309,7 +309,7 @@ export class CreateTestimonialsComponent implements OnInit {
   generateBlog() {
     let id;
 
-    if (this.resourceId !== undefined) {
+    if (this.resourceId !== 'xyz') {
       id = this.resourceId;
     } else {
       id = 0;
@@ -345,13 +345,13 @@ export class CreateTestimonialsComponent implements OnInit {
 
       this.service.saveResource(dataObj).subscribe((_res) => {
         // alert("Testimonials Added Successfully");
-        if (this.resourceId !== undefined) {
+        if (this.resourceId !== 'xyz') {
           this.snackBar.open('Testimonials Updated Successfully', 'Close', { duration: 5000 });
         } else {
           this.snackBar.open('Testimonials Added Successfully', 'Close', { duration: 5000 });
         }
         this.show = false;
-        this.router.navigate(['testimonials']);
+        this.router.navigate(['/resources/testimonials']);
       });
     } else {
       this.show = false;

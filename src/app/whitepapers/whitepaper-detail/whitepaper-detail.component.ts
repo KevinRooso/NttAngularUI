@@ -18,7 +18,7 @@ export class WhitepaperDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.getArticleData(params.page);
     });
   }

@@ -85,7 +85,7 @@ export class ArticleEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.show = true;
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.articleId = params.page;
 
       this.getArticlesDetails(params.page);
@@ -377,7 +377,7 @@ export class ArticleEditComponent implements OnInit {
           this.snackBar.open('Article successfully updated', 'Close', {
             duration: 2000,
           });
-          this.router.navigate(['articles']);
+          this.router.navigate(['resources/articles']);
         },
         (_error) => {
           // alert("Error :"+error);
