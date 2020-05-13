@@ -57,35 +57,7 @@
   </nav>
 </div>
 <section class="blog pt-3">
-  <!-- <div class="text-center">
-    <p class="heading-secondary py-4">
-Case Studies
-    </p>
-    </div> -->
-  <!-- <div class="container-fluid"> -->
   <div class="container">
-    <!-- <div class="row ml-2">
-      <div class="col-sm-6" *ngFor="let cases of filterCases">
-        <div class="card mb-3 card-height" (click)="viewCases(cases.id)">
-          <div class="row no-gutters">
-            <div class="col-md-5">
-              <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
-            </div>
-            <div class="col-md-6">
-              <div class="card-body">
-                <div class="category-name">
-                  <div class="case-title">
-                    <h3>{{ cases.title | slice: 0:40 }}</h3>
-                  </div>
-                  <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div id="accordion" role="tablist" aria-multiselectable="true">
       <div class="card" *ngIf="publishedList?.length > 0">
         <h5 class="card-header" role="tab" id="headingOne">
