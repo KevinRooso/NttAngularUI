@@ -262,7 +262,7 @@ export class WhitepaperCreateComponent implements OnInit {
         () => {
           this.show = false;
           this.snackBar.open('Whitepaper successfully created', 'Close', { duration: 2000 });
-          this.router.navigate(['whitepapers']);
+          this.router.navigate(['/resources/whitepapers']);
         },
         () => {
           this.show = false;

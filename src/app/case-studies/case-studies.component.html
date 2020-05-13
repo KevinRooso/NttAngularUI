@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/create-cases"
+      <a routerLink="create-cases"
         ><button type="button" class="btn button-1 action-good">
           Create Case Study
         </button></a
@@ -107,7 +107,7 @@ Case Studies
             <h2></h2>
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of publishedList">
-                <div class="card mb-4 card-height" (click)="viewCases(cases.id)">
+                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]" >
                   <div class="row no-gutters">
                     <div class="col-md-5">
                       <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
@@ -147,7 +147,7 @@ Case Studies
           <div class="card-body pt-3 pb-0 m-2">
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of draftList">
-                <div class="card mb-4 card-height" (click)="viewCases(cases.id)">
+                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]">
                   <div class="row no-gutters">
                     <div class="col-md-5">
                       <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />

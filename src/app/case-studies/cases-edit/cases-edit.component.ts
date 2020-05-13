@@ -87,7 +87,7 @@ export class CasesEditComponent implements OnInit {
   ngOnInit(): void {
     // this.createSpeaker();
 
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.caseId = params.page;
       this.getCasesData(params.page);
     });
@@ -373,7 +373,7 @@ export class CasesEditComponent implements OnInit {
             duration: 5000,
           });
           // alert("Case Study Updated Successfully");
-          this.router.navigate(['cases']);
+          this.router.navigate(['/resources/cases']);
         },
         (_error) => {
           this.show = false;

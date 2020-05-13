@@ -85,7 +85,7 @@ export class WhitepaperEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.wPaperId = params.page;
       this.getWhitePaperDetails(params.page);
     });
@@ -377,7 +377,7 @@ export class WhitepaperEditComponent implements OnInit {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Whitepaper successfully updated', 'Close', { duration: 5000 });
-          this.router.navigate(['whitepapers']);
+          this.router.navigate(['/resources/whitepapers']);
         },
         () => {
           this.show = false;

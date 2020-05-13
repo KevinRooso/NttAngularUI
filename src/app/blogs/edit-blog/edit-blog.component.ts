@@ -119,7 +119,7 @@ export class EditBlogComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.blogId = params.page;
       this.getBlogData(params.page);
     });
@@ -466,7 +466,7 @@ export class EditBlogComponent implements OnInit {
           this.snackBar.open('Blog Updated Successfully', 'Close', {
             duration: 5000,
           });
-          this.router.navigate(['blogs']);
+          this.router.navigate(['resources/blogs']);
         },
         (_error) => {
           this.show = false;

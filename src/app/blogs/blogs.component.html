@@ -19,7 +19,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <span class="mr-2">
-        <a routerLink="/blog-create"
+        <a routerLink="blog-create"
           ><button type="button" class="btn button-1 action-good">
             Create Blog
           </button></a
@@ -113,7 +113,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let blog of publishedList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="showBlogDetail(blog.id)">
+                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
                     <div>
                       <img
                         [src]="
@@ -159,7 +159,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let blog of draftList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="showBlogDetail(blog.id)">
+                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
                     <div>
                       <img
                         [src]="

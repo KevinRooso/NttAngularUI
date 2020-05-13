@@ -286,7 +286,7 @@ export class CasesCreateComponent implements OnInit {
             duration: 5000,
           });
           // alert("Blog Added Successfully");
-          this.router.navigate(['cases']);
+          this.router.navigate(['/resources/cases']);
         },
         (_error) => {
           this.show = false;

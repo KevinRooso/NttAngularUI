@@ -215,7 +215,7 @@ export class CreateNewsComponent implements OnInit {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('News successfully created', 'Close', { duration: 2000 });
-          this.router.navigate(['news']);
+          this.router.navigate(['/resources/news']);
         },
         (_error) => {
           this.show = false;

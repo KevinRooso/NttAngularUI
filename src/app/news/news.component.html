@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/create-news"><button type="button" class="btn button-1 action-good">Create News</button></a>
+      <a routerLink="create-news"><button type="button" class="btn button-1 action-good">Create News</button></a>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item mr-3">
           <div class="form-inline my-2 my-lg-0">
@@ -96,7 +96,7 @@
             <div class="row">
               <div class="col-sm-4" *ngFor="let news of publishList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="getDetails(news.id)">
+                  <div class="card blog-card" [routerLink]="['view-news',news.id]" >
                     <div>
                       <img
                         [src]="
@@ -139,7 +139,7 @@
             <div class="row">
               <div class="col-sm-4" *ngFor="let news of draftList">
                 <div class="card-container">
-                  <div class="card blog-card" (click)="getDetails(news.id)">
+                  <div class="card blog-card" [routerLink]="['view-news',news.id]">
                     <div>
                       <img
                         [src]="

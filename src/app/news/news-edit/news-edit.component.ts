@@ -77,7 +77,7 @@ export class NewsEditComponent implements OnInit {
       keywords: ['', Validators.required],
     });
 
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.newsId = params.page;
       this.getNewsVideoById(params.page);
     });
@@ -277,7 +277,7 @@ export class NewsEditComponent implements OnInit {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('News successfully updated', 'Close', { duration: 2000 });
-          this.router.navigate(['news']);
+          this.router.navigate(['/resources/news']);
         },
         (_error) => {
           this.show = false;

@@ -376,7 +376,7 @@ export class CreateBlogComponent implements OnInit {
             duration: 5000,
           });
           // alert("Blog Added Successfully");
-          this.router.navigate(['blogs']);
+          this.router.navigate(['/resources/blogs']);
         },
         (_error) => {
           this.show = false;

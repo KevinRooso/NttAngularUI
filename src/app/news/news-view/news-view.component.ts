@@ -13,7 +13,7 @@ export class NewsViewComponent implements OnInit {
   news;
   newsId;
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.newsId = params.page;
       this.getBlogData(params.page);
     });

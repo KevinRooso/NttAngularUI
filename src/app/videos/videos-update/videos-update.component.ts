@@ -79,7 +79,7 @@ export class VideosUpdateComponent implements OnInit {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
     };
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.videoID = params.page;
       this.getVideosData(params.page);
     });
@@ -291,7 +291,7 @@ export class VideosUpdateComponent implements OnInit {
           this.show = false;
           this.snackBar.open('Videos Updated Successfully', 'Close', { duration: 5000 });
           // alert("Case Study Updated Successfully");
-          this.router.navigate(['videos']);
+          this.router.navigate(['/resources/videos']);
         },
         (_error) => {
           this.show = false;

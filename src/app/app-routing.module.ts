@@ -38,8 +38,6 @@ import { NewsComponent } from './news/news.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { NewsViewComponent } from './news/news-view/news-view.component';
 import { NewsEditComponent } from './news/news-edit/news-edit.component';
-import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view-testimonials.component';
-import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
@@ -54,6 +52,7 @@ import { UserDataComponent } from './lead-generation/user-data/user-data.compone
 import { CreateAuthorComponent } from './authors/create-author/create-author.component';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorsComponent } from './authors/authors.component';
+import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -97,33 +96,211 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'articles',
-    component: ArticlesComponent,
-    canActivate: [AuthguardServiceService],
+    path: 'resources',
+    children: [
+      {
+        path: 'articles',
+        children: [
+          {
+            path: '',
+            component: ArticlesComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-details/:page',
+            component: ArticlesDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-edit/:page',
+            component: ArticleEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-create',
+            pathMatch: 'full',
+            component: ArticleCreateComponent,
+            canActivate: [AuthguardServiceService],
+          },
+        ]
+      },
+      {
+        path: 'blogs',
+        children: [
+          {
+            path: '',
+            component: BlogsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-detail/:page',
+            component: BlogDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-edit/:page',
+            component: EditBlogComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-create',
+            component: CreateBlogComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'cases',
+        children: [
+          {
+            path: '',
+            component: CaseStudiesComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'view-cases/:page',
+            component: ViewCasesComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'edit-cases/:page',
+            component: CasesEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create-cases',
+            component: CasesCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'whitepapers',
+        children: [
+          {
+            path: '',
+            component: WhitepapersComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-details/:page',
+            component: WhitepaperDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-edit/:page',
+            component: WhitepaperEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-create',
+            component: WhitepaperCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'testimonials',
+        children: [
+          {
+            path: '',
+            component: TestimonialsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          // {
+          //   path: 'view-testimonials/:page',
+          //   component: WhitepaperDetailComponent,
+          //   pathMatch: 'full',
+          //   canActivate: [AuthguardServiceService],
+          // },
+          // {
+          //   path: 'white-edit/:page',
+          //   component: WhitepaperEditComponent,
+          //   pathMatch: 'full',
+          //   canActivate: [AuthguardServiceService],
+          // },
+          {
+            path: 'create-testimonials/:page',
+            component: CreateTestimonialsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+        ]
+      },
+      {
+        path: 'news',
+        children: [
+          {
+            path: '',
+            component: NewsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'view-news/:page',
+            component: NewsViewComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'edit-news/:page',
+            component: NewsEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create-news',
+            component: CreateNewsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'videos',
+        children: [
+          {
+            path: '',
+            component: VideosPreviewComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-detail/:page',
+            component: VideosDetailsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-update/:page',
+            component: VideosUpdateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-create',
+            component: VideosCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+    ]
   },
+
+
   {
     path: 'authors',
     component: AuthorsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'blogs',
-    component: BlogsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'cases',
-    component: CaseStudiesComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'testimonials',
-    component: TestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'whitepapers',
-    component: WhitepapersComponent,
     canActivate: [AuthguardServiceService],
   },
   {
@@ -161,21 +338,7 @@ const routes: Routes = [
     component: CreateParticipantsComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'article-details',
-    component: ArticlesDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'article-edit',
-    component: ArticleEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'article-create',
-    component: ArticleCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
+
   {
     path: 'author-create',
     component: CreateAuthorComponent,
@@ -187,37 +350,11 @@ const routes: Routes = [
     canActivate: [AuthguardServiceService],
   },
   {
-    path: 'white-details',
-    component: WhitepaperDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'white-edit',
-    component: WhitepaperEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'white-create',
-    component: WhitepaperCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-
-
-  {
     path: 'article-create',
     component: ArticleCreateComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'blog-detail',
-    component: BlogDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'blog-create',
-    component: CreateBlogComponent,
-    canActivate: [AuthguardServiceService],
-  },
+
   {
     path: 'videos',
     component: VideosPreviewComponent,
@@ -236,57 +373,6 @@ const routes: Routes = [
   {
     path: 'videos-detail',
     component: VideosDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-
-  {
-    path: 'blog-edit',
-    component: EditBlogComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'view-cases',
-    component: ViewCasesComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-cases',
-    component: CasesCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-cases',
-    component: CasesEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'news',
-    component: NewsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-news',
-    component: CreateNewsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'view-news',
-    component: NewsViewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-news',
-    component: NewsEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'view-testimonials',
-    component: ViewTestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-testimonials',
-    component: CreateTestimonialsComponent,
     canActivate: [AuthguardServiceService],
   },
   {
