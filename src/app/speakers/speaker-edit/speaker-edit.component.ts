@@ -89,7 +89,7 @@ export class SpeakerEditComponent implements OnInit {
         return this.updateSpeakerForm.controls[controlName].hasError(errorName);
       }
     };
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.spkrID = params.page;
       this.getSpeakersDetails(params.page);
     });
