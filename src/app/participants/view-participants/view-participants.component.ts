@@ -12,8 +12,8 @@ export class ViewParticipantsComponent implements OnInit {
   constructor(private service: AuthServiceService, private queryString: ActivatedRoute) {}
   event: any = {};
   ngOnInit(): void {
-    this.queryString.queryParams.subscribe((params) => {
-      this.getParticipantData(params.id);
+    this.queryString.params.subscribe((params) => {
+      this.getParticipantData(params.page);
     });
   }
   getParticipantData(id) {

@@ -302,11 +302,11 @@ const routes: Routes = [
     component: AuthorsComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'speakers',
-    component: SpeakersPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
+  // {
+  //   path: 'speakers',
+  //   component: SpeakersPreviewComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   {
     path: 'participants',
     children: [
