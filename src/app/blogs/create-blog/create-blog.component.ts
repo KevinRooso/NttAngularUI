@@ -14,6 +14,7 @@ import { textValidation } from 'src/app/validators/general-validators';
 })
 export class CreateBlogComponent implements OnInit {
   submitBtnCaption = 'Submit';
+  newpersons: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -134,6 +135,9 @@ export class CreateBlogComponent implements OnInit {
   getPersons() {
     this.service.getPersons().subscribe((res) => {
       this.persons = res.body;
+      for (let i = 0; i < this.persons.length; i++) {
+        this.newpersons[i] = this.persons[this.persons.length - 1 - i];
+      }
     });
   }
   fileProgress(fileInput: any) {

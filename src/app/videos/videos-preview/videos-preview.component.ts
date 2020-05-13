@@ -70,27 +70,24 @@ export class VideosPreviewComponent implements OnInit {
     });
   }
   getDataWithCat() {
-    this.filterBlogs = this.publishList;
-    if (this.cat === 'cat') {
-      this.filterBlogs = this.publishList;
-      return false;
-    }
     this.publishList = this.publishList1;
-    this.filterBlogs = this.publishList.filter((m) => {
-      return m.category.id.toString() === this.cat;
-    });
-    this.publishList = this.filterBlogs;
-
-    this.filterBlogs = this.draftList;
-    if (this.cat === 'cat') {
-      this.filterBlogs = this.draftList;
-      return false;
-    }
     this.draftList = this.draftList1;
-    this.filterBlogs = this.draftList.filter((m) => {
-      return m.category.id.toString() === this.cat;
-    });
-    this.draftList = this.filterBlogs;
+    this.filterBlogs = this.blogs;
+    if (this.cat === 'cat') {
+      this.publishList = this.publishList1;
+      this.draftList = this.draftList1;
+    } else {
+      this.publishList = this.publishList.filter((m) => {
+        if (m.category !== null) {
+          return m.category.id.toString() === this.cat;
+        }
+      });
+      this.draftList = this.draftList.filter((m) => {
+        if (m.category !== null) {
+          return m.category.id.toString() === this.cat;
+        }
+      });
+    }
   }
   blogSearch() {
     this.publishList = this.publishList.filter((m) => {

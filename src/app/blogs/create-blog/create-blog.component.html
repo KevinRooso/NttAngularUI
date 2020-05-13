@@ -89,7 +89,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Author</mat-label>
             <mat-select formControlName="person">
-              <mat-option *ngFor="let person of persons" [value]="person.id">
+              <mat-option *ngFor="let person of newpersons" [value]="person.id">
                 {{ person.fullName }}
               </mat-option>
             </mat-select>
