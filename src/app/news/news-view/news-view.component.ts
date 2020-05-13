@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 export class NewsViewComponent implements OnInit {
   resourceTags: any;
   constructor(private actRoute: ActivatedRoute, private service: AuthServiceService, private route: Router) {}
-  news;
+  news: any = {};
   newsId;
   ngOnInit(): void {
     this.actRoute.params.subscribe((params) => {
