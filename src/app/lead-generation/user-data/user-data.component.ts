@@ -18,7 +18,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ],
 })
 export class UserDataComponent implements OnInit {
-  columnsToDisplay: string[] = ['S.NO.', 'Name', 'Email', 'Contact', 'User Type', 'User ID', 'Device Type', 'Status'];
+  columnsToDisplay: string[] = ['S.NO.', 'Name', 'Email', 'Contact', 'User Type', 'Status'];
   dataSource: any;
   expandedElement: any;
   userTableData: any = [];
@@ -42,8 +42,6 @@ export class UserDataComponent implements OnInit {
           Email: element.email,
           Contact: element.phoneNumber,
           'User Type': element.userType.displayName,
-          'User ID': element.userType.id,
-          'Device Type': deviceType,
           Status: element.active,
         };
         this.userTableData.push(obj);

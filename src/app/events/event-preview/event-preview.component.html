@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/create"><button type="button" class="btn button-1 action-good">Create Event</button></a>
+      <a routerLink="create"><button type="button" class="btn button-1 action-good">Create Event</button></a>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item mr-3">
           <div class="form-inline my-2 my-lg-0">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="event-card-body-footer text-center">
                       <a
-                        ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">
+                        ><button type="button" [routerLink]="['details',card.id]" class="btn py-1 px-3 button-1 action-info" >
                           View Details
                         </button></a
                       >
@@ -185,7 +185,7 @@
                     </div>
                     <div class="event-card-body-footer text-center">
                       <a
-                        ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">
+                        ><button type="button" class="btn py-1 px-3 button-1 action-info" [routerLink]="['details',card.id]">
                           View Details
                         </button></a
                       >
@@ -235,7 +235,7 @@
                     </div>
                     <div class="event-card-body-footer text-center">
                       <a
-                        ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">
+                        ><button type="button" class="btn py-1 px-3 button-1 action-info" [routerLink]="['details',card.id]">
                           View Details
                         </button></a
                       >
@@ -285,7 +285,7 @@
                     </div>
                     <div class="event-card-body-footer text-center">
                       <a
-                        ><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="getDetails(card.id)">
+                        ><button type="button" class="btn py-1 px-3 button-1 action-info" [routerLink]="['details',card.id]">
                           View Details
                         </button></a
                       >

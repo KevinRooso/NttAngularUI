@@ -60,17 +60,23 @@ export class BlogsComponent implements OnInit {
     });
   }
   getDataWithCat() {
+    this.publishedList=this.publishedList1;
+    this.draftList=this.draftList1;
     this.filterBlogs = this.blogs;
-    if (this.cat === 'cat') {
-      this.filterBlogs = this.blogs;
-      return false;
+    if(this.cat==='cat'){
+      this.publishedList=this.publishedList1;
+      this.draftList=this.draftList1;
     }
-    this.filterBlogs = this.blogs.filter((m) => {
+    this.publishedList = this.publishedList.filter((m) => {
       if (m.category !== null) {
         return m.category.id.toString() === this.cat;
       }
     });
-    this.searchFilterData = this.filterBlogs;
+    this.draftList = this.draftList.filter((m) => {
+      if (m.category !== null) {
+        return m.category.id.toString() === this.cat;
+      }
+    });
   }
   blogSearch() {
     this.publishedList = this.publishedList.filter((m) => {

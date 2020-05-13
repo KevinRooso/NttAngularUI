@@ -19,7 +19,7 @@ export class EventDetailsComponent implements OnInit {
     private commonService: CommonServiceService,
     public snackBar: MatSnackBar
   ) {}
-  getEventDetails: any = [];
+  getEventDetails: any= [];
   // htmlString = '<h1>Dheeraj Kishore<h1>';
   getParticipantDetails: any = [];
   eventId;
@@ -39,10 +39,12 @@ export class EventDetailsComponent implements OnInit {
     {
       icon: 'file_copy',
       tooltip: 'Duplicate Event',
+      url:'../../copy-event'
     },
     {
       icon: 'edit',
       tooltip: 'Edit Event',
+      url:'../../edit'
     },
   ];
   buttons = [];
@@ -50,7 +52,7 @@ export class EventDetailsComponent implements OnInit {
   isPublish = false;
   // isActive = false;
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.eventId = params.page;
       this.getEventData(params.page);
       this.getEventParticipant(params.page);

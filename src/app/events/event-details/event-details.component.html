@@ -35,8 +35,9 @@
             color="secondary"
             [matTooltip]="btn.tooltip"
             matTooltipPosition="left"
+            [routerLink]="[btn.url,eventId]"
           >
-            <i class="material-icons" (click)="duplicateEdit(btn.icon, getEventDetails.id)">{{ btn.icon }}</i>
+            <i class="material-icons" >{{ btn.icon }}</i>
           </button>
         </div>
       </div>

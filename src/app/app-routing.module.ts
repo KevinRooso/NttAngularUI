@@ -58,25 +58,43 @@ import { AuthorsComponent } from './authors/authors.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'events',
+  //   component: EventPreviewComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   {
     path: 'events',
-    component: EventPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'details',
-    component: EventDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create',
-    component: CreateEventComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit',
-    component: EventEditComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: EventPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create',
+        component: CreateEventComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'details/:page',
+        component: EventDetailsComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'edit/:page',
+        component: EventEditComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'copy-event/:page',
+        component: CopyEventComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
   {
     path: 'articles',
@@ -109,39 +127,55 @@ const routes: Routes = [
     canActivate: [AuthguardServiceService],
   },
   {
-    path: 'speakers',
-    component: SpeakersPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
     path: 'participants',
-    component: ParticipantPreviewComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: ParticipantPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-details/:page',
+        pathMatch: 'full',
+        component: ViewParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-add',
+        pathMatch: 'full',
+        component: CreateParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
+
   {
-    path: 'create-speaker',
-    component: SpeakerCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-update',
-    component: SpeakerEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-details',
-    component: SpeakerDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-details',
-    component: ViewParticipantsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-add',
-    component: CreateParticipantsComponent,
-    canActivate: [AuthguardServiceService],
+    path: 'speakers',
+    children: [
+      {
+        path: '',
+        component: SpeakersPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create-speaker',
+        pathMatch: 'full',
+        component: SpeakerCreateComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-update/:page',
+        pathMatch: 'full',
+        component: SpeakerEditComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-details/:page',
+        pathMatch: 'full',
+        component: SpeakerDetailsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
   {
     path: 'article-details',
@@ -181,11 +215,6 @@ const routes: Routes = [
   {
     path: 'white-create',
     component: WhitepaperCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'copy-event',
-    component: CopyEventComponent,
     canActivate: [AuthguardServiceService],
   },
 

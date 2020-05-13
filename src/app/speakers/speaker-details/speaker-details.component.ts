@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./speaker-details.component.css'],
 })
 export class SpeakerDetailsComponent implements OnInit {
-  speakerData: any;
+  speakerData: any = [];
 
   constructor(
     private authService: AuthServiceService,
@@ -19,7 +19,7 @@ export class SpeakerDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.getSpeakerData(params.page);
     });
   }
@@ -31,7 +31,7 @@ export class SpeakerDetailsComponent implements OnInit {
   }
   editSpeaker(id) {
     // alert(id);
-    this.router.navigate(['/speaker-update'], { queryParams: { page: id } });
+    this.router.navigate(['./speaker-update'], { queryParams: { page: id } });
   }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel

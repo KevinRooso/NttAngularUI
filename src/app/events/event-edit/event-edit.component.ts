@@ -183,7 +183,7 @@ export class EventEditComponent implements OnInit {
   }
   ngOnInit(): void {
     this.newtoday.setDate(this.newtoday.getDate() - 1);
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.evntID = params.page;
       this.getEventData(params.page);
     });
