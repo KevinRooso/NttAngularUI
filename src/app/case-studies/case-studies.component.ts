@@ -67,24 +67,38 @@ export class CaseStudiesComponent implements OnInit {
       catList = res.body;
       catList.forEach((m) => {
         for (let i = 0; i < this.caseStudies.length; i++) {
-          if (m.id === this.caseStudies[i].category.id) {
-            this.categoryList.push(m);
-            break;
+          if (this.caseStudies[i].category !== null) {
+            if (m.id === this.caseStudies[i].category.id) {
+              this.categoryList.push(m);
+              break;
+            }
           }
         }
       });
     });
   }
   getDataWithCat() {
-    this.filterCases = this.cases;
+    this.filterCases = this.publishedList;
     if (this.cat === 'cat') {
-      this.filterCases = this.cases;
+      this.filterCases = this.publishedList;
       return false;
     }
-    this.filterCases = this.cases.filter((m) => {
+    this.publishedList = this.publishedList1;
+    this.filterCases = this.publishedList.filter((m) => {
       return m.category.id.toString() === this.cat;
     });
-    this.searchFilterData = this.filterCases;
+    this.publishedList = this.filterCases;
+
+    this.filterCases = this.draftList;
+    if (this.cat === 'cat') {
+      this.filterCases = this.draftList;
+      return false;
+    }
+    this.draftList = this.draftList1;
+    this.filterCases = this.draftList.filter((m) => {
+      return m.category.id.toString() === this.cat;
+    });
+    this.draftList = this.filterCases;
   }
   blogSearch() {
     this.publishedList = this.publishedList.filter((m) => {
@@ -98,10 +112,26 @@ export class CaseStudiesComponent implements OnInit {
   }
   getDataWithTag() {
     if (this.tag === 'tag') {
-      this.filterCases = this.cases;
+      this.filterCases = this.publishedList;
       return false;
     }
-    this.filterCases = this.searchFilterData.filter((m) => {
+    this.publishedList = this.publishedList1;
+    this.publishedList = this.publishedList.filter((m) => {
+      let flag = false;
+      m.resourceTags.forEach((ele) => {
+        if (ele.id.toString() === this.tag) {
+          flag = true;
+        }
+      });
+      return flag;
+    });
+
+    if (this.tag === 'tag') {
+      this.filterCases = this.draftList;
+      return false;
+    }
+    this.draftList = this.draftList1;
+    this.draftList = this.draftList.filter((m) => {
       let flag = false;
       m.resourceTags.forEach((ele) => {
         if (ele.id.toString() === this.tag) {

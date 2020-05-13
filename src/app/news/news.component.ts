@@ -88,15 +88,19 @@ export class NewsComponent implements OnInit {
 
     if (data[1] === 'date') {
       if (data[0] === 'asc') {
-        //   console.log("adtesort==",this.searchFilterData);
-        this.searchFilterData.sort(this.GFG_sortFunction);
-        // console.log("dateaftersort==",this.searchFilterData);
+        // //   console.log("adtesort==",this.searchFilterData);
+        // this.searchFilterData.sort(this.GFG_sortFunction);
+        // // console.log("dateaftersort==",this.searchFilterData);
+        this.publishList.sort(this.GFG_sortFunction);
+        this.draftList.sort(this.GFG_sortFunction);
 
         this.filterBlogs = this.searchFilterData;
       } else {
-        this.searchFilterData.sort(this.GFG_sortFunction1);
-        // console.log("dateaftersort==",this.searchFilterData);
-        this.filterBlogs = this.searchFilterData;
+        // this.searchFilterData.sort(this.GFG_sortFunction1);
+        // // console.log("dateaftersort==",this.searchFilterData);
+        // this.filterBlogs = this.searchFilterData;
+        this.publishList.sort(this.GFG_sortFunction1);
+        this.draftList.sort(this.GFG_sortFunction1);
       }
     }
   }
