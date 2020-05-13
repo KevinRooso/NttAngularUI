@@ -93,7 +93,7 @@ const routes: Routes = [
         component: CopyEventComponent,
         canActivate: [AuthguardServiceService],
       },
-    ]
+    ],
   },
   {
     path: 'resources',
@@ -310,33 +310,54 @@ const routes: Routes = [
   },
   {
     path: 'participants',
-    component: ParticipantPreviewComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: ParticipantPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-details/:page',
+        pathMatch: 'full',
+        component: ViewParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-add',
+        pathMatch: 'full',
+        component: CreateParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
+
   {
-    path: 'create-speaker',
-    component: SpeakerCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-update',
-    component: SpeakerEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-details',
-    component: SpeakerDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-details',
-    component: ViewParticipantsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-add',
-    component: CreateParticipantsComponent,
-    canActivate: [AuthguardServiceService],
+    path: 'speakers',
+    children: [
+      {
+        path: '',
+        component: SpeakersPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create-speaker',
+        pathMatch: 'full',
+        component: SpeakerCreateComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-update/:page',
+        pathMatch: 'full',
+        component: SpeakerEditComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-details/:page',
+        pathMatch: 'full',
+        component: SpeakerDetailsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
 
   {
@@ -349,38 +370,6 @@ const routes: Routes = [
     component: AuthorDetailComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'article-create',
-    component: ArticleCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-
-  {
-    path: 'videos',
-    component: VideosPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-create',
-    component: VideosCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-update',
-    component: VideosUpdateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-detail',
-    component: VideosDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-testimonials',
-    component: EditTestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-
   {
     path: 'home-config',
     component: ConfigurationComponent,
