@@ -78,27 +78,34 @@ export class CaseStudiesComponent implements OnInit {
     });
   }
   getDataWithCat() {
-    this.filterCases = this.publishedList;
-    if (this.cat === 'cat') {
-      this.filterCases = this.publishedList;
-      return false;
-    }
-    this.publishedList = this.publishedList1;
-    this.filterCases = this.publishedList.filter((m) => {
-      return m.category.id.toString() === this.cat;
-    });
-    this.publishedList = this.filterCases;
+    // this.filterCases = this.cases;
+    // if (this.cat === 'cat') {
+    //   this.filterCases = this.cases;
+    //   return false;
+    // }
+    // this.filterCases = this.cases.filter((m) => {
+    //   return m.category.id.toString() === this.cat;
+    // });
+    // this.searchFilterData = this.filterCases;
 
-    this.filterCases = this.draftList;
-    if (this.cat === 'cat') {
-      this.filterCases = this.draftList;
-      return false;
-    }
+    this.publishedList = this.publishedList1;
     this.draftList = this.draftList1;
-    this.filterCases = this.draftList.filter((m) => {
-      return m.category.id.toString() === this.cat;
-    });
-    this.draftList = this.filterCases;
+    this.filterCases = this.cases;
+    if (this.cat === 'cat') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    } else {
+      this.publishedList = this.publishedList1.filter((m) => {
+        if (m.category !== null) {
+          return m.category.id.toString() === this.cat;
+        }
+      });
+      this.draftList = this.draftList.filter((m) => {
+        if (m.category !== null) {
+          return m.category.id.toString() === this.cat;
+        }
+      });
+    }
   }
   blogSearch() {
     this.publishedList = this.publishedList.filter((m) => {
@@ -111,35 +118,49 @@ export class CaseStudiesComponent implements OnInit {
     });
   }
   getDataWithTag() {
-    if (this.tag === 'tag') {
-      this.filterCases = this.publishedList;
-      return false;
-    }
+    // if (this.tag === 'tag') {
+    //   this.filterCases = this.cases;
+    //   return false;
+    // }
+    // this.filterCases = this.searchFilterData.filter((m) => {
+    //   let flag = false;
+    //   m.resourceTags.forEach((ele) => {
+    //     if (ele.id.toString() === this.tag) {
+    //       flag = true;
+    //     }
+    //   });
+    //   return flag;
+    // });
     this.publishedList = this.publishedList1;
-    this.publishedList = this.publishedList.filter((m) => {
-      let flag = false;
-      m.resourceTags.forEach((ele) => {
-        if (ele.id.toString() === this.tag) {
-          flag = true;
-        }
-      });
-      return flag;
-    });
-
-    if (this.tag === 'tag') {
-      this.filterCases = this.draftList;
-      return false;
-    }
     this.draftList = this.draftList1;
-    this.draftList = this.draftList.filter((m) => {
-      let flag = false;
-      m.resourceTags.forEach((ele) => {
-        if (ele.id.toString() === this.tag) {
-          flag = true;
+    this.filterCases = this.cases;
+    if (this.tag === 'tag') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    } else {
+      this.publishedList = this.publishedList.filter((m) => {
+        if (m.resourceTags.length > 0) {
+          let flag = false;
+          m.resourceTags.forEach((ele) => {
+            if (ele.id.toString() === this.tag) {
+              flag = true;
+            }
+          });
+          return flag;
         }
       });
-      return flag;
-    });
+      this.draftList = this.draftList.filter((m) => {
+        if (m.resourceTags.length > 0) {
+          let flag = false;
+          m.resourceTags.forEach((ele) => {
+            if (ele.id.toString() === this.tag) {
+              flag = true;
+            }
+          });
+          return flag;
+        }
+      });
+    }
   }
 
   cancel() {
