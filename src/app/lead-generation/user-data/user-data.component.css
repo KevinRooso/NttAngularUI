@@ -50,3 +50,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
+
+.table th {
+  border-top: 1px solid #dee2e6;
+  color: #868585;
+  font-weight: 400;
+  padding: 0.8rem;
+  vertical-align: top;
+}

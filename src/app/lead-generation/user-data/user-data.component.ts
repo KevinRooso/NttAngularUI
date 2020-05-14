@@ -22,6 +22,7 @@ export class UserDataComponent implements OnInit {
   dataSource: any;
   expandedElement: any;
   userTableData: any = [];
+  userData: any = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -68,9 +69,8 @@ export class UserDataComponent implements OnInit {
     }
   }
   getID(ID) {
-    this.authService.getDeviceList(ID).subscribe((_res) => {
-      // console.log(res.body);
+    this.authService.getDeviceList(ID).subscribe((res) => {
+      this.userData = res.body;
     });
-    // alert(ID);
   }
 }
