@@ -11,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class VideosDetailsComponent implements OnInit {
   safeSrc: SafeResourceUrl;
-  videosData: any;
+  videosData: any = {};
   videosUrl: any;
 
   vde = 'https://www.youtube.com/embed/sU4fhCHAt5Q';
@@ -25,7 +25,7 @@ export class VideosDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.getVideosData(params.page);
     });
   }

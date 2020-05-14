@@ -1,12 +1,15 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a class="active">Speakers</a></li>
-  </ul>
-</div>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-2">
+      <li><a href="/home">Home</a></li>
+      <li><a class="active">Speakers</a></li>
+    </ul>
+  </div>
 
-<div _ngcontent-hlv-c186="" class="text-center"><p _ngcontent-hlv-c186="" class="heading-secondary">All Speakers</p></div>
-<!-- <div class="row justify-content-end pr-4 pb-3 pt-1">
+  <div _ngcontent-hlv-c186="" class="text-center">
+    <p _ngcontent-hlv-c186="" class="heading-secondary pb-3">All Speakers</p>
+  </div>
+  <!-- <div class="row justify-content-end pr-4 pb-3 pt-1">
  <a routerLink="/create-speaker"> <button type="button" class="btn button-1 action-good">Add Speaker</button></a>
  <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
@@ -26,77 +29,81 @@
 </ul>
 </div> -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a routerLink="/create-speaker"> <button type="button" class="btn button-1 action-good">Add Speaker</button></a>
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <!-- <li class="nav-item mx-2">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a routerLink="./create-speaker"> <button type="button" class="btn button-1 action-good ml-2">Add Speaker</button></a>
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <!-- <li class="nav-item mx-2">
       <select class="form-control">
         <option value="" hidden [(ngModel)]="filterTag" (change)="getDataWithTag()">Select Tag</option>
          <option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</option>
       </select>
     </li> -->
 
-      <li class="nav-item ml-2">
-        <div class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control"
-            [(ngModel)]="searchBlog"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            (search)="cancel()"
-            style="width: 300px;"
-          />
-          <div class="input-group-btn">
-            <button class="btn button-2 action-info" type="submit" (click)="blogSearch()">
-              <span class="material-icons">
-                search
-              </span>
-            </button>
+        <li class="nav-item mr-3">
+          <div class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control"
+              [(ngModel)]="searchBlog"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (search)="cancel()"
+            />
+            <div class="input-group-btn">
+              <button class="btn button-2 action-info" type="submit" (click)="blogSearch()">
+                <span class="material-icons">
+                  search
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="sort" (change)="filterData()">
-          <option value="Sort By">Sort By</option>
+        </li>
+        <li class="nav-item active mx-2">
+          <select class="form-control" [(ngModel)]="sort" (change)="filterData()" style="width: 150px;">
+            <option value="Sort By">Sort By</option>
 
-          <optgroup label="Created At">
-            <option value="asc?cdate">asc</option>
-            <option value="desc?cdate">desc</option>
-          </optgroup>
-        </select>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="row">
-  <div class="col-md-4" *ngFor="let cd of filterBlogs">
-    <a class="d-flex card-details" (click)="getDetails(cd.id)">
-      <div style="width: 30%;">
-        <img [src]="cd.profileImageUrl" class="photo" />
-      </div>
-      <div class="details">
-        <h2 class="name">{{ cd.fullName }}</h2>
-        <div class="origin">{{ cd.email }}</div>
-        <div class="origin">{{ cd.designation }}</div>
-        <div class="origin" *ngIf="cd.keySkills != null">{{ getSkills(cd.keySkills) }}</div>
-        <div class="sessions">
-          <h6>{{ cd.origanizationName }}</h6>
-        </div>
-      </div>
-    </a>
-  </div>
+            <optgroup label="Created At">
+              <option value="asc?cdate">asc</option>
+              <option value="desc?cdate">desc</option>
+            </optgroup>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </div>
+
+<section class="section-tours pt-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let cd of filterBlogs">
+        <a class="d-flex card-details" [routerLink]="['speaker-details', cd.id]">
+          <div style="width: 30%;">
+            <img [src]="cd.profileImageUrl" class="photo" />
+          </div>
+          <div class="details">
+            <h2 class="name">{{ cd.fullName }}</h2>
+            <!-- <div class="origin">{{ cd.email }}</div> -->
+            <div class="origin">{{ cd.designation }}</div>
+            <div class="keys" *ngIf="cd.keySkills != null">{{ getSkills(cd.keySkills) }}</div>
+            <!-- <div class="sessions">
+          <h6>{{ cd.origanizationName }}</h6>
+        </div> -->
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

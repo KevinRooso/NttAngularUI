@@ -8,11 +8,12 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./news-view.component.css'],
 })
 export class NewsViewComponent implements OnInit {
+  resourceTags: any;
   constructor(private actRoute: ActivatedRoute, private service: AuthServiceService, private route: Router) {}
-  news;
+  news: any = {};
   newsId;
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.newsId = params.page;
       this.getBlogData(params.page);
     });
@@ -20,6 +21,8 @@ export class NewsViewComponent implements OnInit {
   getBlogData(id) {
     this.service.getNewsById(id).subscribe((res) => {
       this.news = res.body;
+
+      this.resourceTags = res.body.newsTags;
     });
   }
   editcaseRoute() {

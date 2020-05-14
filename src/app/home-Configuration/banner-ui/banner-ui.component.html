@@ -1,26 +1,19 @@
 <app-loader *ngIf="show"></app-loader>
-<p>Position {{sequence}}</p>
+<p>Position {{ sequence }}</p>
 <form [formGroup]="bannerConfigurationForm">
   <div class="form-row">
     <mat-form-field class="example-full-width">
       <mat-label>Select Block</mat-label>
-      <mat-select
-        formControlName="datafieldType"
-        [(value)]="bannerBlock"
-        #block
-        (selectionChange)="getSelectedBlockData(block.value)"
-      >
+      <mat-select formControlName="datafieldType" [(value)]="bannerBlock" #block (selectionChange)="getSelectedBlockData(block.value)">
         <ng-container *ngFor="let block of blocks">
-          <mat-option
-            [value]="block.apiName"
-            *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true"
-            >{{ block.name }}</mat-option
-          >
+          <mat-option [value]="block.apiName" *ngIf="block.apiName == 'testimonials' || block.apiName == 'case studies' ? false : true">{{
+            block.name
+          }}</mat-option>
         </ng-container>
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="form-row" >
+  <div class="form-row">
     <mat-form-field class="example-full-width">
       <mat-label>Data According to Block Selected</mat-label>
       <mat-select formControlName="dataFieldId" [(ngModel)]="bannerSelectedValue" (ngModelChange)="emitBanner()">
@@ -29,6 +22,6 @@
     </mat-form-field>
   </div>
   <div class="form-row" *ngIf="sequence === formArr.length && sequence > 1">
-    <button mat-raised-button color="warn" style="text-align:center; left:54px" (click)="removeForm()">Remove</button>
+    <button mat-raised-button color="warn" style="text-align: center; left: 54px;" (click)="removeForm()">Remove</button>
   </div>
 </form>

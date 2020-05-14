@@ -1,60 +1,63 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="BackMe()">Videos</a></li>
-    <li><a class="active">Video Preview</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Videos</a></li>
+      <li><a class="active">Video Preview</a></li>
+    </ul>
+  </div>
 </div>
-<div class="container preview-card">
-  <div class="row my-3" style="height: 50px;">
-    <div class="col-md-11">
-      <h1 style="font-size: 25px; color: #008ece; text-align: left; padding: 20px;">{{ videosData.title }}</h1>
+<div class="container">
+  <div class="preview-card">
+    <div class="row my-3" style="height: 50px;">
+      <div class="col-md-11">
+        <h1 style="font-size: 25px; color: #008ece; text-align: left; padding: 20px;">{{ videosData.title }}</h1>
+      </div>
+      <div class="col-md-1 edit" style="padding-top: 10px;">
+        <button class="btn" [routerLink]="['../../videos-update',videosData.id]"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+      </div>
     </div>
-    <div class="col-md-1 edit" style="padding-top: 10px;">
-      <button class="btn" (click)="getDetails(videosData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <iframe
+          [src]="safeSrc"
+          width="100%"
+          height="500"
+          frameborder="0"
+          style="padding-left: 40px; padding-right: 40px; padding-top: 15px;"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <iframe
-        [src]="safeSrc"
-        width="100%"
-        height="500"
-        frameborder="0"
-        style="padding-left: 40px; padding-right: 40px; padding-top: 15px;"
-        webkitallowfullscreen
-        mozallowfullscreen
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="panel panel-info">
-        <div class="panel-body p-3">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel-heading">
-                <!-- <p>{{videosData.shortDescription}}</p> -->
-                <p><b>Category : </b>{{ videosData.category.displayName }}</p>
-                <h6><b>Posted On : </b>{{ videosData.createdAt | date }}</h6>
-                <b>Short Description </b>
-                <p [innerHTML]="videosData.shortDescription"></p>
-                <b>Long Description </b>
-                <p [innerHTML]="videosData.longDescription"></p>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="panel panel-info">
+          <div class="panel-body p-3">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel-heading">
+                  <!-- <p>{{videosData.shortDescription}}</p> -->
+                  <p *ngIf="videosData.category != null"><b>Category : </b>{{ videosData.category.displayName }}</p>
+                  <h6><b>Posted On : </b>{{ videosData.createdAt | date }}</h6>
+                  <b>Short Description </b>
+                  <p [innerHTML]="videosData.shortDescription"></p>
+                  <b>Long Description </b>
+                  <p [innerHTML]="videosData.longDescription"></p>
+                </div>
               </div>
-            </div>
 
-            <div class="col-md-12 col-lg-12 py-3">
-              <!-- <p>{{videosData.longDescription}}</p> -->
-              <!-- <div class="text-center">
+              <div class="col-md-12 col-lg-12 py-3">
+                <!-- <p>{{videosData.longDescription}}</p> -->
+                <!-- <div class="text-center">
               <a [href]="videosData.resourceLink" target="_blank"><button class="btn btn-success">View Article</button></a>
               </div> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </div>

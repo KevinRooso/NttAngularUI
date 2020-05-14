@@ -190,6 +190,6 @@ export class ParticipantPreviewComponent {
     );
   }
   someClickHandler1(data) {
-    this.router.navigate(['participant-details'], { queryParams: { id: data.id } });
+    this.router.navigate(['/participants/participant-details',data.id]);
   }
 }

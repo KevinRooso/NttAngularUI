@@ -39,10 +39,12 @@ export class EventDetailsComponent implements OnInit {
     {
       icon: 'file_copy',
       tooltip: 'Duplicate Event',
+      url: '../../copy-event',
     },
     {
       icon: 'edit',
       tooltip: 'Edit Event',
+      url: '../../edit',
     },
   ];
   buttons = [];
@@ -50,7 +52,7 @@ export class EventDetailsComponent implements OnInit {
   isPublish = false;
   // isActive = false;
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.eventId = params.page;
       this.getEventData(params.page);
       this.getEventParticipant(params.page);
@@ -67,10 +69,10 @@ export class EventDetailsComponent implements OnInit {
       this.getEventDetails = res.body.events;
       this.eventName = this.getEventDetails.title;
 
-      if (this.getEventDetails.eventStatus === 'drafted') {
+      if (this.getEventDetails.eventStatus === 'Drafted') {
         this.showPublish = false;
       }
-      if (this.getEventDetails.eventStatus === 'expired') {
+      if (this.getEventDetails.eventStatus === 'Expired') {
         this.showPublish = false;
       }
       if (this.getEventDetails.eventSchedule != null) {

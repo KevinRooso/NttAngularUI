@@ -1,9 +1,11 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="BackMe()">Whitepaper</a></li>
-    <li><a class="active">Whitepaper Preview</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Whitepaper</a></li>
+      <li><a class="active">Whitepaper Preview</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -32,14 +34,14 @@
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">{{ whitePaperData.title }}</h1>
                 <br />
-                <p><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
-                <p class="card-text mb-0" style="font-weight: 500;">
+                <p *ngIf="whitePaperData.category != null"><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
+                <p *ngIf="resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" (click)="getDetails(whitePaperData.id)">
+              <button class="btn" [routerLink]="['../../white-edit',whitePaperData.id]" >
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />

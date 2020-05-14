@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-whitepaper-create',
@@ -38,6 +39,7 @@ export class WhitepaperCreateComponent implements OnInit {
   today = new Date();
 
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Submit';
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -47,14 +49,14 @@ export class WhitepaperCreateComponent implements OnInit {
   ) {
     this.createWhitePaperForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [true],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
 
@@ -221,23 +223,30 @@ export class WhitepaperCreateComponent implements OnInit {
     if (this.createWhitePaperForm.valid) {
       const tags: any[] = [];
 
-      this.createWhitePaperForm.value.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createWhitePaperForm.value.tagList.length > 0) {
+        this.createWhitePaperForm.value.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
 
+      let catId;
+      catId = this.createWhitePaperForm.controls['categoryId'].value;
+      if (this.createWhitePaperForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
       const obj = {
-        categoryId: this.createWhitePaperForm.controls['categoryId'].value,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: this.attachFile,
         draft: this.createWhitePaperForm.controls['draft'].value,
         longDescription: this.createWhitePaperForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 5,
         serviceUsed: 'string',
         shortDescription: this.createWhitePaperForm.controls['shortDescription'].value,
@@ -253,7 +262,7 @@ export class WhitepaperCreateComponent implements OnInit {
         () => {
           this.show = false;
           this.snackBar.open('Whitepaper successfully created', 'Close', { duration: 2000 });
-          this.router.navigate(['whitepapers']);
+          this.router.navigate(['/resources/whitepapers']);
         },
         () => {
           this.show = false;
@@ -285,5 +294,12 @@ export class WhitepaperCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

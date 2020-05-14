@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-videos-update',
@@ -14,6 +15,7 @@ export class VideosUpdateComponent implements OnInit {
   speakerImage: any;
   videoID: any;
   vidoeData: any;
+  submitBtnCaption: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,11 +55,11 @@ export class VideosUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       // person: ['',Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       draft: [false],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
@@ -77,7 +79,7 @@ export class VideosUpdateComponent implements OnInit {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
     };
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.videoID = params.page;
       this.getVideosData(params.page);
     });
@@ -118,17 +120,22 @@ export class VideosUpdateComponent implements OnInit {
       this.createVideoForm.controls['expiryDate'].setValue(res.body.expiryDate);
 
       if (res.body.targetUserType != null) {
-        this.selected2 = res.body.category.id;
+        if (res.body.category !== null) {
+          this.selected2 = res.body.category.id;
+        }
       }
 
       res.body.resourceTags.forEach((m) => {
         this.selected4.push(m.id);
       });
+      this.setDraftCaption(res.body.isDraft);
       this.speakerImage = res.body.thumbnailImageUrl;
       this.createVideoForm.get(['title']).setValue(res.body.title);
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
-      this.createVideoForm.get(['categoryId']).setValue(res.body.category.id);
+      if (res.body.category !== null) {
+        this.createVideoForm.get(['categoryId']).setValue(res.body.category.id);
+      }
       this.createVideoForm.get(['downloadUrl']).setValue(res.body.resourceLink);
       this.createVideoForm.get(['draft']).setValue(res.body.isDraft);
       // this.createVideoForm.get(['person']).setValue(res.body.person.id);
@@ -255,13 +262,19 @@ export class VideosUpdateComponent implements OnInit {
         });
       });
 
+      let catId;
+      catId = this.createVideoForm.controls['categoryId'].value;
+      if (this.createVideoForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
+
       const dataObj = {
         longDescription: obj.longDescription,
-        categoryId: obj.categoryId,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
-        person: {},
+        personId: null,
         shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
@@ -278,7 +291,7 @@ export class VideosUpdateComponent implements OnInit {
           this.show = false;
           this.snackBar.open('Videos Updated Successfully', 'Close', { duration: 5000 });
           // alert("Case Study Updated Successfully");
-          this.router.navigate(['videos']);
+          this.router.navigate(['/resources/videos']);
         },
         (_error) => {
           this.show = false;
@@ -311,5 +324,19 @@ export class VideosUpdateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

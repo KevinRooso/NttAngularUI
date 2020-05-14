@@ -1,9 +1,11 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="Back()">Speakers</a></li>
-    <li><a class="active">Speaker Preview</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="Back()">Speakers</a></li>
+      <li><a class="active">Speaker Preview</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -11,8 +13,10 @@
       <div class="panel panel-info bg-white shadow">
         <div class="panel-body p-3">
           <div class="row">
-            <button class="btn" (click)="editSpeaker(speakerData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
-            <div class="col-md-3 col-lg-3">
+            <button class="btn" [routerLink]="['../../speaker-update', speakerData.id]">
+              <span class="fa fa-pencil" aria-hidden="true"></span>
+            </button>
+            <div class="col-md-4 pr-0">
               <img
                 alt="User Pic"
                 [src]="speakerData.profileImageUrl"
@@ -22,7 +26,7 @@
               />
             </div>
 
-            <div class="col-md-9 col-lg-9">
+            <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
                 <h3 class="panel-title">{{ speakerData.fullName }}</h3>
                 <p class="speaker-details">{{ speakerData.email }}</p>
@@ -30,7 +34,7 @@
                 <p class="speaker-details">{{ speakerData.profile }}</p>
               </div>
             </div>
-            <div class="col-md-12 col-lg-12 py-3">
+            <div class="col-md-12 col-lg-12">
               <table class="table table-user-information">
                 <tbody>
                   <tr>

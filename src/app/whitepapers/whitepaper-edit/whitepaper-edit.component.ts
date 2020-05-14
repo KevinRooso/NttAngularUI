@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-whitepaper-edit',
@@ -46,6 +47,7 @@ export class WhitepaperEditComponent implements OnInit {
   result1: string;
   result2: string;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Publish';
 
   constructor(
     private frmbuilder: FormBuilder,
@@ -57,14 +59,14 @@ export class WhitepaperEditComponent implements OnInit {
   ) {
     this.updateWhitePaperForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -83,7 +85,7 @@ export class WhitepaperEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.wPaperId = params.page;
       this.getWhitePaperDetails(params.page);
     });
@@ -258,6 +260,8 @@ export class WhitepaperEditComponent implements OnInit {
       const url2 = this.wPaperData.resourceLink;
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
 
+      this.setDraftCaption(res.body.isDraft);
+
       // this.selected3=res.body.person.id;
       for (let i = 0; i < res.body.resourceTags.length; i++) {
         this.selected4.push(res.body.resourceTags[i].id);
@@ -266,8 +270,12 @@ export class WhitepaperEditComponent implements OnInit {
       this.updateWhitePaperForm.controls['title'].setValue(this.wPaperData.title);
       this.updateWhitePaperForm.controls['longDescription'].setValue(this.wPaperData.longDescription);
       this.updateWhitePaperForm.controls['shortDescription'].setValue(this.wPaperData.shortDescription);
-      this.updateWhitePaperForm.controls['categoryId'].setValue(this.wPaperData.category.displayName);
-      this.updateWhitePaperForm.controls['tagList'].setValue(this.wPaperData.resourceTags.name);
+      if (this.wPaperData.category !== null) {
+        this.updateWhitePaperForm.controls['categoryId'].setValue(this.wPaperData.category.displayName);
+      }
+      if (this.wPaperData.resourceTags.length > 0) {
+        this.updateWhitePaperForm.controls['tagList'].setValue(this.wPaperData.resourceTags.name);
+      }
       this.updateWhitePaperForm.controls['draft'].setValue(this.wPaperData.isDraft);
       this.selected4 = [];
       for (let i = 0; i < res.body.resourceTags.length; i++) {
@@ -329,11 +337,15 @@ export class WhitepaperEditComponent implements OnInit {
         });
       });
       let catId;
-      this.allData.forEach((m) => {
-        if (m.displayName === this.updateWhitePaperForm.controls['categoryId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.updateWhitePaperForm.controls['categoryId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.updateWhitePaperForm.controls['categoryId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       // let userId;
       // this.userList.forEach(m=>{
@@ -349,7 +361,7 @@ export class WhitepaperEditComponent implements OnInit {
         id: this.wPaperId,
         draft: this.updateWhitePaperForm.controls['draft'].value,
         longDescription: this.updateWhitePaperForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 5,
         serviceUsed: 'string',
         shortDescription: this.updateWhitePaperForm.controls['shortDescription'].value,
@@ -365,7 +377,7 @@ export class WhitepaperEditComponent implements OnInit {
           this.show = false;
           this.submitted = false;
           this.snackBar.open('Whitepaper successfully updated', 'Close', { duration: 5000 });
-          this.router.navigate(['whitepapers']);
+          this.router.navigate(['/resources/whitepapers']);
         },
         () => {
           this.show = false;
@@ -397,5 +409,19 @@ export class WhitepaperEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

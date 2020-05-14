@@ -22,7 +22,7 @@ export class ArticlesDetailComponent implements OnInit {
   show = false;
   ngOnInit(): void {
     this.show = true;
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.getArticleData(params.page);
     });
   }

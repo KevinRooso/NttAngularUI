@@ -47,3 +47,51 @@
 
   width: 292px;
 }
+
+.blog-card {
+  border-radius: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.card-container {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.card-block {
+  background: #fff;
+  height: 100%;
+  padding: 10px 0 10px 0;
+
+  /* height: 120px; */
+}
+
+.card-title {
+  color: #03c;
+  font-size: 14px;
+  height: 17px;
+  margin: 0 10px 10px 10px;
+  overflow: hidden;
+}
+
+.card-date {
+  border-top: 1px solid #edebeb;
+  font-size: 13px;
+  height: 25px;
+  margin: 0;
+  overflow: hidden;
+  padding: 5px 10px 0 10px;
+}
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
+}

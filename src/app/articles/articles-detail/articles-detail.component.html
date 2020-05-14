@@ -1,10 +1,12 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="BackMe()">Articles</a></li>
-    <li><a class="active">Article Preview</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Articles</a></li>
+      <li><a class="active">Article Preview</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -33,14 +35,14 @@
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">{{ articleData.title }}</h1>
                 <br />
-                <p><b>Category : </b>{{ articleData.category.displayName }}</p>
-                <p class="card-text mb-0" style="font-weight: 500;">
+                <p *ngIf="articleData.category != null"><b>Category : </b>{{ articleData.category.displayName }}</p>
+                <p *ngIf="articleData.resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" (click)="getDetails(articleData.id)">
+              <button class="btn" [routerLink]="['../../article-edit',articleData.id]" >
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />

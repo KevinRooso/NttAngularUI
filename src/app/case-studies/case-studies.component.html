@@ -1,89 +1,146 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a class="active">Case Studies</a></li>
-  </ul>
-</div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarTogglerDemo01"
-    aria-controls="navbarTogglerDemo01"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a routerLink="/create-cases"
-      ><button type="button" class="btn button-1 action-good">
-        Create Case Study
-      </button></a
-    >
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
-          <option value="cat">Please Select Service</option>
-          <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
-        </select>
-      </li>
-      <li class="nav-item active mx-2">
-        <select class="form-control" [(ngModel)]="tag" (change)="getDataWithTag()">
-          <option value="tag">Please Select Industry</option>
-          <option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</option>
-        </select>
-      </li>
-
-      <li class="nav-item ml-2">
-        <div class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control"
-            [(ngModel)]="searchCases"
-            type="search"
-            (search)="cancel()"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn button-2 action-info" (click)="blogSearch()">
-            Search
-          </button>
-        </div>
-      </li>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a class="active">Case Studies</a></li>
     </ul>
   </div>
-</nav>
-<section class="blog pr-3">
-  <!-- <div class="text-center">
-    <p class="heading-secondary py-4">
-Case Studies
-    </p>
-    </div> -->
-  <!-- <div class="container-fluid"> -->
-  <div class="row">
-    <div class="col-md-6 pr-0" *ngFor="let cases of filterCases">
-      <div class="category-list-card" (click)="viewCases(cases.id)">
-        <div class="d-inline">
-          <img [src]="cases.thumbnailImageUrl" class="category-image" />
-        </div>
-        <div class="category-name">
-          <div class="case-title">
-            <h3>{{ cases.title | slice: 0:40 }}</h3>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a routerLink="create-cases"
+        ><button type="button" class="btn button-1 action-good">
+          Create Case Study
+        </button></a
+      >
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item active mx-2">
+          <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
+            <option value="cat">Please Select Service</option>
+            <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
+          </select>
+        </li>
+        <li class="nav-item active mx-2">
+          <select class="form-control" [(ngModel)]="tag" (change)="getDataWithTag()">
+            <option value="tag">Please Select Industry</option>
+            <option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</option>
+          </select>
+        </li>
+
+        <li class="nav-item ml-2">
+          <div class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control"
+              [(ngModel)]="searchCases"
+              type="search"
+              (search)="cancel()"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn button-2 action-info" (click)="blogSearch()">
+              Search
+            </button>
           </div>
-          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
-          <!-- <h3>{{ cases.title }}</h3>
-          <p [innerHTML]="cases.longDescription | truncate: 100:false"></p> -->
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<section class="blog pt-3">
+  <div class="container">
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card" *ngIf="publishedList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingOne">
+          <a
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            class="d-block"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i>Published
+          </a>
+        </h5>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body pt-3 pb-0 m-2">
+            <h2></h2>
+            <div class="row">
+              <div class="col-sm-6" *ngFor="let cases of publishedList">
+                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]" >
+                  <div class="row no-gutters">
+                    <div class="col-md-5">
+                      <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <div class="category-name">
+                          <div class="case-title">
+                            <h3>{{ cases.title | slice: 0:40 }}</h3>
+                          </div>
+                          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" *ngIf="draftList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingThree">
+          <a
+            class="collapsed d-block"
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i> Drafted
+          </a>
+        </h5>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body pt-3 pb-0 m-2">
+            <div class="row">
+              <div class="col-sm-6" *ngFor="let cases of draftList">
+                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]">
+                  <div class="row no-gutters">
+                    <div class="col-md-5">
+                      <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <div class="category-name">
+                          <div class="case-title">
+                            <h3>{{ cases.title | slice: 0:40 }}</h3>
+                          </div>
+                          <div class="case-description" [innerHTML]="cases.longDescription | slice: 0:100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- </div> -->
-  <div class="text-center">
-    <span *ngIf="filterCases?.length == 0">
-      <i class="fa fa-database" aria-hidden="true"></i>
-      No Data Available
-    </span>
   </div>
 </section>

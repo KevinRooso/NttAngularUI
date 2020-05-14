@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-article-edit',
@@ -45,6 +46,7 @@ export class ArticleEditComponent implements OnInit {
   result1: string;
   result2: string;
   @ViewChild('closeModel', { static: true }) closeModel;
+  submitBtnCaption = 'Publish';
   // catId: any;
   constructor(
     private frmbuilder: FormBuilder,
@@ -56,14 +58,14 @@ export class ArticleEditComponent implements OnInit {
   ) {
     this.EditArticleForm = this.frmbuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       downloadUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(pdf)$')]),
       draft: [false],
-      tagList: ['', Validators.required],
+      tagList: [''],
       targetUserType: ['', Validators.required],
-      categoryId: ['', Validators.required],
+      categoryId: [''],
       expiryDate: ['', Validators.required],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -83,7 +85,7 @@ export class ArticleEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.show = true;
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.articleId = params.page;
 
       this.getArticlesDetails(params.page);
@@ -121,12 +123,17 @@ export class ArticleEditComponent implements OnInit {
       this.result2 = url2.split('/').pop().split('?')[0].slice(14, url2.length);
 
       this.selected3 = res.body.targetUserType.id;
+      this.setDraftCaption(res.body.isDraft);
 
       this.EditArticleForm.controls['title'].setValue(this.articleData.title);
       this.EditArticleForm.controls['longDescription'].setValue(this.articleData.longDescription);
       this.EditArticleForm.controls['shortDescription'].setValue(this.articleData.shortDescription);
-      this.EditArticleForm.controls['categoryId'].setValue(this.articleData.category.displayName);
-      this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
+      if (this.articleData.category !== null) {
+        this.EditArticleForm.controls['categoryId'].setValue(this.articleData.category.displayName);
+      }
+      if (this.articleData.resourceTags.length > 0) {
+        this.EditArticleForm.controls['tagList'].setValue(this.articleData.resourceTags.name);
+      }
       this.EditArticleForm.controls['draft'].setValue(this.articleData.isDraft);
       this.selected4 = [];
 
@@ -326,11 +333,15 @@ export class ArticleEditComponent implements OnInit {
         });
       });
       let catId;
-      this.allData.forEach((m) => {
-        if (m.displayName === this.EditArticleForm.controls['categoryId'].value) {
-          catId = m.id;
-        }
-      });
+      if (this.EditArticleForm.controls['categoryId'].value === '0') {
+        catId = null;
+      } else {
+        this.allData.forEach((m) => {
+          if (m.displayName === this.EditArticleForm.controls['categoryId'].value) {
+            catId = m.id;
+          }
+        });
+      }
 
       // let userId;
       // this.userList.forEach(m=>{
@@ -346,7 +357,7 @@ export class ArticleEditComponent implements OnInit {
         id: this.articleId,
         draft: this.EditArticleForm.controls['draft'].value,
         longDescription: this.EditArticleForm.controls['longDescription'].value,
-        person: {},
+        personId: null,
         resourceType: 2,
         serviceUsed: 'string',
         shortDescription: this.EditArticleForm.controls['shortDescription'].value,
@@ -366,7 +377,7 @@ export class ArticleEditComponent implements OnInit {
           this.snackBar.open('Article successfully updated', 'Close', {
             duration: 2000,
           });
-          this.router.navigate(['articles']);
+          this.router.navigate(['resources/articles']);
         },
         (_error) => {
           // alert("Error :"+error);
@@ -403,5 +414,20 @@ export class ArticleEditComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

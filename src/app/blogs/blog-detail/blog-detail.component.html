@@ -1,10 +1,12 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/blogs">Blogs </a></li>
-    <li><a class="active">View Blog </a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/resources/blogs">Blogs </a></li>
+      <li><a class="active">View Blog </a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -23,8 +25,8 @@
                 </h1>
                 <p><b>Author Name : </b>{{ blog?.person?.fullName }}</p>
                 <p><b>Author Designation : </b>{{ blog?.person?.designation }}</p>
-                <p><b>Category : </b>{{ blog?.category.displayName }}</p>
-                <p class="card-text mb-0" style="font-weight: 500;">
+                <p *ngIf="blog?.category != null"><b>Category : </b>{{ blog?.category.displayName }}</p>
+                <p *ngIf="blog?.resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags"> {{ tag.name }}</span>
                 </p>
 
@@ -33,7 +35,7 @@
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" (click)="editBlogRoute()">
+              <button class="btn" [routerLink]="['../../blog-edit',blogId]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
             </div>

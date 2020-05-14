@@ -1,0 +1,61 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a routerLink="/resources/blogs">Blogs</a></li>
+    <li><a routerLink="/authors">Authors</a></li>
+    <li><a class="active">Author Preview</a></li>
+  </ul>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <div class="panel panel-info bg-white shadow">
+        <div class="panel-body p-3">
+          <div class="row">
+            <button class="btn" (click)="editAuthor(authorData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+            <div class="col-md-3 col-lg-3">
+              <img
+                alt="User Pic"
+                [src]="authorData.profileImageUrl"
+                class="img-circle img-responsive"
+                width="100%"
+                alt="No Image preview"
+              />
+            </div>
+
+            <div class="col-md-9 col-lg-9">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{ authorData.fullName }}</h3>
+                <p class="speaker-details">{{ authorData.email }}</p>
+                <p class="speaker-details">{{ authorData.phone }}</p>
+                <p class="speaker-details">{{ authorData.profile }}</p>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-12 py-3">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Designation</td>
+                    <td>{{ authorData.designation }}</td>
+                  </tr>
+                  <tr>
+                    <td>Origanization Name</td>
+                    <td>{{ authorData.origanizationName }}</td>
+                  </tr>
+                  <tr>
+                    <td>Key Skills</td>
+                    <td>{{ authorData.keySkills }}</td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td>{{ authorData.description }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

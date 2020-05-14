@@ -6,6 +6,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-edit-blog',
@@ -34,6 +35,7 @@ export class EditBlogComponent implements OnInit {
   tarUserType = '';
   selected4: string[] = [];
   blogId;
+  submitBtnCaption: string;
 
   checkError: any;
   submitted = false;
@@ -57,6 +59,7 @@ export class EditBlogComponent implements OnInit {
   @ViewChild('personButton', { static: true }) personButton;
   personImage = '';
   blogData: any;
+  newpersons: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -67,11 +70,11 @@ export class EditBlogComponent implements OnInit {
   ) {
     this.createBlogForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [false],
       expiryDate: ['', Validators.required],
@@ -117,7 +120,7 @@ export class EditBlogComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.blogId = params.page;
       this.getBlogData(params.page);
     });
@@ -142,6 +145,7 @@ export class EditBlogComponent implements OnInit {
         this.blogData = res.body;
         const url1 = this.blogData.thumbnailImageUrl;
         this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
+        this.setDraftCaption(res.body.isDraft);
 
         this.createBlogForm.controls['targetUserType'].setValidators(null);
         this.createBlogForm.controls['targetUserType'].updateValueAndValidity();
@@ -212,6 +216,9 @@ export class EditBlogComponent implements OnInit {
   getPersons() {
     this.service.getPersons().subscribe((res) => {
       this.persons = res.body;
+      for (let i = 0; i < this.persons.length; i++) {
+        this.newpersons[i] = this.persons[this.persons.length - 1 - i];
+      }
     });
   }
 
@@ -386,10 +393,7 @@ export class EditBlogComponent implements OnInit {
     }
   }
   addPerson() {
-    this.previewUrl1 = null;
-    // this.personForm.reset();
-    this.crateFrorm();
-    this.personButton.nativeElement.click();
+    this.router.navigate(['author-create']);
   }
   generateBlog() {
     this.show = true;
@@ -401,10 +405,10 @@ export class EditBlogComponent implements OnInit {
       return false;
     }
     const obj = this.createBlogForm.value;
-    if (this.createBlogForm.value.tagList.length === 0) {
-      this.createBlogForm.controls['tagList'].setValidators(null);
-      this.createBlogForm.controls['tagList'].updateValueAndValidity();
-    }
+    // if (this.createBlogForm.value.tagList.length === 0) {
+    //   this.createBlogForm.controls['tagList'].setValidators(null);
+    //   this.createBlogForm.controls['tagList'].updateValueAndValidity();
+    // }
     this.submitted = true;
     if (this.createBlogForm.valid) {
       obj['thumbnailImageUrl'] = this.speakerImage;
@@ -413,15 +417,19 @@ export class EditBlogComponent implements OnInit {
 
       this.persons.forEach((m) => {
         if (this.createBlogForm.get(['person']).value === m.id) {
-          personObj = m;
+          personObj = m.id;
         }
       });
       let catObj;
-      this.catagoryData.forEach((m) => {
-        if (this.createBlogForm.get(['categoryId']).value === m.id) {
-          catObj = m;
-        }
-      });
+      if (this.createBlogForm.controls['categoryId'].value === '0') {
+        catObj = null;
+      } else {
+        this.catagoryData.forEach((m) => {
+          if (this.createBlogForm.get(['categoryId']).value === m.id) {
+            catObj = m.id;
+          }
+        });
+      }
 
       const tags: any[] = [];
 
@@ -437,15 +445,16 @@ export class EditBlogComponent implements OnInit {
           }
         });
       });
+
       const dataObj = {
         longDescription: obj.longDescription,
-        categoryId: catObj.id,
+        categoryId: catObj,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: '',
         id: this.blogId,
         draft: obj.isDraft,
-        person: personObj,
+        personId: personObj,
         shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
@@ -461,7 +470,7 @@ export class EditBlogComponent implements OnInit {
           this.snackBar.open('Blog Updated Successfully', 'Close', {
             duration: 5000,
           });
-          this.router.navigate(['blogs']);
+          this.router.navigate(['resources/blogs']);
         },
         (_error) => {
           this.show = false;
@@ -535,5 +544,21 @@ export class EditBlogComponent implements OnInit {
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
+  }
+
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = 'Update';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

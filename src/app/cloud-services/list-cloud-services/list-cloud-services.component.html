@@ -1,70 +1,101 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="getAllData()">Product and Services</a></li>
-    <ng-container *ngFor="let data of bradArray">
-      <li>
-        <a (click)="getDetailData(data)">{{ data.displayName }}</a>
-      </li>
-    </ng-container>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="getAllData()">Product and Services</a></li>
+      <ng-container *ngFor="let data of bradArray">
+        <li>
+          <a (click)="getDetailData(data)">{{ data.displayName | slice: 0:40 }}</a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 </div>
 
-<ng-container *ngIf="!detailPage">
-  <section class="section-tours">
-    <div class="row" style="padding: 0.5rem 1rem;">
-      <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData" (click)="getDetailData(data)">
-        <div class="px-2" style="align-content: centre; height: 75px;">
-          <h3 class="wht-color">{{ data.displayName }}</h3>
-        </div>
-        <div class="px-2" style="align-content: centre; height: 75px;">
-          <p [innerHTML]="data.shortInformation" class="wht-color"></p>
-        </div>
-        <div class="text-center">
-          <button mat-button (click)="editForm(data)" class="wht-color"><u>Edit</u></button>
-        </div>
-      </mat-card>
-      <mat-card class="p-0 m-3 cloud-card" style="height: 234px;" (click)="openSubmitModel()">
-        <img mat-card-image class="mt-2" src="../../../assets/AddButt-butt-715x715.png" />
-      </mat-card>
-    </div>
-  </section>
-</ng-container>
-<ng-container *ngIf="detailPage">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-9">
-        <div class="panel panel-info bg-white shadow">
-          <div class="panel-body p-3">
-            <div class="row">
-              <div class="col-md-3 col-lg-3">
-                <img
-                  alt="User Pic"
-                  [src]="detailData.thumbnailImageUrl"
-                  class="img-circle img-responsive"
-                  width="100%"
-                  alt="No Image preview"
-                />
+<div class="container">
+  <ng-container *ngIf="!detailPage">
+    <section class="section-tours">
+      <div class="row" style="padding: 0.5rem 1rem;">
+        <mat-card class="p-0 m-3 cloud-card" *ngFor="let data of serviceData">
+          <div (click)="getDetailData(data)">
+            <div class="card-display px-2">
+              <div class="wht-color">
+                <b>{{ data.displayName | slice: 0:40 }}</b>
               </div>
-
-              <div class="col-md-9 col-lg-9">
-                <div class="panel-heading">
-                  <h3 class="panel-title">{{ detailData.name }}</h3>
-                  <p class="speaker-details" [innerHTML]="detailData.shortInformation"></p>
+            </div>
+            <div class="card-description px-2">
+              <div [innerHTML]="data.shortInformation | slice: 0:70" class="wht-color"></div>
+            </div>
+          </div>
+          <div class="example-button-row">
+            <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data)">Edit</button>
+            <button
+              type="button"
+              class="btn py-1 px-3 button-1 action-info wht-color"
+              (click)="deleteData(data)"
+              *ngIf="data.chlidList.length == 0"
+            >
+              Delete
+            </button>
+          </div>
+        </mat-card>
+        <mat-card class="p-0 m-3 cloud-card" style="height: 210px;" (click)="openSubmitModel()">
+          <img mat-card-image class="mt-2" src="../../../assets/AddButt-butt-715x715.png" />
+        </mat-card>
+      </div>
+    </section>
+  </ng-container>
+  <ng-container *ngIf="detailPage">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="panel panel-info preview-card">
+            <div class="panel-body p-3">
+              <div class="row">
+                <div class="col-md-4 col-lg-4 text-center">
+                  <img
+                    alt="User Pic"
+                    [src]="detailData.thumbnailImageUrl"
+                    class="img-circle img-responsive"
+                    width="100%"
+                    alt="No Image preview"
+                  />
                 </div>
-              </div>
-              <div class="col-md-12 col-lg-12 py-3">
-                <p *ngIf="detailData.detail"><b>Detail : </b><span [innerHTML]="detailData.detail"></span></p>
-                <p *ngIf="detailData.implementation"><b>Implementation : </b><span [innerHTML]="detailData.implementation"></span></p>
-                <!-- <p>
-                  <img alt="User Pic" [src]="detailData.largeImage" class="img-circle img-responsive" width="100%" alt="No Image preview" />
-                </p> -->
+                <div class="col-md-7 col-lg-7 p-0">
+                  <div class="panel-heading">
+                    <h1 style="font-size: 25px; color: #008ece;">{{ detailData.displayName | slice: 0:40 }}</h1>
+                    <br />
+                    <p>{{ detailData.shortInformation | slice: 0:80 }}</p>
+                    <b>Testimonial URL : </b>
+                    <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
+                  </div>
+                </div>
+                <div class="col-md-1 edit">
+                  <button class="btn">
+                    <span class="fa fa-pencil" (click)="editForm(detailData)" aria-hidden="true"></span>
+                  </button>
+                  <br /><br /><br />
+                </div>
+                <div class="col-md-12 col-lg-12 pt-3">
+                  <hr class="mt-0" />
+                  <b>Detail </b>
+                  <p [innerHTML]="detailData.detail"></p>
+                  <hr />
+                  <b>Implementation </b>
+                  <p [innerHTML]="detailData.implementation"></p>
+                  <hr />
+                  <b>Product Benefits </b>
+                  <p [innerHTML]="detailData.productBenefits"></p>
+                  <hr />
+                  <b>NTT Differentiator </b>
+                  <p [innerHTML]="detailData.differentiator"></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>

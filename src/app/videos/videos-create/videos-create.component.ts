@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-videos-create',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class VideosCreateComponent implements OnInit {
   speakerImage: any;
+  submitBtnCaption = 'Submit';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,11 +50,11 @@ export class VideosCreateComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       // person: ['',Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       draft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
@@ -202,23 +204,31 @@ export class VideosCreateComponent implements OnInit {
 
       const tags: any[] = [];
 
-      obj.tagList.forEach((m) => {
-        const tag = {
-          id: 0,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createVideoForm.value.tagList.length > 0) {
+        obj.tagList.forEach((m) => {
+          const tag = {
+            id: 0,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createVideoForm.controls['categoryId'].value;
+      if (this.createVideoForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
 
       const dataObj = {
         longDescription: obj.longDescription,
-        categoryId: obj.categoryId,
+        categoryId: catId,
         customerProfile: 'string',
         detailImageUrl: 'string',
         downloadUrl: obj.downloadUrl,
 
-        person: {},
+        personId: null,
         shortDescription: obj.shortDescription,
         tagList: tags,
         thumbnailImageUrl: obj.thumbnailImageUrl,
@@ -235,7 +245,7 @@ export class VideosCreateComponent implements OnInit {
           this.submitted = false;
 
           this.snackBar.open('Video Added Successfully', 'Close', { duration: 5000 });
-          this.router.navigate(['videos']);
+          this.router.navigate(['/resources/videos']);
         },
         (_error) => {
           this.show = false;
@@ -268,5 +278,12 @@ export class VideosCreateComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
+    }
   }
 }

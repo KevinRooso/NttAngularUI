@@ -1,11 +1,13 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a href="/articles">Articles</a></li>
-    <li><a (click)="BackMe()">Article Preview</a></li>
-    <li><a class="active">Update Article</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a (click)="BackMe()">Article Preview</a></li>
+      <li><a class="active">Update Article</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -52,8 +54,8 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Long Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
-              (Long Description should be upto 700 characters)
+            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
+              (Description should be upto 700 characters)
             </div>
           </div>
         </div>
@@ -76,32 +78,31 @@
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Short Description should be upto 80 characters)
             </div>
           </div>
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Category <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Category</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryId">
+              <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
                 {{ category.name }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('categoryId', 'required')">(Category is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Select Tags <span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Select Tags </label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>
             <mat-select multiple formControlName="tagList" [(ngModel)]="selected4">
               <mat-option *ngFor="let tag of tagData" [value]="tag.id">{{ tag.name }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="checkError('tagList', 'required')">(Atleast one tag is required)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -169,8 +170,8 @@
           <div class="col-sm-5">
             <p>{{ result1 }}</p>
           </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+          <div class="col-sm text-right">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
@@ -198,7 +199,7 @@
             >
             </i>
           </label>
-          <div class="col-sm-2 filetypewidth">
+          <div class="col-sm-7 filetypewidth">
             <input type="file" class="form-control-file" formControlName="downloadUrl" (change)="fileProgress2($event)" />
             <div *ngIf="checkError('downloadUrl', 'required', true)" style="color: red; font-size: 12px;">
               (Attachment is required)
@@ -210,8 +211,13 @@
           <div class="col-sm-5">
             <p>{{ result2 }}</p>
           </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid2 }" (click)="uploadAttachment()" [disabled]="!imageValid2">
+          <div class="col-sm text-right">
+            <button
+              class="btn button-1 action-good"
+              [ngClass]="{ cursor: !imageValid2 }"
+              (click)="uploadAttachment()"
+              [disabled]="!imageValid2"
+            >
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
@@ -229,12 +235,10 @@
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Save as draft</label>
-          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="draft">Draft</mat-slide-toggle>
+          <mat-slide-toggle class="example-full-width col-sm-9" (change)="OnDraft($event)" formControlName="draft">Draft</mat-slide-toggle>
         </div>
-        <div class="text-right mt-3">
-          <button class="btn button-1 action-good" (click)="updateArticle()">
-            Update Details
-          </button>
+        <div class="col-sm-12 text-right mt-3">
+          <button class="btn button-1 action-good" (click)="updateArticle()">{{ submitBtnCaption }} Details</button>
         </div>
       </form>
     </div>

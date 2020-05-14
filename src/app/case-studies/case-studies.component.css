@@ -73,3 +73,20 @@ p {
   overflow: hidden;
   padding: 10px 10px 5px 0;
 }
+
+.card-height {
+  max-height: 162px;
+  max-width: 480px;
+}
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
+}

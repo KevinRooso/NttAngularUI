@@ -38,226 +38,337 @@ import { NewsComponent } from './news/news.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { NewsViewComponent } from './news/news-view/news-view.component';
 import { NewsEditComponent } from './news/news-edit/news-edit.component';
-import { ViewTestimonialsComponent } from './testimonials/view-testimonials/view-testimonials.component';
-import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
-import { EditTestimonialsComponent } from './testimonials/edit-testimonials/edit-testimonials.component';
 import { ConfigurationComponent } from './home-Configuration/configuration/configuration.component';
 import { CopyEventComponent } from './events/copy-event/copy-event.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListCloudServicesComponent } from './cloud-services/list-cloud-services/list-cloud-services.component';
 import { CreateFormComponent } from './cloud-services/create-form/create-form.component';
+import { EventDataComponent } from './lead-generation/event-data/event-data.component';
+import { JoineeDataComponent } from './lead-generation/joinee-data/joinee-data.component';
+import { InviteesDataComponent } from './lead-generation/invitees-data/invitees-data.component';
+import { ResourceDataComponent } from './lead-generation/resource-data/resource-data.component';
+import { UserDataComponent } from './lead-generation/user-data/user-data.component';
+import { CreateAuthorComponent } from './authors/create-author/create-author.component';
+import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
+import { AuthorsComponent } from './authors/authors.component';
+import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'events',
+  //   component: EventPreviewComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   {
     path: 'events',
-    component: EventPreviewComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: EventPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create',
+        component: CreateEventComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'details/:page',
+        component: EventDetailsComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'edit/:page',
+        component: EventEditComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'copy-event/:page',
+        component: CopyEventComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
   {
-    path: 'details',
-    component: EventDetailsComponent,
-    canActivate: [AuthguardServiceService],
+    path: 'resources',
+    children: [
+      {
+        path: 'articles',
+        children: [
+          {
+            path: '',
+            component: ArticlesComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-details/:page',
+            component: ArticlesDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-edit/:page',
+            component: ArticleEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'article-create',
+            pathMatch: 'full',
+            component: ArticleCreateComponent,
+            canActivate: [AuthguardServiceService],
+          },
+        ]
+      },
+      {
+        path: 'blogs',
+        children: [
+          {
+            path: '',
+            component: BlogsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-detail/:page',
+            component: BlogDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-edit/:page',
+            component: EditBlogComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'blog-create',
+            component: CreateBlogComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'cases',
+        children: [
+          {
+            path: '',
+            component: CaseStudiesComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'view-cases/:page',
+            component: ViewCasesComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'edit-cases/:page',
+            component: CasesEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create-cases',
+            component: CasesCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'whitepapers',
+        children: [
+          {
+            path: '',
+            component: WhitepapersComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-details/:page',
+            component: WhitepaperDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-edit/:page',
+            component: WhitepaperEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'white-create',
+            component: WhitepaperCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'testimonials',
+        children: [
+          {
+            path: '',
+            component: TestimonialsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          // {
+          //   path: 'view-testimonials/:page',
+          //   component: WhitepaperDetailComponent,
+          //   pathMatch: 'full',
+          //   canActivate: [AuthguardServiceService],
+          // },
+          // {
+          //   path: 'white-edit/:page',
+          //   component: WhitepaperEditComponent,
+          //   pathMatch: 'full',
+          //   canActivate: [AuthguardServiceService],
+          // },
+          {
+            path: 'create-testimonials/:page',
+            component: CreateTestimonialsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+        ]
+      },
+      {
+        path: 'news',
+        children: [
+          {
+            path: '',
+            component: NewsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'view-news/:page',
+            component: NewsViewComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'edit-news/:page',
+            component: NewsEditComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create-news',
+            component: CreateNewsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+      {
+        path: 'videos',
+        children: [
+          {
+            path: '',
+            component: VideosPreviewComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-detail/:page',
+            component: VideosDetailsComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-update/:page',
+            component: VideosUpdateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'videos-create',
+            component: VideosCreateComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          }
+        ]
+      },
+    ]
   },
+
+
   {
-    path: 'create',
-    component: CreateEventComponent,
+    path: 'authors',
+    component: AuthorsComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'edit',
-    component: EventEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'articles',
-    component: ArticlesComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'blogs',
-    component: BlogsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'cases',
-    component: CaseStudiesComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'testimonials',
-    component: TestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'whitepapers',
-    component: WhitepapersComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speakers',
-    component: SpeakersPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
+  // {
+  //   path: 'speakers',
+  //   component: SpeakersPreviewComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   {
     path: 'participants',
-    component: ParticipantPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-speaker',
-    component: SpeakerCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-update',
-    component: SpeakerEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'speaker-details',
-    component: SpeakerDetailsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-details',
-    component: ViewParticipantsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'participant-add',
-    component: CreateParticipantsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'article-details',
-    component: ArticlesDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'article-edit',
-    component: ArticleEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'article-create',
-    component: ArticleCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'white-details',
-    component: WhitepaperDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'white-edit',
-    component: WhitepaperEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'white-create',
-    component: WhitepaperCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'copy-event',
-    component: CopyEventComponent,
-    canActivate: [AuthguardServiceService],
+    children: [
+      {
+        path: '',
+        component: ParticipantPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-details/:page',
+        pathMatch: 'full',
+        component: ViewParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'participant-add',
+        pathMatch: 'full',
+        component: CreateParticipantsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
 
   {
-    path: 'article-create',
-    component: ArticleCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'blog-detail',
-    component: BlogDetailComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'blog-create',
-    component: CreateBlogComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos',
-    component: VideosPreviewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-create',
-    component: VideosCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-update',
-    component: VideosUpdateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'videos-detail',
-    component: VideosDetailsComponent,
-    canActivate: [AuthguardServiceService],
+    path: 'speakers',
+    children: [
+      {
+        path: '',
+        component: SpeakersPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create-speaker',
+        pathMatch: 'full',
+        component: SpeakerCreateComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-update/:page',
+        pathMatch: 'full',
+        component: SpeakerEditComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'speaker-details/:page',
+        pathMatch: 'full',
+        component: SpeakerDetailsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+    ],
   },
 
   {
-    path: 'blog-edit',
-    component: EditBlogComponent,
+    path: 'author-create',
+    component: CreateAuthorComponent,
     canActivate: [AuthguardServiceService],
   },
   {
-    path: 'view-cases',
-    component: ViewCasesComponent,
+    path: 'author-detail',
+    component: AuthorDetailComponent,
     canActivate: [AuthguardServiceService],
   },
-  {
-    path: 'create-cases',
-    component: CasesCreateComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-cases',
-    component: CasesEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'news',
-    component: NewsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-news',
-    component: CreateNewsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'view-news',
-    component: NewsViewComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-news',
-    component: NewsEditComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'view-testimonials',
-    component: ViewTestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'create-testimonials',
-    component: CreateTestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'edit-testimonials',
-    component: EditTestimonialsComponent,
-    canActivate: [AuthguardServiceService],
-  },
-
   {
     path: 'home-config',
     component: ConfigurationComponent,
@@ -278,6 +389,58 @@ const routes: Routes = [
     component: CreateFormComponent,
     canActivate: [AuthguardServiceService],
   },
+  {
+    path: 'event-data',
+    children: [
+      {
+        path: '',
+        component: EventDataComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'joinee-data',
+        component: JoineeDataComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      { path: 'invitee-data', component: InviteesDataComponent, pathMatch: 'full', canActivate: [AuthguardServiceService] },
+    ],
+  },
+  {
+    path: 'resource-data',
+    component: ResourceDataComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  {
+    path: 'user-data',
+    component: UserDataComponent,
+    canActivate: [AuthguardServiceService],
+  },
+  // {
+  //   path: 'event-data',
+  //   component: EventDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'joinee-data',
+  //   component: JoineeDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'invitee-data',
+  //   component: InviteesDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'resource-data',
+  //   component: ResourceDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'user-data',
+  //   component: UserDataComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
 ];
 
 @NgModule({

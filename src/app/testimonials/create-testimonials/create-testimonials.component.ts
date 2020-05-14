@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-create-testimonials',
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CreateTestimonialsComponent implements OnInit {
   speakerImage = '';
   buttonText: string;
+  submitBtnCaption: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +57,7 @@ export class CreateTestimonialsComponent implements OnInit {
   ngOnInit(): void {
     this.createVideoForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(300)]),
       shortDescription: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       targetUserType: ['', Validators.required],
       isDraft: [true],
@@ -71,9 +73,9 @@ export class CreateTestimonialsComponent implements OnInit {
         return this.createVideoForm.controls[controlName].hasError(errorName);
       }
     };
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.resourceId = params.page;
-      if (this.resourceId !== undefined) {
+      if (this.resourceId !== 'xyz') {
         this.getResourceData();
         this.title = 'Edit Testimonial';
         this.buttonText = 'Update Details';
@@ -82,6 +84,7 @@ export class CreateTestimonialsComponent implements OnInit {
         this.buttonText = 'Submit Details';
         this.getUserList();
       }
+      this.submitBtnCaption = this.buttonText;
     });
   }
   getResourceData() {
@@ -108,6 +111,7 @@ export class CreateTestimonialsComponent implements OnInit {
 
       this.speakerImage = res.body.detailImageUrl;
       this.logo = res.body.thumbnailImageUrl;
+      this.setDraftCaption(res.body.isDraft);
       this.createVideoForm.get(['title']).setValue(res.body.title);
       this.createVideoForm.get(['longDescription']).setValue(res.body.longDescription);
       this.createVideoForm.get(['shortDescription']).setValue(res.body.shortDescription);
@@ -305,7 +309,7 @@ export class CreateTestimonialsComponent implements OnInit {
   generateBlog() {
     let id;
 
-    if (this.resourceId !== undefined) {
+    if (this.resourceId !== 'xyz') {
       id = this.resourceId;
     } else {
       id = 0;
@@ -328,7 +332,7 @@ export class CreateTestimonialsComponent implements OnInit {
         thumbnailImageUrl: this.logo,
         draft: obj.isDraft,
         longDescription: obj.longDescription,
-        person: {},
+        personId: null,
         resourceType: 4,
         shortDescription: obj.shortDescription,
         tagList: [],
@@ -341,13 +345,13 @@ export class CreateTestimonialsComponent implements OnInit {
 
       this.service.saveResource(dataObj).subscribe((_res) => {
         // alert("Testimonials Added Successfully");
-        if (this.resourceId !== undefined) {
+        if (this.resourceId !== 'xyz') {
           this.snackBar.open('Testimonials Updated Successfully', 'Close', { duration: 5000 });
         } else {
           this.snackBar.open('Testimonials Added Successfully', 'Close', { duration: 5000 });
         }
         this.show = false;
-        this.router.navigate(['testimonials']);
+        this.router.navigate(['/resources/testimonials']);
       });
     } else {
       this.show = false;
@@ -356,5 +360,19 @@ export class CreateTestimonialsComponent implements OnInit {
   }
   BackMe() {
     this.location.back();
+  }
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = this.buttonText;
+    } else {
+      this.submitBtnCaption = 'Publish Details';
+    }
+  }
+  setDraftCaption(isDraft: boolean) {
+    if (isDraft) {
+      this.submitBtnCaption = this.buttonText;
+    } else {
+      this.submitBtnCaption = 'Publish Details';
+    }
   }
 }

@@ -1,9 +1,11 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/news">News</a></li>
-    <li><a class="active">View News</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/resources/news">News</a></li>
+      <li><a class="active">View News</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -11,28 +13,43 @@
       <div class="panel panel-info preview-card">
         <div class="panel-body p-3">
           <div class="row">
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-4 col-lg-4 text-center">
               <img alt="User Pic" [src]="news.thumbnailImageUrl" class="img-circle img-responsive" width="100%" alt="No Image preview" />
             </div>
 
-            <div class="col-md-9 col-lg-8">
-              <div class="panel-heading">
+            <div class="col-md-7 col-lg-7 p-0">
+              <div class="panel-heading py-2">
                 <h1 style="font-size: 25px; color: #008ece;" [innerHTML]="news.topic"></h1>
-                <h6 style="color: #6f7a8a;">{{ news.title }}</h6>
-                <b>Short Description </b>
-                <p [innerHTML]="news.shortDescription"></p>
+                <h6><b>Title : </b> {{ news.title }}</h6>
+                <p *ngIf="news.categoryTypeId != null" style="margin-bottom: 0.5rem;">
+                  <b>Category : </b> {{ news.categoryTypeId.displayName }}
+                </p>
+                <p *ngIf="resourceTags.length > 0" class="card-text my-0" style="font-weight: 500;">
+                  <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags"> {{ tag.name }}</span>
+                </p>
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" (click)="editcaseRoute()"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+              <button class="btn" [routerLink]="['../../edit-news',news.id]" ><span class="fa fa-pencil" aria-hidden="true"></span></button>
+            </div>
+            <div class="pt-3 col-md-12 col-lg-12">
+              <hr class="m-0 mb-3" />
+              <p>
+                <span class="d-inline-flex">
+                  <h6 [innerHTML]="news.location"></h6>
+                </span>
+              </p>
             </div>
             <div class="col-md-12 col-lg-12">
-              <hr class="m-0" />
+              <hr class="m-0 mb-3" />
+              <b>Short Description </b>
+              <p [innerHTML]="news.shortDescription"></p>
+            </div>
+            <div class="col-md-12 col-lg-12">
+              <hr class="m-0 mb-3" />
               <p>
-                <span class="d-inline-flex"
-                  ><h6 [innerHTML]="news.location"></h6>
-                  <h6 [innerHTML]="news.createdAt | date"></h6></span
-                ><span [innerHTML]="news.longDescription"></span>
+                <b>Long Description </b>
+                <span [innerHTML]="news.longDescription"></span>
               </p>
             </div>
             <div class="col-md-12 col-lg-12">

@@ -89,7 +89,7 @@ export class SpeakerEditComponent implements OnInit {
         return this.updateSpeakerForm.controls[controlName].hasError(errorName);
       }
     };
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.spkrID = params.page;
       this.getSpeakersDetails(params.page);
     });
@@ -197,6 +197,7 @@ export class SpeakerEditComponent implements OnInit {
         origanizationName: this.updateSpeakerForm.controls['origanizationName'].value,
         phone: this.updateSpeakerForm.controls['phone'].value,
         keySkills: fruit1.substring(1, fruit1.length - 0),
+        personType: 'speaker',
         profileImageUrl: this.speakerImage,
         id: this.spkrID,
       };

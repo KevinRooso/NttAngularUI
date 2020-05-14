@@ -12,7 +12,7 @@ export class ViewCasesComponent implements OnInit {
   cases;
   caseId;
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe((params) => {
+    this.actRoute.params.subscribe((params) => {
       this.caseId = params.page;
       this.getBlogData(params.page);
     });

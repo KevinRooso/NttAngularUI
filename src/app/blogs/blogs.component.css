@@ -4,7 +4,8 @@
 
 .blog .card {
   background: #fff;
-  border: 0;
+
+  /* border: 0; */
   border-radius: 0;
   transition: background 0.25s;
 
@@ -37,6 +38,7 @@
   height: 45px;
   overflow: hidden;
   padding: 0 10px 5px 10px;
+  word-break: break-all;
 }
 
 .card-date {
@@ -99,4 +101,16 @@
 
 .text-center {
   padding: 100px;
+}
+
+.fa {
+  font-size: 10px;
+}
+
+.card-header .fa {
+  transition: 0.3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+  transform: rotate(180deg);
 }

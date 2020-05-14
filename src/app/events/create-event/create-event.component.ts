@@ -96,7 +96,7 @@ export class CreateEventComponent implements OnInit {
       address1: [''],
       address2: [''],
       city: [''],
-      tagList: ['', Validators.required],
+      tagList: [''],
       premise: [''],
       webinarUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
       // locationMapUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
@@ -118,7 +118,7 @@ export class CreateEventComponent implements OnInit {
       // fullName: [''],
       // name: [''],
       isDraft: [true],
-      categoryTypeId: ['', Validators.required],
+      categoryTypeId: [''],
     });
 
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
@@ -492,14 +492,22 @@ export class CreateEventComponent implements OnInit {
 
       const tags: any[] = [];
 
-      this.createEventForm.value.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createEventForm.value.tagList.length > 0) {
+        this.createEventForm.value.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createEventForm.controls['categoryTypeId'].value;
+      if (this.createEventForm.controls['categoryTypeId'].value === '0') {
+        catId = null;
+      }
 
       const objData = {
         title: this.createEventForm.controls['title'].value,
@@ -522,7 +530,7 @@ export class CreateEventComponent implements OnInit {
         policyTnc: this.createEventForm.controls['policyTnc'].value,
         thumbnailImageUrl: this.articleImage,
         detailImageUrl: this.attachFile,
-        categoryTypeId: this.createEventForm.controls['categoryTypeId'].value,
+        categoryTypeId: catId,
         tagList: tags,
         // "eventSchedule": schedule,
         eventSchedule: this.agendaData,
@@ -579,13 +587,17 @@ export class CreateEventComponent implements OnInit {
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
 
     if (this.addAgenda.valid) {
+      let spList = null;
+      if (this.addAgenda.controls['speakerList'].value !== '') {
+        spList = this.addAgenda.controls['speakerList'].value;
+      }
       const obj = {
         title: this.addAgenda.controls['title'].value,
         topic: this.addAgenda.controls['topic'].value,
         isBreak: this.addAgenda.controls['isBreak'].value,
         endDate: this.addAgenda.controls['endDate'].value,
         startDate: this.addAgenda.controls['startDate'].value,
-        speakerList: this.addAgenda.controls['speakerList'].value,
+        speakerList: spList,
         id: 0,
         idData: '-1',
       };

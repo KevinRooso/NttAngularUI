@@ -1,6 +1,6 @@
 <div class="container">
   <div>
-    <ul class="breadcrumb">
+    <ul class="breadcrumb pl-0">
       <li><a routerLink="/home">Home</a></li>
       <li><a class="active">Blogs</a></li>
     </ul>
@@ -18,11 +18,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/blog-create"
-        ><button type="button" class="btn button-1 action-good">
-          Create Blog
-        </button></a
-      >
+      <span class="mr-2">
+        <a routerLink="blog-create"
+          ><button type="button" class="btn button-1 action-good">
+            Create Blog
+          </button></a
+        >
+      </span>
+      <span class="ml-2">
+        <a routerLink="/authors"
+          ><button type="button" class="btn button-1 action-good">
+            Authors
+          </button></a
+        >
+      </span>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item active mx-2">
           <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
@@ -50,14 +59,14 @@
     </div>
   </nav>
 </div>
-<section class="blog">
+<section class="blog pt-3">
   <!-- <div class=" text-center">
     <p class="heading-secondary py-4">
 Blogs
     </p>
     </div> -->
   <div class="container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-4" *ngFor="let blog of filterBlogs">
         <div class="card-container">
           <div class="card blog-card" (click)="showBlogDetail(blog.id)">
@@ -76,19 +85,107 @@ Blogs
               <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
               <div class="card-description mb-0" [innerHTML]="blog.shortDescription | slice: 0:80"></div>
               <div class="card-date"><b>Date : </b>{{ blog.updatedAt | date }} | <b>Author : </b>{{ blog?.person?.fullName }}</div>
-              <!-- <h3 class="card-title">{{ blog.title }}</h3>
-              <mat-divider></mat-divider>
-              <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card" *ngIf="publishedList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingOne">
+          <a
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            class="d-block"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i>Published
+          </a>
+        </h5>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body pt-0 pb-0 m-2">
+            <h2></h2>
+            <div class="row">
+              <div class="col-sm-4" *ngFor="let blog of publishedList">
+                <div class="card-container">
+                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
+                    <div>
+                      <img
+                        [src]="
+                          blog.thumbnailImageUrl != null
+                            ? blog.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
+                      <div class="card-description mb-0" [innerHTML]="blog.shortDescription | slice: 0:80"></div>
+                      <div class="card-date"><b>Date : </b>{{ blog.updatedAt | date }} | <b>Author : </b>{{ blog?.person?.fullName }}</div>
+                      <!-- <h3 class="card-title">{{ blog.title }}</h3>
+                      <mat-divider></mat-divider>
+                      <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" *ngIf="draftList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingThree">
+          <a
+            class="collapsed d-block"
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i> Drafted
+          </a>
+        </h5>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body pt-0 pb-0 m-2">
+            <div class="row">
+              <div class="col-sm-4" *ngFor="let blog of draftList">
+                <div class="card-container">
+                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
+                    <div>
+                      <img
+                        [src]="
+                          blog.thumbnailImageUrl != null
+                            ? blog.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
+                      <div class="card-description mb-0" [innerHTML]="blog.shortDescription | slice: 0:80"></div>
+                      <div class="card-date"><b>Date : </b>{{ blog.updatedAt | date }} | <b>Author : </b>{{ blog?.person?.fullName }}</div>
+                      <!-- <h3 class="card-title">{{ blog.title }}</h3>
+                      <mat-divider></mat-divider>
+                      <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="text-center" *ngIf="filterBlogs?.length == 0">
-    <span>
-      <i class="fa fa-database" aria-hidden="true"></i>
-      No Data Available
-    </span>
   </div>
 </section>

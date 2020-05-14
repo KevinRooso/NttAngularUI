@@ -1,6 +1,6 @@
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,10 +10,6 @@ export class AuthServiceService {
   // private url = "http://localhost:8080/";
   // private url = "https://ntt-backend-app.herokuapp.com/";
   public url = environment.API_ENDPOINT;
-  public headers = new HttpHeaders({
-    Authorization: 'Bearer ' + localStorage.getItem('token'),
-  });
-
   constructor(private http: HttpClient) {}
 
   // connectToBackend():any
@@ -29,185 +25,202 @@ export class AuthServiceService {
     return !(user == null);
   }
   getAllEventList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/events', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/events');
   }
 
   getUserDetail(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/users/me', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/users/me');
   }
 
   getEventDetail(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/event/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/event/' + id);
   }
 
   getParticipant(id): Observable<any> {
-    return this.http.get<any>(this.url + `api/public/participants/event/${id}`, { headers: this.headers });
+    return this.http.get<any>(this.url + `api/public/participants/event/${id}`);
   }
   saveEventDetails(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/event', obj, { headers: this.headers });
-  }
-  updateEventDetails(id): Observable<any> {
-    return this.http.put<any>(this.url + 'api/admin/event/' + id, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/event', obj);
   }
   getTagsList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/tags', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/tags');
   }
   getCategoryList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/categories/generalType', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/categories/generalType');
   }
   getAllPolicyFaq(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/policy/faq', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/policy/faq');
   }
   getAllPolicyTnC(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/policy/tnc', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/policy/tnc');
   }
   getAllSpeakers(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/speakers', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/speakers');
   }
   // File Controller APis
   uploadFile(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/uploadFile', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/uploadFile', obj);
   }
   getAllParticipants(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/participants', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/participants');
   }
 
   getParticipantById(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/participant/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/participant/' + id);
   }
 
   // Speaker Apis
   getAllSpeakersList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/speakers', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/speakers');
   }
   getSpeakerDetail(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/person/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/person/' + id);
   }
   updateParticipantStatus(id, flag): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/participants/approve/' + id + '/' + flag, null, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/participants/approve/' + id + '/' + flag, null);
   }
   saveSpeaker(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/public/person', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/public/person', obj);
   }
 
   // Articles Apis
   getAllArticle(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resources/articles', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/articles');
   }
   getResourceById(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resource/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resource/' + id);
   }
   saveResource(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/resource', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/resource', obj);
   }
 
   // Participants Apis
   saveParticipent(id, obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/public/self/participant/event/' + id, obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/public/self/participant/event/' + id, obj);
   }
   saveParticipentnonEvent(id, obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/addOn/participant/list/event/' + id, obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/addOn/participant/list/event/' + id, obj);
   }
 
   // Whitepapers Apis
   getAllWhitepaper(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resources/whitepapers', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/whitepapers');
   }
   getAllBlogs() {
-    return this.http.get<any>(this.url + 'api/public/resources/blogs', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/blogs');
   }
   getBlogById(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resource/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resource/' + id);
   }
 
   getPersons() {
-    return this.http.get<any>(this.url + 'api/public/authors', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/authors');
   }
 
   // Videos Apis
   getAllVideosList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resources/videos', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/videos');
   }
   getCasestudies() {
-    return this.http.get<any>(this.url + 'api/public/resources/case-studies', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/case-studies');
   }
   getAllNews(): Observable<any> {
     const obj = false;
-    return this.http.get<any>(this.url + 'api/public/news?isPublish=' + obj, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/news?isPublish=' + obj);
   }
   saveNews(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/news', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/news', obj);
   }
   getDates(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/news/years', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/news/years');
   }
   getNewsById(id) {
-    return this.http.get<any>(this.url + 'api/public/news/' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/news/' + id);
   }
   updateNews(obj): Observable<any> {
-    return this.http.put<any>(this.url + 'api/admin/news', obj, { headers: this.headers });
+    return this.http.put<any>(this.url + 'api/admin/news', obj);
   }
   getAllTestimonials(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/resources/testimonials', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/resources/testimonials');
   }
   getUserList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/categories/userType', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/categories/userType');
   }
   getLocation(): Observable<any> {
     return this.http.get<any>('https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1');
   }
-  getBannerBlockDetail(obj,isPublic,isCustomer): Observable<any> {
-    return this.http.get<any>(this.url + obj + '?isPublish=true&isPublic='+isPublic+'&isCustomer='+isCustomer, { headers: this.headers });
+  getBannerBlockDetail(obj, isPublic, isCustomer): Observable<any> {
+    return this.http.get<any>(this.url + obj + '?isPublish=true&isPublic=' + isPublic + '&isCustomer=' + isCustomer);
   }
   saveBanner(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/public/homepage/banner', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/public/homepage/banner', obj);
   }
   saveEventBlock(id, obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/public/homePage/' + id, obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/public/homePage/' + id, obj);
   }
   saveRescourceBlock(id, obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/public/homePage/' + id, obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/public/homePage/' + id, obj);
   }
 
   getAllHomeData(user): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/homePage?userType=' + user, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/homePage?userType=' + user);
   }
 
   savePublish(id, flag): Observable<any> {
-    return this.http.put<any>(this.url + 'api/admin/event/publish/' + id + '/' + flag, null, { headers: this.headers });
+    return this.http.put<any>(this.url + 'api/admin/event/publish/' + id + '/' + flag, null);
   }
   // Dashboad-charts
 
   getUserDevices(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/userDevices', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/userDevices');
   }
   getresourceDownloadDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/resourceDownloadDetails', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/resourceDownloadDetails');
   }
   geteventStatusDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventStatusDetails', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/eventStatusDetails');
   }
   geteventTargetUserTypeDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventTargetUserTypeDetails', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/eventTargetUserTypeDetails');
   }
   getUsers(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/users', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/users');
   }
   geteventCategoryTypeDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventCategoryTypeDetails', { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/admin/eventCategoryTypeDetails');
   }
 
   removeEventSchedule(id): Observable<any> {
-    return this.http.delete<any>(this.url + 'api/admin/event/schedule/' + id, { headers: this.headers });
+    return this.http.delete<any>(this.url + 'api/admin/event/schedule/' + id);
   }
 
   // Product&services api.......
 
   createProductAndService(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/productAndServices', obj, { headers: this.headers });
+    return this.http.post<any>(this.url + 'api/admin/productAndServices', obj);
   }
 
   getProductAndService(id): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/productAndServices?id=' + id, { headers: this.headers });
+    return this.http.get<any>(this.url + 'api/public/productAndServices?id=' + id);
+  }
+
+  deleteService(id): Observable<any> {
+    return this.http.delete<any>(this.url + 'api/admin/productAndServices?id=' + id);
+  }
+
+  getInviteesData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/event/inviteesList');
+  }
+  getJoineeData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/event/joiningList');
+  }
+  getResourceData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/resource/attachmentShareList');
+  }
+  getUserListData(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/user/userList');
+  }
+  getDeviceList(id): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);
   }
 }

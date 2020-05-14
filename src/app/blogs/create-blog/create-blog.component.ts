@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-create-blog',
@@ -12,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-blog.component.css'],
 })
 export class CreateBlogComponent implements OnInit {
+  submitBtnCaption = 'Submit';
+  newpersons: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -58,11 +61,11 @@ export class CreateBlogComponent implements OnInit {
   ngOnInit(): void {
     this.createBlogForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      tagList: ['', Validators.required],
+      categoryId: [''],
+      tagList: [''],
       targetUserType: ['', Validators.required],
       isDraft: [true],
       expiryDate: ['', Validators.required],
@@ -132,6 +135,9 @@ export class CreateBlogComponent implements OnInit {
   getPersons() {
     this.service.getPersons().subscribe((res) => {
       this.persons = res.body;
+      for (let i = 0; i < this.persons.length; i++) {
+        this.newpersons[i] = this.persons[this.persons.length - 1 - i];
+      }
     });
   }
   fileProgress(fileInput: any) {
@@ -301,8 +307,7 @@ export class CreateBlogComponent implements OnInit {
     }
   }
   addPerson() {
-    this.previewUrl1 = null;
-    this.personForm.reset();
+    this.router.navigate(['author-create']);
   }
   generateBlog() {
     this.show = true;
@@ -320,35 +325,44 @@ export class CreateBlogComponent implements OnInit {
       obj['thumbnailImageUrl'] = this.speakerImage;
 
       const tags: any[] = [];
-      obj.tagList.forEach((m) => {
-        const tag = {
-          id: m.id,
-          keywords: m.keywords,
-          name: m.name,
-        };
-        tags.push(tag);
-      });
+      if (this.createBlogForm.value.tagList.length > 0) {
+        obj.tagList.forEach((m) => {
+          const tag = {
+            id: m.id,
+            keywords: m.keywords,
+            name: m.name,
+          };
+          tags.push(tag);
+        });
+      }
+
+      let catId;
+      catId = this.createBlogForm.controls['categoryId'].value;
+      if (this.createBlogForm.controls['categoryId'].value === '0') {
+        catId = null;
+      }
 
       const dataObj = {
         customerProfile: '',
         detailImageUrl: '',
         downloadUrl: '',
-        categoryId: obj.categoryId.id,
+        categoryId: catId,
         draft: obj.isDraft,
         longDescription: obj.longDescription,
-        person: {
-          description: obj.person.description,
-          designation: obj.person.designation,
-          email: obj.person.email,
-          id: 0,
-          fullName: obj.person.fullName,
-          keySkills: obj.person.keySkills,
-          origanizationName: obj.person.origanizationName,
-          personalEmail: obj.person.personalEmail,
-          phone: obj.person.phone,
-          profile: obj.person.profile,
-          profileImageUrl: obj.person.profileImageUrl,
-        },
+        personId: obj.person,
+        // person: {
+        //   description: obj.person.description,
+        //   designation: obj.person.designation,
+        //   email: obj.person.email,
+        //   id: 0,
+        //   fullName: obj.person.fullName,
+        //   keySkills: obj.person.keySkills,
+        //   origanizationName: obj.person.origanizationName,
+        //   personalEmail: obj.person.personalEmail,
+        //   phone: obj.person.phone,
+        //   profile: obj.person.profile,
+        //   profileImageUrl: obj.person.profileImageUrl,
+        // },
         targetUserType: obj.targetUserType,
         resourceType: 1,
         serviceUsed: '',
@@ -366,7 +380,7 @@ export class CreateBlogComponent implements OnInit {
             duration: 5000,
           });
           // alert("Blog Added Successfully");
-          this.router.navigate(['blogs']);
+          this.router.navigate(['/resources/blogs']);
         },
         (_error) => {
           this.show = false;
@@ -440,6 +454,14 @@ export class CreateBlogComponent implements OnInit {
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });
       }
+    }
+  }
+
+  OnDraft(e) {
+    if (e.checked === true) {
+      this.submitBtnCaption = 'Submit';
+    } else {
+      this.submitBtnCaption = 'Publish';
     }
   }
 }

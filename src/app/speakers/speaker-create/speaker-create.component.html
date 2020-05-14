@@ -1,9 +1,11 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="BackMe()">Speakers</a></li>
-    <li><a class="active">Create Speaker</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Speakers</a></li>
+      <li><a class="active">Create Speaker</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -67,7 +69,7 @@
           </label>
           <mat-form-field class="example-full-width col-sm-9">
             <textarea matInput placeholder="Description" formControlName="description" rows="4" maxlength="250"></textarea>
-            <mat-error *ngIf="checkError('description', 'required')">(Long Description is required)</mat-error>
+            <mat-error *ngIf="checkError('description', 'required')">(Description is required)</mat-error>
             <mat-error *ngIf="checkError('description', 'maxlength')">(Description should be upto 200 characters)</mat-error>
           </mat-form-field>
         </div>
@@ -184,8 +186,8 @@
               >(Image should be JPEG, JPG, PNG)</mat-error
             >
           </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
+          <div class="col-sm-2 text-right">
+            <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
             <div *ngIf="fileUploadProgress">Upload progress: {{ fileUploadProgress }}</div>
@@ -201,7 +203,7 @@
           </div>
         </div>
 
-        <div class="text-right">
+        <div class="col-sm-12 text-right">
           <button class="btn button-1 action-good" (click)="createSpeaker()" [disabled]="!createSpeakerForm.valid">Submit Details</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>

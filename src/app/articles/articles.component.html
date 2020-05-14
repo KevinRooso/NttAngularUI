@@ -1,11 +1,11 @@
 <div class="container">
   <div>
-    <ul class="breadcrumb">
+    <ul class="breadcrumb pl-0">
       <li><a href="/home">Home</a></li>
       <li><a class="active">Articles</a></li>
     </ul>
   </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: transparent !important; padding-left: 0; padding-right: 0;">
     <button
       class="navbar-toggler"
       type="button"
@@ -18,13 +18,13 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/article-create"
+      <a routerLink="article-create"
         ><button type="button" class="btn button-1 action-good">
           Create Article
         </button></a
       >
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        <li class="nav-item ml-2">
+        <li class="nav-item mr-3">
           <div class="form-inline my-2 my-lg-0">
             <input
               class="form-control"
@@ -39,7 +39,7 @@
             </button>
           </div>
         </li>
-        <li class="nav-item active mx-2">
+        <li class="nav-item active mx-0">
           <select class="form-control" [(ngModel)]="sort" (change)="filterData()" style="width: 150px;">
             <option value="Sort By">Sort By</option>
             <optgroup label="Updated Date">
@@ -52,25 +52,116 @@
     </div>
   </nav>
 </div>
-<section class="section-tours">
+<section class="section-tours pt-3">
   <!-- <div class=" text-center">
     <p class="heading-secondary py-4">
       Articles
     </p>
   </div> -->
-  <div class="row ml-1">
-    <mat-card class="p-0 m-4 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
-      <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
-      <p class="article-title pb-0">
-        <b>{{ card.title | slice: 0:40 }}</b>
-      </p>
-      <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
-    </mat-card>
+  <div class="container">
+    <!-- <div class="row ml-1">
+      <mat-card class="p-0 m-3 article-card" *ngFor="let card of filterBlogs" (click)="getDetails(card.id)">
+        <img [src]="card.thumbnailImageUrl" alt="" class="article-img" />
+        <p class="article-title pb-0">
+          <b>{{ card.title | slice: 0:40 }}</b>
+        </p>
+        <p class="article-title"><b>Expired Date : </b>{{ card.expiryDate | date }}</p>
+      </mat-card>
+    </div> -->
+
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card" *ngIf="publishedList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingOne">
+          <a
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            class="d-block"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i>Published
+          </a>
+        </h5>
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body pt-0 pb-0 m-2">
+            <h2></h2>
+            <div class="row">
+              <div class="col-sm-4" *ngFor="let card of publishedList">
+                <div class="card-container">
+                  <div class="card blog-card" [routerLink]="['article-details',card.id]">
+                    <div>
+                      <img
+                        [src]="
+                          card.thumbnailImageUrl != null
+                            ? card.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+                      <div class="card-date"><strong>Expired Date : </strong>{{ card.expiryDate | date }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" *ngIf="draftList?.length > 0">
+        <h5 class="card-header" role="tab" id="headingThree">
+          <a
+            class="collapsed d-block"
+            data-toggle="collapse"
+            data-parent="#accordion"
+            data-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+            style="font-size: 20px; color: #373838; font-weight: 400;"
+          >
+            <i class="fa fa-chevron-up pull-right mt-2"></i>Drafted
+          </a>
+        </h5>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body pt-0 pb-0 m-2">
+            <h2></h2>
+            <div class="row">
+              <div class="col-sm-4" *ngFor="let card of draftList">
+                <div class="card-container">
+                  <div class="card blog-card" [routerLink]="['article-details',card.id]">
+                    <div>
+                      <img
+                        [src]="
+                          card.thumbnailImageUrl != null
+                            ? card.thumbnailImageUrl
+                            : 'https://www.netmagicsolutions.com/data/article/hyperscale-data20-03-041583322167.jpg'
+                        "
+                        class="w-100"
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <div class="card-block">
+                      <h3 class="card-title">{{ card.title | slice: 0:40 }}</h3>
+                      <div class="card-date"><strong>Expired Date : </strong>{{ card.expiryDate | date }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="text-center">
+  <!-- <div class="text-center">
     <span *ngIf="filterBlogs?.length == 0">
       <i class="fa fa-database" aria-hidden="true"></i>
       No Data Available
     </span>
-  </div>
+  </div> -->
 </section>
