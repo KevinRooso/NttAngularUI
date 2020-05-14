@@ -32,7 +32,7 @@ export class ParticipantPreviewComponent {
     //   console.log(this.tableData);
     //   this.dataSource.next(this.tableData);
     // })
-    this.queryString.queryParams.subscribe((params) => {
+    this.queryString.params.subscribe((params) => {
       $.fn.dataTable.ext.errMode = 'none';
       let url;
       if (params.page === undefined) {
@@ -190,6 +190,6 @@ export class ParticipantPreviewComponent {
     );
   }
   someClickHandler1(data) {
-    this.router.navigate(['/participants/participant-details',data.id]);
+    this.router.navigate(['/participants/participant-details',data.id,'xyz']);
   }
 }

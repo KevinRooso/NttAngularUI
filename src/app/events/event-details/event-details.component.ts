@@ -139,9 +139,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['/edit'], { queryParams: { page: id } });
   }
   addParticipants() {
-    this.router.navigate(['/participant-add'], {
-      queryParams: { page: this.eventId, name: this.eventName },
-    });
+    this.router.navigate(['/participants/participant-add',this.eventId,this.eventName]);
   }
   addSpeaker() {
     this.router.navigate(['/create-speaker'], {
@@ -149,9 +147,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   viewParticipant() {
-    this.router.navigate(['/participants'], {
-      queryParams: { page: this.eventId, name: this.eventName },
-    });
+    this.router.navigate(['/participants',this.eventId,this.eventName]);
   }
   viewSpeakers() {
     this.router.navigate(['/speakers'], {
@@ -159,7 +155,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   jumpDetail(id) {
-    this.router.navigate(['participant-details'], { queryParams: { id } });
+    this.router.navigate(['/participants/participant-details',id,'xyz']);
   }
   copyDetails() {
     this.router.navigate(['/copy-event'], {
