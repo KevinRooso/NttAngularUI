@@ -10,8 +10,9 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./joinee-data.component.css'],
 })
 export class JoineeDataComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'email', 'phoneNumber', 'createdAt', 'registrationUuid', 'event'];
+  displayedColumns: string[] = ['Seq', 'eventTitle', 'name', 'email', 'contact', 'eventType', 'joiningDate', 'registrationID'];
   dataSource: any;
+  joineeTableData: any = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,7 +21,31 @@ export class JoineeDataComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getJoineeData().subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res.body);
+      res.body.forEach((element, index) => {
+        let eventTypeDesc = '';
+        if (element.event.webinar && !element.event.onPremise) {
+          eventTypeDesc = 'Webinar';
+        }
+        if (element.event.onPremise && !element.event.webinar) {
+          eventTypeDesc = 'On Premises';
+        }
+        if (element.event.webinar && element.event.onPremise) {
+          eventTypeDesc = 'Both';
+        }
+        const obj = {
+          Seq: index + 1,
+          eventTitle: element.event.title,
+          name: element.name,
+          email: element.email,
+          contact: element.phoneNumber,
+          eventType: eventTypeDesc,
+          joiningDate: element.createdAt,
+          registrationID: element.registrationUuid,
+          Status: element.event,
+        };
+        this.joineeTableData.push(obj);
+      });
+      this.dataSource = new MatTableDataSource(this.joineeTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

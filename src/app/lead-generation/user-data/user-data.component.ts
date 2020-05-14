@@ -36,13 +36,20 @@ export class UserDataComponent implements OnInit {
         arrtype.forEach((elem) => {
           deviceType = deviceType + elem.deviceType;
         });
+        let status = '';
+        if (element.active === true) {
+          status = 'Active';
+        }
+        if (element.active === false) {
+          status = 'Not Active';
+        }
         const obj = {
           'S.NO.': index + 1,
           Name: element.fullName,
           Email: element.email,
           Contact: element.phoneNumber,
           'User Type': element.userType.displayName,
-          Status: element.active,
+          Status: status,
         };
         this.userTableData.push(obj);
       });
