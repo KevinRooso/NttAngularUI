@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import * as $ from 'jquery';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +10,18 @@ import * as $ from 'jquery';
 })
 export class DashboardComponent implements OnInit {
   hideElement = false;
-  constructor(private router: Router) {
+  constructor(private router: Router,@Inject(DOCUMENT) private document: Document) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        if(event.url === '/'){
+          const token=localStorage.getItem('token');
+          if(token !==null){
+            this.document.location.href = '/home';
+          }
+        }
         if (event.url === '/' || event.url === '/login') {
           this.hideElement = true;
+          // this.document.location.href = '/home';
         } else {
           this.hideElement = false;
         }
