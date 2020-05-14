@@ -17,6 +17,7 @@ export class CreateParticipantsComponent implements OnInit {
   id;
   checkError: any;
   submitted = false;
+  show=false;
   participant = 'Add Participant';
   constructor(
     private formBuilder: FormBuilder,
@@ -59,8 +60,13 @@ export class CreateParticipantsComponent implements OnInit {
     }
   }
   getEvents() {
+    this.show=true;
     this.service.getAllEventList().subscribe((res) => {
       this.events = res.body;
+      this.show=false;
+    },
+    (_err)=>{
+      this.show=false;
     });
   }
   submit() {
