@@ -176,6 +176,7 @@ export class SpeakerCreateComponent implements OnInit {
         phone: this.createSpeakerForm.controls['phone'].value,
         keySkills: fruit1.substring(1, fruit1.length - 0),
         profileImageUrl: this.speakerImage,
+        personType: 'speaker',
         id: 0,
       };
       // console.log('post', obj);
