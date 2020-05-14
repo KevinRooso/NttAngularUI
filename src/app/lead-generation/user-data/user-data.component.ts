@@ -50,6 +50,7 @@ export class UserDataComponent implements OnInit {
           Contact: element.phoneNumber,
           'User Type': element.userType.displayName,
           Status: status,
+          ID: element.id,
         };
         this.userTableData.push(obj);
       });
@@ -65,5 +66,11 @@ export class UserDataComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  getID(ID) {
+    this.authService.getDeviceList(ID).subscribe((_res) => {
+      // console.log(res.body);
+    });
+    // alert(ID);
   }
 }

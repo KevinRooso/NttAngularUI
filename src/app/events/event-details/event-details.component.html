@@ -35,9 +35,9 @@
             color="secondary"
             [matTooltip]="btn.tooltip"
             matTooltipPosition="left"
-            [routerLink]="[btn.url,eventId]"
+            [routerLink]="[btn.url, eventId]"
           >
-            <i class="material-icons" >{{ btn.icon }}</i>
+            <i class="material-icons">{{ btn.icon }}</i>
           </button>
         </div>
       </div>
@@ -83,10 +83,10 @@
                     <span style="font-weight: 500;">Status : </span>
                     <span class="tags">{{ getEventDetails.eventStatus }}</span>
 
-                    <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'expired'">
+                    <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'Expired'">
                       (You cannot publish a draft event)
                     </span>
-                    <span *ngIf="getEventDetails.eventStatus == 'expired'">
+                    <span *ngIf="getEventDetails.eventStatus == 'Expired'">
                       (You cannot publish an expired event)
                     </span>
                   </p>

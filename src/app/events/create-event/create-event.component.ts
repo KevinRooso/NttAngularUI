@@ -587,13 +587,17 @@ export class CreateEventComponent implements OnInit {
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
 
     if (this.addAgenda.valid) {
+      let spList = null;
+      if (this.addAgenda.controls['speakerList'].value !== '') {
+        spList = this.addAgenda.controls['speakerList'].value;
+      }
       const obj = {
         title: this.addAgenda.controls['title'].value,
         topic: this.addAgenda.controls['topic'].value,
         isBreak: this.addAgenda.controls['isBreak'].value,
         endDate: this.addAgenda.controls['endDate'].value,
         startDate: this.addAgenda.controls['startDate'].value,
-        speakerList: this.addAgenda.controls['speakerList'].value,
+        speakerList: spList,
         id: 0,
         idData: '-1',
       };

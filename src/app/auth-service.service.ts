@@ -59,7 +59,7 @@ export class AuthServiceService {
   }
   // File Controller APis
   uploadFile(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/uploadFile',obj);
+    return this.http.post<any>(this.url + 'api/admin/uploadFile', obj);
   }
   getAllParticipants(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/participants');
@@ -219,5 +219,8 @@ export class AuthServiceService {
   }
   getUserListData(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/metric/user/userList');
+  }
+  getDeviceList(id): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);
   }
 }
