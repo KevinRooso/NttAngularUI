@@ -197,6 +197,7 @@ export class SpeakerEditComponent implements OnInit {
         origanizationName: this.updateSpeakerForm.controls['origanizationName'].value,
         phone: this.updateSpeakerForm.controls['phone'].value,
         keySkills: fruit1.substring(1, fruit1.length - 0),
+        personType: 'speaker',
         profileImageUrl: this.speakerImage,
         id: this.spkrID,
       };
