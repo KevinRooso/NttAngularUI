@@ -32,8 +32,21 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   color3new: any;
   color4new: any;
 
+  userdevchart = null;
+  userchart = null;
+  evstatuschart = null;
+  evTarchart = null;
+  evCategorychart = null;
+
+  resdat = 'resdat';
+  userdat = 'userdat';
+  eventsdat = 'eventsdat';
+
+  show = false;
+
   // data:any[]=[];
   userdeviceData: any[];
+  reschart = null;
 
   constructor(private service: AuthServiceService) {
     this.color1old = '#32e6c5';
@@ -69,14 +82,26 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   // --------------------------Resources Graphs------------------------//
 
   resourceDownload() {
-    this.service.getresourceDownloadDetails().subscribe((res) => {
+    let resParam;
+    if (this.resdat === 'resdat') {
+      resParam = '';
+    } else {
+      resParam = this.resdat;
+    }
+
+    this.show = true;
+    this.service.getresourceDownloadDetails(resParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('resourceDownload');
       this.ctx = this.canvas.getContext('2d');
       // const myChart = new Chart(this.ctx, {
       // tslint:disable-next-line:no-unused-expression
-      new Chart(this.ctx, {
+      if (this.reschart !== null) {
+        this.reschart.destroy();
+      }
+      this.reschart = new Chart(this.ctx, {
         type: 'bar',
         fontSize: 1,
         data: {
@@ -119,13 +144,25 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   // -----------------------------Users Graphs---------------------------------//
 
   userDevice() {
-    this.service.getUserDevices().subscribe((res) => {
+    let userParam;
+    if (this.userdat === 'userdat') {
+      userParam = '';
+    } else {
+      userParam = this.userdat;
+    }
+
+    this.show = true;
+    this.service.getUserDevices(userParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('userDeviceChart');
       this.ctx = this.canvas.getContext('2d');
       // tslint:disable-next-line:no-unused-expression
-      new Chart(this.ctx, {
+      if (this.userdevchart !== null) {
+        this.userdevchart.destroy();
+      }
+      this.userdevchart = new Chart(this.ctx, {
         type: 'pie',
         data: {
           labels: ['Android ', 'iOS '],
@@ -158,13 +195,24 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   // Users
 
   users() {
-    this.service.getUsers().subscribe((res) => {
+    let userParam;
+    if (this.userdat === 'userdat') {
+      userParam = '';
+    } else {
+      userParam = this.userdat;
+    }
+    this.show = true;
+    this.service.getUsers(userParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('users');
       this.ctx = this.canvas.getContext('2d');
       // tslint:disable-next-line:no-unused-expression
-      new Chart(this.ctx, {
+      if (this.userchart !== null) {
+        this.userchart.destroy();
+      }
+      this.userchart = new Chart(this.ctx, {
         type: 'bar',
         data: {
           labels: ['Public ', 'Customer', 'Employee'],
@@ -207,13 +255,24 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   // Event Status
   eventStatusDetails() {
-    this.service.geteventStatusDetails().subscribe((res) => {
+    let eventParam;
+    if (this.eventsdat === 'eventsdat') {
+      eventParam = '';
+    } else {
+      eventParam = this.eventsdat;
+    }
+    this.show = true;
+    this.service.geteventStatusDetails(eventParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('eventStatus');
       this.ctx = this.canvas.getContext('2d');
       // tslint:disable-next-line:no-unused-expression
-      new Chart(this.ctx, {
+      if (this.evstatuschart !== null) {
+        this.evstatuschart.destroy();
+      }
+      this.evstatuschart = new Chart(this.ctx, {
         type: 'pie',
         data: {
           labels: ['Published', 'Unpublished', 'Drafted', 'Expired'],
@@ -250,13 +309,24 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   // Event Target Users
   eventTargetUserTypeDetails() {
-    this.service.geteventTargetUserTypeDetails().subscribe((res) => {
+    let eventParam;
+    if (this.eventsdat === 'eventsdat') {
+      eventParam = '';
+    } else {
+      eventParam = this.eventsdat;
+    }
+    this.show = true;
+    this.service.geteventTargetUserTypeDetails(eventParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
 
       this.canvas = document.getElementById('eventTargetUserType');
       this.ctx = this.canvas.getContext('2d');
       // tslint:disable-next-line:no-unused-expression
-      new Chart(this.ctx, {
+      if (this.evTarchart !== null) {
+        this.evTarchart.destroy();
+      }
+      this.evTarchart = new Chart(this.ctx, {
         type: 'bar',
         data: {
           labels: ['Public ', 'Customer', 'Employee'],
@@ -297,10 +367,21 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   // Event Category
   eventCategoryTypeDetails() {
-    this.service.geteventCategoryTypeDetails().subscribe((res) => {
+    let eventParam;
+    if (this.eventsdat === 'eventsdat') {
+      eventParam = '';
+    } else {
+      eventParam = this.eventsdat;
+    }
+    this.show = true;
+    this.service.geteventCategoryTypeDetails(eventParam).subscribe((res) => {
+      this.show = false;
       const userdeviceData = res.body;
       // tslint:disable-next-line:no-unused-expression
-      new Chart('eventCategoryType', {
+      if (this.evCategorychart !== null) {
+        this.evCategorychart.destroy();
+      }
+      this.evCategorychart = new Chart('eventCategoryType', {
         type: 'doughnut',
         options: {
           responsive: true,
@@ -336,5 +417,23 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         },
       });
     });
+  }
+
+  // Resource Graph Duration
+  getResGraphData() {
+    this.resourceDownload();
+  }
+
+  // User Graph Duration
+  getUserGraphData() {
+    this.userDevice();
+    this.users();
+  }
+
+  // Event Graph Duration
+  getEventGraphData() {
+    this.eventStatusDetails();
+    this.eventTargetUserTypeDetails();
+    this.eventCategoryTypeDetails();
   }
 }

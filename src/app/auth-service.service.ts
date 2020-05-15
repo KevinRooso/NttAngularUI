@@ -171,23 +171,47 @@ export class AuthServiceService {
   }
   // Dashboad-charts
 
-  getUserDevices(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/userDevices');
+  getUserDevices(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/userDevices');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/userDevices?duration=${duration}`);
+    }
   }
-  getresourceDownloadDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/resourceDownloadDetails');
+  getresourceDownloadDetails(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/resourceDownloadDetails');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/resourceDownloadDetails?duration=${duration}`);
+    }
   }
-  geteventStatusDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventStatusDetails');
+  geteventStatusDetails(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/eventStatusDetails');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/eventStatusDetails?duration=${duration}`);
+    }
   }
-  geteventTargetUserTypeDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventTargetUserTypeDetails');
+  geteventTargetUserTypeDetails(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/eventTargetUserTypeDetails');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/eventTargetUserTypeDetails?duration=${duration}`);
+    }
   }
-  getUsers(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/users');
+  getUsers(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/users');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/users?duration=${duration}`);
+    }
   }
-  geteventCategoryTypeDetails(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/eventCategoryTypeDetails');
+  geteventCategoryTypeDetails(duration: any): Observable<any> {
+    if (duration === '') {
+      return this.http.get<any>(this.url + 'api/admin/eventCategoryTypeDetails');
+    } else {
+      return this.http.get<any>(this.url + `api/admin/eventCategoryTypeDetails?duration=${duration}`);
+    }
   }
 
   removeEventSchedule(id): Observable<any> {
