@@ -275,9 +275,10 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
       if (this.getEventDetails.categoryTypeId !== null) {
-        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId);
       }
-      this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
+        this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
+
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);
       this.image1button = true;
@@ -742,13 +743,17 @@ export class EventEditComponent implements OnInit {
     // this.addAgenda.controls['speakerList'].setValidators(Validators.required);
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
     if (this.addAgenda.valid) {
+      let spList = null;
+      if (this.addAgenda.controls['speakerList'].value !== '') {
+        spList = this.addAgenda.controls['speakerList'].value;
+      }
       const obj = {
         title: this.addAgenda.controls['title'].value,
         topic: this.addAgenda.controls['topic'].value,
         isBreak: this.addAgenda.controls['isBreak'].value,
         endDate: this.addAgenda.controls['endDate'].value,
         startDate: this.addAgenda.controls['startDate'].value,
-        speakerList: this.addAgenda.controls['speakerList'].value,
+        speakerList: spList,
         isActive: false,
         id: 0,
         idData: '-1',
