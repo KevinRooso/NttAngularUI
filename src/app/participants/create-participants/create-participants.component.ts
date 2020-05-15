@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -23,15 +23,14 @@ export class CreateParticipantsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: AuthServiceService,
     private router1: ActivatedRoute,
-    private router: Router,
     public snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.id = params.page;
-      if (params.page !== undefined) {
+      if (params.page !== '0') {
         this.flag = false;
         this.participant = this.participant + ' for : ' + params.name;
         this.eventId = params.page;
@@ -98,11 +97,7 @@ export class CreateParticipantsComponent implements OnInit {
         if (res.httpStatus.toString() !== 'BAD_REQUEST') {
           this.snackBar.open('Participants successfully added in event', 'Close', { duration: 5000 });
           this.submitted = false;
-          if (this.id === undefined) {
-            this.router.navigate(['participants']);
-          } else {
-            this.router.navigate(['/details'], { queryParams: { page: this.eventId } });
-          }
+
         } else {
           this.snackBar.open('Duplicate Participant !!', 'Close', { duration: 5000 });
         }

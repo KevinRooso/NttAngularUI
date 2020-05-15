@@ -311,18 +311,24 @@ const routes: Routes = [
     path: 'participants',
     children: [
       {
+        path: ':page/:name',
+        pathMatch: 'full',
+        component: ParticipantPreviewComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
         path: '',
         component: ParticipantPreviewComponent,
         canActivate: [AuthguardServiceService],
       },
       {
-        path: 'participant-details/:page',
+        path: 'participant-details/:page/:name',
         pathMatch: 'full',
         component: ViewParticipantsComponent,
         canActivate: [AuthguardServiceService],
       },
       {
-        path: 'participant-add',
+        path: 'participant-add/:page/:name',
         pathMatch: 'full',
         component: CreateParticipantsComponent,
         canActivate: [AuthguardServiceService],
