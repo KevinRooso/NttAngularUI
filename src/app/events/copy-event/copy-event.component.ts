@@ -258,7 +258,7 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
       if (this.updateEventForm.controls['categoryTypeId'] !== null) {
-        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.displayName);
+        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId);
       }
       this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
@@ -741,6 +741,10 @@ export class CopyEventComponent implements OnInit {
     this.addAgenda.controls['startDate'].updateValueAndValidity();
     // this.addAgenda.controls['speakerList'].setValidators(Validators.required);
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
+    let spList=null;
+    if (this.addAgenda.controls['speakerList'].value !== '') {
+      spList = this.addAgenda.controls['speakerList'].value;
+    }
     if (this.addAgenda.valid) {
       const obj = {
         title: this.addAgenda.controls['title'].value,
@@ -748,7 +752,7 @@ export class CopyEventComponent implements OnInit {
         isBreak: this.addAgenda.controls['isBreak'].value,
         endDate: this.addAgenda.controls['endDate'].value,
         startDate: this.addAgenda.controls['startDate'].value,
-        speakerList: this.addAgenda.controls['speakerList'].value,
+        speakerList: spList,
         isActive: false,
         id: 0,
         idData: '-1',

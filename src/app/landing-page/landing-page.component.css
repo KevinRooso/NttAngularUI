@@ -153,3 +153,10 @@ hr {
   font-size: 28px;
   line-height: 34px;
 }
+
+.form-control {
+  border-radius: 10%;
+  font-size: 16px;
+  margin-top: 2px;
+  padding-left: 4px;
+}

@@ -163,7 +163,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   jumpDetail1(id) {
-    this.router.navigate(['speaker-details'], { queryParams: { page: id } });
+    this.router.navigate(['/speakers/speaker-details',id]);
   }
   Back() {
     this.router.navigate(['events']);
