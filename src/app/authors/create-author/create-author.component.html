@@ -1,12 +1,14 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a routerLink="/resources/blogs">Blogs</a></li>
-    <li><a routerLink="/authors">Authors</a></li>
-    <li>
-      <a class="active"> {{ title }} </a>
-    </li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a routerLink="/resources/blogs">Blogs</a></li>
+      <li><a routerLink="/authors">Authors</a></li>
+      <li>
+        <a class="active"> {{ title }} </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -179,7 +181,7 @@
               >(Image should be JPEG, JPG, PNG)</mat-error
             >
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm text-right">
             <button class="btn button-1 action-good" [ngClass]="{ cursor: !imageValid }" (click)="uploadImage()" [disabled]="!imageValid">
               Upload File
             </button>
@@ -196,7 +198,7 @@
           </div>
         </div>
 
-        <div class="text-right">
+        <div class="col-sm-12 text-right">
           <button class="btn button-1 action-good" (click)="createAuthor()" [disabled]="!personForm.valid">{{ buttonText }}</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>
