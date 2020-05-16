@@ -52,6 +52,7 @@ import { CreateAuthorComponent } from './authors/create-author/create-author.com
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
+import { PublicEventComponent } from './public/public-event/public-event.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -61,6 +62,7 @@ const routes: Routes = [
   //   component: EventPreviewComponent,
   //   canActivate: [AuthguardServiceService],
   // },
+  { path: 'public/event', component: PublicEventComponent },
   {
     path: 'events',
     children: [
@@ -123,7 +125,7 @@ const routes: Routes = [
             component: ArticleCreateComponent,
             canActivate: [AuthguardServiceService],
           },
-        ]
+        ],
       },
       {
         path: 'blogs',
@@ -150,8 +152,8 @@ const routes: Routes = [
             component: CreateBlogComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'cases',
@@ -178,8 +180,8 @@ const routes: Routes = [
             component: CasesCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'whitepapers',
@@ -206,8 +208,8 @@ const routes: Routes = [
             component: WhitepaperCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'testimonials',
@@ -235,7 +237,7 @@ const routes: Routes = [
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
           },
-        ]
+        ],
       },
       {
         path: 'news',
@@ -262,8 +264,8 @@ const routes: Routes = [
             component: CreateNewsComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'videos',
@@ -290,12 +292,11 @@ const routes: Routes = [
             component: VideosCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
-
 
   {
     path: 'authors',

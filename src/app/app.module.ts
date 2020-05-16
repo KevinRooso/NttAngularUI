@@ -100,6 +100,7 @@ import { UserDataComponent } from './lead-generation/user-data/user-data.compone
 import { CreateAuthorComponent } from './authors/create-author/create-author.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
+import { PublicEventComponent } from './public/public-event/public-event.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +166,7 @@ import { AuthorDetailComponent } from './authors/author-detail/author-detail.com
     CreateAuthorComponent,
     AuthorsComponent,
     AuthorDetailComponent,
+    PublicEventComponent,
   ],
   imports: [
     BrowserModule,
