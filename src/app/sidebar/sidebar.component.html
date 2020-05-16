@@ -6,6 +6,7 @@
       data-toggle="collapse"
       aria-expanded="false"
       class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+      [ngClass]="{ active: dashboardChild1.isActive || dashboardChild2.isActive }"
     >
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
@@ -14,10 +15,20 @@
       </div>
     </a>
     <div id="submenu3" class="collapse sidebar-submenu">
-      <a routerLink="/home" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/home"
+        routerLinkActive="active"
+        #dashboardChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Home</span>
       </a>
-      <a routerLink="/home-config" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/home-config"
+        routerLinkActive="active"
+        #dashboardChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Homepage Configuration</span>
       </a>
     </div>
@@ -26,6 +37,7 @@
       data-toggle="collapse"
       aria-expanded="false"
       class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+      [ngClass]="{ active: eventsChild1.isActive || eventsChild2.isActive || eventsChild3.isActive }"
     >
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-dashboard fa-fw mr-3"></span> -->
@@ -34,13 +46,28 @@
       </div>
     </a>
     <div id="submenu1" class="collapse sidebar-submenu">
-      <a routerLink="/events" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/events"
+        routerLinkActive="active"
+        #eventsChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Event</span>
       </a>
-      <a routerLink="/participants" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/participants"
+        routerLinkActive="active"
+        #eventsChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Participants</span>
       </a>
-      <a routerLink="/speakers" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/speakers"
+        routerLinkActive="active"
+        #eventsChild3="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Speakers</span>
       </a>
     </div>
@@ -49,6 +76,16 @@
       data-toggle="collapse"
       aria-expanded="false"
       class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+      [ngClass]="{
+        active:
+          resourceChild1.isActive ||
+          resourceChild2.isActive ||
+          resourceChild3.isActive ||
+          resourceChild4.isActive ||
+          resourceChild5.isActive ||
+          resourceChild6.isActive ||
+          resourceChild7.isActive
+      }"
     >
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
@@ -57,25 +94,60 @@
       </div>
     </a>
     <div id="submenu2" class="collapse sidebar-submenu">
-      <a routerLink="/resources/articles" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/articles"
+        routerLinkActive="active"
+        #resourceChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Articles</span>
       </a>
-      <a routerLink="/resources/blogs" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/blogs"
+        routerLinkActive="active"
+        #resourceChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Blogs</span>
       </a>
-      <a routerLink="/resources/cases" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/cases"
+        routerLinkActive="active"
+        #resourceChild3="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Case Studies</span>
       </a>
-      <a routerLink="/resources/whitepapers" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/whitepapers"
+        routerLinkActive="active"
+        #resourceChild4="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Whitepapers</span>
       </a>
-      <a routerLink="/resources/testimonials" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/testimonials"
+        routerLinkActive="active"
+        #resourceChild5="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Testimonials</span>
       </a>
-      <a routerLink="/resources/news" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/news"
+        routerLinkActive="active"
+        #resourceChild6="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">News</span>
       </a>
-      <a routerLink="/resources/videos" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resources/videos"
+        routerLinkActive="active"
+        #resourceChild7="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">Videos</span>
       </a>
     </div>
@@ -89,7 +161,7 @@
       data-toggle="collapse"
       aria-expanded="false"
       class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
-      routerLinkActive="active"
+      [ngClass]="{'active': leadChild1.isActive || leadChild2.isActive || leadChild3.isActive}"
     >
       <div class="d-flex w-100 justify-content-start align-items-center">
 
@@ -98,13 +170,13 @@
       </div>
     </a>
     <div id="submenu4" class="collapse sidebar-submenu">
-      <a routerLink="/event-data" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/event-data" routerLinkActive="active" #leadChild1="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">events</span>
       </a>
-      <a routerLink="/resource-data" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/resource-data" routerLinkActive="active" #leadChild2="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">resources</span>
       </a>
-      <a routerLink="/user-data" routerLinkActive="active" class="list-group-item list-group-item-action bg-dark text-white">
+      <a routerLink="/user-data" routerLinkActive="active" #leadChild3="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
         <span class="menu-collapsed">users</span>
       </a>
     </div>

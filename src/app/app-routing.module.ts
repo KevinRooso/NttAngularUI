@@ -123,7 +123,7 @@ const routes: Routes = [
             component: ArticleCreateComponent,
             canActivate: [AuthguardServiceService],
           },
-        ]
+        ],
       },
       {
         path: 'blogs',
@@ -150,8 +150,23 @@ const routes: Routes = [
             component: CreateBlogComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+          {
+            path: 'authors',
+            component: AuthorsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'author-create/:page',
+            component: CreateAuthorComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'author-detail/:page',
+            component: AuthorDetailComponent,
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
       {
         path: 'cases',
@@ -178,8 +193,8 @@ const routes: Routes = [
             component: CasesCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'whitepapers',
@@ -206,8 +221,8 @@ const routes: Routes = [
             component: WhitepaperCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'testimonials',
@@ -235,7 +250,7 @@ const routes: Routes = [
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
           },
-        ]
+        ],
       },
       {
         path: 'news',
@@ -262,8 +277,8 @@ const routes: Routes = [
             component: CreateNewsComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'videos',
@@ -290,18 +305,27 @@ const routes: Routes = [
             component: VideosCreateComponent,
             pathMatch: 'full',
             canActivate: [AuthguardServiceService],
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
 
-
-  {
-    path: 'authors',
-    component: AuthorsComponent,
-    canActivate: [AuthguardServiceService],
-  },
+  // {
+  //   path: 'authors',
+  //   component: AuthorsComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'author-create',
+  //   component: CreateAuthorComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
+  // {
+  //   path: 'author-detail',
+  //   component: AuthorDetailComponent,
+  //   canActivate: [AuthguardServiceService],
+  // },
   // {
   //   path: 'speakers',
   //   component: SpeakersPreviewComponent,
@@ -363,17 +387,6 @@ const routes: Routes = [
         canActivate: [AuthguardServiceService],
       },
     ],
-  },
-
-  {
-    path: 'author-create',
-    component: CreateAuthorComponent,
-    canActivate: [AuthguardServiceService],
-  },
-  {
-    path: 'author-detail',
-    component: AuthorDetailComponent,
-    canActivate: [AuthguardServiceService],
   },
   {
     path: 'home-config',

@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 })
 export class AuthorDetailComponent implements OnInit {
   authorData: any;
+  authID: any;
 
   constructor(
     private authService: AuthServiceService,
@@ -19,7 +20,8 @@ export class AuthorDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
+      this.authID = params.page;
       this.getAuthorData(params.page);
     });
   }
@@ -31,7 +33,7 @@ export class AuthorDetailComponent implements OnInit {
   }
   editAuthor(id) {
     // alert(id);
-    this.router.navigate(['/author-create'], { queryParams: { page: id } });
+    this.router.navigate(['../../author-create'], { queryParams: { authID: id } });
   }
   Back() {
     this.location.back(); // <-- go back to previous location on cancel
