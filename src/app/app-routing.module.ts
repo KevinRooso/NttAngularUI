@@ -52,6 +52,7 @@ import { CreateAuthorComponent } from './authors/create-author/create-author.com
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
+import { PublicEventComponent } from './public/public-event/public-event.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -61,6 +62,7 @@ const routes: Routes = [
   //   component: EventPreviewComponent,
   //   canActivate: [AuthguardServiceService],
   // },
+  { path: 'public/event', component: PublicEventComponent },
   {
     path: 'events',
     children: [
