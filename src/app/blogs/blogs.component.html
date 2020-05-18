@@ -26,7 +26,7 @@
         >
       </span>
       <span class="ml-2">
-        <a routerLink="/authors"
+        <a routerLink="authors"
           ><button type="button" class="btn button-1 action-good">
             Authors
           </button></a
@@ -113,7 +113,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let blog of publishedList">
                 <div class="card-container">
-                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
+                  <div class="card blog-card" [routerLink]="['blog-detail', blog.id]">
                     <div>
                       <img
                         [src]="
@@ -159,7 +159,7 @@ Blogs
             <div class="row">
               <div class="col-sm-4" *ngFor="let blog of draftList">
                 <div class="card-container">
-                  <div class="card blog-card" [routerLink]="['blog-detail',blog.id]">
+                  <div class="card blog-card" [routerLink]="['blog-detail', blog.id]">
                     <div>
                       <img
                         [src]="

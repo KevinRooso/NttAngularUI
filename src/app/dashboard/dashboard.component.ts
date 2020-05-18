@@ -10,16 +10,16 @@ import { DOCUMENT } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
   hideElement = false;
-  constructor(private router: Router,@Inject(DOCUMENT) private document: Document) {
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if(event.url === '/'){
-          const token=localStorage.getItem('token');
-          if(token !==null){
+        if (event.url === '/') {
+          const token = localStorage.getItem('token');
+          if (token !== null) {
             this.document.location.href = '/home';
           }
         }
-        if (event.url === '/' || event.url === '/login') {
+        if (event.url === '/' || event.url === '/login' || this.document.location.pathname === '/public/event') {
           this.hideElement = true;
           // this.document.location.href = '/home';
         } else {

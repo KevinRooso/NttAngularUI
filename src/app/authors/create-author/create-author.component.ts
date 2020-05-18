@@ -102,7 +102,7 @@ export class CreateAuthorComponent implements OnInit {
       }
     };
 
-    this.router1.queryParams.subscribe((params) => {
+    this.router1.params.subscribe((params) => {
       this.resourceId = params.page;
       if (this.resourceId !== undefined) {
         this.getAuthorData();

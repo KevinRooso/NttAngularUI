@@ -41,7 +41,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a routerLink="/author-create"> <button type="button" class="btn button-1 action-good ml-2">Add Author</button></a>
+      <a [routerLink]="['../author-create', 'xyz']"> <button type="button" class="btn button-1 action-good">Add Author</button></a>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <!-- <li class="nav-item mx-2">
         <select class="form-control">
@@ -88,18 +88,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4" *ngFor="let cd of filterBlogs">
-        <a class="d-flex card-details" (click)="getDetails(cd.id)">
+        <a class="d-flex card-details" [routerLink]="['../author-detail', cd.id]">
           <div style="width: 30%;">
             <img [src]="cd.profileImageUrl" class="photo" />
           </div>
           <div class="details">
             <h2 class="name">{{ cd.fullName }}</h2>
-            <!-- <div class="origin">{{ cd.email }}</div> -->
             <div class="origin">{{ cd.designation }}</div>
             <div class="keys" *ngIf="cd.keySkills != null">{{ getSkills(cd.keySkills) }}</div>
-            <!-- <div class="sessions">
-          <h6>{{ cd.origanizationName }}</h6>
-        </div> -->
           </div>
         </a>
       </div>

@@ -3,7 +3,7 @@
     <ul class="breadcrumb">
       <li><a href="/home">Home</a></li>
       <li><a routerLink="/resources/blogs">Blogs</a></li>
-      <li><a routerLink="/authors">Authors</a></li>
+      <li><a routerLink="/resources/blogs/authors">Authors</a></li>
       <li><a class="active">Author Preview</a></li>
     </ul>
   </div>
@@ -14,7 +14,9 @@
       <div class="panel panel-info bg-white shadow">
         <div class="panel-body p-3">
           <div class="row">
-            <button class="btn" (click)="editAuthor(authorData.id)"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+            <button class="btn" [routerLink]="['../../author-create', authID]">
+              <span class="fa fa-pencil" aria-hidden="true"></span>
+            </button>
             <div class="col-md-4 pr-0">
               <img
                 alt="User Pic"
