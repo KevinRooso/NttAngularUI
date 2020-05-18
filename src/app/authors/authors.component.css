@@ -2,14 +2,15 @@
   border-radius: 50%;
   border-width: 5px;
   flex-shrink: 0;
-  height: 100px;
+  height: 100%;
   overflow: hidden;
   transform: translateZ(0);
-  width: 100px;
+  width: 115%;
 }
 
 .details {
-  color: #fff;
+  /* margin-left: 16px; */
+  color: #3d4040;
   padding-left: 30px;
   padding-right: 5px;
   width: 70%;
@@ -17,14 +18,27 @@
 
 .name {
   font-size: 20px;
+  height: 21px;
   line-height: 1;
+  overflow: hidden;
   word-break: break-all;
 }
 
 .origin {
   font-size: 12px;
+  height: 13px;
   line-height: 1.1;
-  margin-top: 4px;
+  margin-top: 15px;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.keys {
+  font-size: 12px;
+  height: 28px;
+  line-height: 1.2;
+  margin-top: 15px;
+  overflow: hidden;
   word-break: break-all;
 }
 
@@ -43,9 +57,14 @@
 }
 
 .card-details {
-  background-color: #2cd5b6;
+  /* background-color: #2cd5b6; */
+
+  background-color: #fff;
+
+  /* border: 1px solid #03c; */
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 121px;
   margin: 10px 10px;
   padding: 1rem;
 }

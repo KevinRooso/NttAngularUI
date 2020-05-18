@@ -71,6 +71,8 @@ export class HomeUiComponent implements OnInit {
   globalFlag = true;
   formArr: number[] = [1];
   bannerEmittedData: any = {};
+  listData: any=[];
+  previewHomePageData: any={};
   // tslint:disable-next-line:no-input-rename
   @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
@@ -115,7 +117,7 @@ export class HomeUiComponent implements OnInit {
     this.bannerLimit = environment.BANNER_LIMIT;
     this.getHomepageData();
     this.createForms();
-    this.getAllData();
+    this.getAllData(false);
   }
   getBanner(data: any) {
     this.errorFlag = false;
@@ -285,18 +287,15 @@ export class HomeUiComponent implements OnInit {
   createForm() {
     this.publicFlag = !this.publicFlag;
   }
-  getAllData() {
-    this.show = true;
-    this.service.getAllHomeData(this.userType).subscribe((res) => {
-      this.bannerData = res.body.banners;
-      if (this.bannerData.length !== 0) {
+  getHomeData(){
+     if (this.bannerData.length !== 0) {
         this.bannerData.sort(this.sortArray);
         this.formArr = [];
       }
       this.bannerData.forEach((_value, index) => {
         this.formArr.push(index + 1);
       });
-      this.resourceData = res.body.list;
+      this.resourceData = [...this.listData];
       if (this.bannerData.length === 0 && this.resourceData.length === 0) {
         this.publicFlag = false;
       } else {
@@ -347,8 +346,51 @@ export class HomeUiComponent implements OnInit {
           this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
         }
       }
-      this.show = false;
-    });
+  }
+
+  getHomePagePreviewData(){
+    const previewData = {...this.previewHomePageData}
+    this.homePageData = previewData;
+    this.homeBannerData = previewData.banners;
+    this.homeListData = previewData.list;
+    this.bannerData = this.homeBannerData;
+    if (!this.bannerData) {
+      this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
+
+      this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
+
+      this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
+    }
+  }
+
+  getAllData(force: boolean) {
+    const prevData = this.previewHomePageData;
+    let prevCallApi = true;
+    let configCallApi = true;
+    if(prevData && prevData.banners && prevData.list && prevData.banners.length && prevData.list.length){
+      this.getHomePagePreviewData();
+      prevCallApi = false;
+    }
+
+    if(this.bannerData.length && this.listData.length){
+      this.getHomeData();
+      configCallApi = false;
+    }
+
+    // dont call API if data is already present
+    if (force || configCallApi || prevCallApi) {
+      this.show = true;
+      this.service.getAllHomeData(this.userType).subscribe((res) => {
+        this.bannerData = [...res.body.banners];
+        this.newBannerData = [...res.body.banners];
+        this.listData=[...res.body.list];
+        this.previewHomePageData={...res.body};
+        this.getHomeData();
+        this.getHomePagePreviewData();
+        this.show = false;
+      });
+    }
+
   }
   getGlobalDataForBanner1() {
     this.show = true;
@@ -404,7 +446,19 @@ export class HomeUiComponent implements OnInit {
   submitBanner() {
     this.show = true;
     if (this.globalFlag && this.formArr.length === this.newBannerData.length) {
-      this.service.saveBanner(this.newBannerData).subscribe(
+      const reqObj = [];
+      for (let i = 0; i < this.newBannerData.length; i++) {
+        const bannerObj = {};
+        const data = this.newBannerData[i];
+        bannerObj['customer'] = this.userType !== 'public';
+        bannerObj['dataFieldId'] = data['id'] || data['dataFieldId'];
+        bannerObj['datafieldType'] = data['type'] || data['datafieldType'];
+        bannerObj['public'] = this.userType === 'public';
+        bannerObj['sequenceNumber'] = data['sequenceNumber'];
+
+        reqObj.push(bannerObj);
+      }
+      this.service.saveBanner(reqObj).subscribe(
         (_res) => {
           this.show = false;
 
@@ -717,23 +771,17 @@ export class HomeUiComponent implements OnInit {
       }
     );
   }
+
   getHomepageData() {
     // this.getAllData();
-
-    this.show = true;
-    this.service.getAllHomeData(this.userType).subscribe((res) => {
-      this.homePageData = res.body;
-      this.homeBannerData = res.body.banners;
-      this.homeListData = res.body.list;
-      this.bannerData = this.homeBannerData;
-      if (!this.bannerData) {
-        this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
-
-        this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
-
-        this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
-      }
-      this.show = false;
-    });
+    // if(this.previewHomePageData && this.previewHomePageData.banners.length && this.previewHomePageData.list.length){
+    //   this.getHomePagePreviewData(this.previewHomePageData);
+    //   return true;
+    // }
+    // this.show = true;
+    // this.service.getAllHomeData(this.userType).subscribe((res) => {
+    //   this.getHomePagePreviewData(res.body);
+    //   this.show = false;
+    // });
   }
 }

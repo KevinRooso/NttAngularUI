@@ -72,8 +72,10 @@ export class BannerUiComponent implements OnInit {
     this.show=true;
     this.bannerBlock = this.bannerData.type;
     this.bannerSelectedValue = this.bannerData.id;
-    this.bannerConfigurationForm.get(['datafieldType']).setValue(this.bannerBlock);
-    this.bannerConfigurationForm.get(['dataFieldId']).setValue(this.bannerSelectedValue);
+    if (this.bannerConfigurationForm) {
+      this.bannerConfigurationForm.get(['datafieldType']).setValue(this.bannerBlock);
+      this.bannerConfigurationForm.get(['dataFieldId']).setValue(this.bannerSelectedValue);
+    }
     const durl = this.blocks.find((x) => x.apiName === this.bannerBlock).url.split('?')[1];
 
     this.service.getBannerBlockDetail(durl,this.pFlag,this.cFlag).subscribe((res) => {
