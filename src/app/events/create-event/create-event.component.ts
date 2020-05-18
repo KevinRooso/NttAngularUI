@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 
 @Component({
   selector: 'app-create-event',
@@ -91,8 +92,8 @@ export class CreateEventComponent implements OnInit {
     this.newtoday.setDate(this.newtoday.getDate() - 1);
     this.createEventForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      detail: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       address1: [''],
       address2: [''],
       city: [''],
@@ -111,8 +112,8 @@ export class CreateEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: ['', [Validators.required, Validators.maxLength(1500)]],
-      policyFAQ: ['', [Validators.maxLength(1500)]],
+      policyTnc: ['', [Validators.required, textValidation(1500)]],
+      policyFAQ: ['', [textValidation(1500)]],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       detailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
       // fullName: [''],

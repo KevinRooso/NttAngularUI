@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
@@ -91,8 +92,8 @@ export class EventEditComponent implements OnInit {
   ) {
     this.updateEventForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      detail: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       address1: ['', Validators.required],
       address2: [''],
       city: ['', Validators.required],
@@ -110,8 +111,8 @@ export class EventEditComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(1500)]),
-      policyFAQ: new FormControl('', [Validators.maxLength(1500)]),
+      policyTnc: new FormControl('', [Validators.required, textValidation(1500)]),
+      policyFAQ: new FormControl('', [textValidation(1500)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       fullName: [''],
@@ -277,7 +278,7 @@ export class EventEditComponent implements OnInit {
       if (this.getEventDetails.categoryTypeId !== null) {
         this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId);
       }
-        this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
+      this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
 
       this.updateEventForm.controls['webinarUrl'].setValue(this.getEventDetails.webinarUrl);
       this.updateEventForm.controls['isDraft'].setValue(this.getEventDetails.isDraft);

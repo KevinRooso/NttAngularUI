@@ -32,7 +32,7 @@
             <div *ngIf="checkError('detail', 'required', true)" style="color: red; font-size: 12px;">
               (Description is required)
             </div>
-            <div *ngIf="checkError('detail', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('detail', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Description should be upto 700 characters)
             </div>
           </div>
@@ -45,7 +45,7 @@
             <div *ngIf="checkError('shortDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Short Description is required)
             </div>
-            <div *ngIf="checkError('shortDescription', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('shortDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Short Description should be upto 80 characters)
             </div>
           </div>
@@ -308,7 +308,7 @@
             <div *ngIf="checkError('policyTnc', 'required', true)" style="color: red; font-size: 12px;">
               (Terms & Conditions is required)
             </div>
-            <div *ngIf="checkError('policyTnc', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('policyTnc', 'rTextValid', true)" style="color: red; font-size: 12px;">
               Terms & Conditions should be upto 1500 characters
             </div>
           </div>
@@ -327,7 +327,7 @@
             <!-- <div *ngIf="checkError('policyFAQ', 'required', true)" style="color:red;font-size: 12px;">
               (Terms & Conditions is required)
             </div> -->
-            <div *ngIf="checkError('policyFAQ', 'maxlength', true)" style="color: red; font-size: 12px;">
+            <div *ngIf="checkError('policyFAQ', 'rTextValid', true)" style="color: red; font-size: 12px;">
               Policy FAQs should be upto 1500 characters
             </div>
           </div>
