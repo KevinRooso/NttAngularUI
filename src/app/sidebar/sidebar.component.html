@@ -156,42 +156,54 @@
         <span class="menu-collapsed">Product & Services</span>
       </div>
     </a>
-    <!-- <a
+    <a
       href="#submenu4"
       data-toggle="collapse"
       aria-expanded="false"
       class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
-      [ngClass]="{'active': leadChild1.isActive || leadChild2.isActive || leadChild3.isActive}"
+      [ngClass]="{ active: leadChild1.isActive || leadChild2.isActive || leadChild3.isActive }"
     >
       <div class="d-flex w-100 justify-content-start align-items-center">
-
         <span class="menu-collapsed">Lead generation</span>
         <span class="submenu-icon ml-auto"></span>
       </div>
     </a>
     <div id="submenu4" class="collapse sidebar-submenu">
-      <a routerLink="/event-data" routerLinkActive="active" #leadChild1="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/event-data"
+        routerLinkActive="active"
+        #leadChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">events</span>
       </a>
-      <a routerLink="/resource-data" routerLinkActive="active" #leadChild2="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/resource-data"
+        routerLinkActive="active"
+        #leadChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">resources</span>
       </a>
-      <a routerLink="/user-data" routerLinkActive="active" #leadChild3="routerLinkActive" class="list-group-item list-group-item-action bg-dark text-white">
+      <a
+        routerLink="/user-data"
+        routerLinkActive="active"
+        #leadChild3="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
         <span class="menu-collapsed">users</span>
       </a>
     </div>
     <a class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
-
         <span class="menu-collapsed">Campaign</span>
       </div>
     </a>
     <a class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
-
         <span class="menu-collapsed">Notifications</span>
       </div>
-    </a> -->
+    </a>
     <a class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
