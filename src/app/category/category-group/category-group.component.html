@@ -1,0 +1,68 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a routerLink="../">Categories</a></li>
+    <li><a class="active">Category Group</a></li>
+    <!-- <li><a class="active">Joinee Data</a></li> -->
+  </ul>
+</div>
+<div class="container">
+  <section class="section-tours">
+    <div class="row mt-2">
+      <div class="col-md-4 pt-2">
+        <span class="mr-2">
+          <a routerLink="../createGroup"
+            ><button type="button" class="btn button-1 action-good">
+              Create Category Group
+            </button></a
+          >
+        </span>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <mat-form-field class="w-75">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef width="7%">S.No.</th>
+          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+          <td mat-cell *matCellDef="let row">{{ row.createdAt | date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Active</th>
+          <td mat-cell *matCellDef="let row">{{ row.isActive }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit Category Group</th>
+          <td mat-cell *matCellDef="let row">
+            <button class="btn" routerLink="../createGroup" [queryParams]="{ page: row.id }">
+              <span class="fa fa-pencil" aria-hidden="true"></span>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </section>
+</div>

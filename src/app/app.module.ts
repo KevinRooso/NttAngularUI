@@ -101,6 +101,10 @@ import { CreateAuthorComponent } from './authors/create-author/create-author.com
 import { AuthorsComponent } from './authors/authors.component';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { PublicEventComponent } from './public/public-event/public-event.component';
+import { CreateCategoryComponent } from './category/create-category/create-category.component';
+import { CreateCategoryGroupComponent } from './category/create-category-group/create-category-group.component';
+import { CategoryComponent } from './category/category.component';
+import { CategoryGroupComponent } from './category/category-group/category-group.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +171,10 @@ import { PublicEventComponent } from './public/public-event/public-event.compone
     AuthorsComponent,
     AuthorDetailComponent,
     PublicEventComponent,
+    CreateCategoryComponent,
+    CreateCategoryGroupComponent,
+    CategoryComponent,
+    CategoryGroupComponent,
   ],
   imports: [
     BrowserModule,

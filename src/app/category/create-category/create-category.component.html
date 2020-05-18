@@ -1,0 +1,72 @@
+<app-loader *ngIf="show"></app-loader>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/categories">Categories</a></li>
+      <li>
+        <a class="active"> {{ title }} </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center" style="margin-bottom: 51px;">
+        <p class="heading-secondary">{{ title }}</p>
+      </div>
+
+      <form [formGroup]="addCatForm">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"> Name <span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Name" formControlName="name" maxlength="80" />
+            <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"> Display Name<span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="DisplayName" formControlName="displayName" />
+            <mat-error *ngIf="checkError('displayName', 'required')">(Display Name is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Description<span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <textarea matInput placeholder="Description" formControlName="description" rows="4" maxlength="250"></textarea>
+            <mat-error *ngIf="checkError('description', 'required')">(Description is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Category Group</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category Group</mat-label>
+            <mat-select formControlName="categoryGroupId">
+              <mat-option *ngFor="let category of allData" [value]="category.id">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('categoryGroupId', 'required')">(Category Group is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Save as Active</label>
+          <mat-slide-toggle class="example-full-width col-sm-9" formControlName="active">Active</mat-slide-toggle>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" [disabled]="!addCatForm.valid" (click)="createCategory()" class="btn button-1 action-good">
+            {{ buttonText }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- [disabled]='!createEventForm.valid' -->

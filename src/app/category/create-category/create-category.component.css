@@ -1,0 +1,14 @@
+input.ng-invalid.ng-touched {
+  border-color: red !important;
+}
+
+.form-row {
+  padding: 1rem 1rem;
+}
+
+.form-group.hidden {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 0;
+}

@@ -53,6 +53,10 @@ import { AuthorDetailComponent } from './authors/author-detail/author-detail.com
 import { AuthorsComponent } from './authors/authors.component';
 import { CreateTestimonialsComponent } from './testimonials/create-testimonials/create-testimonials.component';
 import { PublicEventComponent } from './public/public-event/public-event.component';
+import { CreateCategoryComponent } from './category/create-category/create-category.component';
+import { CreateCategoryGroupComponent } from './category/create-category-group/create-category-group.component';
+import { CategoryComponent } from './category/category.component';
+import { CategoryGroupComponent } from './category/category-group/category-group.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -63,6 +67,34 @@ const routes: Routes = [
   //   canActivate: [AuthguardServiceService],
   // },
   { path: 'public/event', component: PublicEventComponent },
+  {
+    path: 'categories',
+    children: [
+      {
+        path: '',
+        component: CategoryComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create',
+        component: CreateCategoryComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'createGroup',
+        component: CreateCategoryGroupComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'group',
+        component: CategoryGroupComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+    ],
+  },
   {
     path: 'events',
     children: [

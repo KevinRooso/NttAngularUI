@@ -76,6 +76,19 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/admin/participant/' + id);
   }
 
+  // Category Apis
+  saveCategory(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/category', obj);
+  }
+  saveCategoryGroup(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/category/group', obj);
+  }
+  getCategoryGroupList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/public/categoryGroups');
+  }
+  getAllCategoryList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/public/categories');
+  }
   // Speaker Apis
   getAllSpeakersList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/speakers');
