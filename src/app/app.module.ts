@@ -106,6 +106,7 @@ import { CreateCategoryGroupComponent } from './category/create-category-group/c
 import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
 import { CacheMapService } from 'src/cache/cache-map.service';
+import { PublicResourceComponent } from './public/public-resource/public-resource.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +177,7 @@ import { CacheMapService } from 'src/cache/cache-map.service';
     CreateCategoryGroupComponent,
     CategoryComponent,
     CategoryGroupComponent,
+    PublicResourceComponent,
   ],
   imports: [
     BrowserModule,
@@ -233,8 +235,8 @@ import { CacheMapService } from 'src/cache/cache-map.service';
     CacheMapService,
     {
       provide: Cache,
-      useClass: CacheMapService
-    }
+      useClass: CacheMapService,
+    },
   ],
   bootstrap: [AppComponent],
 })

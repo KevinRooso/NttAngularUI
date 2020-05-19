@@ -110,6 +110,12 @@ export class AuthServiceService {
   getResourceById(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/resource/' + id);
   }
+  getPublicResourceById(id, token): Observable<any> {
+    const ResHeader = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<any>(this.url + 'api/public/resource/' + id, { headers: ResHeader });
+  }
   saveResource(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/resource', obj);
   }

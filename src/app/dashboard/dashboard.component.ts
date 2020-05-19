@@ -19,7 +19,12 @@ export class DashboardComponent implements OnInit {
             this.document.location.href = '/home';
           }
         }
-        if (event.url === '/' || event.url === '/login' || this.document.location.pathname === '/public/event') {
+        if (
+          event.url === '/' ||
+          event.url === '/login' ||
+          this.document.location.pathname === '/public/event' ||
+          this.document.location.pathname === '/public/resource'
+        ) {
           this.hideElement = true;
           // this.document.location.href = '/home';
         } else {

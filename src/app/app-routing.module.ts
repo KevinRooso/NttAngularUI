@@ -57,6 +57,7 @@ import { CreateCategoryComponent } from './category/create-category/create-categ
 import { CreateCategoryGroupComponent } from './category/create-category-group/create-category-group.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
+import { PublicResourceComponent } from './public/public-resource/public-resource.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -66,7 +67,21 @@ const routes: Routes = [
   //   component: EventPreviewComponent,
   //   canActivate: [AuthguardServiceService],
   // },
-  { path: 'public/event', component: PublicEventComponent },
+  {
+    path: 'public',
+    children: [
+      {
+        path: 'event',
+        component: PublicEventComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'resource',
+        component: PublicResourceComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
   {
     path: 'categories',
     children: [
