@@ -6,6 +6,11 @@
   </ul>
 </div>
 <div class="container">
+  <select class="form-control" style="width: 30%; float: right;" (click)="applyFilter($event)">
+    <option>Please Select Resource Type</option>
+    <option *ngFor="let type of uniqueData">{{ type }}</option>
+  </select>
+
   <section class="section-tours">
     <mat-form-field>
       <mat-label>Filter</mat-label>

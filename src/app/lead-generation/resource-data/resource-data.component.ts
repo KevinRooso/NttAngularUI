@@ -12,6 +12,9 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 export class ResourceDataComponent implements OnInit {
   displayedColumns: string[] = ['position', 'fullName', 'email', 'title', 'type', 'createdAt'];
   dataSource: any;
+  resourceType: any[] = [];
+  uniqueData: any[] = [];
+  cat = 'cat';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,6 +23,10 @@ export class ResourceDataComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getResourceData().subscribe((res) => {
+      res.body.forEach((element) => {
+        this.resourceType.push(element.type);
+      });
+      this.uniqueData = [...new Set(this.resourceType)];
       this.dataSource = new MatTableDataSource(res.body);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
