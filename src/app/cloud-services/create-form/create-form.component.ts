@@ -75,6 +75,9 @@ export class CreateFormComponent implements OnInit {
         this.bradArray = JSON.parse(params.page1);
         this.editData = JSON.parse(params.page2);
         if (this.editData !== null) {
+          if (this.parent !== null) {
+            this.pageTitle = 'Edit Product And Services For ' + this.parent.displayName;
+          }
           this.productServicesForm.controls['displayName'].setValue(this.editData.displayName);
           this.productServicesForm.controls['detail'].setValue(this.editData.detail);
           this.productServicesForm.controls['isCategory'].setValue(this.editData.isCategory);
@@ -242,7 +245,7 @@ export class CreateFormComponent implements OnInit {
       }
       formObject.parentId = this.parentId;
       formObject.isLastService = this.changeFlag;
-      this.show = true;
+     this.show = true;
       this.authService.createProductAndService(formObject).subscribe(
         (_res) => {
           this.snackBar.open('Success !!', 'Close', {

@@ -105,6 +105,7 @@ import { CreateCategoryComponent } from './category/create-category/create-categ
 import { CreateCategoryGroupComponent } from './category/create-category-group/create-category-group.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
+import { CacheMapService } from 'src/cache/cache-map.service';
 
 @NgModule({
   declarations: [
@@ -229,6 +230,11 @@ import { CategoryGroupComponent } from './category/category-group/category-group
       provide: ErrorHandler,
       useClass: RollbarErrorHandlerService,
     },
+    CacheMapService,
+    {
+      provide: Cache,
+      useClass: CacheMapService
+    }
   ],
   bootstrap: [AppComponent],
 })
