@@ -31,19 +31,6 @@ export class PublicEventComponent implements OnInit {
   @ViewChild('menumat') trigger: MatMenuTrigger;
 
   // @ViewChild('toggleButton') toggleButton: ElementRef;
-
-  fabButtons = [
-    {
-      icon: 'file_copy',
-      tooltip: 'Duplicate Event',
-      url: '../../copy-event',
-    },
-    {
-      icon: 'edit',
-      tooltip: 'Edit Event',
-      url: '../../edit',
-    },
-  ];
   buttons = [];
   fabTogglerState = 'inactive';
   // isActive = false;

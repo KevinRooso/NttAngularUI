@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="example-button-row">
-            <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data)">Edit</button>
+            <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data,true)">Edit</button>
             <button
               type="button"
               class="btn py-1 px-3 button-1 action-info wht-color"
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-1 edit">
                   <button class="btn">
-                    <span class="fa fa-pencil" (click)="editForm(detailData)" aria-hidden="true"></span>
+                    <span class="fa fa-pencil" (click)="editForm(detailData,false)" aria-hidden="true"></span>
                   </button>
                   <br /><br /><br />
                 </div>

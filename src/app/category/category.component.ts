@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'description', 'categoryGroup', 'createdAt', 'edit'];
+  displayedColumns: string[] = ['position', 'name', 'description', 'categoryGroup', 'createdAt'];
   dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

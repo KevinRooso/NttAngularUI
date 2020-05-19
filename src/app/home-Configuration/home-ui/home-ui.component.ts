@@ -112,11 +112,16 @@ export class HomeUiComponent implements OnInit {
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
   filterArrForBannerBlock: any[] = [];
 
+
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
     this.bannerLimit = environment.BANNER_LIMIT;
-    this.getHomepageData();
+
     this.createForms();
+
+  }
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngAfterViewInit(){
     this.getAllData(false);
   }
   getBanner(data: any) {
@@ -175,7 +180,19 @@ export class HomeUiComponent implements OnInit {
     this.newBannerData = this.newBannerData.filter((el) => el.sequenceNumber !== seq);
     if (flag) {
       this.show = true;
-      this.service.saveBanner(this.newBannerData).subscribe(
+      const reqObj = [];
+      for (let i = 0; i < this.newBannerData.length; i++) {
+        const bannerObj = {};
+        const data1 = this.newBannerData[i];
+        bannerObj['customer'] = this.userType !== 'public';
+        bannerObj['dataFieldId'] = data1['id'] || data1['dataFieldId'];
+        bannerObj['datafieldType'] = data1['type'] || data1['datafieldType'];
+        bannerObj['public'] = this.userType === 'public';
+        bannerObj['sequenceNumber'] = data1['sequenceNumber'];
+
+        reqObj.push(bannerObj);
+      }
+      this.service.saveBanner(reqObj).subscribe(
         (_res) => {
           // this.bannerData=res.body;
 
@@ -335,18 +352,13 @@ export class HomeUiComponent implements OnInit {
           }
         });
 
-        if (this.bannerData.length >= 1) {
-          this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
-        }
-        if (this.bannerData.length >= 2) {
-          this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
-        }
 
-        if (this.bannerData.length >= 3) {
-          this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
-        }
       }
   }
+
+
+
+
 
   getHomePagePreviewData(){
     const previewData = {...this.previewHomePageData}
@@ -354,29 +366,24 @@ export class HomeUiComponent implements OnInit {
     this.homeBannerData = previewData.banners;
     this.homeListData = previewData.list;
     this.bannerData = this.homeBannerData;
-    if (!this.bannerData) {
-      this.bannerImage1 = this.bannerData.find((x) => x.sequenceNumber === 1).thumbnailImageUrl;
 
-      this.bannerImage2 = this.bannerData.find((x) => x.sequenceNumber === 2).thumbnailImageUrl;
-
-      this.bannerImage3 = this.bannerData.find((x) => x.sequenceNumber === 3).thumbnailImageUrl;
-    }
   }
 
   getAllData(force: boolean) {
     const prevData = this.previewHomePageData;
     let prevCallApi = true;
     let configCallApi = true;
-    if(prevData && prevData.banners && prevData.list && prevData.banners.length && prevData.list.length){
-      this.getHomePagePreviewData();
-      prevCallApi = false;
-    }
+    if(!force){
+      if(prevData && prevData.banners && prevData.list && prevData.banners.length && prevData.list.length){
+        this.getHomePagePreviewData();
+        prevCallApi = false;
+      }
 
-    if(this.bannerData.length && this.listData.length){
-      this.getHomeData();
-      configCallApi = false;
+      if(this.bannerData.length && this.listData.length){
+        this.getHomeData();
+        configCallApi = false;
+      }
     }
-
     // dont call API if data is already present
     if (force || configCallApi || prevCallApi) {
       this.show = true;

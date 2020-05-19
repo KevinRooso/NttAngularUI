@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { textValidation } from 'src/app/validators/general-validators';
 @Component({
   selector: 'app-copy-event',
   templateUrl: './copy-event.component.html',
@@ -85,14 +86,14 @@ export class CopyEventComponent implements OnInit {
     private formBuilder: FormBuilder,
     public snackBar: MatSnackBar,
     private authService: AuthServiceService,
-    private router:Router,
+    private router: Router,
     private router1: ActivatedRoute,
     private location: Location
   ) {
     this.updateEventForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      detail: new FormControl('', [Validators.required, Validators.maxLength(700)]),
-      shortDescription: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      detail: new FormControl('', [Validators.required, textValidation(700)]),
+      shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       address1: ['', Validators.required],
       address2: [''],
       city: ['', Validators.required],
@@ -110,8 +111,8 @@ export class CopyEventComponent implements OnInit {
       speakerList: [''],
       registrationStartDate: ['', Validators.required],
       registrationEndDate: ['', Validators.required],
-      policyTnc: new FormControl('', [Validators.required, Validators.maxLength(1500)]),
-      policyFAQ: new FormControl('', [Validators.maxLength(1500)]),
+      policyTnc: new FormControl('', [Validators.required, textValidation(1499)]),
+      policyFAQ: new FormControl('', [textValidation(1499)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       detailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),
       fullName: [''],
@@ -741,7 +742,7 @@ export class CopyEventComponent implements OnInit {
     this.addAgenda.controls['startDate'].updateValueAndValidity();
     // this.addAgenda.controls['speakerList'].setValidators(Validators.required);
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
-    let spList=null;
+    let spList = null;
     if (this.addAgenda.controls['speakerList'].value !== '') {
       spList = this.addAgenda.controls['speakerList'].value;
     }

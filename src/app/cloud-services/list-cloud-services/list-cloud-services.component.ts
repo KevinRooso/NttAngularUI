@@ -81,18 +81,44 @@ export class ListCloudServicesComponent implements OnInit {
     if (obj.isLastService) {
       this.detailPage = true;
       this.detailData = obj;
+      // const obj1 = {
+      //   page: JSON.stringify(this.parent),
+      //   page1: JSON.stringify(this.bradArray),
+      //   page2: JSON.stringify(obj),
+      // };
+      // const navigationExtras: NavigationExtras = {
+      //   queryParams: obj1,
+      //   skipLocationChange: true,
+      // };
+      // this.router.navigate(['cloud-service-detail'], navigationExtras);
     } else {
       this.service.getProductAndService(obj.id).subscribe((res) => {
         this.serviceData = res.body;
       });
     }
   }
-  editForm(data) {
-    const obj = {
+  editForm(data,flag) {
+    let obj={};
+    if(!flag){
+      let newParent=null;
+    if(this.bradArray.length !== 1){
+      newParent=this.bradArray[this.bradArray.length-2]
+    }
+
+     obj = {
+      page: JSON.stringify(newParent),
+      page1: JSON.stringify(this.bradArray),
+      page2: JSON.stringify(data),
+    };
+  }
+  if(flag){
+    obj = {
       page: JSON.stringify(this.parent),
       page1: JSON.stringify(this.bradArray),
       page2: JSON.stringify(data),
     };
+
+  }
     const navigationExtras: NavigationExtras = {
       queryParams: obj,
       skipLocationChange: true,

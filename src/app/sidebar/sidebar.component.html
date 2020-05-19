@@ -151,12 +151,37 @@
         <span class="menu-collapsed">Videos</span>
       </a>
     </div>
-    <a routerLink="/categories" routerLinkActive="active" class="bg-dark list-group-item list-group-item-action">
+    <a
+      href="#submenu5"
+      data-toggle="collapse"
+      aria-expanded="false"
+      class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+      [ngClass]="{ active: configChild1.isActive || configChild2.isActive }"
+    >
       <div class="d-flex w-100 justify-content-start align-items-center">
-        <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
-        <span class="menu-collapsed">Categories</span>
+        <!-- <span class="fa fa-user fa-fw mr-3"></span> -->
+        <span class="menu-collapsed">Config Management</span>
+        <span class="submenu-icon ml-auto"></span>
       </div>
     </a>
+    <div id="submenu5" class="collapse sidebar-submenu">
+      <a
+        routerLink="/categories"
+        routerLinkActive="active"
+        #configChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
+        <span class="menu-collapsed">Categories</span>
+      </a>
+      <a
+        routerLink="/categoryGroup"
+        routerLinkActive="active"
+        #configChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+      >
+        <span class="menu-collapsed">Category Groups</span>
+      </a>
+    </div>
     <a routerLink="/cloud-service" routerLinkActive="active" class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <span class="menu-collapsed">Product & Services</span>

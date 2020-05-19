@@ -5,7 +5,7 @@
     <li><a (click)="sendPage(null)">Product and Services</a></li>
     <ng-container *ngFor="let data of bradArray">
       <li>
-        <a (click)="sendPage(data)">{{ data.displayName }}</a>
+        <a (click)="sendPage(data)">{{ data.displayName  | slice: 0:40 }}</a>
       </li>
     </ng-container>
     <li><a>Create Product & Services</a></li>
