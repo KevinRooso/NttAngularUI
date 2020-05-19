@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-category',
@@ -24,16 +24,14 @@ export class CreateCategoryComponent implements OnInit {
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private router1: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    const regex = /^[a-zA-Z][a-zA-Z\s]*$/;
     this.addCatForm = this.frmbuilder.group({
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      displayName: new FormControl('', Validators.required),
-      active: [true],
+      description: new FormControl(''),
+      displayName: new FormControl('', [Validators.required, Validators.pattern(regex)]),
       categoryGroupId: ['', Validators.required],
     });
 
@@ -46,38 +44,7 @@ export class CreateCategoryComponent implements OnInit {
         return this.addCatForm.controls[controlName].hasError(errorName);
       }
     };
-
-    this.router1.queryParams.subscribe((params) => {
-      this.resourceId = params.page;
-      if (this.resourceId !== undefined) {
-        this.getCategoryData();
-        this.title = 'Edit Category';
-        this.buttonText = 'Update Details';
-      } else {
-        this.title = 'Create Category';
-        this.buttonText = 'Submit Details';
-        this.resourceId = 0;
-      }
-    });
-
     this.getCategoryGroupDetails();
-  }
-
-  getCategoryData() {
-    this.show = true;
-    this.authService.getAllCategoryList().subscribe((res) => {
-      this.categories = res.body.filter((c) => {
-        return c.id.toString() === this.resourceId;
-      });
-      this.addCatForm.get(['name']).setValue(this.categories[0].name);
-      this.addCatForm.get(['description']).setValue(this.categories[0].description);
-      if (this.categories.isActive !== null) {
-        this.addCatForm.get(['active']).setValue(this.categories[0].isActive);
-      }
-      this.addCatForm.get(['displayName']).setValue(this.categories[0].displayName);
-      this.addCatForm.get(['categoryGroupId']).setValue(this.categories[0].categoryGroup.id);
-      this.show = false;
-    });
   }
 
   getCategoryGroupDetails() {
@@ -96,22 +63,16 @@ export class CreateCategoryComponent implements OnInit {
 
       const obj = {
         categoryGroupId: catId,
-        active: this.addCatForm.controls['active'].value,
+        active: true,
         description: this.addCatForm.controls['description'].value,
-        id: Number(this.resourceId),
-        name: this.addCatForm.controls['name'].value,
+        id: 0,
         displayName: this.addCatForm.controls['displayName'].value,
       };
 
       this.authService.saveCategory(obj).subscribe(
         (_res) => {
           this.show = false;
-          if (this.resourceId !== 0) {
-            this.snackBar.open('Category Updated Successfully', 'Close', { duration: 5000 });
-          } else {
-            this.snackBar.open('Category Added Successfully', 'Close', { duration: 5000 });
-          }
-
+          this.snackBar.open('Category Added Successfully', 'Close', { duration: 5000 });
           this.router.navigate(['/categories']);
         },
         (_error) => {

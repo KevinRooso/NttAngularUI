@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-category-group',
@@ -24,8 +24,7 @@ export class CreateCategoryGroupComponent implements OnInit {
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private router1: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,31 +42,6 @@ export class CreateCategoryGroupComponent implements OnInit {
         return this.addCatForm.controls[controlName].hasError(errorName);
       }
     };
-
-    this.router1.queryParams.subscribe((params) => {
-      this.resourceId = params.page;
-      if (this.resourceId !== undefined) {
-        this.getCategoryGroupData();
-        this.title = 'Edit Category Group';
-        this.buttonText = 'Update Details';
-      } else {
-        this.title = 'Create Category Group';
-        this.buttonText = 'Submit Details';
-        this.resourceId = 0;
-      }
-    });
-  }
-
-  getCategoryGroupData() {
-    this.authService.getCategoryGroupList().subscribe((res) => {
-      this.categories = res.body.filter((c) => {
-        return c.id.toString() === this.resourceId;
-      });
-      this.addCatForm.get(['name']).setValue(this.categories[0].name);
-      if (this.categories.isActive !== null) {
-        this.addCatForm.get(['active']).setValue(this.categories[0].isActive);
-      }
-    });
   }
 
   createCategoryGroup() {
@@ -76,21 +50,16 @@ export class CreateCategoryGroupComponent implements OnInit {
 
     if (this.addCatForm.valid) {
       const obj = {
-        active: this.addCatForm.controls['active'].value,
-        id: Number(this.resourceId),
-        name: this.addCatForm.controls['name'].value,
+        active: true,
+        id: 0,
+        displayName: this.addCatForm.controls['name'].value,
       };
 
       this.authService.saveCategoryGroup(obj).subscribe(
         (_res) => {
           this.show = false;
-          if (this.resourceId !== 0) {
-            this.snackBar.open('Category Group Updated Successfully', 'Close', { duration: 5000 });
-          } else {
-            this.snackBar.open('Category Group Added Successfully', 'Close', { duration: 5000 });
-          }
-
-          this.router.navigate(['/categories/group']);
+          this.snackBar.open('Category Group Added Successfully', 'Close', { duration: 5000 });
+          this.router.navigate(['/categoryGroup']);
         },
         (_error) => {
           (this.show = false), this.snackBar.open('Oops, something went wrong..', 'Close');

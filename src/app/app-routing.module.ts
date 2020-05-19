@@ -81,15 +81,19 @@ const routes: Routes = [
         pathMatch: 'full',
         canActivate: [AuthguardServiceService],
       },
+    ],
+  },
+  {
+    path: 'categoryGroup',
+    children: [
       {
-        path: 'createGroup',
-        component: CreateCategoryGroupComponent,
-        pathMatch: 'full',
+        path: '',
+        component: CategoryGroupComponent,
         canActivate: [AuthguardServiceService],
       },
       {
-        path: 'group',
-        component: CategoryGroupComponent,
+        path: 'create',
+        component: CreateCategoryGroupComponent,
         pathMatch: 'full',
         canActivate: [AuthguardServiceService],
       },
