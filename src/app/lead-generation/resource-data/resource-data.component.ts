@@ -14,6 +14,7 @@ export class ResourceDataComponent implements OnInit {
   dataSource: any;
   resourceType: any[] = [];
   uniqueData: any[] = [];
+  refreshData: any[] = [];
   cat = 'cat';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -23,6 +24,7 @@ export class ResourceDataComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getResourceData().subscribe((res) => {
+      this.refreshData = res.body;
       res.body.forEach((element) => {
         this.resourceType.push(element.type);
       });
@@ -34,6 +36,13 @@ export class ResourceDataComponent implements OnInit {
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue === 'resource') {
+      this.dataSource = new MatTableDataSource(this.refreshData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      return true;
+    }
+
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {

@@ -6,8 +6,8 @@
   </ul>
 </div>
 <div class="container">
-  <select class="form-control" style="width: 30%; float: right;" (click)="applyFilter($event)">
-    <option>Please Select Resource Type</option>
+  <select class="form-control" style="width: 30%; float: right;" (change)="applyFilter($event)">
+    <option value="resource">Please Select Resource Type</option>
     <option *ngFor="let type of uniqueData">{{ type }}</option>
   </select>
 
