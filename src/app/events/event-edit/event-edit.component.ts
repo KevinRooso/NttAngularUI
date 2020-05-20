@@ -183,7 +183,10 @@ export class EventEditComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.newtoday.setDate(this.newtoday.getDate() - 1);
+    // this.newtoday.setDate(this.newtoday.getDate() - 1);
+    this.newtoday.setHours(0);
+    this.newtoday.setMinutes(0);
+    this.newtoday.setSeconds(0);
     this.router1.params.subscribe((params) => {
       this.evntID = params.page;
       this.getEventData(params.page);
@@ -242,6 +245,7 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['registrationStartDate'].setValidators(null);
       this.updateEventForm.controls['registrationStartDate'].updateValueAndValidity();
       this.updateEventForm.controls['registrationStartDate'].setValue(this.getEventDetails.registrationStartDate);
+      this.regEndDate = this.getEventDetails.registrationStartDate;
 
       this.updateEventForm.controls['registrationEndDate'].setValidators(null);
       this.updateEventForm.controls['registrationEndDate'].updateValueAndValidity();
@@ -268,6 +272,8 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
+      this.closingDate = this.getEventDetails.eventStartDate;
+      this.regStartDate = this.getEventDetails.eventStartDate;
 
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
