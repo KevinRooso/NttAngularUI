@@ -52,7 +52,7 @@ export class CreateFormComponent implements OnInit {
       productBenefits: [''],
       differentiator: [''],
       testimonialUrl: [''],
-      thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
+      thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg|JPG|PNG|JPEG)$')]],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -103,7 +103,8 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
+    if ((fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png'
+    || fileType.toLowerCase() === 'image/jpg') && fileSize < 300000)  {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -137,7 +138,8 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
+    if ((fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png'
+    || fileType.toLowerCase() === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
     }
     const reader = new FileReader();
