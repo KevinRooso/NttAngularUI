@@ -131,7 +131,10 @@ export class CreateAuthorComponent implements OnInit {
       this.personForm.controls['keySkills'].setValue(null);
       this.personForm.controls['keySkills'].setValidators(null);
       this.personForm.controls['keySkills'].updateValueAndValidity();
-      const obj = this.authors.keySkills.split(',');
+      let obj = '';
+      if (this.authors.keySkills) {
+        obj = this.authors.keySkills.split(',');
+      }
 
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < obj.length; i++) {

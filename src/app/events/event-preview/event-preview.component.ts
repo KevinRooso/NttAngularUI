@@ -153,23 +153,43 @@ export class EventPreviewComponent implements OnInit {
   blogSearch() {
     this.publishedList = this.publishedList.filter((m) => {
       // return m.title.includes(this.searchBlog);
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchBlog) {
+        return titleData.includes(this.searchBlog.toUpperCase());
+      }
     });
     this.activeList = this.activeList.filter((m) => {
       // return m.title.includes(this.searchBlog);
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchBlog) {
+        return titleData.includes(this.searchBlog.toUpperCase());
+      }
     });
     this.draftList = this.draftList.filter((m) => {
       // return m.title.includes(this.searchBlog);
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchBlog) {
+        return titleData.includes(this.searchBlog.toUpperCase());
+      }
     });
     this.expiredList = this.expiredList.filter((m) => {
       // return m.title.includes(this.searchBlog);
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchBlog) {
+        return titleData.includes(this.searchBlog.toUpperCase());
+      }
     });
   }
   cancel() {
@@ -246,7 +266,7 @@ export class EventPreviewComponent implements OnInit {
         this.publishedList.sort(this.GFG_sortFunctionc);
         this.activeList.sort(this.GFG_sortFunctionc);
         this.draftList.sort(this.GFG_sortFunctionc);
-        this.expiredList.sort(this.GFG_sortFunctionc)
+        this.expiredList.sort(this.GFG_sortFunctionc);
       } else {
         // this.searchFilterData.sort(this.GFG_sortFunctionc1);
         // console.log("dateaftersort==",this.searchFilterData);

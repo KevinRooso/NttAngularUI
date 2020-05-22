@@ -109,12 +109,22 @@ export class CaseStudiesComponent implements OnInit {
   }
   blogSearch() {
     this.publishedList = this.publishedList.filter((m) => {
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchCases.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchCases) {
+        return titleData.includes(this.searchCases.toUpperCase());
+      }
     });
     this.draftList = this.draftList.filter((m) => {
-      const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchCases.toUpperCase());
+      let titleData = '';
+      if (m.title) {
+        titleData = m.title.toUpperCase();
+      }
+      if (this.searchCases) {
+        return titleData.includes(this.searchCases.toUpperCase());
+      }
     });
   }
   getDataWithTag() {
