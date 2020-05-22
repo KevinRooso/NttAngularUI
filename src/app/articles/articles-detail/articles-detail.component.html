@@ -17,7 +17,7 @@
             <div class="col-md-4 col-lg-4 text-center">
               <img
                 alt="User Pic"
-                [src]="articleData.thumbnailImageUrl"
+                [src]="articleData?.thumbnailImageUrl"
                 class="img-circle img-responsive"
                 width="100%"
                 alt="No Image preview"
@@ -33,20 +33,20 @@
             </div> -->
             <div class="col-md-7 col-lg-7 p-0">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">{{ articleData.title }}</h1>
+                <h1 style="font-size: 25px; color: #008ece;">{{ articleData?.title }}</h1>
                 <br />
-                <p *ngIf="articleData.category != null"><b>Category : </b>{{ articleData.category.displayName }}</p>
-                <p *ngIf="articleData.resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
+                <p *ngIf="articleData?.category != null"><b>Category : </b>{{ articleData?.category.displayName }}</p>
+                <p *ngIf="articleData?.resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" [routerLink]="['../../article-edit',articleData.id]" >
+              <button class="btn" [routerLink]="['../../article-edit', articleData?.id]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a *ngIf="articleData.resourceLink != null" [href]="articleData.resourceLink" target="_blank">
+              <a *ngIf="articleData?.resourceLink != null" [href]="articleData?.resourceLink" target="_blank">
                 <button class="btn button-1 action-good">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
@@ -56,17 +56,17 @@
               <hr class="mt-0" />
               <!-- <p><b>{{articleData.updatedAt | date}} - </b>{{ articleData.longDescription}}</p> -->
               <b>Short Description </b>
-              <p [innerHTML]="articleData.shortDescription"></p>
+              <p [innerHTML]="articleData?.shortDescription"></p>
               <hr />
               <b>Long Description </b>
-              <p [innerHTML]="articleData.longDescription"></p>
+              <p [innerHTML]="articleData?.longDescription"></p>
               <hr />
               <div class="row">
                 <div class="col">
-                  <p class="m-0"><b>Published Date : </b>{{ articleData.updatedAt | date }}</p>
+                  <p class="m-0"><b>Published Date : </b>{{ articleData?.updatedAt | date }}</p>
                 </div>
                 <div class="col">
-                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ articleData.expiryDate | date }}</p>
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ articleData?.expiryDate | date }}</p>
                 </div>
               </div>
               <!-- <div class="text-center">

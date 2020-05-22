@@ -16,7 +16,7 @@
             <div class="col-md-4 col-lg-4 text-center">
               <img
                 alt="User Pic"
-                [src]="whitePaperData.thumbnailImageUrl"
+                [src]="whitePaperData?.thumbnailImageUrl"
                 class="img-circle img-responsive"
                 width="100%"
                 alt="No Image preview"
@@ -32,20 +32,20 @@
             </div> -->
             <div class="col-md-7 col-lg-7 p-0">
               <div class="panel-heading">
-                <h1 style="font-size: 25px; color: #008ece;">{{ whitePaperData.title }}</h1>
+                <h1 style="font-size: 25px; color: #008ece;">{{ whitePaperData?.title }}</h1>
                 <br />
-                <p *ngIf="whitePaperData.category != null"><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
+                <p *ngIf="whitePaperData?.category != null"><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
                 <p *ngIf="resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" [routerLink]="['../../white-edit',whitePaperData.id]" >
+              <button class="btn" [routerLink]="['../../white-edit', whitePaperData?.id]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
               <br /><br /><br />
-              <a *ngIf="whitePaperData.resourceLink != null" [href]="whitePaperData.resourceLink" target="_blank">
+              <a *ngIf="whitePaperData?.resourceLink != null" [href]="whitePaperData?.resourceLink" target="_blank">
                 <button class="btn button-1 action-good">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
@@ -60,17 +60,17 @@
             <div class="col-md-12 col-lg-12 pt-3">
               <hr class="mt-0" />
               <b>Short Description </b>
-              <p [innerHTML]="whitePaperData.shortDescription"></p>
+              <p [innerHTML]="whitePaperData?.shortDescription"></p>
               <hr />
               <b>Long Description </b>
-              <p [innerHTML]="whitePaperData.longDescription"></p>
+              <p [innerHTML]="whitePaperData?.longDescription"></p>
               <hr />
               <div class="row">
                 <div class="col">
-                  <p class="m-0"><b>Published Date : </b>{{ whitePaperData.createdAt | date }}</p>
+                  <p class="m-0"><b>Published Date : </b>{{ whitePaperData?.createdAt | date }}</p>
                 </div>
                 <div class="col">
-                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ whitePaperData.expiryDate | date }}</p>
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ whitePaperData?.expiryDate | date }}</p>
                 </div>
               </div>
               <!-- <p><b>Expiration Date - </b>{{ whitePaperData.expiryDate | date }}</p> -->

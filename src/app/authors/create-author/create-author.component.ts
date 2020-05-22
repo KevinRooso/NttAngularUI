@@ -153,9 +153,9 @@ export class CreateAuthorComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileSize <= 300000) {
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
       this.imageValid = true;
-      this.preview();
+      // this.preview();
     }
 
     const reader = new FileReader();
@@ -239,7 +239,7 @@ export class CreateAuthorComponent implements OnInit {
           // alert("Successfully Created");
           this.submitted = false;
           // console.log('response', response);
-          this.router.navigate(['/authors']);
+          this.router.navigate(['resources/blogs/authors']);
         },
         (_error) => {
           this.snackBar.open('Oops, Something went wrong', 'Close', {

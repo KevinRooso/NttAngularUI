@@ -20,7 +20,7 @@
             <div class="col-md-4 pr-0">
               <img
                 alt="User Pic"
-                [src]="authorData.profileImageUrl"
+                [src]="authorData?.profileImageUrl"
                 class="img-circle img-responsive"
                 width="100%"
                 alt="No Image preview"
@@ -29,9 +29,9 @@
 
             <div class="col-md-9 col-lg-8">
               <div class="panel-heading">
-                <h3 class="panel-title">{{ authorData.fullName }}</h3>
-                <p class="speaker-details">{{ authorData.email }}</p>
-                <p class="speaker-details">{{ authorData.phone }}</p>
+                <h3 class="panel-title">{{ authorData?.fullName }}</h3>
+                <p class="speaker-details">{{ authorData?.email }}</p>
+                <p class="speaker-details">{{ authorData?.phone }}</p>
                 <!-- <p class="speaker-details">{{ authorData.profile }}</p> -->
               </div>
             </div>
@@ -40,19 +40,19 @@
                 <tbody>
                   <tr>
                     <td>Designation</td>
-                    <td>{{ authorData.designation }}</td>
+                    <td>{{ authorData?.designation }}</td>
                   </tr>
                   <tr>
                     <td>Organization Name</td>
-                    <td>{{ authorData.origanizationName }}</td>
+                    <td>{{ authorData?.origanizationName }}</td>
                   </tr>
                   <tr>
                     <td>Key Skills</td>
-                    <td>{{ authorData.keySkills }}</td>
+                    <td>{{ authorData?.keySkills }}</td>
                   </tr>
                   <tr>
                     <td>Description</td>
-                    <td>{{ authorData.description }}</td>
+                    <td>{{ authorData?.description }}</td>
                   </tr>
                 </tbody>
               </table>

@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="col-md-1 edit">
-              <button class="btn" [routerLink]="['../../blog-edit',blogId]">
+              <button class="btn" [routerLink]="['../../blog-edit', blogId]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
               </button>
             </div>
@@ -50,10 +50,10 @@
               <hr />
               <div class="row">
                 <div class="col">
-                  <p class="m-0"><b>Published Date : </b>{{ blog.createdAt | date }}</p>
+                  <p class="m-0"><b>Published Date : </b>{{ blog?.createdAt | date }}</p>
                 </div>
                 <div class="col">
-                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ blog.expiryDate | date }}</p>
+                  <p class="m-0" style="float: right;"><b>Expired Date : </b>{{ blog?.expiryDate | date }}</p>
                 </div>
               </div>
 

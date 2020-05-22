@@ -107,6 +107,8 @@ import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
 import { CacheMapService } from 'src/cache/cache-map.service';
 import { PublicResourceComponent } from './public/public-resource/public-resource.component';
+import { UsersComponent } from './user-management/users/users.component';
+import { RolesComponent } from './user-management/roles/roles.component';
 
 @NgModule({
   declarations: [
@@ -178,6 +180,8 @@ import { PublicResourceComponent } from './public/public-resource/public-resourc
     CategoryComponent,
     CategoryGroupComponent,
     PublicResourceComponent,
+    UsersComponent,
+    RolesComponent,
   ],
   imports: [
     BrowserModule,
