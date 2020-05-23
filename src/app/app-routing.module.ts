@@ -58,6 +58,9 @@ import { CreateCategoryGroupComponent } from './category/create-category-group/c
 import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
 import { PublicResourceComponent } from './public/public-resource/public-resource.component';
+import { UsersComponent } from './user-management/users/users.component';
+import { CreateUserComponent } from './user-management/create-user/create-user.component';
+import { RolesComponent } from './user-management/roles/roles.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -363,27 +366,44 @@ const routes: Routes = [
       },
     ],
   },
-
-  // {
-  //   path: 'authors',
-  //   component: AuthorsComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'author-create',
-  //   component: CreateAuthorComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'author-detail',
-  //   component: AuthorDetailComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'speakers',
-  //   component: SpeakersPreviewComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
+  {
+    path: 'user',
+    children: [
+      {
+        path: '',
+        component: UsersComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create',
+        component: CreateUserComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
+      // {
+      //   path: 'roles',
+      //   component: RolesComponent,
+      //   pathMatch: 'full',
+      //   canActivate: [AuthguardServiceService],
+      // }
+    ],
+  },
+  {
+    path: 'roles',
+    children: [
+      {
+        path: '',
+        component: RolesComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      // {
+      //   path: 'create',
+      //   component: CreateUserComponent,
+      //   pathMatch: 'full',
+      //   canActivate: [AuthguardServiceService],
+      // },
+    ],
+  },
   {
     path: 'participants',
     children: [
@@ -412,7 +432,6 @@ const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'speakers',
     children: [
@@ -488,31 +507,6 @@ const routes: Routes = [
     component: UserDataComponent,
     canActivate: [AuthguardServiceService],
   },
-  // {
-  //   path: 'event-data',
-  //   component: EventDataComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'joinee-data',
-  //   component: JoineeDataComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'invitee-data',
-  //   component: InviteesDataComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'resource-data',
-  //   component: ResourceDataComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
-  // {
-  //   path: 'user-data',
-  //   component: UserDataComponent,
-  //   canActivate: [AuthguardServiceService],
-  // },
 ];
 
 @NgModule({

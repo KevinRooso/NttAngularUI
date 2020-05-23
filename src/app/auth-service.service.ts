@@ -273,4 +273,10 @@ export class AuthServiceService {
   getDeviceList(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);
   }
+  getEmployeeUserList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/users/employeeUser');
+  }
+  saveUser(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/auth/web/signup', obj);
+  }
 }

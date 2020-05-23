@@ -109,6 +109,8 @@ import { CacheMapService } from 'src/cache/cache-map.service';
 import { PublicResourceComponent } from './public/public-resource/public-resource.component';
 import { UsersComponent } from './user-management/users/users.component';
 import { RolesComponent } from './user-management/roles/roles.component';
+import { CreateUserComponent } from './user-management/create-user/create-user.component';
+import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -182,6 +184,8 @@ import { RolesComponent } from './user-management/roles/roles.component';
     PublicResourceComponent,
     UsersComponent,
     RolesComponent,
+    CreateUserComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,

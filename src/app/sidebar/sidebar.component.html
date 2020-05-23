@@ -234,6 +234,38 @@
         <span class="menu-collapsed">Notifications</span>
       </div>
     </a> -->
+    <a
+      href="#submenu6"
+      data-toggle="collapse"
+      aria-expanded="false"
+      class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+      [ngClass]="{ active: usrChild1.isActive || usrChild2.isActive }"
+    >
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="menu-collapsed">User Management</span>
+        <span class="submenu-icon ml-auto"></span>
+      </div>
+    </a>
+    <div id="submenu6" class="collapse sidebar-submenu">
+      <a
+        routerLink="/user"
+        routerLinkActive="active"
+        #leadChild1="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+        #usrChild1="routerLinkActive"
+      >
+        <span class="menu-collapsed">Users</span>
+      </a>
+      <a
+        routerLink="/roles"
+        routerLinkActive="active"
+        #leadChild2="routerLinkActive"
+        class="list-group-item list-group-item-action bg-dark text-white"
+        #usrChild2="routerLinkActive"
+      >
+        <span class="menu-collapsed">Roles</span>
+      </a>
+    </div>
     <a class="bg-dark list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <!-- <span class="fa fa-tasks fa-fw mr-3"></span> -->
