@@ -1,6 +1,6 @@
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -34,13 +34,6 @@ export class AuthServiceService {
 
   getEventDetail(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/event/' + id);
-  }
-
-  getPublicEventDetail(id, token): Observable<any> {
-    const AuthHeader = new HttpHeaders({
-      Authorization: token,
-    });
-    return this.http.get<any>(this.url + 'api/public/event/' + id, { headers: AuthHeader });
   }
 
   getParticipant(id): Observable<any> {
@@ -109,12 +102,6 @@ export class AuthServiceService {
   }
   getResourceById(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/resource/' + id);
-  }
-  getPublicResourceById(id, token): Observable<any> {
-    const ResHeader = new HttpHeaders({
-      Authorization: token,
-    });
-    return this.http.get<any>(this.url + 'api/public/resource/' + id, { headers: ResHeader });
   }
   saveResource(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/resource', obj);

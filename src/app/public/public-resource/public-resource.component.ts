@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,28 +10,28 @@ export class PublicResourceComponent implements OnInit {
   resourceData: any;
   resourceTags: any[] = [];
   token: string;
+  resourceObj: string;
   // restags:string='';
 
-  constructor(private authService: AuthServiceService, private router1: ActivatedRoute) {}
+  constructor(private router1: ActivatedRoute) {}
   show = false;
   ngOnInit(): void {
     this.show = true;
     this.router1.queryParams.subscribe((params) => {
-      this.token = 'Bearer ' + params.token;
-      this.getResourceData(params.page);
+      const resourceURL = decodeURIComponent(params.resourceJson);
+      this.resourceObj = JSON.parse(resourceURL);
+      this.getResourceData();
     });
   }
-  getResourceData(id) {
-    this.authService.getPublicResourceById(id, this.token).subscribe((res) => {
-      this.resourceData = res.body;
-      this.show = false;
+  getResourceData() {
+    this.resourceData = this.resourceObj;
+    this.show = false;
 
-      this.resourceTags = this.resourceData.resourceTags;
+    this.resourceTags = this.resourceData.resourceTags;
 
-      // this.resourceTags.forEach((value,index)=>{
-      //   if(index!=this.resourceTags.length-1)
-      //   this.restags=this.restags+value.name + ','
-      // })
-    });
+    // this.resourceTags.forEach((value,index)=>{
+    //   if(index!=this.resourceTags.length-1)
+    //   this.restags=this.restags+value.name + ','
+    // })
   }
 }
