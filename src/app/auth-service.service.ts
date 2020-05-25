@@ -263,7 +263,13 @@ export class AuthServiceService {
   getEmployeeUserList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/users/employeeUser');
   }
+  getRoleList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/roles');
+  }
   saveUser(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/auth/web/signup', obj);
+  }
+  saveRole(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/role', obj);
   }
 }

@@ -61,6 +61,7 @@ import { PublicResourceComponent } from './public/public-resource/public-resourc
 import { UsersComponent } from './user-management/users/users.component';
 import { CreateUserComponent } from './user-management/create-user/create-user.component';
 import { RolesComponent } from './user-management/roles/roles.component';
+import { CreateRoleComponent } from './user-management/create-role/create-role.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -396,12 +397,12 @@ const routes: Routes = [
         component: RolesComponent,
         canActivate: [AuthguardServiceService],
       },
-      // {
-      //   path: 'create',
-      //   component: CreateUserComponent,
-      //   pathMatch: 'full',
-      //   canActivate: [AuthguardServiceService],
-      // },
+      {
+        path: 'create',
+        component: CreateRoleComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
     ],
   },
   {

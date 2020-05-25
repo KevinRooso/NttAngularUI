@@ -111,6 +111,7 @@ import { UsersComponent } from './user-management/users/users.component';
 import { RolesComponent } from './user-management/roles/roles.component';
 import { CreateUserComponent } from './user-management/create-user/create-user.component';
 import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
+import { CreateRoleComponent } from './user-management/create-role/create-role.component';
 
 @NgModule({
   declarations: [
@@ -186,6 +187,7 @@ import { UserDetailComponent } from './user-management/user-detail/user-detail.c
     RolesComponent,
     CreateUserComponent,
     UserDetailComponent,
+    CreateRoleComponent,
   ],
   imports: [
     BrowserModule,

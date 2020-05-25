@@ -1,1 +1,44 @@
-<p>roles works!</p>
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a class="active">Roles</a></li>
+    <!-- <li><a class="active">Joinee Data</a></li> -->
+  </ul>
+</div>
+<div class="container">
+  <section class="section-tours">
+    <div class="text-right">
+      <a routerLink="create"><button type="button" class="btn button-1 action-good">Create Role</button></a>
+    </div>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" />
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef width="7%">S.No.</th>
+          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row"><button >Deactivate</button></td>
+        </ng-container> -->
+        <ng-container matColumnDef="actionsColumn">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let row"><button class="btn button-1 action-good">Assign Privileges</button></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </section>
+</div>

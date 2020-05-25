@@ -1,0 +1,32 @@
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Roles</a></li>
+      <li><a class="active">Create Role</a></li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Create Role</p>
+      </div>
+      <form [formGroup]="createUserForm">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Name<span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Name" formControlName="name" />
+            <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 text-right">
+          <button class="btn button-1 action-good" (click)="createRole()">Submit Details</button>
+          <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
