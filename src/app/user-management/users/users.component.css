@@ -58,3 +58,31 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding: 0.8rem;
   vertical-align: top;
 }
+
+.status-active {
+  background: #49c649;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  cursor: default;
+  font-size: 11px;
+  padding: 5px 22px;
+}
+
+.status-disable {
+  background: #ed0b0be6;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  cursor: default;
+  font-size: 11px;
+  padding: 5px 12px;
+}
+
+.assignee-button {
+  background: #03c;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 14px;
+}

@@ -261,13 +261,16 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);
   }
   getEmployeeUserList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/users/employeeUser');
+    return this.http.get<any>(this.url + 'api/users/findAll?userTypeId=9');
   }
   getRoleList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/roles');
   }
   saveUser(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/auth/web/signup', obj);
+  }
+  getRolesList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/roles');
   }
   saveRole(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/role', obj);

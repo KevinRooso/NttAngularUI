@@ -9,12 +9,9 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'fullName', 'email', 'username', 'actionsColumn'];
+  displayedColumns: string[] = ['seq', 'Name', 'Email', 'Status', 'actionsColumn'];
   dataSource: any;
-  resourceType: any[] = [];
-  uniqueData: any[] = [];
-  refreshData: any[] = [];
-  cat = 'cat';
+  userTableData: any = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -23,8 +20,30 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getEmployeeUserList().subscribe((res) => {
-      this.refreshData = res.body;
-      this.dataSource = new MatTableDataSource(res.body);
+      // this.dataSource = new MatTableDataSource(res.body);
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+      res.body.forEach((element, index) => {
+        let status = '';
+        if (element.isActive === true) {
+          status = 'Active';
+        }
+        if (element.isActive === false) {
+          status = 'Not Active';
+        }
+        if (element.isActive === null) {
+          status = 'Not Active';
+        }
+        const obj = {
+          seq: index + 1,
+          Name: element.fullName,
+          Email: element.email,
+          Status: status,
+          id: element.id,
+        };
+        this.userTableData.push(obj);
+      });
+      this.dataSource = new MatTableDataSource(this.userTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-detail.component.css'],
 })
 export class UserDetailComponent implements OnInit {
-  constructor() {}
+  panelOpenState = false;
+  roleData: any[] = [];
+  constructor(private authService: AuthServiceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getRolesList().subscribe((res) => {
+      this.roleData = res.body;
+    });
+  }
 }

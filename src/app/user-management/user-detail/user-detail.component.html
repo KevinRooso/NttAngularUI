@@ -1,1 +1,54 @@
-<p>user-detail works!</p>
+<!-- <div class="container"> -->
+<div>
+  <ul class="breadcrumb">
+    <li><a routerLink="/home">Home</a></li>
+    <li><a routerLink="/user">Users</a></li>
+    <li><a class="active">User Details</a></li>
+  </ul>
+</div>
+<!-- </div> -->
+
+<div class="container">
+  <div class="text-center">
+    <p class="heading-secondary">User Details</p>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="panel panel-info bg-white shadow">
+        <div class="panel-body p-3">
+          <div class="row">
+            <div class="col-md-12 col-lg-12 py-3">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Name:</td>
+                    <!-- <td>{{ participant.name }}</td> -->
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <!-- <td>{{ participant.email }}</td> -->
+                  </tr>
+                </tbody>
+              </table>
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let roles of roleData">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <mat-checkbox class="mr-2"> {{ roles.displayName }}</mat-checkbox>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row">
+                    <div class="col d-inline-flex" *ngFor="let res of roles.privileges; let i = index">
+                      <mat-checkbox class="mr-2">{{ res.displayName }}</mat-checkbox>
+                      <!-- <p>{{i+1}}. <span>{{res.displayName}}</span></p>  <mat-slide-toggle>Select</mat-slide-toggle> -->
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -45,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
@@ -226,6 +227,7 @@ import { CreateRoleComponent } from './user-management/create-role/create-role.c
     MatTooltipModule,
     MatPaginatorModule,
     MatSortModule,
+    MatExpansionModule,
   ],
   providers: [
     HttpClientModule,

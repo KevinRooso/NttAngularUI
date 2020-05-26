@@ -23,7 +23,6 @@ export class CreateUserComponent implements OnInit {
     this.createUserForm = this.frmbuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      username: ['', Validators.required],
     });
   }
 
@@ -43,7 +42,7 @@ export class CreateUserComponent implements OnInit {
       const obj = {
         email: this.createUserForm.controls['email'].value,
         name: this.createUserForm.controls['name'].value,
-        username: this.createUserForm.controls['username'].value,
+        username: this.createUserForm.controls['email'].value,
         password: this.createUserForm.controls['email'].value,
         userType: 9,
         id: 0,

@@ -62,6 +62,7 @@ import { UsersComponent } from './user-management/users/users.component';
 import { CreateUserComponent } from './user-management/create-user/create-user.component';
 import { RolesComponent } from './user-management/roles/roles.component';
 import { CreateRoleComponent } from './user-management/create-role/create-role.component';
+import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -381,12 +382,12 @@ const routes: Routes = [
         pathMatch: 'full',
         canActivate: [AuthguardServiceService],
       },
-      // {
-      //   path: 'roles',
-      //   component: RolesComponent,
-      //   pathMatch: 'full',
-      //   canActivate: [AuthguardServiceService],
-      // }
+      {
+        path: 'details/:page',
+        component: UserDetailComponent,
+        pathMatch: 'full',
+        canActivate: [AuthguardServiceService],
+      },
     ],
   },
   {
