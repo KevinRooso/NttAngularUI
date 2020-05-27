@@ -272,7 +272,13 @@ export class AuthServiceService {
   getRolesList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/roles');
   }
+  getRoleById(id): Observable<any> {
+    return this.http.get<any>(this.url + `api/admin/roles?id=${id}`);
+  }
   saveRole(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/role', obj);
+  }
+  getPrivilegeList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/privileges');
   }
 }

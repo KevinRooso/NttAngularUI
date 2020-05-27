@@ -4,7 +4,7 @@ table {
 
 .mat-form-field {
   font-size: 14px;
-  width: 25%;
+  width: 75%;
 }
 
 tr.example-detail-row {
@@ -57,4 +57,10 @@ tr.example-element-row:not(.example-expanded-row):active {
   font-weight: 400;
   padding: 0.8rem;
   vertical-align: top;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 1%;
 }
