@@ -58,3 +58,11 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding: 0.8rem;
   vertical-align: top;
 }
+
+.assignee-button {
+  background: #03c;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 14px;
+}

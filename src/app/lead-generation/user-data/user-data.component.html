@@ -7,9 +7,9 @@
 </div>
 <div class="container">
   <section class="section-tours">
-    <mat-form-field>
+    <mat-form-field class="w-45">
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search......" />
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
     </mat-form-field>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>

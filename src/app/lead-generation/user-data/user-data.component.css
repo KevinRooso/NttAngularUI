@@ -58,3 +58,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding: 0.8rem;
   vertical-align: top;
 }
+
+.w-45 {
+  width: 390px !important;
+}

@@ -1,4 +1,4 @@
-<!-- <div class="container"> -->
+<app-loader *ngIf="show"></app-loader>
 <div>
   <ul class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
@@ -6,8 +6,6 @@
     <li><a class="active">User Details</a></li>
   </ul>
 </div>
-<!-- </div> -->
-
 <div class="container">
   <div class="text-center">
     <p class="heading-secondary">User Details</p>
@@ -22,32 +20,61 @@
                 <tbody>
                   <tr>
                     <td>Name:</td>
-                    <!-- <td>{{ participant.name }}</td> -->
-                  </tr>
-                  <tr>
+                    <td>{{ userData.fullName }}</td>
                     <td>Email:</td>
-                    <!-- <td>{{ participant.email }}</td> -->
+                    <td>{{ userData.email }}</td>
                   </tr>
                 </tbody>
               </table>
+              <div class="d-flex my-3">
+                <label style="font-size: 15px; font-weight: 500;">Update Status : </label>
+                <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
+                </mat-slide-toggle>
+              </div>
               <mat-accordion>
                 <mat-expansion-panel *ngFor="let roles of roleData">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <mat-checkbox class="mr-2"> {{ roles.displayName }}</mat-checkbox>
+                      <mat-checkbox [value]="roles.id" (change)="onCheckChange($event)" class="mr-2"> {{ roles.displayName }}</mat-checkbox>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="row">
-                    <div class="col d-inline-flex" *ngFor="let res of roles.privileges; let i = index">
-                      <mat-checkbox class="mr-2">{{ res.displayName }}</mat-checkbox>
-                      <!-- <p>{{i+1}}. <span>{{res.displayName}}</span></p>  <mat-slide-toggle>Select</mat-slide-toggle> -->
+                    <div class="col-sm-3 d-inline-flex" *ngFor="let res of roles.privileges; let i = index">
+                      <p>
+                        {{ i + 1 }}. <span>{{ res.displayName }}</span>
+                      </p>
                     </div>
                   </div>
                 </mat-expansion-panel>
               </mat-accordion>
+              <div class="text-right mt-4">
+                <button class="btn button-1 action good" (click)="assignRoles()">Submit Details</button>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" (click)="reverseChanges()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isActive">Do you want to Activate User</p>
+        <p *ngIf="!isActive">Do you want to Deactivate User</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
       </div>
     </div>
   </div>

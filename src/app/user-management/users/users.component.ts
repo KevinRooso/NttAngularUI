@@ -9,9 +9,11 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'Name', 'Email', 'Status', 'actionsColumn'];
+  displayedColumns: string[] = ['seq', 'Name', 'Email', 'roles', 'Status', 'actionsColumn'];
   dataSource: any;
   userTableData: any = [];
+  roleData: any = [];
+  uniqueData: any[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,9 +22,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getEmployeeUserList().subscribe((res) => {
-      // this.dataSource = new MatTableDataSource(res.body);
-      // this.dataSource.paginator = this.paginator;
-      // this.dataSource.sort = this.sort;
       res.body.forEach((element, index) => {
         let status = '';
         if (element.isActive === true) {
@@ -40,6 +39,7 @@ export class UsersComponent implements OnInit {
           Email: element.email,
           Status: status,
           id: element.id,
+          roles: element.roles,
         };
         this.userTableData.push(obj);
       });
