@@ -404,6 +404,11 @@ const routes: Routes = [
         pathMatch: 'full',
         canActivate: [AuthguardServiceService],
       },
+      {
+        path: 'create/:page',
+        component: CreateRoleComponent,
+        canActivate: [AuthguardServiceService],
+      },
     ],
   },
   {

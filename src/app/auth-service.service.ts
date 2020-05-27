@@ -281,4 +281,13 @@ export class AuthServiceService {
   updateUserStatus(id, isActive): Observable<any> {
     return this.http.put<any>(this.url + 'api/users/admin/user/' + id + '/' + isActive, null);
   }
+  getRolesList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/roles');
+  }
+  getRoleById(id): Observable<any> {
+    return this.http.get<any>(this.url + `api/admin/roles?id=${id}`);
+  }
+  getPrivilegeList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/privileges');
+  }
 }
