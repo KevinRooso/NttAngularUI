@@ -103,10 +103,53 @@
           </div>
 
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Testimonial URL </label>
-            <mat-form-field class="example-full-width col-sm-9">
-              <input matInput placeholder="Testimonial URL" formControlName="testimonialUrl" value="" />
-            </mat-form-field>
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 text-right">
+              <button
+                type="button"
+                class="btn button-2 action-good"
+                data-toggle="modal"
+                data-target="#agendaModal"
+                (click)="cleanUrl()"
+              >
+                Add Testimonial Url
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Serial No.</th>
+
+                    <th>Url</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of urlArray; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{data.url}}</td>
+
+                    <td>
+                      <button class="btn btn-warning reject mr-2" data-toggle="modal"
+                      data-target="#agendaModal" (click)="editUrl(data,i)" >
+                        <span style="cursor: default; font-size: 10px;">
+                          <i class="fa fa-pencil" style="font-size: 1rem; color: white;"></i>
+                        </span>
+                      </button>
+                      <!-- (click)="delete(i)" -->
+                      <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" (click)="getDeleteId(data,i)" #confirmBox>
+                        <span style="cursor: default; font-size: 10px;" >
+                          <i class="fa fa-trash" style="font-size: 1rem;"></i>
+                        </span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="form-row">
@@ -147,6 +190,61 @@
           <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit Details</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete this url record?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" #closedeleteModal>Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteConfirm()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModelUrl class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <h5 class="modal-title mb-2">Testimonial Url</h5>
+        </div>
+        <form [formGroup]="craeteUrlForm">
+
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label">Testimonial URL </label>
+            <mat-form-field class="example-full-width col-sm-9">
+              <input matInput placeholder="Testimonial URL" formControlName="testimonialUrl" value="" />
+              <mat-error *ngIf="checkError1('testimonialUrl', 'required')">(Testimonial URL is required)</mat-error>
+              <mat-error *ngIf="checkError1('testimonialUrl', 'pattern')">(URL is not valid)</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="text-right">
+            <button class="btn button-1 action-good" (click)="createUrl()">
+              Submit Details
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

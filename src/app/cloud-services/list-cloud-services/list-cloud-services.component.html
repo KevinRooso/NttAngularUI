@@ -68,7 +68,9 @@
                     <br />
                     <p>{{ detailData.shortInformation | slice: 0:80 }}</p>
                     <b>Testimonial URL : </b>
-                    <a [href]="detailData.testimonialUrl" target="_blank">{{ detailData.testimonialUrl }}</a>
+                    <ng-container *ngFor="let url of detailData.testimonialUrl; let i= index ">
+                    <a [href]="url.url" target="_blank">{{ url.url }}</a>{{i===detailData.testimonialUrl.length-1 ? ' ' :', '}}
+                  </ng-container>
                   </div>
                 </div>
                 <div class="col-md-1 edit">

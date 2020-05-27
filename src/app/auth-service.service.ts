@@ -275,4 +275,7 @@ export class AuthServiceService {
   saveRole(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/role', obj);
   }
+  deleteProductAndServices(id): Observable<any> {
+    return this.http.delete<any>(this.url + 'api/admin/productAndServices/testimonialUrl/' + id);
+  }
 }
