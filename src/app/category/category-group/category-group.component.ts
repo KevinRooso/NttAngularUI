@@ -32,11 +32,20 @@ export class CategoryGroupComponent implements OnInit {
         const obj = {
           seq: index + 1,
           name: element.name,
+          displayName: element.displayName,
           createdAt: element.createdAt,
           active: status,
         };
         this.categoryGrpData.push(obj);
       });
+      // this.dataSource = new MatTableDataSource(this.categoryGrpData);
+      // const catArr = res.body;
+      this.categoryGrpData.map((i) => {
+        if (i.displayName === '') {
+          i.displayName = i.name;
+        }
+      });
+      this.categoryGrpData.sort((a, b) => a.displayName.localeCompare(b.displayName));
       this.dataSource = new MatTableDataSource(this.categoryGrpData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

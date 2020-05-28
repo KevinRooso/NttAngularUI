@@ -51,7 +51,7 @@ export class CreateUserComponent implements OnInit {
         (_response) => {
           this.snackBar.open('User successfully created', 'Close', { duration: 5000 });
           this.submitted = false;
-          this.router.navigate(['/user']);
+          this.router.navigate(['user-management/user']);
         },
         (_error) => {
           this.snackBar.open('Oops, Something went wrong', 'Close', {

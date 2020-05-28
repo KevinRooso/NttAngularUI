@@ -24,13 +24,16 @@ export class CategoryComponent implements OnInit {
       res.body.forEach((element, index) => {
         const obj = {
           seq: index + 1,
-          name: element.name,
+          name: element.displayName,
           description: element.description,
           categoryGroup: element.categoryGroup,
           createdAt: element.createdAt,
         };
         this.categoryData.push(obj);
       });
+      // this.dataSource = new MatTableDataSource(this.categoryData);
+      // const catArr = res.body;
+      this.categoryData.sort((a, b) => a.name.localeCompare(b.name));
       this.dataSource = new MatTableDataSource(this.categoryData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -34,8 +34,11 @@ export class RolesComponent implements OnInit {
         this.userTableData.push(obj);
       });
       // this.refreshData = res.body;
-      this.dataSource = new MatTableDataSource(this.userTableData);
+      // this.dataSource = new MatTableDataSource(this.userTableData);
       // this.dataSource = new MatTableDataSource(res.body);
+      // this.userTableData = res.body;
+      this.userTableData.sort((a, b) => a.Name.localeCompare(b.Name));
+      this.dataSource = new MatTableDataSource(this.userTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

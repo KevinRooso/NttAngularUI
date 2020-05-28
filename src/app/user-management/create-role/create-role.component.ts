@@ -32,7 +32,7 @@ export class CreateRoleComponent implements OnInit {
     private router1: ActivatedRoute
   ) {
     this.createUserForm = this.frmbuilder.group({
-      name: ['', Validators.required],
+      name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       privilegeList: new FormArray([], Validators.required),
     });
   }
@@ -152,7 +152,7 @@ export class CreateRoleComponent implements OnInit {
         (_response) => {
           this.snackBar.open(`Role successfully ${this.snackText}`, 'Close', { duration: 5000 });
           this.submitted = false;
-          this.router.navigate(['/roles']);
+          this.router.navigate(['user-management/roles']);
         },
         (_error) => {
           this.snackBar.open('Oops, Something went wrong', 'Close', {

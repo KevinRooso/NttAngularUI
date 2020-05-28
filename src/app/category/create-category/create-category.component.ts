@@ -30,8 +30,8 @@ export class CreateCategoryComponent implements OnInit {
   ngOnInit(): void {
     const regex = /^[a-zA-Z][a-zA-Z\s]*$/;
     this.addCatForm = this.frmbuilder.group({
-      description: new FormControl(''),
-      displayName: new FormControl('', [Validators.required, Validators.pattern(regex)]),
+      description: new FormControl('', Validators.maxLength(40)),
+      displayName: new FormControl('', [Validators.required, Validators.pattern(regex), Validators.maxLength(20)]),
       categoryGroupId: ['', Validators.required],
     });
 
@@ -50,6 +50,11 @@ export class CreateCategoryComponent implements OnInit {
   getCategoryGroupDetails() {
     this.authService.getCategoryGroupList().subscribe((res) => {
       this.allData = res.body;
+      this.allData.map((i) => {
+        if (i.displayName === '') {
+          i.displayName = i.name;
+        }
+      });
     });
   }
 
@@ -73,7 +78,7 @@ export class CreateCategoryComponent implements OnInit {
         (_res) => {
           this.show = false;
           this.snackBar.open('Category Added Successfully', 'Close', { duration: 5000 });
-          this.router.navigate(['/categories']);
+          this.router.navigate(['config-management/categories']);
         },
         (_error) => {
           (this.show = false), this.snackBar.open('Oops, something went wrong..', 'Close');

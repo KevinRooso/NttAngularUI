@@ -88,34 +88,39 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'categories',
+    path: 'config-management',
     children: [
       {
-        path: '',
-        component: CategoryComponent,
-        canActivate: [AuthguardServiceService],
+        path: 'categories',
+        children: [
+          {
+            path: '',
+            component: CategoryComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create',
+            component: CreateCategoryComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
       {
-        path: 'create',
-        component: CreateCategoryComponent,
-        pathMatch: 'full',
-        canActivate: [AuthguardServiceService],
-      },
-    ],
-  },
-  {
-    path: 'categoryGroup',
-    children: [
-      {
-        path: '',
-        component: CategoryGroupComponent,
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'create',
-        component: CreateCategoryGroupComponent,
-        pathMatch: 'full',
-        canActivate: [AuthguardServiceService],
+        path: 'categoryGroup',
+        children: [
+          {
+            path: '',
+            component: CategoryGroupComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create',
+            component: CreateCategoryGroupComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
     ],
   },
@@ -369,45 +374,50 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'user',
+    path: 'user-management',
     children: [
       {
-        path: '',
-        component: UsersComponent,
-        canActivate: [AuthguardServiceService],
+        path: 'user',
+        children: [
+          {
+            path: '',
+            component: UsersComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create',
+            component: CreateUserComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'details/:page',
+            component: UserDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
       {
-        path: 'create',
-        component: CreateUserComponent,
-        pathMatch: 'full',
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'details/:page',
-        component: UserDetailComponent,
-        pathMatch: 'full',
-        canActivate: [AuthguardServiceService],
-      },
-    ],
-  },
-  {
-    path: 'roles',
-    children: [
-      {
-        path: '',
-        component: RolesComponent,
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'create',
-        component: CreateRoleComponent,
-        pathMatch: 'full',
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'create/:page',
-        component: CreateRoleComponent,
-        canActivate: [AuthguardServiceService],
+        path: 'roles',
+        children: [
+          {
+            path: '',
+            component: RolesComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create',
+            component: CreateRoleComponent,
+            pathMatch: 'full',
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create/:page',
+            component: CreateRoleComponent,
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
     ],
   },

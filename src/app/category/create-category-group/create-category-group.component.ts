@@ -29,7 +29,7 @@ export class CreateCategoryGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.addCatForm = this.frmbuilder.group({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       active: [true],
     });
 
@@ -59,7 +59,7 @@ export class CreateCategoryGroupComponent implements OnInit {
         (_res) => {
           this.show = false;
           this.snackBar.open('Category Group Added Successfully', 'Close', { duration: 5000 });
-          this.router.navigate(['/categoryGroup']);
+          this.router.navigate(['config-management/categoryGroup']);
         },
         (_error) => {
           (this.show = false), this.snackBar.open('Oops, something went wrong..', 'Close');
