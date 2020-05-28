@@ -25,7 +25,8 @@ export class RolesComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getRoleList().subscribe((res) => {
       this.refreshData = res.body;
-      this.dataSource = new MatTableDataSource(res.body);
+      this.refreshData.sort((a, b) => a.displayName.localeCompare(b.displayName));
+      this.dataSource = new MatTableDataSource(this.refreshData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

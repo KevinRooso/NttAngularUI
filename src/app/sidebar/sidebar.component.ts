@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServiceService } from '../auth-service.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  userRoles: any;
+  flag = false;
+  constructor(private service: AuthServiceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.getUserDetail().subscribe((res) => {
+      this.userRoles = res.roles;
+      this.userRoles.forEach((i) => {
+        if (i.name === 'ADMIN_EMPLOYEE_USER') {
+          this.flag = true;
+        }
+      });
+    });
+  }
 }

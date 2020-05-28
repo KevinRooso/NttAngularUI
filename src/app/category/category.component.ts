@@ -20,7 +20,9 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getAllCategoryList().subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res.body);
+      const catArr = res.body;
+      catArr.sort((a, b) => a.displayName.localeCompare(b.displayName));
+      this.dataSource = new MatTableDataSource(catArr);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

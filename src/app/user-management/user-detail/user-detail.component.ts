@@ -57,7 +57,7 @@ export class UserDetailComponent implements OnInit {
         this.snackBar.open('Role successfully assigned', 'Close', {
           duration: 2000,
         });
-        this.router.navigate(['user']);
+        this.router.navigate(['user-management/user']);
       },
       (_error) => {
         this.show = false;

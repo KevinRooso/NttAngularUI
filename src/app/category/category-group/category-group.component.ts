@@ -20,6 +20,13 @@ export class CategoryGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCategoryGroupList().subscribe((res) => {
+      const catArr = res.body;
+      catArr.map((i) => {
+        if (i.displayName === '') {
+          i.displayName = i.name;
+        }
+      });
+      catArr.sort((a, b) => a.displayName.localeCompare(b.displayName));
       this.dataSource = new MatTableDataSource(res.body);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
