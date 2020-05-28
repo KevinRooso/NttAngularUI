@@ -10,3 +10,7 @@ table {
 td.mat-cell {
   padding-right: 1rem !important;
 }
+
+.w-45 {
+  width: 390px !important;
+}

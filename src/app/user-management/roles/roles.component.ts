@@ -10,10 +10,10 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./roles.component.css'],
 })
 export class RolesComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'Name', 'actionsColumn'];
+  displayedColumns: string[] = ['position', 'displayName', 'Privileges', 'actionsColumn'];
   dataSource: any;
   resourceType: any[] = [];
-  uniqueData: any[] = [];
+  apiData: any[] = [];
   refreshData: any[] = [];
   cat = 'cat';
 

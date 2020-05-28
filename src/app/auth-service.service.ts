@@ -269,11 +269,26 @@ export class AuthServiceService {
   saveUser(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/auth/web/signup', obj);
   }
+  saveRole(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/role', obj);
+  }
+  assignRoles(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/role/assign/user', obj);
+  }
+  getUserDetails(id): Observable<any> {
+    return this.http.get<any>(this.url + 'api/users/findAll?userId=' + id);
+  }
+  updateUserStatus(id, isActive): Observable<any> {
+    return this.http.put<any>(this.url + 'api/users/admin/user/' + id + '/' + isActive, null);
+  }
   getRolesList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/roles');
   }
-  saveRole(obj): Observable<any> {
-    return this.http.post<any>(this.url + 'api/admin/role', obj);
+  getRoleById(id): Observable<any> {
+    return this.http.get<any>(this.url + `api/admin/roles?id=${id}`);
+  }
+  getPrivilegeList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/privileges');
   }
   deleteProductAndServices(id): Observable<any> {
     return this.http.delete<any>(this.url + 'api/admin/productAndServices/testimonialUrl/' + id);

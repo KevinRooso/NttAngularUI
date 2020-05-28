@@ -7,21 +7,18 @@
 </div>
 <div class="container">
   <section class="section-tours">
-    <div class="row mt-2">
-      <div class="col-md-4 pt-2">
-        <span class="mr-2">
-          <a routerLink="create"
-            ><button type="button" class="btn button-1 action-good">
-              Create Category Group
-            </button></a
-          >
-        </span>
+    <div class="row">
+      <div class="col">
+        <a routerLink="create"
+          ><button type="button" class="btn button-1 action-good">
+            Create Category Group
+          </button></a
+        >
       </div>
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col text-right">
         <mat-form-field class="w-75">
           <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" />
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
         </mat-form-field>
       </div>
     </div>
