@@ -107,6 +107,7 @@ import { CreateCategoryGroupComponent } from './category/create-category-group/c
 import { CategoryComponent } from './category/category.component';
 import { CategoryGroupComponent } from './category/category-group/category-group.component';
 import { CacheMapService } from 'src/cache/cache-map.service';
+import { Cache } from 'src/cache/cache';
 import { PublicResourceComponent } from './public/public-resource/public-resource.component';
 import { UsersComponent } from './user-management/users/users.component';
 import { RolesComponent } from './user-management/roles/roles.component';

@@ -22,7 +22,7 @@ let CONFIG: object = {
 
 // Configure Angular `environment.ts` file path
 let targetPath: string = '';
-let ENV = process.env.NODE_ENV || 'development';
+let ENV = process.env.NODE_ENV;
 switch (ENV) {
   case 'development':
     targetPath = './src/environments/environment.dev.ts';
