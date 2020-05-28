@@ -10,11 +10,12 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./roles.component.css'],
 })
 export class RolesComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'displayName', 'Privileges', 'actionsColumn'];
+  displayedColumns: string[] = ['seq', 'Name', 'Privileges', 'actionsColumn'];
   dataSource: any;
   resourceType: any[] = [];
   apiData: any[] = [];
   refreshData: any[] = [];
+  userTableData: any[] = [];
   cat = 'cat';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -24,8 +25,17 @@ export class RolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getRoleList().subscribe((res) => {
-      this.refreshData = res.body;
-      this.dataSource = new MatTableDataSource(res.body);
+      res.body.forEach((element, index) => {
+        const obj = {
+          seq: index + 1,
+          Name: element.displayName,
+          Privileges: element.privileges,
+        };
+        this.userTableData.push(obj);
+      });
+      // this.refreshData = res.body;
+      this.dataSource = new MatTableDataSource(this.userTableData);
+      // this.dataSource = new MatTableDataSource(res.body);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

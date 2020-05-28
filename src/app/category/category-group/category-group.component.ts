@@ -10,8 +10,9 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./category-group.component.css'],
 })
 export class CategoryGroupComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'createdAt', 'active'];
+  displayedColumns: string[] = ['seq', 'name', 'createdAt', 'active'];
   dataSource: any;
+  categoryGrpData: any[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,7 +21,23 @@ export class CategoryGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCategoryGroupList().subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res.body);
+      res.body.forEach((element, index) => {
+        let status;
+        if (element.isActive === true) {
+          status = 'Active';
+        }
+        if (element.isActive === false) {
+          status = 'Not Active';
+        }
+        const obj = {
+          seq: index + 1,
+          name: element.name,
+          createdAt: element.createdAt,
+          active: status,
+        };
+        this.categoryGrpData.push(obj);
+      });
+      this.dataSource = new MatTableDataSource(this.categoryGrpData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

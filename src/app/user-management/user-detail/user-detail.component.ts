@@ -73,6 +73,7 @@ export class UserDetailComponent implements OnInit {
   getDetails(usrId: any) {
     this.authService.getUserDetails(usrId).subscribe((res) => {
       this.userData = res.body;
+      this.isActive = res.body.isActive;
     });
   }
   changeStatus() {

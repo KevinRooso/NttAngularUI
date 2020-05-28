@@ -19,9 +19,9 @@
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef width="7%">S.No.</th>
-          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        <ng-container matColumnDef="seq">
+          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header>S.No.</th>
+          <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
         <ng-container matColumnDef="fullName">

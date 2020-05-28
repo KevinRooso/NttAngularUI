@@ -10,8 +10,9 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./invitees-data.component.css'],
 })
 export class InviteesDataComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'title', 'fullName', 'email', 'phone', 'createdAt'];
+  displayedColumns: string[] = ['seq', 'title', 'name', 'email', 'contact', 'joiningDate'];
   dataSource: any;
+  inviteeData: any[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -19,7 +20,18 @@ export class InviteesDataComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
   ngOnInit() {
     this.authService.getInviteesData().subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res.body);
+      res.body.forEach((element, index) => {
+        const obj = {
+          seq: index + 1,
+          title: element.title,
+          name: element.fullName,
+          email: element.email,
+          contact: element.phone,
+          joiningDate: element.createdAt,
+        };
+        this.inviteeData.push(obj);
+      });
+      this.dataSource = new MatTableDataSource(this.inviteeData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

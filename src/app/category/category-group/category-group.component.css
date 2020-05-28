@@ -6,3 +6,23 @@ table {
   font-size: 14px;
   width: 25%;
 }
+
+.status-active {
+  background: #49c649;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  cursor: default;
+  font-size: 11px;
+  padding: 5px 22px;
+}
+
+.status-disable {
+  background: #ed0b0be6;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  cursor: default;
+  font-size: 11px;
+  padding: 5px 12px;
+}

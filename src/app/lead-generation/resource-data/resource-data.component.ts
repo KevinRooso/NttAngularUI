@@ -10,11 +10,12 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./resource-data.component.css'],
 })
 export class ResourceDataComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'fullName', 'email', 'title', 'type', 'createdAt'];
+  displayedColumns: string[] = ['seq', 'fullName', 'email', 'title', 'type', 'createdAt'];
   dataSource: any;
   resourceType: any[] = [];
   uniqueData: any[] = [];
   refreshData: any[] = [];
+  resourceData: any[] = [];
   cat = 'cat';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -28,8 +29,19 @@ export class ResourceDataComponent implements OnInit {
       res.body.forEach((element) => {
         this.resourceType.push(element.type);
       });
+      res.body.forEach((element, index) => {
+        const obj = {
+          seq: index + 1,
+          fullName: element.fullName,
+          email: element.email,
+          title: element.title,
+          type: element.type,
+          createdAt: element.createdAt,
+        };
+        this.resourceData.push(obj);
+      });
       this.uniqueData = [...new Set(this.resourceType)];
-      this.dataSource = new MatTableDataSource(res.body);
+      this.dataSource = new MatTableDataSource(this.resourceData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

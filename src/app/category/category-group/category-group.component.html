@@ -25,9 +25,9 @@
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef width="7%">S.No.</th>
-          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        <ng-container matColumnDef="seq">
+          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header>S.No.</th>
+          <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
         <ng-container matColumnDef="name">
@@ -37,7 +37,7 @@
               {{ row.name }}
             </ng-container>
             <ng-container *ngIf="row.displayName !== ''">
-              {{ row.displayName }}
+              {{ row.name }}
             </ng-container>
           </td>
         </ng-container>
@@ -49,7 +49,12 @@
 
         <ng-container matColumnDef="active">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-          <td mat-cell *matCellDef="let row">{{ row.isActive }}</td>
+          <td mat-cell *matCellDef="let row">
+            <button [ngClass]="{ 'status-active': row.active === 'Active', 'status-disable': row.active === 'Not Active' }">
+              {{ row.active }}
+            </button>
+          </td>
+          <!-- <td mat-cell *matCellDef="let row">{{ row.active }}</td> -->
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
