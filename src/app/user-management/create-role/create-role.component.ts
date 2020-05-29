@@ -94,7 +94,7 @@ export class CreateRoleComponent implements OnInit {
   defaultExpanded(group) {
     let flag = false;
     this.privilegeData.forEach((priv) => {
-      if (priv.groupName === group) {
+      if (priv.displayGroupName === group) {
         this.roleIdArray.forEach((item) => {
           if (item === priv.id) {
             flag = true;
@@ -111,7 +111,8 @@ export class CreateRoleComponent implements OnInit {
       this.privilegeData.map((i) => {
         let j = i.groupName.toUpperCase();
         j = j.replace(/_/g, ' ');
-        this.privilegeGroups.push(i.groupName);
+        i.displayGroupName = j;
+        this.privilegeGroups.push(i.displayGroupName);
       });
       this.privilegeGroups = [...new Set(this.privilegeGroups)];
     });

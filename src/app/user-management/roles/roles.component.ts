@@ -27,6 +27,7 @@ export class RolesComponent implements OnInit {
     this.authService.getRoleList().subscribe((res) => {
       res.body.forEach((element, index) => {
         const obj = {
+          id: element.id,
           seq: index + 1,
           Name: element.displayName,
           Privileges: element.privileges,

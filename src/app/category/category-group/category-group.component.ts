@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./category-group.component.css'],
 })
 export class CategoryGroupComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'name', 'createdAt', 'active'];
+  displayedColumns: string[] = ['seq', 'displayName', 'createdAt', 'active'];
   dataSource: any;
   categoryGrpData: any[] = [];
 

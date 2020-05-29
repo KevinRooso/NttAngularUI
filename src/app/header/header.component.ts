@@ -15,11 +15,17 @@ export class HeaderComponent implements OnInit {
     if (token != null) {
       this.service.getUserDetail().subscribe((res) => {
         this.userName = res.name;
+        res.roles.forEach((i) => {
+          if (i.name === 'ADMIN_EMPLOYEE_USER') {
+            localStorage.setItem('role', i.name);
+          }
+        });
       });
     }
   }
   logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.router.navigate(['login']);
   }
 }
