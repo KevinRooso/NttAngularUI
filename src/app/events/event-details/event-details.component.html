@@ -111,7 +111,7 @@
               </p>
               <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId != null">
                 <span style="font-weight: 500;">Category : </span>
-                {{ getEventDetails.categoryTypeId.displayName }}
+                {{ getEventDetails.categoryTypeId.displayName | removehyphens | removeunderscore | titlecase }}
               </p>
               <p *ngIf="getEventDetails?.tags?.length > 0" class="card-text mb-0" style="font-weight: 500;">
                 Tags :
