@@ -1,18 +1,20 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a class="active">Roles</a></li>
-    <!-- <li><a class="active">Joinee Data</a></li> -->
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a class="active">Roles</a></li>
+      <!-- <li><a class="active">Joinee Data</a></li> -->
+    </ul>
+  </div>
 </div>
 <div class="container">
   <section class="section-tours">
     <div class="row">
-      <div class="col">
+      <div class="col mt-1">
         <a routerLink="create"><button type="button" class="btn button-1 action-good">Create Role</button></a>
       </div>
       <div class="col text-right">
-        <mat-form-field class="w-75">
+        <mat-form-field class="w-50">
           <mat-label>Filter</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
         </mat-form-field>
@@ -23,17 +25,17 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="seq">
-          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header>S.No.</th>
+          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header><b>S.No.</b></th>
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Name</b></th>
           <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Privileges">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Privileges</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="55%"><b>Privileges</b></th>
           <td mat-cell *matCellDef="let row">
             <ng-container *ngFor="let priv of row.Privileges; index as i; last as isLast">
               <span *ngIf="i < 4">
@@ -47,7 +49,7 @@
         </ng-container>
 
         <ng-container matColumnDef="actionsColumn">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
           <td mat-cell *matCellDef="let row">
             <button class="btn assignee-button" [routerLink]="['create', row.id]">Assign Privileges</button>
           </td>
