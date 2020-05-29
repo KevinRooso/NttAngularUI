@@ -49,8 +49,10 @@ export class LoginComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         if (error.status === 401) {
+          this.show = false;
           this.snackBar.open('Please enter valid credentials', 'Close', { duration: 3500, verticalPosition: 'top' });
         } else {
+          this.show = false;
           this.snackBar.open('Oops, Something Went Wrong!!', 'Close', { duration: 3500, verticalPosition: 'top' });
         }
         this.show = false;

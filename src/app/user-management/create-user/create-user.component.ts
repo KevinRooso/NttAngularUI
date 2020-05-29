@@ -22,7 +22,7 @@ export class CreateUserComponent implements OnInit {
   ) {
     this.createUserForm = this.frmbuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(20)]],
     });
   }
 
