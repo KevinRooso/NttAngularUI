@@ -16,9 +16,8 @@
         <p class="heading-secondary">{{ title }}</p>
       </div>
       <form [formGroup]="createUserForm">
-        <div class="form-row">
-          <div class="col-sm-4"></div>
-          <mat-form-field class="example-full-width col-sm-7">
+        <div class="form-row text">
+          <mat-form-field class="example-full-width col-sm-12">
             <input matInput placeholder="Name" formControlName="name" />
             <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
             <mat-error *ngIf="checkError('name', 'maxlength')">(Name should be upto 20 characters)</mat-error>
@@ -26,11 +25,13 @@
         </div>
 
         <div class="form-row">
-          <mat-accordion *ngFor="let group of privilegeGroups" class="example-full-width col-sm-11">
+          <mat-accordion *ngFor="let group of privilegeGroups" class="example-full-width col-sm-12 pb-2">
             <mat-expansion-panel [expanded]="defaultExpanded(group)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <span> {{ group }} </span>
+                  <span
+                    ><b style="font-weight: 500;"> {{ group }} </b></span
+                  >
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row">
@@ -50,7 +51,7 @@
           </div>
         </div>
 
-        <div class="col-sm-11 text-right mt-2">
+        <div class="col-sm-12 text-right mt-2">
           <button class="btn button-1 action-good" (click)="createRole()">{{ buttonText }}</button>
           <!-- <button type="submit" class="btn button-1 action-good" [disabled]="!createSpeakerForm.valid">Submit Details</button> -->
         </div>

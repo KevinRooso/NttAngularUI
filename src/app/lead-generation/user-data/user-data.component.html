@@ -14,7 +14,9 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
         <ng-container matColumnDef="{{ column }}" *ngFor="let column of columnsToDisplay">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <b>{{ column }}</b>
+          </th>
           <td mat-cell *matCellDef="let row" (click)="getID(row.ID)">{{ row[column] }}</td>
         </ng-container>
 

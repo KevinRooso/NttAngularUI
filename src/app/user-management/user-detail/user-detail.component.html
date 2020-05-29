@@ -1,6 +1,6 @@
 <app-loader *ngIf="show"></app-loader>
 <div>
-  <ul class="breadcrumb">
+  <ul class="breadcrumb pl-0">
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/user-management/user">Users</a></li>
     <li><a class="active">User Details</a></li>
@@ -15,27 +15,30 @@
       <div class="panel panel-info bg-white shadow">
         <div class="panel-body p-3">
           <div class="row">
+            <div class="col-sm-4">
+              <span style="font-size: 15px; font-weight: 500;">Name : </span>
+              <span>{{ userData.fullName }}</span>
+            </div>
+            <div class="col-sm-5">
+              <span style="font-size: 15px; font-weight: 500;">Email : </span>
+              <span>{{ userData.email }}</span>
+            </div>
+            <div class="col d-flex">
+              <label style="font-size: 15px; font-weight: 500;">Update Status : </label>
+              <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
+              </mat-slide-toggle>
+            </div>
+          </div>
+          <hr class="mb-0" />
+          <div class="row">
             <div class="col-md-12 col-lg-12 py-3">
-              <table class="table table-user-information">
-                <tbody>
-                  <tr>
-                    <td>Name:</td>
-                    <td>{{ userData.fullName }}</td>
-                    <td>Email:</td>
-                    <td>{{ userData.email }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="d-flex my-3">
-                <label style="font-size: 15px; font-weight: 500;">Update Status : </label>
-                <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
-                </mat-slide-toggle>
-              </div>
               <mat-accordion>
                 <mat-expansion-panel *ngFor="let roles of roleData">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <mat-checkbox [value]="roles.id" (change)="onCheckChange($event)" class="mr-2"> {{ roles.displayName }}</mat-checkbox>
+                      <mat-checkbox [value]="roles.id" (change)="onCheckChange($event)" class="mr-2">
+                        <b style="font-weight: 500;">{{ roles.displayName }}</b></mat-checkbox
+                      >
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="row">
