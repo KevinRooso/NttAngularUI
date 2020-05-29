@@ -90,7 +90,7 @@
             <mat-select formControlName="categoryId">
               <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of allData" [value]="category.id">
-                {{ category.name }}
+                {{ category.name | removehyphens | removeunderscore | titlecase }}
               </mat-option>
             </mat-select>
           </mat-form-field>

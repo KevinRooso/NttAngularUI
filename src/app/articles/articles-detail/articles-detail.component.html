@@ -35,7 +35,9 @@
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">{{ articleData?.title }}</h1>
                 <br />
-                <p *ngIf="articleData?.category != null"><b>Category : </b>{{ articleData?.category.displayName }}</p>
+                <p *ngIf="articleData?.category != null">
+                  <b>Category : </b>{{ articleData?.category.displayName | removehyphens | removeunderscore | titlecase }}
+                </p>
                 <p *ngIf="articleData?.resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>

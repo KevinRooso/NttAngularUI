@@ -114,6 +114,8 @@ import { RolesComponent } from './user-management/roles/roles.component';
 import { CreateUserComponent } from './user-management/create-user/create-user.component';
 import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
 import { CreateRoleComponent } from './user-management/create-role/create-role.component';
+import { RemovehyphensPipe } from './removehyphens.pipe';
+import { RemoveunderscorePipe } from './removeunderscore.pipe';
 
 @NgModule({
   declarations: [
@@ -190,6 +192,8 @@ import { CreateRoleComponent } from './user-management/create-role/create-role.c
     CreateUserComponent,
     UserDetailComponent,
     CreateRoleComponent,
+    RemovehyphensPipe,
+    RemoveunderscorePipe,
   ],
   imports: [
     BrowserModule,

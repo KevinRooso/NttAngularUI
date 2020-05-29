@@ -42,7 +42,7 @@
             <mat-label>Select Category Group</mat-label>
             <mat-select formControlName="categoryGroupId">
               <mat-option *ngFor="let category of allData" [value]="category.id">
-                {{ category.displayName | titlecase }}
+                {{ category.displayName | titlecase | removehyphens }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryGroupId', 'required')">(Category Group is required)</mat-error>
