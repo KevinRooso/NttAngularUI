@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./category-group.component.css'],
 })
 export class CategoryGroupComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'name', 'createdAt', 'active'];
+  displayedColumns: string[] = ['seq', 'displayName', 'createdAt', 'active'];
   dataSource: any;
   categoryGrpData: any[] = [];
 
@@ -45,7 +45,6 @@ export class CategoryGroupComponent implements OnInit {
           i.displayName = i.name;
         }
       });
-      this.categoryGrpData.sort((a, b) => a.displayName.localeCompare(b.displayName));
       this.dataSource = new MatTableDataSource(this.categoryGrpData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

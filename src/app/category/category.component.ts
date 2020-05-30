@@ -33,7 +33,6 @@ export class CategoryComponent implements OnInit {
       });
       // this.dataSource = new MatTableDataSource(this.categoryData);
       // const catArr = res.body;
-      this.categoryData.sort((a, b) => a.name.localeCompare(b.name));
       this.dataSource = new MatTableDataSource(this.categoryData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

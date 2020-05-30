@@ -24,6 +24,10 @@ export class AuthServiceService {
     const user = localStorage.getItem('token');
     return !(user == null);
   }
+  isUserAdmin() {
+    const admin = localStorage.getItem('role');
+    return !(admin == null);
+  }
   getAllEventList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/events');
   }

@@ -50,9 +50,15 @@ export class SpeakersPreviewComponent implements OnInit {
   }
   blogSearch() {
     const keyword = this.searchBlog.toLowerCase();
-    this.filterBlogs = this.searchFilterData.filter(
-      (x) => x.fullName.toLowerCase().includes(keyword) || x.origanizationName.toLowerCase().includes(keyword)
-    );
+    this.filterBlogs = this.searchFilterData.filter((x) => {
+      if (x.origanizationName === null && x.fullName === null) {
+        return false;
+      } else if (x.origanizationName === null) {
+        return x.fullName.toLowerCase().includes(keyword);
+      } else {
+        return x.fullName.toLowerCase().includes(keyword) || x.origanizationName.toLowerCase().includes(keyword);
+      }
+    });
   }
   cancel() {
     this.filterBlogs = this.cardData;
