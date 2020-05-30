@@ -77,10 +77,12 @@ export class EventEditComponent implements OnInit {
 
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel', { static: true }) closeModel;
+  @ViewChild('closeModel1', { static: true }) closeModel1;
   @ViewChild('closeModelAgenda', { static: true }) closeModelAgenda;
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
   @ViewChild('confirmBox', { static: true }) confirmBox;
   @ViewChild('closeModal2', { static: true }) closeModal2;
+  @ViewChild('msgbutton', { static: true }) msgbutton;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
     private formBuilder: FormBuilder,
@@ -474,6 +476,14 @@ export class EventEditComponent implements OnInit {
   }
 
   updateEvent() {
+    if (!this.updateEventForm.dirty) {
+      this.msgbutton.nativeElement.click();
+    } else {
+      this.submitChanges();
+    }
+  }
+
+  submitChanges() {
     const ON_PREMISE = '1';
     const WEBINAR = '2';
     const BOTH = '3';
@@ -737,6 +747,7 @@ export class EventEditComponent implements OnInit {
       this.show = false;
       this.snackBar.open('Please fill all mandatory fields', 'Close', { duration: 5000 });
     }
+    this.closeModel1.nativeElement.click();
   }
   createAgenda() {
     this.addAgenda.controls['title'].setValidators(Validators.required);
