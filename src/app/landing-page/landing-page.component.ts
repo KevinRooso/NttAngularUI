@@ -70,13 +70,15 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.userDevice();
-    this.resourceDownload();
-    this.eventStatusDetails();
-    this.eventTargetUserTypeDetails();
-    this.users();
+    setTimeout(() => {
+      this.userDevice();
+      this.resourceDownload();
+      this.eventStatusDetails();
+      this.eventTargetUserTypeDetails();
+      this.users();
 
-    this.eventCategoryTypeDetails();
+      this.eventCategoryTypeDetails();
+    });
   }
 
   // --------------------------Resources Graphs------------------------//
