@@ -64,6 +64,10 @@ import { RolesComponent } from './user-management/roles/roles.component';
 import { CreateRoleComponent } from './user-management/create-role/create-role.component';
 import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
 import { RoleguardServiceService } from './roleguard-service.service';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { CreateNotificationComponent } from './notifications/create-notification/create-notification.component';
+import { EditNotificationComponent } from './notifications/edit-notification/edit-notification.component';
+import { DetailNotificationComponent } from './notifications/detail-notification/detail-notification.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -419,6 +423,34 @@ const routes: Routes = [
             canActivate: [AuthguardServiceService, RoleguardServiceService],
           },
         ],
+      },
+    ],
+  },
+  {
+    path: 'notifications',
+    children: [
+      {
+        path: '',
+        component: NotificationsComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'create-notification',
+        pathMatch: 'full',
+        component: CreateNotificationComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'update-notification/:page',
+        pathMatch: 'full',
+        component: EditNotificationComponent,
+        canActivate: [AuthguardServiceService],
+      },
+      {
+        path: 'notification-details/:page',
+        pathMatch: 'full',
+        component: DetailNotificationComponent,
+        canActivate: [AuthguardServiceService],
       },
     ],
   },

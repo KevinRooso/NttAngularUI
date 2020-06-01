@@ -116,6 +116,10 @@ import { UserDetailComponent } from './user-management/user-detail/user-detail.c
 import { CreateRoleComponent } from './user-management/create-role/create-role.component';
 import { RemovehyphensPipe } from './removehyphens.pipe';
 import { RemoveunderscorePipe } from './removeunderscore.pipe';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { CreateNotificationComponent } from './notifications/create-notification/create-notification.component';
+import { DetailNotificationComponent } from './notifications/detail-notification/detail-notification.component';
+import { EditNotificationComponent } from './notifications/edit-notification/edit-notification.component';
 
 @NgModule({
   declarations: [
@@ -194,6 +198,10 @@ import { RemoveunderscorePipe } from './removeunderscore.pipe';
     CreateRoleComponent,
     RemovehyphensPipe,
     RemoveunderscorePipe,
+    NotificationsComponent,
+    CreateNotificationComponent,
+    DetailNotificationComponent,
+    EditNotificationComponent,
   ],
   imports: [
     BrowserModule,
