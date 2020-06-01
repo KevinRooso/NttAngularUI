@@ -71,8 +71,8 @@ export class HomeUiComponent implements OnInit {
   globalFlag = true;
   formArr: number[] = [1];
   bannerEmittedData: any = {};
-  listData: any=[];
-  previewHomePageData: any={};
+  listData: any = [];
+  previewHomePageData: any = {};
   // tslint:disable-next-line:no-input-rename
   @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
@@ -112,16 +112,14 @@ export class HomeUiComponent implements OnInit {
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
   filterArrForBannerBlock: any[] = [];
 
-
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
     this.bannerLimit = environment.BANNER_LIMIT;
 
     this.createForms();
-
   }
   // tslint:disable-next-line:use-lifecycle-interface
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.getAllData(false);
   }
   getBanner(data: any) {
@@ -304,82 +302,75 @@ export class HomeUiComponent implements OnInit {
   createForm() {
     this.publicFlag = !this.publicFlag;
   }
-  getHomeData(){
-     if (this.bannerData.length !== 0) {
-        this.bannerData.sort(this.sortArray);
-        this.formArr = [];
-      }
-      this.bannerData.forEach((_value, index) => {
-        this.formArr.push(index + 1);
+  getHomeData() {
+    if (this.bannerData.length !== 0) {
+      this.bannerData.sort(this.sortArray);
+      this.formArr = [];
+    }
+    this.bannerData.forEach((_value, index) => {
+      this.formArr.push(index + 1);
+    });
+    this.resourceData = [...this.listData];
+    if (this.bannerData.length === 0 && this.resourceData.length === 0) {
+      this.publicFlag = false;
+    } else {
+      this.resourceData.forEach((m) => {
+        if (m.type === 'event') {
+          this.eventBlockData = m.id;
+          this.eventButton.nativeElement.click();
+        }
+        if (m.type === 'articles') {
+          this.articleBlockData = m.id;
+          this.articleButton.nativeElement.click();
+        }
+        if (m.type === 'blogs') {
+          this.bannerConfigurationForm1.get(['datafieldType']);
+          this.blogBlockData = m.id;
+          this.blogButton.nativeElement.click();
+        }
+        if (m.type === 'videos') {
+          this.videoBlockData = m.id;
+          this.videoButton.nativeElement.click();
+        }
+        if (m.type === 'white papers') {
+          this.whitePaperBlockData = m.id;
+          this.whitpaperButton.nativeElement.click();
+        }
+        if (m.type === 'case studies') {
+          this.caseStudyBlockData = m.id;
+          this.caseButton.nativeElement.click();
+        }
+        if (m.type === 'news') {
+          this.newsBlockData = m.id;
+          this.newsButton.nativeElement.click();
+        }
+        if (m.type === 'testimonials') {
+          this.testBlockData = m.id;
+          this.testButton.nativeElement.click();
+        }
       });
-      this.resourceData = [...this.listData];
-      if (this.bannerData.length === 0 && this.resourceData.length === 0) {
-        this.publicFlag = false;
-      } else {
-        this.resourceData.forEach((m) => {
-          if (m.type === 'event') {
-            this.eventBlockData = m.id;
-            this.eventButton.nativeElement.click();
-          }
-          if (m.type === 'articles') {
-            this.articleBlockData = m.id;
-            this.articleButton.nativeElement.click();
-          }
-          if (m.type === 'blogs') {
-            this.bannerConfigurationForm1.get(['datafieldType']);
-            this.blogBlockData = m.id;
-            this.blogButton.nativeElement.click();
-          }
-          if (m.type === 'videos') {
-            this.videoBlockData = m.id;
-            this.videoButton.nativeElement.click();
-          }
-          if (m.type === 'white papers') {
-            this.whitePaperBlockData = m.id;
-            this.whitpaperButton.nativeElement.click();
-          }
-          if (m.type === 'case studies') {
-            this.caseStudyBlockData = m.id;
-            this.caseButton.nativeElement.click();
-          }
-          if (m.type === 'news') {
-            this.newsBlockData = m.id;
-            this.newsButton.nativeElement.click();
-          }
-          if (m.type === 'testimonials') {
-            this.testBlockData = m.id;
-            this.testButton.nativeElement.click();
-          }
-        });
-
-
-      }
+    }
   }
 
-
-
-
-
-  getHomePagePreviewData(){
-    const previewData = {...this.previewHomePageData}
+  getHomePagePreviewData() {
+    const previewData = { ...this.previewHomePageData };
     this.homePageData = previewData;
     this.homeBannerData = previewData.banners;
     this.homeListData = previewData.list;
     this.bannerData = this.homeBannerData;
-
   }
 
   getAllData(force: boolean) {
     const prevData = this.previewHomePageData;
     let prevCallApi = true;
     let configCallApi = true;
-    if(!force){
-      if(prevData && prevData.banners && prevData.list && prevData.banners.length && prevData.list.length){
+    if (!force) {
+      if (prevData && prevData.banners && prevData.list && prevData.banners.length && prevData.list.length) {
         this.getHomePagePreviewData();
         prevCallApi = false;
       }
 
-      if(this.bannerData.length && this.listData.length){
+      if (this.bannerData.length && this.listData.length) {
         this.getHomeData();
         configCallApi = false;
       }
@@ -390,14 +381,13 @@ export class HomeUiComponent implements OnInit {
       this.service.getAllHomeData(this.userType).subscribe((res) => {
         this.bannerData = [...res.body.banners];
         this.newBannerData = [...res.body.banners];
-        this.listData=[...res.body.list];
-        this.previewHomePageData={...res.body};
+        this.listData = [...res.body.list];
+        this.previewHomePageData = { ...res.body };
         this.getHomeData();
         this.getHomePagePreviewData();
         this.show = false;
       });
     }
-
   }
   getGlobalDataForBanner1() {
     this.show = true;
@@ -466,10 +456,14 @@ export class HomeUiComponent implements OnInit {
         reqObj.push(bannerObj);
       }
       this.service.saveBanner(reqObj).subscribe(
-        (_res) => {
+        (res) => {
           this.show = false;
-
-          this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
+          if (res.httpStatus === 'BAD_REQUEST') {
+            this.errorFlag = true;
+          }
+          if (res.httpStatus === 'OK') {
+            this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
+          }
           // alert("Saved Successfully")
         },
         (_error) => {
