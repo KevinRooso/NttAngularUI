@@ -104,7 +104,7 @@ export class CreateAuthorComponent implements OnInit {
 
     this.router1.params.subscribe((params) => {
       this.resourceId = params.page;
-      if (this.resourceId !== undefined) {
+      if (this.resourceId !== 'xyz') {
         this.getAuthorData();
         this.title = 'Edit Author';
         this.buttonText = 'Update Details';
@@ -217,7 +217,7 @@ export class CreateAuthorComponent implements OnInit {
       });
 
       let authorId = 0;
-      if (this.resourceId !== undefined) {
+      if (this.resourceId !== 'xyz') {
         authorId = this.resourceId;
       }
 

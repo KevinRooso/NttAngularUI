@@ -50,6 +50,7 @@ export class CreateCategoryComponent implements OnInit {
   getCategoryGroupDetails() {
     this.authService.getCategoryGroupList().subscribe((res) => {
       this.allData = res.body;
+      this.allData = this.allData.reverse();
       this.allData.map((i) => {
         if (i.displayName === '') {
           i.displayName = i.name;
