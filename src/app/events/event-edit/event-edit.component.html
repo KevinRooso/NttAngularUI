@@ -70,7 +70,7 @@
             <mat-select formControlName="categoryTypeId">
               <mat-option value="0">None</mat-option>
               <mat-option *ngFor="let category of allData" [value]="category.displayName">
-                {{ category.name }}
+                {{ category.name | removehyphens | removeunderscore | titlecase }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -495,6 +495,8 @@
   </div>
 </div>
 
+<button type="button" class="btn btn-success button-2 action-good" #msgbutton data-toggle="modal" data-target="#alertMsg" hidden></button>
+
 <div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -651,6 +653,28 @@
       <div class="modal-footer" style="justify-content: center; border: none;">
         <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal2>Cancel</button>
         <button type="button" class="btn btn-danger" (click)="deleteConfirm()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="alertMsg" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel1 class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Submit Without Any Changes?</p>
+        <div class="text-right">
+          <button class="btn button-1 action-good" style="margin-right: 19px;" (click)="submitChanges()">
+            Yes
+          </button>
+          <button class="btn button-1 action-good" data-dismiss="modal">
+            No
+          </button>
+        </div>
       </div>
     </div>
   </div>

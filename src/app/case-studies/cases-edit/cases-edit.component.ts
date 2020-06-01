@@ -181,6 +181,7 @@ export class CasesEditComponent implements OnInit {
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
+      this.tagData = this.tagData.reverse();
     });
   }
   fileProgress(fileInput: any) {
@@ -398,7 +399,7 @@ export class CasesEditComponent implements OnInit {
       const obj = this.addTagForm.value;
       if (flag) {
         obj['id'] = 0;
-        this.tagData.push(obj);
+        this.tagData.unshift(obj);
         this.closeModel.nativeElement.click();
       } else {
         alert('Tag Already Exist');

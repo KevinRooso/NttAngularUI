@@ -111,6 +111,7 @@ export class CasesCreateComponent implements OnInit {
   getTagsDetails() {
     this.authService.getTagsList().subscribe((res) => {
       this.tagData = res.body;
+      this.tagData = this.tagData.reverse();
     });
   }
   fileProgress(fileInput: any) {
@@ -311,7 +312,7 @@ export class CasesCreateComponent implements OnInit {
       const obj = this.addTagForm.value;
       if (flag) {
         obj['id'] = 0;
-        this.tagData.push(obj);
+        this.tagData.unshift(obj);
         this.closeModel.nativeElement.click();
       } else {
         this.snackBar.open('Tag Already Exist', 'Close', { duration: 5000 });

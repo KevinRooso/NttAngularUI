@@ -62,7 +62,7 @@
             <mat-label>Select Services</mat-label>
             <mat-select formControlName="categoryId">
               <mat-option *ngFor="let category of catagoryData" [value]="category">
-                {{ category.name }}
+                {{ category.name | removehyphens | removeunderscore | titlecase }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Service is required)</mat-error>

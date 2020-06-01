@@ -32,15 +32,10 @@
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="name">
+        <ng-container matColumnDef="displayName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header width="35%"><b>Name</b></th>
           <td mat-cell *matCellDef="let row">
-            <ng-container *ngIf="row.displayName === ''">
-              {{ row.name }}
-            </ng-container>
-            <ng-container *ngIf="row.displayName !== ''">
-              {{ row.displayName }}
-            </ng-container>
+            {{ row.displayName }}
           </td>
         </ng-container>
 
@@ -63,7 +58,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </section>
 </div>

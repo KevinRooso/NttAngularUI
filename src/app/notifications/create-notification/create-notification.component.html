@@ -1,0 +1,57 @@
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Notifications</a></li>
+      <li><a class="active">Create Notifications</a></li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Create Notifications</p>
+      </div>
+      <form [formGroup]="createUserForm">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Title<span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Title" formControlName="name" />
+            <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
+            <mat-error *ngIf="checkError('name', 'maxlength')">(Name should be upto 20 characters)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Body<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Body" formControlName="email" />
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification Template<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Template" formControlName="email" />
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification Duration <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Duration" formControlName="email" />
+            <mat-error *ngIf="checkError('email', 'required')">(Email is required)</mat-error>
+            <mat-error *ngIf="checkError('email', 'email')">(Enter a valid email)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 text-right">
+          <button class="btn button-1 action-good" (click)="createUser()">Submit Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

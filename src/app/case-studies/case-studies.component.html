@@ -27,7 +27,9 @@
         <li class="nav-item active mx-2">
           <select class="form-control" [(ngModel)]="cat" (change)="getDataWithCat()">
             <option value="cat">Please Select Service</option>
-            <option *ngFor="let cate of categoryList" [value]="cate.id">{{ cate.displayName }}</option>
+            <option *ngFor="let cate of categoryList" [value]="cate.id">{{
+              cate.displayName | removehyphens | removeunderscore | titlecase
+            }}</option>
           </select>
         </li>
         <li class="nav-item active mx-2">
@@ -79,7 +81,7 @@
             <h2></h2>
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of publishedList">
-                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]" >
+                <div class="card mb-4 card-height" [routerLink]="['view-cases', cases.id]">
                   <div class="row no-gutters">
                     <div class="col-md-5">
                       <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />
@@ -119,7 +121,7 @@
           <div class="card-body pt-3 pb-0 m-2">
             <div class="row">
               <div class="col-sm-6" *ngFor="let cases of draftList">
-                <div class="card mb-4 card-height" [routerLink]="['view-cases',cases.id]">
+                <div class="card mb-4 card-height" [routerLink]="['view-cases', cases.id]">
                   <div class="row no-gutters">
                     <div class="col-md-5">
                       <img class="card-img-top" width="200px" height="160px" [src]="cases.thumbnailImageUrl" />

@@ -22,7 +22,7 @@
                 <h1 style="font-size: 25px; color: #008ece;" [innerHTML]="news.topic"></h1>
                 <h6><b>Title : </b> {{ news.title }}</h6>
                 <p *ngIf="news.categoryTypeId != null" style="margin-bottom: 0.5rem;">
-                  <b>Category : </b> {{ news.categoryTypeId.displayName }}
+                  <b>Category : </b> {{ news.categoryTypeId.displayName | removehyphens | removeunderscore | titlecase }}
                 </p>
                 <p *ngIf="resourceTags?.length > 0" class="card-text my-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags"> {{ tag.name }}</span>

@@ -34,7 +34,7 @@
               </mat-expansion-panel-header>
               <div class="row">
                 <div *ngFor="let priv of privilegeData; let i = index">
-                  <div *ngIf="priv.groupName == group" class="col d-inline-flex">
+                  <div *ngIf="priv.displayGroupName == group" class="col d-inline-flex">
                     <mat-checkbox [checked]="defaultChecked(priv.id)" [value]="priv.id" (change)="onCheckChange($event)" class="mr-2">{{
                       priv.displayName
                     }}</mat-checkbox>

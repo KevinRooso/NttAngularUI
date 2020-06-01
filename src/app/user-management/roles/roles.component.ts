@@ -29,6 +29,7 @@ export class RolesComponent implements OnInit {
     this.authService.getRoleList().subscribe((res) => {
       res.body.forEach((element, index) => {
         const obj = {
+          id: element.id,
           seq: index + 1,
           Name: element.displayName,
           Privileges: element.privileges,
@@ -39,7 +40,6 @@ export class RolesComponent implements OnInit {
       // this.dataSource = new MatTableDataSource(this.userTableData);
       // this.dataSource = new MatTableDataSource(res.body);
       // this.userTableData = res.body;
-      this.userTableData.sort((a, b) => a.Name.localeCompare(b.Name));
       this.dataSource = new MatTableDataSource(this.userTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

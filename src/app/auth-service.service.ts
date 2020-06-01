@@ -24,6 +24,10 @@ export class AuthServiceService {
     const user = localStorage.getItem('token');
     return !(user == null);
   }
+  isUserAdmin() {
+    const admin = localStorage.getItem('role');
+    return !(admin == null);
+  }
   getAllEventList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/events');
   }
@@ -255,7 +259,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/admin/metric/resource/attachmentShareList');
   }
   getUserListData(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/metric/user/userList');
+    return this.http.get<any>(this.url + 'api/admin/metric/user/userList?deviceType=all');
   }
   getDeviceList(id): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);

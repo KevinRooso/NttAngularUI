@@ -3,7 +3,7 @@
   <div>
     <ul class="breadcrumb pl-0">
       <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/categories">Categories</a></li>
+      <li><a routerLink="/config-management/categories">Categories</a></li>
       <li>
         <a class="active"> Create Category </a>
       </li>
@@ -42,7 +42,7 @@
             <mat-label>Select Category Group</mat-label>
             <mat-select formControlName="categoryGroupId">
               <mat-option *ngFor="let category of allData" [value]="category.id">
-                {{ category.displayName }}
+                {{ category.displayName | titlecase | removehyphens }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryGroupId', 'required')">(Category Group is required)</mat-error>

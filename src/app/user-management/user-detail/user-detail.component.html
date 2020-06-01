@@ -3,7 +3,7 @@
   <div>
     <ul class="breadcrumb pl-0">
       <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/user">Users</a></li>
+      <li><a routerLink="/user-management/user">Users</a></li>
       <li><a class="active">User Details</a></li>
     </ul>
   </div>
@@ -30,30 +30,10 @@
               <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
               </mat-slide-toggle>
             </div>
-            <!-- <div class="col-sm-4">
-             <label></label> Update Status:<mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
-              </mat-slide-toggle>
-            </div> -->
           </div>
           <hr class="mb-0" />
           <div class="row">
             <div class="col-md-12 col-lg-12 py-3">
-              <!-- <table class="table table-user-information">
-                <tbody>
-                  <tr>
-                    <td>Name:</td>
-                    <td>{{ userData.fullName }}</td>
-                    <td>Email:</td>
-                    <td>{{ userData.email }}</td>
-                  </tr>
-                </tbody>
-              </table> -->
-
-              <!-- <div class="d-flex my-3">
-                <label style="font-size: 15px; font-weight: 500;">Update Status : </label>
-                <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isActive" href="#myModal" data-toggle="modal">
-                </mat-slide-toggle>
-              </div> -->
               <mat-accordion>
                 <mat-expansion-panel *ngFor="let roles of roleData">
                   <mat-expansion-panel-header>

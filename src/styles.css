@@ -136,9 +136,9 @@ mat-paginator .mat-form-field-flex {
   border: none !important;
   box-shadow: none !important;
 }
-.mat-form-field {
+/* .mat-form-field {
   line-height: 0.988;
-}
+} */
 .cdk-overlay-container {
   position: fixed !important;
   z-index: 1090 !important;

@@ -34,7 +34,9 @@
               <div class="panel-heading">
                 <h1 style="font-size: 25px; color: #008ece;">{{ whitePaperData?.title }}</h1>
                 <br />
-                <p *ngIf="whitePaperData?.category != null"><b>Category : </b>{{ whitePaperData.category.displayName }}</p>
+                <p *ngIf="whitePaperData?.category != null">
+                  <b>Category : </b>{{ whitePaperData.category.displayName | removehyphens | removeunderscore | titlecase }}
+                </p>
                 <p *ngIf="resourceTags.length > 0" class="card-text mb-0" style="font-weight: 500;">
                   <b>Tags : </b><span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
                 </p>
