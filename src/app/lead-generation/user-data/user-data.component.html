@@ -1,16 +1,22 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a class="active">User Data</a></li>
-    <!-- <li><a class="active">Joinee Data</a></li> -->
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a class="active">User Data</a></li>
+      <!-- <li><a class="active">Joinee Data</a></li> -->
+    </ul>
+  </div>
 </div>
 <div class="container">
+  <div class="row">
+    <div class="col text-right">
+      <mat-form-field class="w-25">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
+      </mat-form-field>
+    </div>
+  </div>
   <section class="section-tours">
-    <mat-form-field class="w-45">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
-    </mat-form-field>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
         <ng-container matColumnDef="{{ column }}" *ngFor="let column of columnsToDisplay">

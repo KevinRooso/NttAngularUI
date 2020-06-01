@@ -1,46 +1,51 @@
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a href="/event-data">Event Data</a></li>
-    <li><a class="active">Invitee Data</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/event-data">Event Data</a></li>
+      <li><a class="active">Invitee Data</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
+  <div class="row">
+    <div class="col text-right">
+      <mat-form-field class="w-25">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
+      </mat-form-field>
+    </div>
+  </div>
   <section class="section-tours">
-    <mat-form-field class="w-45">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
-    </mat-form-field>
-
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="seq">
-          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header>S.No.</th>
+          <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header><b>S.No.</b></th>
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Title</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Event Title</b></th>
           <td mat-cell *matCellDef="let row">{{ row.title | slice: 0:40 }}</td>
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Name</b></th>
           <td mat-cell *matCellDef="let row">{{ row.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="25%"><b>Email</b></th>
           <td mat-cell *matCellDef="let row">{{ row.email }}</td>
         </ng-container>
 
         <ng-container matColumnDef="contact">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Contact</b></th>
           <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
         </ng-container>
 
         <ng-container matColumnDef="joiningDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Invitation Date</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Invitation Date</b></th>
           <td mat-cell *matCellDef="let row">{{ row.joiningDate | date }}</td>
         </ng-container>
 

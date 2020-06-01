@@ -70,5 +70,5 @@ tr.example-element-row:not(.example-expanded-row):active {
 th.mat-header-cell,
 td.mat-cell,
 td.mat-footer-cell {
-  padding: 1%;
+  padding-left: 3%;
 }

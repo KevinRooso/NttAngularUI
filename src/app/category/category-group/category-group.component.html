@@ -10,7 +10,7 @@
 <div class="container">
   <section class="section-tours">
     <div class="row">
-      <div class="col mt-1">
+      <div class="col mt-2">
         <a routerLink="create"
           ><button type="button" class="btn button-1 action-good">
             Create Category Group
@@ -28,7 +28,7 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="seq">
-          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header><b>S.No.</b></th>
+          <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header><b>S.No.</b></th>
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 

@@ -14,6 +14,8 @@ export class UsersComponent implements OnInit {
   userTableData: any = [];
   roleData: any = [];
   uniqueData: any[] = [];
+  roleModal: any;
+  roleName: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -54,5 +56,9 @@ export class UsersComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  getRoleModal(roles, Name) {
+    this.roleModal = roles;
+    this.roleName = Name;
   }
 }

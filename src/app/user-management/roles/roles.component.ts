@@ -17,6 +17,8 @@ export class RolesComponent implements OnInit {
   refreshData: any[] = [];
   userTableData: any[] = [];
   cat = 'cat';
+  privModal: any;
+  roleName: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -50,5 +52,9 @@ export class RolesComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  getprivmodel(privileges, Name) {
+    this.privModal = privileges;
+    this.roleName = Name;
   }
 }

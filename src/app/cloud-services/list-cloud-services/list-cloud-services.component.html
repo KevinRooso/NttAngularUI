@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="example-button-row">
-            <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data,true)">Edit</button>
+            <button type="button" class="btn py-1 px-3 button-1 action-info wht-color" (click)="editForm(data, true)">Edit</button>
             <button
               type="button"
               class="btn py-1 px-3 button-1 action-info wht-color"
@@ -67,15 +67,11 @@
                     <h1 style="font-size: 25px; color: #008ece;">{{ detailData.displayName | slice: 0:40 }}</h1>
                     <br />
                     <p>{{ detailData.shortInformation | slice: 0:80 }}</p>
-                    <b>Testimonial URL : </b>
-                    <ng-container *ngFor="let url of detailData.testimonialUrl; let i= index ">
-                    <a [href]="url.url" target="_blank">{{ url.url }}</a>{{i===detailData.testimonialUrl.length-1 ? ' ' :', '}}
-                  </ng-container>
                   </div>
                 </div>
                 <div class="col-md-1 edit">
                   <button class="btn">
-                    <span class="fa fa-pencil" (click)="editForm(detailData,false)" aria-hidden="true"></span>
+                    <span class="fa fa-pencil" (click)="editForm(detailData, false)" aria-hidden="true"></span>
                   </button>
                   <br /><br /><br />
                 </div>
@@ -92,6 +88,12 @@
                   <hr />
                   <b>NTT Differentiator </b>
                   <p [innerHTML]="detailData.differentiator"></p>
+                  <b>Testimonial URL's </b>
+                  <br />
+                  <ng-container *ngFor="let url of detailData.testimonialUrl; let i = index">
+                    <a [href]="url.url" target="_blank">{{ url.url }}</a
+                    >{{ i === detailData.testimonialUrl.length - 1 ? ' ' : ', ' }}
+                  </ng-container>
                 </div>
               </div>
             </div>

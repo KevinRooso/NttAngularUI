@@ -1,15 +1,17 @@
 <app-loader *ngIf="show"></app-loader>
-<div>
-  <ul class="breadcrumb">
-    <li><a href="/home">Home</a></li>
-    <li><a (click)="sendPage(null)">Product and Services</a></li>
-    <ng-container *ngFor="let data of bradArray">
-      <li>
-        <a (click)="sendPage(data)">{{ data.displayName  | slice: 0:40 }}</a>
-      </li>
-    </ng-container>
-    <li><a>Create Product & Services</a></li>
-  </ul>
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="sendPage(null)">Product and Services</a></li>
+      <ng-container *ngFor="let data of bradArray">
+        <li>
+          <a (click)="sendPage(data)">{{ data.displayName | slice: 0:40 }}</a>
+        </li>
+      </ng-container>
+      <li><a>Create Product & Services</a></li>
+    </ul>
+  </div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
@@ -103,6 +105,72 @@
           </div>
 
           <div class="form-row">
+            <label class="col-sm-3 col-form-label">Add Testimonial URL <span class="error">*</span></label>
+            <div class="col-sm-7 mr-5">
+              <form [formGroup]="craeteUrlForm">
+                <div class="form-row p-0">
+                  <mat-form-field class="example-full-width col-sm-12">
+                    <input matInput placeholder="Testimonial URL" onfocus="this.value=''" formControlName="testimonialUrl" value="" />
+
+                    <mat-error *ngIf="checkError1('testimonialUrl', 'required')">(Testimonial URL is required)</mat-error>
+                    <mat-error *ngIf="checkError1('testimonialUrl', 'pattern')">(URL is not valid)</mat-error>
+                  </mat-form-field>
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-1 text-right ml-2">
+              <button class="btn button-1 action-good" style="border-radius: 20px; padding: 4px 12px; height: 34px;" (click)="createUrl()">
+                <span style="cursor: default; font-size: 10px;">
+                  <i class="fa fa-plus" aria-hidden="true" style="font-size: 0.75rem;"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+              <table class="table" style="background-color: white;">
+                <thead>
+                  <tr>
+                    <th width="7%">S.No.</th>
+
+                    <th>URL</th>
+                    <th width="10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of urlArray; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ data.url }}</td>
+
+                    <td>
+                      <!-- <button class="btn btn-warning reject mr-2" data-toggle="modal"
+                      data-target="#agendaModal" (click)="editUrl(data,i)" >
+                        <span style="cursor: default; font-size: 10px;">
+                          <i class="fa fa-pencil" style="font-size: 1rem; color: white;"></i>
+                        </span>
+                      </button> -->
+                      <!-- (click)="delete(i)" -->
+                      <button
+                        class="btn btn-danger reject"
+                        style="border-radius: 20px; padding: 3px 9px;"
+                        href="#myModal"
+                        data-toggle="modal"
+                        (click)="getDeleteId(data, i)"
+                        #confirmBox
+                      >
+                        <span style="cursor: default; font-size: 10px;">
+                          <i class="fa fa-minus" style="font-size: 1rem;"></i>
+                        </span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- <div class="form-row">
             <label class="col-sm-3 col-form-label"></label>
             <div class="col-sm-9 text-right">
               <button
@@ -139,7 +207,7 @@
                           <i class="fa fa-pencil" style="font-size: 1rem; color: white;"></i>
                         </span>
                       </button>
-                      <!-- (click)="delete(i)" -->
+
                       <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" (click)="getDeleteId(data,i)" #confirmBox>
                         <span style="cursor: default; font-size: 10px;" >
                           <i class="fa fa-trash" style="font-size: 1rem;"></i>
@@ -150,7 +218,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-row">
             <label class="col-sm-3 col-form-label"
@@ -186,7 +254,7 @@
             </div>
           </div>
         </ng-container>
-        <div class="col-sm-12 text-right">
+        <div class="col-sm-12 text-right mt-3">
           <button type="submit" (click)="submit()" class="btn button-1 action-good">Submit Details</button>
         </div>
       </form>
@@ -216,7 +284,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none; padding: 0;">
@@ -247,4 +315,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

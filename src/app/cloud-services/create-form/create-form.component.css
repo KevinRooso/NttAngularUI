@@ -151,3 +151,15 @@ input.ng-invalid.ng-touched {
 .modal-confirm .btn-danger:focus {
   background: #ee3535;
 }
+
+.table td {
+  border-top: 1px solid #efefef;
+  padding-left: 0.75rem;
+  vertical-align: middle;
+}
+
+.table th {
+  border-top: 1px solid #efefef;
+  padding: 0.75rem;
+  vertical-align: middle;
+}
