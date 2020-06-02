@@ -265,7 +265,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/admin/metric/device/deviceListByUser?userId=' + id);
   }
   getEmployeeUserList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/users/findAll?userTypeId=9');
+    return this.http.get<any>(this.url + 'api/users/findUsers');
   }
   getRoleList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/roles');

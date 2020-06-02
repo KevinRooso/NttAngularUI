@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token != null) {
       this.service.getUserDetail().subscribe((res) => {
-        this.userName = res.name;
+        this.userName = res.fullName;
         res.roles.forEach((i) => {
           if (i.name === 'ADMIN_EMPLOYEE_USER') {
             localStorage.setItem('role', i.name);
