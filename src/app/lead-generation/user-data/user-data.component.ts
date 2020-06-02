@@ -18,7 +18,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ],
 })
 export class UserDataComponent implements OnInit {
-  columnsToDisplay: string[] = ['S.NO.', 'Name', 'Email', 'Contact', 'User Type', 'Status'];
+  columnsToDisplay: string[] = ['S.No.', 'Name', 'Email', 'Contact', 'User Type', 'Status'];
   dataSource: any;
   expandedElement: any;
   userTableData: any = [];
@@ -45,7 +45,7 @@ export class UserDataComponent implements OnInit {
           status = 'Not Active';
         }
         const obj = {
-          'S.NO.': index + 1,
+          'S.No.': index + 1,
           Name: element.fullName,
           Email: element.email,
           Contact: element.phoneNumber,
