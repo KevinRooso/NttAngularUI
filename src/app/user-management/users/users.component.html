@@ -37,7 +37,7 @@
         </ng-container>
 
         <ng-container matColumnDef="roles">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header width="40%"><b>Role</b></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="36%"><b>Role</b></th>
           <td mat-cell *matCellDef="let row">
             <ng-container *ngFor="let role of row.roles; index as i; last as isLast">
               <span *ngIf="i < 3">
@@ -59,7 +59,7 @@
         </ng-container>
 
         <ng-container matColumnDef="Status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Status</b></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>Status</b></th>
           <td mat-cell *matCellDef="let row">
             <button [ngClass]="{ 'status-active': row.Status === 'Active', 'status-disable': row.Status === 'Not Active' }">
               {{ row.Status }}
