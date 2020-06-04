@@ -448,8 +448,8 @@ export class HomeUiComponent implements OnInit {
         const bannerObj = {};
         const data = this.newBannerData[i];
         bannerObj['customer'] = this.userType !== 'public';
-        bannerObj['dataFieldId'] = data['id'] || data['dataFieldId'];
-        bannerObj['datafieldType'] = data['type'] || data['datafieldType'];
+        bannerObj['dataFieldId'] = data['id'] || data['dataFieldId'];  
+        bannerObj['datafieldType'] = data['datafieldType'] || this.blocks.find((x) => x.apiName === data['type']).name;
         bannerObj['public'] = this.userType === 'public';
         bannerObj['sequenceNumber'] = data['sequenceNumber'];
 
