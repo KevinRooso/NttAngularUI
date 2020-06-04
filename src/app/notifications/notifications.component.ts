@@ -10,9 +10,19 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'Name', 'Email', 'roles', 'Status'];
+  displayedColumns: string[] = [
+    'seq',
+    'Name',
+    'Duration',
+    'categoryType',
+    'userType',
+    'templateName',
+    'template',
+    'isPublish',
+    'actionsColumn',
+  ];
   dataSource: any;
-  userTableData: any = [];
+  notificationTableData: any = [];
   roleData: any = [];
   uniqueData: any[] = [];
 
@@ -22,29 +32,22 @@ export class NotificationsComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
-    this.authService.getEmployeeUserList().subscribe((res) => {
+    this.authService.getNotificationList().subscribe((res) => {
       res.body.forEach((element, index) => {
-        let status = '';
-        if (element.isActive === true) {
-          status = 'Active';
-        }
-        if (element.isActive === false) {
-          status = 'Not Active';
-        }
-        if (element.isActive === null) {
-          status = 'Not Active';
-        }
         const obj = {
           seq: index + 1,
-          Name: element.fullName,
-          Email: element.email,
-          Status: status,
+          Name: element.displayName,
+          Duration: element.visibilityDurationInSec,
+          categoryType: element.categoryTypeId.name,
+          userType: element.targetUserType.name,
+          templateName: element.template.name,
+          template: element.template.template,
+          isPublish: element.template.publish,
           id: element.id,
-          roles: element.roles,
         };
-        this.userTableData.push(obj);
+        this.notificationTableData.push(obj);
       });
-      this.dataSource = new MatTableDataSource(this.userTableData);
+      this.dataSource = new MatTableDataSource(this.notificationTableData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

@@ -22,35 +22,59 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="seq">
-          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header><b>ID</b></th>
+          <th mat-header-cell *matHeaderCellDef width="7%" mat-sort-header>ID</th>
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
         <ng-container matColumnDef="Name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"><b>Name</b></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
           <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="Email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Display Name</b></th>
-          <td mat-cell *matCellDef="let row">{{ row.Email }}</td>
+        <ng-container matColumnDef="Duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+          <td mat-cell *matCellDef="let row">{{ row.Duration }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="roles">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header width="30%"><b>Visibility Duration</b></th>
+        <ng-container matColumnDef="categoryType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>categoryType</th>
+          <td mat-cell *matCellDef="let row">{{ row.categoryType }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="userType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>userType</th>
+          <td mat-cell *matCellDef="let row">{{ row.userType }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="templateName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>templateName</th>
+          <td mat-cell *matCellDef="let row">{{ row.templateName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="template">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>template</th>
+          <td mat-cell *matCellDef="let row" [innerHTML]="row.template"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="isPublish">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>isPublish</th>
+          <td mat-cell *matCellDef="let row">{{ row.isPublish }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actionsColumn">
+          <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
           <td mat-cell *matCellDef="let row">
-            <ng-container *ngFor="let role of row.roles"> {{ role.displayName }}, </ng-container>
+            <a><button class="btn assignee-button" [routerLink]="['notification-details', row.id]">View Details</button></a>
           </td>
         </ng-container>
-
-        <ng-container matColumnDef="Status">
+        <!-- <ng-container matColumnDef="Status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Notification Template</b></th>
           <td mat-cell *matCellDef="let row">
             <button [ngClass]="{ 'status-active': row.Status === 'Active', 'status-disable': row.Status === 'Not Active' }">
               {{ row.Status }}
             </button>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- <ng-container matColumnDef="actionsColumn">
           <th mat-header-cell *matHeaderCellDef><b>Action</b></th>

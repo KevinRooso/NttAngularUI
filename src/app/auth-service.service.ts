@@ -297,4 +297,10 @@ export class AuthServiceService {
   deleteProductAndServices(id): Observable<any> {
     return this.http.delete<any>(this.url + 'api/admin/productAndServices/testimonialUrl/' + id);
   }
+  getNotificationList(): Observable<any> {
+    return this.http.get<any>(this.url + 'notification');
+  }
+  saveNotification(obj): Observable<any> {
+    return this.http.post<any>(this.url + 'notification', obj);
+  }
 }

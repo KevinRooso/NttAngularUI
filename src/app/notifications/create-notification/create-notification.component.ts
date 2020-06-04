@@ -14,6 +14,8 @@ export class CreateNotificationComponent implements OnInit {
   createUserForm: FormGroup;
   checkError: any;
   submitted = false;
+  userList: any[] = [];
+  allData: any[] = [];
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -22,8 +24,14 @@ export class CreateNotificationComponent implements OnInit {
     private router: Router
   ) {
     this.createUserForm = this.frmbuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.maxLength(20)]],
+      name: ['', Validators.required],
+      displayName: ['', Validators.required],
+      visibilityDurationInSec: ['', Validators.required],
+      categoryTypeId: ['', Validators.required],
+      targetUserTypeId: ['', Validators.required],
+      templateName: ['', Validators.required],
+      templateDisplayName: ['', Validators.required],
+      notiTemplate: ['', Validators.required],
     });
   }
 
@@ -37,22 +45,45 @@ export class CreateNotificationComponent implements OnInit {
         return this.createUserForm.controls[controlName].hasError(errorName);
       }
     };
+    this.getUserList();
+    this.getCategoryDetails();
+  }
+  getUserList() {
+    this.authService.getUserList().subscribe((res) => {
+      this.userList = res.body;
+      // if (this.userList != null) {
+      //   this.userList = this.userList.filter((m) => {
+      //     return m.id !== 9;
+      //   });
+      // }
+    });
+  }
+  getCategoryDetails() {
+    this.authService.getCategoryList().subscribe((res) => {
+      this.allData = res.body;
+    });
   }
   createUser() {
     if (this.createUserForm.valid) {
       const obj = {
-        email: this.createUserForm.controls['email'].value,
         name: this.createUserForm.controls['name'].value,
-        username: this.createUserForm.controls['email'].value,
-        password: this.createUserForm.controls['email'].value,
-        userType: 9,
+        displayName: this.createUserForm.controls['displayName'].value,
+        visibilityDurationInSec: this.createUserForm.controls['visibilityDurationInSec'].value,
+        categoryTypeId: this.createUserForm.controls['categoryTypeId'].value,
+        targetUserTypeId: this.createUserForm.controls['targetUserTypeId'].value,
         id: 0,
+        template: {
+          name: this.createUserForm.controls['templateName'].value,
+          displayName: this.createUserForm.controls['templateDisplayName'].value,
+          template: this.createUserForm.controls['notiTemplate'].value,
+          id: 0,
+        },
       };
-      this.authService.saveUser(obj).subscribe(
+      this.authService.saveNotification(obj).subscribe(
         (_response) => {
-          this.snackBar.open('User successfully created', 'Close', { duration: 5000 });
+          this.snackBar.open('Notification successfully created', 'Close', { duration: 5000 });
           this.submitted = false;
-          this.router.navigate(['user-management/user']);
+          this.router.navigate(['notifications']);
         },
         (_error) => {
           this.snackBar.open('Oops, Something went wrong', 'Close', {
