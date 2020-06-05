@@ -1,1 +1,103 @@
-<p>edit-notification works!</p>
+<!-- <app-loader *ngIf="show"></app-loader> -->
+<div class="container">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="/home">Home</a></li>
+      <li><a (click)="BackMe()">Notifications</a></li>
+      <li><a class="active">Update Notifications</a></li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 py-4">
+      <div class="text-center">
+        <p class="heading-secondary">Update Notifications</p>
+      </div>
+      <form [formGroup]="updateNotificationForm">
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification Name<span class="error">*</span> </label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Notification Name" formControlName="name" />
+            <mat-error *ngIf="checkError('name', 'required')">(Notification Name is required)</mat-error>
+            <!-- <mat-error *ngIf="checkError('name', 'maxlength')">(Notification Name should be upto 100 characters)</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification DisplayName<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Notification DisplayName" formControlName="displayName" />
+            <mat-error *ngIf="checkError('displayName', 'required')">(Notification DisplayName is required)</mat-error>
+            <!-- <mat-error *ngIf="checkError('displayName', 'email')">(Notification DisplayName should be upto 200 characters)</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification Visibility Duration<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Notification Visibility Duration" formControlName="visibilityDurationInSec" />
+            <mat-error *ngIf="checkError('visibilityDurationInSec', 'required')">(Notification Visibility Duration is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Select Category</label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="categoryTypeId">
+              <mat-option value="0">None</mat-option>
+              <mat-option *ngFor="let category of allData" [value]="category.id">
+                {{ category.name | removehyphens | removeunderscore | titlecase }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <mat-label>Targeted User</mat-label>
+            <mat-select formControlName="targetUserTypeId" [(value)]="selected3">
+              <mat-option *ngFor="let user of userList" [value]="user.id">
+                {{ user.displayName }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserTypeId', 'required')">(Target user type is required)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Template Name<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Template Name" formControlName="templateName" />
+            <mat-error *ngIf="checkError('templateName', 'required')">(Template Name is required)</mat-error>
+            <!-- <mat-error *ngIf="checkError('displayName', 'email')">(Notification DisplayName should be upto 200 characters)</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Template Display Name<span class="error">*</span></label>
+          <mat-form-field class="example-full-width col-sm-9">
+            <input matInput placeholder="Template Display Name" formControlName="templateDisplayName" />
+            <mat-error *ngIf="checkError('templateDisplayName', 'required')">(Email is required)</mat-error>
+            <!-- <mat-error *ngIf="checkError('templateDisplayName', 'email')">(Enter a valid email)</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Notification Template<span class="error">*</span></label>
+          <ckeditor placeholder="Description..." formControlName="notiTemplate" class="example-full-width col-sm-9 p-0"></ckeditor>
+          <div *ngIf="checkError('notiTemplate', 'required', true)" style="color: red; font-size: 12px;">
+            (Notification Template is required)
+          </div>
+        </div>
+
+        <div class="col-sm-12 text-right">
+          <button class="btn button-1 action-good" (click)="createUser()">Submit Details</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

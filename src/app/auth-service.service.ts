@@ -303,4 +303,7 @@ export class AuthServiceService {
   saveNotification(obj): Observable<any> {
     return this.http.post<any>(this.url + 'notification', obj);
   }
+  geNotificationDetails(id): Observable<any> {
+    return this.http.get<any>(this.url + 'notification?id=' + id);
+  }
 }
