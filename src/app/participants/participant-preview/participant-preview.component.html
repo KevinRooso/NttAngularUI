@@ -9,9 +9,21 @@
   <div class="text-center">
     <p class="heading-secondary">{{ eName }}</p>
   </div>
-  <div class="container">
+  <div class="container my-4">
     <div class="row justify-content-start pb-4">
-      <a> <button type="button" [routerLink]="['participant-add',0,'xyz']" class="btn button-1 action-good">Add Participant</button></a>
+      <span class="mx-2">
+        <a> <button type="button" [routerLink]="['participant-add', 0, 'xyz']" class="btn button-1 action-good">Add Participant</button></a>
+      </span>
+      <span class="mx-2">
+        <button type="button" (click)="approveBulk()" [disabled]="bulkIdArr.length == 0" class="btn button-1 action-good">
+          Approve {{ bulkIdArr.length }} Participant
+        </button>
+      </span>
+      <span class="mx-2">
+        <button type="button" (click)="rejectBulk()" [disabled]="bulkIdArr.length == 0" class="btn button-1 action-good">
+          Reject {{ bulkIdArr.length }} Participant
+        </button>
+      </span>
     </div>
 
     <div class="row bg-white py-3 panel">
@@ -46,5 +58,27 @@
   </tbody>
 </table> -->
     <!-- <table id="datatables" #datatable  class="row-border hover"></table> -->
+  </div>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isActive">Do you want to Approve Participant</p>
+        <p *ngIf="!isActive">Do you want to Reject Participant</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeApprove(isActive)">Yes</button>
+      </div>
+    </div>
   </div>
 </div>
