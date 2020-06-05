@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,21 +43,21 @@ export class CreateFormComponent implements OnInit {
   bradArray: any[] = [];
   changeFlag = false;
   pageTitle: string;
-  craeteUrlForm:FormGroup;
-  urlArray:any[]=[];
-  globalUrl:any=null;
-  index=-1;
-  deleteIndex=-1;
-  deleteId:any;
+  craeteUrlForm: FormGroup;
+  urlArray: any[] = [];
+  globalUrl: any = null;
+  index = -1;
+  deleteIndex = -1;
+  deleteId: any;
   @ViewChild('closedeleteModal', { static: true }) closedeleteModal;
   @ViewChild('closeModelUrl', { static: true }) closeModelUrl;
   @ViewChild('addUrl', { static: true }) addUrl;
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
-      displayName: ['', Validators.required],
+      displayName: ['', [Validators.required, Validators.maxLength(30)]],
       isCategory: [false],
       detail: [''],
-      shortInformation: ['', Validators.required],
+      shortInformation: ['', [Validators.required, Validators.maxLength(40)]],
       implementation: [''],
       productBenefits: [''],
       differentiator: [''],
@@ -65,7 +65,7 @@ export class CreateFormComponent implements OnInit {
       thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg|JPG|PNG|JPEG)$')]],
     });
     this.craeteUrlForm = this.formBuilder.group({
-      testimonialUrl: ['', [Validators.required,Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+      testimonialUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -107,7 +107,7 @@ export class CreateFormComponent implements OnInit {
           this.productServicesForm.controls['shortInformation'].setValue(this.editData.shortInformation);
           this.productServicesForm.controls['productBenefits'].setValue(this.editData.productBenefits);
           this.productServicesForm.controls['differentiator'].setValue(this.editData.differentiator);
-          this.urlArray=this.editData.testimonialUrl;
+          this.urlArray = this.editData.testimonialUrl;
           this.changeFlag = this.editData.isLastService;
           this.previewUrl = this.editData.thumbnailImageUrl;
           this.articleImage = this.editData.thumbnailImageUrl;
@@ -125,8 +125,10 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png'
-    || fileType.toLowerCase() === 'image/jpg') && fileSize < 300000)  {
+    if (
+      (fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png' || fileType.toLowerCase() === 'image/jpg') &&
+      fileSize < 300000
+    ) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -160,8 +162,10 @@ export class CreateFormComponent implements OnInit {
     img.src = window.URL.createObjectURL(this.fileData);
     const fileType = this.fileData.type;
     const fileSize = this.fileData.size;
-    if ((fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png'
-    || fileType.toLowerCase() === 'image/jpg') && fileSize < 300000) {
+    if (
+      (fileType.toLowerCase() === 'image/jpeg' || fileType.toLowerCase() === 'image/png' || fileType.toLowerCase() === 'image/jpg') &&
+      fileSize < 300000
+    ) {
       this.imageValid = true;
     }
     const reader = new FileReader();
@@ -269,8 +273,8 @@ export class CreateFormComponent implements OnInit {
       }
       formObject.parentId = this.parentId;
       formObject.isLastService = this.changeFlag;
-      formObject.testimonialUrl=this.urlArray;
-     this.show = true;
+      formObject.testimonialUrl = this.urlArray;
+      this.show = true;
       this.authService.createProductAndService(formObject).subscribe(
         (_res) => {
           this.snackBar.open('Success !!', 'Close', {
@@ -308,55 +312,52 @@ export class CreateFormComponent implements OnInit {
     };
     this.router.navigate(['cloud-service'], navigationExtras);
   }
-  createUrl(){
-    if(this.craeteUrlForm.valid){
-    const obj={
-      url:this.craeteUrlForm.controls['testimonialUrl'].value
-    }
-    if(this.index!==-1){
-      const newArr=this.urlArray;
-      this.urlArray=[];
-      newArr.forEach((m,i)=>{
-        if(i===this.index){
-          m.url=this.craeteUrlForm.controls['testimonialUrl'].value;
-          this.urlArray.push(m);
-        }
-        else{
-          this.urlArray.push(m);
-        }
-      })
-    }
-    else{
+  createUrl() {
+    if (this.craeteUrlForm.valid) {
+      const obj = {
+        url: this.craeteUrlForm.controls['testimonialUrl'].value,
+      };
+      if (this.index !== -1) {
+        const newArr = this.urlArray;
+        this.urlArray = [];
+        newArr.forEach((m, i) => {
+          if (i === this.index) {
+            m.url = this.craeteUrlForm.controls['testimonialUrl'].value;
+            this.urlArray.push(m);
+          } else {
+            this.urlArray.push(m);
+          }
+        });
+      } else {
         this.urlArray.push(obj);
-    }
-    this.index=-1;
-    this.globalUrl=null;
+      }
+      this.index = -1;
+      this.globalUrl = null;
 
-    this.closeModelUrl.nativeElement.click();
+      this.closeModelUrl.nativeElement.click();
+    }
   }
+  editUrl(data, i) {
+    this.craeteUrlForm.controls['testimonialUrl'].setValue(data.url);
+    this.globalUrl = data;
+    this.index = i;
   }
-  editUrl(data,i){
-  this.craeteUrlForm.controls['testimonialUrl'].setValue(data.url);
-  this.globalUrl=data;
-  this.index=i;
-  }
-  cleanUrl(){
+  cleanUrl() {
     this.craeteUrlForm.controls['testimonialUrl'].setValue('');
   }
-  getDeleteId(data,i){
-    this.deleteId=data.id;
-    this.deleteIndex=i;
+  getDeleteId(data, i) {
+    this.deleteId = data.id;
+    this.deleteIndex = i;
   }
-  deleteConfirm(){
-    if(this.deleteId){
-      this.authService.deleteProductAndServices(this.deleteId).subscribe(_res=>{
-        this.urlArray=this.urlArray.filter((_m,i)=>i !== this.deleteIndex)
+  deleteConfirm() {
+    if (this.deleteId) {
+      this.authService.deleteProductAndServices(this.deleteId).subscribe((_res) => {
+        this.urlArray = this.urlArray.filter((_m, i) => i !== this.deleteIndex);
         this.closedeleteModal.nativeElement.click();
-      })
+      });
+    } else {
+      this.urlArray = this.urlArray.filter((_m, i) => i !== this.deleteIndex);
+      this.closedeleteModal.nativeElement.click();
     }
-    else{
-    this.urlArray=this.urlArray.filter((_m,i)=>i !== this.deleteIndex)
-    this.closedeleteModal.nativeElement.click();
-  }
   }
 }

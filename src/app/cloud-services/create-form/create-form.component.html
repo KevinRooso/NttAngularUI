@@ -26,6 +26,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="displayName" value="" />
             <mat-error *ngIf="checkError('displayName', 'required')">(Title is required)</mat-error>
+            <mat-error *ngIf="checkError('displayName', 'maxlength')">(Title should be upto 30 characters)</mat-error>
           </mat-form-field>
         </div>
 
@@ -33,7 +34,8 @@
           <label class="col-sm-3 col-form-label">Description <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Description" formControlName="shortInformation" value="" />
-            <mat-error *ngIf="checkError('shortInformation', 'required')">(Name is required)</mat-error>
+            <mat-error *ngIf="checkError('shortInformation', 'required')">(Description is required)</mat-error>
+            <mat-error *ngIf="checkError('shortInformation', 'maxlength')">(Description should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
 
