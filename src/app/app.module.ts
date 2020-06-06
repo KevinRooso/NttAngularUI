@@ -120,6 +120,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { CreateNotificationComponent } from './notifications/create-notification/create-notification.component';
 import { DetailNotificationComponent } from './notifications/detail-notification/detail-notification.component';
 import { EditNotificationComponent } from './notifications/edit-notification/edit-notification.component';
+import { ParticipantsPreviewComponent } from './participants/participants-preview/participants-preview.component';
 
 @NgModule({
   declarations: [
@@ -202,6 +203,7 @@ import { EditNotificationComponent } from './notifications/edit-notification/edi
     CreateNotificationComponent,
     DetailNotificationComponent,
     EditNotificationComponent,
+    ParticipantsPreviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,187 @@
+<app-loader *ngIf="show"></app-loader>
+<div class="container">
+  <div>
+    <ul class="breadcrumb pl-0">
+      <li><a href="/home">Home</a></li>
+      <li><a class="active">Participants</a></li>
+      <!-- <li><a class="active">Joinee Data</a></li> -->
+    </ul>
+  </div>
+</div>
+<div class="text-center">
+  <p class="heading-secondary">{{ eName }}</p>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col mt-2">
+      <span class="mx-2">
+        <a> <button type="button" [routerLink]="['participant-add', 0, 'xyz']" class="btn button-1 action-good">Add Participant</button></a>
+      </span>
+      <span class="mx-2">
+        <button
+          type="button"
+          href="#bulkModal"
+          data-toggle="modal"
+          (click)="approveBulk(true)"
+          [disabled]="bulkIdArr.length == 0"
+          class="btn button-1 action-good"
+        >
+          Approve {{ bulkIdArr.length }} Participant
+        </button>
+      </span>
+      <span class="mx-2">
+        <button
+          type="button"
+          href="#bulkModal"
+          data-toggle="modal"
+          (click)="approveBulk(false)"
+          [disabled]="bulkIdArr.length == 0"
+          class="btn button-1 action-good"
+        >
+          Reject {{ bulkIdArr.length }} Participant
+        </button>
+      </span>
+    </div>
+    <div class="col text-right">
+      <mat-form-field class="w-50">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <section class="section-tours">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="Select">
+          <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header disabled>
+            <mat-checkbox [(ngModel)]="allChecked" (change)="selectAll($event)"></mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.approverId != null; else bulkCheck"> - </span>
+            <ng-template #bulkCheck>
+              <mat-checkbox [(ngModel)]="row.checked" [value]="row.id" (change)="bulkId($event)"></mat-checkbox>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eventName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Event Name</b></th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="eName == 'List of all Participants'; else EveName"> {{ row.eventName }} </span>
+            <ng-template #EveName>
+              {{ eName }}
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="20%"><b>Name</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="25%"><b>Email</b></th>
+          <td mat-cell *matCellDef="let row">
+            <a class="nostyle" [routerLink]="['/participants/participant-details', row.id, 'xyz']">{{ row.email }}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="15%"><b>Phone Number</b></th>
+          <td mat-cell *matCellDef="let row">{{ row.phoneNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actionStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disabled><b>Status</b></th>
+          <td mat-cell *matCellDef="let row">
+            <span class="badge" *ngIf="row.approverId == null; else showStatus"> Pending </span>
+            <ng-template #showStatus>
+              <span class="badge"> {{ row.actionStatus }} </span>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disabled><b>Action</b></th>
+          <td mat-cell *matCellDef="let row">
+            <ng-container *ngIf="row.approverId == null; else regStatus">
+              <div class="mydiv" style="width: 100px;">
+                <span
+                  class="btn btn-success approve"
+                  (click)="toggleActive(true, row.id)"
+                  style="cursor: pointer; font-size: 10px;"
+                  href="#myModal"
+                  data-toggle="modal"
+                >
+                  <i class="fa fa-check" style="font-size: 1rem;"></i> </span
+                >&nbsp;
+                <span
+                  class="btn btn-danger reject"
+                  (click)="toggleActive(false, row.id)"
+                  style="cursor: pointer; font-size: 10px;"
+                  href="#myModal"
+                  data-toggle="modal"
+                >
+                  <i class="fa fa-close" style="font-size: 1rem;"></i>
+                </span>
+              </div>
+            </ng-container>
+            <ng-template #regStatus>
+              {{ row.actionStatus }}
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </section>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isActive">Do you want to Approve Participant</p>
+        <p *ngIf="!isActive">Do you want to Reject Participant</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeApprove(isActive)">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="bulkModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <button type="button" class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isActive">Do you want to Approve {{ bulkIdArr.length }} Participants</p>
+        <p *ngIf="!isActive">Do you want to Reject {{ bulkIdArr.length }} Participants</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="bulkApprove(isActive)">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -118,6 +118,9 @@ export class AuthServiceService {
   saveParticipentnonEvent(id, obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/admin/addOn/participant/list/event/' + id, obj);
   }
+  bulkApproveParticipant(obj, flag): Observable<any> {
+    return this.http.post<any>(this.url + 'api/admin/participants/approve/' + flag, obj);
+  }
 
   // Whitepapers Apis
   getAllWhitepaper(): Observable<any> {
