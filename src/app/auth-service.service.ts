@@ -309,4 +309,7 @@ export class AuthServiceService {
   geNotificationDetails(id): Observable<any> {
     return this.http.get<any>(this.url + 'notification?id=' + id);
   }
+  approveNotifications(id, status): Observable<any> {
+    return this.http.post<any>(this.url + 'approveNotification/' + id + '?status=' + status, null);
+  }
 }

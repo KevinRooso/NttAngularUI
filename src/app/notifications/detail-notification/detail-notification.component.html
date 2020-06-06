@@ -15,7 +15,8 @@
         <div class="panel-body p-3">
           <div class="col d-flex">
             <label style="font-size: 15px; font-weight: 500;">Update Status : </label>
-            <mat-slide-toggle class="example-full-width col-sm-3" href="#myModal" data-toggle="modal"> </mat-slide-toggle>
+            <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="status" href="#myModal" data-toggle="modal">
+            </mat-slide-toggle>
           </div>
           <div class="row">
             <div class="col-sm-12 py-3">

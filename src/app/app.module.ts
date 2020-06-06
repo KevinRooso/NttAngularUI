@@ -46,6 +46,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 import { ViewParticipantsComponent } from './participants/view-participants/view-participants.component';
 import { CreateParticipantsComponent } from './participants/create-participants/create-participants.component';
@@ -243,6 +244,7 @@ import { ParticipantsPreviewComponent } from './participants/participants-previe
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
+    MatTableExporterModule,
   ],
   providers: [
     HttpClientModule,

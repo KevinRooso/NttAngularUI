@@ -10,10 +10,17 @@
 <div class="container">
   <div class="row">
     <div class="col mt-2">
-      <select class="form-control" style="width: 50%; float: left;" (change)="applyFilter($event)">
+      <select class="form-control" style="width: 54%; float: left;" (change)="applyFilter($event)">
         <option value="resource">Please Select Resource Type</option>
         <option *ngFor="let type of uniqueData">{{ type }}</option>
       </select>
+    </div>
+    <div class="col-2 text-left pt-2">
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+      <mat-menu #beforeMenu="matMenu" xPosition="after">
+        <button mat-menu-item (click)="exporter.exportTable('csv')">Export as CSV</button>
+        <button mat-menu-item (click)="exporter.exportTable('xlsx')">Export as XLSX</button>
+      </mat-menu>
     </div>
     <div class="col text-right">
       <mat-form-field class="w-50">
@@ -25,7 +32,7 @@
 
   <section class="section-tours">
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
         <ng-container matColumnDef="seq">
           <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header><b>S.No.</b></th>
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>

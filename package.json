@@ -50,6 +50,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
+    "mat-table-exporter": "^9.0.2",
     "ng-pick-datetime": "^7.0.0",
     "ng2-ckeditor": "^1.2.7",
     "rollbar": "^2.15.1",

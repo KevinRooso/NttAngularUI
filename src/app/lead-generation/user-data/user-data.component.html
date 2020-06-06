@@ -9,7 +9,14 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col text-right">
+    <div class="col-2 text-left pt-2">
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+      <mat-menu #beforeMenu="matMenu" xPosition="after">
+        <button mat-menu-item (click)="exporter.exportTable('csv')">Export as CSV</button>
+        <button mat-menu-item (click)="exporter.exportTable('xlsx')">Export as XLSX</button>
+      </mat-menu>
+    </div>
+    <div class="col-10 text-right">
       <mat-form-field class="w-25">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
@@ -18,7 +25,7 @@
   </div>
   <section class="section-tours">
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+      <table mat-table matTableExporter [dataSource]="dataSource" multiTemplateDataRows matSort #exporter="matTableExporter">
         <ng-container matColumnDef="{{ column }}" *ngFor="let column of columnsToDisplay">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             <b>{{ column }}</b>
