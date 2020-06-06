@@ -1,3 +1,15 @@
-p {
-  color: inherit;
+input.ng-invalid.ng-touched {
+  border-color: red !important;
+}
+
+.form-row {
+  padding: 1rem 1rem;
+}
+
+.min-width {
+  min-width: 28.6%;
+}
+
+.error {
+  color: red;
 }

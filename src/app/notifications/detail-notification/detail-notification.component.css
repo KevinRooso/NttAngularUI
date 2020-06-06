@@ -1,3 +1,136 @@
-p {
-  color: inherit;
+.table-user-information > tbody > tr {
+  border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+  border-top: 0;
+}
+
+.table-user-information > tbody > tr > td {
+  border-top: 0;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.table-user-information > tbody > tr > td:nth-child(1) {
+  font-weight: 500;
+  width: 24.4%;
+}
+
+.table-user-information > tbody > tr > td:nth-child(3) {
+  font-weight: 500;
+  width: 24.4%;
+}
+
+/* .btn {
+  background: #2c98de;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.275);
+  color: #fff;
+  font-size: 1.5em;
+  height: 50px;
+  left: 90%;
+  outline: none;
+  position: absolute;
+  top: 2%;
+  width: 50px;
+  z-index: 1;
+}
+
+.btn:hover {
+  background: #324da1;
+} */
+.edit .btn {
+  background: #03c;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.275);
+  color: #fff;
+  font-size: 1.5em;
+  height: 50px;
+  left: 93%;
+  outline: none;
+  position: absolute;
+  top: 3%;
+  width: 50px;
+  z-index: 1;
+}
+
+.edit .btn:hover {
+  background: #324da1;
+}
+
+.modal-confirm {
+  color: #636363;
+  width: 400px;
+}
+
+.modal-confirm .modal-content {
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-confirm h4 {
+  font-size: 26px;
+  margin: 30px 0 -10px;
+  text-align: center;
+}
+
+.modal-confirm .close {
+  position: absolute;
+  right: -25px;
+  top: -25px;
+}
+
+.modal-confirm .modal-body {
+  color: #999;
+}
+
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+
+.modal-confirm .btn-info {
+  background: #c1c1c1;
+}
+
+.modal-confirm .btn-info:hover,
+.modal-confirm .btn-info:focus {
+  background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover,
+.modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}
+
+.modal-remove {
+  background: #fff;
+  border: 2px solid #e3e3e3;
+  border-radius: 50%;
+  font-size: 30px;
+  height: 50px;
+  opacity: 1;
+  width: 50px;
+  z-index: 999;
+}
+
+.close:hover {
+  box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.7);
+  opacity: 1 !important;
 }
