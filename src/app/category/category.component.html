@@ -22,11 +22,6 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="row text-right">
-      <div class="col mb-4">
-        <button class="btn button-1 action-good" (click)="exportAsExcel()">Export as XLXS</button>
-      </div>
-    </div>
     <div class="mat-elevation-z8" #TABLE>
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="seq">
