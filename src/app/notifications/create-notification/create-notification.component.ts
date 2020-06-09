@@ -25,12 +25,10 @@ export class CreateNotificationComponent implements OnInit {
   ) {
     this.createUserForm = this.frmbuilder.group({
       name: ['', Validators.required],
-      displayName: ['', Validators.required],
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: ['', Validators.required],
       targetUserTypeId: ['', Validators.required],
       templateName: ['', Validators.required],
-      templateDisplayName: ['', Validators.required],
       notiTemplate: ['', Validators.required],
     });
   }
@@ -51,11 +49,16 @@ export class CreateNotificationComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      // if (this.userList != null) {
-      //   this.userList = this.userList.filter((m) => {
-      //     return m.id !== 9;
-      //   });
-      // }
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 9;
+        });
+      }
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 10;
+        });
+      }
     });
   }
   getCategoryDetails() {
@@ -67,14 +70,12 @@ export class CreateNotificationComponent implements OnInit {
     if (this.createUserForm.valid) {
       const obj = {
         name: this.createUserForm.controls['name'].value,
-        displayName: this.createUserForm.controls['displayName'].value,
         visibilityDurationInSec: this.createUserForm.controls['visibilityDurationInSec'].value,
         categoryTypeId: this.createUserForm.controls['categoryTypeId'].value,
         targetUserTypeId: this.createUserForm.controls['targetUserTypeId'].value,
         id: 0,
         template: {
           name: this.createUserForm.controls['templateName'].value,
-          displayName: this.createUserForm.controls['templateDisplayName'].value,
           template: this.createUserForm.controls['notiTemplate'].value,
           id: 0,
         },

@@ -32,28 +32,23 @@
         </ng-container>
 
         <ng-container matColumnDef="Duration">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Time</th>
           <td mat-cell *matCellDef="let row">{{ row.Duration }}</td>
         </ng-container>
 
         <ng-container matColumnDef="categoryType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>categoryType</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Notification Category</th>
           <td mat-cell *matCellDef="let row">{{ row.categoryType }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="userType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>userType</th>
+        <!-- <ng-container matColumnDef="userType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User Type</th>
           <td mat-cell *matCellDef="let row">{{ row.userType }}</td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="templateName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>templateName</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Template Name</th>
           <td mat-cell *matCellDef="let row">{{ row.templateName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="template">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>template</th>
-          <td mat-cell *matCellDef="let row" [innerHTML]="row.template"></td>
         </ng-container>
 
         <ng-container matColumnDef="isPublish">

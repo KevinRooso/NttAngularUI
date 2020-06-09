@@ -10,17 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  displayedColumns: string[] = [
-    'seq',
-    'Name',
-    'Duration',
-    'categoryType',
-    'userType',
-    'templateName',
-    'template',
-    'isPublish',
-    'actionsColumn',
-  ];
+  displayedColumns: string[] = ['seq', 'Name', 'Duration', 'categoryType', 'templateName', 'isPublish', 'actionsColumn'];
   dataSource: any;
   notificationTableData: any = [];
   roleData: any = [];
@@ -36,7 +26,7 @@ export class NotificationsComponent implements OnInit {
       res.body.forEach((element, index) => {
         const obj = {
           seq: index + 1,
-          Name: element.displayName,
+          Name: element.name,
           Duration: element.visibilityDurationInSec,
           categoryType: element.categoryTypeId.name,
           userType: element.targetUserType.name,
