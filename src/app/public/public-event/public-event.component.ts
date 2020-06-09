@@ -16,11 +16,13 @@ export class PublicEventComponent implements OnInit {
   getEventDetails: any = [];
   // htmlString = '<h1>Dheeraj Kishore<h1>';
   eventName;
+  flag = false;
   startTime = '';
   endTime = '';
   show = false;
   speakers: any[] = [];
   speakerList: any[] = [];
+  flag2 = false;
   getEventStatusdata: any;
   @ViewChild('menumat') trigger: MatMenuTrigger;
 
@@ -30,9 +32,14 @@ export class PublicEventComponent implements OnInit {
   // isActive = false;
   ngOnInit(): void {
     this.router1.queryParams.subscribe((params) => {
-      const eventURL = decodeURIComponent(params.eventJson);
-      this.eventObj = JSON.parse(eventURL);
-      this.getEventData();
+      if (params.hasOwnProperty('eventJson')) {
+        const eventURL = decodeURIComponent(params.eventJson);
+        this.eventObj = JSON.parse(eventURL);
+        this.getEventData();
+        this.flag = true;
+      } else {
+        this.flag2 = true;
+      }
       // this.getEventStatus();
     });
   }

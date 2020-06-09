@@ -13,7 +13,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col mt-2">
+    <div class="col-md-8 mt-2">
       <span class="mx-2">
         <a> <button type="button" [routerLink]="['participant-add', 0, 'xyz']" class="btn button-1 action-good">Add Participant</button></a>
       </span>
@@ -42,8 +42,8 @@
         </button>
       </span>
     </div>
-    <div class="col text-right">
-      <mat-form-field class="w-50">
+    <div class="col-md-4 text-right">
+      <mat-form-field class="w-75">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
       </mat-form-field>
