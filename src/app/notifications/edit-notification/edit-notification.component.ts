@@ -59,11 +59,16 @@ export class EditNotificationComponent implements OnInit {
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
       this.userList = res.body;
-      // if (this.userList != null) {
-      //   this.userList = this.userList.filter((m) => {
-      //     return m.id !== 9;
-      //   });
-      // }
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 9;
+        });
+      }
+      if (this.userList != null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 10;
+        });
+      }
     });
   }
   getCategoryDetails() {
@@ -76,16 +81,16 @@ export class EditNotificationComponent implements OnInit {
       this.notificationData = res.body;
       this.tempId = res.body.template.id;
       this.selected3 = res.body.targetUserType.id;
-      this.updateNotificationForm.controls['name'].setValue(this.notificationData.name);
-      this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
-      this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.name);
-      this.updateNotificationForm.controls['notiTemplate'].setValue(this.notificationData.template.template);
       if (this.notificationData.categoryTypeId !== null) {
         this.updateNotificationForm.controls['categoryTypeId'].setValue(this.notificationData.categoryTypeId.id);
       }
       this.updateNotificationForm.controls['targetUserTypeId'].setValidators(null);
       this.updateNotificationForm.controls['targetUserTypeId'].updateValueAndValidity();
       this.updateNotificationForm.controls['targetUserTypeId'].setValue(this.notificationData.targetUserType.id);
+      this.updateNotificationForm.controls['name'].setValue(this.notificationData.name);
+      this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
+      this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.name);
+      this.updateNotificationForm.controls['notiTemplate'].setValue(this.notificationData.template.template);
     });
   }
   createUser() {
