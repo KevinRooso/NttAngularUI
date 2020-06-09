@@ -864,15 +864,21 @@ export class EventEditComponent implements OnInit {
   delete(i, data) {
     this.valuei = i;
     this.valueData = data;
-    this.confirmBox.nativeElement.click();
+    // this.confirmBox.nativeElement.click();
   }
 
   deleteConfirm() {
-    this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+    if (this.valueData.idData === '-1') {
       this.agendaData.splice(this.valuei, 1);
       this.closeModal2.nativeElement.click();
       this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
-    });
+    } else {
+      this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+        this.agendaData.splice(this.valuei, 1);
+        this.closeModal2.nativeElement.click();
+        this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
+      });
+    }
   }
 
   updateAgenda(i) {

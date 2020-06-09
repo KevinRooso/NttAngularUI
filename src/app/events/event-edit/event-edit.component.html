@@ -318,8 +318,8 @@
                         <i class="fa fa-pencil" style="font-size: 1rem; color: white;"></i>
                       </span>
                     </button>
-                    <button class="btn btn-danger reject mr-2" href="#myModal" data-toggle="modal" #confirmBox>
-                      <span style="cursor: default; font-size: 10px;" (click)="delete(i, data)">
+                    <button class="btn btn-danger reject mr-2" (click)="delete(i, data)" href="#myModal" data-toggle="modal" #confirmBox>
+                      <span style="cursor: default; font-size: 10px;">
                         <i class="fa fa-trash" style="font-size: 1rem;"></i>
                       </span>
                     </button>
