@@ -11,7 +11,6 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { WhitepapersComponent } from './whitepapers/whitepapers.component';
 import { EventPreviewComponent } from './events/event-preview/event-preview.component';
 import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
-// import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
 import { SpeakerDetailsComponent } from './speakers/speaker-details/speaker-details.component';
@@ -469,17 +468,6 @@ const routes: Routes = [
         component: ParticipantsPreviewComponent,
         canActivate: [AuthguardServiceService],
       },
-      // {
-      //   path: 'mat',
-      //   component: ParticipantsPreviewComponent,
-      //   canActivate: [AuthguardServiceService],
-      // },
-      // {
-      //   path: 'mat/:page/:name',
-      //   pathMatch: 'full',
-      //   component: ParticipantsPreviewComponent,
-      //   canActivate: [AuthguardServiceService],
-      // },
       {
         path: 'participant-details/:page/:name',
         pathMatch: 'full',

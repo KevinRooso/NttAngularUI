@@ -21,6 +21,7 @@ export class ParticipantsPreviewComponent implements OnInit {
   bulkIdArr: any[] = [];
   isActive: boolean;
   show = false;
+  url: any;
   allChecked = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -32,19 +33,20 @@ export class ParticipantsPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.queryString.params.subscribe((params) => {
       $.fn.dataTable.ext.errMode = 'none';
-      let url;
       if (params.page === undefined) {
-        url = 'all';
+        this.url = 'all';
       } else {
         this.eName = 'Event: ' + params.name;
-        url = params.page;
+        this.url = params.page;
       }
 
-      this.getTableData(url);
+      this.getTableData(this.url);
     });
   }
 
   getTableData(url) {
+    this.counter = 0;
+    this.show = true;
     if (url === 'all') {
       this.authService.getAllParticipants().subscribe((res) => {
         this.refreshData = res.body;
@@ -64,6 +66,7 @@ export class ParticipantsPreviewComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.refreshData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.show = false;
       });
     } else {
       this.authService.getParticipant(url).subscribe((res) => {
@@ -84,6 +87,7 @@ export class ParticipantsPreviewComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.refreshData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.show = false;
       });
     }
   }
@@ -210,8 +214,10 @@ export class ParticipantsPreviewComponent implements OnInit {
       this.authService.bulkApproveParticipant(this.bulkIdArr, true).subscribe(
         (_res) => {
           this.counter = this.counter - this.bulkIdArr.length;
+          this.allChecked = false;
           this.snackBar.open('All Approved!!', 'Close', { duration: 5000 });
-          this.show = false;
+          this.getTableData(this.url);
+          this.bulkIdArr = [];
         },
         (_error) => {
           this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
@@ -224,8 +230,10 @@ export class ParticipantsPreviewComponent implements OnInit {
       this.authService.bulkApproveParticipant(this.bulkIdArr, false).subscribe(
         (_res) => {
           this.counter = this.counter - this.bulkIdArr.length;
+          this.allChecked = false;
           this.snackBar.open('Rejected!!', 'Close', { duration: 5000 });
-          this.show = false;
+          this.getTableData(this.url);
+          this.bulkIdArr = [];
         },
         (_error) => {
           this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });

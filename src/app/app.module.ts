@@ -20,7 +20,6 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakersPreviewComponent } from './speakers/speakers-preview/speakers-preview.component';
-import { ParticipantPreviewComponent } from './participants/participant-preview/participant-preview.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpeakerCreateComponent } from './speakers/speaker-create/speaker-create.component';
 import { SpeakerEditComponent } from './speakers/speaker-edit/speaker-edit.component';
@@ -140,7 +139,6 @@ import { ParticipantsPreviewComponent } from './participants/participants-previe
     TestimonialsComponent,
     WhitepapersComponent,
     SpeakersPreviewComponent,
-    ParticipantPreviewComponent,
     SpeakerCreateComponent,
     SpeakerEditComponent,
     SpeakerDetailsComponent,

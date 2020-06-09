@@ -55,7 +55,7 @@
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="Select">
           <th mat-header-cell *matHeaderCellDef width="10%" mat-sort-header disabled>
-            <mat-checkbox [(ngModel)]="allChecked" (change)="selectAll($event)"></mat-checkbox>
+            <mat-checkbox [(ngModel)]="allChecked" (change)="selectAll($event)" [disabled]="counter == 0"></mat-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
             <span *ngIf="row.approverId != null; else bulkCheck"> - </span>
