@@ -13,8 +13,12 @@
       <div class="col-2 text-left pt-2">
         <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
         <mat-menu #beforeMenu="matMenu" xPosition="after">
-          <button mat-menu-item (click)="exporter.exportTable('csv')">Export as CSV</button>
-          <button mat-menu-item (click)="exporter.exportTable('xlsx')">Export as XLSX</button>
+          <button mat-menu-item (click)="exporter.exportTable('csv', { fileName: 'Download_Invitees_List', sheet: 'Sheet' })">
+            Export as CSV
+          </button>
+          <button mat-menu-item (click)="exporter.exportTable('xlsx', { fileName: 'Download_Invitees_List', sheet: 'Sheet' })">
+            Export as XLSX
+          </button>
         </mat-menu>
       </div>
       <div class="col-10 text-right">
