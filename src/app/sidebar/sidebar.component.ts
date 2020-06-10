@@ -23,6 +23,8 @@ export class SidebarComponent implements OnInit {
       });
       if (this.userType.id === 10) {
         this.flag = true;
+      } else {
+        this.flag = false;
       }
     });
   }
