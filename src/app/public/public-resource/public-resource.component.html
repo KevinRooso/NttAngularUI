@@ -1,20 +1,26 @@
-<p>Public Resource Works</p>
-<h2>{{ resourceData.title }}</h2>
-<br />
-<hr />
-<img alt="User Pic" [src]="resourceData.thumbnailImageUrl" width="100%" height="400px" alt="No Image preview" />
-<hr />
-<b>long description</b>
-<p>{{ resourceData.longDescription }}</p>
-<br />
-<hr />
-<b>short description</b>
-<p>{{ resourceData.shortDescription }}</p>
-<br />
-<hr />
-<span style="font-weight: 500;">Category : </span>
-{{ resourceData.category.displayName }}
-<br />
-<hr />
-<span style="font-weight: 500;">Tags : </span>
-<span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
+<div *ngIf="flag">
+  <p>Public Resource Works</p>
+  <h2>{{ resourceData.title }}</h2>
+  <br />
+  <hr />
+  <img alt="User Pic" [src]="resourceData.thumbnailImageUrl" width="100%" height="400px" alt="No Image preview" />
+  <hr />
+  <b>long description</b>
+  <p>{{ resourceData.longDescription }}</p>
+  <br />
+  <hr />
+  <b>short description</b>
+  <p>{{ resourceData.shortDescription }}</p>
+  <br />
+  <hr />
+  <span style="font-weight: 500;">Category : </span>
+  {{ resourceData.category.displayName }}
+  <br />
+  <hr />
+  <span style="font-weight: 500;">Tags : </span>
+  <span class="tags" *ngFor="let tag of resourceTags">{{ tag.name }}</span>
+</div>
+<div *ngIf="flag2">
+  <h2 class="text-center">404</h2>
+  <p class="text-center p-2">PAGE NOT FOUND</p>
+</div>

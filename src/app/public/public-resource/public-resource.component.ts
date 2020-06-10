@@ -11,6 +11,8 @@ export class PublicResourceComponent implements OnInit {
   resourceTags: any[] = [];
   token: string;
   resourceObj: string;
+  flag = false;
+  flag2 = false;
   // restags:string='';
 
   constructor(private router1: ActivatedRoute) {}
@@ -18,9 +20,14 @@ export class PublicResourceComponent implements OnInit {
   ngOnInit(): void {
     this.show = true;
     this.router1.queryParams.subscribe((params) => {
-      const resourceURL = decodeURIComponent(params.resourceJson);
-      this.resourceObj = JSON.parse(resourceURL);
-      this.getResourceData();
+      if (params.hasOwnProperty('resourceJson')) {
+        const resourceURL = decodeURIComponent(params.resourceJson);
+        this.resourceObj = JSON.parse(resourceURL);
+        this.getResourceData();
+        this.flag = true;
+      } else {
+        this.flag2 = true;
+      }
     });
   }
   getResourceData() {
