@@ -29,6 +29,9 @@ export class CategoryGroupComponent implements OnInit {
         if (element.isActive === false) {
           status = 'Not Active';
         }
+        if (element.isActive === null) {
+          status = 'Not Active';
+        }
         const obj = {
           seq: index + 1,
           name: element.name,

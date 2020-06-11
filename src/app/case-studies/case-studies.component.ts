@@ -126,6 +126,10 @@ export class CaseStudiesComponent implements OnInit {
         return titleData.includes(this.searchCases.toUpperCase());
       }
     });
+    if (this.searchCases === '') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    }
   }
   getDataWithTag() {
     // if (this.tag === 'tag') {

@@ -34,7 +34,16 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             <b>{{ column }}</b>
           </th>
-          <td mat-cell *matCellDef="let row" (click)="getID(row.ID)">{{ row[column] }}</td>
+          <td mat-cell *matCellDef="let row" (click)="getID(row.ID)">
+            <span *ngIf="column === 'Status'; else defaultCol">
+              <button [ngClass]="{ 'status-active': row.Status === 'Active', 'status-disable': row.Status === 'Not Active' }">
+                {{ row[column] }}
+              </button>
+            </span>
+            <ng-template #defaultCol>
+              {{ row[column] }}
+            </ng-template>
+          </td>
         </ng-container>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->

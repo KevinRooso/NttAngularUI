@@ -68,6 +68,10 @@ export class WhitepapersComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
+    if (this.searchBlog === '') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    }
   }
   BackMe() {
     this.location.back(); // <-- go back to previous location on cancel

@@ -91,6 +91,10 @@ export class ArticlesComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
+    if (this.searchBlog === '') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    }
   }
   cancel() {
     this.publishedList = this.publishedList1;

@@ -19,6 +19,7 @@ export class WhitepaperCreateComponent implements OnInit {
   tagsList: string[] = [];
 
   fileData: File = null;
+  fileData2: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
@@ -138,8 +139,8 @@ export class WhitepaperCreateComponent implements OnInit {
   fileProgress2(fileInput: any) {
     this.attachUrl = null;
     this.imageValid2 = false;
-    this.fileData = fileInput.target.files[0] as File;
-    const fileType = this.fileData.type;
+    this.fileData2 = fileInput.target.files[0] as File;
+    const fileType = this.fileData2.type;
     if (fileType === 'application/pdf') {
       this.imageValid2 = true;
       this.preview2();
@@ -161,7 +162,7 @@ export class WhitepaperCreateComponent implements OnInit {
   preview2() {
     // Show preview
     const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
+    reader.readAsDataURL(this.fileData2);
     reader.onload = (_event) => {
       this.attachUrl = reader.result;
     };
@@ -191,7 +192,7 @@ export class WhitepaperCreateComponent implements OnInit {
     this.image2button = false;
     this.show = true;
     const formData1 = new FormData();
-    formData1.append('file', this.fileData);
+    formData1.append('file', this.fileData2);
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
         this.attachFile = res.fileDownloadUri;
