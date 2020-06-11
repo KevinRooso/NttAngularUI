@@ -43,18 +43,21 @@
               <span *ngIf="i < 3">
                 <span *ngIf="isLast || i == 2; else defaultPriv">
                   {{ role.displayName }}
+                  <span *ngIf="i == 2">
+                    <a
+                      data-toggle="modal"
+                      (click)="getRoleModal(row.roles, row.Name)"
+                      data-target="#exampleModal"
+                      style="color: #03c; cursor: default;"
+                      *ngIf="row.roles?.length > 0"
+                    >
+                      <br />See More
+                    </a>
+                  </span>
                 </span>
                 <ng-template #defaultPriv> {{ role.displayName }}, </ng-template>
               </span>
             </ng-container>
-            <a
-              data-toggle="modal"
-              (click)="getRoleModal(row.roles, row.Name)"
-              data-target="#exampleModal"
-              style="color: #03c; cursor: default;"
-            >
-              <br />See More
-            </a>
           </td>
         </ng-container>
 

@@ -40,19 +40,22 @@
               <span *ngIf="i < 3">
                 <span *ngIf="isLast || i == 2; else defaultPriv">
                   {{ priv.displayName }}
+                  <span *ngIf="i == 2">
+                    <a
+                      data-toggle="modal"
+                      (click)="getprivmodel(row.Privileges, row.Name)"
+                      data-target="#exampleModal"
+                      style="color: #03c; cursor: default;"
+                      *ngIf="row.Privileges?.length > 0"
+                    >
+                      <br />
+                      See More
+                    </a>
+                  </span>
                 </span>
                 <ng-template #defaultPriv> {{ priv.displayName }}, </ng-template>
               </span>
             </ng-container>
-            <a
-              data-toggle="modal"
-              (click)="getprivmodel(row.Privileges, row.Name)"
-              data-target="#exampleModal"
-              style="color: #03c; cursor: default;"
-            >
-              <br />
-              See More
-            </a>
           </td>
         </ng-container>
 
