@@ -39,11 +39,6 @@ export class ListCloudServicesComponent implements OnInit {
       (res) => {
         this.detailPage = false;
         this.serviceData = res.body;
-        if (this.serviceData.length === 1 && this.serviceData[0].isLastService) {
-          this.detailPage = true;
-          this.parent = this.serviceData[0];
-          this.detailData = this.serviceData[0];
-        }
         this.show = false;
       },
       (_error) => {
