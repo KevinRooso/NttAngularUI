@@ -917,7 +917,7 @@ export class EventEditComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Events').subscribe((res) => {
       this.allData = res.body;
     });
   }

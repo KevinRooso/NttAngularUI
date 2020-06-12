@@ -132,7 +132,7 @@ export class EventPreviewComponent implements OnInit {
     });
   }
   getAllCategory() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Events').subscribe((res) => {
       this.categoryList = res.body;
     });
   }
