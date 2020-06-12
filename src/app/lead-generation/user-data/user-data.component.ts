@@ -23,6 +23,7 @@ export class UserDataComponent implements OnInit {
   expandedElement: any;
   userTableData: any = [];
   userData: any = [];
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -30,7 +31,9 @@ export class UserDataComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
+    this.show = true;
     this.authService.getUserListData().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         const arrtype = element.sourceOfCreation;
         let deviceType = '';

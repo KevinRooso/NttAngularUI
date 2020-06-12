@@ -15,6 +15,7 @@ export class NotificationsComponent implements OnInit {
   notificationTableData: any = [];
   roleData: any = [];
   uniqueData: any[] = [];
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -22,7 +23,9 @@ export class NotificationsComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
+    this.show = true;
     this.authService.getNotificationList().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         const obj = {
           seq: index + 1,

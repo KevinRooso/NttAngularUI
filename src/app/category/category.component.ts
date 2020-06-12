@@ -13,6 +13,7 @@ export class CategoryComponent implements OnInit {
   displayedColumns: string[] = ['seq', 'name', 'description', 'categoryGroup', 'createdAt'];
   dataSource: any;
   categoryData: any[] = [];
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -21,7 +22,9 @@ export class CategoryComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit(): void {
+    this.show = true;
     this.authService.getAllCategoryList().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         const obj = {
           seq: index + 1,

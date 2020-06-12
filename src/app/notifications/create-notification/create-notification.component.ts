@@ -16,6 +16,7 @@ export class CreateNotificationComponent implements OnInit {
   submitted = false;
   userList: any[] = [];
   allData: any[] = [];
+  show = false;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -68,6 +69,7 @@ export class CreateNotificationComponent implements OnInit {
   }
   createUser() {
     if (this.createUserForm.valid) {
+      this.show = true;
       const obj = {
         name: this.createUserForm.controls['name'].value,
         visibilityDurationInSec: this.createUserForm.controls['visibilityDurationInSec'].value,
@@ -84,15 +86,18 @@ export class CreateNotificationComponent implements OnInit {
         (_response) => {
           this.snackBar.open('Notification successfully created', 'Close', { duration: 5000 });
           this.submitted = false;
+          this.show = false;
           this.router.navigate(['notifications']);
         },
         (_error) => {
+          this.show = false;
           this.snackBar.open('Oops, Something went wrong', 'Close', {
             duration: 5000,
           });
         }
       );
     } else {
+      this.show = false;
       this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
     }
   }

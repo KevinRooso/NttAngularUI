@@ -13,6 +13,7 @@ export class JoineeDataComponent implements OnInit {
   displayedColumns: string[] = ['Seq', 'eventTitle', 'name', 'email', 'contact', 'eventType', 'joiningDate', 'registrationID'];
   dataSource: any;
   joineeTableData: any = [];
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,7 +21,9 @@ export class JoineeDataComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
+    this.show = true;
     this.authService.getJoineeData().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         let eventTypeDesc = '';
         if (element.event.webinar && !element.event.onPremise) {
