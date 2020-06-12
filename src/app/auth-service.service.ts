@@ -52,6 +52,9 @@ export class AuthServiceService {
   getCategoryList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/categories/generalType');
   }
+  getCategoryListByGroup(categoryGrp): Observable<any> {
+    return this.http.get<any>(this.url + `api/public/categories?categoryGroup=${categoryGrp}`);
+  }
   getAllPolicyFaq(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/policy/faq');
   }
