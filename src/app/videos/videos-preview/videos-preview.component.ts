@@ -54,7 +54,7 @@ export class VideosPreviewComponent implements OnInit {
   //   this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
   // }
   getAllCategory() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {
