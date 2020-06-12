@@ -204,7 +204,7 @@ export class EditBlogComponent implements OnInit {
     );
   }
   getCategoryDetails() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       this.catagoryData = res.body;
     });
   }

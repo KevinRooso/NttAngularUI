@@ -44,7 +44,7 @@ export class BlogsComponent implements OnInit {
     this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {

@@ -62,7 +62,7 @@ export class CreateNotificationComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('notification').subscribe((res) => {
       this.allData = res.body;
     });
   }

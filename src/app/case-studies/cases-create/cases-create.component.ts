@@ -105,7 +105,7 @@ export class CasesCreateComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Resources').subscribe((res) => {
       this.catagoryData = res.body;
     });
   }

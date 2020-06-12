@@ -62,7 +62,7 @@ export class CaseStudiesComponent implements OnInit {
     this.router.navigate(['view-cases'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {

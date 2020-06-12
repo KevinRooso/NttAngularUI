@@ -94,7 +94,7 @@ export class ArticleCreateComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Resources').subscribe((res) => {
       this.allData = res.body;
     });
   }
