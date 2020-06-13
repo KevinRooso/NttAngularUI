@@ -12,7 +12,7 @@
   <section class="section-tours">
     <div class="row">
       <div class="col-2 text-left pt-2">
-        <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+        <button type="button" class="btn button-1 action-good" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
         <mat-menu #beforeMenu="matMenu" xPosition="after">
           <button mat-menu-item (click)="exporter.exportTable('csv', { fileName: 'Download_Invitees_List', sheet: 'Sheet' })">
             Export as CSV
@@ -23,7 +23,7 @@
         </mat-menu>
       </div>
       <div class="col-10 text-right">
-        <mat-form-field class="w-45">
+        <mat-form-field class="w-25">
           <mat-label>Filter</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
         </mat-form-field>
