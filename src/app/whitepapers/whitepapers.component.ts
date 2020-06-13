@@ -48,7 +48,7 @@ export class WhitepapersComponent implements OnInit {
     this.router.navigate(['/white-details'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Resources').subscribe((res) => {
       this.categoryList = res.body;
     });
   }
