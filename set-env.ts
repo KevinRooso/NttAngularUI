@@ -23,6 +23,7 @@ let CONFIG: object = {
 // Configure Angular `environment.ts` file path
 let targetPath: string = '';
 let ENV = process.env.NODE_ENV;
+let API_ENDPOINT = process.env.API_ENDPOINT;
 switch (ENV) {
   case 'development':
     targetPath = './src/environments/environment.dev.ts';
@@ -41,6 +42,12 @@ switch (ENV) {
   case 'staging':
     targetPath = './src/environments/environment.stage.ts';
     CONFIG['API_ENDPOINT'] = 'https://ntt-be-stage-app.herokuapp.com/';
+    CONFIG['LOG_ENABLE'] = true;
+    CONFIG['LOG_LEVEL'] = 'debug';
+    CONFIG['ROLLBAR_ENABLE'] = true;
+  case 'ntt-dev':
+    targetPath = './src/environments/environment.dev.ts';
+    CONFIG['API_ENDPOINT'] = API_ENDPOINT || 'http://10.14.168.3:8080/';
     CONFIG['LOG_ENABLE'] = true;
     CONFIG['LOG_LEVEL'] = 'debug';
     CONFIG['ROLLBAR_ENABLE'] = true;
