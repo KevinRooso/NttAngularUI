@@ -75,6 +75,10 @@ export class NewsComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
+    if (this.searchBlog === '') {
+      this.publishList = this.publishList1;
+      this.draftList = this.draftList1;
+    }
   }
   cancel() {
     this.publishList = this.publishList1;

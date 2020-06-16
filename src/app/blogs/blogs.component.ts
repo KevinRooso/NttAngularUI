@@ -44,7 +44,7 @@ export class BlogsComponent implements OnInit {
     this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {
@@ -90,6 +90,10 @@ export class BlogsComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
     });
+    if (this.searchBlog === '') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    }
   }
   cancel() {
     this.publishedList = this.publishedList1;

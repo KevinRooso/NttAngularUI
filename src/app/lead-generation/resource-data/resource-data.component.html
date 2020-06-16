@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div class="container">
   <div>
     <ul class="breadcrumb pl-0">
@@ -9,14 +10,8 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col mt-2">
-      <select class="form-control" style="width: 54%; float: left;" (change)="applyFilter($event)">
-        <option value="resource">Please Select Resource Type</option>
-        <option *ngFor="let type of uniqueData">{{ type }}</option>
-      </select>
-    </div>
     <div class="col-2 text-left pt-2">
-      <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+      <button type="button" class="btn button-1 action-good" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
       <mat-menu #beforeMenu="matMenu" xPosition="after">
         <button mat-menu-item (click)="exporter.exportTable('csv', { fileName: 'Download_Resource_List', sheet: 'Sheet' })">
           Export as CSV
@@ -26,8 +21,14 @@
         </button>
       </mat-menu>
     </div>
-    <div class="col text-right">
-      <mat-form-field class="w-50">
+    <div class="col mt-1">
+      <select class="form-control" style="width: 54%; float: right;" (change)="applyFilter($event)">
+        <option value="resource">Please Select Resource Type</option>
+        <option *ngFor="let type of uniqueData">{{ type }}</option>
+      </select>
+    </div>
+    <div class="col-3 text-right">
+      <mat-form-field style="width: 100% !important;">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search...." />
       </mat-form-field>

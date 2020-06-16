@@ -377,3 +377,11 @@ table.dataTable tbody td {
   color: red;
   margin-right: 3px;
 }
+
+.w-12 {
+  width: 12%;
+}
+
+.w-18 {
+  width: 18%;
+}

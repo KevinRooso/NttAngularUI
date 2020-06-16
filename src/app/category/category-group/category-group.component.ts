@@ -13,6 +13,7 @@ export class CategoryGroupComponent implements OnInit {
   displayedColumns: string[] = ['seq', 'displayName', 'createdAt', 'active'];
   dataSource: any;
   categoryGrpData: any[] = [];
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -20,13 +21,18 @@ export class CategoryGroupComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit(): void {
+    this.show = true;
     this.authService.getCategoryGroupList().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         let status;
         if (element.isActive === true) {
           status = 'Active';
         }
         if (element.isActive === false) {
+          status = 'Not Active';
+        }
+        if (element.isActive === null) {
           status = 'Not Active';
         }
         const obj = {

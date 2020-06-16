@@ -62,7 +62,7 @@ export class CaseStudiesComponent implements OnInit {
     this.router.navigate(['view-cases'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {
@@ -126,6 +126,10 @@ export class CaseStudiesComponent implements OnInit {
         return titleData.includes(this.searchCases.toUpperCase());
       }
     });
+    if (this.searchCases === '') {
+      this.publishedList = this.publishedList1;
+      this.draftList = this.draftList1;
+    }
   }
   getDataWithTag() {
     // if (this.tag === 'tag') {

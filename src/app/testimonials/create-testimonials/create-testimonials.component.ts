@@ -27,6 +27,7 @@ export class CreateTestimonialsComponent implements OnInit {
   createVideoForm: FormGroup;
   // personForm:FormGroup;
   fileData: File = null;
+  fileData2: File = null;
   previewUrl: any = null;
   previewUrl1: any = null;
   fileUploadProgress: string = null;
@@ -208,18 +209,18 @@ export class CreateTestimonialsComponent implements OnInit {
     this.image2button = false;
     this.previewUrl1 = null;
     this.imageValid1 = false;
-    this.fileData = fileInput.target.files[0] as File;
+    this.fileData2 = fileInput.target.files[0] as File;
     const img = new Image();
-    img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if (this.fileData !== undefined) {
+    img.src = window.URL.createObjectURL(this.fileData2);
+    const fileType = this.fileData2.type;
+    const fileSize = this.fileData2.size;
+    if (this.fileData2 !== undefined) {
       this.image2button = false;
       if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
         this.imageValid1 = true;
       }
       const reader = new FileReader();
-      reader.readAsDataURL(this.fileData);
+      reader.readAsDataURL(this.fileData2);
       reader.onload = () => {
         setTimeout(() => {
           const width = img.naturalWidth;
@@ -258,13 +259,13 @@ export class CreateTestimonialsComponent implements OnInit {
   // }
   preview1() {
     // Show preview
-    const mimeType = this.fileData.type;
+    const mimeType = this.fileData2.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
+    reader.readAsDataURL(this.fileData2);
     reader.onload = (_event) => {
       this.previewUrl1 = reader.result;
     };
@@ -272,7 +273,7 @@ export class CreateTestimonialsComponent implements OnInit {
   uploadImage1() {
     this.show = true;
     const formData = new FormData();
-    formData.append('file', this.fileData);
+    formData.append('file', this.fileData2);
     this.service.uploadFile(formData).subscribe(
       (res) => {
         this.speakerImage = res.fileDownloadUri;

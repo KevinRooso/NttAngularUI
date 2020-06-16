@@ -40,6 +40,7 @@ export class CreateAuthorComponent implements OnInit {
   authorId: any;
   authors: any;
   snackText: string;
+  uploaded = false;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -145,6 +146,7 @@ export class CreateAuthorComponent implements OnInit {
       this.personForm.controls['profileImageUrl'].updateValueAndValidity();
       this.previewUrl = this.authors.profileImageUrl;
       this.authorImage = res.body.profileImageUrl;
+      this.uploaded = true;
     });
   }
 
@@ -200,6 +202,7 @@ export class CreateAuthorComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
+      this.uploaded = true;
       // console.log('Image', res);
       this.authorImage = res.fileDownloadUri;
       // console.log(this.speakerImage);
@@ -209,49 +212,53 @@ export class CreateAuthorComponent implements OnInit {
   }
 
   createAuthor() {
-    if (this.personForm.valid) {
-      let fruit1 = '';
-      // console.log(this.fruits);
-      this.fruits.forEach((m) => {
-        fruit1 = fruit1 + ',' + m.name;
-      });
+    if (this.uploaded) {
+      if (this.personForm.valid) {
+        let fruit1 = '';
+        // console.log(this.fruits);
+        this.fruits.forEach((m) => {
+          fruit1 = fruit1 + ',' + m.name;
+        });
 
-      let authorId = 0;
-      if (this.resourceId !== 'xyz') {
-        authorId = this.resourceId;
-      }
-
-      const obj = {
-        fullName: this.personForm.controls['fullName'].value,
-        description: this.personForm.controls['description'].value,
-        email: this.personForm.controls['email'].value,
-        // personalEmail: this.personForm.controls['personalEmail'].value,
-        designation: this.personForm.controls['designation'].value,
-        // "profile": this.personForm.controls['profile'].value,
-        origanizationName: this.personForm.controls['origanizationName'].value,
-        phone: this.personForm.controls['phone'].value,
-        keySkills: fruit1.substring(1, fruit1.length - 0),
-        profileImageUrl: this.authorImage,
-        id: authorId,
-        personType: 'author',
-      };
-      // console.log('post', obj);
-      this.authService.saveSpeaker(obj).subscribe(
-        (_response) => {
-          this.snackBar.open(`Author successfully ${this.snackText}`, 'Close', { duration: 5000 });
-          // alert("Successfully Created");
-          this.submitted = false;
-          // console.log('response', response);
-          this.router.navigate(['resources/blogs/authors']);
-        },
-        (_error) => {
-          this.snackBar.open('Oops, Something went wrong', 'Close', {
-            duration: 5000,
-          });
+        let authorId = 0;
+        if (this.resourceId !== 'xyz') {
+          authorId = this.resourceId;
         }
-      );
+
+        const obj = {
+          fullName: this.personForm.controls['fullName'].value,
+          description: this.personForm.controls['description'].value,
+          email: this.personForm.controls['email'].value,
+          // personalEmail: this.personForm.controls['personalEmail'].value,
+          designation: this.personForm.controls['designation'].value,
+          // "profile": this.personForm.controls['profile'].value,
+          origanizationName: this.personForm.controls['origanizationName'].value,
+          phone: this.personForm.controls['phone'].value,
+          keySkills: fruit1.substring(1, fruit1.length - 0),
+          profileImageUrl: this.authorImage,
+          id: authorId,
+          personType: 'author',
+        };
+        // console.log('post', obj);
+        this.authService.saveSpeaker(obj).subscribe(
+          (_response) => {
+            this.snackBar.open(`Author successfully ${this.snackText}`, 'Close', { duration: 5000 });
+            // alert("Successfully Created");
+            this.submitted = false;
+            // console.log('response', response);
+            this.router.navigate(['resources/blogs/authors']);
+          },
+          (_error) => {
+            this.snackBar.open('Oops, Something went wrong', 'Close', {
+              duration: 5000,
+            });
+          }
+        );
+      } else {
+        this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
+      }
     } else {
-      this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
+      this.snackBar.open('Please upload Image', 'Close', { duration: 5000 });
     }
   }
   BackMe() {

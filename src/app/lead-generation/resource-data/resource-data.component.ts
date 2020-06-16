@@ -17,6 +17,7 @@ export class ResourceDataComponent implements OnInit {
   refreshData: any[] = [];
   resourceData: any[] = [];
   cat = 'cat';
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -24,7 +25,9 @@ export class ResourceDataComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
+    this.show = true;
     this.authService.getResourceData().subscribe((res) => {
+      this.show = false;
       this.refreshData = res.body;
       res.body.forEach((element) => {
         this.resourceType.push(element.type);

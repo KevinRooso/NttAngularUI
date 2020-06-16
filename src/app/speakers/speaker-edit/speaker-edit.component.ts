@@ -18,6 +18,7 @@ export class SpeakerEditComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  show = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   fruits: any[] = [];
 
@@ -182,6 +183,7 @@ export class SpeakerEditComponent implements OnInit {
   updateSpeaker() {
     if (this.updateSpeakerForm.valid) {
       let fruit1 = '';
+      this.show = true;
 
       this.fruits.forEach((m) => {
         fruit1 = fruit1 + ',' + m.name;
@@ -204,15 +206,18 @@ export class SpeakerEditComponent implements OnInit {
 
       this.authService.saveSpeaker(obj).subscribe(
         (_response) => {
+          this.show = false;
           this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
         },
         (_error) => {
+          this.show = false;
           this.snackBar.open('Oops, Something went wrong', 'Close', {
             duration: 5000,
           });
         }
       );
     } else {
+      this.show = false;
       this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
     }
   }

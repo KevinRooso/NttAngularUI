@@ -150,7 +150,7 @@ export class VideosUpdateComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       this.catagoryData = res.body;
     });
   }

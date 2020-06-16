@@ -52,6 +52,9 @@ export class AuthServiceService {
   getCategoryList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/categories/generalType');
   }
+  getCategoryListByGroup(categoryGrp): Observable<any> {
+    return this.http.get<any>(this.url + `api/public/categories?categoryGroup=${categoryGrp}`);
+  }
   getAllPolicyFaq(): Observable<any> {
     return this.http.get<any>(this.url + 'api/public/policy/faq');
   }
@@ -164,7 +167,13 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/public/resources/testimonials');
   }
   getUserList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/public/categories/userType');
+    return this.http.get<any>(this.url + 'api/public/categories?categoryGroup=user%20group&internal=true');
+  }
+  getUserGroupList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/public/categories?categoryGroup=user%20group&internal=true');
+  }
+  getResourceTypeList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/public/categories?categoryGroup=Resource%20Type&internal=true');
   }
   getLocation(): Observable<any> {
     return this.http.get<any>('https://geocode.xyz/Hauptstr.,+57632+Berzhausen?json=1');

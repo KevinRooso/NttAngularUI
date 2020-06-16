@@ -35,7 +35,7 @@ export class TestimonialsComponent implements OnInit {
     this.router.navigate(['view-testimonials'], { queryParams: { page: id } });
   }
   getAllCategory() {
-    this.service.getCategoryList().subscribe((res) => {
+    this.service.getCategoryListByGroup('Resources').subscribe((res) => {
       this.categoryList = res.body;
     });
   }
@@ -57,6 +57,6 @@ export class TestimonialsComponent implements OnInit {
     this.filterBlogs = this.blogs;
   }
   editTest(id) {
-    this.router.navigate(['/resources/testimonials/create-testimonials',id]);
+    this.router.navigate(['/resources/testimonials/create-testimonials', id]);
   }
 }

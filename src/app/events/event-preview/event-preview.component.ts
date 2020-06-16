@@ -117,7 +117,7 @@ export class EventPreviewComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Events').subscribe((res) => {
       // console.log("category", res.body);
       this.allData = res.body;
     });
@@ -132,7 +132,7 @@ export class EventPreviewComponent implements OnInit {
     });
   }
   getAllCategory() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Events').subscribe((res) => {
       this.categoryList = res.body;
     });
   }

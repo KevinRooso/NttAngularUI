@@ -54,7 +54,7 @@ export class VideosPreviewComponent implements OnInit {
   //   this.router.navigate(['/blog-detail'], { queryParams: { page: id } });
   // }
   getAllCategory() {
-    this.authService.getCategoryList().subscribe((res) => {
+    this.authService.getCategoryListByGroup('Resources').subscribe((res) => {
       let catList: any[] = [];
       catList = res.body;
       catList.forEach((m) => {
@@ -102,6 +102,10 @@ export class VideosPreviewComponent implements OnInit {
       const titleData = m.title.toUpperCase();
       return titleData.includes(this.searchBlog.toUpperCase());
     });
+    if (this.searchBlog === '') {
+      this.publishList = this.publishList1;
+      this.draftList = this.draftList1;
+    }
   }
   cancel() {
     this.publishList = this.publishList1;

@@ -1,3 +1,4 @@
+<app-loader *ngIf="show"></app-loader>
 <div class="container">
   <div>
     <ul class="breadcrumb pl-0">
@@ -10,7 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col-2 text-left pt-2">
-      <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+      <button type="button" class="btn button-1 action-good" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
       <mat-menu #beforeMenu="matMenu" xPosition="after">
         <button mat-menu-item (click)="exporter.exportTable('csv', { fileName: 'Download_Users_List', sheet: 'Sheet' })">
           Export as CSV
@@ -34,7 +35,16 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             <b>{{ column }}</b>
           </th>
-          <td mat-cell *matCellDef="let row" (click)="getID(row.ID)">{{ row[column] }}</td>
+          <td mat-cell *matCellDef="let row" (click)="getID(row.ID)">
+            <span *ngIf="column === 'Status'; else defaultCol">
+              <button [ngClass]="{ 'status-active': row.Status === 'Active', 'status-disable': row.Status === 'Not Active' }">
+                {{ row[column] }}
+              </button>
+            </span>
+            <ng-template #defaultCol>
+              {{ row[column] }}
+            </ng-template>
+          </td>
         </ng-container>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->

@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   uniqueData: any[] = [];
   roleModal: any;
   roleName: any;
+  show = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -23,7 +24,9 @@ export class UsersComponent implements OnInit {
   constructor(private authService: AuthServiceService) {}
 
   ngOnInit() {
+    this.show = true;
     this.authService.getEmployeeUserList().subscribe((res) => {
+      this.show = false;
       res.body.forEach((element, index) => {
         let status = '';
         if (element.isActive === true) {
