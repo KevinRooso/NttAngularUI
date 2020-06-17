@@ -423,7 +423,6 @@ export class EventEditComponent implements OnInit {
     this.authService.uploadFile(formData).subscribe(
       (res) => {
         this.articleImage = res.fileDownloadUri;
-        // this.result1 = this.articleImage.split('/').pop().split('?')[0].slice(14, this.articleImage.length);
         this.show = false;
         this.image1button = true;
         this.imageValid = false;
@@ -626,6 +625,7 @@ export class EventEditComponent implements OnInit {
       this.show = false;
       return false;
     }
+
     if (this.updateEventForm.valid) {
       this.show = true;
       const tags: any[] = [];

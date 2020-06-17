@@ -73,6 +73,8 @@ export class HomeUiComponent implements OnInit {
   bannerEmittedData: any = {};
   listData: any = [];
   previewHomePageData: any = {};
+  sequences: any = [2, 3, 4, 5, 6, 7, 8, 9];
+
   // tslint:disable-next-line:no-input-rename
   @Input('userType') userType: string;
   @ViewChild('eventButton', { static: false }) eventButton;
@@ -111,6 +113,15 @@ export class HomeUiComponent implements OnInit {
   sequenceNumbersBanner: any[] = [1, 2, 3];
   sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
   filterArrForBannerBlock: any[] = [];
+
+  articleBlockSequnce = '';
+  eventBlockSequnce = '';
+  blogBlockSequnce = '';
+  videoBlockSequnce = '';
+  whitePaperBlockSequnce = '';
+  caseStudyBlockSequnce = '';
+  newsBlockSequnce = '';
+  testimonialsBlockSequnce = '';
 
   constructor(private formBuilder: FormBuilder, private service: AuthServiceService, public snackBar: MatSnackBar) {}
   ngOnInit(): void {
@@ -247,6 +258,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['event', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.articleConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -254,6 +266,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['article', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.blogsConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -261,6 +274,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['blog', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.videosConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -268,6 +282,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['video', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.whitePaperConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -275,6 +290,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['whitepaper', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.caseStudyConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -282,6 +298,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['caseStudy', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.newsConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -289,6 +306,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['news', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.testConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
@@ -296,6 +314,7 @@ export class HomeUiComponent implements OnInit {
       datafieldType: ['testimonial', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
+      blockSequenceNumber: ['', Validators.required],
     });
     this.show = false;
   }
@@ -317,35 +336,43 @@ export class HomeUiComponent implements OnInit {
       this.resourceData.forEach((m) => {
         if (m.type === 'event') {
           this.eventBlockData = m.id;
+          this.articleBlockSequnce = m.blockSequenceNumber;
           this.eventButton.nativeElement.click();
         }
         if (m.type === 'articles') {
           this.articleBlockData = m.id;
+          this.eventBlockSequnce = m.blockSequenceNumber;
           this.articleButton.nativeElement.click();
         }
         if (m.type === 'blogs') {
           this.bannerConfigurationForm1.get(['datafieldType']);
           this.blogBlockData = m.id;
+          this.blogBlockSequnce = m.blockSequenceNumber;
           this.blogButton.nativeElement.click();
         }
         if (m.type === 'videos') {
           this.videoBlockData = m.id;
+          this.videoBlockSequnce = m.blockSequenceNumber;
           this.videoButton.nativeElement.click();
         }
         if (m.type === 'white papers') {
           this.whitePaperBlockData = m.id;
+          this.whitePaperBlockSequnce = m.blockSequenceNumber;
           this.whitpaperButton.nativeElement.click();
         }
         if (m.type === 'case studies') {
           this.caseStudyBlockData = m.id;
+          this.caseStudyBlockSequnce = m.blockSequenceNumber;
           this.caseButton.nativeElement.click();
         }
         if (m.type === 'news') {
           this.newsBlockData = m.id;
+          this.newsBlockSequnce = m.blockSequenceNumber;
           this.newsButton.nativeElement.click();
         }
         if (m.type === 'testimonials') {
           this.testBlockData = m.id;
+          this.testimonialsBlockSequnce = m.blockSequenceNumber;
           this.testButton.nativeElement.click();
         }
       });
@@ -448,7 +475,7 @@ export class HomeUiComponent implements OnInit {
         const bannerObj = {};
         const data = this.newBannerData[i];
         bannerObj['customer'] = this.userType !== 'public';
-        bannerObj['dataFieldId'] = data['id'] || data['dataFieldId'];  
+        bannerObj['dataFieldId'] = data['id'] || data['dataFieldId'];
         bannerObj['datafieldType'] = data['datafieldType'] || this.blocks.find((x) => x.apiName === data['type']).name;
         bannerObj['public'] = this.userType === 'public';
         bannerObj['sequenceNumber'] = data['sequenceNumber'];
@@ -639,11 +666,9 @@ export class HomeUiComponent implements OnInit {
   /// -------submit event
   submitEvent() {
     this.show = true;
-
     const obj: any[] = [];
 
     obj.push(this.eventConfigurationForm.value);
-
     this.service.saveEventBlock('event', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
@@ -651,7 +676,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -667,7 +692,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -684,7 +709,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -701,7 +726,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -718,7 +743,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -735,7 +760,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -752,7 +777,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }
@@ -768,7 +793,7 @@ export class HomeUiComponent implements OnInit {
       },
       (_error) => {
         this.show = false;
-        this.snackBar.open('Oops, Something Went Wrong', 'Close', { duration: 5000 });
+        this.snackBar.open('Try another block sequence number', 'Close', { duration: 5000 });
       }
     );
   }

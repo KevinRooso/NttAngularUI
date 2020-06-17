@@ -15,6 +15,10 @@
       <div class="brd card-header">
         Banner Configuration
       </div>
+      <!-- <div class="text-center pt-3">
+     Default Block Sequence Number 1
+      <hr>
+     </div> -->
       <div class="row mx-2">
         <div class="col-md-4" *ngFor="let arr of formArr">
           <app-banner-ui
@@ -69,9 +73,17 @@
               <form [formGroup]="eventConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Event</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="eventBlockData">
                       <mat-option *ngFor="let block of eventData" [value]="block.id">{{ block.title }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="eventBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -108,9 +120,17 @@
               <form [formGroup]="articleConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Article</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="articleBlockData">
                       <mat-option *ngFor="let block of articleData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="articleBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -152,9 +172,17 @@
               <form [formGroup]="blogsConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Blogs</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="blogBlockData">
                       <mat-option *ngFor="let block of blogData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="blogBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -191,9 +219,17 @@
               <form [formGroup]="videosConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Videos</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="videoBlockData">
                       <mat-option *ngFor="let block of videoData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="videoBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -235,9 +271,17 @@
               <form [formGroup]="whitePaperConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select WhitePaper</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="whitePaperBlockData">
                       <mat-option *ngFor="let block of whitePaperData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="whitePaperBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -279,9 +323,17 @@
               <form [formGroup]="caseStudyConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Case Study</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="caseStudyBlockData">
                       <mat-option *ngFor="let block of caseStudyData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="caseStudyBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -315,7 +367,6 @@
                   aria-controls="collapseNews"
                 >
                   News Configuration
-                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -323,9 +374,17 @@
               <form [formGroup]="newsConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select News</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="newsBlockData">
                       <mat-option *ngFor="let block of newsData" [value]="block.id">{{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="newsBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -354,7 +413,6 @@
                   aria-controls="collapseTest"
                 >
                   Testimonials Configuration
-                  <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i> -->
                 </button>
               </h5>
             </div>
@@ -362,9 +420,17 @@
               <form [formGroup]="testConfigurationForm">
                 <div class="form-row">
                   <mat-form-field class="example-full-width">
-                    <mat-label>Select Banner Entity</mat-label>
+                    <mat-label>Select Testimonials</mat-label>
                     <mat-select formControlName="dataFieldId" [(ngModel)]="testBlockData">
                       <mat-option *ngFor="let block of testData" [value]="block.id"> {{ block.title }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Block Sequence</mat-label>
+                    <mat-select formControlName="blockSequenceNumber" [(ngModel)]="testimonialsBlockSequnce">
+                      <mat-option *ngFor="let sequence of sequences" [value]="sequence">{{ sequence }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -398,9 +464,6 @@
           </ol>
           <div class="carousel-inner">
             <ng-container *ngIf="bannerData.length > 0">
-              <!-- <div class="carousel-item active">
-              <img class="d-block w-100 img-size" [src]="bannerData[0].thumbnailImageUrl != '' ? bannerData[0].thumbnailImageUrl : defaultImage" />
-            </div> -->
               <ng-container *ngFor="let arr of formArr">
                 <div class="carousel-item" [ngClass]="{ active: arr == 1 }" *ngIf="bannerData[arr - 1]">
                   <img
@@ -410,7 +473,6 @@
                 </div>
               </ng-container>
             </ng-container>
-            <!-- [src]="list.thumbnailImageUrl ? list.thumbnailImageUrl : defaultImage" -->
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
@@ -420,18 +482,6 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-
-          <!-- <div class="preview-card my-2" *ngFor="let list of homeListData">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">{{list.title}}</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
-          </div>
-          <div class="preview-card-body p-0">
-            <img
-              [src]="list.thumbnailImageUrl"
-              alt="" width="100%" height="100%">
-          </div>
-        </div> -->
           <div *ngFor="let list of homeListData">
             <div class="preview-card my-3" *ngIf="list.type == 'news'">
               <div class="row preview-header">
@@ -485,7 +535,6 @@
                     </div>
                   </li>
                 </ul>
-                <!-- <img [src]="list.thumbnailImageUrl" alt=""> -->
               </div>
             </div>
           </div>
@@ -533,79 +582,6 @@
               </div>
             </div>
           </div>
-          <!-- <div *ngFor="let list of homeListData">
-          <div class="preview-card my-3" *ngIf="list.type =='articles'">
-            <div class="row preview-header">
-              <div class="col-sm-6 preview-header-text text-left">Articles</div>
-              <div class="col-sm-6 preview-header-text text-right">view all</div>
-            </div>
-            <div class="preview-card-body p-0">
-              <img [src]="list.thumbnailImageUrl" alt="">
-            </div>
-          </div>
-        </div> -->
-
-          <!--
-        <div class="preview-card my-2">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Whitepaper</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
-          </div>
-          <div class="preview-card-body p-0">
-            <img
-              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
-              alt="" width="100%" height="100%">
-          </div>
-        </div> -->
-
-          <!-- <div class="preview-card my-2" style="height: 130px;">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Our Case Studies</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
-          </div>
-          <div class="preview-card-body pt-2">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est recusandae ut quam ipsa nemo cupiditate solu
-            </p>
-          </div>
-        </div> -->
-
-          <!-- <div class="preview-card my-2">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Testimonials</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
-          </div>
-          <div class="preview-card-body pt-2">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est recusandae ut quam ipsa nemo cupiditate solu
-            </p>
-          </div>
-          <div class="preview-card-footer">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div> -->
-          <!-- <div class="preview-card my-2" style="height: 260px;">
-          <div class="row preview-header">
-            <div class="col-sm-12 preview-header-text text-left">Top 5 managed security trends</div>
-          </div>
-          <div class="preview-card-body pt-2">
-            <img
-              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
-              alt="" width="100%" height="100%">
-          </div>
-          <div class="preview-card-footer">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div> -->
-          <!-- <div class="preview-card my-2">
-          <div class="row preview-header">
-            <div class="col-sm-6 preview-header-text text-left">Articles</div>
-            <div class="col-sm-6 preview-header-text text-right">view all</div>
-          </div>
-          <div class="preview-card-body p-0">
-            <img
-              src="https://s3.us-east-1.amazonaws.com/ntt-file-store/images/1586868969102-https___cdn.evbuc.com_images_82000043_359019572335_1_original.jpeg"
-              alt="" width="100%" height="100%">
-          </div>
-        </div> -->
         </div>
       </div>
     </div>
