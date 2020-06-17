@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CmsConstants } from 'src/app/cms-constants';
 @Component({
   selector: 'app-speaker-edit',
   templateUrl: './speaker-edit.component.html',
@@ -42,7 +43,6 @@ export class SpeakerEditComponent implements OnInit {
     private router1: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.updateSpeakerForm = this.formbuilder.group({
       fullName: ['', [Validators.required, Validators.maxLength(40)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
@@ -51,7 +51,7 @@ export class SpeakerEditComponent implements OnInit {
       designation: ['', [Validators.required, Validators.maxLength(50)]],
       // profile: ['', Validators.required],
       origanizationName: ['', [Validators.required, Validators.maxLength(50)]],
-      phone: ['', [Validators.required, Validators.pattern(mobnum)]],
+      phone: ['', [Validators.required, Validators.pattern(CmsConstants.mobexp)]],
       keySkills: ['', [Validators.required, Validators.maxLength(100)]],
       profileImageUrl: ['', Validators.pattern('(.*?).(jpg|png|jpeg)$')],
     });

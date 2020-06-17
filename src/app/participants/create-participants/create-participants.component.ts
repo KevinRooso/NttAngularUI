@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-create-participants',
@@ -17,7 +18,7 @@ export class CreateParticipantsComponent implements OnInit {
   id;
   checkError: any;
   submitted = false;
-  show=false;
+  show = false;
   participant = 'Add Participant';
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +28,6 @@ export class CreateParticipantsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.router1.params.subscribe((params) => {
       this.id = params.page;
       if (params.page !== '0') {
@@ -39,7 +39,7 @@ export class CreateParticipantsComponent implements OnInit {
     this.addParForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNo: ['', [Validators.required, Validators.pattern(mobnum)]],
+      phoneNo: ['', [Validators.required, Validators.pattern(CmsConstants.mobexp)]],
       event: ['', Validators.required],
     });
     this.getEvents();
@@ -59,14 +59,16 @@ export class CreateParticipantsComponent implements OnInit {
     }
   }
   getEvents() {
-    this.show=true;
-    this.service.getAllEventList().subscribe((res) => {
-      this.events = res.body;
-      this.show=false;
-    },
-    (_err)=>{
-      this.show=false;
-    });
+    this.show = true;
+    this.service.getAllEventList().subscribe(
+      (res) => {
+        this.events = res.body;
+        this.show = false;
+      },
+      (_err) => {
+        this.show = false;
+      }
+    );
   }
   submit() {
     // if(this.addParForm.valid){
@@ -97,7 +99,6 @@ export class CreateParticipantsComponent implements OnInit {
         if (res.httpStatus.toString() !== 'BAD_REQUEST') {
           this.snackBar.open('Participants successfully added in event', 'Close', { duration: 5000 });
           this.submitted = false;
-
         } else {
           this.snackBar.open('Duplicate Participant !!', 'Close', { duration: 5000 });
         }

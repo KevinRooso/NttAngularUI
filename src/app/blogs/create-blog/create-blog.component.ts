@@ -6,6 +6,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { textValidation } from 'src/app/validators/general-validators';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-create-blog',
@@ -71,7 +72,6 @@ export class CreateBlogComponent implements OnInit {
       expiryDate: ['', Validators.required],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.personForm = this.formBuilder.group({
       fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
@@ -80,7 +80,7 @@ export class CreateBlogComponent implements OnInit {
       keySkills: [''],
       origanizationName: new FormControl('', [Validators.required, Validators.maxLength(80)]),
 
-      phone: ['', Validators.pattern(mobnum)],
+      phone: ['', Validators.pattern(CmsConstants.mobexp)],
 
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });

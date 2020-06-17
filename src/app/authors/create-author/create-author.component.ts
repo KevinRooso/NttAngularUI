@@ -6,6 +6,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { Location } from '@angular/common';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-create-author',
@@ -49,8 +50,6 @@ export class CreateAuthorComponent implements OnInit {
     private router: Router,
     private router1: ActivatedRoute
   ) {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
-
     this.personForm = this.frmbuilder.group({
       fullName: ['', [Validators.required, Validators.maxLength(40)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
@@ -58,7 +57,7 @@ export class CreateAuthorComponent implements OnInit {
       designation: ['', [Validators.required, Validators.maxLength(50)]],
       // profile: ['', Validators.required],
       origanizationName: ['', [Validators.required, Validators.maxLength(50)]],
-      phone: ['', [Validators.required, Validators.pattern(mobnum)]],
+      phone: ['', [Validators.required, Validators.pattern(CmsConstants.mobexp)]],
       keySkills: ['', [Validators.required, Validators.maxLength(100)]],
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });

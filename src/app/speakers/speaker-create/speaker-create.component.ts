@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-speaker-create',
@@ -43,8 +44,6 @@ export class SpeakerCreateComponent implements OnInit {
     public snackBar: MatSnackBar,
     private router: Router
   ) {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
-
     this.createSpeakerForm = this.frmbuilder.group({
       fullName: ['', [Validators.required, Validators.maxLength(40)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
@@ -53,7 +52,7 @@ export class SpeakerCreateComponent implements OnInit {
       designation: ['', [Validators.required, Validators.maxLength(50)]],
       // profile: ['', Validators.required],
       origanizationName: ['', [Validators.required, Validators.maxLength(50)]],
-      phone: ['', [Validators.required, Validators.pattern(mobnum)]],
+      phone: ['', [Validators.required, Validators.pattern(CmsConstants.mobexp)]],
       keySkills: ['', [Validators.required, Validators.maxLength(100)]],
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });

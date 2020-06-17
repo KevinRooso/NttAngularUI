@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { textValidation } from 'src/app/validators/general-validators';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-edit-blog',
@@ -106,7 +107,6 @@ export class EditBlogComponent implements OnInit {
     };
   }
   crateFrorm() {
-    const mobnum = '^((\\+91-?)|0)?[0-9]{10}$';
     this.personForm = this.formBuilder.group({
       fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
@@ -114,7 +114,7 @@ export class EditBlogComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       keySkills: [''],
       origanizationName: new FormControl('', [Validators.required, Validators.maxLength(80)]),
-      phone: ['', Validators.pattern(mobnum)],
+      phone: ['', Validators.pattern(CmsConstants.mobexp)],
 
       profileImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
