@@ -616,6 +616,35 @@ export class CopyEventComponent implements OnInit {
       this.show = false;
       return false;
     }
+
+    let d1 = new Date(this.updateEventForm.controls['startDate'].value);
+
+    if (d1.getTime() < this.newtoday.getTime()) {
+      this.snackBar.open('Event start date cannot be less than current Date', 'Close', { duration: 2000 });
+      return null;
+    }
+
+    d1 = new Date(this.updateEventForm.controls['endDate'].value);
+
+    if (d1.getTime() < this.newtoday.getTime()) {
+      this.snackBar.open('Event end date cannot be less than current Date', 'Close', { duration: 2000 });
+      return null;
+    }
+
+    d1 = new Date(this.updateEventForm.controls['registrationStartDate'].value);
+
+    if (d1.getTime() < this.newtoday.getTime()) {
+      this.snackBar.open('Registration start date cannot be less than current Date', 'Close', { duration: 2000 });
+      return null;
+    }
+
+    d1 = new Date(this.updateEventForm.controls['registrationEndDate'].value);
+
+    if (d1.getTime() < this.newtoday.getTime()) {
+      this.snackBar.open('Registration end date cannot be less than current Date', 'Close', { duration: 2000 });
+      return null;
+    }
+
     if (this.updateEventForm.valid) {
       this.show = true;
       const tags: any[] = [];
