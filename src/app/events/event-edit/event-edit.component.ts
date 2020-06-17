@@ -329,11 +329,15 @@ export class EventEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 300000) {
-      this.imageValid = true;
-      this.result1 = this.fileData.name;
+    if (this.fileData !== undefined) {
+      this.image1button = false;
+      const fileType = this.fileData.type;
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize < 300000) {
+        this.imageValid = true;
+        this.result1 = this.fileData.name;
+        // this.preview();
+      }
     }
     const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
@@ -363,11 +367,15 @@ export class EventEditComponent implements OnInit {
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
-    const fileType = this.fileData.type;
-    const fileSize = this.fileData.size;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000) {
-      this.imageValid2 = true;
-      this.result2 = this.fileData.name;
+    if (this.fileData !== undefined) {
+      this.image2button = false;
+      const fileType = this.fileData.type;
+      const fileSize = this.fileData.size;
+      if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') && fileSize <= 1000000) {
+        this.imageValid2 = true;
+        this.result2 = this.fileData.name;
+        // this.preview();
+      }
     }
 
     const reader = new FileReader();
@@ -439,13 +447,13 @@ export class EventEditComponent implements OnInit {
     this.image2button = false;
     const formData1 = new FormData();
     formData1.append('file', this.fileData);
-    // this.image2button=false;
+    this.image2button = false;
     this.authService.uploadFile(formData1).subscribe(
       (res) => {
         this.attachFile = res.fileDownloadUri;
+        this.show = false;
         this.image2button = true;
         this.imageValid2 = false;
-        this.show = false;
         this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
       },
       (_error) => {
