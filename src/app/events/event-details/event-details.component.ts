@@ -83,6 +83,10 @@ export class EventDetailsComponent implements OnInit {
         this.startTime = this.commonService.getDateTime(objs.min);
         this.endTime = this.commonService.getDateTime(objs.max);
       }
+      if (this.getEventDetails.eventSchedule.length === 0) {
+        this.startTime = this.commonService.getDateTime(this.getEventDetails.eventStartDate);
+        this.endTime = this.commonService.getDateTime(this.getEventDetails.eventEndDate);
+      }
       this.isPublish = this.getEventDetails.isPublish;
       if (this.getEventDetails.eventSchedule != null) {
         this.getEventDetails.eventSchedule.forEach((m) => {
@@ -124,6 +128,7 @@ export class EventDetailsComponent implements OnInit {
       min: minAgendaStartTime,
       max: maxAgendEndTime,
     };
+
     return obj;
   }
 
@@ -139,7 +144,7 @@ export class EventDetailsComponent implements OnInit {
     this.router.navigate(['/edit'], { queryParams: { page: id } });
   }
   addParticipants() {
-    this.router.navigate(['/participants/participant-add',this.eventId,this.eventName]);
+    this.router.navigate(['/participants/participant-add', this.eventId, this.eventName]);
   }
   addSpeaker() {
     this.router.navigate(['/create-speaker'], {
@@ -147,7 +152,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   viewParticipant() {
-    this.router.navigate(['/participants',this.eventId,this.eventName]);
+    this.router.navigate(['/participants', this.eventId, this.eventName]);
   }
   viewSpeakers() {
     this.router.navigate(['/speakers'], {
@@ -155,7 +160,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   jumpDetail(id) {
-    this.router.navigate(['/participants/participant-details',id,'xyz']);
+    this.router.navigate(['/participants/participant-details', id, 'xyz']);
   }
   copyDetails() {
     this.router.navigate(['/copy-event'], {
@@ -163,7 +168,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
   jumpDetail1(id) {
-    this.router.navigate(['/speakers/speaker-details',id]);
+    this.router.navigate(['/speakers/speaker-details', id]);
   }
   Back() {
     this.router.navigate(['events']);
