@@ -131,9 +131,6 @@ Blogs
                       <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
                       <div class="card-description mb-0" [innerHTML]="blog.shortDescription | slice: 0:80"></div>
                       <div class="card-date"><b>Date : </b>{{ blog.updatedAt | date }} | <b>Author : </b>{{ blog?.person?.fullName }}</div>
-                      <!-- <h3 class="card-title">{{ blog.title }}</h3>
-                      <mat-divider></mat-divider>
-                      <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
                     </div>
                   </div>
                 </div>
@@ -177,9 +174,6 @@ Blogs
                       <h3 class="card-title">{{ blog.title | slice: 0:40 }}</h3>
                       <div class="card-description mb-0" [innerHTML]="blog.shortDescription | slice: 0:80"></div>
                       <div class="card-date"><b>Date : </b>{{ blog.updatedAt | date }} | <b>Author : </b>{{ blog?.person?.fullName }}</div>
-                      <!-- <h3 class="card-title">{{ blog.title }}</h3>
-                      <mat-divider></mat-divider>
-                      <p style="font-size: 14px;" [innerHTML]="blog.shortDescription | truncate: 180:false"></p> -->
                     </div>
                   </div>
                 </div>
