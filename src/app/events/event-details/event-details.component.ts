@@ -31,6 +31,7 @@ export class EventDetailsComponent implements OnInit {
   speakerList: any[] = [];
   getEventStatusdata: any;
   showPublish = true;
+  showStartEnd = true;
   @ViewChild('menumat') trigger: MatMenuTrigger;
 
   // @ViewChild('toggleButton') toggleButton: ElementRef;
@@ -86,6 +87,9 @@ export class EventDetailsComponent implements OnInit {
       if (this.getEventDetails.eventSchedule.length === 0) {
         this.startTime = this.commonService.getDateTime(this.getEventDetails.eventStartDate);
         this.endTime = this.commonService.getDateTime(this.getEventDetails.eventEndDate);
+      }
+      if (this.getEventDetails.eventSchedule.length === 0 && this.getEventDetails.eventStartDate === null) {
+        this.showStartEnd = false;
       }
       this.isPublish = this.getEventDetails.isPublish;
       if (this.getEventDetails.eventSchedule != null) {

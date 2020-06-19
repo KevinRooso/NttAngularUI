@@ -157,8 +157,10 @@
                       <span style="font-weight: 500;">Webinar URL : </span
                       ><a [href]="getEventDetails.webinarUrl" target="_blank">{{ getEventDetails.webinarUrl }}</a>
                     </p>
-                    <p><span style="font-weight: 500;">Start Time : </span>{{ startTime }}</p>
-                    <p><span style="font-weight: 500;">End Time : </span>{{ endTime }}</p>
+                    <div *ngIf="showStartEnd">
+                      <p><span style="font-weight: 500;">Start Time : </span>{{ startTime }}</p>
+                      <p><span style="font-weight: 500;">End Time : </span>{{ endTime }}</p>
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-3 float-right px-0">

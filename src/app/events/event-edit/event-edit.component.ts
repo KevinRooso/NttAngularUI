@@ -876,16 +876,21 @@ export class EventEditComponent implements OnInit {
   }
 
   deleteConfirm() {
-    if (this.valueData.idData === '-1') {
-      this.agendaData.splice(this.valuei, 1);
-      this.closeModal2.nativeElement.click();
-      this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
-    } else {
-      this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+    if (this.agendaData.length > 1) {
+      if (this.valueData.idData === '-1') {
         this.agendaData.splice(this.valuei, 1);
         this.closeModal2.nativeElement.click();
         this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
-      });
+      } else {
+        this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+          this.agendaData.splice(this.valuei, 1);
+          this.closeModal2.nativeElement.click();
+          this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
+        });
+      }
+    } else {
+      this.closeModal2.nativeElement.click();
+      this.snackBar.open('Event should have atleast one agenda', 'Close', { duration: 3000 });
     }
   }
 
