@@ -336,12 +336,12 @@ export class HomeUiComponent implements OnInit {
       this.resourceData.forEach((m) => {
         if (m.type === 'event') {
           this.eventBlockData = m.id;
-          this.articleBlockSequnce = m.blockSequenceNumber;
+          this.eventBlockSequnce = m.blockSequenceNumber;
           this.eventButton.nativeElement.click();
         }
         if (m.type === 'articles') {
           this.articleBlockData = m.id;
-          this.eventBlockSequnce = m.blockSequenceNumber;
+          this.articleBlockSequnce = m.blockSequenceNumber;
           this.articleButton.nativeElement.click();
         }
         if (m.type === 'blogs') {
@@ -479,7 +479,7 @@ export class HomeUiComponent implements OnInit {
         bannerObj['datafieldType'] = data['datafieldType'] || this.blocks.find((x) => x.apiName === data['type']).name;
         bannerObj['public'] = this.userType === 'public';
         bannerObj['sequenceNumber'] = data['sequenceNumber'];
-
+        bannerObj['blockSequenceNumber'] = '1';
         reqObj.push(bannerObj);
       }
       this.service.saveBanner(reqObj).subscribe(
