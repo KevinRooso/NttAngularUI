@@ -52,11 +52,9 @@
     "jquery": "^3.4.1",
     "mat-table-exporter": "^9.0.2",
     "ng-pick-datetime": "^7.0.0",
-    "ng2-ckeditor": "^1.2.7",
     "rollbar": "^2.15.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "xlsx": "^0.16.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
