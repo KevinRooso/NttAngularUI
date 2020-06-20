@@ -42,7 +42,7 @@
 
         <ng-container matColumnDef="categoryGroup">
           <th mat-header-cell *matHeaderCellDef mat-sort-header width="25%"><b>Category Group</b></th>
-          <td mat-cell *matCellDef="let row">{{ row.categoryGroup.name | slice: 0:20 | removehyphens | titlecase }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.categoryGroup | slice: 0:20 | removehyphens | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="createdAt">
