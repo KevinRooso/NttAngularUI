@@ -620,28 +620,28 @@ export class CopyEventComponent implements OnInit {
     let d1 = new Date(this.updateEventForm.controls['startDate'].value);
 
     if (d1.getTime() < this.newtoday.getTime()) {
-      this.snackBar.open('Event start date cannot be less than current Date', 'Close', { duration: 2000 });
+      this.snackBar.open("Event start date should be Greater than today's Date", 'Close', { duration: 2000 });
       return null;
     }
 
     d1 = new Date(this.updateEventForm.controls['endDate'].value);
 
     if (d1.getTime() < this.newtoday.getTime()) {
-      this.snackBar.open('Event end date cannot be less than current Date', 'Close', { duration: 2000 });
+      this.snackBar.open("Event end date should be Greater than today's Date", 'Close', { duration: 2000 });
       return null;
     }
 
     d1 = new Date(this.updateEventForm.controls['registrationStartDate'].value);
 
     if (d1.getTime() < this.newtoday.getTime()) {
-      this.snackBar.open('Registration start date cannot be less than current Date', 'Close', { duration: 2000 });
+      this.snackBar.open("Registration start date should be Greater than today's Date", 'Close', { duration: 2000 });
       return null;
     }
 
     d1 = new Date(this.updateEventForm.controls['registrationEndDate'].value);
 
     if (d1.getTime() < this.newtoday.getTime()) {
-      this.snackBar.open('Registration end date cannot be less than current Date', 'Close', { duration: 2000 });
+      this.snackBar.open("Registration end date should be Greater than today's Date", 'Close', { duration: 2000 });
       return null;
     }
 
