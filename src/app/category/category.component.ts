@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit {
           seq: index + 1,
           name: element.displayName,
           description: element.description,
-          categoryGroup: element.categoryGroup,
+          categoryGroup: element.categoryGroup.name.toLowerCase(),
           createdAt: element.createdAt,
         };
         this.categoryData.push(obj);
