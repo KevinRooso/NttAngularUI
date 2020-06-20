@@ -26,11 +26,12 @@
 
 .origin {
   font-size: 12px;
-  height: 13px;
-  line-height: 1.1;
-  margin-top: 15px;
   overflow: hidden;
   word-break: break-all;
+}
+
+.origin p {
+  margin: 0;
 }
 
 .keys {

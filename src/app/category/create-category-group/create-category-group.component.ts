@@ -57,9 +57,14 @@ export class CreateCategoryGroupComponent implements OnInit {
 
       this.authService.saveCategoryGroup(obj).subscribe(
         (_res) => {
-          this.show = false;
-          this.snackBar.open('Category Group Added Successfully', 'Close', { duration: 5000 });
-          this.router.navigate(['config-management/categoryGroup']);
+          if (_res.httpStatus === 'OK') {
+            this.show = false;
+            this.snackBar.open('Category Added Successfully', 'Close', { duration: 5000 });
+            this.router.navigate(['config-management/categoryGroup']);
+          } else if (_res.httpStatus === 'BAD_REQUEST') {
+            this.show = false;
+            this.snackBar.open('CategoryGroup name is already exists', 'Close', { duration: 5000 });
+          }
         },
         (_error) => {
           (this.show = false), this.snackBar.open('Oops, something went wrong..', 'Close');
