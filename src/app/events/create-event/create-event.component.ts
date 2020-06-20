@@ -178,6 +178,11 @@ export class CreateEventComponent implements OnInit {
           return m.id !== 9;
         });
       }
+      if (this.userList !== null) {
+        this.userList = this.userList.filter((m) => {
+          return m.id !== 10;
+        });
+      }
     });
   }
   fileProgress(fileInput: any) {
