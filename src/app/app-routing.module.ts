@@ -68,6 +68,7 @@ import { CreateNotificationComponent } from './notifications/create-notification
 import { EditNotificationComponent } from './notifications/edit-notification/edit-notification.component';
 import { DetailNotificationComponent } from './notifications/detail-notification/detail-notification.component';
 import { ParticipantsPreviewComponent } from './participants/participants-preview/participants-preview.component';
+import { PrivacyPolicyComponent } from './public/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -88,6 +89,11 @@ const routes: Routes = [
       {
         path: 'resource',
         component: PublicResourceComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
         pathMatch: 'full',
       },
     ],
