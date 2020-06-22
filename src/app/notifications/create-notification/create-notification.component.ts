@@ -25,7 +25,7 @@ export class CreateNotificationComponent implements OnInit {
     private router: Router
   ) {
     this.createUserForm = this.frmbuilder.group({
-      name: ['', Validators.required],
+      displayName: ['', Validators.required],
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: ['', Validators.required],
       targetUserTypeId: ['', Validators.required],
@@ -71,13 +71,13 @@ export class CreateNotificationComponent implements OnInit {
     if (this.createUserForm.valid) {
       this.show = true;
       const obj = {
-        name: this.createUserForm.controls['name'].value,
+        displayName: this.createUserForm.controls['displayName'].value,
         visibilityDurationInSec: this.createUserForm.controls['visibilityDurationInSec'].value,
         categoryTypeId: this.createUserForm.controls['categoryTypeId'].value,
         targetUserTypeId: this.createUserForm.controls['targetUserTypeId'].value,
         id: 0,
         template: {
-          name: this.createUserForm.controls['templateName'].value,
+          title: this.createUserForm.controls['templateName'].value,
           template: this.createUserForm.controls['notiTemplate'].value,
           id: 0,
         },

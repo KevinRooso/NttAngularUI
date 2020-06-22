@@ -32,6 +32,7 @@ export class EventDetailsComponent implements OnInit {
   getEventStatusdata: any;
   showPublish = true;
   showStartEnd = true;
+  defaultProfile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRq3gK2kpKsUiI3lL-U7uPUl_ET7zfXpPtSE9SghDF0_w4C2_9o&usqp=CAU';
   @ViewChild('menumat') trigger: MatMenuTrigger;
 
   // @ViewChild('toggleButton') toggleButton: ElementRef;

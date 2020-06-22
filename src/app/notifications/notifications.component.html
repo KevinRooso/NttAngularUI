@@ -34,7 +34,7 @@
 
         <ng-container matColumnDef="Duration">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Time</th>
-          <td mat-cell *matCellDef="let row">{{ row.Duration }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.Duration / 60 }} Minutes</td>
         </ng-container>
 
         <ng-container matColumnDef="categoryType">

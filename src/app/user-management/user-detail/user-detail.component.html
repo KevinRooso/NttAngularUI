@@ -38,7 +38,7 @@
                 <mat-expansion-panel *ngFor="let roles of roleData">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <mat-checkbox [value]="roles.id" (change)="onCheckChange($event)" class="mr-2">
+                      <mat-checkbox [checked]="defaultChecked(roles.id)" [value]="roles.id" (change)="onCheckChange($event)" class="mr-2">
                         <b style="font-weight: 500;">{{ roles.displayName }}</b></mat-checkbox
                       >
                     </mat-panel-title>

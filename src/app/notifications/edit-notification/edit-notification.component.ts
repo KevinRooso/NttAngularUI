@@ -29,7 +29,7 @@ export class EditNotificationComponent implements OnInit {
     private router1: ActivatedRoute
   ) {
     this.updateNotificationForm = this.frmbuilder.group({
-      name: ['', Validators.required],
+      displayName: ['', Validators.required],
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: ['', Validators.required],
       targetUserTypeId: ['', Validators.required],
@@ -87,22 +87,23 @@ export class EditNotificationComponent implements OnInit {
       this.updateNotificationForm.controls['targetUserTypeId'].setValidators(null);
       this.updateNotificationForm.controls['targetUserTypeId'].updateValueAndValidity();
       this.updateNotificationForm.controls['targetUserTypeId'].setValue(this.notificationData.targetUserType.id);
-      this.updateNotificationForm.controls['name'].setValue(this.notificationData.name);
+      this.updateNotificationForm.controls['displayName'].setValue(this.notificationData.name);
+      this.notificationData.visibilityDurationInSec = this.notificationData.visibilityDurationInSec / 60;
       this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
-      this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.name);
+      this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.title);
       this.updateNotificationForm.controls['notiTemplate'].setValue(this.notificationData.template.template);
     });
   }
   createUser() {
     if (this.updateNotificationForm.valid) {
       const obj = {
-        name: this.updateNotificationForm.controls['name'].value,
+        displayName: this.updateNotificationForm.controls['displayName'].value,
         visibilityDurationInSec: this.updateNotificationForm.controls['visibilityDurationInSec'].value,
         categoryTypeId: this.updateNotificationForm.controls['categoryTypeId'].value,
         targetUserTypeId: this.updateNotificationForm.controls['targetUserTypeId'].value,
         id: this.notiID,
         template: {
-          name: this.updateNotificationForm.controls['templateName'].value,
+          title: this.updateNotificationForm.controls['templateName'].value,
           template: this.updateNotificationForm.controls['notiTemplate'].value,
           id: this.tempId,
         },

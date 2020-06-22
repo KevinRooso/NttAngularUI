@@ -17,6 +17,7 @@ export class UserDetailComponent implements OnInit {
   show = false;
   isActive = false;
   userData: any = [];
+  roleIdArray = [];
   constructor(
     private authService: AuthServiceService,
     private router1: ActivatedRoute,
@@ -73,8 +74,18 @@ export class UserDetailComponent implements OnInit {
   getDetails(usrId: any) {
     this.authService.getUserDetails(usrId).subscribe((res) => {
       this.userData = res.body;
+      this.userData.roles.map((i) => this.roleIdArray.push(i.id));
       this.isActive = res.body.isActive;
     });
+  }
+  defaultChecked(id) {
+    let flag = false;
+    this.roleIdArray.forEach((item) => {
+      if (item === id) {
+        flag = true;
+      }
+    });
+    return flag;
   }
   changeStatus() {
     this.authService.updateUserStatus(this.usrId, this.isActive).subscribe(

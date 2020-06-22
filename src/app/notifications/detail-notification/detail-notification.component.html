@@ -26,7 +26,7 @@
                     <td>Name :</td>
                     <td>{{ notificationData?.name }}</td>
                     <td>Template Name :</td>
-                    <td>{{ notificationData?.template?.name }}</td>
+                    <td>{{ notificationData?.template?.title }}</td>
                   </tr>
                   <tr>
                     <td>Category :</td>
@@ -35,8 +35,8 @@
                     <td>{{ notificationData?.targetUserType?.name }}</td>
                   </tr>
                   <tr>
-                    <td>Visibility Duration In sec:</td>
-                    <td>{{ notificationData?.visibilityDurationInSec }}</td>
+                    <td>Visibility Duration :</td>
+                    <td>{{ notificationData?.visibilityDurationInSec / 60 }} Minutes</td>
                     <td>Approver Name :</td>
                     <td>{{ notificationData.approverName }}</td>
                   </tr>

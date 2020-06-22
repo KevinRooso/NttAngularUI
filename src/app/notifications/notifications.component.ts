@@ -33,7 +33,7 @@ export class NotificationsComponent implements OnInit {
           Duration: element.visibilityDurationInSec,
           categoryType: element.categoryTypeId.name,
           userType: element.targetUserType.name,
-          templateName: element.template.name,
+          templateName: element.template.title,
           template: element.template.template,
           isPublish: element.template.publish,
           id: element.id,

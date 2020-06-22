@@ -257,6 +257,14 @@ a:hover {
   z-index: 100;
 }
 
+.card-body ul > li > a {
+  word-break: break-all;
+}
+
+.card-body ul > li > div a {
+  word-break: break-all;
+}
+
 .modal-confirm {
   color: #636363;
   width: 400px;

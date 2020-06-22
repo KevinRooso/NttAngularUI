@@ -42,57 +42,58 @@
         </div>
       </div>
     </div>
-    <div class="row py-3" style="width: 100%;">
-      <div class="col-sm-12 d-inline-flex">
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Participants</h5>
-              <ul class="list-group">
-                <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice: 0:6; let ind = index">
-                  <a>
-                    <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
-                      {{ participant.name }}
-                    </div>
-                  </a>
-                </li>
-              </ul>
-              <div class="d-inline-flex py-2" style="width: 100%;">
-                <div class="py-2 text-left" style="width: 50%;">
-                  <a class="blog-btn add-button" *ngIf="getParticipantDetails.length != 0" (click)="viewParticipant()">View All</a>
-                </div>
-                <div class="py-2 text-right" style="width: 50%;">
-                  <a class="blog-btn add-button" (click)="addParticipants()">Add New</a>
-                </div>
+  </div>
+  <div class="row py-3">
+    <div class="col-sm-12 d-inline-flex px-0">
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Participants</h5>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let participant of getParticipantDetails | slice: 0:6; let ind = index">
+                <a>
+                  <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail(participant.id)">
+                    {{ participant.name }}
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="d-inline-flex py-2" style="width: 100%;">
+              <div class="py-2 text-left" style="width: 50%;">
+                <a class="blog-btn add-button" *ngIf="getParticipantDetails.length != 0" (click)="viewParticipant()">View All</a>
+              </div>
+              <div class="py-2 text-right" style="width: 50%;">
+                <a class="blog-btn add-button" (click)="addParticipants()">Add New</a>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-sm-6 px-0">
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col d-flex" *ngIf="showPublish">
-                  <label style="font-size: 15px; font-weight: 500;">Publish : </label>
-                  <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
-                  </mat-slide-toggle>
-                </div>
-                <div class="col">
-                  <p class="card-text mb-0" style="font-weight: 500;">
-                    <span style="font-weight: 500;">Status : </span>
-                    <span class="tags">{{ getEventDetails.eventStatus }}</span>
-
-                    <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'Expired'">
-                      (You cannot publish a draft event)
-                    </span>
-                    <span *ngIf="getEventDetails.eventStatus == 'Expired'">
-                      (You cannot publish an expired event)
-                    </span>
-                  </p>
-                </div>
+      <div class="col-sm-6 px-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col d-flex" *ngIf="showPublish">
+                <label style="font-size: 15px; font-weight: 500;">Publish : </label>
+                <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
+                </mat-slide-toggle>
               </div>
-              <!-- <div class="form-row">
+              <div class="col">
+                <p class="card-text mb-0" style="font-weight: 500;">
+                  <span style="font-weight: 500;">Status : </span>
+                  <span class="tags">{{ getEventDetails.eventStatus }}</span>
+
+                  <span *ngIf="getEventDetails.isDraft && getEventDetails.eventStatus != 'Expired'">
+                    (You cannot publish a draft event)
+                  </span>
+                  <span *ngIf="getEventDetails.eventStatus == 'Expired'">
+                    (You cannot publish an expired event)
+                  </span>
+                </p>
+              </div>
+            </div>
+            <!-- <div class="form-row">
               <label class="col-sm-2 col-form-label">Publish:</label>
               <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="isPublish" href="#myModal" data-toggle="modal">
               </mat-slide-toggle>
@@ -100,137 +101,140 @@
                 <span style="font-weight: 500;">Status - </span><span class="tags">{{ getEventDetails.eventStatus }}</span>
               </p>
             </div> -->
+          </div>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-body medium">
+            <h5 class="card-title">{{ getEventDetails.title }}</h5>
+            <!-- <h6>Description</h6> -->
+            <p class="card-text" [innerHTML]="getEventDetails.detail">
+              <span class="event-label">Description</span>
+            </p>
+            <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId != null">
+              <span style="font-weight: 500;">Category : </span>
+              {{ getEventDetails.categoryTypeId.displayName | removehyphens | removeunderscore | titlecase }}
+            </p>
+            <p *ngIf="getEventDetails?.tags?.length > 0" class="card-text mb-0" style="font-weight: 500;">
+              Tags :
+              <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
+            </p>
+          </div>
+          <div class="event-card-body-lg py-3">
+            <div class="col-sm-12">
+              <div class="col-sm-9 float-left px-0">
+                <div class="text-left">
+                  <p
+                    *ngIf="
+                      (getEventDetails.address1 != null && getEventDetails.isOnPremise) ||
+                      (getEventDetails.isOnPremise && getEventDetails.isWebinar)
+                    "
+                  >
+                    <span style="font-weight: 500;">Venue : </span>{{ getEventDetails.address1 }}
+                  </p>
+                  <p
+                    *ngIf="
+                      (getEventDetails.address2 != null && getEventDetails.isOnPremise) ||
+                      (getEventDetails.isOnPremise && getEventDetails.isWebinar)
+                    "
+                  >
+                    <span style="font-weight: 500;">Address : </span>{{ getEventDetails.address2 }}
+                  </p>
+                  <p
+                    *ngIf="
+                      (getEventDetails.address2 != null && getEventDetails.isOnPremise) ||
+                      (getEventDetails.isOnPremise && getEventDetails.isWebinar)
+                    "
+                  >
+                    <span style="font-weight: 500;" style="visibility: hidden;">Address : </span>{{ getEventDetails.city }},
+                    {{ getEventDetails.country }},
+                    {{ getEventDetails.pincode }}
+                  </p>
+                  <p
+                    *ngIf="
+                      (getEventDetails.webinarUrl != '' && getEventDetails.isWebinar) ||
+                      (getEventDetails.isOnPremise && getEventDetails.isWebinar)
+                    "
+                  >
+                    <span style="font-weight: 500;">Webinar URL : </span
+                    ><a [href]="getEventDetails.webinarUrl" target="_blank">{{ getEventDetails.webinarUrl }}</a>
+                  </p>
+                  <div *ngIf="showStartEnd">
+                    <p><span style="font-weight: 500;">Start Time : </span>{{ startTime }}</p>
+                    <p><span style="font-weight: 500;">End Time : </span>{{ endTime }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 float-right px-0">
+                <div class="text-right">
+                  <!-- <p>8 HRS</p> -->
+                  <p *ngIf="getEventDetails.totalSeat != 0">Total Seats : {{ getEventDetails.totalSeat }}</p>
+                  <!-- <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p> -->
+                  <!-- *ngIf="getEventDetails.noOfSubUsersAllow!= 0" -->
+                </div>
+              </div>
             </div>
           </div>
-          <div class="card" style="margin-top: 16px;">
-            <div class="card-body medium">
-              <h5 class="card-title">{{ getEventDetails.title }}</h5>
-              <!-- <h6>Description</h6> -->
-              <p class="card-text" [innerHTML]="getEventDetails.detail">
-                <span class="event-label">Description</span>
-              </p>
-              <p class="card-text mb-0" *ngIf="getEventDetails.categoryTypeId != null">
-                <span style="font-weight: 500;">Category : </span>
-                {{ getEventDetails.categoryTypeId.displayName | removehyphens | removeunderscore | titlecase }}
-              </p>
-              <p *ngIf="getEventDetails?.tags?.length > 0" class="card-text mb-0" style="font-weight: 500;">
-                Tags :
-                <span class="tags" *ngFor="let tag of getEventDetails.tags">{{ tag.name }}</span>
-              </p>
+          <div class="event-card-body-lg py-3">
+            <div class="col-sm-12">
+              <h6>Terms & Conditions</h6>
+              <small [innerHTML]="getEventDetails.policyTnc"></small>
+              <!-- <small>{{getEventDetails.policyTnc}}</small> -->
             </div>
-            <div class="event-card-body-lg py-3">
-              <div class="col-sm-12">
-                <div class="col-sm-9 float-left px-0">
-                  <div class="text-left">
-                    <p
-                      *ngIf="
-                        (getEventDetails.address1 != null && getEventDetails.isOnPremise) ||
-                        (getEventDetails.isOnPremise && getEventDetails.isWebinar)
-                      "
-                    >
-                      <span style="font-weight: 500;">Venue : </span>{{ getEventDetails.address1 }}
-                    </p>
-                    <p
-                      *ngIf="
-                        (getEventDetails.address2 != null && getEventDetails.isOnPremise) ||
-                        (getEventDetails.isOnPremise && getEventDetails.isWebinar)
-                      "
-                    >
-                      <span style="font-weight: 500;">Address : </span>{{ getEventDetails.address2 }}
-                    </p>
-                    <p
-                      *ngIf="
-                        (getEventDetails.address2 != null && getEventDetails.isOnPremise) ||
-                        (getEventDetails.isOnPremise && getEventDetails.isWebinar)
-                      "
-                    >
-                      <span style="font-weight: 500;" style="visibility: hidden;">Address : </span>{{ getEventDetails.city }},
-                      {{ getEventDetails.country }},
-                      {{ getEventDetails.pincode }}
-                    </p>
-                    <p
-                      *ngIf="
-                        (getEventDetails.webinarUrl != '' && getEventDetails.isWebinar) ||
-                        (getEventDetails.isOnPremise && getEventDetails.isWebinar)
-                      "
-                    >
-                      <span style="font-weight: 500;">Webinar URL : </span
-                      ><a [href]="getEventDetails.webinarUrl" target="_blank">{{ getEventDetails.webinarUrl }}</a>
-                    </p>
-                    <div *ngIf="showStartEnd">
-                      <p><span style="font-weight: 500;">Start Time : </span>{{ startTime }}</p>
-                      <p><span style="font-weight: 500;">End Time : </span>{{ endTime }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3 float-right px-0">
-                  <div class="text-right">
-                    <!-- <p>8 HRS</p> -->
-                    <p *ngIf="getEventDetails.totalSeat != 0">Total Seats : {{ getEventDetails.totalSeat }}</p>
-                    <!-- <p *ngIf="getEventDetails.noOfSubUsersAllow!= 0">No. of Subusers Allow - {{getEventDetails.noOfSubUsersAllow}}</p> -->
-                    <!-- *ngIf="getEventDetails.noOfSubUsersAllow!= 0" -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="event-card-body-lg py-3">
-              <div class="col-sm-12">
-                <h6>Terms & Conditions</h6>
-                <small [innerHTML]="getEventDetails.policyTnc"></small>
-                <!-- <small>{{getEventDetails.policyTnc}}</small> -->
-              </div>
-            </div>
-            <div class="event-card-body-lg py-3" *ngIf="getEventDetails.policyFAQ != 0">
-              <div class="col-sm-12">
-                <h6>Policy FAQs</h6>
-                <small [innerHTML]="getEventDetails.policyFAQ"></small>
-                <!-- <small [innerHTML]="">{{getEventDetails.policyFAQ}}</small> -->
-              </div>
+          </div>
+          <div class="event-card-body-lg py-3" *ngIf="getEventDetails.policyFAQ != 0">
+            <div class="col-sm-12">
+              <h6>Policy FAQs</h6>
+              <small [innerHTML]="getEventDetails.policyFAQ"></small>
+              <!-- <small [innerHTML]="">{{getEventDetails.policyFAQ}}</small> -->
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Speakers</h5>
-              <ul class="list-group">
-                <li class="list-group-item" *ngFor="let sdetails of speakers | sortBy: 'asc':'fullName'">
-                  <div class="d-inline-flex" style="align-items: baseline;" (click)="jumpDetail1(sdetails.id)">
-                    <div class="mr-2">
-                      <img _ngcontent-wbm-c23="" [src]="sdetails.profileImageUrl" alt="User Image" class="speaker-image" />
-                    </div>
-                    <a>{{ sdetails.fullName }}</a>
+      </div>
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Speakers</h5>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let sdetails of speakers | sortBy: 'asc':'fullName'">
+                <div class="d-inline-flex" (click)="jumpDetail1(sdetails.id)">
+                  <div class="mr-2">
+                    <img
+                      [src]="sdetails.profileImageUrl ? sdetails.profileImageUrl : defaultProfile"
+                      alt="User Image"
+                      class="speaker-image"
+                    />
                   </div>
-                </li>
-              </ul>
-              <!-- <div class="py-2 text-right">
+                  <a>{{ sdetails.fullName }}</a>
+                </div>
+              </li>
+            </ul>
+            <!-- <div class="py-2 text-right">
               <a class="blog-btn add-button" (click)="addSpeaker()">Add Speakers</a>
             </div> -->
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="myModal" class="modal fade" data-backdrop="static">
-    <div class="modal-dialog modal-confirm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="text-center" style="width: 100%;">
-            <h4 class="modal-title">Are you sure?</h4>
-          </div>
-          <button type="button" class="close p-0 modal-remove" (click)="reverseChanges()" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+</div>
+<div id="myModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center" style="width: 100%;">
+          <h4 class="modal-title">Are you sure?</h4>
         </div>
-        <div class="modal-body">
-          <p *ngIf="isPublish">Do you want to publish this Event?</p>
-          <p *ngIf="!isPublish">Do you want to Unpublish this Event?</p>
-        </div>
-        <div class="modal-footer" style="justify-content: center; border: none;">
-          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
-        </div>
+        <button type="button" class="close p-0 modal-remove" (click)="reverseChanges()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="isPublish">Do you want to publish this Event?</p>
+        <p *ngIf="!isPublish">Do you want to Unpublish this Event?</p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; border: none;">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reverseChanges()">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus()">Yes</button>
       </div>
     </div>
   </div>

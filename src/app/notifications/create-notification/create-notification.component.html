@@ -18,8 +18,8 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Name<span class="error">*</span> </label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Notification Name" formControlName="name" />
-            <mat-error *ngIf="checkError('name', 'required')">(Notification Name is required)</mat-error>
+            <input matInput placeholder="Notification Name" formControlName="displayName" />
+            <mat-error *ngIf="checkError('displayName', 'required')">(Notification Name is required)</mat-error>
             <!-- <mat-error *ngIf="checkError('name', 'maxlength')">(Notification Name should be upto 100 characters)</mat-error> -->
           </mat-form-field>
         </div>
