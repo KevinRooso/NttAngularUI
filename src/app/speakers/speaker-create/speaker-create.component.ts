@@ -147,10 +147,13 @@ export class SpeakerCreateComponent implements OnInit {
     };
   }
   uploadImage() {
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
       this.uploaded = true;
+      this.show = false;
+      this.imageValid = false;
       // console.log('Image', res);
       this.speakerImage = res.fileDownloadUri;
       // console.log(this.speakerImage);

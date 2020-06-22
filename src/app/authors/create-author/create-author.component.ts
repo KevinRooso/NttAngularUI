@@ -18,6 +18,7 @@ export class CreateAuthorComponent implements OnInit {
 
   visible = true;
   selectable = true;
+  show = false;
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -152,6 +153,7 @@ export class CreateAuthorComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
+    this.uploaded = false;
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
@@ -198,10 +200,13 @@ export class CreateAuthorComponent implements OnInit {
     };
   }
   uploadImage() {
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
       this.uploaded = true;
+      this.imageValid = false;
+      this.show = false;
       // console.log('Image', res);
       this.authorImage = res.fileDownloadUri;
       // console.log(this.speakerImage);
