@@ -20,6 +20,7 @@ export class SpeakerEditComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   show = false;
+  uploaded = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   fruits: any[] = [];
 
@@ -100,6 +101,7 @@ export class SpeakerEditComponent implements OnInit {
   fileProgress(fileInput: any) {
     this.previewUrl = null;
     this.imageValid = false;
+    this.uploaded = false;
     this.fileData = fileInput.target.files[0] as File;
     const img = new Image();
     img.src = window.URL.createObjectURL(this.fileData);
@@ -146,9 +148,13 @@ export class SpeakerEditComponent implements OnInit {
     };
   }
   uploadImage() {
+    this.show = true;
     const formData = new FormData();
     formData.append('file', this.fileData);
     this.authService.uploadFile(formData).subscribe((res) => {
+      this.show = false;
+      this.uploaded = true;
+      this.imageValid = false;
       this.speakerImage = res.fileDownloadUri;
       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
     });
@@ -177,48 +183,53 @@ export class SpeakerEditComponent implements OnInit {
 
       this.previewUrl = this.getSpeaker.profileImageUrl;
       this.speakerImage = res.body.profileImageUrl;
+      this.uploaded = true;
     });
   }
 
   updateSpeaker() {
-    if (this.updateSpeakerForm.valid) {
-      let fruit1 = '';
-      this.show = true;
+    if (this.uploaded) {
+      if (this.updateSpeakerForm.valid) {
+        let fruit1 = '';
+        this.show = true;
 
-      this.fruits.forEach((m) => {
-        fruit1 = fruit1 + ',' + m.name;
-      });
+        this.fruits.forEach((m) => {
+          fruit1 = fruit1 + ',' + m.name;
+        });
 
-      const obj = {
-        fullName: this.updateSpeakerForm.controls['fullName'].value,
-        description: this.updateSpeakerForm.controls['description'].value,
-        email: this.updateSpeakerForm.controls['email'].value,
-        personalEmail: this.updateSpeakerForm.controls['personalEmail'].value,
-        designation: this.updateSpeakerForm.controls['designation'].value,
-        // "profile": this.updateSpeakerForm.controls['profile'].value,
-        origanizationName: this.updateSpeakerForm.controls['origanizationName'].value,
-        phone: this.updateSpeakerForm.controls['phone'].value,
-        keySkills: fruit1.substring(1, fruit1.length - 0),
-        personType: 'speaker',
-        profileImageUrl: this.speakerImage,
-        id: this.spkrID,
-      };
+        const obj = {
+          fullName: this.updateSpeakerForm.controls['fullName'].value,
+          description: this.updateSpeakerForm.controls['description'].value,
+          email: this.updateSpeakerForm.controls['email'].value,
+          personalEmail: this.updateSpeakerForm.controls['personalEmail'].value,
+          designation: this.updateSpeakerForm.controls['designation'].value,
+          // "profile": this.updateSpeakerForm.controls['profile'].value,
+          origanizationName: this.updateSpeakerForm.controls['origanizationName'].value,
+          phone: this.updateSpeakerForm.controls['phone'].value,
+          keySkills: fruit1.substring(1, fruit1.length - 0),
+          personType: 'speaker',
+          profileImageUrl: this.speakerImage,
+          id: this.spkrID,
+        };
 
-      this.authService.saveSpeaker(obj).subscribe(
-        (_response) => {
-          this.show = false;
-          this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
-        },
-        (_error) => {
-          this.show = false;
-          this.snackBar.open('Oops, Something went wrong', 'Close', {
-            duration: 5000,
-          });
-        }
-      );
+        this.authService.saveSpeaker(obj).subscribe(
+          (_response) => {
+            this.show = false;
+            this.snackBar.open('Speaker successfully updated', 'Close', { duration: 5000 });
+          },
+          (_error) => {
+            this.show = false;
+            this.snackBar.open('Oops, Something went wrong', 'Close', {
+              duration: 5000,
+            });
+          }
+        );
+      } else {
+        this.show = false;
+        this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
+      }
     } else {
-      this.show = false;
-      this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
+      this.snackBar.open('Please upload Image', 'Close', { duration: 5000 });
     }
   }
 
