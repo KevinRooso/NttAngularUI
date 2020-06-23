@@ -197,7 +197,7 @@
             <ul class="list-group">
               <li class="list-group-item" *ngFor="let sdetails of speakers | sortBy: 'asc':'fullName'">
                 <div class="d-inline-flex" (click)="jumpDetail1(sdetails.id)">
-                  <div class="mr-2">
+                  <div class="mr-2" style="align-self: center;">
                     <img
                       [src]="sdetails.profileImageUrl ? sdetails.profileImageUrl : defaultProfile"
                       alt="User Image"
