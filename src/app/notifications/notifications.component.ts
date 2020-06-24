@@ -27,11 +27,17 @@ export class NotificationsComponent implements OnInit {
     this.authService.getNotificationList().subscribe((res) => {
       this.show = false;
       res.body.forEach((element, index) => {
+        let catName;
+        if (element.categoryTypeId !== null) {
+          catName = element.categoryTypeId.name;
+        } else {
+          catName = null;
+        }
         const obj = {
           seq: index + 1,
           Name: element.name,
           Duration: element.visibilityDurationInSec,
-          categoryType: element.categoryTypeId.name,
+          categoryType: catName,
           userType: element.targetUserType.name,
           templateName: element.template.title,
           template: element.template.template,
