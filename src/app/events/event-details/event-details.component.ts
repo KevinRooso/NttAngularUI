@@ -78,16 +78,19 @@ export class EventDetailsComponent implements OnInit {
         this.showPublish = false;
       }
       if (this.getEventDetails.eventSchedule != null) {
-        this.getEventDetails.eventSchedule.forEach((m) => {
-          arr.push(m);
-        });
-        const objs = this.getMinMaxDate(arr);
-        this.startTime = this.commonService.getDateTime(objs.min);
-        this.endTime = this.commonService.getDateTime(objs.max);
+        if (this.getEventDetails.eventSchedule[0].startDate === null) {
+          this.assignStartEnd();
+        } else {
+          this.getEventDetails.eventSchedule.forEach((m) => {
+            arr.push(m);
+          });
+          const objs = this.getMinMaxDate(arr);
+          this.startTime = this.commonService.getDateTime(objs.min);
+          this.endTime = this.commonService.getDateTime(objs.max);
+        }
       }
       if (this.getEventDetails.eventSchedule.length === 0) {
-        this.startTime = this.commonService.getDateTime(this.getEventDetails.eventStartDate);
-        this.endTime = this.commonService.getDateTime(this.getEventDetails.eventEndDate);
+        this.assignStartEnd();
       }
       if (this.getEventDetails.eventSchedule.length === 0 && this.getEventDetails.eventStartDate === null) {
         this.showStartEnd = false;
@@ -214,6 +217,10 @@ export class EventDetailsComponent implements OnInit {
   }
   reverseChanges() {
     this.isPublish = !this.isPublish;
+  }
+  assignStartEnd() {
+    this.startTime = this.commonService.getDateTime(this.getEventDetails.eventStartDate);
+    this.endTime = this.commonService.getDateTime(this.getEventDetails.eventEndDate);
   }
 
   // publishStatusNo(){

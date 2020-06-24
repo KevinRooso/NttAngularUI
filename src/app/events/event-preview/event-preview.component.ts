@@ -191,6 +191,10 @@ export class EventPreviewComponent implements OnInit {
         return titleData.includes(this.searchBlog.toUpperCase());
       }
     });
+
+    if (this.searchBlog === '') {
+      this.cancel();
+    }
   }
   cancel() {
     this.publishedList = this.publishedList1;
