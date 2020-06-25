@@ -19,6 +19,7 @@ export class EditNotificationComponent implements OnInit {
   notificationData: any = {};
   notiID: any;
   selected3 = '';
+  selected4 = '';
   tempId = '';
   constructor(
     private frmbuilder: FormBuilder,
@@ -72,7 +73,7 @@ export class EditNotificationComponent implements OnInit {
     });
   }
   getCategoryDetails() {
-    this.authService.getCategoryListByGroup('notification').subscribe((res) => {
+    this.authService.getCategoryListByGroup('Notification').subscribe((res) => {
       this.allData = res.body;
     });
   }
@@ -81,13 +82,14 @@ export class EditNotificationComponent implements OnInit {
       this.notificationData = res.body;
       this.tempId = res.body.template.id;
       this.selected3 = res.body.targetUserType.id;
+      this.selected4 = res.body.categoryTypeId.id;
       if (this.notificationData.categoryTypeId !== null) {
         this.updateNotificationForm.controls['categoryTypeId'].setValue(this.notificationData.categoryTypeId.id);
       }
       this.updateNotificationForm.controls['targetUserTypeId'].setValidators(null);
       this.updateNotificationForm.controls['targetUserTypeId'].updateValueAndValidity();
       this.updateNotificationForm.controls['targetUserTypeId'].setValue(this.notificationData.targetUserType.id);
-      this.updateNotificationForm.controls['displayName'].setValue(this.notificationData.name);
+      this.updateNotificationForm.controls['displayName'].setValue(this.notificationData.displayName);
       this.notificationData.visibilityDurationInSec = this.notificationData.visibilityDurationInSec / 60;
       this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
       this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.title);

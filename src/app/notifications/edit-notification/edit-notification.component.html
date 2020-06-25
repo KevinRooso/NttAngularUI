@@ -18,7 +18,7 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Name<span class="error">*</span> </label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Notification Name" formControlName="displayName" />
+            <input matInput placeholder="Notification Name" formControlName="displayName" readonly />
             <mat-error *ngIf="checkError('displayName', 'required')">(Notification Name is required)</mat-error>
             <!-- <mat-error *ngIf="checkError('name', 'maxlength')">(Notification Name should be upto 100 characters)</mat-error> -->
           </mat-form-field>
@@ -36,10 +36,10 @@
           <label class="col-sm-3 col-form-label">Select Category</label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
-            <mat-select formControlName="categoryTypeId">
+            <mat-select formControlName="categoryTypeId" [(value)]="selected4">
               <mat-option value="0">None</mat-option>
-              <mat-option *ngFor="let category of allData" [value]="category.id">
-                {{ category.name | removehyphens | removeunderscore | titlecase }}
+              <mat-option *ngFor="let category of allData" [value]="category.id" [disabled]="category.id" readonly>
+                {{ category.displayName | removehyphens | removeunderscore | titlecase }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="checkError('categoryTypeId', 'required')">(Category is required)</mat-error>
@@ -51,7 +51,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Targeted User</mat-label>
             <mat-select formControlName="targetUserTypeId" [(value)]="selected3">
-              <mat-option *ngFor="let user of userList" [value]="user.id">
+              <mat-option *ngFor="let user of userList" [value]="user.id" [disabled]="user.id" readonly>
                 {{ user.displayName }}
               </mat-option>
             </mat-select>

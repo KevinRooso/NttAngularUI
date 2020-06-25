@@ -49,6 +49,7 @@ export class EventEditComponent implements OnInit {
   color = '3';
   userList: any[] = [];
   selected4: string[] = [];
+  selected3 = '';
   selectedSpeaker: string[] = [];
   selected6: string[] = [];
   agendaData: any[] = [];
@@ -215,7 +216,6 @@ export class EventEditComponent implements OnInit {
     // this.show = true;
     this.authService.getEventDetail(id).subscribe((res) => {
       this.getEventDetails = res.body.events;
-
       const url1 = this.getEventDetails.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
 
@@ -289,7 +289,8 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
       if (this.getEventDetails.categoryTypeId !== null) {
-        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId);
+        this.selected3 = res.body.events.categoryTypeId.id;
+        this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId.id);
       }
       this.updateEventForm.controls['targetUserType'].setValue(this.getEventDetails.targetUserType.displayName);
 
