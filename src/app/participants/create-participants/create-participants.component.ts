@@ -37,7 +37,7 @@ export class CreateParticipantsComponent implements OnInit {
       }
     });
     this.addParForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(40)]],
+      name: ['', [Validators.required, Validators.maxLength(40), Validators.pattern(CmsConstants.alphabetexp)]],
       email: ['', [Validators.required, Validators.email]],
       phoneNo: ['', [Validators.required, Validators.pattern(CmsConstants.mobexp)]],
       event: ['', Validators.required],

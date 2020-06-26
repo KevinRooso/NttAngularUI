@@ -26,4 +26,5 @@ export const CmsConstants = {
   HomeSequences: [2, 3, 4, 5, 6, 7, 8, 9],
   HomeSequencesBanner: [1, 2, 3],
   HomeSequencesBannerBlock: [1, 2, 3, 4, 5, 6, 7],
+  alphabetexp: /^[a-zA-Z][a-zA-Z\s]*$/,
 };
