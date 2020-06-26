@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import { CmsConstants } from 'src/app/cms-constants';
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
@@ -73,7 +74,7 @@ export class HomeUiComponent implements OnInit {
   bannerEmittedData: any = {};
   listData: any = [];
   previewHomePageData: any = {};
-  sequences: any = [2, 3, 4, 5, 6, 7, 8, 9];
+  sequences: any = CmsConstants.HomeSequences;
 
   // tslint:disable-next-line:no-input-rename
   @Input('userType') userType: string;
@@ -86,32 +87,11 @@ export class HomeUiComponent implements OnInit {
   @ViewChild('newsButton', { static: false }) newsButton;
   @ViewChild('testButton', { static: false }) testButton;
   bannerLimit = 0;
-  users: any[] = [
-    { id: 1, type: 'Customer' },
-    { id: 2, type: 'Employee' },
-    { id: 3, type: 'Public' },
-  ];
+  users: any[] = CmsConstants.users;
 
-  blocks: any[] = [
-    { url: 'event?api/public/events', name: 'event', apiName: 'event' },
-    { url: 'article?api/public/resources/articles', name: 'article', apiName: 'articles' },
-    { url: 'blog?api/public/resources/blogs', name: 'blog', apiName: 'blogs' },
-    { url: 'video?api/public/resources/videos', name: 'video', apiName: 'videos' },
-    {
-      url: 'whitepaper?api/public/resources/whitepapers',
-      name: 'whitepaper',
-      apiName: 'white papers',
-    },
-    {
-      url: 'casestudy?api/public/resources/case-studies',
-      name: 'casestudy',
-      apiName: 'case studies',
-    },
-    { url: 'news?api/public/news', name: 'news', apiName: 'news' },
-    { url: 'testimonial?api/public/resources/testimonials', name: 'testimonial', apiName: 'testimonials' },
-  ];
-  sequenceNumbersBanner: any[] = [1, 2, 3];
-  sequenceNumbersBannerBlock: any[] = [1, 2, 3, 4, 5, 6, 7];
+  blocks: any[] = CmsConstants.blocks;
+  sequenceNumbersBanner: any[] = CmsConstants.HomeSequencesBanner;
+  sequenceNumbersBannerBlock: any[] = CmsConstants.HomeSequencesBannerBlock;
   filterArrForBannerBlock: any[] = [];
 
   articleBlockSequnce = '';
