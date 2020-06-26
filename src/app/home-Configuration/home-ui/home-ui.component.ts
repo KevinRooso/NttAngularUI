@@ -243,7 +243,7 @@ export class HomeUiComponent implements OnInit {
     this.articleConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['article', Validators.required],
+      datafieldType: ['articles', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -251,7 +251,7 @@ export class HomeUiComponent implements OnInit {
     this.blogsConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['blog', Validators.required],
+      datafieldType: ['blogs', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -259,7 +259,7 @@ export class HomeUiComponent implements OnInit {
     this.videosConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['video', Validators.required],
+      datafieldType: ['videos', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -267,7 +267,7 @@ export class HomeUiComponent implements OnInit {
     this.whitePaperConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['whitepaper', Validators.required],
+      datafieldType: ['whitepapers', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -275,7 +275,7 @@ export class HomeUiComponent implements OnInit {
     this.caseStudyConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['caseStudy', Validators.required],
+      datafieldType: ['caseStudies', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -291,7 +291,7 @@ export class HomeUiComponent implements OnInit {
     this.testConfigurationForm = this.formBuilder.group({
       public: [this.pFlag],
       customer: [this.cFlag],
-      datafieldType: ['testimonial', Validators.required],
+      datafieldType: ['testimonials', Validators.required],
       dataFieldId: ['', Validators.required],
       sequenceNumber: ['1'],
       blockSequenceNumber: ['', Validators.required],
@@ -335,12 +335,12 @@ export class HomeUiComponent implements OnInit {
           this.videoBlockSequnce = m.blockSequenceNumber;
           this.videoButton.nativeElement.click();
         }
-        if (m.type === 'white papers') {
+        if (m.type === 'whitepapers') {
           this.whitePaperBlockData = m.id;
           this.whitePaperBlockSequnce = m.blockSequenceNumber;
           this.whitpaperButton.nativeElement.click();
         }
-        if (m.type === 'case studies') {
+        if (m.type === 'casestudies') {
           this.caseStudyBlockData = m.id;
           this.caseStudyBlockSequnce = m.blockSequenceNumber;
           this.caseButton.nativeElement.click();
@@ -665,7 +665,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.articleConfigurationForm.value);
-    this.service.saveRescourceBlock('article', obj).subscribe(
+    this.service.saveRescourceBlock('articles', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         this.show = false;
@@ -681,7 +681,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.blogsConfigurationForm.value);
-    this.service.saveRescourceBlock('blog', obj).subscribe(
+    this.service.saveRescourceBlock('blogs', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -698,7 +698,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.videosConfigurationForm.value);
-    this.service.saveRescourceBlock('video', obj).subscribe(
+    this.service.saveRescourceBlock('videos', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -715,7 +715,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.whitePaperConfigurationForm.value);
-    this.service.saveRescourceBlock('whitepaper', obj).subscribe(
+    this.service.saveRescourceBlock('whitepapers', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -732,7 +732,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.caseStudyConfigurationForm.value);
-    this.service.saveRescourceBlock('casestudy', obj).subscribe(
+    this.service.saveRescourceBlock('casestudies', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         // alert("SUCCESS!!");
@@ -766,7 +766,7 @@ export class HomeUiComponent implements OnInit {
     const obj: any[] = [];
 
     obj.push(this.testConfigurationForm.value);
-    this.service.saveEventBlock('testimonial', obj).subscribe(
+    this.service.saveEventBlock('testimonials', obj).subscribe(
       (_res) => {
         this.snackBar.open('Saved Successfully', 'Close', { duration: 5000 });
         this.show = false;
