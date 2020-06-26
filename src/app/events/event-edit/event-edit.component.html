@@ -100,10 +100,10 @@
           <label class="col-sm-3 col-form-label">Select Category </label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
-            <mat-select formControlName="categoryTypeId">
+            <mat-select formControlName="categoryTypeId" [(ngModel)]="selected3">
               <mat-option value="0">None</mat-option>
-              <mat-option *ngFor="let category of allData" [value]="category.displayName">
-                {{ category.name | removehyphens | removeunderscore | titlecase }}
+              <mat-option *ngFor="let category of allData" [value]="category.id">
+                {{ category.displayName | removehyphens | removeunderscore | titlecase }}
               </mat-option>
             </mat-select>
           </mat-form-field>

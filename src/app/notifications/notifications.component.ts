@@ -29,13 +29,13 @@ export class NotificationsComponent implements OnInit {
       res.body.forEach((element, index) => {
         let catName;
         if (element.categoryTypeId !== null) {
-          catName = element.categoryTypeId.name;
+          catName = element.categoryTypeId.displayName;
         } else {
           catName = null;
         }
         const obj = {
           seq: index + 1,
-          Name: element.name,
+          Name: element.displayName,
           Duration: element.visibilityDurationInSec,
           categoryType: catName,
           userType: element.targetUserType.name,
