@@ -80,7 +80,6 @@ export class BannerUiComponent implements OnInit {
 
     this.service.getBannerBlockDetail(durl,this.pFlag,this.cFlag).subscribe((res) => {
       this.selectBlockData = res.body;
-
       this.show = false;
     });
   }
