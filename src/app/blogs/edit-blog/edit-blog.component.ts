@@ -71,7 +71,7 @@ export class EditBlogComponent implements OnInit {
   ) {
     this.createBlogForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      longDescription: new FormControl('', [Validators.required, textValidation(700)]),
+      longDescription: new FormControl('', [Validators.required]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],
       categoryId: [''],

@@ -194,7 +194,7 @@
           <label class="col-sm-3 col-form-label">Targeted User <span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Target User</mat-label>
-            <mat-select formControlName="targetUserType" [(value)]="selected3">
+            <mat-select formControlName="targetUserType" [(ngModel)]="selected3">
               <mat-option *ngFor="let user of userList" [value]="user.id">
                 {{ user.displayName }}
               </mat-option>

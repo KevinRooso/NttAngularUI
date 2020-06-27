@@ -19,6 +19,13 @@ tr.example-element-row:not(.example-expanded-row):active {
   background: #efefef;
 }
 
+td,
+th {
+  max-width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 .example-element-row td {
   border-bottom-width: 0;
 }

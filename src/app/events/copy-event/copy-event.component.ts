@@ -200,7 +200,6 @@ export class CopyEventComponent implements OnInit {
 
     this.authService.getEventDetail(id).subscribe((res) => {
       this.getEventDetails = res.body.events;
-      this.selected3 = res.body.events.categoryTypeId.id;
 
       const url1 = this.getEventDetails.thumbnailImageUrl;
       this.result1 = url1.split('/').pop().split('?')[0].slice(14, url1.length);
@@ -270,7 +269,7 @@ export class CopyEventComponent implements OnInit {
 
       this.updateEventForm.controls['policyFAQ'].setValue(this.getEventDetails.policyFAQ);
       this.updateEventForm.controls['policyTnc'].setValue(this.getEventDetails.policyTnc);
-      if (this.updateEventForm.controls['categoryTypeId'] !== null) {
+      if (this.getEventDetails.categoryTypeId !== null) {
         this.selected3 = res.body.events.categoryTypeId.id;
         this.updateEventForm.controls['categoryTypeId'].setValue(this.getEventDetails.categoryTypeId);
       }

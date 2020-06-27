@@ -45,6 +45,7 @@ export class VideosCreateComponent implements OnInit {
   image1button = false;
 
   today = new Date();
+  reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
   @ViewChild('closeModel', { static: true }) closeModel;
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class VideosCreateComponent implements OnInit {
       targetUserType: ['', Validators.required],
       draft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      downloadUrl: ['', Validators.required],
+      downloadUrl: ['', [Validators.required, Validators.pattern(this.reg)]],
       expiryDate: ['', Validators.required],
     });
     this.addTagForm = this.formBuilder.group({

@@ -43,7 +43,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Long Description is required &#13;2. Long Description should be upto 700 characters"
+              matTooltip="1. Long Description is required"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -55,9 +55,9 @@
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Long Description is required)
             </div>
-            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
+            <!-- <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
               (Description should be upto 700 characters)
-            </div>
+            </div> -->
           </div>
         </div>
 
