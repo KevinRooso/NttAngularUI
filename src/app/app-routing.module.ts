@@ -69,6 +69,7 @@ import { EditNotificationComponent } from './notifications/edit-notification/edi
 import { DetailNotificationComponent } from './notifications/detail-notification/detail-notification.component';
 import { ParticipantsPreviewComponent } from './participants/participants-preview/participants-preview.component';
 import { PrivacyPolicyComponent } from './public/privacy-policy/privacy-policy.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -381,6 +382,16 @@ const routes: Routes = [
             canActivate: [AuthguardServiceService],
           },
         ],
+      },
+    ],
+  },
+  {
+    path: 'jobs',
+    children: [
+      {
+        path: '',
+        component: JobsComponent,
+        canActivate: [AuthguardServiceService],
       },
     ],
   },

@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 25%;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 1%;
+}
+
+.assignee-button {
+  background: #03c;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 14px;
+}

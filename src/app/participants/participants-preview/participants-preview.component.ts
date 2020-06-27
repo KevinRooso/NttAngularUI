@@ -215,7 +215,11 @@ export class ParticipantsPreviewComponent implements OnInit {
         (_res) => {
           this.counter = this.counter - this.bulkIdArr.length;
           this.allChecked = false;
-          this.snackBar.open('All Approved!!', 'Close', { duration: 5000 });
+          if (this.bulkIdArr.length === 1) {
+            this.snackBar.open('Approved!!', 'Close', { duration: 5000 });
+          } else {
+            this.snackBar.open('All Approved!!', 'Close', { duration: 5000 });
+          }
           this.getTableData(this.url);
           this.bulkIdArr = [];
         },
