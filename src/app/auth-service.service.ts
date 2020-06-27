@@ -321,4 +321,7 @@ export class AuthServiceService {
   approveNotifications(id, status): Observable<any> {
     return this.http.post<any>(this.url + 'approveNotification/' + id + '?status=' + status, null);
   }
+  getJobsList(): Observable<any> {
+    return this.http.get<any>(this.url + 'api/schedulerTime');
+  }
 }

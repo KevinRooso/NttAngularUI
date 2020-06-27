@@ -31,6 +31,7 @@ export class CreateFormComponent implements OnInit {
   checkError: any;
   checkError1: any;
   submitted = false;
+  uploaded = false;
 
   imageValid = false;
   imageValid2 = false;
@@ -65,7 +66,7 @@ export class CreateFormComponent implements OnInit {
       thumbnailImageUrl: ['', [Validators.pattern('(.*?).(jpg|png|jpeg|JPG|PNG|JPEG)$')]],
     });
     this.craeteUrlForm = this.formBuilder.group({
-      testimonialUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+      testimonialUrl: ['', Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
     });
     this.checkError = (controlName: string, errorName: string, checkSubmitted: boolean) => {
       if (checkSubmitted) {
@@ -111,6 +112,7 @@ export class CreateFormComponent implements OnInit {
           this.changeFlag = this.editData.isLastService;
           this.previewUrl = this.editData.thumbnailImageUrl;
           this.articleImage = this.editData.thumbnailImageUrl;
+          this.uploaded = true;
         }
       }
       this.show = false;
@@ -137,6 +139,7 @@ export class CreateFormComponent implements OnInit {
       setTimeout(() => {
         const width = img.naturalWidth;
         const height = img.naturalHeight;
+        this.uploaded = false;
 
         window.URL.revokeObjectURL(img.src);
 
@@ -223,6 +226,7 @@ export class CreateFormComponent implements OnInit {
       (res) => {
         this.articleImage = res.fileDownloadUri;
         this.show = false;
+        this.uploaded = true;
         this.image1button = true;
         this.imageValid = false;
         this.snackBar.open('Image successfully uploaded', 'Close', {
@@ -265,38 +269,44 @@ export class CreateFormComponent implements OnInit {
     this.changeFlag = !this.changeFlag;
   }
   submit() {
-    if (this.productServicesForm.valid) {
-      const formObject = this.productServicesForm.value;
-      formObject.thumbnailImageUrl = this.articleImage;
-      if (this.editData != null) {
-        formObject.id = this.editData.id;
-      }
-      formObject.parentId = this.parentId;
-      formObject.isLastService = this.changeFlag;
-      formObject.testimonialUrl = this.urlArray;
-      this.show = true;
-      this.authService.createProductAndService(formObject).subscribe(
-        (_res) => {
-          this.snackBar.open('Success !!', 'Close', {
-            duration: 5000,
-          });
-          const obj = {
-            page: JSON.stringify(this.parent),
-            page1: JSON.stringify(this.bradArray),
-          };
-          const navigationExtras: NavigationExtras = {
-            queryParams: obj,
-            skipLocationChange: true,
-          };
-          this.show = false;
-          this.router.navigate(['cloud-service'], navigationExtras);
-        },
-        (_error) => {
-          this.show = false;
+    if (this.uploaded) {
+      if (this.productServicesForm.valid) {
+        const formObject = this.productServicesForm.value;
+        formObject.thumbnailImageUrl = this.articleImage;
+        if (this.editData != null) {
+          formObject.id = this.editData.id;
         }
-      );
+        formObject.parentId = this.parentId;
+        formObject.isLastService = this.changeFlag;
+        formObject.testimonialUrl = this.urlArray;
+        this.show = true;
+        this.authService.createProductAndService(formObject).subscribe(
+          (_res) => {
+            this.snackBar.open('Success !!', 'Close', {
+              duration: 5000,
+            });
+            const obj = {
+              page: JSON.stringify(this.parent),
+              page1: JSON.stringify(this.bradArray),
+            };
+            const navigationExtras: NavigationExtras = {
+              queryParams: obj,
+              skipLocationChange: true,
+            };
+            this.show = false;
+            this.router.navigate(['cloud-service'], navigationExtras);
+          },
+          (_error) => {
+            this.show = false;
+          }
+        );
+      } else {
+        this.snackBar.open('Please fill all mandatory fields', 'Close', {
+          duration: 5000,
+        });
+      }
     } else {
-      this.snackBar.open('Please fill all mandatory fields', 'Close', {
+      this.snackBar.open('Please Upload Image', 'Close', {
         duration: 5000,
       });
     }

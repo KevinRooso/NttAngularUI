@@ -33,6 +33,7 @@
             <input matInput placeholder="Name" formControlName="name" value="" />
             <mat-error *ngIf="checkError('name', 'required')">(Name is required)</mat-error>
             <mat-error *ngIf="checkError('name', 'maxlength')">(Name should be upto 40 characters)</mat-error>
+            <mat-error *ngIf="checkError('name', 'pattern')">(Name should only contain alphabets)</mat-error>
           </mat-form-field>
         </div>
 

@@ -266,7 +266,11 @@
         <span class="menu-collapsed">Notifications</span>
       </div>
     </a>
-
+    <a routerLink="jobs" routerLinkActive="active" class="bg-dark list-group-item list-group-item-action" *ngIf="flag">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="menu-collapsed">Jobs</span>
+      </div>
+    </a>
     <a class="bg-dark list-group-item list-group-item-action" *ngIf="flag">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <span class="menu-collapsed">Settings</span>

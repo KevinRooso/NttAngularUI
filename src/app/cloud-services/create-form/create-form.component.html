@@ -107,14 +107,13 @@
           </div>
 
           <div class="form-row">
-            <label class="col-sm-3 col-form-label">Add Testimonial URL <span class="error">*</span></label>
+            <label class="col-sm-3 col-form-label">Add Testimonial URL </label>
             <div class="col-sm-7 mr-5">
               <form [formGroup]="craeteUrlForm">
                 <div class="form-row p-0">
                   <mat-form-field class="example-full-width col-sm-12">
                     <input matInput placeholder="Testimonial URL" onfocus="this.value=''" formControlName="testimonialUrl" value="" />
 
-                    <mat-error *ngIf="checkError1('testimonialUrl', 'required')">(Testimonial URL is required)</mat-error>
                     <mat-error *ngIf="checkError1('testimonialUrl', 'pattern')">(URL is not valid)</mat-error>
                   </mat-form-field>
                 </div>
@@ -225,6 +224,7 @@
           <div class="form-row">
             <label class="col-sm-3 col-form-label"
               >Choose Thumbnail Image
+              <span class="error">* </span>
               <i
                 class="fa fa-info-circle"
                 aria-hidden="true"

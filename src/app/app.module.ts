@@ -122,6 +122,7 @@ import { DetailNotificationComponent } from './notifications/detail-notification
 import { EditNotificationComponent } from './notifications/edit-notification/edit-notification.component';
 import { ParticipantsPreviewComponent } from './participants/participants-preview/participants-preview.component';
 import { PrivacyPolicyComponent } from './public/privacy-policy/privacy-policy.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 @NgModule({
   declarations: [
@@ -205,6 +206,7 @@ import { PrivacyPolicyComponent } from './public/privacy-policy/privacy-policy.c
     EditNotificationComponent,
     ParticipantsPreviewComponent,
     PrivacyPolicyComponent,
+    JobsComponent,
   ],
   imports: [
     BrowserModule,

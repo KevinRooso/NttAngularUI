@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-create-category',
@@ -28,7 +29,7 @@ export class CreateCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const regex = /^[a-zA-Z][a-zA-Z\s]*$/;
+    const regex = CmsConstants.alphabetexp;
     this.addCatForm = this.frmbuilder.group({
       description: new FormControl('', Validators.maxLength(40)),
       displayName: new FormControl('', [Validators.required, Validators.pattern(regex), Validators.maxLength(20)]),
