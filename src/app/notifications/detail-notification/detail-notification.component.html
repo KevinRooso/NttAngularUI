@@ -13,7 +13,7 @@
     <div class="col-sm-12">
       <div class="panel panel-info bg-white shadow">
         <div class="panel-body p-3">
-          <div class="col d-flex">
+          <div class="col d-flex" *ngIf="flag">
             <label style="font-size: 15px; font-weight: 500;">Approve Notification : </label>
             <mat-slide-toggle class="example-full-width col-sm-3" [(ngModel)]="status" href="#myModal" data-toggle="modal">
             </mat-slide-toggle>
@@ -37,8 +37,14 @@
                   <tr>
                     <td>Visibility Duration :</td>
                     <td>{{ notificationData?.visibilityDurationInSec / 60 }} Minutes</td>
+                    <td>Notification Mode :</td>
+                    <td>{{ notificationData.notificationMode }}</td>
+                  </tr>
+                  <tr *ngIf="flag">
                     <td>Approver Name :</td>
                     <td>{{ notificationData.approverName }}</td>
+                    <td></td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Template :</td>

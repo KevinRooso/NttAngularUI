@@ -11,7 +11,9 @@
 <div class="container">
   <div class="row">
     <div class="col-2 text-left pt-2">
-      <button type="button" class="btn button-1 action-good" [matMenuTriggerFor]="beforeMenu">Export Reports</button>
+      <button type="button" class="btn button-1 action-good" [matMenuTriggerFor]="beforeMenu" *ngIf="dataSource.length !== 0">
+        Export Reports
+      </button>
       <mat-menu #beforeMenu="matMenu" xPosition="after">
         <button mat-menu-item (click)="exporter.exportTable('csv', { fileName: 'Download_Resource_List', sheet: 'Sheet' })">
           Export as CSV

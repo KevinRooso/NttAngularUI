@@ -10,7 +10,7 @@ import { AuthServiceService } from 'src/app/auth-service.service';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  displayedColumns: string[] = ['seq', 'Name', 'Duration', 'categoryType', 'templateName', 'isPublish', 'actionsColumn'];
+  displayedColumns: string[] = ['seq', 'Name', 'Duration', 'userType', 'internal', 'isPublish', 'notificationMode', 'actionsColumn'];
   dataSource: any;
   notificationTableData: any = [];
   roleData: any = [];
@@ -27,21 +27,35 @@ export class NotificationsComponent implements OnInit {
     this.authService.getNotificationList().subscribe((res) => {
       this.show = false;
       res.body.forEach((element, index) => {
-        let catName;
-        if (element.categoryTypeId !== null) {
-          catName = element.categoryTypeId.displayName;
-        } else {
-          catName = null;
+        let status;
+        let internals;
+        if (element.template.publish === true) {
+          status = 'Yes';
         }
+        if (element.template.publish === false) {
+          status = 'No';
+        }
+        if (element.template.publish === null) {
+          status = 'No';
+        }
+        if (element.internal === true) {
+          internals = 'Yes';
+        }
+        if (element.internal === false) {
+          internals = 'No';
+        }
+        if (element.internal === null) {
+          internals = 'No';
+        }
+
         const obj = {
           seq: index + 1,
           Name: element.displayName,
           Duration: element.visibilityDurationInSec,
-          categoryType: catName,
-          userType: element.targetUserType.name,
-          templateName: element.template.title,
-          template: element.template.template,
-          isPublish: element.template.publish,
+          userType: element.targetUserType.displayName,
+          isPublish: status,
+          internal: internals,
+          notificationMode: element.notificationMode,
           id: element.id,
         };
         this.notificationTableData.push(obj);

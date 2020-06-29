@@ -14,6 +14,7 @@ export class DetailNotificationComponent implements OnInit {
   isActive = false;
   usrId: any;
   status: any;
+  flag: any;
   constructor(private service: AuthServiceService, private queryString: ActivatedRoute, public snackBar: MatSnackBar) {}
   event: any = {};
   ngOnInit(): void {
@@ -29,6 +30,12 @@ export class DetailNotificationComponent implements OnInit {
         this.status = false;
       } else {
         this.status = true;
+      }
+      if (this.notificationData.internal === false) {
+        this.flag = false;
+      }
+      if (this.notificationData.internal === true) {
+        this.flag = true;
       }
     });
   }
