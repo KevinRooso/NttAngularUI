@@ -324,4 +324,7 @@ export class AuthServiceService {
   getJobsList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/schedulerTime');
   }
+  editCronJob(obj: any): Observable<any> {
+    return this.http.put<any>(this.url + 'api/schedulerTime', obj);
+  }
 }
