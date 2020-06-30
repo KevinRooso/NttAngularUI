@@ -59,7 +59,7 @@ export class VideosCreateComponent implements OnInit {
       targetUserType: ['', Validators.required],
       draft: [true],
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
-      downloadUrl: ['', [Validators.required, Validators.pattern(this.reg)]],
+      downloadUrl: ['', [Validators.required]],
       expiryDate: ['', Validators.required],
     });
     this.addTagForm = this.formBuilder.group({
