@@ -263,7 +263,7 @@
               (dateTimeInput)="maxCDate()"
               [owlDateTimeTrigger]="startdt"
               [owlDateTime]="startdt"
-              [min]="closingDate"
+              [min]="d2"
               placeholder="Starting Date & Time"
               formControlName="startDate"
               class="form-control"
@@ -285,7 +285,7 @@
               class="form-control"
               placeholder="Closing Time"
               formControlName="endDate"
-              [min]="closingDate"
+              [min]="d2"
             />
             <owl-date-time #enddt [pickerType]="'timer'"></owl-date-time>
             <div *ngIf="checkError('endDate', 'required', true)" style="color: red; font-size: 12px;">

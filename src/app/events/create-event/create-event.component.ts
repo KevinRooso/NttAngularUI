@@ -440,11 +440,11 @@ export class CreateEventComponent implements OnInit {
     }
 
     if (minAgendaStartTime && eventStartDate && minAgendaStartTime.getTime() !== eventStartDate.getTime()) {
-      this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
+      this.errorMsg1 = 'Please select one of the agenda time equals to event start time or End time';
       this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     } else if (maxAgendaEndTime && eventEndDate && maxAgendaEndTime.getTime() !== eventEndDate.getTime()) {
-      this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
+      this.errorMsg2 = 'Please select one of the agenda time equals to event End time or start time';
       this.snackBar.open(this.errorMsg1, 'Close');
       return false;
     }
@@ -645,12 +645,12 @@ export class CreateEventComponent implements OnInit {
       obj.endDate = agendaEndDate;
 
       if (obj.startDate.getTime() < eventStartDate.getTime()) {
-        this.errorMsg1 = 'Please select one of the agenda time equals to event start time';
+        this.errorMsg1 = 'Please select one of the agenda time equals to event start time or end time';
         this.snackBar.open(this.errorMsg1, 'Close');
         return false;
       }
       if (obj.endDate.getTime() > eventEndDate.getTime()) {
-        this.errorMsg2 = 'Please select one of the agenda time equals to event End time';
+        this.errorMsg2 = 'Please select one of the agenda time equals to event End time or event start time';
         this.snackBar.open(this.errorMsg2, 'Close');
         return false;
       }

@@ -84,6 +84,7 @@ export class EventEditComponent implements OnInit {
   @ViewChild('confirmBox', { static: true }) confirmBox;
   @ViewChild('closeModal2', { static: true }) closeModal2;
   @ViewChild('msgbutton', { static: true }) msgbutton;
+  d2: Date;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
     private formBuilder: FormBuilder,
@@ -279,9 +280,16 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
-      this.closingDate = this.getEventDetails.eventStartDate;
-      this.regStartDate = this.getEventDetails.eventStartDate;
 
+      // new Date(dat1).getTime() > new Date(dat2).getTime()
+
+      const d1 = new Date(this.getEventDetails.eventStartDate).getTime() > this.today.getTime();
+      if (d1) {
+        this.d2 = new Date();
+      } else {
+        this.d2 = this.getEventDetails.eventStartDate;
+      }
+      this.regStartDate = this.getEventDetails.eventStartDate;
       this.updateEventForm.controls['endDate'].setValidators(null);
       this.updateEventForm.controls['endDate'].updateValueAndValidity();
       this.updateEventForm.controls['endDate'].setValue(this.getEventDetails.eventEndDate);

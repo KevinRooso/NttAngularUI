@@ -82,6 +82,7 @@ export class CopyEventComponent implements OnInit {
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
   @ViewChild('confirmBox', { static: true }) confirmBox;
   @ViewChild('closeModal2', { static: true }) closeModal2;
+  d2: Date;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
     private formBuilder: FormBuilder,
@@ -260,7 +261,12 @@ export class CopyEventComponent implements OnInit {
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
-      this.closingDate = this.getEventDetails.eventStartDate;
+      const d1 = new Date(this.getEventDetails.eventStartDate).getTime() > this.today.getTime();
+      if (d1) {
+        this.d2 = new Date();
+      } else {
+        this.d2 = this.getEventDetails.eventStartDate;
+      }
       this.regStartDate = this.getEventDetails.eventStartDate;
 
       this.updateEventForm.controls['endDate'].setValidators(null);
@@ -851,6 +857,11 @@ export class CopyEventComponent implements OnInit {
       } else {
         obj['idData'] = '-1';
       }
+      if (this.addAgenda.value['id'] !== 0) {
+        obj['id'] = this.addAgenda.value['id'];
+      } else {
+        obj['id'] = 0;
+      }
 
       this.addAgenda.reset();
       if (obj.idData === '-1') {
@@ -869,15 +880,26 @@ export class CopyEventComponent implements OnInit {
   delete(i, data) {
     this.valuei = i;
     this.valueData = data;
-    this.confirmBox.nativeElement.click();
+    // this.confirmBox.nativeElement.click();
   }
 
   deleteConfirm() {
-    this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
-      this.agendaData.splice(this.valuei, 1);
+    if (this.agendaData.length > 1) {
+      if (this.valueData.idData === '-1') {
+        this.agendaData.splice(this.valuei, 1);
+        this.closeModal2.nativeElement.click();
+        this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
+      } else {
+        this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+          this.agendaData.splice(this.valuei, 1);
+          this.closeModal2.nativeElement.click();
+          this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
+        });
+      }
+    } else {
       this.closeModal2.nativeElement.click();
-      this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
-    });
+      this.snackBar.open('Event should have atleast one agenda', 'Close', { duration: 3000 });
+    }
   }
   clearValidation() {
     this.addAgenda.controls['title'].setValidators(null);
@@ -894,7 +916,7 @@ export class CopyEventComponent implements OnInit {
     // this.addAgenda.controls['speakerList'].updateValueAndValidity();
     // this.addAgenda.reset();
   }
-  updateAgenda(i) {
+  updateAgenda(i, data) {
     // this.allspeakers = [];
     //   for(let i=0;i<data.speakerList.length;i++){
     //     this.selected6.push(data.speakerList[i].id);
@@ -902,6 +924,7 @@ export class CopyEventComponent implements OnInit {
     //   }
     // this.allspeakers = this.speakerList1;
     this.agendaData[i].idData = i;
+    this.agendaData[i].id = data.id;
     this.addAgenda.setValue(this.agendaData[i]);
     this.agendaUpdate.nativeElement.click();
   }
