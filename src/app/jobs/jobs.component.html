@@ -24,9 +24,9 @@
           <td mat-cell *matCellDef="let row">{{ row.seq }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="name">
+        <ng-container matColumnDef="displayName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header width="30%"><b>Name</b></th>
-          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
         </ng-container>
 
         <ng-container matColumnDef="schedule">
@@ -37,7 +37,9 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Action</b></th>
           <td mat-cell *matCellDef="let row">
-            <button class="btn assignee-button">Change Schedule</button>
+            <button class="btn assignee-button" (click)="getJobId(row.id, row.name)" data-toggle="modal" data-target="#scheduleModal">
+              Change Schedule
+            </button>
           </td>
         </ng-container>
 
@@ -48,4 +50,34 @@
       <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </section>
+</div>
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <h5 class="modal-title mb-2">Choose Schedule</h5>
+        </div>
+        <form [formGroup]="editCronForm">
+          <div class="form-row">
+            <mat-radio-group formControlName="cron" class="example-radio-group col-sm-9">
+              <mat-radio-button class="example-radio-button" *ngFor="let schedule of schedules" [value]="schedule.cron">
+                {{ schedule.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="text-right">
+            <button class="btn button-1 action-good" (click)="changeSchedule()">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
