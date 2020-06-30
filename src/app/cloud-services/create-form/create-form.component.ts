@@ -269,6 +269,9 @@ export class CreateFormComponent implements OnInit {
     this.changeFlag = !this.changeFlag;
   }
   submit() {
+    if (this.changeFlag === false) {
+      this.uploaded = true;
+    }
     if (this.uploaded) {
       if (this.productServicesForm.valid) {
         const formObject = this.productServicesForm.value;
