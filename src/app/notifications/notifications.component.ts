@@ -16,6 +16,7 @@ export class NotificationsComponent implements OnInit {
   roleData: any = [];
   uniqueData: any[] = [];
   show = false;
+  // text:any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -47,6 +48,12 @@ export class NotificationsComponent implements OnInit {
         if (element.internal === null) {
           internals = 'No';
         }
+        let text;
+        if (element.notificationMode === 'push_notification') {
+          text = 'Mobile';
+        } else {
+          text = 'Email';
+        }
 
         const obj = {
           seq: index + 1,
@@ -55,7 +62,7 @@ export class NotificationsComponent implements OnInit {
           userType: element.targetUserType.displayName,
           isPublish: status,
           internal: internals,
-          notificationMode: element.notificationMode,
+          notificationMode: text,
           id: element.id,
         };
         this.notificationTableData.push(obj);

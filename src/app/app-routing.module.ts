@@ -70,6 +70,7 @@ import { DetailNotificationComponent } from './notifications/detail-notification
 import { ParticipantsPreviewComponent } from './participants/participants-preview/participants-preview.component';
 import { PrivacyPolicyComponent } from './public/privacy-policy/privacy-policy.component';
 import { JobsComponent } from './jobs/jobs.component';
+import { CampaignComponent } from './notifications/campaign/campaign.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -444,29 +445,39 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'notifications',
+    path: 'notification-management',
     children: [
       {
-        path: '',
-        component: NotificationsComponent,
-        canActivate: [AuthguardServiceService],
+        path: 'notification',
+        children: [
+          {
+            path: '',
+            component: NotificationsComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'create-notification',
+            pathMatch: 'full',
+            component: CreateNotificationComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'update-notification/:page',
+            pathMatch: 'full',
+            component: EditNotificationComponent,
+            canActivate: [AuthguardServiceService],
+          },
+          {
+            path: 'notification-details/:page',
+            pathMatch: 'full',
+            component: DetailNotificationComponent,
+            canActivate: [AuthguardServiceService],
+          },
+        ],
       },
       {
-        path: 'create-notification',
-        pathMatch: 'full',
-        component: CreateNotificationComponent,
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'update-notification/:page',
-        pathMatch: 'full',
-        component: EditNotificationComponent,
-        canActivate: [AuthguardServiceService],
-      },
-      {
-        path: 'notification-details/:page',
-        pathMatch: 'full',
-        component: DetailNotificationComponent,
+        path: 'campaign',
+        component: CampaignComponent,
         canActivate: [AuthguardServiceService],
       },
     ],

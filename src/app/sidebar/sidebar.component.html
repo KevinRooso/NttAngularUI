@@ -239,7 +239,6 @@
         <a
           routerLink="user-management/user"
           routerLinkActive="active"
-          #leadChild1="routerLinkActive"
           class="list-group-item list-group-item-action bg-dark text-white"
           #usrChild1="routerLinkActive"
         >
@@ -248,7 +247,6 @@
         <a
           routerLink="user-management/roles"
           routerLinkActive="active"
-          #leadChild2="routerLinkActive"
           class="list-group-item list-group-item-action bg-dark text-white"
           #usrChild2="routerLinkActive"
         >
@@ -256,7 +254,41 @@
         </a>
       </div>
     </div>
-    <a class="bg-dark list-group-item list-group-item-action" *ngIf="flag">
+
+    <div *ngIf="flag">
+      <a
+        href="#submenu9"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+        [ngClass]="{ active: notiChild1.isActive || notiChild2.isActive }"
+      >
+        <div class="d-flex w-100 justify-content-start align-items-center">
+          <span class="menu-collapsed">Notifications</span>
+          <span class="submenu-icon ml-auto"></span>
+        </div>
+      </a>
+      <div id="submenu9" class="collapse sidebar-submenu">
+        <a
+          routerLink="notification-management/notification"
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action bg-dark text-white"
+          #notiChild1="routerLinkActive"
+        >
+          <span class="menu-collapsed">Notifications</span>
+        </a>
+        <a
+          routerLink="notification-management/campaign"
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action bg-dark text-white"
+          #notiChild2="routerLinkActive"
+        >
+          <span class="menu-collapsed">Campaign</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- <a routerLink="notifications/campaign" routerLinkActive="active" class="bg-dark list-group-item list-group-item-action" *ngIf="flag">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <span class="menu-collapsed">Campaign</span>
       </div>
@@ -265,7 +297,7 @@
       <div class="d-flex w-100 justify-content-start align-items-center">
         <span class="menu-collapsed">Notifications</span>
       </div>
-    </a>
+    </a> -->
     <a routerLink="jobs" routerLinkActive="active" class="bg-dark list-group-item list-group-item-action" *ngIf="flag">
       <div class="d-flex w-100 justify-content-start align-items-center">
         <span class="menu-collapsed">Jobs</span>

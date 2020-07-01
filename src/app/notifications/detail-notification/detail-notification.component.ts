@@ -37,6 +37,11 @@ export class DetailNotificationComponent implements OnInit {
       if (this.notificationData.internal === true) {
         this.flag = true;
       }
+      if (this.notificationData.notificationMode === 'push_notification') {
+        this.notificationData.notificationMode = 'Mobile';
+      } else {
+        this.notificationData.notificationMode = 'Email';
+      }
     });
   }
   reverseChanges() {}
