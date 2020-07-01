@@ -112,6 +112,7 @@ export class HomeUiComponent implements OnInit {
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit() {
     this.getAllData(false);
+    this.show = false;
   }
   getBanner(data: any) {
     this.errorFlag = false;
@@ -128,7 +129,7 @@ export class HomeUiComponent implements OnInit {
     if (!duplicate) {
       this.bannerEmittedData.public = this.pFlag;
       this.bannerEmittedData.customer = this.cFlag;
-      this.bannerEmittedData.datafieldType = this.blocks.find((x) => x.apiName === this.bannerEmittedData.datafieldType).name;
+      this.bannerEmittedData.datafieldType = this.blocks.find((x) => x.apiName === this.bannerEmittedData.datafieldType)?.name;
       this.newBannerData.push(this.bannerEmittedData);
     } else {
       this.globalFlag = false;

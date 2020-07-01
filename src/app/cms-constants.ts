@@ -18,7 +18,7 @@ export const CmsConstants = {
     {
       url: 'casestudies?api/public/resources/case-studies',
       name: 'casestudies',
-      apiName: 'casestudies',
+      apiName: 'case studies',
     },
     { url: 'news?api/public/news', name: 'news', apiName: 'news' },
     { url: 'testimonials?api/public/resources/testimonials', name: 'testimonials', apiName: 'testimonials' },
