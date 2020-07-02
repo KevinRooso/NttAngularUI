@@ -49,7 +49,17 @@
                   </tr>
                   <tr>
                     <td>Template :</td>
-                    <td colspan="3" [innerHTML]="notificationData?.template?.template"></td>
+                    <td colspan="3" *ngIf="mobileFlag">
+                      <textarea
+                        class="example-full-width col p-2"
+                        Rows="4"
+                        [(ngModel)]="notificationData.template.template"
+                        disabled
+                      ></textarea>
+                    </td>
+                    <td colspan="3" *ngIf="emailFlag">
+                      <ckeditor class="example-full-width col p-0" [(ngModel)]="notificationData.template.template"></ckeditor>
+                    </td>
                   </tr>
                 </tbody>
               </table>

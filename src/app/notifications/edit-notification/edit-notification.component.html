@@ -37,7 +37,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Category</mat-label>
             <mat-select formControlName="categoryTypeId" [(value)]="selected4">
-              <mat-option value="0">None</mat-option>
+              <!-- <mat-option value="0">None</mat-option> -->
               <mat-option *ngFor="let category of allData" [value]="category.id" [disabled]="category.id" readonly>
                 {{ category.displayName | removehyphens | removeunderscore | titlecase }}
               </mat-option>
@@ -60,17 +60,29 @@
         </div>
 
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Template Name<span class="error">*</span></label>
+          <label class="col-sm-3 col-form-label">Notification Channel<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <input matInput placeholder="Template Name" formControlName="templateName" />
-            <mat-error *ngIf="checkError('templateName', 'required')">(Template Name is required)</mat-error>
-            <!-- <mat-error *ngIf="checkError('displayName', 'email')">(Notification DisplayName should be upto 200 characters)</mat-error> -->
+            <mat-label>Notification Channel</mat-label>
+            <mat-select formControlName="notificationMode" (selectionChange)="onModeChange($event)" readonly>
+              <mat-option *ngFor="let modes of modeList" [value]="modes">
+                {{ modes | titlecase | removeunderscore }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="checkError('targetUserTypeId', 'required')">(Notification Channel is required)</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" *ngIf="emailFlag">
           <label class="col-sm-3 col-form-label">Notification Template<span class="error">*</span></label>
-          <ckeditor placeholder="Description..." formControlName="notiTemplate" class="example-full-width col-sm-9 p-0"></ckeditor>
+          <ckeditor placeholder="Template..." formControlName="notiTemplate" class="example-full-width col-sm-9 p-0"></ckeditor>
+          <div *ngIf="checkError('notiTemplate', 'required', true)" style="color: red; font-size: 12px;">
+            (Notification Template is required)
+          </div>
+        </div>
+
+        <div class="form-row" *ngIf="mobileFlag">
+          <label class="col-sm-3 col-form-label">Notification Template<span class="error">*</span></label>
+          <textarea class="example-full-width col-sm-9 p-2" placeholder="Template..." formControlName="notiTemplate" Rows="4"></textarea>
           <div *ngIf="checkError('notiTemplate', 'required', true)" style="color: red; font-size: 12px;">
             (Notification Template is required)
           </div>

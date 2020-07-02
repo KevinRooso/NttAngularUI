@@ -15,6 +15,8 @@ export class DetailNotificationComponent implements OnInit {
   usrId: any;
   status: any;
   flag: any;
+  emailFlag = false;
+  mobileFlag = false;
   constructor(private service: AuthServiceService, private queryString: ActivatedRoute, public snackBar: MatSnackBar) {}
   event: any = {};
   ngOnInit(): void {
@@ -39,8 +41,10 @@ export class DetailNotificationComponent implements OnInit {
       }
       if (this.notificationData.notificationMode === 'push_notification') {
         this.notificationData.notificationMode = 'Mobile';
+        this.mobileFlag = true;
       } else {
         this.notificationData.notificationMode = 'Email';
+        this.emailFlag = true;
       }
     });
   }

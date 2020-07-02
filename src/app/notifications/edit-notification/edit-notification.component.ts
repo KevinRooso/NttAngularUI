@@ -20,7 +20,13 @@ export class EditNotificationComponent implements OnInit {
   notiID: any;
   selected3 = '';
   selected4 = '';
+  selected5 = '';
   tempId = '';
+  modeList: any[] = [];
+  modes: any;
+  emailFlag = false;
+  mobileFlag = false;
+  disabled = false;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -34,8 +40,8 @@ export class EditNotificationComponent implements OnInit {
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: ['', Validators.required],
       targetUserTypeId: ['', Validators.required],
-      templateName: ['', Validators.required],
       notiTemplate: ['', Validators.required],
+      notificationMode: ['', Validators.required],
     });
   }
 
@@ -52,10 +58,21 @@ export class EditNotificationComponent implements OnInit {
 
     this.getUserList();
     this.getCategoryDetails();
+    this.getChannelList();
     this.router1.params.subscribe((params) => {
       this.notiID = params.page;
       this.getNotificationData(params.page);
     });
+  }
+  onModeChange(event) {
+    if (event.value === 'PUSH_NOTIFICATION') {
+      this.mobileFlag = true;
+      this.emailFlag = false;
+    }
+    if (event.value === 'EMAIL') {
+      this.emailFlag = true;
+      this.mobileFlag = false;
+    }
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
@@ -72,9 +89,18 @@ export class EditNotificationComponent implements OnInit {
       }
     });
   }
+  getDisabledValue() {
+    return true;
+  }
+
   getCategoryDetails() {
     this.authService.getCategoryListByGroup('Notification').subscribe((res) => {
       this.allData = res.body;
+    });
+  }
+  getChannelList() {
+    this.authService.getChannelList().subscribe((res) => {
+      this.modeList = res.body;
     });
   }
   getNotificationData(id) {
@@ -92,8 +118,10 @@ export class EditNotificationComponent implements OnInit {
       this.updateNotificationForm.controls['displayName'].setValue(this.notificationData.displayName);
       this.notificationData.visibilityDurationInSec = this.notificationData.visibilityDurationInSec / 60;
       this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
-      this.updateNotificationForm.controls['templateName'].setValue(this.notificationData.template.title);
       this.updateNotificationForm.controls['notiTemplate'].setValue(this.notificationData.template.template);
+      this.updateNotificationForm.controls['notificationMode'].setValidators(null);
+      this.updateNotificationForm.controls['notificationMode'].updateValueAndValidity();
+      this.updateNotificationForm.controls['notificationMode'].setValue(this.notificationData.notificationMode);
     });
   }
   createUser() {
@@ -105,7 +133,7 @@ export class EditNotificationComponent implements OnInit {
         targetUserTypeId: this.updateNotificationForm.controls['targetUserTypeId'].value,
         id: this.notiID,
         template: {
-          title: this.updateNotificationForm.controls['templateName'].value,
+          title: this.updateNotificationForm.controls['displayName'].value,
           template: this.updateNotificationForm.controls['notiTemplate'].value,
           id: this.tempId,
         },
@@ -114,7 +142,7 @@ export class EditNotificationComponent implements OnInit {
         (_response) => {
           this.snackBar.open('Notification successfully updated', 'Close', { duration: 5000 });
           this.submitted = false;
-          this.router.navigate(['notifications']);
+          this.router.navigate(['/notification-management/notification']);
         },
         (_error) => {
           this.snackBar.open('Oops, Something went wrong', 'Close', {

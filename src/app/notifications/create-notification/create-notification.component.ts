@@ -17,6 +17,10 @@ export class CreateNotificationComponent implements OnInit {
   userList: any[] = [];
   allData: any[] = [];
   show = false;
+  modeList: any[] = [];
+  modes: any;
+  emailFlag = false;
+  mobileFlag = false;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -29,8 +33,8 @@ export class CreateNotificationComponent implements OnInit {
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: ['', Validators.required],
       targetUserTypeId: ['', Validators.required],
-      templateName: ['', Validators.required],
       notiTemplate: ['', Validators.required],
+      notificationMode: ['', Validators.required],
     });
   }
 
@@ -46,6 +50,17 @@ export class CreateNotificationComponent implements OnInit {
     };
     this.getUserList();
     this.getCategoryDetails();
+    this.getChannelList();
+  }
+  onModeChange(event) {
+    if (event.value === 'PUSH_NOTIFICATION') {
+      this.mobileFlag = true;
+      this.emailFlag = false;
+    }
+    if (event.value === 'EMAIL') {
+      this.emailFlag = true;
+      this.mobileFlag = false;
+    }
   }
   getUserList() {
     this.authService.getUserList().subscribe((res) => {
@@ -67,6 +82,12 @@ export class CreateNotificationComponent implements OnInit {
       this.allData = res.body;
     });
   }
+  getChannelList() {
+    this.authService.getChannelList().subscribe((res) => {
+      this.modeList = res.body;
+    });
+  }
+
   createUser() {
     if (this.createUserForm.valid) {
       this.show = true;
@@ -75,9 +96,10 @@ export class CreateNotificationComponent implements OnInit {
         visibilityDurationInSec: this.createUserForm.controls['visibilityDurationInSec'].value,
         categoryTypeId: this.createUserForm.controls['categoryTypeId'].value,
         targetUserTypeId: this.createUserForm.controls['targetUserTypeId'].value,
+        notificationMode: this.createUserForm.controls['notificationMode'].value,
         id: 0,
         template: {
-          title: this.createUserForm.controls['templateName'].value,
+          title: this.createUserForm.controls['displayName'].value,
           template: this.createUserForm.controls['notiTemplate'].value,
           id: 0,
         },
@@ -87,7 +109,7 @@ export class CreateNotificationComponent implements OnInit {
           this.snackBar.open('Notification successfully created', 'Close', { duration: 5000 });
           this.submitted = false;
           this.show = false;
-          this.router.navigate(['notifications']);
+          this.router.navigate(['/notification-management/notification']);
         },
         (_error) => {
           this.show = false;
