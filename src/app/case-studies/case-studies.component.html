@@ -32,7 +32,7 @@
             }}</option>
           </select>
         </li>
-        <li class="nav-item active mx-2">
+        <li class="nav-item active mx-2 select-overflow">
           <select class="form-control" [(ngModel)]="tag" (change)="getDataWithTag()">
             <option value="tag">Please Select Industry</option>
             <option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</option>

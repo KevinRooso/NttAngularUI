@@ -90,3 +90,7 @@ p {
 .card-header .collapsed .fa {
   transform: rotate(180deg);
 }
+
+.select-overflow {
+  max-width: 185px;
+}
