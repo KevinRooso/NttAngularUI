@@ -129,7 +129,7 @@ export class HomeUiComponent implements OnInit {
     if (!duplicate) {
       this.bannerEmittedData.public = this.pFlag;
       this.bannerEmittedData.customer = this.cFlag;
-      this.bannerEmittedData.datafieldType = this.blocks.find((x) => x.apiName === this.bannerEmittedData.datafieldType)?.name;
+      this.bannerEmittedData.datafieldType = this.blocks.find((x) => x.apiName === this.bannerEmittedData.datafieldType).name;
       this.newBannerData.push(this.bannerEmittedData);
     } else {
       this.globalFlag = false;
