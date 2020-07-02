@@ -73,3 +73,11 @@
   padding-left: 10px;
   text-align: right;
 }
+
+.h-max {
+  height: 100vh;
+}
+
+.h-90 {
+  height: 90vh;
+}
