@@ -540,6 +540,14 @@
 </div>
 
 <button type="button" class="btn btn-success button-2 action-good" #msgbutton data-toggle="modal" data-target="#alertMsg" hidden></button>
+<button
+  type="button"
+  class="btn btn-success button-2 action-good"
+  #notifybutton
+  data-toggle="modal"
+  data-target="#promptMsg"
+  hidden
+></button>
 
 <div class="modal fade" id="tagModal1" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -717,6 +725,25 @@
           </button>
           <button class="btn button-1 action-good" data-dismiss="modal">
             No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="promptMsg" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none; padding: 0;">
+        <button type="button" #closeModel2 class="close p-0 modal-remove" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Changes in Event Date and Venue will send a notification to all the existing participants of the event</p>
+        <div class="text-center">
+          <button class="btn button-1 action-good" style="margin-right: 19px;" (click)="submitOnPrompt()">
+            OK
           </button>
         </div>
       </div>

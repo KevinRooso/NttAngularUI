@@ -19,34 +19,35 @@ export class JobsComponent implements OnInit {
   jobsData: any[] = [];
   schedules = [
     {
-      name: cronstrue.toString('0 */1 * ? * *'),
-      cron: '0 */1 * ? * *',
+      name: cronstrue.toString('0 * * ? * *'),
+      cron: '0 * * ? * *',
     },
     {
-      name: cronstrue.toString('0 * * * *'),
-      cron: '0 * * * *',
+      name: cronstrue.toString('0 0 * ? * *'),
+      cron: '0 0 * ? * *',
     },
     {
       name: cronstrue.toString('0 0 0 * * ?'),
       cron: '0 0 0 * * ?',
     },
     {
-      name: cronstrue.toString('0 0 * * 6,0'),
-      cron: '0 0 * * 6,0',
+      name: cronstrue.toString('0 0 0 * * SUN,SAT'),
+      cron: '0 0 0 * * SUN,SAT',
     },
     {
-      name: cronstrue.toString('0 0 * * 1-5'),
-      cron: '0 0 * * 1-5',
+      name: cronstrue.toString('0 0 0 * * MON-FRI'),
+      cron: '0 0 0 * * MON-FRI',
     },
     {
-      name: cronstrue.toString('0 0 1 * *'),
-      cron: '0 0 1 * *',
+      name: cronstrue.toString('0 0 0 1 * ?'),
+      cron: '0 0 0 1 * ?',
     },
     {
-      name: cronstrue.toString('0 0 31 3 *'),
-      cron: '0 0 31 3 *',
+      name: cronstrue.toString('0 0 0 31 MAR *'),
+      cron: '0 0 0 31 MAR *',
     },
   ];
+
   show = false;
   chosenSchedule: any;
   editCronForm: any;

@@ -175,8 +175,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <p *ngIf="isActive">Do you want to Approve {{ bulkIdArr.length }} Participants</p>
-        <p *ngIf="!isActive">Do you want to Reject {{ bulkIdArr.length }} Participants</p>
+        <p *ngIf="isActive">
+          Do you want to Approve
+          <span *ngIf="bulkIdArr.length != 1">{{ bulkIdArr.length }} Participants</span>
+          <span *ngIf="bulkIdArr.length == 1">this participant</span>
+        </p>
+        <p *ngIf="!isActive">
+          Do you want to Reject
+          <span *ngIf="bulkIdArr.length != 1">{{ bulkIdArr.length }} Participants</span>
+          <span *ngIf="bulkIdArr.length == 1">this participant</span>
+        </p>
       </div>
       <div class="modal-footer" style="justify-content: center; border: none;">
         <button type="button" class="btn btn-info" data-dismiss="modal">No</button>

@@ -15,6 +15,7 @@ export class EventEditComponent implements OnInit {
   // addSpeakerForm: FormGroup;
   addTagForm: FormGroup;
   addAgenda: FormGroup;
+  changed = false;
   show = false;
   allData: any[] = [];
   valuesSelectedTag: string[] = [];
@@ -76,6 +77,12 @@ export class EventEditComponent implements OnInit {
   valuei: any;
   valueData: any;
 
+  // Check for prompt msg on notification
+
+  initialStartDate: any;
+  initialEndDate: any;
+  initialVenue: any;
+
   // selected1:string ='Cloud Computing';
   @ViewChild('closeModel', { static: true }) closeModel;
   @ViewChild('closeModel1', { static: true }) closeModel1;
@@ -83,7 +90,9 @@ export class EventEditComponent implements OnInit {
   @ViewChild('agendaUpdate', { static: true }) agendaUpdate;
   @ViewChild('confirmBox', { static: true }) confirmBox;
   @ViewChild('closeModal2', { static: true }) closeModal2;
+  @ViewChild('closeModel2', { static: true }) closeModel2;
   @ViewChild('msgbutton', { static: true }) msgbutton;
+  @ViewChild('notifybutton', { static: true }) notifybutton;
   d2: Date;
   // @ViewChild('closespeakerModel',{static:true}) closespeakerModel;
   constructor(
@@ -280,6 +289,11 @@ export class EventEditComponent implements OnInit {
       this.updateEventForm.controls['startDate'].setValidators(null);
       this.updateEventForm.controls['startDate'].updateValueAndValidity();
       this.updateEventForm.controls['startDate'].setValue(this.getEventDetails.eventStartDate);
+
+      // For prompt notification check
+      this.initialStartDate = this.getEventDetails.eventStartDate;
+      this.initialEndDate = this.getEventDetails.eventEndDate;
+      this.initialVenue = this.getEventDetails.address1;
 
       // new Date(dat1).getTime() > new Date(dat2).getTime()
 
@@ -497,11 +511,26 @@ export class EventEditComponent implements OnInit {
   }
 
   updateEvent() {
-    if (!this.updateEventForm.dirty) {
+    if (!this.updateEventForm.dirty && !this.changed) {
       this.msgbutton.nativeElement.click();
     } else {
-      this.submitChanges();
+      const d1 = new Date(this.initialStartDate);
+      const d2 = new Date(this.initialEndDate);
+      if (
+        d1.getTime() !== new Date(this.updateEventForm.controls['startDate'].value).getTime() ||
+        d2.getTime() !== new Date(this.updateEventForm.controls['endDate'].value).getTime() ||
+        this.initialVenue !== this.updateEventForm.controls['address1'].value
+      ) {
+        this.notifybutton.nativeElement.click();
+      } else {
+        this.submitChanges();
+      }
     }
+  }
+
+  submitOnPrompt() {
+    this.closeModel2.nativeElement.click();
+    this.submitChanges();
   }
 
   submitChanges() {
@@ -860,6 +889,7 @@ export class EventEditComponent implements OnInit {
       }
 
       this.addAgenda.controls['idData'].setValue('-1');
+      this.changed = true;
 
       this.closeModelAgenda.nativeElement.click();
     } else {
@@ -892,11 +922,13 @@ export class EventEditComponent implements OnInit {
   deleteConfirm() {
     if (this.agendaData.length > 1) {
       if (this.valueData.idData === '-1') {
+        this.changed = true;
         this.agendaData.splice(this.valuei, 1);
         this.closeModal2.nativeElement.click();
         this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });
       } else {
         this.authService.removeEventSchedule(this.valueData.id).subscribe((_res) => {
+          this.changed = true;
           this.agendaData.splice(this.valuei, 1);
           this.closeModal2.nativeElement.click();
           this.snackBar.open('Event agenda removed', 'Close', { duration: 3000 });

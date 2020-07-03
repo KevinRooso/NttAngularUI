@@ -37,10 +37,7 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Action</b></th>
           <td mat-cell *matCellDef="let row">
-            <!-- <button class="btn assignee-button" (click)="getJobId(row.id, row.name)" data-toggle="modal" data-target="#scheduleModal">
-              Change Schedule
-            </button> -->
-            <button class="btn assignee-button">
+            <button class="btn assignee-button" (click)="getJobId(row.id, row.name)" data-toggle="modal" data-target="#scheduleModal">
               Change Schedule
             </button>
           </td>
@@ -54,7 +51,7 @@
     </div>
   </section>
 </div>
-<!-- <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none; padding: 0;">
@@ -83,4 +80,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
