@@ -49,7 +49,7 @@ export class SpeakersPreviewComponent implements OnInit {
     });
   }
   blogSearch() {
-    const keyword = this.searchBlog.toLowerCase();
+    const keyword = this.searchBlog.toLowerCase().trimRight();
     this.filterBlogs = this.searchFilterData.filter((x) => {
       if (x.origanizationName === null && x.fullName === null) {
         return false;

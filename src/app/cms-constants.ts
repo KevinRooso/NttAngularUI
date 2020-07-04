@@ -1,3 +1,4 @@
+import cronstrue from 'cronstrue';
 export const CmsConstants = {
   mobexp: '^((\\+91-?)|0)?[0-9]{10}$',
   users: [
@@ -27,4 +28,35 @@ export const CmsConstants = {
   HomeSequencesBanner: [1, 2, 3],
   HomeSequencesBannerBlock: [1, 2, 3, 4, 5, 6, 7],
   alphabetexp: /^[a-zA-Z][a-zA-Z\s]*$/,
+
+  cronJobSchedules: [
+    {
+      name: cronstrue.toString('0 * * ? * *'),
+      cron: '0 * * ? * *',
+    },
+    {
+      name: cronstrue.toString('0 0 * ? * *'),
+      cron: '0 0 * ? * *',
+    },
+    {
+      name: cronstrue.toString('0 0 0 * * ?'),
+      cron: '0 0 0 * * ?',
+    },
+    {
+      name: cronstrue.toString('0 0 0 * * SUN,SAT'),
+      cron: '0 0 0 * * SUN,SAT',
+    },
+    {
+      name: cronstrue.toString('0 0 0 * * MON-FRI'),
+      cron: '0 0 0 * * MON-FRI',
+    },
+    {
+      name: cronstrue.toString('0 0 0 1 * ?'),
+      cron: '0 0 0 1 * ?',
+    },
+    {
+      name: cronstrue.toString('0 0 0 31 MAR *'),
+      cron: '0 0 0 31 MAR *',
+    },
+  ],
 };

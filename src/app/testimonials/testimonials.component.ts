@@ -50,7 +50,7 @@ export class TestimonialsComponent implements OnInit {
     this.filterBlogs = this.searchFilterData.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchTests.toUpperCase());
+      return titleData.includes(this.searchTests.toUpperCase().trimRight());
     });
   }
   cancel() {

@@ -114,7 +114,7 @@ export class CaseStudiesComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchCases) {
-        return titleData.includes(this.searchCases.toUpperCase());
+        return titleData.includes(this.searchCases.toUpperCase().trimRight());
       }
     });
     this.draftList = this.draftList.filter((m) => {
@@ -123,7 +123,7 @@ export class CaseStudiesComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchCases) {
-        return titleData.includes(this.searchCases.toUpperCase());
+        return titleData.includes(this.searchCases.toUpperCase().trimRight());
       }
     });
     if (this.searchCases === '') {

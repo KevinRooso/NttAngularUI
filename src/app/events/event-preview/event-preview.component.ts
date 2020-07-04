@@ -158,7 +158,7 @@ export class EventPreviewComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchBlog) {
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchBlog.toUpperCase().trimRight());
       }
     });
     this.activeList = this.activeList.filter((m) => {
@@ -168,7 +168,7 @@ export class EventPreviewComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchBlog) {
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchBlog.toUpperCase().trimRight());
       }
     });
     this.draftList = this.draftList.filter((m) => {
@@ -178,7 +178,7 @@ export class EventPreviewComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchBlog) {
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchBlog.toUpperCase().trimRight());
       }
     });
     this.expiredList = this.expiredList.filter((m) => {
@@ -188,7 +188,7 @@ export class EventPreviewComponent implements OnInit {
         titleData = m.title.toUpperCase();
       }
       if (this.searchBlog) {
-        return titleData.includes(this.searchBlog.toUpperCase());
+        return titleData.includes(this.searchBlog.toUpperCase().trimRight());
       }
     });
 

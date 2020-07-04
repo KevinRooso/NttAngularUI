@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AuthServiceService } from '../auth-service.service';
 import cronstrue from 'cronstrue';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
   selector: 'app-jobs',
@@ -17,36 +18,7 @@ export class JobsComponent implements OnInit {
   jobId: any;
   jobName: any;
   jobsData: any[] = [];
-  schedules = [
-    {
-      name: cronstrue.toString('0 * * ? * *'),
-      cron: '0 * * ? * *',
-    },
-    {
-      name: cronstrue.toString('0 0 * ? * *'),
-      cron: '0 0 * ? * *',
-    },
-    {
-      name: cronstrue.toString('0 0 0 * * ?'),
-      cron: '0 0 0 * * ?',
-    },
-    {
-      name: cronstrue.toString('0 0 0 * * SUN,SAT'),
-      cron: '0 0 0 * * SUN,SAT',
-    },
-    {
-      name: cronstrue.toString('0 0 0 * * MON-FRI'),
-      cron: '0 0 0 * * MON-FRI',
-    },
-    {
-      name: cronstrue.toString('0 0 0 1 * ?'),
-      cron: '0 0 0 1 * ?',
-    },
-    {
-      name: cronstrue.toString('0 0 0 31 MAR *'),
-      cron: '0 0 0 31 MAR *',
-    },
-  ];
+  schedules = CmsConstants.cronJobSchedules;
 
   show = false;
   chosenSchedule: any;

@@ -94,13 +94,13 @@ export class VideosPreviewComponent implements OnInit {
       // alert(m.title.toUpperCase());
       // alert(this.searchBlog.toUpperCase());
       const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      return titleData.includes(this.searchBlog.toUpperCase().trimRight());
     });
     this.draftList = this.draftList.filter((m) => {
       // alert(m.title.toUpperCase());
       // alert(this.searchBlog.toUpperCase());
       const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase());
+      return titleData.includes(this.searchBlog.toUpperCase().trimRight());
     });
     if (this.searchBlog === '') {
       this.publishList = this.publishList1;

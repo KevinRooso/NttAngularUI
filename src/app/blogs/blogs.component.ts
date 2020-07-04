@@ -83,12 +83,18 @@ export class BlogsComponent implements OnInit {
     this.publishedList = this.publishedList.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
+      return (
+        titleData.includes(this.searchBlog.toUpperCase().trimRight()) ||
+        m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase().trimRight())
+      );
     });
     this.draftList = this.draftList.filter((m) => {
       // return m.title.includes(this.searchBlog);
       const titleData = m.title.toUpperCase();
-      return titleData.includes(this.searchBlog.toUpperCase()) || m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase());
+      return (
+        titleData.includes(this.searchBlog.toUpperCase().trimRight()) ||
+        m.shortDescription.toUpperCase().includes(this.searchBlog.toUpperCase().trimRight())
+      );
     });
     if (this.searchBlog === '') {
       this.publishedList = this.publishedList1;
