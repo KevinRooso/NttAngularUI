@@ -71,6 +71,19 @@
             <mat-error *ngIf="checkError('categoryId', 'required')">(Atleast one Service is required)</mat-error>
           </mat-form-field>
         </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button
+              type="button"
+              class="btn-primary button-2 action-good"
+              [routerLink]="['/config-management/categories/create']"
+              [queryParams]="{ grp: 'Resources' }"
+            >
+              Add Service
+            </button>
+          </div>
+        </div>
 
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Industry <span class="error">*</span></label>
