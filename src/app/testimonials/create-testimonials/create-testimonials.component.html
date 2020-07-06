@@ -43,7 +43,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Publisher Designation is required &#13;2. Publisher Designation should be upto 40 characters"
+              matTooltip="Publisher Designation is required"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -53,7 +53,6 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Publisher Designation" formControlName="shortDescription" value="" />
             <mat-error *ngIf="checkError('shortDescription', 'required')">(Publisher Designation is required)</mat-error>
-            <mat-error *ngIf="checkError('shortDescription', 'maxlength')">(Publisher Designation should be upto 40 characters)</mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
@@ -62,7 +61,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Long Description is required &#13;2. Long Description should be upto 300 characters"
+              matTooltip="Long Description is required"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -73,9 +72,6 @@
             <ckeditor placeholder="Description..." formControlName="longDescription" class="example-full-width col-sm-9 p-0"></ckeditor>
             <div *ngIf="checkError('longDescription', 'required', true)" style="color: red; font-size: 12px;">
               (Long Description is required)
-            </div>
-            <div *ngIf="checkError('longDescription', 'rTextValid', true)" style="color: red; font-size: 12px;">
-              (Description should be upto 300 characters)
             </div>
           </div>
         </div>

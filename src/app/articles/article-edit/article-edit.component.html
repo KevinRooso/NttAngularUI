@@ -97,6 +97,19 @@
           </mat-form-field>
         </div>
         <div class="form-row">
+          <label class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9 text-right">
+            <button
+              type="button"
+              class="btn-primary button-2 action-good"
+              [routerLink]="['/config-management/categories/create']"
+              [queryParams]="{ grp: 'Resources' }"
+            >
+              Add Category
+            </button>
+          </div>
+        </div>
+        <div class="form-row">
           <label class="col-sm-3 col-form-label">Select Tags </label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Tags</mat-label>

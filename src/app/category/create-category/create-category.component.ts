@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CmsConstants } from 'src/app/cms-constants';
 
 @Component({
@@ -20,12 +20,15 @@ export class CreateCategoryComponent implements OnInit {
   title: string;
   buttonText: string;
   categories: any;
+  paramGrp: any;
+  paramGrpId: any;
 
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private router1: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +48,12 @@ export class CreateCategoryComponent implements OnInit {
         return this.addCatForm.controls[controlName].hasError(errorName);
       }
     };
-    this.getCategoryGroupDetails();
+    this.router1.queryParams.subscribe((params) => {
+      if (params.hasOwnProperty('grp')) {
+        this.paramGrp = params.grp;
+      }
+      this.getCategoryGroupDetails();
+    });
   }
 
   getCategoryGroupDetails() {
@@ -56,7 +64,11 @@ export class CreateCategoryComponent implements OnInit {
         if (i.displayName === '') {
           i.displayName = i.name;
         }
+        if (i.displayName === this.paramGrp) {
+          this.paramGrpId = i.id;
+        }
       });
+      this.addCatForm.controls['categoryGroupId'].setValue(this.paramGrpId);
     });
   }
 
