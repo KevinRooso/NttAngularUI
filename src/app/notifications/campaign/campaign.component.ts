@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AuthServiceService } from 'src/app/auth-service.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-campaign',
@@ -22,10 +24,14 @@ export class CampaignComponent implements OnInit {
   row: any;
   checked = false;
   flag = false;
+  notid: any;
+  ids: any[] = [];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  checked1: boolean;
+  checked2: boolean;
 
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthServiceService, public snackBar: MatSnackBar, private router: Router) {}
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -67,11 +73,16 @@ export class CampaignComponent implements OnInit {
       });
     });
   }
+
   onChange() {
     if (this.checked === true) {
       this.flag = true;
+      this.checked1 = false;
+      this.checked2 = false;
     } else {
       this.flag = false;
+      this.checked1 = false;
+      this.checked2 = false;
     }
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -100,4 +111,25 @@ export class CampaignComponent implements OnInit {
   //     this.dataSource.paginator.firstPage();
   //   }
   // }
+  onSubmit() {
+    // alert(this.notid);
+    if (this.checked1 === true) {
+      this.ids = [];
+      this.ids.push(7);
+    }
+    if (this.checked2 === true) {
+      this.ids.push(8);
+    }
+    this.authService.sendNotification(this.notid, this.ids).subscribe(
+      (_res) => {
+        this.snackBar.open('Notification successfully sent', 'Close', { duration: 5000 });
+        this.router.navigate(['/notification-management/notification']);
+      },
+      (_error) => {
+        this.snackBar.open('Oops, Something went wrong', 'Close', {
+          duration: 5000,
+        });
+      }
+    );
+  }
 }

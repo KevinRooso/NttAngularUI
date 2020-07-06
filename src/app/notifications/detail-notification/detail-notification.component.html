@@ -58,7 +58,12 @@
                       ></textarea>
                     </td>
                     <td colspan="3" *ngIf="emailFlag">
-                      <ckeditor class="example-full-width col p-0" [(ngModel)]="notificationData.template.template"></ckeditor>
+                      <textarea
+                        class="example-full-width col p-2"
+                        [(ngModel)]="notificationData.template.template"
+                        Rows="4"
+                        disabled
+                      ></textarea>
                     </td>
                   </tr>
                 </tbody>

@@ -15,7 +15,7 @@
           <label class="col-sm-3 col-form-label">Select Notification<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
             <mat-label>Select Notification</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="notid">
               <mat-option *ngFor="let notification of allData" [value]="notification.id">
                 {{ notification.displayName | titlecase | removehyphens }}
               </mat-option>
@@ -28,15 +28,12 @@
       <div class="col">
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Target User Type</label>
-          <div class="col-sm-3"><mat-slide-toggle>Public</mat-slide-toggle></div>
-          <div class="col-sm-3"><mat-slide-toggle>Customer</mat-slide-toggle></div>
+          <div class="col-sm-3"><mat-slide-toggle [(ngModel)]="checked1">Public</mat-slide-toggle></div>
+          <div class="col-sm-3"><mat-slide-toggle [(ngModel)]="checked2">Customer</mat-slide-toggle></div>
           <div class="col-sm-3"><mat-slide-toggle [(ngModel)]="checked" (change)="onChange()">Custom User</mat-slide-toggle></div>
         </div>
       </div>
     </div>
-    <!-- <mat-slide-toggle>Slide me!</mat-slide-toggle>
-    <mat-slide-toggle>Slide me!</mat-slide-toggle>
-    <mat-slide-toggle>Slide me!</mat-slide-toggle> -->
     <div class="mat-elevation-z8" *ngIf="flag">
       <table mat-table [dataSource]="dataSource" matSort>
         <!-- Checkbox Column -->
@@ -89,7 +86,7 @@
     </div>
     <div class="row my-3">
       <div class="col mt-1 text-right">
-        <a><button type="button" class="btn button-1 action-good">Send Notification</button></a>
+        <a><button type="button" class="btn button-1 action-good" (click)="onSubmit()">Send Notification</button></a>
       </div>
       <!-- <div class="col text-right">
         <mat-form-field class="w-50">

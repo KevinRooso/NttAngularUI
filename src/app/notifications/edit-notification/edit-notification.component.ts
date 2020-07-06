@@ -36,12 +36,12 @@ export class EditNotificationComponent implements OnInit {
     private router1: ActivatedRoute
   ) {
     this.updateNotificationForm = this.frmbuilder.group({
-      displayName: ['', Validators.required],
+      displayName: [{ value: '', disabled: true }, Validators.required],
       visibilityDurationInSec: ['', Validators.required],
-      categoryTypeId: ['', Validators.required],
-      targetUserTypeId: ['', Validators.required],
-      notiTemplate: ['', Validators.required],
-      notificationMode: ['', Validators.required],
+      categoryTypeId: [{ value: '', disabled: true }, Validators.required],
+      targetUserTypeId: [{ value: '', disabled: true }, Validators.required],
+      notiTemplate: [{ value: '', disabled: true }, Validators.required],
+      notificationMode: [{ value: '', disabled: true }, Validators.required],
     });
   }
 

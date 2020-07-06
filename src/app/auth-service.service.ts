@@ -331,4 +331,7 @@ export class AuthServiceService {
   getChannelList(): Observable<any> {
     return this.http.get<any>(this.url + 'notificationMode');
   }
+  sendNotification(id, obj): Observable<any> {
+    return this.http.post<any>(this.url + 'send/notification/' + id, obj);
+  }
 }
