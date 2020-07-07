@@ -314,12 +314,7 @@ table.dataTable tbody td {
   background-color: #0033cc;
   color: #fff;
 }
-/*.fab-container > div{
-  margin-bottom: 1px !important;
-}
-.fab-container> div > button {
-  margin-bottom: 5px !important;
-} */
+
 .cke_button__pastetext {
   display: none !important;
 }
@@ -356,6 +351,122 @@ table.dataTable tbody td {
 .cke_button__pastefromword {
   display: none !important;
 }
+.cke_button__flash {
+  display: none !important;
+}
+.cke_button__smiley_icon {
+  display: none !important;
+}
+.cke_button__pagebreak_icon {
+  display: none !important;
+}
+.cke_button__iframe_icon {
+  display: none !important;
+}
+.cke_button__textcolor {
+  display: none !important;
+}
+.cke_button__bgcolor {
+  display: none !important;
+}
+.cke_button__showblocks {
+  display: none !important;
+}
+.cke_button__print_icon {
+  display: none !important;
+}
+.cke_button__save_icon {
+  display: none !important;
+}
+.cke_button__newpage {
+  display: none !important;
+}
+.cke_combo_button {
+  display: none !important;
+}
+.cke_toolbar_last {
+  display: none !important;
+}
+.cke_toolbar_break {
+  display: inline !important;
+  clear: left;
+}
+.cke_button__subscript {
+  display: none !important;
+}
+.cke_button__superscript {
+  display: none !important;
+}
+.cke_button__copyformatting_icon {
+  display: none !important;
+}
+.cke_button__creatediv {
+  display: none !important;
+}
+.cke_button__bidiltr {
+  display: none !important;
+}
+.cke_button__bidirtl {
+  display: none !important;
+}
+.cke_button__language {
+  display: none !important;
+}
+.cke_button__preview {
+  display: none !important;
+}
+.cke_button__templates {
+  display: none !important;
+}
+.cke_button__find {
+  display: none !important;
+}
+.cke_button__replace {
+  display: none !important;
+}
+.cke_button__selectall {
+  display: none !important;
+}
+.cke_button__form {
+  display: none !important;
+}
+.cke_button__checkbox_icon {
+  display: none !important;
+}
+.cke_button__radio {
+  display: none !important;
+}
+.cke_button__textfield {
+  display: none !important;
+}
+.cke_button__textarea_icon {
+  display: none !important;
+}
+.cke_button__select {
+  display: none !important;
+}
+.cke_button__button {
+  display: none !important;
+}
+.cke_button__imagebutton {
+  display: none !important;
+}
+.cke_button__hiddenfield {
+  display: none !important;
+}
+.cke_button__save {
+  display: none !important;
+}
+.cke_button__print {
+  display: none !important;
+}
+.cke_button__copyformatting {
+  display: none !important;
+}
+.cke_button__underline {
+  display: none !important;
+}
+
 .cursor {
   cursor: not-allowed;
 }
