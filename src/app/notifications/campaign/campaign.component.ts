@@ -26,28 +26,24 @@ export class CampaignComponent implements OnInit {
   flag = false;
   notid: any;
   ids: any[] = [];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  roleIdArray = [];
   checked1: boolean;
   checked2: boolean;
+  notificationsList: any[] = [];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private authService: AuthServiceService, public snackBar: MatSnackBar, private router: Router) {}
-  foods: any[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-  ];
-  notificationsList: any[] = [];
   ngOnInit() {
     this.show = true;
     this.authService.getUserListData().subscribe((res) => {
       this.show = false;
       res.body.forEach((element) => {
         const obj = {
-          // seq: index + 1,
           name: element.fullName,
           email: element.email,
           userType: element.userType.displayName,
+          id: element.id,
         };
         this.notificationTableData.push(obj);
       });
@@ -56,11 +52,6 @@ export class CampaignComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
     this.getNotificationList();
-    // this.authService.getNotificationList().subscribe((res) => {
-    //   res.body.forEach(element => {
-    //     this.notificationsList = element.displayName;
-    //   });
-    // });
   }
   getNotificationList() {
     this.authService.getNotificationList().subscribe((res) => {
@@ -85,34 +76,21 @@ export class CampaignComponent implements OnInit {
       this.checked2 = false;
     }
   }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource?.data?.length;
-    return numSelected === numRows;
-  }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.dataSource?.data?.forEach((row) => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  onCheckChange(event) {
+    if (event.checked) {
+      // Add a new control in the arrayForm
+      this.ids.push(event.source.value);
+    } else {
+      this.ids.forEach((item, index, object) => {
+        if (item === event.source.value) {
+          object.splice(index, 1);
+        }
+      });
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+
   onSubmit() {
-    // alert(this.notid);
     if (this.checked1 === true) {
       this.ids = [];
       this.ids.push(7);

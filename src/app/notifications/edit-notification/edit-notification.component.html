@@ -62,13 +62,8 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Notification Channel<span class="error">*</span></label>
           <mat-form-field class="example-full-width col-sm-9">
-            <mat-label>Notification Channel</mat-label>
-            <mat-select formControlName="notificationMode" (selectionChange)="onModeChange($event)">
-              <mat-option *ngFor="let modes of modeList" [value]="modes">
-                {{ modes | titlecase | removeunderscore }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="checkError('targetUserTypeId', 'required')">(Notification Channel is required)</mat-error>
+            <input matInput placeholder="Notification Channel" formControlName="notificationMode" />
+            <mat-error *ngIf="checkError('notificationMode', 'required')">(Notification Channel is required)</mat-error>
           </mat-form-field>
         </div>
 

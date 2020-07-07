@@ -27,6 +27,7 @@ export class EditNotificationComponent implements OnInit {
   emailFlag = false;
   mobileFlag = false;
   disabled = false;
+  channelData: any;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -40,7 +41,7 @@ export class EditNotificationComponent implements OnInit {
       visibilityDurationInSec: ['', Validators.required],
       categoryTypeId: [{ value: '', disabled: true }, Validators.required],
       targetUserTypeId: [{ value: '', disabled: true }, Validators.required],
-      notiTemplate: [{ value: '', disabled: true }, Validators.required],
+      notiTemplate: ['', Validators.required],
       notificationMode: [{ value: '', disabled: true }, Validators.required],
     });
   }
@@ -89,10 +90,6 @@ export class EditNotificationComponent implements OnInit {
       }
     });
   }
-  getDisabledValue() {
-    return true;
-  }
-
   getCategoryDetails() {
     this.authService.getCategoryListByGroup('Notification').subscribe((res) => {
       this.allData = res.body;
@@ -106,6 +103,14 @@ export class EditNotificationComponent implements OnInit {
   getNotificationData(id) {
     this.authService.geNotificationDetails(id).subscribe((res) => {
       this.notificationData = res.body;
+      if (this.notificationData.notificationMode === 'push_notification') {
+        this.mobileFlag = true;
+        this.emailFlag = false;
+      }
+      if (this.notificationData.notificationMode === 'email') {
+        this.emailFlag = true;
+        this.mobileFlag = false;
+      }
       this.tempId = res.body.template.id;
       this.selected3 = res.body.targetUserType.id;
       this.selected4 = res.body.categoryTypeId.id;
@@ -119,8 +124,6 @@ export class EditNotificationComponent implements OnInit {
       this.notificationData.visibilityDurationInSec = this.notificationData.visibilityDurationInSec / 60;
       this.updateNotificationForm.controls['visibilityDurationInSec'].setValue(this.notificationData.visibilityDurationInSec);
       this.updateNotificationForm.controls['notiTemplate'].setValue(this.notificationData.template.template);
-      this.updateNotificationForm.controls['notificationMode'].setValidators(null);
-      this.updateNotificationForm.controls['notificationMode'].updateValueAndValidity();
       this.updateNotificationForm.controls['notificationMode'].setValue(this.notificationData.notificationMode);
     });
   }
