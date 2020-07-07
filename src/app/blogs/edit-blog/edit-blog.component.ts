@@ -70,7 +70,7 @@ export class EditBlogComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.createBlogForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       longDescription: new FormControl('', [Validators.required]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       person: ['', Validators.required],

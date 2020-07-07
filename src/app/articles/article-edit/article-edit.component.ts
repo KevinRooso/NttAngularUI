@@ -57,7 +57,7 @@ export class ArticleEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.EditArticleForm = this.frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       thumbnailImageUrl: new FormControl('', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]),

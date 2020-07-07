@@ -45,7 +45,7 @@ export class SpeakerEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.updateSpeakerForm = this.formbuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(40)]],
+      fullName: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
       email: ['', [Validators.required, Validators.email]],
       personalEmail: ['', Validators.email],

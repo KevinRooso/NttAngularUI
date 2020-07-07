@@ -93,7 +93,7 @@ export class CopyEventComponent implements OnInit {
     private location: Location
   ) {
     this.updateEventForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       detail: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       address1: ['', Validators.required],

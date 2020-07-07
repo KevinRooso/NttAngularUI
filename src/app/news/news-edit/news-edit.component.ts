@@ -50,7 +50,7 @@ export class NewsEditComponent implements OnInit {
   result1: string;
   ngOnInit(): void {
     this.updateNewsForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       topic: new FormControl('', [Validators.required, textValidation(100)]),
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(100)]),

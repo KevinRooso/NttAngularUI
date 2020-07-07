@@ -73,7 +73,7 @@ export class CreateBlogComponent implements OnInit {
       thumbnailImageUrl: ['', [Validators.required, Validators.pattern('(.*?).(jpg|png|jpeg)$')]],
     });
     this.personForm = this.formBuilder.group({
-      fullName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      fullName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       description: new FormControl('', [Validators.required, Validators.maxLength(400)]),
       designation: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: ['', [Validators.required, Validators.email]],
