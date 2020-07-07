@@ -91,7 +91,7 @@ export class CreateEventComponent implements OnInit {
   initializeForm() {
     this.newtoday.setDate(this.newtoday.getDate() - 1);
     this.createEventForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       detail: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(80)]),
       address1: [''],

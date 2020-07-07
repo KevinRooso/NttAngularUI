@@ -67,7 +67,7 @@ export class CasesEditComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {
     this.createCases = frmbuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       categoryId: ['', Validators.required],
       tagList: ['', Validators.required],

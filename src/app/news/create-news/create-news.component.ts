@@ -45,7 +45,7 @@ export class CreateNewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createNewsForm = this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       topic: new FormControl('', [Validators.required, textValidation(100)]),
       longDescription: new FormControl('', [Validators.required, textValidation(700)]),
       shortDescription: new FormControl('', [Validators.required, textValidation(100)]),

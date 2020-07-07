@@ -45,7 +45,7 @@ export class SpeakerCreateComponent implements OnInit {
     private router: Router
   ) {
     this.createSpeakerForm = this.frmbuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(40)]],
+      fullName: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
       email: ['', [Validators.required, Validators.email]],
       personalEmail: ['', Validators.email],

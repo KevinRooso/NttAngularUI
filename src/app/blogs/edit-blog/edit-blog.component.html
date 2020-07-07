@@ -23,7 +23,7 @@
             <i
               class="fa fa-info-circle"
               aria-hidden="true"
-              matTooltip="1. Title is required &#13;2. Title should be upto 40 characters"
+              matTooltip="1. Title is required &#13;2. Title should be upto 100 characters"
               matTooltipPosition="right"
               matTooltipClass="custom-tooltip"
               style="font-size: 18px;"
@@ -33,7 +33,7 @@
           <mat-form-field class="example-full-width col-sm-9">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-error *ngIf="checkError('title', 'required')">(Title is required)</mat-error>
-            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be upto 40 characters)</mat-error>
+            <mat-error *ngIf="checkError('title', 'maxlength')">(Title should be upto 100 characters)</mat-error>
           </mat-form-field>
         </div>
 

@@ -52,7 +52,7 @@ export class CreateAuthorComponent implements OnInit {
     private router1: ActivatedRoute
   ) {
     this.personForm = this.frmbuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(40)]],
+      fullName: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.maxLength(200)]],
       email: ['', [Validators.required, Validators.email]],
       designation: ['', [Validators.required, Validators.maxLength(50)]],

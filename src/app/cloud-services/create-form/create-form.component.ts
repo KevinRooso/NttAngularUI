@@ -55,7 +55,7 @@ export class CreateFormComponent implements OnInit {
   @ViewChild('addUrl', { static: true }) addUrl;
   ngOnInit(): void {
     this.productServicesForm = this.formBuilder.group({
-      displayName: ['', [Validators.required, Validators.maxLength(30)]],
+      displayName: ['', [Validators.required, Validators.maxLength(100)]],
       isCategory: [false],
       detail: [''],
       shortInformation: ['', [Validators.required, Validators.maxLength(40)]],
