@@ -483,7 +483,7 @@ export class CopyEventComponent implements OnInit {
     this.updateEventForm.controls['webinarUrl'].updateValueAndValidity();
   }
   submitChanges() {
-    // this.show=true;
+    // this.show = true;
 
     const ON_PREMISE = '1';
     const WEBINAR = '2';
