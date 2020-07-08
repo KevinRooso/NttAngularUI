@@ -28,6 +28,7 @@ export class EditNotificationComponent implements OnInit {
   mobileFlag = false;
   disabled = false;
   channelData: any;
+  show = false;
   constructor(
     private frmbuilder: FormBuilder,
     private authService: AuthServiceService,
@@ -129,6 +130,7 @@ export class EditNotificationComponent implements OnInit {
   }
   createUser() {
     if (this.updateNotificationForm.valid) {
+      this.show = true;
       const obj = {
         displayName: this.updateNotificationForm.controls['displayName'].value,
         visibilityDurationInSec: this.updateNotificationForm.controls['visibilityDurationInSec'].value,
@@ -145,15 +147,18 @@ export class EditNotificationComponent implements OnInit {
         (_response) => {
           this.snackBar.open('Notification successfully updated', 'Close', { duration: 5000 });
           this.submitted = false;
+          this.show = false;
           this.router.navigate(['/notification-management/notification']);
         },
         (_error) => {
+          this.show = false;
           this.snackBar.open('Oops, Something went wrong', 'Close', {
             duration: 5000,
           });
         }
       );
     } else {
+      this.show = false;
       this.snackBar.open('Please fill all mandatory input field', 'Close', { duration: 5000 });
     }
   }

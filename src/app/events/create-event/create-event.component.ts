@@ -449,7 +449,7 @@ export class CreateEventComponent implements OnInit {
       return false;
     }
 
-    // this.show=true;
+    // this.show = true;
 
     if (!this.image1button) {
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', {

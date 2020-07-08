@@ -98,12 +98,15 @@ export class CampaignComponent implements OnInit {
     if (this.checked2 === true) {
       this.ids.push(8);
     }
+    this.show = true;
     this.authService.sendNotification(this.notid, this.ids).subscribe(
       (_res) => {
+        this.show = false;
         this.snackBar.open('Notification successfully sent', 'Close', { duration: 5000 });
         this.router.navigate(['/notification-management/notification']);
       },
       (_error) => {
+        this.show = false;
         this.snackBar.open('Oops, Something went wrong', 'Close', {
           duration: 5000,
         });

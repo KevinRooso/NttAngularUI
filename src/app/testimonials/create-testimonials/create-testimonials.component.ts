@@ -293,7 +293,7 @@ export class CreateTestimonialsComponent implements OnInit {
     );
   }
   // uploadImage1() {
-  //   this.show=true;
+  //   this.show = true;
   //   this.image2button=false;
   //   const formData1 = new FormData();
   //   formData1.append('file', this.fileData);
@@ -306,7 +306,7 @@ export class CreateTestimonialsComponent implements OnInit {
   //       this.snackBar.open('Image successfully uploaded', 'Close', { duration: 5000 });
   //     },
   //     (error)=>{
-  //       this.show=false;
+  //       this.show = false;
   //       this.snackBar.open('Oops, Something went wrong', 'Close', { duration: 5000 });
   //     })
   // }

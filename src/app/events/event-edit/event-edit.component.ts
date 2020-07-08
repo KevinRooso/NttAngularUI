@@ -654,7 +654,7 @@ export class EventEditComponent implements OnInit {
       return false;
     }
 
-    // this.show=true;
+    // this.show = true;
     if (!this.image1button) {
       this.snackBar.open('Please Upload Thumbnail Image', 'Close', { duration: 5000 });
       this.show = false;
