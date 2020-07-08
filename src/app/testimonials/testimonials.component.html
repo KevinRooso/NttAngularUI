@@ -17,7 +17,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a [routerLink]="['create-testimonials','xyz']"><button type="button" class="btn button-1 action-good">Create Testimonials</button></a>
+    <a [routerLink]="['create-testimonials', 'xyz']"><button type="button" class="btn button-1 action-good">Create Testimonials</button></a>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item ml-2">
         <div class="form-inline my-2 my-lg-0">
@@ -45,7 +45,10 @@
         <div class="card-body pt-5">
           <img [src]="test.detailImageUrl" alt="profile-image" class="profile" />
           <p class="card-title">{{ test.title }}:{{ test.shortDescription | truncate: 80:false }}</p>
-          <p class="card-text" [innerHTML]="test.longDescription"></p>
+          <p
+            class="card-text"
+            [innerHTML]="test.longDescription.length > 350 ? (test.longDescription | slice: 0:350) + '...' : test.longDescription"
+          ></p>
         </div>
         <div class="event-card-body-footer text-center py-3">
           <a><button type="button" class="btn py-1 px-3 button-1 action-info" (click)="editTest(test.id)">Edit Details</button></a>
