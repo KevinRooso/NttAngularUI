@@ -16,7 +16,7 @@ export class EventPreviewComponent implements OnInit {
   blogs;
   filterBlogs = new BehaviorSubject<any[]>([]);
   searchFilterData;
-  searchBlog;
+  searchBlog = null;
   tagList;
   tagData: any[] = [];
   allData: any[] = [];
@@ -192,7 +192,7 @@ export class EventPreviewComponent implements OnInit {
       }
     });
 
-    if (this.searchBlog === '') {
+    if (this.searchBlog === '' || this.searchBlog === null) {
       this.cancel();
     }
   }
