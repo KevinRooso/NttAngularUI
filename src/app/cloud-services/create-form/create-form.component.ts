@@ -35,6 +35,7 @@ export class CreateFormComponent implements OnInit {
 
   imageValid = false;
   imageValid2 = false;
+  validLastService = true;
 
   image1button = false;
   image2button = false;
@@ -98,6 +99,9 @@ export class CreateFormComponent implements OnInit {
         this.bradArray = JSON.parse(params.page1);
         this.editData = JSON.parse(params.page2);
         if (this.editData !== null) {
+          if (this.editData.chlidList.length > 0) {
+            this.validLastService = false;
+          }
           if (this.parent !== null) {
             this.pageTitle = 'Edit Product And Services For ' + this.parent.displayName;
           }
