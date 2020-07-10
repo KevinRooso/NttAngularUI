@@ -28,7 +28,7 @@ export class RolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.show = true;
-    this.authService.getRoleList().subscribe((res) => {
+    this.authService.getRoleList(false).subscribe((res) => {
       this.show = false;
       res.body.forEach((element, index) => {
         const obj = {
