@@ -49,6 +49,15 @@ a:hover {
   text-decoration: none;
 }
 
+.header-logo-img {
+  height: 60px;
+  width: 70px;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
 .user-image {
   border-radius: 50%;
   float: left;
@@ -71,10 +80,6 @@ a:hover {
   height: 90px;
   width: 90px;
   z-index: 5;
-}
-
-.img-circle {
-  border-radius: 50%;
 }
 
 .user-header > p {
