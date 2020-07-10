@@ -12,7 +12,7 @@ export class CaseStudiesComponent implements OnInit {
   // filterCases=new BehaviorSubject<any[]>([]);
   filterCases: any[] = [];
   searchFilterData;
-  searchCases;
+  searchCases = null;
   categoryList: any[] = [];
   cat = 'cat';
   tag = 'tag';
@@ -126,7 +126,7 @@ export class CaseStudiesComponent implements OnInit {
         return titleData.includes(this.searchCases.toUpperCase().trimRight());
       }
     });
-    if (this.searchCases === '') {
+    if (this.searchCases === '' || this.searchCases === null) {
       this.publishedList = this.publishedList1;
       this.draftList = this.draftList1;
     }

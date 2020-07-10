@@ -29,7 +29,7 @@ export class UserDetailComponent implements OnInit {
     this.router1.params.subscribe((params) => {
       this.usrId = params.page;
     });
-    this.authService.getRoleList().subscribe((res) => {
+    this.authService.getRoleList(true).subscribe((res) => {
       this.roleData = res.body;
     });
     this.getDetails(this.usrId);

@@ -279,8 +279,8 @@ export class AuthServiceService {
   getEmployeeUserList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/users/findUsers');
   }
-  getRoleList(): Observable<any> {
-    return this.http.get<any>(this.url + 'api/admin/roles');
+  getRoleList(flag): Observable<any> {
+    return this.http.get<any>(this.url + 'api/admin/roles?isInternal=' + flag);
   }
   saveUser(obj): Observable<any> {
     return this.http.post<any>(this.url + 'api/auth/web/signup', obj);
@@ -301,7 +301,7 @@ export class AuthServiceService {
     return this.http.get<any>(this.url + 'api/admin/roles');
   }
   getRoleById(id): Observable<any> {
-    return this.http.get<any>(this.url + `api/admin/roles?id=${id}`);
+    return this.http.get<any>(this.url + `api/admin/roles?id=${id}&isInternal=false`);
   }
   getPrivilegeList(): Observable<any> {
     return this.http.get<any>(this.url + 'api/admin/privileges');
